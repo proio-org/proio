@@ -1,0 +1,79 @@
+syntax = "proto3";
+package eicio;
+
+message EventHeader {
+	uint64 id = 1;
+	uint32 vMajor = 2;
+	uint32 vMinor = 3;
+
+	message CollectionHeader {
+		enum Type {
+			NONE = 0;
+			MCParticle = 1;
+			SimTrackerHit = 2;
+			TrackerData = 3;
+			TrackerRawData = 4;
+			TrackerHit = 5;
+			TrackerPulse = 6;
+			TrackerHitPlane = 7;
+			TrackerHitZCylinder = 8;
+			Track = 9;
+			SimCalorimeterHit = 10;
+			RawCalorimeterHit = 11;
+			CalorimeterHit = 12;
+			Cluster = 13;
+			RecParticle = 14;
+			Vertex = 15;
+			References = 16;
+			Relation = 17;
+		}
+
+		Type type = 1;
+		string name = 2;
+		uint32 payloadSize = 3;
+	}
+
+	repeated CollectionHeader collections = 4;
+}
+
+message MCParticle {
+	repeated int32 parents = 1;
+	repeated int32 children = 2;
+	int32 PDG = 3;
+	repeated double vertex = 4;
+	float time = 5;
+	repeated double p = 6;
+	double mass = 7;
+	float charge = 8;
+	repeated double PEndPoint = 9;
+	repeated float spin = 10;
+	repeated int32 colorFlow = 11;
+
+	enum GenStatus {
+		FINALSTATE = 0;
+		DOCUMENTATION = 1;
+	}
+	GenStatus genStatus = 12;
+
+	uint32 simStatus = 13;
+}
+
+message MCParticleCollection {
+	repeated MCParticle particles = 1;
+}
+
+message SimTrackerHit {
+	int32 cellID0 = 1;
+	int32 cellID1 = 2;
+	repeated double pos = 3;
+	float EDep = 4;
+	float time = 5;
+	uint32 mc = 6;
+	float p = 7;
+	float pathLength = 8;
+	int32 quality = 9;
+}
+
+message SimTrackerHitCollection {
+	repeated SimTrackerHit hits = 1;
+}
