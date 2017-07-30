@@ -32,7 +32,7 @@ func (rdr *Reader) GetEvent() (event *Event, err error) {
 	}
 
 	payloadSize := uint32(0)
-	for _, collHdr := range header.Collections {
+	for _, collHdr := range header.Collection {
 		payloadSize += collHdr.PayloadSize
 	}
 	payload := make([]byte, payloadSize)

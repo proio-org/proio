@@ -12,13 +12,18 @@ type Event struct {
 }
 
 func NewEvent() *Event {
-	return &Event{}
+	return &Event{Header: &EventHeader{}}
 }
 
 func (evt *Event) String() string {
 	buffer := &bytes.Buffer{}
-	fmt.Fprint(buffer, "Header: ", *evt.Header)
-	fmt.Fprint(buffer, "\n\tTotal payload size: ", len(evt.payload))
+
+	fmt.Fprint(buffer, "Event header...\n", proto.MarshalTextString(evt.Header), "\n")
+	for _, collHdr := range evt.Header.Collection {
+		coll := evt.GetCollection(collHdr.Name)
+		fmt.Fprint(buffer, collHdr.Name, " collection\n", proto.MarshalTextString(coll), "\n")
+	}
+
 	return string(buffer.Bytes())
 }
 
@@ -43,7 +48,7 @@ func (evt *Event) AddCollection(collection proto.Message, name string) {
 	if evt.Header == nil {
 		evt.Header = &EventHeader{}
 	}
-	evt.Header.Collections = append(evt.Header.Collections, collHdr)
+	evt.Header.Collection = append(evt.Header.Collection, collHdr)
 	evt.payload = append(evt.payload, collBuf...)
 }
 
@@ -51,7 +56,7 @@ func (evt *Event) GetCollection(name string) proto.Message {
 	offset := uint32(0)
 	size := uint32(0)
 	collType := EventHeader_CollectionHeader_NONE
-	for _, coll := range evt.Header.Collections {
+	for _, coll := range evt.Header.Collection {
 		if coll.Name == name {
 			collType = coll.Type
 			size = coll.PayloadSize

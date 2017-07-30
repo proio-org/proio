@@ -77,7 +77,8 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EventHeader, id_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EventHeader, vmajor_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EventHeader, vminor_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EventHeader, collections_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EventHeader, collection_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EventHeader, description_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MCParticle, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -101,7 +102,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MCParticleCollection, particles_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MCParticleCollection, particle_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SimTrackerHit, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -121,16 +122,16 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SimTrackerHitCollection, hits_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SimTrackerHitCollection, hit_),
 };
 
 static const ::google::protobuf::internal::MigrationSchema schemas[] = {
   { 0, -1, sizeof(EventHeader_CollectionHeader)},
   { 8, -1, sizeof(EventHeader)},
-  { 17, -1, sizeof(MCParticle)},
-  { 35, -1, sizeof(MCParticleCollection)},
-  { 41, -1, sizeof(SimTrackerHit)},
-  { 55, -1, sizeof(SimTrackerHitCollection)},
+  { 18, -1, sizeof(MCParticle)},
+  { 36, -1, sizeof(MCParticleCollection)},
+  { 42, -1, sizeof(SimTrackerHit)},
+  { 56, -1, sizeof(SimTrackerHitCollection)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -199,38 +200,39 @@ void InitDefaults() {
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] = {
-      "\n\013eicio.proto\022\005eicio\"\243\004\n\013EventHeader\022\n\n\002"
+      "\n\013eicio.proto\022\005eicio\"\267\004\n\013EventHeader\022\n\n\002"
       "id\030\001 \001(\004\022\016\n\006vMajor\030\002 \001(\r\022\016\n\006vMinor\030\003 \001(\r"
-      "\0228\n\013collections\030\004 \003(\0132#.eicio.EventHeade"
-      "r.CollectionHeader\032\255\003\n\020CollectionHeader\022"
-      "6\n\004type\030\001 \001(\0162(.eicio.EventHeader.Collec"
-      "tionHeader.Type\022\014\n\004name\030\002 \001(\t\022\023\n\013payload"
-      "Size\030\003 \001(\r\"\275\002\n\004Type\022\010\n\004NONE\020\000\022\016\n\nMCParti"
-      "cle\020\001\022\021\n\rSimTrackerHit\020\002\022\017\n\013TrackerData\020"
-      "\003\022\022\n\016TrackerRawData\020\004\022\016\n\nTrackerHit\020\005\022\020\n"
-      "\014TrackerPulse\020\006\022\023\n\017TrackerHitPlane\020\007\022\027\n\023"
-      "TrackerHitZCylinder\020\010\022\t\n\005Track\020\t\022\025\n\021SimC"
-      "alorimeterHit\020\n\022\025\n\021RawCalorimeterHit\020\013\022\022"
-      "\n\016CalorimeterHit\020\014\022\013\n\007Cluster\020\r\022\017\n\013RecPa"
-      "rticle\020\016\022\n\n\006Vertex\020\017\022\016\n\nReferences\020\020\022\014\n\010"
-      "Relation\020\021\"\252\002\n\nMCParticle\022\017\n\007parents\030\001 \003"
-      "(\005\022\020\n\010children\030\002 \003(\005\022\013\n\003PDG\030\003 \001(\005\022\016\n\006ver"
-      "tex\030\004 \003(\001\022\014\n\004time\030\005 \001(\002\022\t\n\001p\030\006 \003(\001\022\014\n\004ma"
-      "ss\030\007 \001(\001\022\016\n\006charge\030\010 \001(\002\022\021\n\tPEndPoint\030\t "
-      "\003(\001\022\014\n\004spin\030\n \003(\002\022\021\n\tcolorFlow\030\013 \003(\005\022.\n\t"
-      "genStatus\030\014 \001(\0162\033.eicio.MCParticle.GenSt"
-      "atus\022\021\n\tsimStatus\030\r \001(\r\".\n\tGenStatus\022\016\n\n"
-      "FINALSTATE\020\000\022\021\n\rDOCUMENTATION\020\001\"<\n\024MCPar"
-      "ticleCollection\022$\n\tparticles\030\001 \003(\0132\021.eic"
-      "io.MCParticle\"\226\001\n\rSimTrackerHit\022\017\n\007cellI"
-      "D0\030\001 \001(\005\022\017\n\007cellID1\030\002 \001(\005\022\013\n\003pos\030\003 \003(\001\022\014"
-      "\n\004EDep\030\004 \001(\002\022\014\n\004time\030\005 \001(\002\022\n\n\002mc\030\006 \001(\r\022\t"
-      "\n\001p\030\007 \001(\002\022\022\n\npathLength\030\010 \001(\002\022\017\n\007quality"
-      "\030\t \001(\005\"=\n\027SimTrackerHitCollection\022\"\n\004hit"
-      "s\030\001 \003(\0132\024.eicio.SimTrackerHitb\006proto3"
+      "\0227\n\ncollection\030\004 \003(\0132#.eicio.EventHeader"
+      ".CollectionHeader\022\023\n\013description\030\020 \001(\t\032\255"
+      "\003\n\020CollectionHeader\0226\n\004type\030\001 \001(\0162(.eici"
+      "o.EventHeader.CollectionHeader.Type\022\014\n\004n"
+      "ame\030\002 \001(\t\022\023\n\013payloadSize\030\003 \001(\r\"\275\002\n\004Type\022"
+      "\010\n\004NONE\020\000\022\016\n\nMCParticle\020\001\022\021\n\rSimTrackerH"
+      "it\020\002\022\017\n\013TrackerData\020\003\022\022\n\016TrackerRawData\020"
+      "\004\022\016\n\nTrackerHit\020\005\022\020\n\014TrackerPulse\020\006\022\023\n\017T"
+      "rackerHitPlane\020\007\022\027\n\023TrackerHitZCylinder\020"
+      "\010\022\t\n\005Track\020\t\022\025\n\021SimCalorimeterHit\020\n\022\025\n\021R"
+      "awCalorimeterHit\020\013\022\022\n\016CalorimeterHit\020\014\022\013"
+      "\n\007Cluster\020\r\022\017\n\013RecParticle\020\016\022\n\n\006Vertex\020\017"
+      "\022\016\n\nReferences\020\020\022\014\n\010Relation\020\021\"\252\002\n\nMCPar"
+      "ticle\022\017\n\007parents\030\001 \003(\005\022\020\n\010children\030\002 \003(\005"
+      "\022\013\n\003PDG\030\003 \001(\005\022\016\n\006vertex\030\004 \003(\001\022\014\n\004time\030\005 "
+      "\001(\002\022\t\n\001p\030\006 \003(\001\022\014\n\004mass\030\007 \001(\001\022\016\n\006charge\030\010"
+      " \001(\002\022\021\n\tPEndPoint\030\t \003(\001\022\014\n\004spin\030\n \003(\002\022\021\n"
+      "\tcolorFlow\030\013 \003(\005\022.\n\tgenStatus\030\014 \001(\0162\033.ei"
+      "cio.MCParticle.GenStatus\022\021\n\tsimStatus\030\r "
+      "\001(\r\".\n\tGenStatus\022\016\n\nFINALSTATE\020\000\022\021\n\rDOCU"
+      "MENTATION\020\001\";\n\024MCParticleCollection\022#\n\010p"
+      "article\030\001 \003(\0132\021.eicio.MCParticle\"\226\001\n\rSim"
+      "TrackerHit\022\017\n\007cellID0\030\001 \001(\005\022\017\n\007cellID1\030\002"
+      " \001(\005\022\013\n\003pos\030\003 \003(\001\022\014\n\004EDep\030\004 \001(\002\022\014\n\004time\030"
+      "\005 \001(\002\022\n\n\002mc\030\006 \001(\r\022\t\n\001p\030\007 \001(\002\022\022\n\npathLeng"
+      "th\030\010 \001(\002\022\017\n\007quality\030\t \001(\005\"<\n\027SimTrackerH"
+      "itCollection\022!\n\003hit\030\001 \003(\0132\024.eicio.SimTra"
+      "ckerHitb\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 1157);
+      descriptor, 1175);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "eicio.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
@@ -731,7 +733,8 @@ void EventHeader_CollectionHeader::set_payloadsize(::google::protobuf::uint32 va
 const int EventHeader::kIdFieldNumber;
 const int EventHeader::kVMajorFieldNumber;
 const int EventHeader::kVMinorFieldNumber;
-const int EventHeader::kCollectionsFieldNumber;
+const int EventHeader::kCollectionFieldNumber;
+const int EventHeader::kDescriptionFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 EventHeader::EventHeader()
@@ -745,9 +748,13 @@ EventHeader::EventHeader()
 EventHeader::EventHeader(const EventHeader& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
-      collections_(from.collections_),
+      collection_(from.collection_),
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
+  description_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.description().size() > 0) {
+    description_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.description_);
+  }
   ::memcpy(&id_, &from.id_,
     reinterpret_cast<char*>(&vminor_) -
     reinterpret_cast<char*>(&id_) + sizeof(vminor_));
@@ -755,6 +762,7 @@ EventHeader::EventHeader(const EventHeader& from)
 }
 
 void EventHeader::SharedCtor() {
+  description_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(&id_, 0, reinterpret_cast<char*>(&vminor_) -
     reinterpret_cast<char*>(&id_) + sizeof(vminor_));
   _cached_size_ = 0;
@@ -766,6 +774,7 @@ EventHeader::~EventHeader() {
 }
 
 void EventHeader::SharedDtor() {
+  description_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 void EventHeader::SetCachedSize(int size) const {
@@ -793,7 +802,8 @@ EventHeader* EventHeader::New(::google::protobuf::Arena* arena) const {
 
 void EventHeader::Clear() {
 // @@protoc_insertion_point(message_clear_start:eicio.EventHeader)
-  collections_.Clear();
+  collection_.Clear();
+  description_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(&id_, 0, reinterpret_cast<char*>(&vminor_) -
     reinterpret_cast<char*>(&id_) + sizeof(vminor_));
 }
@@ -804,7 +814,7 @@ bool EventHeader::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:eicio.EventHeader)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(16383u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
@@ -850,12 +860,28 @@ bool EventHeader::MergePartialFromCodedStream(
         break;
       }
 
-      // repeated .eicio.EventHeader.CollectionHeader collections = 4;
+      // repeated .eicio.EventHeader.CollectionHeader collection = 4;
       case 4: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(34u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-                input, add_collections()));
+                input, add_collection()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string description = 16;
+      case 16: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(130u)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_description()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->description().data(), this->description().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "eicio.EventHeader.description"));
         } else {
           goto handle_unusual;
         }
@@ -904,10 +930,20 @@ void EventHeader::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->vminor(), output);
   }
 
-  // repeated .eicio.EventHeader.CollectionHeader collections = 4;
-  for (unsigned int i = 0, n = this->collections_size(); i < n; i++) {
+  // repeated .eicio.EventHeader.CollectionHeader collection = 4;
+  for (unsigned int i = 0, n = this->collection_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      4, this->collections(i), output);
+      4, this->collection(i), output);
+  }
+
+  // string description = 16;
+  if (this->description().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->description().data(), this->description().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "eicio.EventHeader.description");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      16, this->description(), output);
   }
 
   // @@protoc_insertion_point(serialize_end:eicio.EventHeader)
@@ -935,11 +971,22 @@ void EventHeader::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->vminor(), target);
   }
 
-  // repeated .eicio.EventHeader.CollectionHeader collections = 4;
-  for (unsigned int i = 0, n = this->collections_size(); i < n; i++) {
+  // repeated .eicio.EventHeader.CollectionHeader collection = 4;
+  for (unsigned int i = 0, n = this->collection_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        4, this->collections(i), deterministic, target);
+        4, this->collection(i), deterministic, target);
+  }
+
+  // string description = 16;
+  if (this->description().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->description().data(), this->description().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "eicio.EventHeader.description");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        16, this->description(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:eicio.EventHeader)
@@ -950,15 +997,22 @@ size_t EventHeader::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:eicio.EventHeader)
   size_t total_size = 0;
 
-  // repeated .eicio.EventHeader.CollectionHeader collections = 4;
+  // repeated .eicio.EventHeader.CollectionHeader collection = 4;
   {
-    unsigned int count = this->collections_size();
+    unsigned int count = this->collection_size();
     total_size += 1UL * count;
     for (unsigned int i = 0; i < count; i++) {
       total_size +=
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->collections(i));
+          this->collection(i));
     }
+  }
+
+  // string description = 16;
+  if (this->description().size() > 0) {
+    total_size += 2 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->description());
   }
 
   // uint64 id = 1;
@@ -1011,7 +1065,11 @@ void EventHeader::MergeFrom(const EventHeader& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  collections_.MergeFrom(from.collections_);
+  collection_.MergeFrom(from.collection_);
+  if (from.description().size() > 0) {
+
+    description_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.description_);
+  }
   if (from.id() != 0) {
     set_id(from.id());
   }
@@ -1046,7 +1104,8 @@ void EventHeader::Swap(EventHeader* other) {
   InternalSwap(other);
 }
 void EventHeader::InternalSwap(EventHeader* other) {
-  collections_.InternalSwap(&other->collections_);
+  collection_.InternalSwap(&other->collection_);
+  description_.Swap(&other->description_);
   std::swap(id_, other->id_);
   std::swap(vmajor_, other->vmajor_);
   std::swap(vminor_, other->vminor_);
@@ -1103,34 +1162,87 @@ void EventHeader::set_vminor(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:eicio.EventHeader.vMinor)
 }
 
-// repeated .eicio.EventHeader.CollectionHeader collections = 4;
-int EventHeader::collections_size() const {
-  return collections_.size();
+// repeated .eicio.EventHeader.CollectionHeader collection = 4;
+int EventHeader::collection_size() const {
+  return collection_.size();
 }
-void EventHeader::clear_collections() {
-  collections_.Clear();
+void EventHeader::clear_collection() {
+  collection_.Clear();
 }
-const ::eicio::EventHeader_CollectionHeader& EventHeader::collections(int index) const {
-  // @@protoc_insertion_point(field_get:eicio.EventHeader.collections)
-  return collections_.Get(index);
+const ::eicio::EventHeader_CollectionHeader& EventHeader::collection(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.EventHeader.collection)
+  return collection_.Get(index);
 }
-::eicio::EventHeader_CollectionHeader* EventHeader::mutable_collections(int index) {
-  // @@protoc_insertion_point(field_mutable:eicio.EventHeader.collections)
-  return collections_.Mutable(index);
+::eicio::EventHeader_CollectionHeader* EventHeader::mutable_collection(int index) {
+  // @@protoc_insertion_point(field_mutable:eicio.EventHeader.collection)
+  return collection_.Mutable(index);
 }
-::eicio::EventHeader_CollectionHeader* EventHeader::add_collections() {
-  // @@protoc_insertion_point(field_add:eicio.EventHeader.collections)
-  return collections_.Add();
+::eicio::EventHeader_CollectionHeader* EventHeader::add_collection() {
+  // @@protoc_insertion_point(field_add:eicio.EventHeader.collection)
+  return collection_.Add();
 }
 ::google::protobuf::RepeatedPtrField< ::eicio::EventHeader_CollectionHeader >*
-EventHeader::mutable_collections() {
-  // @@protoc_insertion_point(field_mutable_list:eicio.EventHeader.collections)
-  return &collections_;
+EventHeader::mutable_collection() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.EventHeader.collection)
+  return &collection_;
 }
 const ::google::protobuf::RepeatedPtrField< ::eicio::EventHeader_CollectionHeader >&
-EventHeader::collections() const {
-  // @@protoc_insertion_point(field_list:eicio.EventHeader.collections)
-  return collections_;
+EventHeader::collection() const {
+  // @@protoc_insertion_point(field_list:eicio.EventHeader.collection)
+  return collection_;
+}
+
+// string description = 16;
+void EventHeader::clear_description() {
+  description_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+const ::std::string& EventHeader::description() const {
+  // @@protoc_insertion_point(field_get:eicio.EventHeader.description)
+  return description_.GetNoArena();
+}
+void EventHeader::set_description(const ::std::string& value) {
+  
+  description_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:eicio.EventHeader.description)
+}
+#if LANG_CXX11
+void EventHeader::set_description(::std::string&& value) {
+  
+  description_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:eicio.EventHeader.description)
+}
+#endif
+void EventHeader::set_description(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  description_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:eicio.EventHeader.description)
+}
+void EventHeader::set_description(const char* value, size_t size) {
+  
+  description_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:eicio.EventHeader.description)
+}
+::std::string* EventHeader::mutable_description() {
+  
+  // @@protoc_insertion_point(field_mutable:eicio.EventHeader.description)
+  return description_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+::std::string* EventHeader::release_description() {
+  // @@protoc_insertion_point(field_release:eicio.EventHeader.description)
+  
+  return description_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void EventHeader::set_allocated_description(::std::string* description) {
+  if (description != NULL) {
+    
+  } else {
+    
+  }
+  description_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), description);
+  // @@protoc_insertion_point(field_set_allocated:eicio.EventHeader.description)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -2245,7 +2357,7 @@ void MCParticle::set_simstatus(::google::protobuf::uint32 value) {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int MCParticleCollection::kParticlesFieldNumber;
+const int MCParticleCollection::kParticleFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 MCParticleCollection::MCParticleCollection()
@@ -2259,7 +2371,7 @@ MCParticleCollection::MCParticleCollection()
 MCParticleCollection::MCParticleCollection(const MCParticleCollection& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
-      particles_(from.particles_),
+      particle_(from.particle_),
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:eicio.MCParticleCollection)
@@ -2302,7 +2414,7 @@ MCParticleCollection* MCParticleCollection::New(::google::protobuf::Arena* arena
 
 void MCParticleCollection::Clear() {
 // @@protoc_insertion_point(message_clear_start:eicio.MCParticleCollection)
-  particles_.Clear();
+  particle_.Clear();
 }
 
 bool MCParticleCollection::MergePartialFromCodedStream(
@@ -2315,12 +2427,12 @@ bool MCParticleCollection::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated .eicio.MCParticle particles = 1;
+      // repeated .eicio.MCParticle particle = 1;
       case 1: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(10u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-                input, add_particles()));
+                input, add_particle()));
         } else {
           goto handle_unusual;
         }
@@ -2354,10 +2466,10 @@ void MCParticleCollection::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // repeated .eicio.MCParticle particles = 1;
-  for (unsigned int i = 0, n = this->particles_size(); i < n; i++) {
+  // repeated .eicio.MCParticle particle = 1;
+  for (unsigned int i = 0, n = this->particle_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, this->particles(i), output);
+      1, this->particle(i), output);
   }
 
   // @@protoc_insertion_point(serialize_end:eicio.MCParticleCollection)
@@ -2370,11 +2482,11 @@ void MCParticleCollection::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // repeated .eicio.MCParticle particles = 1;
-  for (unsigned int i = 0, n = this->particles_size(); i < n; i++) {
+  // repeated .eicio.MCParticle particle = 1;
+  for (unsigned int i = 0, n = this->particle_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        1, this->particles(i), deterministic, target);
+        1, this->particle(i), deterministic, target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:eicio.MCParticleCollection)
@@ -2385,14 +2497,14 @@ size_t MCParticleCollection::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:eicio.MCParticleCollection)
   size_t total_size = 0;
 
-  // repeated .eicio.MCParticle particles = 1;
+  // repeated .eicio.MCParticle particle = 1;
   {
-    unsigned int count = this->particles_size();
+    unsigned int count = this->particle_size();
     total_size += 1UL * count;
     for (unsigned int i = 0; i < count; i++) {
       total_size +=
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->particles(i));
+          this->particle(i));
     }
   }
 
@@ -2425,7 +2537,7 @@ void MCParticleCollection::MergeFrom(const MCParticleCollection& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  particles_.MergeFrom(from.particles_);
+  particle_.MergeFrom(from.particle_);
 }
 
 void MCParticleCollection::CopyFrom(const ::google::protobuf::Message& from) {
@@ -2451,7 +2563,7 @@ void MCParticleCollection::Swap(MCParticleCollection* other) {
   InternalSwap(other);
 }
 void MCParticleCollection::InternalSwap(MCParticleCollection* other) {
-  particles_.InternalSwap(&other->particles_);
+  particle_.InternalSwap(&other->particle_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
@@ -2463,34 +2575,34 @@ void MCParticleCollection::InternalSwap(MCParticleCollection* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // MCParticleCollection
 
-// repeated .eicio.MCParticle particles = 1;
-int MCParticleCollection::particles_size() const {
-  return particles_.size();
+// repeated .eicio.MCParticle particle = 1;
+int MCParticleCollection::particle_size() const {
+  return particle_.size();
 }
-void MCParticleCollection::clear_particles() {
-  particles_.Clear();
+void MCParticleCollection::clear_particle() {
+  particle_.Clear();
 }
-const ::eicio::MCParticle& MCParticleCollection::particles(int index) const {
-  // @@protoc_insertion_point(field_get:eicio.MCParticleCollection.particles)
-  return particles_.Get(index);
+const ::eicio::MCParticle& MCParticleCollection::particle(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.MCParticleCollection.particle)
+  return particle_.Get(index);
 }
-::eicio::MCParticle* MCParticleCollection::mutable_particles(int index) {
-  // @@protoc_insertion_point(field_mutable:eicio.MCParticleCollection.particles)
-  return particles_.Mutable(index);
+::eicio::MCParticle* MCParticleCollection::mutable_particle(int index) {
+  // @@protoc_insertion_point(field_mutable:eicio.MCParticleCollection.particle)
+  return particle_.Mutable(index);
 }
-::eicio::MCParticle* MCParticleCollection::add_particles() {
-  // @@protoc_insertion_point(field_add:eicio.MCParticleCollection.particles)
-  return particles_.Add();
+::eicio::MCParticle* MCParticleCollection::add_particle() {
+  // @@protoc_insertion_point(field_add:eicio.MCParticleCollection.particle)
+  return particle_.Add();
 }
 ::google::protobuf::RepeatedPtrField< ::eicio::MCParticle >*
-MCParticleCollection::mutable_particles() {
-  // @@protoc_insertion_point(field_mutable_list:eicio.MCParticleCollection.particles)
-  return &particles_;
+MCParticleCollection::mutable_particle() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.MCParticleCollection.particle)
+  return &particle_;
 }
 const ::google::protobuf::RepeatedPtrField< ::eicio::MCParticle >&
-MCParticleCollection::particles() const {
-  // @@protoc_insertion_point(field_list:eicio.MCParticleCollection.particles)
-  return particles_;
+MCParticleCollection::particle() const {
+  // @@protoc_insertion_point(field_list:eicio.MCParticleCollection.particle)
+  return particle_;
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -3167,7 +3279,7 @@ void SimTrackerHit::set_quality(::google::protobuf::int32 value) {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int SimTrackerHitCollection::kHitsFieldNumber;
+const int SimTrackerHitCollection::kHitFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 SimTrackerHitCollection::SimTrackerHitCollection()
@@ -3181,7 +3293,7 @@ SimTrackerHitCollection::SimTrackerHitCollection()
 SimTrackerHitCollection::SimTrackerHitCollection(const SimTrackerHitCollection& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
-      hits_(from.hits_),
+      hit_(from.hit_),
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:eicio.SimTrackerHitCollection)
@@ -3224,7 +3336,7 @@ SimTrackerHitCollection* SimTrackerHitCollection::New(::google::protobuf::Arena*
 
 void SimTrackerHitCollection::Clear() {
 // @@protoc_insertion_point(message_clear_start:eicio.SimTrackerHitCollection)
-  hits_.Clear();
+  hit_.Clear();
 }
 
 bool SimTrackerHitCollection::MergePartialFromCodedStream(
@@ -3237,12 +3349,12 @@ bool SimTrackerHitCollection::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated .eicio.SimTrackerHit hits = 1;
+      // repeated .eicio.SimTrackerHit hit = 1;
       case 1: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(10u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-                input, add_hits()));
+                input, add_hit()));
         } else {
           goto handle_unusual;
         }
@@ -3276,10 +3388,10 @@ void SimTrackerHitCollection::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // repeated .eicio.SimTrackerHit hits = 1;
-  for (unsigned int i = 0, n = this->hits_size(); i < n; i++) {
+  // repeated .eicio.SimTrackerHit hit = 1;
+  for (unsigned int i = 0, n = this->hit_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, this->hits(i), output);
+      1, this->hit(i), output);
   }
 
   // @@protoc_insertion_point(serialize_end:eicio.SimTrackerHitCollection)
@@ -3292,11 +3404,11 @@ void SimTrackerHitCollection::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // repeated .eicio.SimTrackerHit hits = 1;
-  for (unsigned int i = 0, n = this->hits_size(); i < n; i++) {
+  // repeated .eicio.SimTrackerHit hit = 1;
+  for (unsigned int i = 0, n = this->hit_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        1, this->hits(i), deterministic, target);
+        1, this->hit(i), deterministic, target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:eicio.SimTrackerHitCollection)
@@ -3307,14 +3419,14 @@ size_t SimTrackerHitCollection::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:eicio.SimTrackerHitCollection)
   size_t total_size = 0;
 
-  // repeated .eicio.SimTrackerHit hits = 1;
+  // repeated .eicio.SimTrackerHit hit = 1;
   {
-    unsigned int count = this->hits_size();
+    unsigned int count = this->hit_size();
     total_size += 1UL * count;
     for (unsigned int i = 0; i < count; i++) {
       total_size +=
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->hits(i));
+          this->hit(i));
     }
   }
 
@@ -3347,7 +3459,7 @@ void SimTrackerHitCollection::MergeFrom(const SimTrackerHitCollection& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  hits_.MergeFrom(from.hits_);
+  hit_.MergeFrom(from.hit_);
 }
 
 void SimTrackerHitCollection::CopyFrom(const ::google::protobuf::Message& from) {
@@ -3373,7 +3485,7 @@ void SimTrackerHitCollection::Swap(SimTrackerHitCollection* other) {
   InternalSwap(other);
 }
 void SimTrackerHitCollection::InternalSwap(SimTrackerHitCollection* other) {
-  hits_.InternalSwap(&other->hits_);
+  hit_.InternalSwap(&other->hit_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
@@ -3385,34 +3497,34 @@ void SimTrackerHitCollection::InternalSwap(SimTrackerHitCollection* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // SimTrackerHitCollection
 
-// repeated .eicio.SimTrackerHit hits = 1;
-int SimTrackerHitCollection::hits_size() const {
-  return hits_.size();
+// repeated .eicio.SimTrackerHit hit = 1;
+int SimTrackerHitCollection::hit_size() const {
+  return hit_.size();
 }
-void SimTrackerHitCollection::clear_hits() {
-  hits_.Clear();
+void SimTrackerHitCollection::clear_hit() {
+  hit_.Clear();
 }
-const ::eicio::SimTrackerHit& SimTrackerHitCollection::hits(int index) const {
-  // @@protoc_insertion_point(field_get:eicio.SimTrackerHitCollection.hits)
-  return hits_.Get(index);
+const ::eicio::SimTrackerHit& SimTrackerHitCollection::hit(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.SimTrackerHitCollection.hit)
+  return hit_.Get(index);
 }
-::eicio::SimTrackerHit* SimTrackerHitCollection::mutable_hits(int index) {
-  // @@protoc_insertion_point(field_mutable:eicio.SimTrackerHitCollection.hits)
-  return hits_.Mutable(index);
+::eicio::SimTrackerHit* SimTrackerHitCollection::mutable_hit(int index) {
+  // @@protoc_insertion_point(field_mutable:eicio.SimTrackerHitCollection.hit)
+  return hit_.Mutable(index);
 }
-::eicio::SimTrackerHit* SimTrackerHitCollection::add_hits() {
-  // @@protoc_insertion_point(field_add:eicio.SimTrackerHitCollection.hits)
-  return hits_.Add();
+::eicio::SimTrackerHit* SimTrackerHitCollection::add_hit() {
+  // @@protoc_insertion_point(field_add:eicio.SimTrackerHitCollection.hit)
+  return hit_.Add();
 }
 ::google::protobuf::RepeatedPtrField< ::eicio::SimTrackerHit >*
-SimTrackerHitCollection::mutable_hits() {
-  // @@protoc_insertion_point(field_mutable_list:eicio.SimTrackerHitCollection.hits)
-  return &hits_;
+SimTrackerHitCollection::mutable_hit() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.SimTrackerHitCollection.hit)
+  return &hit_;
 }
 const ::google::protobuf::RepeatedPtrField< ::eicio::SimTrackerHit >&
-SimTrackerHitCollection::hits() const {
-  // @@protoc_insertion_point(field_list:eicio.SimTrackerHitCollection.hits)
-  return hits_;
+SimTrackerHitCollection::hit() const {
+  // @@protoc_insertion_point(field_list:eicio.SimTrackerHitCollection.hit)
+  return hit_;
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

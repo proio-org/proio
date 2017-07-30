@@ -32,8 +32,9 @@ message EventHeader {
 		string name = 2;
 		uint32 payloadSize = 3;
 	}
+	repeated CollectionHeader collection = 4;
 
-	repeated CollectionHeader collections = 4;
+	string description = 16;
 }
 
 message MCParticle {
@@ -59,7 +60,7 @@ message MCParticle {
 }
 
 message MCParticleCollection {
-	repeated MCParticle particles = 1;
+	repeated MCParticle particle = 1;
 }
 
 message SimTrackerHit {
@@ -75,5 +76,5 @@ message SimTrackerHit {
 }
 
 message SimTrackerHitCollection {
-	repeated SimTrackerHit hits = 1;
+	repeated SimTrackerHit hit = 1;
 }

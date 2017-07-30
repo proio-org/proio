@@ -14,13 +14,13 @@ func TestEventPushGet(t *testing.T) {
 	event0Out := NewEvent()
 
 	MC := &MCParticleCollection{}
-	MC.Particles = append(MC.Particles, &MCParticle{})
-	MC.Particles = append(MC.Particles, &MCParticle{})
+	MC.Particle = append(MC.Particle, &MCParticle{})
+	MC.Particle = append(MC.Particle, &MCParticle{})
 	event0Out.AddCollection(MC, "MCParticles")
 
 	simTrack := &SimTrackerHitCollection{}
-	simTrack.Hits = append(simTrack.Hits, &SimTrackerHit{})
-	simTrack.Hits = append(simTrack.Hits, &SimTrackerHit{})
+	simTrack.Hit = append(simTrack.Hit, &SimTrackerHit{})
+	simTrack.Hit = append(simTrack.Hit, &SimTrackerHit{})
 	event0Out.AddCollection(simTrack, "TrackerHits")
 
 	writer.PushEvent(event0Out)
@@ -28,8 +28,8 @@ func TestEventPushGet(t *testing.T) {
 	event1Out := NewEvent()
 
 	simTrack = &SimTrackerHitCollection{}
-	simTrack.Hits = append(simTrack.Hits, &SimTrackerHit{})
-	simTrack.Hits = append(simTrack.Hits, &SimTrackerHit{})
+	simTrack.Hit = append(simTrack.Hit, &SimTrackerHit{})
+	simTrack.Hit = append(simTrack.Hit, &SimTrackerHit{})
 	event1Out.AddCollection(simTrack, "TrackerHits")
 
 	writer.PushEvent(event1Out)
