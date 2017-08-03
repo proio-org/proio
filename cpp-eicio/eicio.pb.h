@@ -28,10 +28,27 @@
 #include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
+#include <google/protobuf/map.h>  // IWYU pragma: export
+#include <google/protobuf/map_field_inl.h>
 #include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 namespace eicio {
+class CalorimeterHit;
+class CalorimeterHitDefaultTypeInternal;
+extern CalorimeterHitDefaultTypeInternal _CalorimeterHit_default_instance_;
+class CalorimeterHitCollection;
+class CalorimeterHitCollectionDefaultTypeInternal;
+extern CalorimeterHitCollectionDefaultTypeInternal _CalorimeterHitCollection_default_instance_;
+class Cluster;
+class ClusterDefaultTypeInternal;
+extern ClusterDefaultTypeInternal _Cluster_default_instance_;
+class ClusterCollection;
+class ClusterCollectionDefaultTypeInternal;
+extern ClusterCollectionDefaultTypeInternal _ClusterCollection_default_instance_;
+class Contrib;
+class ContribDefaultTypeInternal;
+extern ContribDefaultTypeInternal _Contrib_default_instance_;
 class EventHeader;
 class EventHeaderDefaultTypeInternal;
 extern EventHeaderDefaultTypeInternal _EventHeader_default_instance_;
@@ -44,12 +61,84 @@ extern MCParticleDefaultTypeInternal _MCParticle_default_instance_;
 class MCParticleCollection;
 class MCParticleCollectionDefaultTypeInternal;
 extern MCParticleCollectionDefaultTypeInternal _MCParticleCollection_default_instance_;
+class Params;
+class ParamsDefaultTypeInternal;
+extern ParamsDefaultTypeInternal _Params_default_instance_;
+class Params_FloatsEntry;
+class Params_FloatsEntryDefaultTypeInternal;
+extern Params_FloatsEntryDefaultTypeInternal _Params_FloatsEntry_default_instance_;
+class Params_IntsEntry;
+class Params_IntsEntryDefaultTypeInternal;
+extern Params_IntsEntryDefaultTypeInternal _Params_IntsEntry_default_instance_;
+class Params_StringsEntry;
+class Params_StringsEntryDefaultTypeInternal;
+extern Params_StringsEntryDefaultTypeInternal _Params_StringsEntry_default_instance_;
+class RawCalorimeterHit;
+class RawCalorimeterHitDefaultTypeInternal;
+extern RawCalorimeterHitDefaultTypeInternal _RawCalorimeterHit_default_instance_;
+class RawCalorimeterHitCollection;
+class RawCalorimeterHitCollectionDefaultTypeInternal;
+extern RawCalorimeterHitCollectionDefaultTypeInternal _RawCalorimeterHitCollection_default_instance_;
+class RecParticle;
+class RecParticleDefaultTypeInternal;
+extern RecParticleDefaultTypeInternal _RecParticle_default_instance_;
+class RecParticleCollection;
+class RecParticleCollectionDefaultTypeInternal;
+extern RecParticleCollectionDefaultTypeInternal _RecParticleCollection_default_instance_;
+class SimCalorimeterHit;
+class SimCalorimeterHitDefaultTypeInternal;
+extern SimCalorimeterHitDefaultTypeInternal _SimCalorimeterHit_default_instance_;
+class SimCalorimeterHitCollection;
+class SimCalorimeterHitCollectionDefaultTypeInternal;
+extern SimCalorimeterHitCollectionDefaultTypeInternal _SimCalorimeterHitCollection_default_instance_;
 class SimTrackerHit;
 class SimTrackerHitDefaultTypeInternal;
 extern SimTrackerHitDefaultTypeInternal _SimTrackerHit_default_instance_;
 class SimTrackerHitCollection;
 class SimTrackerHitCollectionDefaultTypeInternal;
 extern SimTrackerHitCollectionDefaultTypeInternal _SimTrackerHitCollection_default_instance_;
+class Track;
+class TrackDefaultTypeInternal;
+extern TrackDefaultTypeInternal _Track_default_instance_;
+class TrackCollection;
+class TrackCollectionDefaultTypeInternal;
+extern TrackCollectionDefaultTypeInternal _TrackCollection_default_instance_;
+class TrackerData;
+class TrackerDataDefaultTypeInternal;
+extern TrackerDataDefaultTypeInternal _TrackerData_default_instance_;
+class TrackerDataCollection;
+class TrackerDataCollectionDefaultTypeInternal;
+extern TrackerDataCollectionDefaultTypeInternal _TrackerDataCollection_default_instance_;
+class TrackerHit;
+class TrackerHitDefaultTypeInternal;
+extern TrackerHitDefaultTypeInternal _TrackerHit_default_instance_;
+class TrackerHitCollection;
+class TrackerHitCollectionDefaultTypeInternal;
+extern TrackerHitCollectionDefaultTypeInternal _TrackerHitCollection_default_instance_;
+class TrackerHitPlane;
+class TrackerHitPlaneDefaultTypeInternal;
+extern TrackerHitPlaneDefaultTypeInternal _TrackerHitPlane_default_instance_;
+class TrackerHitPlaneCollection;
+class TrackerHitPlaneCollectionDefaultTypeInternal;
+extern TrackerHitPlaneCollectionDefaultTypeInternal _TrackerHitPlaneCollection_default_instance_;
+class TrackerHitZCylinder;
+class TrackerHitZCylinderDefaultTypeInternal;
+extern TrackerHitZCylinderDefaultTypeInternal _TrackerHitZCylinder_default_instance_;
+class TrackerHitZCylinderCollection;
+class TrackerHitZCylinderCollectionDefaultTypeInternal;
+extern TrackerHitZCylinderCollectionDefaultTypeInternal _TrackerHitZCylinderCollection_default_instance_;
+class TrackerPulse;
+class TrackerPulseDefaultTypeInternal;
+extern TrackerPulseDefaultTypeInternal _TrackerPulse_default_instance_;
+class TrackerPulseCollection;
+class TrackerPulseCollectionDefaultTypeInternal;
+extern TrackerPulseCollectionDefaultTypeInternal _TrackerPulseCollection_default_instance_;
+class TrackerRawData;
+class TrackerRawDataDefaultTypeInternal;
+extern TrackerRawDataDefaultTypeInternal _TrackerRawData_default_instance_;
+class TrackerRawDataCollection;
+class TrackerRawDataCollectionDefaultTypeInternal;
+extern TrackerRawDataCollectionDefaultTypeInternal _TrackerRawDataCollection_default_instance_;
 }  // namespace eicio
 
 namespace eicio {
@@ -85,8 +174,7 @@ enum EventHeader_CollectionHeader_Type {
   EventHeader_CollectionHeader_Type_Cluster = 13,
   EventHeader_CollectionHeader_Type_RecParticle = 14,
   EventHeader_CollectionHeader_Type_Vertex = 15,
-  EventHeader_CollectionHeader_Type_References = 16,
-  EventHeader_CollectionHeader_Type_Relation = 17,
+  EventHeader_CollectionHeader_Type_Relation = 16,
   EventHeader_CollectionHeader_Type_EventHeader_CollectionHeader_Type_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   EventHeader_CollectionHeader_Type_EventHeader_CollectionHeader_Type_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
@@ -223,8 +311,6 @@ class EventHeader_CollectionHeader : public ::google::protobuf::Message /* @@pro
     EventHeader_CollectionHeader_Type_RecParticle;
   static const Type Vertex =
     EventHeader_CollectionHeader_Type_Vertex;
-  static const Type References =
-    EventHeader_CollectionHeader_Type_References;
   static const Type Relation =
     EventHeader_CollectionHeader_Type_Relation;
   static inline bool Type_IsValid(int value) {
@@ -412,6 +498,194 @@ class EventHeader : public ::google::protobuf::Message /* @@protoc_insertion_poi
 };
 // -------------------------------------------------------------------
 
+
+// -------------------------------------------------------------------
+
+
+// -------------------------------------------------------------------
+
+
+// -------------------------------------------------------------------
+
+class Params : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.Params) */ {
+ public:
+  Params();
+  virtual ~Params();
+
+  Params(const Params& from);
+
+  inline Params& operator=(const Params& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const Params& default_instance();
+
+  static inline const Params* internal_default_instance() {
+    return reinterpret_cast<const Params*>(
+               &_Params_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    5;
+
+  void Swap(Params* other);
+
+  // implements Message ----------------------------------------------
+
+  inline Params* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  Params* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const Params& from);
+  void MergeFrom(const Params& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(Params* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+
+  // accessors -------------------------------------------------------
+
+  // map<string, int32> ints = 1;
+  int ints_size() const;
+  void clear_ints();
+  static const int kIntsFieldNumber = 1;
+  const ::google::protobuf::Map< ::std::string, ::google::protobuf::int32 >&
+      ints() const;
+  ::google::protobuf::Map< ::std::string, ::google::protobuf::int32 >*
+      mutable_ints();
+
+  // map<string, float> floats = 2;
+  int floats_size() const;
+  void clear_floats();
+  static const int kFloatsFieldNumber = 2;
+  const ::google::protobuf::Map< ::std::string, float >&
+      floats() const;
+  ::google::protobuf::Map< ::std::string, float >*
+      mutable_floats();
+
+  // map<string, string> strings = 3;
+  int strings_size() const;
+  void clear_strings();
+  static const int kStringsFieldNumber = 3;
+  const ::google::protobuf::Map< ::std::string, ::std::string >&
+      strings() const;
+  ::google::protobuf::Map< ::std::string, ::std::string >*
+      mutable_strings();
+
+  // @@protoc_insertion_point(class_scope:eicio.Params)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  public:
+  class Params_IntsEntry : public ::google::protobuf::internal::MapEntry<Params_IntsEntry, 
+      ::std::string, ::google::protobuf::int32,
+      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+      ::google::protobuf::internal::WireFormatLite::TYPE_INT32,
+      0 > {
+  public:
+    typedef ::google::protobuf::internal::MapEntry<Params_IntsEntry, 
+      ::std::string, ::google::protobuf::int32,
+      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+      ::google::protobuf::internal::WireFormatLite::TYPE_INT32,
+      0 > SuperType;
+    Params_IntsEntry();
+    Params_IntsEntry(::google::protobuf::Arena* arena);
+    void MergeFrom(const ::google::protobuf::Message& other) PROTOBUF_FINAL;
+    void MergeFrom(const Params_IntsEntry& other);
+    static const Message* internal_default_instance() { return reinterpret_cast<const Message*>(&_Params_IntsEntry_default_instance_); }
+    ::google::protobuf::Metadata GetMetadata() const;
+  };
+  ::google::protobuf::internal::MapField<
+      Params_IntsEntry,
+      ::std::string, ::google::protobuf::int32,
+      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+      ::google::protobuf::internal::WireFormatLite::TYPE_INT32,
+      0 > ints_;
+  private:
+  public:
+  class Params_FloatsEntry : public ::google::protobuf::internal::MapEntry<Params_FloatsEntry, 
+      ::std::string, float,
+      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+      ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT,
+      0 > {
+  public:
+    typedef ::google::protobuf::internal::MapEntry<Params_FloatsEntry, 
+      ::std::string, float,
+      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+      ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT,
+      0 > SuperType;
+    Params_FloatsEntry();
+    Params_FloatsEntry(::google::protobuf::Arena* arena);
+    void MergeFrom(const ::google::protobuf::Message& other) PROTOBUF_FINAL;
+    void MergeFrom(const Params_FloatsEntry& other);
+    static const Message* internal_default_instance() { return reinterpret_cast<const Message*>(&_Params_FloatsEntry_default_instance_); }
+    ::google::protobuf::Metadata GetMetadata() const;
+  };
+  ::google::protobuf::internal::MapField<
+      Params_FloatsEntry,
+      ::std::string, float,
+      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+      ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT,
+      0 > floats_;
+  private:
+  public:
+  class Params_StringsEntry : public ::google::protobuf::internal::MapEntry<Params_StringsEntry, 
+      ::std::string, ::std::string,
+      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+      0 > {
+  public:
+    typedef ::google::protobuf::internal::MapEntry<Params_StringsEntry, 
+      ::std::string, ::std::string,
+      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+      0 > SuperType;
+    Params_StringsEntry();
+    Params_StringsEntry(::google::protobuf::Arena* arena);
+    void MergeFrom(const ::google::protobuf::Message& other) PROTOBUF_FINAL;
+    void MergeFrom(const Params_StringsEntry& other);
+    static const Message* internal_default_instance() { return reinterpret_cast<const Message*>(&_Params_StringsEntry_default_instance_); }
+    ::google::protobuf::Metadata GetMetadata() const;
+  };
+  ::google::protobuf::internal::MapField<
+      Params_StringsEntry,
+      ::std::string, ::std::string,
+      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+      0 > strings_;
+  private:
+  mutable int _cached_size_;
+  friend struct protobuf_eicio_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
 class MCParticle : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.MCParticle) */ {
  public:
   MCParticle();
@@ -432,7 +706,7 @@ class MCParticle : public ::google::protobuf::Message /* @@protoc_insertion_poin
                &_MCParticle_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    2;
+    6;
 
   void Swap(MCParticle* other);
 
@@ -671,7 +945,7 @@ class MCParticleCollection : public ::google::protobuf::Message /* @@protoc_inse
                &_MCParticleCollection_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    3;
+    7;
 
   void Swap(MCParticleCollection* other);
 
@@ -757,7 +1031,7 @@ class SimTrackerHit : public ::google::protobuf::Message /* @@protoc_insertion_p
                &_SimTrackerHit_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    4;
+    8;
 
   void Swap(SimTrackerHit* other);
 
@@ -900,7 +1174,7 @@ class SimTrackerHitCollection : public ::google::protobuf::Message /* @@protoc_i
                &_SimTrackerHitCollection_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    5;
+    9;
 
   void Swap(SimTrackerHitCollection* other);
 
@@ -961,6 +1235,2084 @@ class SimTrackerHitCollection : public ::google::protobuf::Message /* @@protoc_i
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::RepeatedPtrField< ::eicio::SimTrackerHit > hit_;
+  mutable int _cached_size_;
+  friend struct protobuf_eicio_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class TrackerData : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.TrackerData) */ {
+ public:
+  TrackerData();
+  virtual ~TrackerData();
+
+  TrackerData(const TrackerData& from);
+
+  inline TrackerData& operator=(const TrackerData& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const TrackerData& default_instance();
+
+  static inline const TrackerData* internal_default_instance() {
+    return reinterpret_cast<const TrackerData*>(
+               &_TrackerData_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    10;
+
+  void Swap(TrackerData* other);
+
+  // implements Message ----------------------------------------------
+
+  inline TrackerData* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  TrackerData* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const TrackerData& from);
+  void MergeFrom(const TrackerData& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(TrackerData* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:eicio.TrackerData)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  mutable int _cached_size_;
+  friend struct protobuf_eicio_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class TrackerDataCollection : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.TrackerDataCollection) */ {
+ public:
+  TrackerDataCollection();
+  virtual ~TrackerDataCollection();
+
+  TrackerDataCollection(const TrackerDataCollection& from);
+
+  inline TrackerDataCollection& operator=(const TrackerDataCollection& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const TrackerDataCollection& default_instance();
+
+  static inline const TrackerDataCollection* internal_default_instance() {
+    return reinterpret_cast<const TrackerDataCollection*>(
+               &_TrackerDataCollection_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    11;
+
+  void Swap(TrackerDataCollection* other);
+
+  // implements Message ----------------------------------------------
+
+  inline TrackerDataCollection* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  TrackerDataCollection* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const TrackerDataCollection& from);
+  void MergeFrom(const TrackerDataCollection& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(TrackerDataCollection* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .eicio.TrackerData data = 1;
+  int data_size() const;
+  void clear_data();
+  static const int kDataFieldNumber = 1;
+  const ::eicio::TrackerData& data(int index) const;
+  ::eicio::TrackerData* mutable_data(int index);
+  ::eicio::TrackerData* add_data();
+  ::google::protobuf::RepeatedPtrField< ::eicio::TrackerData >*
+      mutable_data();
+  const ::google::protobuf::RepeatedPtrField< ::eicio::TrackerData >&
+      data() const;
+
+  // @@protoc_insertion_point(class_scope:eicio.TrackerDataCollection)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedPtrField< ::eicio::TrackerData > data_;
+  mutable int _cached_size_;
+  friend struct protobuf_eicio_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class TrackerRawData : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.TrackerRawData) */ {
+ public:
+  TrackerRawData();
+  virtual ~TrackerRawData();
+
+  TrackerRawData(const TrackerRawData& from);
+
+  inline TrackerRawData& operator=(const TrackerRawData& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const TrackerRawData& default_instance();
+
+  static inline const TrackerRawData* internal_default_instance() {
+    return reinterpret_cast<const TrackerRawData*>(
+               &_TrackerRawData_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    12;
+
+  void Swap(TrackerRawData* other);
+
+  // implements Message ----------------------------------------------
+
+  inline TrackerRawData* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  TrackerRawData* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const TrackerRawData& from);
+  void MergeFrom(const TrackerRawData& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(TrackerRawData* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:eicio.TrackerRawData)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  mutable int _cached_size_;
+  friend struct protobuf_eicio_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class TrackerRawDataCollection : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.TrackerRawDataCollection) */ {
+ public:
+  TrackerRawDataCollection();
+  virtual ~TrackerRawDataCollection();
+
+  TrackerRawDataCollection(const TrackerRawDataCollection& from);
+
+  inline TrackerRawDataCollection& operator=(const TrackerRawDataCollection& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const TrackerRawDataCollection& default_instance();
+
+  static inline const TrackerRawDataCollection* internal_default_instance() {
+    return reinterpret_cast<const TrackerRawDataCollection*>(
+               &_TrackerRawDataCollection_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    13;
+
+  void Swap(TrackerRawDataCollection* other);
+
+  // implements Message ----------------------------------------------
+
+  inline TrackerRawDataCollection* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  TrackerRawDataCollection* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const TrackerRawDataCollection& from);
+  void MergeFrom(const TrackerRawDataCollection& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(TrackerRawDataCollection* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .eicio.TrackerRawData data = 1;
+  int data_size() const;
+  void clear_data();
+  static const int kDataFieldNumber = 1;
+  const ::eicio::TrackerRawData& data(int index) const;
+  ::eicio::TrackerRawData* mutable_data(int index);
+  ::eicio::TrackerRawData* add_data();
+  ::google::protobuf::RepeatedPtrField< ::eicio::TrackerRawData >*
+      mutable_data();
+  const ::google::protobuf::RepeatedPtrField< ::eicio::TrackerRawData >&
+      data() const;
+
+  // @@protoc_insertion_point(class_scope:eicio.TrackerRawDataCollection)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedPtrField< ::eicio::TrackerRawData > data_;
+  mutable int _cached_size_;
+  friend struct protobuf_eicio_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class TrackerHit : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.TrackerHit) */ {
+ public:
+  TrackerHit();
+  virtual ~TrackerHit();
+
+  TrackerHit(const TrackerHit& from);
+
+  inline TrackerHit& operator=(const TrackerHit& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const TrackerHit& default_instance();
+
+  static inline const TrackerHit* internal_default_instance() {
+    return reinterpret_cast<const TrackerHit*>(
+               &_TrackerHit_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    14;
+
+  void Swap(TrackerHit* other);
+
+  // implements Message ----------------------------------------------
+
+  inline TrackerHit* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  TrackerHit* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const TrackerHit& from);
+  void MergeFrom(const TrackerHit& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(TrackerHit* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:eicio.TrackerHit)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  mutable int _cached_size_;
+  friend struct protobuf_eicio_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class TrackerHitCollection : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.TrackerHitCollection) */ {
+ public:
+  TrackerHitCollection();
+  virtual ~TrackerHitCollection();
+
+  TrackerHitCollection(const TrackerHitCollection& from);
+
+  inline TrackerHitCollection& operator=(const TrackerHitCollection& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const TrackerHitCollection& default_instance();
+
+  static inline const TrackerHitCollection* internal_default_instance() {
+    return reinterpret_cast<const TrackerHitCollection*>(
+               &_TrackerHitCollection_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    15;
+
+  void Swap(TrackerHitCollection* other);
+
+  // implements Message ----------------------------------------------
+
+  inline TrackerHitCollection* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  TrackerHitCollection* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const TrackerHitCollection& from);
+  void MergeFrom(const TrackerHitCollection& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(TrackerHitCollection* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .eicio.TrackerHit hit = 1;
+  int hit_size() const;
+  void clear_hit();
+  static const int kHitFieldNumber = 1;
+  const ::eicio::TrackerHit& hit(int index) const;
+  ::eicio::TrackerHit* mutable_hit(int index);
+  ::eicio::TrackerHit* add_hit();
+  ::google::protobuf::RepeatedPtrField< ::eicio::TrackerHit >*
+      mutable_hit();
+  const ::google::protobuf::RepeatedPtrField< ::eicio::TrackerHit >&
+      hit() const;
+
+  // @@protoc_insertion_point(class_scope:eicio.TrackerHitCollection)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedPtrField< ::eicio::TrackerHit > hit_;
+  mutable int _cached_size_;
+  friend struct protobuf_eicio_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class TrackerPulse : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.TrackerPulse) */ {
+ public:
+  TrackerPulse();
+  virtual ~TrackerPulse();
+
+  TrackerPulse(const TrackerPulse& from);
+
+  inline TrackerPulse& operator=(const TrackerPulse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const TrackerPulse& default_instance();
+
+  static inline const TrackerPulse* internal_default_instance() {
+    return reinterpret_cast<const TrackerPulse*>(
+               &_TrackerPulse_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    16;
+
+  void Swap(TrackerPulse* other);
+
+  // implements Message ----------------------------------------------
+
+  inline TrackerPulse* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  TrackerPulse* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const TrackerPulse& from);
+  void MergeFrom(const TrackerPulse& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(TrackerPulse* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:eicio.TrackerPulse)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  mutable int _cached_size_;
+  friend struct protobuf_eicio_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class TrackerPulseCollection : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.TrackerPulseCollection) */ {
+ public:
+  TrackerPulseCollection();
+  virtual ~TrackerPulseCollection();
+
+  TrackerPulseCollection(const TrackerPulseCollection& from);
+
+  inline TrackerPulseCollection& operator=(const TrackerPulseCollection& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const TrackerPulseCollection& default_instance();
+
+  static inline const TrackerPulseCollection* internal_default_instance() {
+    return reinterpret_cast<const TrackerPulseCollection*>(
+               &_TrackerPulseCollection_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    17;
+
+  void Swap(TrackerPulseCollection* other);
+
+  // implements Message ----------------------------------------------
+
+  inline TrackerPulseCollection* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  TrackerPulseCollection* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const TrackerPulseCollection& from);
+  void MergeFrom(const TrackerPulseCollection& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(TrackerPulseCollection* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .eicio.TrackerPulse pulse = 1;
+  int pulse_size() const;
+  void clear_pulse();
+  static const int kPulseFieldNumber = 1;
+  const ::eicio::TrackerPulse& pulse(int index) const;
+  ::eicio::TrackerPulse* mutable_pulse(int index);
+  ::eicio::TrackerPulse* add_pulse();
+  ::google::protobuf::RepeatedPtrField< ::eicio::TrackerPulse >*
+      mutable_pulse();
+  const ::google::protobuf::RepeatedPtrField< ::eicio::TrackerPulse >&
+      pulse() const;
+
+  // @@protoc_insertion_point(class_scope:eicio.TrackerPulseCollection)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedPtrField< ::eicio::TrackerPulse > pulse_;
+  mutable int _cached_size_;
+  friend struct protobuf_eicio_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class TrackerHitPlane : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.TrackerHitPlane) */ {
+ public:
+  TrackerHitPlane();
+  virtual ~TrackerHitPlane();
+
+  TrackerHitPlane(const TrackerHitPlane& from);
+
+  inline TrackerHitPlane& operator=(const TrackerHitPlane& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const TrackerHitPlane& default_instance();
+
+  static inline const TrackerHitPlane* internal_default_instance() {
+    return reinterpret_cast<const TrackerHitPlane*>(
+               &_TrackerHitPlane_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    18;
+
+  void Swap(TrackerHitPlane* other);
+
+  // implements Message ----------------------------------------------
+
+  inline TrackerHitPlane* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  TrackerHitPlane* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const TrackerHitPlane& from);
+  void MergeFrom(const TrackerHitPlane& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(TrackerHitPlane* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:eicio.TrackerHitPlane)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  mutable int _cached_size_;
+  friend struct protobuf_eicio_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class TrackerHitPlaneCollection : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.TrackerHitPlaneCollection) */ {
+ public:
+  TrackerHitPlaneCollection();
+  virtual ~TrackerHitPlaneCollection();
+
+  TrackerHitPlaneCollection(const TrackerHitPlaneCollection& from);
+
+  inline TrackerHitPlaneCollection& operator=(const TrackerHitPlaneCollection& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const TrackerHitPlaneCollection& default_instance();
+
+  static inline const TrackerHitPlaneCollection* internal_default_instance() {
+    return reinterpret_cast<const TrackerHitPlaneCollection*>(
+               &_TrackerHitPlaneCollection_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    19;
+
+  void Swap(TrackerHitPlaneCollection* other);
+
+  // implements Message ----------------------------------------------
+
+  inline TrackerHitPlaneCollection* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  TrackerHitPlaneCollection* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const TrackerHitPlaneCollection& from);
+  void MergeFrom(const TrackerHitPlaneCollection& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(TrackerHitPlaneCollection* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .eicio.TrackerHitPlane plane = 1;
+  int plane_size() const;
+  void clear_plane();
+  static const int kPlaneFieldNumber = 1;
+  const ::eicio::TrackerHitPlane& plane(int index) const;
+  ::eicio::TrackerHitPlane* mutable_plane(int index);
+  ::eicio::TrackerHitPlane* add_plane();
+  ::google::protobuf::RepeatedPtrField< ::eicio::TrackerHitPlane >*
+      mutable_plane();
+  const ::google::protobuf::RepeatedPtrField< ::eicio::TrackerHitPlane >&
+      plane() const;
+
+  // @@protoc_insertion_point(class_scope:eicio.TrackerHitPlaneCollection)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedPtrField< ::eicio::TrackerHitPlane > plane_;
+  mutable int _cached_size_;
+  friend struct protobuf_eicio_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class TrackerHitZCylinder : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.TrackerHitZCylinder) */ {
+ public:
+  TrackerHitZCylinder();
+  virtual ~TrackerHitZCylinder();
+
+  TrackerHitZCylinder(const TrackerHitZCylinder& from);
+
+  inline TrackerHitZCylinder& operator=(const TrackerHitZCylinder& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const TrackerHitZCylinder& default_instance();
+
+  static inline const TrackerHitZCylinder* internal_default_instance() {
+    return reinterpret_cast<const TrackerHitZCylinder*>(
+               &_TrackerHitZCylinder_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    20;
+
+  void Swap(TrackerHitZCylinder* other);
+
+  // implements Message ----------------------------------------------
+
+  inline TrackerHitZCylinder* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  TrackerHitZCylinder* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const TrackerHitZCylinder& from);
+  void MergeFrom(const TrackerHitZCylinder& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(TrackerHitZCylinder* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:eicio.TrackerHitZCylinder)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  mutable int _cached_size_;
+  friend struct protobuf_eicio_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class TrackerHitZCylinderCollection : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.TrackerHitZCylinderCollection) */ {
+ public:
+  TrackerHitZCylinderCollection();
+  virtual ~TrackerHitZCylinderCollection();
+
+  TrackerHitZCylinderCollection(const TrackerHitZCylinderCollection& from);
+
+  inline TrackerHitZCylinderCollection& operator=(const TrackerHitZCylinderCollection& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const TrackerHitZCylinderCollection& default_instance();
+
+  static inline const TrackerHitZCylinderCollection* internal_default_instance() {
+    return reinterpret_cast<const TrackerHitZCylinderCollection*>(
+               &_TrackerHitZCylinderCollection_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    21;
+
+  void Swap(TrackerHitZCylinderCollection* other);
+
+  // implements Message ----------------------------------------------
+
+  inline TrackerHitZCylinderCollection* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  TrackerHitZCylinderCollection* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const TrackerHitZCylinderCollection& from);
+  void MergeFrom(const TrackerHitZCylinderCollection& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(TrackerHitZCylinderCollection* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .eicio.TrackerHitZCylinder cyl = 1;
+  int cyl_size() const;
+  void clear_cyl();
+  static const int kCylFieldNumber = 1;
+  const ::eicio::TrackerHitZCylinder& cyl(int index) const;
+  ::eicio::TrackerHitZCylinder* mutable_cyl(int index);
+  ::eicio::TrackerHitZCylinder* add_cyl();
+  ::google::protobuf::RepeatedPtrField< ::eicio::TrackerHitZCylinder >*
+      mutable_cyl();
+  const ::google::protobuf::RepeatedPtrField< ::eicio::TrackerHitZCylinder >&
+      cyl() const;
+
+  // @@protoc_insertion_point(class_scope:eicio.TrackerHitZCylinderCollection)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedPtrField< ::eicio::TrackerHitZCylinder > cyl_;
+  mutable int _cached_size_;
+  friend struct protobuf_eicio_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class Track : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.Track) */ {
+ public:
+  Track();
+  virtual ~Track();
+
+  Track(const Track& from);
+
+  inline Track& operator=(const Track& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const Track& default_instance();
+
+  static inline const Track* internal_default_instance() {
+    return reinterpret_cast<const Track*>(
+               &_Track_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    22;
+
+  void Swap(Track* other);
+
+  // implements Message ----------------------------------------------
+
+  inline Track* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  Track* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const Track& from);
+  void MergeFrom(const Track& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(Track* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:eicio.Track)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  mutable int _cached_size_;
+  friend struct protobuf_eicio_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class TrackCollection : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.TrackCollection) */ {
+ public:
+  TrackCollection();
+  virtual ~TrackCollection();
+
+  TrackCollection(const TrackCollection& from);
+
+  inline TrackCollection& operator=(const TrackCollection& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const TrackCollection& default_instance();
+
+  static inline const TrackCollection* internal_default_instance() {
+    return reinterpret_cast<const TrackCollection*>(
+               &_TrackCollection_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    23;
+
+  void Swap(TrackCollection* other);
+
+  // implements Message ----------------------------------------------
+
+  inline TrackCollection* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  TrackCollection* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const TrackCollection& from);
+  void MergeFrom(const TrackCollection& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(TrackCollection* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .eicio.Track track = 1;
+  int track_size() const;
+  void clear_track();
+  static const int kTrackFieldNumber = 1;
+  const ::eicio::Track& track(int index) const;
+  ::eicio::Track* mutable_track(int index);
+  ::eicio::Track* add_track();
+  ::google::protobuf::RepeatedPtrField< ::eicio::Track >*
+      mutable_track();
+  const ::google::protobuf::RepeatedPtrField< ::eicio::Track >&
+      track() const;
+
+  // @@protoc_insertion_point(class_scope:eicio.TrackCollection)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedPtrField< ::eicio::Track > track_;
+  mutable int _cached_size_;
+  friend struct protobuf_eicio_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class Contrib : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.Contrib) */ {
+ public:
+  Contrib();
+  virtual ~Contrib();
+
+  Contrib(const Contrib& from);
+
+  inline Contrib& operator=(const Contrib& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const Contrib& default_instance();
+
+  static inline const Contrib* internal_default_instance() {
+    return reinterpret_cast<const Contrib*>(
+               &_Contrib_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    24;
+
+  void Swap(Contrib* other);
+
+  // implements Message ----------------------------------------------
+
+  inline Contrib* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  Contrib* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const Contrib& from);
+  void MergeFrom(const Contrib& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(Contrib* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated float stepPos = 5;
+  int steppos_size() const;
+  void clear_steppos();
+  static const int kStepPosFieldNumber = 5;
+  float steppos(int index) const;
+  void set_steppos(int index, float value);
+  void add_steppos(float value);
+  const ::google::protobuf::RepeatedField< float >&
+      steppos() const;
+  ::google::protobuf::RepeatedField< float >*
+      mutable_steppos();
+
+  // int32 MCParticle = 1;
+  void clear_mcparticle();
+  static const int kMCParticleFieldNumber = 1;
+  ::google::protobuf::int32 mcparticle() const;
+  void set_mcparticle(::google::protobuf::int32 value);
+
+  // float energy = 2;
+  void clear_energy();
+  static const int kEnergyFieldNumber = 2;
+  float energy() const;
+  void set_energy(float value);
+
+  // float time = 3;
+  void clear_time();
+  static const int kTimeFieldNumber = 3;
+  float time() const;
+  void set_time(float value);
+
+  // int32 PDG = 4;
+  void clear_pdg();
+  static const int kPDGFieldNumber = 4;
+  ::google::protobuf::int32 pdg() const;
+  void set_pdg(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:eicio.Contrib)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedField< float > steppos_;
+  mutable int _steppos_cached_byte_size_;
+  ::google::protobuf::int32 mcparticle_;
+  float energy_;
+  float time_;
+  ::google::protobuf::int32 pdg_;
+  mutable int _cached_size_;
+  friend struct protobuf_eicio_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class SimCalorimeterHit : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.SimCalorimeterHit) */ {
+ public:
+  SimCalorimeterHit();
+  virtual ~SimCalorimeterHit();
+
+  SimCalorimeterHit(const SimCalorimeterHit& from);
+
+  inline SimCalorimeterHit& operator=(const SimCalorimeterHit& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const SimCalorimeterHit& default_instance();
+
+  static inline const SimCalorimeterHit* internal_default_instance() {
+    return reinterpret_cast<const SimCalorimeterHit*>(
+               &_SimCalorimeterHit_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    25;
+
+  void Swap(SimCalorimeterHit* other);
+
+  // implements Message ----------------------------------------------
+
+  inline SimCalorimeterHit* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  SimCalorimeterHit* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const SimCalorimeterHit& from);
+  void MergeFrom(const SimCalorimeterHit& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(SimCalorimeterHit* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated float pos = 5;
+  int pos_size() const;
+  void clear_pos();
+  static const int kPosFieldNumber = 5;
+  float pos(int index) const;
+  void set_pos(int index, float value);
+  void add_pos(float value);
+  const ::google::protobuf::RepeatedField< float >&
+      pos() const;
+  ::google::protobuf::RepeatedField< float >*
+      mutable_pos();
+
+  // .eicio.Params params = 1;
+  bool has_params() const;
+  void clear_params();
+  static const int kParamsFieldNumber = 1;
+  const ::eicio::Params& params() const;
+  ::eicio::Params* mutable_params();
+  ::eicio::Params* release_params();
+  void set_allocated_params(::eicio::Params* params);
+
+  // .eicio.Contrib contributions = 6;
+  bool has_contributions() const;
+  void clear_contributions();
+  static const int kContributionsFieldNumber = 6;
+  const ::eicio::Contrib& contributions() const;
+  ::eicio::Contrib* mutable_contributions();
+  ::eicio::Contrib* release_contributions();
+  void set_allocated_contributions(::eicio::Contrib* contributions);
+
+  // int32 cellID0 = 2;
+  void clear_cellid0();
+  static const int kCellID0FieldNumber = 2;
+  ::google::protobuf::int32 cellid0() const;
+  void set_cellid0(::google::protobuf::int32 value);
+
+  // int32 cellID1 = 3;
+  void clear_cellid1();
+  static const int kCellID1FieldNumber = 3;
+  ::google::protobuf::int32 cellid1() const;
+  void set_cellid1(::google::protobuf::int32 value);
+
+  // float energy = 4;
+  void clear_energy();
+  static const int kEnergyFieldNumber = 4;
+  float energy() const;
+  void set_energy(float value);
+
+  // @@protoc_insertion_point(class_scope:eicio.SimCalorimeterHit)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedField< float > pos_;
+  mutable int _pos_cached_byte_size_;
+  ::eicio::Params* params_;
+  ::eicio::Contrib* contributions_;
+  ::google::protobuf::int32 cellid0_;
+  ::google::protobuf::int32 cellid1_;
+  float energy_;
+  mutable int _cached_size_;
+  friend struct protobuf_eicio_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class SimCalorimeterHitCollection : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.SimCalorimeterHitCollection) */ {
+ public:
+  SimCalorimeterHitCollection();
+  virtual ~SimCalorimeterHitCollection();
+
+  SimCalorimeterHitCollection(const SimCalorimeterHitCollection& from);
+
+  inline SimCalorimeterHitCollection& operator=(const SimCalorimeterHitCollection& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const SimCalorimeterHitCollection& default_instance();
+
+  static inline const SimCalorimeterHitCollection* internal_default_instance() {
+    return reinterpret_cast<const SimCalorimeterHitCollection*>(
+               &_SimCalorimeterHitCollection_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    26;
+
+  void Swap(SimCalorimeterHitCollection* other);
+
+  // implements Message ----------------------------------------------
+
+  inline SimCalorimeterHitCollection* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  SimCalorimeterHitCollection* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const SimCalorimeterHitCollection& from);
+  void MergeFrom(const SimCalorimeterHitCollection& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(SimCalorimeterHitCollection* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .eicio.SimCalorimeterHit hit = 1;
+  int hit_size() const;
+  void clear_hit();
+  static const int kHitFieldNumber = 1;
+  const ::eicio::SimCalorimeterHit& hit(int index) const;
+  ::eicio::SimCalorimeterHit* mutable_hit(int index);
+  ::eicio::SimCalorimeterHit* add_hit();
+  ::google::protobuf::RepeatedPtrField< ::eicio::SimCalorimeterHit >*
+      mutable_hit();
+  const ::google::protobuf::RepeatedPtrField< ::eicio::SimCalorimeterHit >&
+      hit() const;
+
+  // @@protoc_insertion_point(class_scope:eicio.SimCalorimeterHitCollection)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedPtrField< ::eicio::SimCalorimeterHit > hit_;
+  mutable int _cached_size_;
+  friend struct protobuf_eicio_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class RawCalorimeterHit : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.RawCalorimeterHit) */ {
+ public:
+  RawCalorimeterHit();
+  virtual ~RawCalorimeterHit();
+
+  RawCalorimeterHit(const RawCalorimeterHit& from);
+
+  inline RawCalorimeterHit& operator=(const RawCalorimeterHit& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const RawCalorimeterHit& default_instance();
+
+  static inline const RawCalorimeterHit* internal_default_instance() {
+    return reinterpret_cast<const RawCalorimeterHit*>(
+               &_RawCalorimeterHit_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    27;
+
+  void Swap(RawCalorimeterHit* other);
+
+  // implements Message ----------------------------------------------
+
+  inline RawCalorimeterHit* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  RawCalorimeterHit* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const RawCalorimeterHit& from);
+  void MergeFrom(const RawCalorimeterHit& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(RawCalorimeterHit* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:eicio.RawCalorimeterHit)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  mutable int _cached_size_;
+  friend struct protobuf_eicio_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class RawCalorimeterHitCollection : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.RawCalorimeterHitCollection) */ {
+ public:
+  RawCalorimeterHitCollection();
+  virtual ~RawCalorimeterHitCollection();
+
+  RawCalorimeterHitCollection(const RawCalorimeterHitCollection& from);
+
+  inline RawCalorimeterHitCollection& operator=(const RawCalorimeterHitCollection& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const RawCalorimeterHitCollection& default_instance();
+
+  static inline const RawCalorimeterHitCollection* internal_default_instance() {
+    return reinterpret_cast<const RawCalorimeterHitCollection*>(
+               &_RawCalorimeterHitCollection_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    28;
+
+  void Swap(RawCalorimeterHitCollection* other);
+
+  // implements Message ----------------------------------------------
+
+  inline RawCalorimeterHitCollection* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  RawCalorimeterHitCollection* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const RawCalorimeterHitCollection& from);
+  void MergeFrom(const RawCalorimeterHitCollection& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(RawCalorimeterHitCollection* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .eicio.RawCalorimeterHit hit = 1;
+  int hit_size() const;
+  void clear_hit();
+  static const int kHitFieldNumber = 1;
+  const ::eicio::RawCalorimeterHit& hit(int index) const;
+  ::eicio::RawCalorimeterHit* mutable_hit(int index);
+  ::eicio::RawCalorimeterHit* add_hit();
+  ::google::protobuf::RepeatedPtrField< ::eicio::RawCalorimeterHit >*
+      mutable_hit();
+  const ::google::protobuf::RepeatedPtrField< ::eicio::RawCalorimeterHit >&
+      hit() const;
+
+  // @@protoc_insertion_point(class_scope:eicio.RawCalorimeterHitCollection)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedPtrField< ::eicio::RawCalorimeterHit > hit_;
+  mutable int _cached_size_;
+  friend struct protobuf_eicio_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class CalorimeterHit : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.CalorimeterHit) */ {
+ public:
+  CalorimeterHit();
+  virtual ~CalorimeterHit();
+
+  CalorimeterHit(const CalorimeterHit& from);
+
+  inline CalorimeterHit& operator=(const CalorimeterHit& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const CalorimeterHit& default_instance();
+
+  static inline const CalorimeterHit* internal_default_instance() {
+    return reinterpret_cast<const CalorimeterHit*>(
+               &_CalorimeterHit_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    29;
+
+  void Swap(CalorimeterHit* other);
+
+  // implements Message ----------------------------------------------
+
+  inline CalorimeterHit* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  CalorimeterHit* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const CalorimeterHit& from);
+  void MergeFrom(const CalorimeterHit& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(CalorimeterHit* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:eicio.CalorimeterHit)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  mutable int _cached_size_;
+  friend struct protobuf_eicio_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class CalorimeterHitCollection : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.CalorimeterHitCollection) */ {
+ public:
+  CalorimeterHitCollection();
+  virtual ~CalorimeterHitCollection();
+
+  CalorimeterHitCollection(const CalorimeterHitCollection& from);
+
+  inline CalorimeterHitCollection& operator=(const CalorimeterHitCollection& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const CalorimeterHitCollection& default_instance();
+
+  static inline const CalorimeterHitCollection* internal_default_instance() {
+    return reinterpret_cast<const CalorimeterHitCollection*>(
+               &_CalorimeterHitCollection_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    30;
+
+  void Swap(CalorimeterHitCollection* other);
+
+  // implements Message ----------------------------------------------
+
+  inline CalorimeterHitCollection* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  CalorimeterHitCollection* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const CalorimeterHitCollection& from);
+  void MergeFrom(const CalorimeterHitCollection& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(CalorimeterHitCollection* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .eicio.CalorimeterHit hit = 1;
+  int hit_size() const;
+  void clear_hit();
+  static const int kHitFieldNumber = 1;
+  const ::eicio::CalorimeterHit& hit(int index) const;
+  ::eicio::CalorimeterHit* mutable_hit(int index);
+  ::eicio::CalorimeterHit* add_hit();
+  ::google::protobuf::RepeatedPtrField< ::eicio::CalorimeterHit >*
+      mutable_hit();
+  const ::google::protobuf::RepeatedPtrField< ::eicio::CalorimeterHit >&
+      hit() const;
+
+  // @@protoc_insertion_point(class_scope:eicio.CalorimeterHitCollection)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedPtrField< ::eicio::CalorimeterHit > hit_;
+  mutable int _cached_size_;
+  friend struct protobuf_eicio_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class Cluster : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.Cluster) */ {
+ public:
+  Cluster();
+  virtual ~Cluster();
+
+  Cluster(const Cluster& from);
+
+  inline Cluster& operator=(const Cluster& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const Cluster& default_instance();
+
+  static inline const Cluster* internal_default_instance() {
+    return reinterpret_cast<const Cluster*>(
+               &_Cluster_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    31;
+
+  void Swap(Cluster* other);
+
+  // implements Message ----------------------------------------------
+
+  inline Cluster* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  Cluster* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const Cluster& from);
+  void MergeFrom(const Cluster& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(Cluster* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:eicio.Cluster)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  mutable int _cached_size_;
+  friend struct protobuf_eicio_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class ClusterCollection : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.ClusterCollection) */ {
+ public:
+  ClusterCollection();
+  virtual ~ClusterCollection();
+
+  ClusterCollection(const ClusterCollection& from);
+
+  inline ClusterCollection& operator=(const ClusterCollection& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ClusterCollection& default_instance();
+
+  static inline const ClusterCollection* internal_default_instance() {
+    return reinterpret_cast<const ClusterCollection*>(
+               &_ClusterCollection_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    32;
+
+  void Swap(ClusterCollection* other);
+
+  // implements Message ----------------------------------------------
+
+  inline ClusterCollection* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  ClusterCollection* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const ClusterCollection& from);
+  void MergeFrom(const ClusterCollection& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(ClusterCollection* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .eicio.Cluster cluster = 1;
+  int cluster_size() const;
+  void clear_cluster();
+  static const int kClusterFieldNumber = 1;
+  const ::eicio::Cluster& cluster(int index) const;
+  ::eicio::Cluster* mutable_cluster(int index);
+  ::eicio::Cluster* add_cluster();
+  ::google::protobuf::RepeatedPtrField< ::eicio::Cluster >*
+      mutable_cluster();
+  const ::google::protobuf::RepeatedPtrField< ::eicio::Cluster >&
+      cluster() const;
+
+  // @@protoc_insertion_point(class_scope:eicio.ClusterCollection)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedPtrField< ::eicio::Cluster > cluster_;
+  mutable int _cached_size_;
+  friend struct protobuf_eicio_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class RecParticle : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.RecParticle) */ {
+ public:
+  RecParticle();
+  virtual ~RecParticle();
+
+  RecParticle(const RecParticle& from);
+
+  inline RecParticle& operator=(const RecParticle& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const RecParticle& default_instance();
+
+  static inline const RecParticle* internal_default_instance() {
+    return reinterpret_cast<const RecParticle*>(
+               &_RecParticle_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    33;
+
+  void Swap(RecParticle* other);
+
+  // implements Message ----------------------------------------------
+
+  inline RecParticle* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  RecParticle* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const RecParticle& from);
+  void MergeFrom(const RecParticle& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(RecParticle* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:eicio.RecParticle)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  mutable int _cached_size_;
+  friend struct protobuf_eicio_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class RecParticleCollection : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.RecParticleCollection) */ {
+ public:
+  RecParticleCollection();
+  virtual ~RecParticleCollection();
+
+  RecParticleCollection(const RecParticleCollection& from);
+
+  inline RecParticleCollection& operator=(const RecParticleCollection& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const RecParticleCollection& default_instance();
+
+  static inline const RecParticleCollection* internal_default_instance() {
+    return reinterpret_cast<const RecParticleCollection*>(
+               &_RecParticleCollection_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    34;
+
+  void Swap(RecParticleCollection* other);
+
+  // implements Message ----------------------------------------------
+
+  inline RecParticleCollection* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  RecParticleCollection* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const RecParticleCollection& from);
+  void MergeFrom(const RecParticleCollection& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(RecParticleCollection* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .eicio.RecParticle particle = 1;
+  int particle_size() const;
+  void clear_particle();
+  static const int kParticleFieldNumber = 1;
+  const ::eicio::RecParticle& particle(int index) const;
+  ::eicio::RecParticle* mutable_particle(int index);
+  ::eicio::RecParticle* add_particle();
+  ::google::protobuf::RepeatedPtrField< ::eicio::RecParticle >*
+      mutable_particle();
+  const ::google::protobuf::RepeatedPtrField< ::eicio::RecParticle >&
+      particle() const;
+
+  // @@protoc_insertion_point(class_scope:eicio.RecParticleCollection)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedPtrField< ::eicio::RecParticle > particle_;
   mutable int _cached_size_;
   friend struct protobuf_eicio_2eproto::TableStruct;
 };
@@ -1180,6 +3532,70 @@ inline void EventHeader::set_allocated_description(::std::string* description) {
   }
   description_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), description);
   // @@protoc_insertion_point(field_set_allocated:eicio.EventHeader.description)
+}
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// Params
+
+// map<string, int32> ints = 1;
+inline int Params::ints_size() const {
+  return ints_.size();
+}
+inline void Params::clear_ints() {
+  ints_.Clear();
+}
+inline const ::google::protobuf::Map< ::std::string, ::google::protobuf::int32 >&
+Params::ints() const {
+  // @@protoc_insertion_point(field_map:eicio.Params.ints)
+  return ints_.GetMap();
+}
+inline ::google::protobuf::Map< ::std::string, ::google::protobuf::int32 >*
+Params::mutable_ints() {
+  // @@protoc_insertion_point(field_mutable_map:eicio.Params.ints)
+  return ints_.MutableMap();
+}
+
+// map<string, float> floats = 2;
+inline int Params::floats_size() const {
+  return floats_.size();
+}
+inline void Params::clear_floats() {
+  floats_.Clear();
+}
+inline const ::google::protobuf::Map< ::std::string, float >&
+Params::floats() const {
+  // @@protoc_insertion_point(field_map:eicio.Params.floats)
+  return floats_.GetMap();
+}
+inline ::google::protobuf::Map< ::std::string, float >*
+Params::mutable_floats() {
+  // @@protoc_insertion_point(field_mutable_map:eicio.Params.floats)
+  return floats_.MutableMap();
+}
+
+// map<string, string> strings = 3;
+inline int Params::strings_size() const {
+  return strings_.size();
+}
+inline void Params::clear_strings() {
+  strings_.Clear();
+}
+inline const ::google::protobuf::Map< ::std::string, ::std::string >&
+Params::strings() const {
+  // @@protoc_insertion_point(field_map:eicio.Params.strings)
+  return strings_.GetMap();
+}
+inline ::google::protobuf::Map< ::std::string, ::std::string >*
+Params::mutable_strings() {
+  // @@protoc_insertion_point(field_mutable_map:eicio.Params.strings)
+  return strings_.MutableMap();
 }
 
 // -------------------------------------------------------------------
@@ -1694,7 +4110,761 @@ SimTrackerHitCollection::hit() const {
   return hit_;
 }
 
+// -------------------------------------------------------------------
+
+// TrackerData
+
+// -------------------------------------------------------------------
+
+// TrackerDataCollection
+
+// repeated .eicio.TrackerData data = 1;
+inline int TrackerDataCollection::data_size() const {
+  return data_.size();
+}
+inline void TrackerDataCollection::clear_data() {
+  data_.Clear();
+}
+inline const ::eicio::TrackerData& TrackerDataCollection::data(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerDataCollection.data)
+  return data_.Get(index);
+}
+inline ::eicio::TrackerData* TrackerDataCollection::mutable_data(int index) {
+  // @@protoc_insertion_point(field_mutable:eicio.TrackerDataCollection.data)
+  return data_.Mutable(index);
+}
+inline ::eicio::TrackerData* TrackerDataCollection::add_data() {
+  // @@protoc_insertion_point(field_add:eicio.TrackerDataCollection.data)
+  return data_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::eicio::TrackerData >*
+TrackerDataCollection::mutable_data() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.TrackerDataCollection.data)
+  return &data_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::TrackerData >&
+TrackerDataCollection::data() const {
+  // @@protoc_insertion_point(field_list:eicio.TrackerDataCollection.data)
+  return data_;
+}
+
+// -------------------------------------------------------------------
+
+// TrackerRawData
+
+// -------------------------------------------------------------------
+
+// TrackerRawDataCollection
+
+// repeated .eicio.TrackerRawData data = 1;
+inline int TrackerRawDataCollection::data_size() const {
+  return data_.size();
+}
+inline void TrackerRawDataCollection::clear_data() {
+  data_.Clear();
+}
+inline const ::eicio::TrackerRawData& TrackerRawDataCollection::data(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerRawDataCollection.data)
+  return data_.Get(index);
+}
+inline ::eicio::TrackerRawData* TrackerRawDataCollection::mutable_data(int index) {
+  // @@protoc_insertion_point(field_mutable:eicio.TrackerRawDataCollection.data)
+  return data_.Mutable(index);
+}
+inline ::eicio::TrackerRawData* TrackerRawDataCollection::add_data() {
+  // @@protoc_insertion_point(field_add:eicio.TrackerRawDataCollection.data)
+  return data_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::eicio::TrackerRawData >*
+TrackerRawDataCollection::mutable_data() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.TrackerRawDataCollection.data)
+  return &data_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::TrackerRawData >&
+TrackerRawDataCollection::data() const {
+  // @@protoc_insertion_point(field_list:eicio.TrackerRawDataCollection.data)
+  return data_;
+}
+
+// -------------------------------------------------------------------
+
+// TrackerHit
+
+// -------------------------------------------------------------------
+
+// TrackerHitCollection
+
+// repeated .eicio.TrackerHit hit = 1;
+inline int TrackerHitCollection::hit_size() const {
+  return hit_.size();
+}
+inline void TrackerHitCollection::clear_hit() {
+  hit_.Clear();
+}
+inline const ::eicio::TrackerHit& TrackerHitCollection::hit(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerHitCollection.hit)
+  return hit_.Get(index);
+}
+inline ::eicio::TrackerHit* TrackerHitCollection::mutable_hit(int index) {
+  // @@protoc_insertion_point(field_mutable:eicio.TrackerHitCollection.hit)
+  return hit_.Mutable(index);
+}
+inline ::eicio::TrackerHit* TrackerHitCollection::add_hit() {
+  // @@protoc_insertion_point(field_add:eicio.TrackerHitCollection.hit)
+  return hit_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::eicio::TrackerHit >*
+TrackerHitCollection::mutable_hit() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.TrackerHitCollection.hit)
+  return &hit_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::TrackerHit >&
+TrackerHitCollection::hit() const {
+  // @@protoc_insertion_point(field_list:eicio.TrackerHitCollection.hit)
+  return hit_;
+}
+
+// -------------------------------------------------------------------
+
+// TrackerPulse
+
+// -------------------------------------------------------------------
+
+// TrackerPulseCollection
+
+// repeated .eicio.TrackerPulse pulse = 1;
+inline int TrackerPulseCollection::pulse_size() const {
+  return pulse_.size();
+}
+inline void TrackerPulseCollection::clear_pulse() {
+  pulse_.Clear();
+}
+inline const ::eicio::TrackerPulse& TrackerPulseCollection::pulse(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerPulseCollection.pulse)
+  return pulse_.Get(index);
+}
+inline ::eicio::TrackerPulse* TrackerPulseCollection::mutable_pulse(int index) {
+  // @@protoc_insertion_point(field_mutable:eicio.TrackerPulseCollection.pulse)
+  return pulse_.Mutable(index);
+}
+inline ::eicio::TrackerPulse* TrackerPulseCollection::add_pulse() {
+  // @@protoc_insertion_point(field_add:eicio.TrackerPulseCollection.pulse)
+  return pulse_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::eicio::TrackerPulse >*
+TrackerPulseCollection::mutable_pulse() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.TrackerPulseCollection.pulse)
+  return &pulse_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::TrackerPulse >&
+TrackerPulseCollection::pulse() const {
+  // @@protoc_insertion_point(field_list:eicio.TrackerPulseCollection.pulse)
+  return pulse_;
+}
+
+// -------------------------------------------------------------------
+
+// TrackerHitPlane
+
+// -------------------------------------------------------------------
+
+// TrackerHitPlaneCollection
+
+// repeated .eicio.TrackerHitPlane plane = 1;
+inline int TrackerHitPlaneCollection::plane_size() const {
+  return plane_.size();
+}
+inline void TrackerHitPlaneCollection::clear_plane() {
+  plane_.Clear();
+}
+inline const ::eicio::TrackerHitPlane& TrackerHitPlaneCollection::plane(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerHitPlaneCollection.plane)
+  return plane_.Get(index);
+}
+inline ::eicio::TrackerHitPlane* TrackerHitPlaneCollection::mutable_plane(int index) {
+  // @@protoc_insertion_point(field_mutable:eicio.TrackerHitPlaneCollection.plane)
+  return plane_.Mutable(index);
+}
+inline ::eicio::TrackerHitPlane* TrackerHitPlaneCollection::add_plane() {
+  // @@protoc_insertion_point(field_add:eicio.TrackerHitPlaneCollection.plane)
+  return plane_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::eicio::TrackerHitPlane >*
+TrackerHitPlaneCollection::mutable_plane() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.TrackerHitPlaneCollection.plane)
+  return &plane_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::TrackerHitPlane >&
+TrackerHitPlaneCollection::plane() const {
+  // @@protoc_insertion_point(field_list:eicio.TrackerHitPlaneCollection.plane)
+  return plane_;
+}
+
+// -------------------------------------------------------------------
+
+// TrackerHitZCylinder
+
+// -------------------------------------------------------------------
+
+// TrackerHitZCylinderCollection
+
+// repeated .eicio.TrackerHitZCylinder cyl = 1;
+inline int TrackerHitZCylinderCollection::cyl_size() const {
+  return cyl_.size();
+}
+inline void TrackerHitZCylinderCollection::clear_cyl() {
+  cyl_.Clear();
+}
+inline const ::eicio::TrackerHitZCylinder& TrackerHitZCylinderCollection::cyl(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerHitZCylinderCollection.cyl)
+  return cyl_.Get(index);
+}
+inline ::eicio::TrackerHitZCylinder* TrackerHitZCylinderCollection::mutable_cyl(int index) {
+  // @@protoc_insertion_point(field_mutable:eicio.TrackerHitZCylinderCollection.cyl)
+  return cyl_.Mutable(index);
+}
+inline ::eicio::TrackerHitZCylinder* TrackerHitZCylinderCollection::add_cyl() {
+  // @@protoc_insertion_point(field_add:eicio.TrackerHitZCylinderCollection.cyl)
+  return cyl_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::eicio::TrackerHitZCylinder >*
+TrackerHitZCylinderCollection::mutable_cyl() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.TrackerHitZCylinderCollection.cyl)
+  return &cyl_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::TrackerHitZCylinder >&
+TrackerHitZCylinderCollection::cyl() const {
+  // @@protoc_insertion_point(field_list:eicio.TrackerHitZCylinderCollection.cyl)
+  return cyl_;
+}
+
+// -------------------------------------------------------------------
+
+// Track
+
+// -------------------------------------------------------------------
+
+// TrackCollection
+
+// repeated .eicio.Track track = 1;
+inline int TrackCollection::track_size() const {
+  return track_.size();
+}
+inline void TrackCollection::clear_track() {
+  track_.Clear();
+}
+inline const ::eicio::Track& TrackCollection::track(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.TrackCollection.track)
+  return track_.Get(index);
+}
+inline ::eicio::Track* TrackCollection::mutable_track(int index) {
+  // @@protoc_insertion_point(field_mutable:eicio.TrackCollection.track)
+  return track_.Mutable(index);
+}
+inline ::eicio::Track* TrackCollection::add_track() {
+  // @@protoc_insertion_point(field_add:eicio.TrackCollection.track)
+  return track_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::eicio::Track >*
+TrackCollection::mutable_track() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.TrackCollection.track)
+  return &track_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::Track >&
+TrackCollection::track() const {
+  // @@protoc_insertion_point(field_list:eicio.TrackCollection.track)
+  return track_;
+}
+
+// -------------------------------------------------------------------
+
+// Contrib
+
+// int32 MCParticle = 1;
+inline void Contrib::clear_mcparticle() {
+  mcparticle_ = 0;
+}
+inline ::google::protobuf::int32 Contrib::mcparticle() const {
+  // @@protoc_insertion_point(field_get:eicio.Contrib.MCParticle)
+  return mcparticle_;
+}
+inline void Contrib::set_mcparticle(::google::protobuf::int32 value) {
+  
+  mcparticle_ = value;
+  // @@protoc_insertion_point(field_set:eicio.Contrib.MCParticle)
+}
+
+// float energy = 2;
+inline void Contrib::clear_energy() {
+  energy_ = 0;
+}
+inline float Contrib::energy() const {
+  // @@protoc_insertion_point(field_get:eicio.Contrib.energy)
+  return energy_;
+}
+inline void Contrib::set_energy(float value) {
+  
+  energy_ = value;
+  // @@protoc_insertion_point(field_set:eicio.Contrib.energy)
+}
+
+// float time = 3;
+inline void Contrib::clear_time() {
+  time_ = 0;
+}
+inline float Contrib::time() const {
+  // @@protoc_insertion_point(field_get:eicio.Contrib.time)
+  return time_;
+}
+inline void Contrib::set_time(float value) {
+  
+  time_ = value;
+  // @@protoc_insertion_point(field_set:eicio.Contrib.time)
+}
+
+// int32 PDG = 4;
+inline void Contrib::clear_pdg() {
+  pdg_ = 0;
+}
+inline ::google::protobuf::int32 Contrib::pdg() const {
+  // @@protoc_insertion_point(field_get:eicio.Contrib.PDG)
+  return pdg_;
+}
+inline void Contrib::set_pdg(::google::protobuf::int32 value) {
+  
+  pdg_ = value;
+  // @@protoc_insertion_point(field_set:eicio.Contrib.PDG)
+}
+
+// repeated float stepPos = 5;
+inline int Contrib::steppos_size() const {
+  return steppos_.size();
+}
+inline void Contrib::clear_steppos() {
+  steppos_.Clear();
+}
+inline float Contrib::steppos(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.Contrib.stepPos)
+  return steppos_.Get(index);
+}
+inline void Contrib::set_steppos(int index, float value) {
+  steppos_.Set(index, value);
+  // @@protoc_insertion_point(field_set:eicio.Contrib.stepPos)
+}
+inline void Contrib::add_steppos(float value) {
+  steppos_.Add(value);
+  // @@protoc_insertion_point(field_add:eicio.Contrib.stepPos)
+}
+inline const ::google::protobuf::RepeatedField< float >&
+Contrib::steppos() const {
+  // @@protoc_insertion_point(field_list:eicio.Contrib.stepPos)
+  return steppos_;
+}
+inline ::google::protobuf::RepeatedField< float >*
+Contrib::mutable_steppos() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.Contrib.stepPos)
+  return &steppos_;
+}
+
+// -------------------------------------------------------------------
+
+// SimCalorimeterHit
+
+// .eicio.Params params = 1;
+inline bool SimCalorimeterHit::has_params() const {
+  return this != internal_default_instance() && params_ != NULL;
+}
+inline void SimCalorimeterHit::clear_params() {
+  if (GetArenaNoVirtual() == NULL && params_ != NULL) delete params_;
+  params_ = NULL;
+}
+inline const ::eicio::Params& SimCalorimeterHit::params() const {
+  // @@protoc_insertion_point(field_get:eicio.SimCalorimeterHit.params)
+  return params_ != NULL ? *params_
+                         : *::eicio::Params::internal_default_instance();
+}
+inline ::eicio::Params* SimCalorimeterHit::mutable_params() {
+  
+  if (params_ == NULL) {
+    params_ = new ::eicio::Params;
+  }
+  // @@protoc_insertion_point(field_mutable:eicio.SimCalorimeterHit.params)
+  return params_;
+}
+inline ::eicio::Params* SimCalorimeterHit::release_params() {
+  // @@protoc_insertion_point(field_release:eicio.SimCalorimeterHit.params)
+  
+  ::eicio::Params* temp = params_;
+  params_ = NULL;
+  return temp;
+}
+inline void SimCalorimeterHit::set_allocated_params(::eicio::Params* params) {
+  delete params_;
+  params_ = params;
+  if (params) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:eicio.SimCalorimeterHit.params)
+}
+
+// int32 cellID0 = 2;
+inline void SimCalorimeterHit::clear_cellid0() {
+  cellid0_ = 0;
+}
+inline ::google::protobuf::int32 SimCalorimeterHit::cellid0() const {
+  // @@protoc_insertion_point(field_get:eicio.SimCalorimeterHit.cellID0)
+  return cellid0_;
+}
+inline void SimCalorimeterHit::set_cellid0(::google::protobuf::int32 value) {
+  
+  cellid0_ = value;
+  // @@protoc_insertion_point(field_set:eicio.SimCalorimeterHit.cellID0)
+}
+
+// int32 cellID1 = 3;
+inline void SimCalorimeterHit::clear_cellid1() {
+  cellid1_ = 0;
+}
+inline ::google::protobuf::int32 SimCalorimeterHit::cellid1() const {
+  // @@protoc_insertion_point(field_get:eicio.SimCalorimeterHit.cellID1)
+  return cellid1_;
+}
+inline void SimCalorimeterHit::set_cellid1(::google::protobuf::int32 value) {
+  
+  cellid1_ = value;
+  // @@protoc_insertion_point(field_set:eicio.SimCalorimeterHit.cellID1)
+}
+
+// float energy = 4;
+inline void SimCalorimeterHit::clear_energy() {
+  energy_ = 0;
+}
+inline float SimCalorimeterHit::energy() const {
+  // @@protoc_insertion_point(field_get:eicio.SimCalorimeterHit.energy)
+  return energy_;
+}
+inline void SimCalorimeterHit::set_energy(float value) {
+  
+  energy_ = value;
+  // @@protoc_insertion_point(field_set:eicio.SimCalorimeterHit.energy)
+}
+
+// repeated float pos = 5;
+inline int SimCalorimeterHit::pos_size() const {
+  return pos_.size();
+}
+inline void SimCalorimeterHit::clear_pos() {
+  pos_.Clear();
+}
+inline float SimCalorimeterHit::pos(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.SimCalorimeterHit.pos)
+  return pos_.Get(index);
+}
+inline void SimCalorimeterHit::set_pos(int index, float value) {
+  pos_.Set(index, value);
+  // @@protoc_insertion_point(field_set:eicio.SimCalorimeterHit.pos)
+}
+inline void SimCalorimeterHit::add_pos(float value) {
+  pos_.Add(value);
+  // @@protoc_insertion_point(field_add:eicio.SimCalorimeterHit.pos)
+}
+inline const ::google::protobuf::RepeatedField< float >&
+SimCalorimeterHit::pos() const {
+  // @@protoc_insertion_point(field_list:eicio.SimCalorimeterHit.pos)
+  return pos_;
+}
+inline ::google::protobuf::RepeatedField< float >*
+SimCalorimeterHit::mutable_pos() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.SimCalorimeterHit.pos)
+  return &pos_;
+}
+
+// .eicio.Contrib contributions = 6;
+inline bool SimCalorimeterHit::has_contributions() const {
+  return this != internal_default_instance() && contributions_ != NULL;
+}
+inline void SimCalorimeterHit::clear_contributions() {
+  if (GetArenaNoVirtual() == NULL && contributions_ != NULL) delete contributions_;
+  contributions_ = NULL;
+}
+inline const ::eicio::Contrib& SimCalorimeterHit::contributions() const {
+  // @@protoc_insertion_point(field_get:eicio.SimCalorimeterHit.contributions)
+  return contributions_ != NULL ? *contributions_
+                         : *::eicio::Contrib::internal_default_instance();
+}
+inline ::eicio::Contrib* SimCalorimeterHit::mutable_contributions() {
+  
+  if (contributions_ == NULL) {
+    contributions_ = new ::eicio::Contrib;
+  }
+  // @@protoc_insertion_point(field_mutable:eicio.SimCalorimeterHit.contributions)
+  return contributions_;
+}
+inline ::eicio::Contrib* SimCalorimeterHit::release_contributions() {
+  // @@protoc_insertion_point(field_release:eicio.SimCalorimeterHit.contributions)
+  
+  ::eicio::Contrib* temp = contributions_;
+  contributions_ = NULL;
+  return temp;
+}
+inline void SimCalorimeterHit::set_allocated_contributions(::eicio::Contrib* contributions) {
+  delete contributions_;
+  contributions_ = contributions;
+  if (contributions) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:eicio.SimCalorimeterHit.contributions)
+}
+
+// -------------------------------------------------------------------
+
+// SimCalorimeterHitCollection
+
+// repeated .eicio.SimCalorimeterHit hit = 1;
+inline int SimCalorimeterHitCollection::hit_size() const {
+  return hit_.size();
+}
+inline void SimCalorimeterHitCollection::clear_hit() {
+  hit_.Clear();
+}
+inline const ::eicio::SimCalorimeterHit& SimCalorimeterHitCollection::hit(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.SimCalorimeterHitCollection.hit)
+  return hit_.Get(index);
+}
+inline ::eicio::SimCalorimeterHit* SimCalorimeterHitCollection::mutable_hit(int index) {
+  // @@protoc_insertion_point(field_mutable:eicio.SimCalorimeterHitCollection.hit)
+  return hit_.Mutable(index);
+}
+inline ::eicio::SimCalorimeterHit* SimCalorimeterHitCollection::add_hit() {
+  // @@protoc_insertion_point(field_add:eicio.SimCalorimeterHitCollection.hit)
+  return hit_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::eicio::SimCalorimeterHit >*
+SimCalorimeterHitCollection::mutable_hit() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.SimCalorimeterHitCollection.hit)
+  return &hit_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::SimCalorimeterHit >&
+SimCalorimeterHitCollection::hit() const {
+  // @@protoc_insertion_point(field_list:eicio.SimCalorimeterHitCollection.hit)
+  return hit_;
+}
+
+// -------------------------------------------------------------------
+
+// RawCalorimeterHit
+
+// -------------------------------------------------------------------
+
+// RawCalorimeterHitCollection
+
+// repeated .eicio.RawCalorimeterHit hit = 1;
+inline int RawCalorimeterHitCollection::hit_size() const {
+  return hit_.size();
+}
+inline void RawCalorimeterHitCollection::clear_hit() {
+  hit_.Clear();
+}
+inline const ::eicio::RawCalorimeterHit& RawCalorimeterHitCollection::hit(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.RawCalorimeterHitCollection.hit)
+  return hit_.Get(index);
+}
+inline ::eicio::RawCalorimeterHit* RawCalorimeterHitCollection::mutable_hit(int index) {
+  // @@protoc_insertion_point(field_mutable:eicio.RawCalorimeterHitCollection.hit)
+  return hit_.Mutable(index);
+}
+inline ::eicio::RawCalorimeterHit* RawCalorimeterHitCollection::add_hit() {
+  // @@protoc_insertion_point(field_add:eicio.RawCalorimeterHitCollection.hit)
+  return hit_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::eicio::RawCalorimeterHit >*
+RawCalorimeterHitCollection::mutable_hit() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.RawCalorimeterHitCollection.hit)
+  return &hit_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::RawCalorimeterHit >&
+RawCalorimeterHitCollection::hit() const {
+  // @@protoc_insertion_point(field_list:eicio.RawCalorimeterHitCollection.hit)
+  return hit_;
+}
+
+// -------------------------------------------------------------------
+
+// CalorimeterHit
+
+// -------------------------------------------------------------------
+
+// CalorimeterHitCollection
+
+// repeated .eicio.CalorimeterHit hit = 1;
+inline int CalorimeterHitCollection::hit_size() const {
+  return hit_.size();
+}
+inline void CalorimeterHitCollection::clear_hit() {
+  hit_.Clear();
+}
+inline const ::eicio::CalorimeterHit& CalorimeterHitCollection::hit(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.CalorimeterHitCollection.hit)
+  return hit_.Get(index);
+}
+inline ::eicio::CalorimeterHit* CalorimeterHitCollection::mutable_hit(int index) {
+  // @@protoc_insertion_point(field_mutable:eicio.CalorimeterHitCollection.hit)
+  return hit_.Mutable(index);
+}
+inline ::eicio::CalorimeterHit* CalorimeterHitCollection::add_hit() {
+  // @@protoc_insertion_point(field_add:eicio.CalorimeterHitCollection.hit)
+  return hit_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::eicio::CalorimeterHit >*
+CalorimeterHitCollection::mutable_hit() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.CalorimeterHitCollection.hit)
+  return &hit_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::CalorimeterHit >&
+CalorimeterHitCollection::hit() const {
+  // @@protoc_insertion_point(field_list:eicio.CalorimeterHitCollection.hit)
+  return hit_;
+}
+
+// -------------------------------------------------------------------
+
+// Cluster
+
+// -------------------------------------------------------------------
+
+// ClusterCollection
+
+// repeated .eicio.Cluster cluster = 1;
+inline int ClusterCollection::cluster_size() const {
+  return cluster_.size();
+}
+inline void ClusterCollection::clear_cluster() {
+  cluster_.Clear();
+}
+inline const ::eicio::Cluster& ClusterCollection::cluster(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.ClusterCollection.cluster)
+  return cluster_.Get(index);
+}
+inline ::eicio::Cluster* ClusterCollection::mutable_cluster(int index) {
+  // @@protoc_insertion_point(field_mutable:eicio.ClusterCollection.cluster)
+  return cluster_.Mutable(index);
+}
+inline ::eicio::Cluster* ClusterCollection::add_cluster() {
+  // @@protoc_insertion_point(field_add:eicio.ClusterCollection.cluster)
+  return cluster_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::eicio::Cluster >*
+ClusterCollection::mutable_cluster() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.ClusterCollection.cluster)
+  return &cluster_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::Cluster >&
+ClusterCollection::cluster() const {
+  // @@protoc_insertion_point(field_list:eicio.ClusterCollection.cluster)
+  return cluster_;
+}
+
+// -------------------------------------------------------------------
+
+// RecParticle
+
+// -------------------------------------------------------------------
+
+// RecParticleCollection
+
+// repeated .eicio.RecParticle particle = 1;
+inline int RecParticleCollection::particle_size() const {
+  return particle_.size();
+}
+inline void RecParticleCollection::clear_particle() {
+  particle_.Clear();
+}
+inline const ::eicio::RecParticle& RecParticleCollection::particle(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.RecParticleCollection.particle)
+  return particle_.Get(index);
+}
+inline ::eicio::RecParticle* RecParticleCollection::mutable_particle(int index) {
+  // @@protoc_insertion_point(field_mutable:eicio.RecParticleCollection.particle)
+  return particle_.Mutable(index);
+}
+inline ::eicio::RecParticle* RecParticleCollection::add_particle() {
+  // @@protoc_insertion_point(field_add:eicio.RecParticleCollection.particle)
+  return particle_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::eicio::RecParticle >*
+RecParticleCollection::mutable_particle() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.RecParticleCollection.particle)
+  return &particle_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::RecParticle >&
+RecParticleCollection::particle() const {
+  // @@protoc_insertion_point(field_list:eicio.RecParticleCollection.particle)
+  return particle_;
+}
+
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

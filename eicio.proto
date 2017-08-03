@@ -24,8 +24,7 @@ message EventHeader {
 			Cluster = 13;
 			RecParticle = 14;
 			Vertex = 15;
-			References = 16;
-			Relation = 17;
+			Relation = 16;
 		}
 
 		Type type = 1;
@@ -35,6 +34,12 @@ message EventHeader {
 	repeated CollectionHeader collection = 4;
 
 	string description = 16;
+}
+
+message Params {
+	map<string, int32> ints = 1;
+	map<string, float> floats = 2;
+	map<string, string> strings = 3;
 }
 
 message MCParticle {
@@ -50,12 +55,7 @@ message MCParticle {
 	repeated float spin = 10;
 	repeated int32 colorFlow = 11;
 
-	enum GenStatus {
-		FINALSTATE = 0;
-		DOCUMENTATION = 1;
-	}
-	GenStatus genStatus = 12;
-
+	int32 genStatus = 12;
 	uint32 simStatus = 13;
 }
 
@@ -77,4 +77,120 @@ message SimTrackerHit {
 
 message SimTrackerHitCollection {
 	repeated SimTrackerHit hit = 1;
+}
+
+message TrackerRawData {
+	int32 cellID0 = 1;
+	int32 cellID1 = 2;
+	int32 time = 3;
+	repeated uint32 ADCs = 4;
+}
+
+message TrackerRawDataCollection {
+	repeated TrackerRawData data = 1;
+}
+
+message TrackerData {
+	int32 cellID0 = 1;
+	int32 cellID1 = 2;
+	float time = 3;
+	repeated float charges = 4;
+}
+
+message TrackerDataCollection {
+	repeated TrackerData data = 1;
+}
+
+message TrackerHit {
+	int32 cellID0 = 1;
+	int32 cellID1 = 2;
+	int32 type = 3;
+	repeated double pos = 4;
+	repeated double cov = 5;
+	float EDep = 6;
+	float EDepErr = 7;
+	float time = 8;
+	int32 quality = 9;
+	repeated int32 rawHitIDs = 10;
+}
+
+message TrackerHitCollection {
+	repeated TrackerHit hit = 1;
+}
+
+message TrackerPulse {
+}
+
+message TrackerPulseCollection {
+	repeated TrackerPulse pulse = 1;
+}
+
+message TrackerHitPlane {
+}
+
+message TrackerHitPlaneCollection {
+	repeated TrackerHitPlane plane = 1;
+}
+
+message TrackerHitZCylinder {
+}
+
+message TrackerHitZCylinderCollection {
+	repeated TrackerHitZCylinder cyl = 1;
+}
+
+message Track {
+}
+
+message TrackCollection {
+	repeated Track track = 1;
+}
+
+message Contrib {
+	int32 MCParticle = 1;
+	float energy = 2;
+	float time = 3;
+	int32 PDG = 4;
+	repeated float stepPos = 5;
+}
+
+message SimCalorimeterHit {
+	Params params = 1;
+	int32 cellID0 = 2;
+	int32 cellID1 = 3;
+	float energy = 4;
+	repeated float pos = 5;
+	repeated Contrib contributions = 6;
+}
+
+message SimCalorimeterHitCollection {
+	repeated SimCalorimeterHit hit = 1;
+}
+
+message RawCalorimeterHit {
+}
+
+message RawCalorimeterHitCollection {
+	repeated RawCalorimeterHit hit = 1;
+}
+
+message CalorimeterHit {
+}
+
+message CalorimeterHitCollection {
+	repeated CalorimeterHit hit = 1;
+}
+
+message Cluster {
+}
+
+message ClusterCollection {
+	repeated Cluster cluster = 1;
+}
+
+message RecParticle {
+}
+
+message RecParticleCollection {
+	repeated RecParticle particle = 1;
 }
