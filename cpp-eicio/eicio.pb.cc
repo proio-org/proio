@@ -98,13 +98,17 @@ class VertexDefaultTypeInternal : public ::google::protobuf::internal::Explicitl
 } _Vertex_default_instance_;
 class VertexCollectionDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<VertexCollection> {
 } _VertexCollection_default_instance_;
+class RelationDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<Relation> {
+} _Relation_default_instance_;
+class RelationCollectionDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<RelationCollection> {
+} _RelationCollection_default_instance_;
 
 namespace protobuf_eicio_2eproto {
 
 
 namespace {
 
-::google::protobuf::Metadata file_level_metadata[40];
+::google::protobuf::Metadata file_level_metadata[42];
 const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors[1];
 
 }  // namespace
@@ -120,6 +124,8 @@ PROTOBUF_CONSTEXPR_VAR ::google::protobuf::internal::AuxillaryParseTableField
 };
 PROTOBUF_CONSTEXPR_VAR ::google::protobuf::internal::ParseTable const
     TableStruct::schema[] = {
+  { NULL, NULL, 0, -1, -1, false },
+  { NULL, NULL, 0, -1, -1, false },
   { NULL, NULL, 0, -1, -1, false },
   { NULL, NULL, 0, -1, -1, false },
   { NULL, NULL, 0, -1, -1, false },
@@ -319,6 +325,13 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerPulse, cellid0_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerPulse, cellid1_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerPulse, time_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerPulse, charge_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerPulse, cov_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerPulse, quality_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerPulse, tpc_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerPulseCollection, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -332,6 +345,19 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerHitPlane, cellid0_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerHitPlane, cellid1_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerHitPlane, type_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerHitPlane, pos_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerHitPlane, u_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerHitPlane, v_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerHitPlane, du_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerHitPlane, dv_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerHitPlane, edep_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerHitPlane, edeperr_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerHitPlane, time_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerHitPlane, quality_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerHitPlane, rawhits_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerHitPlaneCollection, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -345,6 +371,18 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerHitZCylinder, cellid0_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerHitZCylinder, cellid1_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerHitZCylinder, type_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerHitZCylinder, pos_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerHitZCylinder, center_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerHitZCylinder, drphi_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerHitZCylinder, dz_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerHitZCylinder, edep_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerHitZCylinder, edeperr_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerHitZCylinder, time_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerHitZCylinder, quality_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerHitZCylinder, rawhits_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(TrackerHitZCylinderCollection, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -530,6 +568,22 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VertexCollection, flags_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VertexCollection, params_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VertexCollection, vertex_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Relation, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Relation, from_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Relation, to_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Relation, weight_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RelationCollection, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RelationCollection, flags_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RelationCollection, params_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RelationCollection, relation_),
 };
 
 static const ::google::protobuf::internal::MigrationSchema schemas[] = {
@@ -549,27 +603,29 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] = {
   { 128, -1, sizeof(TrackerHit)},
   { 143, -1, sizeof(TrackerHitCollection)},
   { 151, -1, sizeof(TrackerPulse)},
-  { 156, -1, sizeof(TrackerPulseCollection)},
-  { 164, -1, sizeof(TrackerHitPlane)},
-  { 169, -1, sizeof(TrackerHitPlaneCollection)},
-  { 177, -1, sizeof(TrackerHitZCylinder)},
-  { 182, -1, sizeof(TrackerHitZCylinderCollection)},
-  { 190, -1, sizeof(Track_TrackState)},
-  { 203, -1, sizeof(Track)},
-  { 218, -1, sizeof(TrackCollection)},
-  { 226, -1, sizeof(SimCalorimeterHit_Contrib)},
-  { 236, -1, sizeof(SimCalorimeterHit)},
-  { 247, -1, sizeof(SimCalorimeterHitCollection)},
-  { 255, -1, sizeof(RawCalorimeterHit)},
-  { 264, -1, sizeof(RawCalorimeterHitCollection)},
-  { 272, -1, sizeof(CalorimeterHit)},
-  { 285, -1, sizeof(CalorimeterHitCollection)},
-  { 293, -1, sizeof(Cluster)},
-  { 311, -1, sizeof(ClusterCollection)},
-  { 319, -1, sizeof(RecParticle)},
-  { 338, -1, sizeof(RecParticleCollection)},
-  { 346, -1, sizeof(Vertex)},
-  { 359, -1, sizeof(VertexCollection)},
+  { 163, -1, sizeof(TrackerPulseCollection)},
+  { 171, -1, sizeof(TrackerHitPlane)},
+  { 189, -1, sizeof(TrackerHitPlaneCollection)},
+  { 197, -1, sizeof(TrackerHitZCylinder)},
+  { 214, -1, sizeof(TrackerHitZCylinderCollection)},
+  { 222, -1, sizeof(Track_TrackState)},
+  { 235, -1, sizeof(Track)},
+  { 250, -1, sizeof(TrackCollection)},
+  { 258, -1, sizeof(SimCalorimeterHit_Contrib)},
+  { 268, -1, sizeof(SimCalorimeterHit)},
+  { 279, -1, sizeof(SimCalorimeterHitCollection)},
+  { 287, -1, sizeof(RawCalorimeterHit)},
+  { 296, -1, sizeof(RawCalorimeterHitCollection)},
+  { 304, -1, sizeof(CalorimeterHit)},
+  { 317, -1, sizeof(CalorimeterHitCollection)},
+  { 325, -1, sizeof(Cluster)},
+  { 343, -1, sizeof(ClusterCollection)},
+  { 351, -1, sizeof(RecParticle)},
+  { 370, -1, sizeof(RecParticleCollection)},
+  { 378, -1, sizeof(Vertex)},
+  { 391, -1, sizeof(VertexCollection)},
+  { 399, -1, sizeof(Relation)},
+  { 407, -1, sizeof(RelationCollection)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -613,6 +669,8 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&_RecParticleCollection_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&_Vertex_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&_VertexCollection_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_Relation_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_RelationCollection_default_instance_),
 };
 
 namespace {
@@ -636,7 +694,7 @@ void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 40);
+  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 42);
 }
 
 }  // namespace
@@ -716,6 +774,10 @@ void TableStruct::Shutdown() {
   delete file_level_metadata[38].reflection;
   _VertexCollection_default_instance_.Shutdown();
   delete file_level_metadata[39].reflection;
+  _Relation_default_instance_.Shutdown();
+  delete file_level_metadata[40].reflection;
+  _RelationCollection_default_instance_.Shutdown();
+  delete file_level_metadata[41].reflection;
   delete file_level_metadata[2].reflection;
   delete file_level_metadata[3].reflection;
   delete file_level_metadata[4].reflection;
@@ -765,6 +827,8 @@ void TableStruct::InitDefaultsImpl() {
   _RecParticleCollection_default_instance_.DefaultConstruct();
   _Vertex_default_instance_.DefaultConstruct();
   _VertexCollection_default_instance_.DefaultConstruct();
+  _Relation_default_instance_.DefaultConstruct();
+  _RelationCollection_default_instance_.DefaultConstruct();
   _EventHeader_default_instance_.get_mutable()->params_ = const_cast< ::eicio::Params*>(
       ::eicio::Params::internal_default_instance());
   _Params_IntsEntry_default_instance_.get_mutable()->set_default_instance(_Params_IntsEntry_default_instance_.get_mutable());
@@ -785,6 +849,8 @@ void TableStruct::InitDefaultsImpl() {
       ::eicio::Params::internal_default_instance());
   _TrackerHitCollection_default_instance_.get_mutable()->params_ = const_cast< ::eicio::Params*>(
       ::eicio::Params::internal_default_instance());
+  _TrackerPulse_default_instance_.get_mutable()->tpc_ = const_cast< ::eicio::Reference*>(
+      ::eicio::Reference::internal_default_instance());
   _TrackerPulseCollection_default_instance_.get_mutable()->params_ = const_cast< ::eicio::Params*>(
       ::eicio::Params::internal_default_instance());
   _TrackerHitPlaneCollection_default_instance_.get_mutable()->params_ = const_cast< ::eicio::Params*>(
@@ -812,6 +878,12 @@ void TableStruct::InitDefaultsImpl() {
   _Vertex_default_instance_.get_mutable()->recpart_ = const_cast< ::eicio::Reference*>(
       ::eicio::Reference::internal_default_instance());
   _VertexCollection_default_instance_.get_mutable()->params_ = const_cast< ::eicio::Params*>(
+      ::eicio::Params::internal_default_instance());
+  _Relation_default_instance_.get_mutable()->from_ = const_cast< ::eicio::Reference*>(
+      ::eicio::Reference::internal_default_instance());
+  _Relation_default_instance_.get_mutable()->to_ = const_cast< ::eicio::Reference*>(
+      ::eicio::Reference::internal_default_instance());
+  _RelationCollection_default_instance_.get_mutable()->params_ = const_cast< ::eicio::Params*>(
       ::eicio::Params::internal_default_instance());
 }
 
@@ -880,79 +952,97 @@ void AddDescriptorsImpl() {
       "lity\030\t \001(\005\022!\n\007rawHits\030\n \003(\0132\020.eicio.Refe"
       "rence\"d\n\024TrackerHitCollection\022\r\n\005flags\030\001"
       " \001(\005\022\035\n\006params\030\002 \001(\0132\r.eicio.Params\022\036\n\003h"
-      "it\030\003 \003(\0132\021.eicio.TrackerHit\"\016\n\014TrackerPu"
-      "lse\"j\n\026TrackerPulseCollection\022\r\n\005flags\030\001"
-      " \001(\005\022\035\n\006params\030\002 \001(\0132\r.eicio.Params\022\"\n\005p"
-      "ulse\030\003 \003(\0132\023.eicio.TrackerPulse\"\021\n\017Track"
-      "erHitPlane\"p\n\031TrackerHitPlaneCollection\022"
+      "it\030\003 \003(\0132\021.eicio.TrackerHit\"\213\001\n\014TrackerP"
+      "ulse\022\017\n\007cellID0\030\001 \001(\005\022\017\n\007cellID1\030\002 \001(\005\022\014"
+      "\n\004time\030\003 \001(\002\022\016\n\006charge\030\004 \001(\002\022\013\n\003cov\030\005 \003("
+      "\002\022\017\n\007quality\030\006 \001(\005\022\035\n\003TPC\030\007 \001(\0132\020.eicio."
+      "Reference\"j\n\026TrackerPulseCollection\022\r\n\005f"
+      "lags\030\001 \001(\005\022\035\n\006params\030\002 \001(\0132\r.eicio.Param"
+      "s\022\"\n\005pulse\030\003 \003(\0132\023.eicio.TrackerPulse\"\335\001"
+      "\n\017TrackerHitPlane\022\017\n\007cellID0\030\001 \001(\005\022\017\n\007ce"
+      "llID1\030\002 \001(\005\022\014\n\004type\030\003 \001(\005\022\013\n\003pos\030\004 \003(\001\022\t"
+      "\n\001U\030\005 \003(\002\022\t\n\001V\030\006 \003(\002\022\n\n\002dU\030\007 \001(\002\022\n\n\002dV\030\010"
+      " \001(\002\022\014\n\004EDep\030\t \001(\002\022\017\n\007EDepErr\030\n \001(\002\022\014\n\004t"
+      "ime\030\013 \001(\002\022\017\n\007quality\030\014 \001(\005\022!\n\007rawHits\030\r "
+      "\003(\0132\020.eicio.Reference\"p\n\031TrackerHitPlane"
+      "Collection\022\r\n\005flags\030\001 \001(\005\022\035\n\006params\030\002 \001("
+      "\0132\r.eicio.Params\022%\n\005plane\030\003 \003(\0132\026.eicio."
+      "TrackerHitPlane\"\336\001\n\023TrackerHitZCylinder\022"
+      "\017\n\007cellID0\030\001 \001(\005\022\017\n\007cellID1\030\002 \001(\005\022\014\n\004typ"
+      "e\030\003 \001(\005\022\013\n\003pos\030\004 \003(\001\022\016\n\006center\030\005 \003(\002\022\r\n\005"
+      "dRPhi\030\006 \001(\002\022\n\n\002dZ\030\007 \001(\002\022\014\n\004EDep\030\010 \001(\002\022\017\n"
+      "\007EDepErr\030\t \001(\002\022\014\n\004time\030\n \001(\002\022\017\n\007quality\030"
+      "\013 \001(\005\022!\n\007rawHits\030\014 \003(\0132\020.eicio.Reference"
+      "\"v\n\035TrackerHitZCylinderCollection\022\r\n\005fla"
+      "gs\030\001 \001(\005\022\035\n\006params\030\002 \001(\0132\r.eicio.Params\022"
+      "\'\n\003cyl\030\003 \003(\0132\032.eicio.TrackerHitZCylinder"
+      "\"\327\002\n\005Track\022\014\n\004type\030\001 \001(\005\022\014\n\004chi2\030\002 \001(\002\022\013"
+      "\n\003NDF\030\003 \001(\005\022\014\n\004dEdx\030\004 \001(\002\022\017\n\007dEdxErr\030\005 \001"
+      "(\002\022\016\n\006radius\030\006 \001(\002\022\022\n\nsubDetHits\030\007 \003(\005\022\'"
+      "\n\006states\030\010 \003(\0132\027.eicio.Track.TrackState\022"
+      "\036\n\004hits\030\t \003(\0132\020.eicio.Reference\022\"\n\010track"
+      "IDs\030\n \003(\0132\020.eicio.Reference\032u\n\nTrackStat"
+      "e\022\013\n\003loc\030\001 \001(\005\022\n\n\002d0\030\002 \001(\002\022\013\n\003phi\030\003 \001(\002\022"
+      "\r\n\005omega\030\004 \001(\002\022\n\n\002z0\030\005 \001(\002\022\014\n\004tanL\030\006 \001(\002"
+      "\022\013\n\003cov\030\007 \003(\002\022\013\n\003ref\030\010 \003(\002\"\\\n\017TrackColle"
+      "ction\022\r\n\005flags\030\001 \001(\005\022\035\n\006params\030\002 \001(\0132\r.e"
+      "icio.Params\022\033\n\005track\030\003 \003(\0132\014.eicio.Track"
+      "\"\205\002\n\021SimCalorimeterHit\022\035\n\006params\030\001 \001(\0132\r"
+      ".eicio.Params\022\017\n\007cellID0\030\002 \001(\005\022\017\n\007cellID"
+      "1\030\003 \001(\005\022\016\n\006energy\030\004 \001(\002\022\013\n\003pos\030\005 \003(\002\0227\n\r"
+      "contributions\030\006 \003(\0132 .eicio.SimCalorimet"
+      "erHit.Contrib\032Y\n\007Contrib\022\022\n\nMCParticle\030\001"
+      " \001(\005\022\016\n\006energy\030\002 \001(\002\022\014\n\004time\030\003 \001(\002\022\013\n\003PD"
+      "G\030\004 \001(\005\022\017\n\007stepPos\030\005 \003(\002\"r\n\033SimCalorimet"
+      "erHitCollection\022\r\n\005flags\030\001 \001(\005\022\035\n\006params"
+      "\030\002 \001(\0132\r.eicio.Params\022%\n\003hit\030\003 \003(\0132\030.eic"
+      "io.SimCalorimeterHit\"[\n\021RawCalorimeterHi"
+      "t\022\017\n\007cellID0\030\001 \001(\005\022\017\n\007cellID1\030\002 \001(\005\022\021\n\ta"
+      "mplitude\030\004 \001(\005\022\021\n\ttimeStamp\030\005 \001(\005\"r\n\033Raw"
+      "CalorimeterHitCollection\022\r\n\005flags\030\001 \001(\005\022"
+      "\035\n\006params\030\002 \001(\0132\r.eicio.Params\022%\n\003hit\030\003 "
+      "\003(\0132\030.eicio.RawCalorimeterHit\"\235\001\n\016Calori"
+      "meterHit\022\017\n\007cellID0\030\001 \001(\005\022\017\n\007cellID1\030\002 \001"
+      "(\005\022\016\n\006energy\030\003 \001(\002\022\021\n\tenergyErr\030\004 \001(\002\022\014\n"
+      "\004time\030\005 \001(\002\022\013\n\003pos\030\006 \003(\002\022\014\n\004type\030\007 \001(\005\022\035"
+      "\n\003raw\030\010 \001(\0132\020.eicio.Reference\"l\n\030Calorim"
+      "eterHitCollection\022\r\n\005flags\030\001 \001(\005\022\035\n\006para"
+      "ms\030\002 \001(\0132\r.eicio.Params\022\"\n\003hit\030\003 \003(\0132\025.e"
+      "icio.CalorimeterHit\"\370\001\n\007Cluster\022\014\n\004type\030"
+      "\001 \001(\005\022\016\n\006energy\030\002 \001(\002\022\021\n\tenergyErr\030\003 \001(\002"
+      "\022\013\n\003pos\030\004 \003(\002\022\016\n\006posErr\030\005 \003(\002\022\r\n\005theta\030\006"
+      " \001(\002\022\013\n\003phi\030\007 \001(\002\022\016\n\006dirErr\030\010 \003(\002\022\r\n\005sha"
+      "pe\030\t \003(\002\022\037\n\004PIDs\030\n \003(\0132\021.eicio.ParticleI"
+      "D\022\036\n\004hits\030\013 \003(\0132\020.eicio.Reference\022\017\n\007wei"
+      "ghts\030\014 \003(\002\022\022\n\nsubDetEnes\030\r \003(\002\"b\n\021Cluste"
+      "rCollection\022\r\n\005flags\030\001 \001(\005\022\035\n\006params\030\002 \001"
+      "(\0132\r.eicio.Params\022\037\n\007cluster\030\003 \003(\0132\016.eic"
+      "io.Cluster\"\301\002\n\013RecParticle\022\014\n\004type\030\001 \001(\005"
+      "\022\t\n\001p\030\002 \003(\002\022\016\n\006energy\030\003 \001(\002\022\013\n\003cov\030\004 \003(\002"
+      "\022\014\n\004mass\030\005 \001(\002\022\016\n\006charge\030\006 \001(\002\022\013\n\003ref\030\007 "
+      "\003(\002\022\037\n\004PIDs\030\010 \003(\0132\021.eicio.ParticleID\022\017\n\007"
+      "PIDUsed\030\t \001(\005\022\025\n\rgoodnessOfPID\030\n \001(\002\022\036\n\004"
+      "recs\030\013 \003(\0132\020.eicio.Reference\022 \n\006tracks\030\014"
+      " \003(\0132\020.eicio.Reference\022\"\n\010clusters\030\r \003(\013"
+      "2\020.eicio.Reference\022\"\n\010startVtx\030\016 \001(\0132\020.e"
+      "icio.Reference\"k\n\025RecParticleCollection\022"
       "\r\n\005flags\030\001 \001(\005\022\035\n\006params\030\002 \001(\0132\r.eicio.P"
-      "arams\022%\n\005plane\030\003 \003(\0132\026.eicio.TrackerHitP"
-      "lane\"\025\n\023TrackerHitZCylinder\"v\n\035TrackerHi"
-      "tZCylinderCollection\022\r\n\005flags\030\001 \001(\005\022\035\n\006p"
-      "arams\030\002 \001(\0132\r.eicio.Params\022\'\n\003cyl\030\003 \003(\0132"
-      "\032.eicio.TrackerHitZCylinder\"\327\002\n\005Track\022\014\n"
-      "\004type\030\001 \001(\005\022\014\n\004chi2\030\002 \001(\002\022\013\n\003NDF\030\003 \001(\005\022\014"
-      "\n\004dEdx\030\004 \001(\002\022\017\n\007dEdxErr\030\005 \001(\002\022\016\n\006radius\030"
-      "\006 \001(\002\022\022\n\nsubDetHits\030\007 \003(\005\022\'\n\006states\030\010 \003("
-      "\0132\027.eicio.Track.TrackState\022\036\n\004hits\030\t \003(\013"
-      "2\020.eicio.Reference\022\"\n\010trackIDs\030\n \003(\0132\020.e"
-      "icio.Reference\032u\n\nTrackState\022\013\n\003loc\030\001 \001("
-      "\005\022\n\n\002d0\030\002 \001(\002\022\013\n\003phi\030\003 \001(\002\022\r\n\005omega\030\004 \001("
-      "\002\022\n\n\002z0\030\005 \001(\002\022\014\n\004tanL\030\006 \001(\002\022\013\n\003cov\030\007 \003(\002"
-      "\022\013\n\003ref\030\010 \003(\002\"\\\n\017TrackCollection\022\r\n\005flag"
-      "s\030\001 \001(\005\022\035\n\006params\030\002 \001(\0132\r.eicio.Params\022\033"
-      "\n\005track\030\003 \003(\0132\014.eicio.Track\"\205\002\n\021SimCalor"
-      "imeterHit\022\035\n\006params\030\001 \001(\0132\r.eicio.Params"
-      "\022\017\n\007cellID0\030\002 \001(\005\022\017\n\007cellID1\030\003 \001(\005\022\016\n\006en"
-      "ergy\030\004 \001(\002\022\013\n\003pos\030\005 \003(\002\0227\n\rcontributions"
-      "\030\006 \003(\0132 .eicio.SimCalorimeterHit.Contrib"
-      "\032Y\n\007Contrib\022\022\n\nMCParticle\030\001 \001(\005\022\016\n\006energ"
-      "y\030\002 \001(\002\022\014\n\004time\030\003 \001(\002\022\013\n\003PDG\030\004 \001(\005\022\017\n\007st"
-      "epPos\030\005 \003(\002\"r\n\033SimCalorimeterHitCollecti"
+      "arams\022$\n\010particle\030\003 \003(\0132\022.eicio.RecParti"
+      "cle\"\223\001\n\006Vertex\022\017\n\007primary\030\001 \001(\005\022\017\n\007algTy"
+      "pe\030\002 \001(\005\022\014\n\004chi2\030\003 \001(\002\022\014\n\004prob\030\004 \001(\002\022\013\n\003"
+      "pos\030\005 \003(\002\022\013\n\003cov\030\006 \003(\002\022\016\n\006params\030\007 \003(\002\022!"
+      "\n\007recPart\030\010 \001(\0132\020.eicio.Reference\"_\n\020Ver"
+      "texCollection\022\r\n\005flags\030\001 \001(\005\022\035\n\006params\030\002"
+      " \001(\0132\r.eicio.Params\022\035\n\006vertex\030\003 \003(\0132\r.ei"
+      "cio.Vertex\"X\n\010Relation\022\036\n\004from\030\001 \001(\0132\020.e"
+      "icio.Reference\022\034\n\002to\030\002 \001(\0132\020.eicio.Refer"
+      "ence\022\016\n\006weight\030\003 \001(\002\"e\n\022RelationCollecti"
       "on\022\r\n\005flags\030\001 \001(\005\022\035\n\006params\030\002 \001(\0132\r.eici"
-      "o.Params\022%\n\003hit\030\003 \003(\0132\030.eicio.SimCalorim"
-      "eterHit\"[\n\021RawCalorimeterHit\022\017\n\007cellID0\030"
-      "\001 \001(\005\022\017\n\007cellID1\030\002 \001(\005\022\021\n\tamplitude\030\004 \001("
-      "\005\022\021\n\ttimeStamp\030\005 \001(\005\"r\n\033RawCalorimeterHi"
-      "tCollection\022\r\n\005flags\030\001 \001(\005\022\035\n\006params\030\002 \001"
-      "(\0132\r.eicio.Params\022%\n\003hit\030\003 \003(\0132\030.eicio.R"
-      "awCalorimeterHit\"\235\001\n\016CalorimeterHit\022\017\n\007c"
-      "ellID0\030\001 \001(\005\022\017\n\007cellID1\030\002 \001(\005\022\016\n\006energy\030"
-      "\003 \001(\002\022\021\n\tenergyErr\030\004 \001(\002\022\014\n\004time\030\005 \001(\002\022\013"
-      "\n\003pos\030\006 \003(\002\022\014\n\004type\030\007 \001(\005\022\035\n\003raw\030\010 \001(\0132\020"
-      ".eicio.Reference\"l\n\030CalorimeterHitCollec"
-      "tion\022\r\n\005flags\030\001 \001(\005\022\035\n\006params\030\002 \001(\0132\r.ei"
-      "cio.Params\022\"\n\003hit\030\003 \003(\0132\025.eicio.Calorime"
-      "terHit\"\370\001\n\007Cluster\022\014\n\004type\030\001 \001(\005\022\016\n\006ener"
-      "gy\030\002 \001(\002\022\021\n\tenergyErr\030\003 \001(\002\022\013\n\003pos\030\004 \003(\002"
-      "\022\016\n\006posErr\030\005 \003(\002\022\r\n\005theta\030\006 \001(\002\022\013\n\003phi\030\007"
-      " \001(\002\022\016\n\006dirErr\030\010 \003(\002\022\r\n\005shape\030\t \003(\002\022\037\n\004P"
-      "IDs\030\n \003(\0132\021.eicio.ParticleID\022\036\n\004hits\030\013 \003"
-      "(\0132\020.eicio.Reference\022\017\n\007weights\030\014 \003(\002\022\022\n"
-      "\nsubDetEnes\030\r \003(\002\"b\n\021ClusterCollection\022\r"
-      "\n\005flags\030\001 \001(\005\022\035\n\006params\030\002 \001(\0132\r.eicio.Pa"
-      "rams\022\037\n\007cluster\030\003 \003(\0132\016.eicio.Cluster\"\301\002"
-      "\n\013RecParticle\022\014\n\004type\030\001 \001(\005\022\t\n\001p\030\002 \003(\002\022\016"
-      "\n\006energy\030\003 \001(\002\022\013\n\003cov\030\004 \003(\002\022\014\n\004mass\030\005 \001("
-      "\002\022\016\n\006charge\030\006 \001(\002\022\013\n\003ref\030\007 \003(\002\022\037\n\004PIDs\030\010"
-      " \003(\0132\021.eicio.ParticleID\022\017\n\007PIDUsed\030\t \001(\005"
-      "\022\025\n\rgoodnessOfPID\030\n \001(\002\022\036\n\004recs\030\013 \003(\0132\020."
-      "eicio.Reference\022 \n\006tracks\030\014 \003(\0132\020.eicio."
-      "Reference\022\"\n\010clusters\030\r \003(\0132\020.eicio.Refe"
-      "rence\022\"\n\010startVtx\030\016 \001(\0132\020.eicio.Referenc"
-      "e\"k\n\025RecParticleCollection\022\r\n\005flags\030\001 \001("
-      "\005\022\035\n\006params\030\002 \001(\0132\r.eicio.Params\022$\n\010part"
-      "icle\030\003 \003(\0132\022.eicio.RecParticle\"\223\001\n\006Verte"
-      "x\022\017\n\007primary\030\001 \001(\005\022\017\n\007algType\030\002 \001(\005\022\014\n\004c"
-      "hi2\030\003 \001(\002\022\014\n\004prob\030\004 \001(\002\022\013\n\003pos\030\005 \003(\002\022\013\n\003"
-      "cov\030\006 \003(\002\022\016\n\006params\030\007 \003(\002\022!\n\007recPart\030\010 \001"
-      "(\0132\020.eicio.Reference\"_\n\020VertexCollection"
-      "\022\r\n\005flags\030\001 \001(\005\022\035\n\006params\030\002 \001(\0132\r.eicio."
-      "Params\022\035\n\006vertex\030\003 \003(\0132\r.eicio.Vertexb\006p"
-      "roto3"
+      "o.Params\022!\n\010relation\030\003 \003(\0132\017.eicio.Relat"
+      "ionb\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 5085);
+      descriptor, 5811);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "eicio.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
@@ -9117,6 +9207,13 @@ TrackerHitCollection::hit() const {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int TrackerPulse::kCellID0FieldNumber;
+const int TrackerPulse::kCellID1FieldNumber;
+const int TrackerPulse::kTimeFieldNumber;
+const int TrackerPulse::kChargeFieldNumber;
+const int TrackerPulse::kCovFieldNumber;
+const int TrackerPulse::kQualityFieldNumber;
+const int TrackerPulse::kTPCFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 TrackerPulse::TrackerPulse()
@@ -9130,12 +9227,23 @@ TrackerPulse::TrackerPulse()
 TrackerPulse::TrackerPulse(const TrackerPulse& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
+      cov_(from.cov_),
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from.has_tpc()) {
+    tpc_ = new ::eicio::Reference(*from.tpc_);
+  } else {
+    tpc_ = NULL;
+  }
+  ::memcpy(&cellid0_, &from.cellid0_,
+    reinterpret_cast<char*>(&quality_) -
+    reinterpret_cast<char*>(&cellid0_) + sizeof(quality_));
   // @@protoc_insertion_point(copy_constructor:eicio.TrackerPulse)
 }
 
 void TrackerPulse::SharedCtor() {
+  ::memset(&tpc_, 0, reinterpret_cast<char*>(&quality_) -
+    reinterpret_cast<char*>(&tpc_) + sizeof(quality_));
   _cached_size_ = 0;
 }
 
@@ -9145,6 +9253,9 @@ TrackerPulse::~TrackerPulse() {
 }
 
 void TrackerPulse::SharedDtor() {
+  if (this != internal_default_instance()) {
+    delete tpc_;
+  }
 }
 
 void TrackerPulse::SetCachedSize(int size) const {
@@ -9172,6 +9283,13 @@ TrackerPulse* TrackerPulse::New(::google::protobuf::Arena* arena) const {
 
 void TrackerPulse::Clear() {
 // @@protoc_insertion_point(message_clear_start:eicio.TrackerPulse)
+  cov_.Clear();
+  if (GetArenaNoVirtual() == NULL && tpc_ != NULL) {
+    delete tpc_;
+  }
+  tpc_ = NULL;
+  ::memset(&cellid0_, 0, reinterpret_cast<char*>(&quality_) -
+    reinterpret_cast<char*>(&cellid0_) + sizeof(quality_));
 }
 
 bool TrackerPulse::MergePartialFromCodedStream(
@@ -9183,13 +9301,118 @@ bool TrackerPulse::MergePartialFromCodedStream(
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
-  handle_unusual:
-    if (tag == 0 ||
-        ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-      goto success;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // int32 cellID0 = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &cellid0_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 cellID1 = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(16u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &cellid1_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // float time = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(29u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &time_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // float charge = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(37u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &charge_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // repeated float cov = 5;
+      case 5: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(42u)) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, this->mutable_cov())));
+        } else if (static_cast< ::google::protobuf::uint8>(tag) ==
+                   static_cast< ::google::protobuf::uint8>(45u)) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 1, 42u, input, this->mutable_cov())));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 quality = 6;
+      case 6: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(48u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &quality_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // .eicio.Reference TPC = 7;
+      case 7: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(58u)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_tpc()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
     }
-    DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
   }
 success:
   // @@protoc_insertion_point(parse_success:eicio.TrackerPulse)
@@ -9206,6 +9429,45 @@ void TrackerPulse::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  // int32 cellID0 = 1;
+  if (this->cellid0() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->cellid0(), output);
+  }
+
+  // int32 cellID1 = 2;
+  if (this->cellid1() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->cellid1(), output);
+  }
+
+  // float time = 3;
+  if (this->time() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(3, this->time(), output);
+  }
+
+  // float charge = 4;
+  if (this->charge() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(4, this->charge(), output);
+  }
+
+  // repeated float cov = 5;
+  if (this->cov_size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteTag(5, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
+    output->WriteVarint32(_cov_cached_byte_size_);
+    ::google::protobuf::internal::WireFormatLite::WriteFloatArray(
+      this->cov().data(), this->cov_size(), output);
+  }
+
+  // int32 quality = 6;
+  if (this->quality() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(6, this->quality(), output);
+  }
+
+  // .eicio.Reference TPC = 7;
+  if (this->has_tpc()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      7, *this->tpc_, output);
+  }
+
   // @@protoc_insertion_point(serialize_end:eicio.TrackerPulse)
 }
 
@@ -9216,6 +9478,50 @@ void TrackerPulse::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  // int32 cellID0 = 1;
+  if (this->cellid0() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->cellid0(), target);
+  }
+
+  // int32 cellID1 = 2;
+  if (this->cellid1() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->cellid1(), target);
+  }
+
+  // float time = 3;
+  if (this->time() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(3, this->time(), target);
+  }
+
+  // float charge = 4;
+  if (this->charge() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(4, this->charge(), target);
+  }
+
+  // repeated float cov = 5;
+  if (this->cov_size() > 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
+      5,
+      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
+      target);
+    target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
+      _cov_cached_byte_size_, target);
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteFloatNoTagToArray(this->cov_, target);
+  }
+
+  // int32 quality = 6;
+  if (this->quality() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(6, this->quality(), target);
+  }
+
+  // .eicio.Reference TPC = 7;
+  if (this->has_tpc()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        7, *this->tpc_, deterministic, target);
+  }
+
   // @@protoc_insertion_point(serialize_to_array_end:eicio.TrackerPulse)
   return target;
 }
@@ -9223,6 +9529,59 @@ void TrackerPulse::SerializeWithCachedSizes(
 size_t TrackerPulse::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:eicio.TrackerPulse)
   size_t total_size = 0;
+
+  // repeated float cov = 5;
+  {
+    unsigned int count = this->cov_size();
+    size_t data_size = 4UL * count;
+    if (data_size > 0) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
+    }
+    int cached_size = ::google::protobuf::internal::ToCachedSize(data_size);
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cov_cached_byte_size_ = cached_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    total_size += data_size;
+  }
+
+  // .eicio.Reference TPC = 7;
+  if (this->has_tpc()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->tpc_);
+  }
+
+  // int32 cellID0 = 1;
+  if (this->cellid0() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->cellid0());
+  }
+
+  // int32 cellID1 = 2;
+  if (this->cellid1() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->cellid1());
+  }
+
+  // float time = 3;
+  if (this->time() != 0) {
+    total_size += 1 + 4;
+  }
+
+  // float charge = 4;
+  if (this->charge() != 0) {
+    total_size += 1 + 4;
+  }
+
+  // int32 quality = 6;
+  if (this->quality() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->quality());
+  }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -9253,6 +9612,25 @@ void TrackerPulse::MergeFrom(const TrackerPulse& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  cov_.MergeFrom(from.cov_);
+  if (from.has_tpc()) {
+    mutable_tpc()->::eicio::Reference::MergeFrom(from.tpc());
+  }
+  if (from.cellid0() != 0) {
+    set_cellid0(from.cellid0());
+  }
+  if (from.cellid1() != 0) {
+    set_cellid1(from.cellid1());
+  }
+  if (from.time() != 0) {
+    set_time(from.time());
+  }
+  if (from.charge() != 0) {
+    set_charge(from.charge());
+  }
+  if (from.quality() != 0) {
+    set_quality(from.quality());
+  }
 }
 
 void TrackerPulse::CopyFrom(const ::google::protobuf::Message& from) {
@@ -9278,6 +9656,13 @@ void TrackerPulse::Swap(TrackerPulse* other) {
   InternalSwap(other);
 }
 void TrackerPulse::InternalSwap(TrackerPulse* other) {
+  cov_.InternalSwap(&other->cov_);
+  std::swap(tpc_, other->tpc_);
+  std::swap(cellid0_, other->cellid0_);
+  std::swap(cellid1_, other->cellid1_);
+  std::swap(time_, other->time_);
+  std::swap(charge_, other->charge_);
+  std::swap(quality_, other->quality_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
@@ -9288,6 +9673,145 @@ void TrackerPulse::InternalSwap(TrackerPulse* other) {
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // TrackerPulse
+
+// int32 cellID0 = 1;
+void TrackerPulse::clear_cellid0() {
+  cellid0_ = 0;
+}
+::google::protobuf::int32 TrackerPulse::cellid0() const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerPulse.cellID0)
+  return cellid0_;
+}
+void TrackerPulse::set_cellid0(::google::protobuf::int32 value) {
+  
+  cellid0_ = value;
+  // @@protoc_insertion_point(field_set:eicio.TrackerPulse.cellID0)
+}
+
+// int32 cellID1 = 2;
+void TrackerPulse::clear_cellid1() {
+  cellid1_ = 0;
+}
+::google::protobuf::int32 TrackerPulse::cellid1() const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerPulse.cellID1)
+  return cellid1_;
+}
+void TrackerPulse::set_cellid1(::google::protobuf::int32 value) {
+  
+  cellid1_ = value;
+  // @@protoc_insertion_point(field_set:eicio.TrackerPulse.cellID1)
+}
+
+// float time = 3;
+void TrackerPulse::clear_time() {
+  time_ = 0;
+}
+float TrackerPulse::time() const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerPulse.time)
+  return time_;
+}
+void TrackerPulse::set_time(float value) {
+  
+  time_ = value;
+  // @@protoc_insertion_point(field_set:eicio.TrackerPulse.time)
+}
+
+// float charge = 4;
+void TrackerPulse::clear_charge() {
+  charge_ = 0;
+}
+float TrackerPulse::charge() const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerPulse.charge)
+  return charge_;
+}
+void TrackerPulse::set_charge(float value) {
+  
+  charge_ = value;
+  // @@protoc_insertion_point(field_set:eicio.TrackerPulse.charge)
+}
+
+// repeated float cov = 5;
+int TrackerPulse::cov_size() const {
+  return cov_.size();
+}
+void TrackerPulse::clear_cov() {
+  cov_.Clear();
+}
+float TrackerPulse::cov(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerPulse.cov)
+  return cov_.Get(index);
+}
+void TrackerPulse::set_cov(int index, float value) {
+  cov_.Set(index, value);
+  // @@protoc_insertion_point(field_set:eicio.TrackerPulse.cov)
+}
+void TrackerPulse::add_cov(float value) {
+  cov_.Add(value);
+  // @@protoc_insertion_point(field_add:eicio.TrackerPulse.cov)
+}
+const ::google::protobuf::RepeatedField< float >&
+TrackerPulse::cov() const {
+  // @@protoc_insertion_point(field_list:eicio.TrackerPulse.cov)
+  return cov_;
+}
+::google::protobuf::RepeatedField< float >*
+TrackerPulse::mutable_cov() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.TrackerPulse.cov)
+  return &cov_;
+}
+
+// int32 quality = 6;
+void TrackerPulse::clear_quality() {
+  quality_ = 0;
+}
+::google::protobuf::int32 TrackerPulse::quality() const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerPulse.quality)
+  return quality_;
+}
+void TrackerPulse::set_quality(::google::protobuf::int32 value) {
+  
+  quality_ = value;
+  // @@protoc_insertion_point(field_set:eicio.TrackerPulse.quality)
+}
+
+// .eicio.Reference TPC = 7;
+bool TrackerPulse::has_tpc() const {
+  return this != internal_default_instance() && tpc_ != NULL;
+}
+void TrackerPulse::clear_tpc() {
+  if (GetArenaNoVirtual() == NULL && tpc_ != NULL) delete tpc_;
+  tpc_ = NULL;
+}
+const ::eicio::Reference& TrackerPulse::tpc() const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerPulse.TPC)
+  return tpc_ != NULL ? *tpc_
+                         : *::eicio::Reference::internal_default_instance();
+}
+::eicio::Reference* TrackerPulse::mutable_tpc() {
+  
+  if (tpc_ == NULL) {
+    tpc_ = new ::eicio::Reference;
+  }
+  // @@protoc_insertion_point(field_mutable:eicio.TrackerPulse.TPC)
+  return tpc_;
+}
+::eicio::Reference* TrackerPulse::release_tpc() {
+  // @@protoc_insertion_point(field_release:eicio.TrackerPulse.TPC)
+  
+  ::eicio::Reference* temp = tpc_;
+  tpc_ = NULL;
+  return temp;
+}
+void TrackerPulse::set_allocated_tpc(::eicio::Reference* tpc) {
+  delete tpc_;
+  tpc_ = tpc;
+  if (tpc) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:eicio.TrackerPulse.TPC)
+}
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
@@ -9689,6 +10213,19 @@ TrackerPulseCollection::pulse() const {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int TrackerHitPlane::kCellID0FieldNumber;
+const int TrackerHitPlane::kCellID1FieldNumber;
+const int TrackerHitPlane::kTypeFieldNumber;
+const int TrackerHitPlane::kPosFieldNumber;
+const int TrackerHitPlane::kUFieldNumber;
+const int TrackerHitPlane::kVFieldNumber;
+const int TrackerHitPlane::kDUFieldNumber;
+const int TrackerHitPlane::kDVFieldNumber;
+const int TrackerHitPlane::kEDepFieldNumber;
+const int TrackerHitPlane::kEDepErrFieldNumber;
+const int TrackerHitPlane::kTimeFieldNumber;
+const int TrackerHitPlane::kQualityFieldNumber;
+const int TrackerHitPlane::kRawHitsFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 TrackerHitPlane::TrackerHitPlane()
@@ -9702,12 +10239,21 @@ TrackerHitPlane::TrackerHitPlane()
 TrackerHitPlane::TrackerHitPlane(const TrackerHitPlane& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
+      pos_(from.pos_),
+      u_(from.u_),
+      v_(from.v_),
+      rawhits_(from.rawhits_),
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::memcpy(&cellid0_, &from.cellid0_,
+    reinterpret_cast<char*>(&quality_) -
+    reinterpret_cast<char*>(&cellid0_) + sizeof(quality_));
   // @@protoc_insertion_point(copy_constructor:eicio.TrackerHitPlane)
 }
 
 void TrackerHitPlane::SharedCtor() {
+  ::memset(&cellid0_, 0, reinterpret_cast<char*>(&quality_) -
+    reinterpret_cast<char*>(&cellid0_) + sizeof(quality_));
   _cached_size_ = 0;
 }
 
@@ -9744,6 +10290,12 @@ TrackerHitPlane* TrackerHitPlane::New(::google::protobuf::Arena* arena) const {
 
 void TrackerHitPlane::Clear() {
 // @@protoc_insertion_point(message_clear_start:eicio.TrackerHitPlane)
+  pos_.Clear();
+  u_.Clear();
+  v_.Clear();
+  rawhits_.Clear();
+  ::memset(&cellid0_, 0, reinterpret_cast<char*>(&quality_) -
+    reinterpret_cast<char*>(&cellid0_) + sizeof(quality_));
 }
 
 bool TrackerHitPlane::MergePartialFromCodedStream(
@@ -9755,13 +10307,210 @@ bool TrackerHitPlane::MergePartialFromCodedStream(
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
-  handle_unusual:
-    if (tag == 0 ||
-        ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-      goto success;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // int32 cellID0 = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &cellid0_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 cellID1 = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(16u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &cellid1_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 type = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(24u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &type_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // repeated double pos = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(34u)) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, this->mutable_pos())));
+        } else if (static_cast< ::google::protobuf::uint8>(tag) ==
+                   static_cast< ::google::protobuf::uint8>(33u)) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 1, 34u, input, this->mutable_pos())));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // repeated float U = 5;
+      case 5: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(42u)) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, this->mutable_u())));
+        } else if (static_cast< ::google::protobuf::uint8>(tag) ==
+                   static_cast< ::google::protobuf::uint8>(45u)) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 1, 42u, input, this->mutable_u())));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // repeated float V = 6;
+      case 6: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(50u)) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, this->mutable_v())));
+        } else if (static_cast< ::google::protobuf::uint8>(tag) ==
+                   static_cast< ::google::protobuf::uint8>(53u)) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 1, 50u, input, this->mutable_v())));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // float dU = 7;
+      case 7: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(61u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &du_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // float dV = 8;
+      case 8: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(69u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &dv_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // float EDep = 9;
+      case 9: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(77u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &edep_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // float EDepErr = 10;
+      case 10: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(85u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &edeperr_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // float time = 11;
+      case 11: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(93u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &time_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 quality = 12;
+      case 12: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(96u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &quality_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // repeated .eicio.Reference rawHits = 13;
+      case 13: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(106u)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_rawhits()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
     }
-    DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
   }
 success:
   // @@protoc_insertion_point(parse_success:eicio.TrackerHitPlane)
@@ -9778,6 +10527,81 @@ void TrackerHitPlane::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  // int32 cellID0 = 1;
+  if (this->cellid0() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->cellid0(), output);
+  }
+
+  // int32 cellID1 = 2;
+  if (this->cellid1() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->cellid1(), output);
+  }
+
+  // int32 type = 3;
+  if (this->type() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->type(), output);
+  }
+
+  // repeated double pos = 4;
+  if (this->pos_size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteTag(4, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
+    output->WriteVarint32(_pos_cached_byte_size_);
+    ::google::protobuf::internal::WireFormatLite::WriteDoubleArray(
+      this->pos().data(), this->pos_size(), output);
+  }
+
+  // repeated float U = 5;
+  if (this->u_size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteTag(5, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
+    output->WriteVarint32(_u_cached_byte_size_);
+    ::google::protobuf::internal::WireFormatLite::WriteFloatArray(
+      this->u().data(), this->u_size(), output);
+  }
+
+  // repeated float V = 6;
+  if (this->v_size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteTag(6, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
+    output->WriteVarint32(_v_cached_byte_size_);
+    ::google::protobuf::internal::WireFormatLite::WriteFloatArray(
+      this->v().data(), this->v_size(), output);
+  }
+
+  // float dU = 7;
+  if (this->du() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(7, this->du(), output);
+  }
+
+  // float dV = 8;
+  if (this->dv() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(8, this->dv(), output);
+  }
+
+  // float EDep = 9;
+  if (this->edep() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(9, this->edep(), output);
+  }
+
+  // float EDepErr = 10;
+  if (this->edeperr() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(10, this->edeperr(), output);
+  }
+
+  // float time = 11;
+  if (this->time() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(11, this->time(), output);
+  }
+
+  // int32 quality = 12;
+  if (this->quality() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(12, this->quality(), output);
+  }
+
+  // repeated .eicio.Reference rawHits = 13;
+  for (unsigned int i = 0, n = this->rawhits_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      13, this->rawhits(i), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:eicio.TrackerHitPlane)
 }
 
@@ -9788,6 +10612,94 @@ void TrackerHitPlane::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  // int32 cellID0 = 1;
+  if (this->cellid0() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->cellid0(), target);
+  }
+
+  // int32 cellID1 = 2;
+  if (this->cellid1() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->cellid1(), target);
+  }
+
+  // int32 type = 3;
+  if (this->type() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->type(), target);
+  }
+
+  // repeated double pos = 4;
+  if (this->pos_size() > 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
+      4,
+      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
+      target);
+    target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
+      _pos_cached_byte_size_, target);
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteDoubleNoTagToArray(this->pos_, target);
+  }
+
+  // repeated float U = 5;
+  if (this->u_size() > 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
+      5,
+      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
+      target);
+    target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
+      _u_cached_byte_size_, target);
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteFloatNoTagToArray(this->u_, target);
+  }
+
+  // repeated float V = 6;
+  if (this->v_size() > 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
+      6,
+      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
+      target);
+    target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
+      _v_cached_byte_size_, target);
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteFloatNoTagToArray(this->v_, target);
+  }
+
+  // float dU = 7;
+  if (this->du() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(7, this->du(), target);
+  }
+
+  // float dV = 8;
+  if (this->dv() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(8, this->dv(), target);
+  }
+
+  // float EDep = 9;
+  if (this->edep() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(9, this->edep(), target);
+  }
+
+  // float EDepErr = 10;
+  if (this->edeperr() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(10, this->edeperr(), target);
+  }
+
+  // float time = 11;
+  if (this->time() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(11, this->time(), target);
+  }
+
+  // int32 quality = 12;
+  if (this->quality() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(12, this->quality(), target);
+  }
+
+  // repeated .eicio.Reference rawHits = 13;
+  for (unsigned int i = 0, n = this->rawhits_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        13, this->rawhits(i), deterministic, target);
+  }
+
   // @@protoc_insertion_point(serialize_to_array_end:eicio.TrackerHitPlane)
   return target;
 }
@@ -9795,6 +10707,115 @@ void TrackerHitPlane::SerializeWithCachedSizes(
 size_t TrackerHitPlane::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:eicio.TrackerHitPlane)
   size_t total_size = 0;
+
+  // repeated double pos = 4;
+  {
+    unsigned int count = this->pos_size();
+    size_t data_size = 8UL * count;
+    if (data_size > 0) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
+    }
+    int cached_size = ::google::protobuf::internal::ToCachedSize(data_size);
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _pos_cached_byte_size_ = cached_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    total_size += data_size;
+  }
+
+  // repeated float U = 5;
+  {
+    unsigned int count = this->u_size();
+    size_t data_size = 4UL * count;
+    if (data_size > 0) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
+    }
+    int cached_size = ::google::protobuf::internal::ToCachedSize(data_size);
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _u_cached_byte_size_ = cached_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    total_size += data_size;
+  }
+
+  // repeated float V = 6;
+  {
+    unsigned int count = this->v_size();
+    size_t data_size = 4UL * count;
+    if (data_size > 0) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
+    }
+    int cached_size = ::google::protobuf::internal::ToCachedSize(data_size);
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _v_cached_byte_size_ = cached_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    total_size += data_size;
+  }
+
+  // repeated .eicio.Reference rawHits = 13;
+  {
+    unsigned int count = this->rawhits_size();
+    total_size += 1UL * count;
+    for (unsigned int i = 0; i < count; i++) {
+      total_size +=
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->rawhits(i));
+    }
+  }
+
+  // int32 cellID0 = 1;
+  if (this->cellid0() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->cellid0());
+  }
+
+  // int32 cellID1 = 2;
+  if (this->cellid1() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->cellid1());
+  }
+
+  // int32 type = 3;
+  if (this->type() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->type());
+  }
+
+  // float dU = 7;
+  if (this->du() != 0) {
+    total_size += 1 + 4;
+  }
+
+  // float dV = 8;
+  if (this->dv() != 0) {
+    total_size += 1 + 4;
+  }
+
+  // float EDep = 9;
+  if (this->edep() != 0) {
+    total_size += 1 + 4;
+  }
+
+  // float EDepErr = 10;
+  if (this->edeperr() != 0) {
+    total_size += 1 + 4;
+  }
+
+  // float time = 11;
+  if (this->time() != 0) {
+    total_size += 1 + 4;
+  }
+
+  // int32 quality = 12;
+  if (this->quality() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->quality());
+  }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -9825,6 +10846,37 @@ void TrackerHitPlane::MergeFrom(const TrackerHitPlane& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  pos_.MergeFrom(from.pos_);
+  u_.MergeFrom(from.u_);
+  v_.MergeFrom(from.v_);
+  rawhits_.MergeFrom(from.rawhits_);
+  if (from.cellid0() != 0) {
+    set_cellid0(from.cellid0());
+  }
+  if (from.cellid1() != 0) {
+    set_cellid1(from.cellid1());
+  }
+  if (from.type() != 0) {
+    set_type(from.type());
+  }
+  if (from.du() != 0) {
+    set_du(from.du());
+  }
+  if (from.dv() != 0) {
+    set_dv(from.dv());
+  }
+  if (from.edep() != 0) {
+    set_edep(from.edep());
+  }
+  if (from.edeperr() != 0) {
+    set_edeperr(from.edeperr());
+  }
+  if (from.time() != 0) {
+    set_time(from.time());
+  }
+  if (from.quality() != 0) {
+    set_quality(from.quality());
+  }
 }
 
 void TrackerHitPlane::CopyFrom(const ::google::protobuf::Message& from) {
@@ -9850,6 +10902,19 @@ void TrackerHitPlane::Swap(TrackerHitPlane* other) {
   InternalSwap(other);
 }
 void TrackerHitPlane::InternalSwap(TrackerHitPlane* other) {
+  pos_.InternalSwap(&other->pos_);
+  u_.InternalSwap(&other->u_);
+  v_.InternalSwap(&other->v_);
+  rawhits_.InternalSwap(&other->rawhits_);
+  std::swap(cellid0_, other->cellid0_);
+  std::swap(cellid1_, other->cellid1_);
+  std::swap(type_, other->type_);
+  std::swap(du_, other->du_);
+  std::swap(dv_, other->dv_);
+  std::swap(edep_, other->edep_);
+  std::swap(edeperr_, other->edeperr_);
+  std::swap(time_, other->time_);
+  std::swap(quality_, other->quality_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
@@ -9860,6 +10925,252 @@ void TrackerHitPlane::InternalSwap(TrackerHitPlane* other) {
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // TrackerHitPlane
+
+// int32 cellID0 = 1;
+void TrackerHitPlane::clear_cellid0() {
+  cellid0_ = 0;
+}
+::google::protobuf::int32 TrackerHitPlane::cellid0() const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerHitPlane.cellID0)
+  return cellid0_;
+}
+void TrackerHitPlane::set_cellid0(::google::protobuf::int32 value) {
+  
+  cellid0_ = value;
+  // @@protoc_insertion_point(field_set:eicio.TrackerHitPlane.cellID0)
+}
+
+// int32 cellID1 = 2;
+void TrackerHitPlane::clear_cellid1() {
+  cellid1_ = 0;
+}
+::google::protobuf::int32 TrackerHitPlane::cellid1() const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerHitPlane.cellID1)
+  return cellid1_;
+}
+void TrackerHitPlane::set_cellid1(::google::protobuf::int32 value) {
+  
+  cellid1_ = value;
+  // @@protoc_insertion_point(field_set:eicio.TrackerHitPlane.cellID1)
+}
+
+// int32 type = 3;
+void TrackerHitPlane::clear_type() {
+  type_ = 0;
+}
+::google::protobuf::int32 TrackerHitPlane::type() const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerHitPlane.type)
+  return type_;
+}
+void TrackerHitPlane::set_type(::google::protobuf::int32 value) {
+  
+  type_ = value;
+  // @@protoc_insertion_point(field_set:eicio.TrackerHitPlane.type)
+}
+
+// repeated double pos = 4;
+int TrackerHitPlane::pos_size() const {
+  return pos_.size();
+}
+void TrackerHitPlane::clear_pos() {
+  pos_.Clear();
+}
+double TrackerHitPlane::pos(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerHitPlane.pos)
+  return pos_.Get(index);
+}
+void TrackerHitPlane::set_pos(int index, double value) {
+  pos_.Set(index, value);
+  // @@protoc_insertion_point(field_set:eicio.TrackerHitPlane.pos)
+}
+void TrackerHitPlane::add_pos(double value) {
+  pos_.Add(value);
+  // @@protoc_insertion_point(field_add:eicio.TrackerHitPlane.pos)
+}
+const ::google::protobuf::RepeatedField< double >&
+TrackerHitPlane::pos() const {
+  // @@protoc_insertion_point(field_list:eicio.TrackerHitPlane.pos)
+  return pos_;
+}
+::google::protobuf::RepeatedField< double >*
+TrackerHitPlane::mutable_pos() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.TrackerHitPlane.pos)
+  return &pos_;
+}
+
+// repeated float U = 5;
+int TrackerHitPlane::u_size() const {
+  return u_.size();
+}
+void TrackerHitPlane::clear_u() {
+  u_.Clear();
+}
+float TrackerHitPlane::u(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerHitPlane.U)
+  return u_.Get(index);
+}
+void TrackerHitPlane::set_u(int index, float value) {
+  u_.Set(index, value);
+  // @@protoc_insertion_point(field_set:eicio.TrackerHitPlane.U)
+}
+void TrackerHitPlane::add_u(float value) {
+  u_.Add(value);
+  // @@protoc_insertion_point(field_add:eicio.TrackerHitPlane.U)
+}
+const ::google::protobuf::RepeatedField< float >&
+TrackerHitPlane::u() const {
+  // @@protoc_insertion_point(field_list:eicio.TrackerHitPlane.U)
+  return u_;
+}
+::google::protobuf::RepeatedField< float >*
+TrackerHitPlane::mutable_u() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.TrackerHitPlane.U)
+  return &u_;
+}
+
+// repeated float V = 6;
+int TrackerHitPlane::v_size() const {
+  return v_.size();
+}
+void TrackerHitPlane::clear_v() {
+  v_.Clear();
+}
+float TrackerHitPlane::v(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerHitPlane.V)
+  return v_.Get(index);
+}
+void TrackerHitPlane::set_v(int index, float value) {
+  v_.Set(index, value);
+  // @@protoc_insertion_point(field_set:eicio.TrackerHitPlane.V)
+}
+void TrackerHitPlane::add_v(float value) {
+  v_.Add(value);
+  // @@protoc_insertion_point(field_add:eicio.TrackerHitPlane.V)
+}
+const ::google::protobuf::RepeatedField< float >&
+TrackerHitPlane::v() const {
+  // @@protoc_insertion_point(field_list:eicio.TrackerHitPlane.V)
+  return v_;
+}
+::google::protobuf::RepeatedField< float >*
+TrackerHitPlane::mutable_v() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.TrackerHitPlane.V)
+  return &v_;
+}
+
+// float dU = 7;
+void TrackerHitPlane::clear_du() {
+  du_ = 0;
+}
+float TrackerHitPlane::du() const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerHitPlane.dU)
+  return du_;
+}
+void TrackerHitPlane::set_du(float value) {
+  
+  du_ = value;
+  // @@protoc_insertion_point(field_set:eicio.TrackerHitPlane.dU)
+}
+
+// float dV = 8;
+void TrackerHitPlane::clear_dv() {
+  dv_ = 0;
+}
+float TrackerHitPlane::dv() const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerHitPlane.dV)
+  return dv_;
+}
+void TrackerHitPlane::set_dv(float value) {
+  
+  dv_ = value;
+  // @@protoc_insertion_point(field_set:eicio.TrackerHitPlane.dV)
+}
+
+// float EDep = 9;
+void TrackerHitPlane::clear_edep() {
+  edep_ = 0;
+}
+float TrackerHitPlane::edep() const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerHitPlane.EDep)
+  return edep_;
+}
+void TrackerHitPlane::set_edep(float value) {
+  
+  edep_ = value;
+  // @@protoc_insertion_point(field_set:eicio.TrackerHitPlane.EDep)
+}
+
+// float EDepErr = 10;
+void TrackerHitPlane::clear_edeperr() {
+  edeperr_ = 0;
+}
+float TrackerHitPlane::edeperr() const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerHitPlane.EDepErr)
+  return edeperr_;
+}
+void TrackerHitPlane::set_edeperr(float value) {
+  
+  edeperr_ = value;
+  // @@protoc_insertion_point(field_set:eicio.TrackerHitPlane.EDepErr)
+}
+
+// float time = 11;
+void TrackerHitPlane::clear_time() {
+  time_ = 0;
+}
+float TrackerHitPlane::time() const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerHitPlane.time)
+  return time_;
+}
+void TrackerHitPlane::set_time(float value) {
+  
+  time_ = value;
+  // @@protoc_insertion_point(field_set:eicio.TrackerHitPlane.time)
+}
+
+// int32 quality = 12;
+void TrackerHitPlane::clear_quality() {
+  quality_ = 0;
+}
+::google::protobuf::int32 TrackerHitPlane::quality() const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerHitPlane.quality)
+  return quality_;
+}
+void TrackerHitPlane::set_quality(::google::protobuf::int32 value) {
+  
+  quality_ = value;
+  // @@protoc_insertion_point(field_set:eicio.TrackerHitPlane.quality)
+}
+
+// repeated .eicio.Reference rawHits = 13;
+int TrackerHitPlane::rawhits_size() const {
+  return rawhits_.size();
+}
+void TrackerHitPlane::clear_rawhits() {
+  rawhits_.Clear();
+}
+const ::eicio::Reference& TrackerHitPlane::rawhits(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerHitPlane.rawHits)
+  return rawhits_.Get(index);
+}
+::eicio::Reference* TrackerHitPlane::mutable_rawhits(int index) {
+  // @@protoc_insertion_point(field_mutable:eicio.TrackerHitPlane.rawHits)
+  return rawhits_.Mutable(index);
+}
+::eicio::Reference* TrackerHitPlane::add_rawhits() {
+  // @@protoc_insertion_point(field_add:eicio.TrackerHitPlane.rawHits)
+  return rawhits_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::eicio::Reference >*
+TrackerHitPlane::mutable_rawhits() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.TrackerHitPlane.rawHits)
+  return &rawhits_;
+}
+const ::google::protobuf::RepeatedPtrField< ::eicio::Reference >&
+TrackerHitPlane::rawhits() const {
+  // @@protoc_insertion_point(field_list:eicio.TrackerHitPlane.rawHits)
+  return rawhits_;
+}
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
@@ -10261,6 +11572,18 @@ TrackerHitPlaneCollection::plane() const {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int TrackerHitZCylinder::kCellID0FieldNumber;
+const int TrackerHitZCylinder::kCellID1FieldNumber;
+const int TrackerHitZCylinder::kTypeFieldNumber;
+const int TrackerHitZCylinder::kPosFieldNumber;
+const int TrackerHitZCylinder::kCenterFieldNumber;
+const int TrackerHitZCylinder::kDRPhiFieldNumber;
+const int TrackerHitZCylinder::kDZFieldNumber;
+const int TrackerHitZCylinder::kEDepFieldNumber;
+const int TrackerHitZCylinder::kEDepErrFieldNumber;
+const int TrackerHitZCylinder::kTimeFieldNumber;
+const int TrackerHitZCylinder::kQualityFieldNumber;
+const int TrackerHitZCylinder::kRawHitsFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 TrackerHitZCylinder::TrackerHitZCylinder()
@@ -10274,12 +11597,20 @@ TrackerHitZCylinder::TrackerHitZCylinder()
 TrackerHitZCylinder::TrackerHitZCylinder(const TrackerHitZCylinder& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
+      pos_(from.pos_),
+      center_(from.center_),
+      rawhits_(from.rawhits_),
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::memcpy(&cellid0_, &from.cellid0_,
+    reinterpret_cast<char*>(&quality_) -
+    reinterpret_cast<char*>(&cellid0_) + sizeof(quality_));
   // @@protoc_insertion_point(copy_constructor:eicio.TrackerHitZCylinder)
 }
 
 void TrackerHitZCylinder::SharedCtor() {
+  ::memset(&cellid0_, 0, reinterpret_cast<char*>(&quality_) -
+    reinterpret_cast<char*>(&cellid0_) + sizeof(quality_));
   _cached_size_ = 0;
 }
 
@@ -10316,6 +11647,11 @@ TrackerHitZCylinder* TrackerHitZCylinder::New(::google::protobuf::Arena* arena) 
 
 void TrackerHitZCylinder::Clear() {
 // @@protoc_insertion_point(message_clear_start:eicio.TrackerHitZCylinder)
+  pos_.Clear();
+  center_.Clear();
+  rawhits_.Clear();
+  ::memset(&cellid0_, 0, reinterpret_cast<char*>(&quality_) -
+    reinterpret_cast<char*>(&cellid0_) + sizeof(quality_));
 }
 
 bool TrackerHitZCylinder::MergePartialFromCodedStream(
@@ -10327,13 +11663,192 @@ bool TrackerHitZCylinder::MergePartialFromCodedStream(
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
-  handle_unusual:
-    if (tag == 0 ||
-        ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-      goto success;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // int32 cellID0 = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &cellid0_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 cellID1 = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(16u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &cellid1_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 type = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(24u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &type_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // repeated double pos = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(34u)) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, this->mutable_pos())));
+        } else if (static_cast< ::google::protobuf::uint8>(tag) ==
+                   static_cast< ::google::protobuf::uint8>(33u)) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 1, 34u, input, this->mutable_pos())));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // repeated float center = 5;
+      case 5: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(42u)) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, this->mutable_center())));
+        } else if (static_cast< ::google::protobuf::uint8>(tag) ==
+                   static_cast< ::google::protobuf::uint8>(45u)) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 1, 42u, input, this->mutable_center())));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // float dRPhi = 6;
+      case 6: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(53u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &drphi_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // float dZ = 7;
+      case 7: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(61u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &dz_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // float EDep = 8;
+      case 8: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(69u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &edep_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // float EDepErr = 9;
+      case 9: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(77u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &edeperr_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // float time = 10;
+      case 10: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(85u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &time_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 quality = 11;
+      case 11: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(88u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &quality_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // repeated .eicio.Reference rawHits = 12;
+      case 12: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(98u)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_rawhits()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
     }
-    DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
   }
 success:
   // @@protoc_insertion_point(parse_success:eicio.TrackerHitZCylinder)
@@ -10350,6 +11865,73 @@ void TrackerHitZCylinder::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  // int32 cellID0 = 1;
+  if (this->cellid0() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->cellid0(), output);
+  }
+
+  // int32 cellID1 = 2;
+  if (this->cellid1() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->cellid1(), output);
+  }
+
+  // int32 type = 3;
+  if (this->type() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->type(), output);
+  }
+
+  // repeated double pos = 4;
+  if (this->pos_size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteTag(4, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
+    output->WriteVarint32(_pos_cached_byte_size_);
+    ::google::protobuf::internal::WireFormatLite::WriteDoubleArray(
+      this->pos().data(), this->pos_size(), output);
+  }
+
+  // repeated float center = 5;
+  if (this->center_size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteTag(5, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
+    output->WriteVarint32(_center_cached_byte_size_);
+    ::google::protobuf::internal::WireFormatLite::WriteFloatArray(
+      this->center().data(), this->center_size(), output);
+  }
+
+  // float dRPhi = 6;
+  if (this->drphi() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(6, this->drphi(), output);
+  }
+
+  // float dZ = 7;
+  if (this->dz() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(7, this->dz(), output);
+  }
+
+  // float EDep = 8;
+  if (this->edep() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(8, this->edep(), output);
+  }
+
+  // float EDepErr = 9;
+  if (this->edeperr() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(9, this->edeperr(), output);
+  }
+
+  // float time = 10;
+  if (this->time() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(10, this->time(), output);
+  }
+
+  // int32 quality = 11;
+  if (this->quality() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(11, this->quality(), output);
+  }
+
+  // repeated .eicio.Reference rawHits = 12;
+  for (unsigned int i = 0, n = this->rawhits_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      12, this->rawhits(i), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:eicio.TrackerHitZCylinder)
 }
 
@@ -10360,6 +11942,82 @@ void TrackerHitZCylinder::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  // int32 cellID0 = 1;
+  if (this->cellid0() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->cellid0(), target);
+  }
+
+  // int32 cellID1 = 2;
+  if (this->cellid1() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->cellid1(), target);
+  }
+
+  // int32 type = 3;
+  if (this->type() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->type(), target);
+  }
+
+  // repeated double pos = 4;
+  if (this->pos_size() > 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
+      4,
+      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
+      target);
+    target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
+      _pos_cached_byte_size_, target);
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteDoubleNoTagToArray(this->pos_, target);
+  }
+
+  // repeated float center = 5;
+  if (this->center_size() > 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
+      5,
+      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
+      target);
+    target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
+      _center_cached_byte_size_, target);
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteFloatNoTagToArray(this->center_, target);
+  }
+
+  // float dRPhi = 6;
+  if (this->drphi() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(6, this->drphi(), target);
+  }
+
+  // float dZ = 7;
+  if (this->dz() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(7, this->dz(), target);
+  }
+
+  // float EDep = 8;
+  if (this->edep() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(8, this->edep(), target);
+  }
+
+  // float EDepErr = 9;
+  if (this->edeperr() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(9, this->edeperr(), target);
+  }
+
+  // float time = 10;
+  if (this->time() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(10, this->time(), target);
+  }
+
+  // int32 quality = 11;
+  if (this->quality() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(11, this->quality(), target);
+  }
+
+  // repeated .eicio.Reference rawHits = 12;
+  for (unsigned int i = 0, n = this->rawhits_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        12, this->rawhits(i), deterministic, target);
+  }
+
   // @@protoc_insertion_point(serialize_to_array_end:eicio.TrackerHitZCylinder)
   return target;
 }
@@ -10367,6 +12025,100 @@ void TrackerHitZCylinder::SerializeWithCachedSizes(
 size_t TrackerHitZCylinder::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:eicio.TrackerHitZCylinder)
   size_t total_size = 0;
+
+  // repeated double pos = 4;
+  {
+    unsigned int count = this->pos_size();
+    size_t data_size = 8UL * count;
+    if (data_size > 0) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
+    }
+    int cached_size = ::google::protobuf::internal::ToCachedSize(data_size);
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _pos_cached_byte_size_ = cached_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    total_size += data_size;
+  }
+
+  // repeated float center = 5;
+  {
+    unsigned int count = this->center_size();
+    size_t data_size = 4UL * count;
+    if (data_size > 0) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
+    }
+    int cached_size = ::google::protobuf::internal::ToCachedSize(data_size);
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _center_cached_byte_size_ = cached_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    total_size += data_size;
+  }
+
+  // repeated .eicio.Reference rawHits = 12;
+  {
+    unsigned int count = this->rawhits_size();
+    total_size += 1UL * count;
+    for (unsigned int i = 0; i < count; i++) {
+      total_size +=
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->rawhits(i));
+    }
+  }
+
+  // int32 cellID0 = 1;
+  if (this->cellid0() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->cellid0());
+  }
+
+  // int32 cellID1 = 2;
+  if (this->cellid1() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->cellid1());
+  }
+
+  // int32 type = 3;
+  if (this->type() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->type());
+  }
+
+  // float dRPhi = 6;
+  if (this->drphi() != 0) {
+    total_size += 1 + 4;
+  }
+
+  // float dZ = 7;
+  if (this->dz() != 0) {
+    total_size += 1 + 4;
+  }
+
+  // float EDep = 8;
+  if (this->edep() != 0) {
+    total_size += 1 + 4;
+  }
+
+  // float EDepErr = 9;
+  if (this->edeperr() != 0) {
+    total_size += 1 + 4;
+  }
+
+  // float time = 10;
+  if (this->time() != 0) {
+    total_size += 1 + 4;
+  }
+
+  // int32 quality = 11;
+  if (this->quality() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->quality());
+  }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -10397,6 +12149,36 @@ void TrackerHitZCylinder::MergeFrom(const TrackerHitZCylinder& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  pos_.MergeFrom(from.pos_);
+  center_.MergeFrom(from.center_);
+  rawhits_.MergeFrom(from.rawhits_);
+  if (from.cellid0() != 0) {
+    set_cellid0(from.cellid0());
+  }
+  if (from.cellid1() != 0) {
+    set_cellid1(from.cellid1());
+  }
+  if (from.type() != 0) {
+    set_type(from.type());
+  }
+  if (from.drphi() != 0) {
+    set_drphi(from.drphi());
+  }
+  if (from.dz() != 0) {
+    set_dz(from.dz());
+  }
+  if (from.edep() != 0) {
+    set_edep(from.edep());
+  }
+  if (from.edeperr() != 0) {
+    set_edeperr(from.edeperr());
+  }
+  if (from.time() != 0) {
+    set_time(from.time());
+  }
+  if (from.quality() != 0) {
+    set_quality(from.quality());
+  }
 }
 
 void TrackerHitZCylinder::CopyFrom(const ::google::protobuf::Message& from) {
@@ -10422,6 +12204,18 @@ void TrackerHitZCylinder::Swap(TrackerHitZCylinder* other) {
   InternalSwap(other);
 }
 void TrackerHitZCylinder::InternalSwap(TrackerHitZCylinder* other) {
+  pos_.InternalSwap(&other->pos_);
+  center_.InternalSwap(&other->center_);
+  rawhits_.InternalSwap(&other->rawhits_);
+  std::swap(cellid0_, other->cellid0_);
+  std::swap(cellid1_, other->cellid1_);
+  std::swap(type_, other->type_);
+  std::swap(drphi_, other->drphi_);
+  std::swap(dz_, other->dz_);
+  std::swap(edep_, other->edep_);
+  std::swap(edeperr_, other->edeperr_);
+  std::swap(time_, other->time_);
+  std::swap(quality_, other->quality_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
@@ -10432,6 +12226,222 @@ void TrackerHitZCylinder::InternalSwap(TrackerHitZCylinder* other) {
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // TrackerHitZCylinder
+
+// int32 cellID0 = 1;
+void TrackerHitZCylinder::clear_cellid0() {
+  cellid0_ = 0;
+}
+::google::protobuf::int32 TrackerHitZCylinder::cellid0() const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerHitZCylinder.cellID0)
+  return cellid0_;
+}
+void TrackerHitZCylinder::set_cellid0(::google::protobuf::int32 value) {
+  
+  cellid0_ = value;
+  // @@protoc_insertion_point(field_set:eicio.TrackerHitZCylinder.cellID0)
+}
+
+// int32 cellID1 = 2;
+void TrackerHitZCylinder::clear_cellid1() {
+  cellid1_ = 0;
+}
+::google::protobuf::int32 TrackerHitZCylinder::cellid1() const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerHitZCylinder.cellID1)
+  return cellid1_;
+}
+void TrackerHitZCylinder::set_cellid1(::google::protobuf::int32 value) {
+  
+  cellid1_ = value;
+  // @@protoc_insertion_point(field_set:eicio.TrackerHitZCylinder.cellID1)
+}
+
+// int32 type = 3;
+void TrackerHitZCylinder::clear_type() {
+  type_ = 0;
+}
+::google::protobuf::int32 TrackerHitZCylinder::type() const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerHitZCylinder.type)
+  return type_;
+}
+void TrackerHitZCylinder::set_type(::google::protobuf::int32 value) {
+  
+  type_ = value;
+  // @@protoc_insertion_point(field_set:eicio.TrackerHitZCylinder.type)
+}
+
+// repeated double pos = 4;
+int TrackerHitZCylinder::pos_size() const {
+  return pos_.size();
+}
+void TrackerHitZCylinder::clear_pos() {
+  pos_.Clear();
+}
+double TrackerHitZCylinder::pos(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerHitZCylinder.pos)
+  return pos_.Get(index);
+}
+void TrackerHitZCylinder::set_pos(int index, double value) {
+  pos_.Set(index, value);
+  // @@protoc_insertion_point(field_set:eicio.TrackerHitZCylinder.pos)
+}
+void TrackerHitZCylinder::add_pos(double value) {
+  pos_.Add(value);
+  // @@protoc_insertion_point(field_add:eicio.TrackerHitZCylinder.pos)
+}
+const ::google::protobuf::RepeatedField< double >&
+TrackerHitZCylinder::pos() const {
+  // @@protoc_insertion_point(field_list:eicio.TrackerHitZCylinder.pos)
+  return pos_;
+}
+::google::protobuf::RepeatedField< double >*
+TrackerHitZCylinder::mutable_pos() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.TrackerHitZCylinder.pos)
+  return &pos_;
+}
+
+// repeated float center = 5;
+int TrackerHitZCylinder::center_size() const {
+  return center_.size();
+}
+void TrackerHitZCylinder::clear_center() {
+  center_.Clear();
+}
+float TrackerHitZCylinder::center(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerHitZCylinder.center)
+  return center_.Get(index);
+}
+void TrackerHitZCylinder::set_center(int index, float value) {
+  center_.Set(index, value);
+  // @@protoc_insertion_point(field_set:eicio.TrackerHitZCylinder.center)
+}
+void TrackerHitZCylinder::add_center(float value) {
+  center_.Add(value);
+  // @@protoc_insertion_point(field_add:eicio.TrackerHitZCylinder.center)
+}
+const ::google::protobuf::RepeatedField< float >&
+TrackerHitZCylinder::center() const {
+  // @@protoc_insertion_point(field_list:eicio.TrackerHitZCylinder.center)
+  return center_;
+}
+::google::protobuf::RepeatedField< float >*
+TrackerHitZCylinder::mutable_center() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.TrackerHitZCylinder.center)
+  return &center_;
+}
+
+// float dRPhi = 6;
+void TrackerHitZCylinder::clear_drphi() {
+  drphi_ = 0;
+}
+float TrackerHitZCylinder::drphi() const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerHitZCylinder.dRPhi)
+  return drphi_;
+}
+void TrackerHitZCylinder::set_drphi(float value) {
+  
+  drphi_ = value;
+  // @@protoc_insertion_point(field_set:eicio.TrackerHitZCylinder.dRPhi)
+}
+
+// float dZ = 7;
+void TrackerHitZCylinder::clear_dz() {
+  dz_ = 0;
+}
+float TrackerHitZCylinder::dz() const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerHitZCylinder.dZ)
+  return dz_;
+}
+void TrackerHitZCylinder::set_dz(float value) {
+  
+  dz_ = value;
+  // @@protoc_insertion_point(field_set:eicio.TrackerHitZCylinder.dZ)
+}
+
+// float EDep = 8;
+void TrackerHitZCylinder::clear_edep() {
+  edep_ = 0;
+}
+float TrackerHitZCylinder::edep() const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerHitZCylinder.EDep)
+  return edep_;
+}
+void TrackerHitZCylinder::set_edep(float value) {
+  
+  edep_ = value;
+  // @@protoc_insertion_point(field_set:eicio.TrackerHitZCylinder.EDep)
+}
+
+// float EDepErr = 9;
+void TrackerHitZCylinder::clear_edeperr() {
+  edeperr_ = 0;
+}
+float TrackerHitZCylinder::edeperr() const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerHitZCylinder.EDepErr)
+  return edeperr_;
+}
+void TrackerHitZCylinder::set_edeperr(float value) {
+  
+  edeperr_ = value;
+  // @@protoc_insertion_point(field_set:eicio.TrackerHitZCylinder.EDepErr)
+}
+
+// float time = 10;
+void TrackerHitZCylinder::clear_time() {
+  time_ = 0;
+}
+float TrackerHitZCylinder::time() const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerHitZCylinder.time)
+  return time_;
+}
+void TrackerHitZCylinder::set_time(float value) {
+  
+  time_ = value;
+  // @@protoc_insertion_point(field_set:eicio.TrackerHitZCylinder.time)
+}
+
+// int32 quality = 11;
+void TrackerHitZCylinder::clear_quality() {
+  quality_ = 0;
+}
+::google::protobuf::int32 TrackerHitZCylinder::quality() const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerHitZCylinder.quality)
+  return quality_;
+}
+void TrackerHitZCylinder::set_quality(::google::protobuf::int32 value) {
+  
+  quality_ = value;
+  // @@protoc_insertion_point(field_set:eicio.TrackerHitZCylinder.quality)
+}
+
+// repeated .eicio.Reference rawHits = 12;
+int TrackerHitZCylinder::rawhits_size() const {
+  return rawhits_.size();
+}
+void TrackerHitZCylinder::clear_rawhits() {
+  rawhits_.Clear();
+}
+const ::eicio::Reference& TrackerHitZCylinder::rawhits(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.TrackerHitZCylinder.rawHits)
+  return rawhits_.Get(index);
+}
+::eicio::Reference* TrackerHitZCylinder::mutable_rawhits(int index) {
+  // @@protoc_insertion_point(field_mutable:eicio.TrackerHitZCylinder.rawHits)
+  return rawhits_.Mutable(index);
+}
+::eicio::Reference* TrackerHitZCylinder::add_rawhits() {
+  // @@protoc_insertion_point(field_add:eicio.TrackerHitZCylinder.rawHits)
+  return rawhits_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::eicio::Reference >*
+TrackerHitZCylinder::mutable_rawhits() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.TrackerHitZCylinder.rawHits)
+  return &rawhits_;
+}
+const ::google::protobuf::RepeatedPtrField< ::eicio::Reference >&
+TrackerHitZCylinder::rawhits() const {
+  // @@protoc_insertion_point(field_list:eicio.TrackerHitZCylinder.rawHits)
+  return rawhits_;
+}
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
@@ -20090,6 +22100,811 @@ const ::google::protobuf::RepeatedPtrField< ::eicio::Vertex >&
 VertexCollection::vertex() const {
   // @@protoc_insertion_point(field_list:eicio.VertexCollection.vertex)
   return vertex_;
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int Relation::kFromFieldNumber;
+const int Relation::kToFieldNumber;
+const int Relation::kWeightFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+Relation::Relation()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_eicio_2eproto::InitDefaults();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:eicio.Relation)
+}
+Relation::Relation(const Relation& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from.has_from()) {
+    from_ = new ::eicio::Reference(*from.from_);
+  } else {
+    from_ = NULL;
+  }
+  if (from.has_to()) {
+    to_ = new ::eicio::Reference(*from.to_);
+  } else {
+    to_ = NULL;
+  }
+  weight_ = from.weight_;
+  // @@protoc_insertion_point(copy_constructor:eicio.Relation)
+}
+
+void Relation::SharedCtor() {
+  ::memset(&from_, 0, reinterpret_cast<char*>(&weight_) -
+    reinterpret_cast<char*>(&from_) + sizeof(weight_));
+  _cached_size_ = 0;
+}
+
+Relation::~Relation() {
+  // @@protoc_insertion_point(destructor:eicio.Relation)
+  SharedDtor();
+}
+
+void Relation::SharedDtor() {
+  if (this != internal_default_instance()) {
+    delete from_;
+  }
+  if (this != internal_default_instance()) {
+    delete to_;
+  }
+}
+
+void Relation::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* Relation::descriptor() {
+  protobuf_eicio_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_eicio_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const Relation& Relation::default_instance() {
+  protobuf_eicio_2eproto::InitDefaults();
+  return *internal_default_instance();
+}
+
+Relation* Relation::New(::google::protobuf::Arena* arena) const {
+  Relation* n = new Relation;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void Relation::Clear() {
+// @@protoc_insertion_point(message_clear_start:eicio.Relation)
+  if (GetArenaNoVirtual() == NULL && from_ != NULL) {
+    delete from_;
+  }
+  from_ = NULL;
+  if (GetArenaNoVirtual() == NULL && to_ != NULL) {
+    delete to_;
+  }
+  to_ = NULL;
+  weight_ = 0;
+}
+
+bool Relation::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:eicio.Relation)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // .eicio.Reference from = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_from()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // .eicio.Reference to = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_to()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // float weight = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(29u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &weight_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:eicio.Relation)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:eicio.Relation)
+  return false;
+#undef DO_
+}
+
+void Relation::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:eicio.Relation)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .eicio.Reference from = 1;
+  if (this->has_from()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, *this->from_, output);
+  }
+
+  // .eicio.Reference to = 2;
+  if (this->has_to()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, *this->to_, output);
+  }
+
+  // float weight = 3;
+  if (this->weight() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(3, this->weight(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:eicio.Relation)
+}
+
+::google::protobuf::uint8* Relation::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:eicio.Relation)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .eicio.Reference from = 1;
+  if (this->has_from()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        1, *this->from_, deterministic, target);
+  }
+
+  // .eicio.Reference to = 2;
+  if (this->has_to()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        2, *this->to_, deterministic, target);
+  }
+
+  // float weight = 3;
+  if (this->weight() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(3, this->weight(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:eicio.Relation)
+  return target;
+}
+
+size_t Relation::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:eicio.Relation)
+  size_t total_size = 0;
+
+  // .eicio.Reference from = 1;
+  if (this->has_from()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->from_);
+  }
+
+  // .eicio.Reference to = 2;
+  if (this->has_to()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->to_);
+  }
+
+  // float weight = 3;
+  if (this->weight() != 0) {
+    total_size += 1 + 4;
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void Relation::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:eicio.Relation)
+  GOOGLE_DCHECK_NE(&from, this);
+  const Relation* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const Relation>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:eicio.Relation)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:eicio.Relation)
+    MergeFrom(*source);
+  }
+}
+
+void Relation::MergeFrom(const Relation& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:eicio.Relation)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.has_from()) {
+    mutable_from()->::eicio::Reference::MergeFrom(from.from());
+  }
+  if (from.has_to()) {
+    mutable_to()->::eicio::Reference::MergeFrom(from.to());
+  }
+  if (from.weight() != 0) {
+    set_weight(from.weight());
+  }
+}
+
+void Relation::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:eicio.Relation)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void Relation::CopyFrom(const Relation& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:eicio.Relation)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Relation::IsInitialized() const {
+  return true;
+}
+
+void Relation::Swap(Relation* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void Relation::InternalSwap(Relation* other) {
+  std::swap(from_, other->from_);
+  std::swap(to_, other->to_);
+  std::swap(weight_, other->weight_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata Relation::GetMetadata() const {
+  protobuf_eicio_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_eicio_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// Relation
+
+// .eicio.Reference from = 1;
+bool Relation::has_from() const {
+  return this != internal_default_instance() && from_ != NULL;
+}
+void Relation::clear_from() {
+  if (GetArenaNoVirtual() == NULL && from_ != NULL) delete from_;
+  from_ = NULL;
+}
+const ::eicio::Reference& Relation::from() const {
+  // @@protoc_insertion_point(field_get:eicio.Relation.from)
+  return from_ != NULL ? *from_
+                         : *::eicio::Reference::internal_default_instance();
+}
+::eicio::Reference* Relation::mutable_from() {
+  
+  if (from_ == NULL) {
+    from_ = new ::eicio::Reference;
+  }
+  // @@protoc_insertion_point(field_mutable:eicio.Relation.from)
+  return from_;
+}
+::eicio::Reference* Relation::release_from() {
+  // @@protoc_insertion_point(field_release:eicio.Relation.from)
+  
+  ::eicio::Reference* temp = from_;
+  from_ = NULL;
+  return temp;
+}
+void Relation::set_allocated_from(::eicio::Reference* from) {
+  delete from_;
+  from_ = from;
+  if (from) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:eicio.Relation.from)
+}
+
+// .eicio.Reference to = 2;
+bool Relation::has_to() const {
+  return this != internal_default_instance() && to_ != NULL;
+}
+void Relation::clear_to() {
+  if (GetArenaNoVirtual() == NULL && to_ != NULL) delete to_;
+  to_ = NULL;
+}
+const ::eicio::Reference& Relation::to() const {
+  // @@protoc_insertion_point(field_get:eicio.Relation.to)
+  return to_ != NULL ? *to_
+                         : *::eicio::Reference::internal_default_instance();
+}
+::eicio::Reference* Relation::mutable_to() {
+  
+  if (to_ == NULL) {
+    to_ = new ::eicio::Reference;
+  }
+  // @@protoc_insertion_point(field_mutable:eicio.Relation.to)
+  return to_;
+}
+::eicio::Reference* Relation::release_to() {
+  // @@protoc_insertion_point(field_release:eicio.Relation.to)
+  
+  ::eicio::Reference* temp = to_;
+  to_ = NULL;
+  return temp;
+}
+void Relation::set_allocated_to(::eicio::Reference* to) {
+  delete to_;
+  to_ = to;
+  if (to) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:eicio.Relation.to)
+}
+
+// float weight = 3;
+void Relation::clear_weight() {
+  weight_ = 0;
+}
+float Relation::weight() const {
+  // @@protoc_insertion_point(field_get:eicio.Relation.weight)
+  return weight_;
+}
+void Relation::set_weight(float value) {
+  
+  weight_ = value;
+  // @@protoc_insertion_point(field_set:eicio.Relation.weight)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int RelationCollection::kFlagsFieldNumber;
+const int RelationCollection::kParamsFieldNumber;
+const int RelationCollection::kRelationFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+RelationCollection::RelationCollection()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_eicio_2eproto::InitDefaults();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:eicio.RelationCollection)
+}
+RelationCollection::RelationCollection(const RelationCollection& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      relation_(from.relation_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from.has_params()) {
+    params_ = new ::eicio::Params(*from.params_);
+  } else {
+    params_ = NULL;
+  }
+  flags_ = from.flags_;
+  // @@protoc_insertion_point(copy_constructor:eicio.RelationCollection)
+}
+
+void RelationCollection::SharedCtor() {
+  ::memset(&params_, 0, reinterpret_cast<char*>(&flags_) -
+    reinterpret_cast<char*>(&params_) + sizeof(flags_));
+  _cached_size_ = 0;
+}
+
+RelationCollection::~RelationCollection() {
+  // @@protoc_insertion_point(destructor:eicio.RelationCollection)
+  SharedDtor();
+}
+
+void RelationCollection::SharedDtor() {
+  if (this != internal_default_instance()) {
+    delete params_;
+  }
+}
+
+void RelationCollection::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* RelationCollection::descriptor() {
+  protobuf_eicio_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_eicio_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const RelationCollection& RelationCollection::default_instance() {
+  protobuf_eicio_2eproto::InitDefaults();
+  return *internal_default_instance();
+}
+
+RelationCollection* RelationCollection::New(::google::protobuf::Arena* arena) const {
+  RelationCollection* n = new RelationCollection;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void RelationCollection::Clear() {
+// @@protoc_insertion_point(message_clear_start:eicio.RelationCollection)
+  relation_.Clear();
+  if (GetArenaNoVirtual() == NULL && params_ != NULL) {
+    delete params_;
+  }
+  params_ = NULL;
+  flags_ = 0;
+}
+
+bool RelationCollection::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:eicio.RelationCollection)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // int32 flags = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &flags_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // .eicio.Params params = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_params()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // repeated .eicio.Relation relation = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(26u)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_relation()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:eicio.RelationCollection)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:eicio.RelationCollection)
+  return false;
+#undef DO_
+}
+
+void RelationCollection::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:eicio.RelationCollection)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 flags = 1;
+  if (this->flags() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->flags(), output);
+  }
+
+  // .eicio.Params params = 2;
+  if (this->has_params()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, *this->params_, output);
+  }
+
+  // repeated .eicio.Relation relation = 3;
+  for (unsigned int i = 0, n = this->relation_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, this->relation(i), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:eicio.RelationCollection)
+}
+
+::google::protobuf::uint8* RelationCollection::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:eicio.RelationCollection)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 flags = 1;
+  if (this->flags() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->flags(), target);
+  }
+
+  // .eicio.Params params = 2;
+  if (this->has_params()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        2, *this->params_, deterministic, target);
+  }
+
+  // repeated .eicio.Relation relation = 3;
+  for (unsigned int i = 0, n = this->relation_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        3, this->relation(i), deterministic, target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:eicio.RelationCollection)
+  return target;
+}
+
+size_t RelationCollection::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:eicio.RelationCollection)
+  size_t total_size = 0;
+
+  // repeated .eicio.Relation relation = 3;
+  {
+    unsigned int count = this->relation_size();
+    total_size += 1UL * count;
+    for (unsigned int i = 0; i < count; i++) {
+      total_size +=
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->relation(i));
+    }
+  }
+
+  // .eicio.Params params = 2;
+  if (this->has_params()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->params_);
+  }
+
+  // int32 flags = 1;
+  if (this->flags() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->flags());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void RelationCollection::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:eicio.RelationCollection)
+  GOOGLE_DCHECK_NE(&from, this);
+  const RelationCollection* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const RelationCollection>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:eicio.RelationCollection)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:eicio.RelationCollection)
+    MergeFrom(*source);
+  }
+}
+
+void RelationCollection::MergeFrom(const RelationCollection& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:eicio.RelationCollection)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  relation_.MergeFrom(from.relation_);
+  if (from.has_params()) {
+    mutable_params()->::eicio::Params::MergeFrom(from.params());
+  }
+  if (from.flags() != 0) {
+    set_flags(from.flags());
+  }
+}
+
+void RelationCollection::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:eicio.RelationCollection)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void RelationCollection::CopyFrom(const RelationCollection& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:eicio.RelationCollection)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RelationCollection::IsInitialized() const {
+  return true;
+}
+
+void RelationCollection::Swap(RelationCollection* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void RelationCollection::InternalSwap(RelationCollection* other) {
+  relation_.InternalSwap(&other->relation_);
+  std::swap(params_, other->params_);
+  std::swap(flags_, other->flags_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata RelationCollection::GetMetadata() const {
+  protobuf_eicio_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_eicio_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// RelationCollection
+
+// int32 flags = 1;
+void RelationCollection::clear_flags() {
+  flags_ = 0;
+}
+::google::protobuf::int32 RelationCollection::flags() const {
+  // @@protoc_insertion_point(field_get:eicio.RelationCollection.flags)
+  return flags_;
+}
+void RelationCollection::set_flags(::google::protobuf::int32 value) {
+  
+  flags_ = value;
+  // @@protoc_insertion_point(field_set:eicio.RelationCollection.flags)
+}
+
+// .eicio.Params params = 2;
+bool RelationCollection::has_params() const {
+  return this != internal_default_instance() && params_ != NULL;
+}
+void RelationCollection::clear_params() {
+  if (GetArenaNoVirtual() == NULL && params_ != NULL) delete params_;
+  params_ = NULL;
+}
+const ::eicio::Params& RelationCollection::params() const {
+  // @@protoc_insertion_point(field_get:eicio.RelationCollection.params)
+  return params_ != NULL ? *params_
+                         : *::eicio::Params::internal_default_instance();
+}
+::eicio::Params* RelationCollection::mutable_params() {
+  
+  if (params_ == NULL) {
+    params_ = new ::eicio::Params;
+  }
+  // @@protoc_insertion_point(field_mutable:eicio.RelationCollection.params)
+  return params_;
+}
+::eicio::Params* RelationCollection::release_params() {
+  // @@protoc_insertion_point(field_release:eicio.RelationCollection.params)
+  
+  ::eicio::Params* temp = params_;
+  params_ = NULL;
+  return temp;
+}
+void RelationCollection::set_allocated_params(::eicio::Params* params) {
+  delete params_;
+  params_ = params;
+  if (params) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:eicio.RelationCollection.params)
+}
+
+// repeated .eicio.Relation relation = 3;
+int RelationCollection::relation_size() const {
+  return relation_.size();
+}
+void RelationCollection::clear_relation() {
+  relation_.Clear();
+}
+const ::eicio::Relation& RelationCollection::relation(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.RelationCollection.relation)
+  return relation_.Get(index);
+}
+::eicio::Relation* RelationCollection::mutable_relation(int index) {
+  // @@protoc_insertion_point(field_mutable:eicio.RelationCollection.relation)
+  return relation_.Mutable(index);
+}
+::eicio::Relation* RelationCollection::add_relation() {
+  // @@protoc_insertion_point(field_add:eicio.RelationCollection.relation)
+  return relation_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::eicio::Relation >*
+RelationCollection::mutable_relation() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.RelationCollection.relation)
+  return &relation_;
+}
+const ::google::protobuf::RepeatedPtrField< ::eicio::Relation >&
+RelationCollection::relation() const {
+  // @@protoc_insertion_point(field_list:eicio.RelationCollection.relation)
+  return relation_;
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

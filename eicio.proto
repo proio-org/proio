@@ -146,6 +146,13 @@ message TrackerHitCollection {
 }
 
 message TrackerPulse {
+    int32 cellID0 = 1;
+    int32 cellID1 = 2;
+    float time = 3;
+    float charge = 4;
+    repeated float cov = 5;
+    int32 quality = 6;
+    Reference TPC = 7;
 }
 
 message TrackerPulseCollection {
@@ -155,6 +162,19 @@ message TrackerPulseCollection {
 }
 
 message TrackerHitPlane {
+    int32 cellID0 = 1;
+    int32 cellID1 = 2;
+    int32 type = 3;
+    repeated double pos = 4;
+    repeated float U = 5;
+    repeated float V = 6;
+    float dU = 7;
+    float dV = 8;
+    float EDep = 9;
+    float EDepErr = 10;
+    float time = 11;
+    int32 quality = 12;
+    repeated Reference rawHits = 13;
 }
 
 message TrackerHitPlaneCollection {
@@ -164,6 +184,18 @@ message TrackerHitPlaneCollection {
 }
 
 message TrackerHitZCylinder {
+    int32 cellID0 = 1;
+    int32 cellID1 = 2;
+    int32 type = 3;
+    repeated double pos = 4;
+    repeated float center = 5;
+    float dRPhi = 6;
+    float dZ = 7;
+    float EDep = 8;
+    float EDepErr = 9;
+    float time = 10;
+    int32 quality = 11;
+    repeated Reference rawHits = 12;
 }
 
 message TrackerHitZCylinderCollection {
@@ -316,4 +348,16 @@ message VertexCollection {
     int32 flags = 1;
     Params params = 2;
     repeated Vertex vertex = 3;
+}
+
+message Relation {
+    Reference from = 1;
+    Reference to = 2;
+    float weight = 3;
+}
+
+message RelationCollection {
+    int32 flags = 1;
+    Params params = 2;
+    repeated Relation relation = 3;
 }
