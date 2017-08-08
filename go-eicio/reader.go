@@ -2,7 +2,6 @@ package eicio
 
 import (
 	"encoding/binary"
-	"github.com/golang/protobuf/proto"
 	"io"
 )
 
@@ -27,7 +26,7 @@ func (rdr *Reader) GetEvent() (event *Event, err error) {
 		return
 	}
 	header := &EventHeader{}
-	if err = proto.Unmarshal(headerBuf, header); err != nil {
+	if err = header.Unmarshal(headerBuf); err != nil {
 		return
 	}
 

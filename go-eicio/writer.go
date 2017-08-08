@@ -2,7 +2,6 @@ package eicio
 
 import (
 	"encoding/binary"
-	"github.com/golang/protobuf/proto"
 	"io"
 )
 
@@ -17,7 +16,7 @@ func NewWriter(byteWriter io.Writer) *Writer {
 }
 
 func (wrt *Writer) PushEvent(event *Event) (err error) {
-	headerBuf, err := proto.Marshal(event.Header)
+	headerBuf, err := event.Header.Marshal()
 	if err != nil {
 		return
 	}

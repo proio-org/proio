@@ -13,7 +13,6 @@ func main() {
 	writer := eicio.NewWriter(buffer)
 
 	event0Out := eicio.NewEvent()
-	event0Out.Header.Id = 1
 	event0Out.Header.Description = "First test event"
 
 	MC := &eicio.MCParticleCollection{}
@@ -29,7 +28,6 @@ func main() {
 	writer.PushEvent(event0Out)
 
 	event1Out := eicio.NewEvent()
-	event1Out.Header.Id = 2
 	event1Out.Header.Description = "Second test event"
 
 	simTrack = &eicio.SimTrackerHitCollection{}

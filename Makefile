@@ -14,7 +14,7 @@ TARGETS := $(GO_TARGET) \
 all: $(TARGETS)
 
 $(GO_TARGET): $(PROTO)
-	protoc --go_out=$(GO_PATH) $<
+	protoc --gofast_out=$(GO_PATH) $<
 
 $(CPP_TARGET): $(PROTO)
 	protoc --cpp_out=$(CPP_PATH) $<

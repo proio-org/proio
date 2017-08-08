@@ -2,9 +2,13 @@ syntax = "proto3";
 package eicio;
 
 message EventHeader {
-	uint64 id = 1;
-	uint32 vMajor = 2;
-	uint32 vMinor = 3;
+	uint32 version = 1;
+
+	uint64 runNumber = 2;
+    uint64 eventNumber = 3;
+    uint64 timeStamp = 4;
+    string detector = 5;
+    Params params = 6;
 
 	message CollectionHeader {
 		enum Type {
@@ -31,7 +35,7 @@ message EventHeader {
 		string name = 2;
 		uint32 payloadSize = 3;
 	}
-	repeated CollectionHeader collection = 4;
+	repeated CollectionHeader collection = 7;
 
 	string description = 16;
 }
@@ -40,6 +44,19 @@ message Params {
 	map<string, int32> ints = 1;
 	map<string, float> floats = 2;
 	map<string, string> strings = 3;
+}
+
+message Reference {
+    uint32 collID = 1;
+    uint32 entryID = 2;
+}
+
+message ParticleID {
+    float likelihood = 1;
+    int32 type = 2;
+    int32 PDG = 3;
+    int32 algType = 4;
+    repeated float params = 5;
 }
 
 message MCParticle {
@@ -60,7 +77,9 @@ message MCParticle {
 }
 
 message MCParticleCollection {
-	repeated MCParticle particle = 1;
+    int32 flags = 1;
+    Params params = 2;
+	repeated MCParticle particle = 3;
 }
 
 message SimTrackerHit {
@@ -69,14 +88,16 @@ message SimTrackerHit {
 	repeated double pos = 3;
 	float EDep = 4;
 	float time = 5;
-	uint32 mc = 6;
+	Reference mc = 6;
 	float p = 7;
 	float pathLength = 8;
 	int32 quality = 9;
 }
 
 message SimTrackerHitCollection {
-	repeated SimTrackerHit hit = 1;
+    int32 flags = 1;
+    Params params = 2;
+	repeated SimTrackerHit hit = 3;
 }
 
 message TrackerRawData {
@@ -87,7 +108,9 @@ message TrackerRawData {
 }
 
 message TrackerRawDataCollection {
-	repeated TrackerRawData data = 1;
+    int32 flags = 1;
+    Params params = 2;
+	repeated TrackerRawData data = 3;
 }
 
 message TrackerData {
@@ -98,7 +121,9 @@ message TrackerData {
 }
 
 message TrackerDataCollection {
-	repeated TrackerData data = 1;
+    int32 flags = 1;
+    Params params = 2;
+	repeated TrackerData data = 3;
 }
 
 message TrackerHit {
@@ -111,47 +136,71 @@ message TrackerHit {
 	float EDepErr = 7;
 	float time = 8;
 	int32 quality = 9;
-	repeated int32 rawHitIDs = 10;
+	repeated Reference rawHits = 10;
 }
 
 message TrackerHitCollection {
-	repeated TrackerHit hit = 1;
+    int32 flags = 1;
+    Params params = 2;
+	repeated TrackerHit hit = 3;
 }
 
 message TrackerPulse {
 }
 
 message TrackerPulseCollection {
-	repeated TrackerPulse pulse = 1;
+    int32 flags = 1;
+    Params params = 2;
+	repeated TrackerPulse pulse = 3;
 }
 
 message TrackerHitPlane {
 }
 
 message TrackerHitPlaneCollection {
-	repeated TrackerHitPlane plane = 1;
+    int32 flags = 1;
+    Params params = 2;
+	repeated TrackerHitPlane plane = 3;
 }
 
 message TrackerHitZCylinder {
 }
 
 message TrackerHitZCylinderCollection {
-	repeated TrackerHitZCylinder cyl = 1;
+    int32 flags = 1;
+    Params params = 2;
+	repeated TrackerHitZCylinder cyl = 3;
 }
 
 message Track {
+    int32 type = 1;
+    float chi2 = 2;
+    int32 NDF = 3;
+    float dEdx = 4;
+    float dEdxErr = 5;
+    float radius = 6;
+    repeated int32 subDetHits = 7;
+
+    message TrackState {
+        int32 loc = 1;
+        float d0 = 2;
+        float phi = 3;
+        float omega = 4;
+        float z0 = 5;
+        float tanL = 6;
+        repeated float cov = 7;
+        repeated float ref = 8;
+    }
+    repeated TrackState states = 8;
+
+    repeated Reference hits = 9;
+    repeated Reference trackIDs = 10;
 }
 
 message TrackCollection {
-	repeated Track track = 1;
-}
-
-message Contrib {
-	int32 MCParticle = 1;
-	float energy = 2;
-	float time = 3;
-	int32 PDG = 4;
-	repeated float stepPos = 5;
+    int32 flags = 1;
+    Params params = 2;
+	repeated Track track = 3;
 }
 
 message SimCalorimeterHit {
@@ -160,37 +209,111 @@ message SimCalorimeterHit {
 	int32 cellID1 = 3;
 	float energy = 4;
 	repeated float pos = 5;
+
+    message Contrib {
+        int32 MCParticle = 1;
+        float energy = 2;
+        float time = 3;
+        int32 PDG = 4;
+        repeated float stepPos = 5;
+    }
 	repeated Contrib contributions = 6;
 }
 
 message SimCalorimeterHitCollection {
-	repeated SimCalorimeterHit hit = 1;
+    int32 flags = 1;
+    Params params = 2;
+	repeated SimCalorimeterHit hit = 3;
 }
 
 message RawCalorimeterHit {
+    int32 cellID0 = 1;
+    int32 cellID1 = 2;
+    int32 amplitude = 4;
+    int32 timeStamp = 5;
 }
 
 message RawCalorimeterHitCollection {
-	repeated RawCalorimeterHit hit = 1;
+    int32 flags = 1;
+    Params params = 2;
+	repeated RawCalorimeterHit hit = 3;
 }
 
 message CalorimeterHit {
+    int32 cellID0 = 1;
+    int32 cellID1 = 2;
+    float energy = 3;
+    float energyErr = 4;
+    float time = 5;
+    repeated float pos = 6;
+    int32 type = 7;
+    Reference raw = 8;
 }
 
 message CalorimeterHitCollection {
-	repeated CalorimeterHit hit = 1;
+    int32 flags = 1;
+    Params params = 2;
+	repeated CalorimeterHit hit = 3;
 }
 
 message Cluster {
+    int32 type = 1;
+    float energy = 2;
+    float energyErr = 3;
+    repeated float pos = 4;
+    repeated float posErr = 5;
+    float theta = 6;
+    float phi = 7;
+    repeated float dirErr = 8;
+    repeated float shape = 9;
+    repeated ParticleID PIDs = 10;
+    repeated Reference hits = 11;
+    repeated float weights = 12;
+    repeated float subDetEnes = 13;
 }
 
 message ClusterCollection {
-	repeated Cluster cluster = 1;
+    int32 flags = 1;
+    Params params = 2;
+	repeated Cluster cluster = 3;
 }
 
 message RecParticle {
+    int32 type = 1;
+    repeated float p = 2;
+    float energy = 3;
+    repeated float cov = 4;
+    float mass = 5;
+    float charge = 6;
+    repeated float ref = 7;
+    repeated ParticleID PIDs = 8;
+    int32 PIDUsed = 9;
+    float goodnessOfPID = 10;
+    repeated Reference recs = 11;
+    repeated Reference tracks = 12;
+    repeated Reference clusters = 13;
+    Reference startVtx = 14;
 }
 
 message RecParticleCollection {
-	repeated RecParticle particle = 1;
+    int32 flags = 1;
+    Params params = 2;
+	repeated RecParticle particle = 3;
+}
+
+message Vertex {
+    int32 primary = 1;
+    int32 algType = 2;
+    float chi2 = 3;
+    float prob = 4;
+    repeated float pos = 5;
+    repeated float cov = 6;
+    repeated float params = 7;
+    Reference recPart = 8;
+}
+
+message VertexCollection {
+    int32 flags = 1;
+    Params params = 2;
+    repeated Vertex vertex = 3;
 }

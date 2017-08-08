@@ -27,7 +27,14 @@ func (evt *Event) String() string {
 	return string(buffer.Bytes())
 }
 
-func (evt *Event) AddCollection(collection proto.Message, name string) {
+type Message interface {
+	proto.Message
+
+	Marshal() ([]byte, error)
+	Unmarshal([]byte) error
+}
+
+func (evt *Event) AddCollection(collection Message, name string) {
 	collHdr := &EventHeader_CollectionHeader{}
 
 	switch collection.(type) {
@@ -39,7 +46,7 @@ func (evt *Event) AddCollection(collection proto.Message, name string) {
 
 	collHdr.Name = name
 
-	collBuf, err := proto.Marshal(collection)
+	collBuf, err := collection.Marshal()
 	if err != nil {
 		return
 	}
@@ -52,7 +59,7 @@ func (evt *Event) AddCollection(collection proto.Message, name string) {
 	evt.payload = append(evt.payload, collBuf...)
 }
 
-func (evt *Event) GetCollection(name string) proto.Message {
+func (evt *Event) GetCollection(name string) Message {
 	offset := uint32(0)
 	size := uint32(0)
 	collType := EventHeader_CollectionHeader_NONE
@@ -68,7 +75,7 @@ func (evt *Event) GetCollection(name string) proto.Message {
 		return nil
 	}
 
-	var coll proto.Message
+	var coll Message
 	switch collType {
 	case EventHeader_CollectionHeader_MCParticle:
 		coll = &MCParticleCollection{}
@@ -76,7 +83,7 @@ func (evt *Event) GetCollection(name string) proto.Message {
 		coll = &SimTrackerHitCollection{}
 	}
 
-	if err := proto.Unmarshal(evt.payload[offset:offset+size], coll); err != nil {
+	if err := coll.Unmarshal(evt.payload[offset : offset+size]); err != nil {
 		panic(err)
 	}
 
