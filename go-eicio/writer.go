@@ -19,7 +19,7 @@ func Create(filename string) (*Writer, error) {
 }
 
 func (wrt *Writer) Close() {
-	(wrt.byteWriter.(*os.File)).Close()
+	wrt.byteWriter.(*os.File).Close()
 }
 
 func NewWriter(byteWriter io.Writer) *Writer {

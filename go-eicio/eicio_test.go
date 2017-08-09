@@ -13,39 +13,39 @@ func TestEventPushGet(t *testing.T) {
 
 	event0Out := NewEvent()
 
-	MC := &MCParticleCollection{}
-	MC.Particle = append(MC.Particle, &MCParticle{})
-	MC.Particle = append(MC.Particle, &MCParticle{})
-	event0Out.AddCollection(MC, "MCParticles")
+	MCParticles := &MCParticleCollection{}
+	MCParticles.Entries = append(MCParticles.Entries, &MCParticle{})
+	MCParticles.Entries = append(MCParticles.Entries, &MCParticle{})
+	event0Out.AddCollection(MCParticles, "MCParticles")
 
-	simTrack := &SimTrackerHitCollection{}
-	simTrack.Hit = append(simTrack.Hit, &SimTrackerHit{})
-	simTrack.Hit = append(simTrack.Hit, &SimTrackerHit{})
-	event0Out.AddCollection(simTrack, "TrackerHits")
+	simTrackHits := &SimTrackerHitCollection{}
+	simTrackHits.Entries = append(simTrackHits.Entries, &SimTrackerHit{})
+	simTrackHits.Entries = append(simTrackHits.Entries, &SimTrackerHit{})
+	event0Out.AddCollection(simTrackHits, "TrackerHits")
 
 	writer.PushEvent(event0Out)
 
 	event1Out := NewEvent()
 
-	simTrack = &SimTrackerHitCollection{}
-	simTrack.Hit = append(simTrack.Hit, &SimTrackerHit{})
-	simTrack.Hit = append(simTrack.Hit, &SimTrackerHit{})
-	event1Out.AddCollection(simTrack, "TrackerHits")
+	simTrackHits = &SimTrackerHitCollection{}
+	simTrackHits.Entries = append(simTrackHits.Entries, &SimTrackerHit{})
+	simTrackHits.Entries = append(simTrackHits.Entries, &SimTrackerHit{})
+	event1Out.AddCollection(simTrackHits, "TrackerHits")
 
 	writer.PushEvent(event1Out)
 
 	reader := NewReader(buffer)
 
-	event0In, err := reader.GetEvent()
-	if err != nil {
+	event0In := reader.GetEvent()
+	if event0In == nil {
 		t.Error("Event 0 failed to Get")
 	}
 	if !reflect.DeepEqual(event0Out, event0In) {
 		t.Error("Event 0 corrupted")
 	}
 
-	event1In, err := reader.GetEvent()
-	if err != nil {
+	event1In := reader.GetEvent()
+	if event1In == nil {
 		t.Error("Event 1 failed to Get")
 	}
 	if !reflect.DeepEqual(event1Out, event1In) {

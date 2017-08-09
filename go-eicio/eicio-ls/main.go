@@ -1,53 +1,43 @@
 package main
 
 import (
-	"bytes"
+	"flag"
 	"fmt"
-	"github.com/decibelCooper/eicio/go-eicio"
 	"log"
+	"os"
+
+	"github.com/decibelCooper/eicio/go-eicio"
 )
 
+func printUsage() {
+	fmt.Fprintf(os.Stderr,
+		`Usage: eicio-ls [options] <eicio-input-file>
+options:
+	`,
+	)
+	flag.PrintDefaults()
+}
+
 func main() {
-	buffer := &bytes.Buffer{}
+	flag.Usage = printUsage
+	flag.Parse()
 
-	writer := eicio.NewWriter(buffer)
-
-	event0Out := eicio.NewEvent()
-	event0Out.Header.Description = "First test event"
-
-	MC := &eicio.MCParticleCollection{}
-	MC.Particle = append(MC.Particle, &eicio.MCParticle{})
-	MC.Particle = append(MC.Particle, &eicio.MCParticle{})
-	event0Out.AddCollection(MC, "MCParticles")
-
-	simTrack := &eicio.SimTrackerHitCollection{}
-	simTrack.Hit = append(simTrack.Hit, &eicio.SimTrackerHit{})
-	simTrack.Hit = append(simTrack.Hit, &eicio.SimTrackerHit{})
-	event0Out.AddCollection(simTrack, "TrackerHits")
-
-	writer.PushEvent(event0Out)
-
-	event1Out := eicio.NewEvent()
-	event1Out.Header.Description = "Second test event"
-
-	simTrack = &eicio.SimTrackerHitCollection{}
-	simTrack.Hit = append(simTrack.Hit, &eicio.SimTrackerHit{})
-	simTrack.Hit = append(simTrack.Hit, &eicio.SimTrackerHit{})
-	event1Out.AddCollection(simTrack, "TrackerHits")
-
-	writer.PushEvent(event1Out)
-
-	reader := eicio.NewReader(buffer)
-
-	event0In, err := reader.GetEvent()
-	if err != nil {
-		log.Fatal("Failed to read event")
+	if flag.NArg() != 1 {
+		printUsage()
+		log.Fatal("Invalid arguments")
 	}
-	fmt.Print(event0In)
 
-	event1In, err := reader.GetEvent()
+	reader, err := eicio.Open(flag.Arg(0))
 	if err != nil {
-		log.Fatal("Failed to read event")
+		log.Fatal(err)
 	}
-	fmt.Print(event1In)
+
+	for {
+		event := reader.GetEvent()
+		if event == nil {
+			break
+		}
+
+		fmt.Print(event)
+	}
 }

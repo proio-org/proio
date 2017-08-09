@@ -5,10 +5,10 @@ message EventHeader {
 	uint32 version = 1;
 
 	uint64 runNumber = 2;
-    uint64 eventNumber = 3;
-    uint64 timeStamp = 4;
-    string detector = 5;
-    Params params = 6;
+	uint64 eventNumber = 3;
+	uint64 timeStamp = 4;
+	string detector = 5;
+	Params params = 6;
 
 	message CollectionHeader {
 		enum Type {
@@ -33,7 +33,8 @@ message EventHeader {
 
 		Type type = 1;
 		string name = 2;
-		uint32 payloadSize = 3;
+		uint32 id = 3;
+		uint32 payloadSize = 4;
 	}
 	repeated CollectionHeader collection = 7;
 
@@ -59,317 +60,350 @@ message Params {
 }
 
 message Reference {
-    uint32 collID = 1;
-    uint32 entryID = 2;
+	uint32 collID = 1;
+	uint32 entryID = 2;
 }
 
 message ParticleID {
-    float likelihood = 1;
-    int32 type = 2;
-    int32 PDG = 3;
-    int32 algType = 4;
-    repeated float params = 5;
+	float likelihood = 1;
+	int32 type = 2;
+	int32 PDG = 3;
+	int32 algType = 4;
+	repeated float params = 5;
 }
 
 message MCParticle {
-	repeated int32 parents = 1;
-	repeated int32 children = 2;
-	int32 PDG = 3;
-	repeated double vertex = 4;
-	float time = 5;
-	repeated double p = 6;
-	double mass = 7;
-	float charge = 8;
-	repeated double PEndPoint = 9;
-	repeated float spin = 10;
-	repeated int32 colorFlow = 11;
+	uint32 id = 1;
+	repeated Reference parents = 2;
+	repeated Reference children = 3;
+	int32 PDG = 4;
+	repeated double vertex = 5;
+	float time = 6;
+	repeated double p = 7;
+	double mass = 8;
+	float charge = 9;
+	repeated double PEndPoint = 10;
+	repeated float spin = 11;
+	repeated int32 colorFlow = 12;
 
-	int32 genStatus = 12;
-	uint32 simStatus = 13;
+	int32 genStatus = 13;
+	uint32 simStatus = 14;
 }
 
 message MCParticleCollection {
-    int32 flags = 1;
-    Params params = 2;
-	repeated MCParticle particle = 3;
+	uint32 id = 1;
+	uint32 flags = 2;
+	Params params = 3;
+	repeated MCParticle entries = 4;
 }
 
 message SimTrackerHit {
-	int32 cellID0 = 1;
-	int32 cellID1 = 2;
-	repeated double pos = 3;
-	float EDep = 4;
-	float time = 5;
-	Reference mc = 6;
-	float p = 7;
-	float pathLength = 8;
-	int32 quality = 9;
+	uint32 id = 1;
+	int32 cellID0 = 2;
+	int32 cellID1 = 3;
+	repeated double pos = 4;
+	float EDep = 5;
+	float time = 6;
+	Reference mc = 7;
+	repeated float p = 8;
+	float pathLength = 9;
+	int32 quality = 10;
 }
 
 message SimTrackerHitCollection {
-    int32 flags = 1;
-    Params params = 2;
-	repeated SimTrackerHit hit = 3;
+	uint32 id = 1;
+	uint32 flags = 2;
+	Params params = 3;
+	repeated SimTrackerHit entries = 4;
 }
 
 message TrackerRawData {
-	int32 cellID0 = 1;
-	int32 cellID1 = 2;
-	int32 time = 3;
-	repeated uint32 ADCs = 4;
+	uint32 id = 1;
+	int32 cellID0 = 2;
+	int32 cellID1 = 3;
+	int32 time = 4;
+	repeated uint32 ADCs = 5;
 }
 
 message TrackerRawDataCollection {
-    int32 flags = 1;
-    Params params = 2;
-	repeated TrackerRawData data = 3;
+	uint32 id = 1;
+	uint32 flags = 2;
+	Params params = 3;
+	repeated TrackerRawData entries = 4;
 }
 
 message TrackerData {
-	int32 cellID0 = 1;
-	int32 cellID1 = 2;
-	float time = 3;
-	repeated float charges = 4;
+	uint32 id = 1;
+	int32 cellID0 = 2;
+	int32 cellID1 = 3;
+	float time = 4;
+	repeated float charges = 5;
 }
 
 message TrackerDataCollection {
-    int32 flags = 1;
-    Params params = 2;
-	repeated TrackerData data = 3;
+	uint32 id = 1;
+	uint32 flags = 2;
+	Params params = 3;
+	repeated TrackerData entries = 4;
 }
 
 message TrackerHit {
-	int32 cellID0 = 1;
-	int32 cellID1 = 2;
-	int32 type = 3;
-	repeated double pos = 4;
-	repeated double cov = 5;
-	float EDep = 6;
-	float EDepErr = 7;
-	float time = 8;
-	int32 quality = 9;
-	repeated Reference rawHits = 10;
+	uint32 id = 1;
+	int32 cellID0 = 2;
+	int32 cellID1 = 3;
+	int32 type = 4;
+	repeated double pos = 5;
+	repeated double cov = 6;
+	float EDep = 7;
+	float EDepErr = 8;
+	float time = 9;
+	int32 quality = 10;
+	repeated Reference rawHits = 11;
 }
 
 message TrackerHitCollection {
-    int32 flags = 1;
-    Params params = 2;
-	repeated TrackerHit hit = 3;
+	uint32 id = 1;
+	uint32 flags = 2;
+	Params params = 3;
+	repeated TrackerHit entries = 4;
 }
 
 message TrackerPulse {
-    int32 cellID0 = 1;
-    int32 cellID1 = 2;
-    float time = 3;
-    float charge = 4;
-    repeated float cov = 5;
-    int32 quality = 6;
-    Reference TPC = 7;
+	uint32 id = 1;
+	int32 cellID0 = 2;
+	int32 cellID1 = 3;
+	float time = 4;
+	float charge = 5;
+	repeated float cov = 6;
+	int32 quality = 7;
+	Reference TPC = 8;
 }
 
 message TrackerPulseCollection {
-    int32 flags = 1;
-    Params params = 2;
-	repeated TrackerPulse pulse = 3;
+	uint32 id = 1;
+	uint32 flags = 2;
+	Params params = 3;
+	repeated TrackerPulse entries = 4;
 }
 
 message TrackerHitPlane {
-    int32 cellID0 = 1;
-    int32 cellID1 = 2;
-    int32 type = 3;
-    repeated double pos = 4;
-    repeated float U = 5;
-    repeated float V = 6;
-    float dU = 7;
-    float dV = 8;
-    float EDep = 9;
-    float EDepErr = 10;
-    float time = 11;
-    int32 quality = 12;
-    repeated Reference rawHits = 13;
+	uint32 id = 1;
+	int32 cellID0 = 2;
+	int32 cellID1 = 3;
+	int32 type = 4;
+	repeated double pos = 5;
+	repeated float U = 6;
+	repeated float V = 7;
+	float dU = 8;
+	float dV = 9;
+	float EDep = 10;
+	float EDepErr = 11;
+	float time = 12;
+	int32 quality = 13;
+	repeated Reference rawHits = 14;
 }
 
 message TrackerHitPlaneCollection {
-    int32 flags = 1;
-    Params params = 2;
-	repeated TrackerHitPlane plane = 3;
+	uint32 id = 1;
+	uint32 flags = 2;
+	Params params = 3;
+	repeated TrackerHitPlane entries = 4;
 }
 
 message TrackerHitZCylinder {
-    int32 cellID0 = 1;
-    int32 cellID1 = 2;
-    int32 type = 3;
-    repeated double pos = 4;
-    repeated float center = 5;
-    float dRPhi = 6;
-    float dZ = 7;
-    float EDep = 8;
-    float EDepErr = 9;
-    float time = 10;
-    int32 quality = 11;
-    repeated Reference rawHits = 12;
+	uint32 id = 1;
+	int32 cellID0 = 2;
+	int32 cellID1 = 3;
+	int32 type = 4;
+	repeated double pos = 5;
+	repeated float center = 6;
+	float dRPhi = 7;
+	float dZ = 8;
+	float EDep = 9;
+	float EDepErr = 10;
+	float time = 11;
+	int32 quality = 12;
+	repeated Reference rawHits = 13;
 }
 
 message TrackerHitZCylinderCollection {
-    int32 flags = 1;
-    Params params = 2;
-	repeated TrackerHitZCylinder cyl = 3;
+	uint32 id = 1;
+	uint32 flags = 2;
+	Params params = 3;
+	repeated TrackerHitZCylinder entries = 4;
 }
 
 message Track {
-    int32 type = 1;
-    float chi2 = 2;
-    int32 NDF = 3;
-    float dEdx = 4;
-    float dEdxErr = 5;
-    float radius = 6;
-    repeated int32 subDetHits = 7;
+	uint32 id = 1;
+	int32 type = 2;
+	float chi2 = 3;
+	int32 NDF = 4;
+	float dEdx = 5;
+	float dEdxErr = 6;
+	float radius = 7;
+	repeated int32 subDetHits = 8;
 
-    message TrackState {
-        int32 loc = 1;
-        float d0 = 2;
-        float phi = 3;
-        float omega = 4;
-        float z0 = 5;
-        float tanL = 6;
-        repeated float cov = 7;
-        repeated float ref = 8;
-    }
-    repeated TrackState states = 8;
+	message TrackState {
+		int32 loc = 1;
+		float d0 = 2;
+		float phi = 3;
+		float omega = 4;
+		float z0 = 5;
+		float tanL = 6;
+		repeated float cov = 7;
+		repeated float ref = 8;
+	}
+	repeated TrackState states = 9;
 
-    repeated Reference hits = 9;
-    repeated Reference trackIDs = 10;
+	repeated Reference hits = 10;
+	repeated Reference tracks = 11;
 }
 
 message TrackCollection {
-    int32 flags = 1;
-    Params params = 2;
-	repeated Track track = 3;
+	uint32 id = 1;
+	uint32 flags = 2;
+	Params params = 3;
+	repeated Track entries = 4;
 }
 
 message SimCalorimeterHit {
-	Params params = 1;
-	int32 cellID0 = 2;
-	int32 cellID1 = 3;
-	float energy = 4;
-	repeated float pos = 5;
+	uint32 id = 1;
+	Params params = 2;
+	int32 cellID0 = 3;
+	int32 cellID1 = 4;
+	float energy = 5;
+	repeated float pos = 6;
 
-    message Contrib {
-        int32 MCParticle = 1;
-        float energy = 2;
-        float time = 3;
-        int32 PDG = 4;
-        repeated float stepPos = 5;
-    }
-	repeated Contrib contributions = 6;
+	message Contrib {
+		Reference MCParticle = 1;
+		float energy = 2;
+		float time = 3;
+		int32 PDG = 4;
+		repeated float stepPos = 5;
+	}
+	repeated Contrib contributions = 7;
 }
 
 message SimCalorimeterHitCollection {
-    int32 flags = 1;
-    Params params = 2;
-	repeated SimCalorimeterHit hit = 3;
+	uint32 id = 1;
+	uint32 flags = 2;
+	Params params = 3;
+	repeated SimCalorimeterHit entries = 4;
 }
 
 message RawCalorimeterHit {
-    int32 cellID0 = 1;
-    int32 cellID1 = 2;
-    int32 amplitude = 4;
-    int32 timeStamp = 5;
+	uint32 id = 1;
+	int32 cellID0 = 2;
+	int32 cellID1 = 3;
+	int32 amplitude = 4;
+	int32 timeStamp = 5;
 }
 
 message RawCalorimeterHitCollection {
-    int32 flags = 1;
-    Params params = 2;
-	repeated RawCalorimeterHit hit = 3;
+	uint32 id = 1;
+	uint32 flags = 2;
+	Params params = 3;
+	repeated RawCalorimeterHit entries = 4;
 }
 
 message CalorimeterHit {
-    int32 cellID0 = 1;
-    int32 cellID1 = 2;
-    float energy = 3;
-    float energyErr = 4;
-    float time = 5;
-    repeated float pos = 6;
-    int32 type = 7;
-    Reference raw = 8;
+	uint32 id = 1;
+	int32 cellID0 = 2;
+	int32 cellID1 = 3;
+	float energy = 4;
+	float energyErr = 5;
+	float time = 6;
+	repeated float pos = 7;
+	int32 type = 8;
+	Reference raw = 9;
 }
 
 message CalorimeterHitCollection {
-    int32 flags = 1;
-    Params params = 2;
-	repeated CalorimeterHit hit = 3;
+	uint32 id = 1;
+	uint32 flags = 2;
+	Params params = 3;
+	repeated CalorimeterHit entries = 4;
 }
 
 message Cluster {
-    int32 type = 1;
-    float energy = 2;
-    float energyErr = 3;
-    repeated float pos = 4;
-    repeated float posErr = 5;
-    float theta = 6;
-    float phi = 7;
-    repeated float dirErr = 8;
-    repeated float shape = 9;
-    repeated ParticleID PIDs = 10;
-    repeated Reference hits = 11;
-    repeated float weights = 12;
-    repeated float subDetEnes = 13;
+	uint32 id = 1;
+	int32 type = 2;
+	float energy = 3;
+	float energyErr = 4;
+	repeated float pos = 5;
+	repeated float posErr = 6;
+	float theta = 7;
+	float phi = 8;
+	repeated float dirErr = 9;
+	repeated float shape = 10;
+	repeated ParticleID PIDs = 11;
+	repeated Reference clusters = 12;
+	repeated Reference hits = 13;
+	repeated float weights = 14;
+	repeated float subDetEnes = 15;
 }
 
 message ClusterCollection {
-    int32 flags = 1;
-    Params params = 2;
-	repeated Cluster cluster = 3;
+	uint32 id = 1;
+	uint32 flags = 2;
+	Params params = 3;
+	repeated Cluster entries = 4;
 }
 
 message RecParticle {
-    int32 type = 1;
-    repeated float p = 2;
-    float energy = 3;
-    repeated float cov = 4;
-    float mass = 5;
-    float charge = 6;
-    repeated float ref = 7;
-    repeated ParticleID PIDs = 8;
-    int32 PIDUsed = 9;
-    float goodnessOfPID = 10;
-    repeated Reference recs = 11;
-    repeated Reference tracks = 12;
-    repeated Reference clusters = 13;
-    Reference startVtx = 14;
+	uint32 id = 1;
+	int32 type = 2;
+	repeated float p = 3;
+	float energy = 4;
+	repeated float cov = 5;
+	float mass = 6;
+	float charge = 7;
+	repeated float ref = 8;
+	repeated ParticleID PIDs = 9;
+	int32 PIDUsed = 10;
+	float goodnessOfPID = 11;
+	repeated Reference recs = 12;
+	repeated Reference tracks = 13;
+	repeated Reference clusters = 14;
+	Reference startVtx = 15;
 }
 
 message RecParticleCollection {
-    int32 flags = 1;
-    Params params = 2;
-	repeated RecParticle particle = 3;
+	uint32 id = 1;
+	uint32 flags = 2;
+	Params params = 3;
+	repeated RecParticle entries = 4;
 }
 
 message Vertex {
-    int32 primary = 1;
-    int32 algType = 2;
-    float chi2 = 3;
-    float prob = 4;
-    repeated float pos = 5;
-    repeated float cov = 6;
-    repeated float params = 7;
-    Reference recPart = 8;
+	uint32 id = 1;
+	int32 primary = 2;
+	int32 algType = 3;
+	float chi2 = 4;
+	float prob = 5;
+	repeated float pos = 6;
+	repeated float cov = 7;
+	repeated float params = 8;
+	Reference recPart = 9;
 }
 
 message VertexCollection {
-    int32 flags = 1;
-    Params params = 2;
-    repeated Vertex vertex = 3;
+	uint32 id = 1;
+	uint32 flags = 2;
+	Params params = 3;
+	repeated Vertex entries = 4;
 }
 
 message Relation {
-    Reference from = 1;
-    Reference to = 2;
-    float weight = 3;
+	uint32 id = 1;
+	Reference from = 2;
+	Reference to = 3;
+	float weight = 4;
 }
 
 message RelationCollection {
-    int32 flags = 1;
-    Params params = 2;
-    repeated Relation relation = 3;
+	uint32 id = 1;
+	uint32 flags = 2;
+	Params params = 3;
+	repeated Relation entries = 4;
 }

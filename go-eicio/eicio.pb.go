@@ -210,7 +210,8 @@ func (m *EventHeader) GetDescription() string {
 type EventHeader_CollectionHeader struct {
 	Type        EventHeader_CollectionHeader_Type `protobuf:"varint,1,opt,name=type,proto3,enum=eicio.EventHeader_CollectionHeader_Type" json:"type,omitempty"`
 	Name        string                            `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	PayloadSize uint32                            `protobuf:"varint,3,opt,name=payloadSize,proto3" json:"payloadSize,omitempty"`
+	Id          uint32                            `protobuf:"varint,3,opt,name=id,proto3" json:"id,omitempty"`
+	PayloadSize uint32                            `protobuf:"varint,4,opt,name=payloadSize,proto3" json:"payloadSize,omitempty"`
 }
 
 func (m *EventHeader_CollectionHeader) Reset()         { *m = EventHeader_CollectionHeader{} }
@@ -232,6 +233,13 @@ func (m *EventHeader_CollectionHeader) GetName() string {
 		return m.Name
 	}
 	return ""
+}
+
+func (m *EventHeader_CollectionHeader) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
 }
 
 func (m *EventHeader_CollectionHeader) GetPayloadSize() uint32 {
@@ -394,19 +402,20 @@ func (m *ParticleID) GetParams() []float32 {
 }
 
 type MCParticle struct {
-	Parents   []int32   `protobuf:"varint,1,rep,packed,name=parents" json:"parents,omitempty"`
-	Children  []int32   `protobuf:"varint,2,rep,packed,name=children" json:"children,omitempty"`
-	PDG       int32     `protobuf:"varint,3,opt,name=PDG,proto3" json:"PDG,omitempty"`
-	Vertex    []float64 `protobuf:"fixed64,4,rep,packed,name=vertex" json:"vertex,omitempty"`
-	Time      float32   `protobuf:"fixed32,5,opt,name=time,proto3" json:"time,omitempty"`
-	P         []float64 `protobuf:"fixed64,6,rep,packed,name=p" json:"p,omitempty"`
-	Mass      float64   `protobuf:"fixed64,7,opt,name=mass,proto3" json:"mass,omitempty"`
-	Charge    float32   `protobuf:"fixed32,8,opt,name=charge,proto3" json:"charge,omitempty"`
-	PEndPoint []float64 `protobuf:"fixed64,9,rep,packed,name=PEndPoint" json:"PEndPoint,omitempty"`
-	Spin      []float32 `protobuf:"fixed32,10,rep,packed,name=spin" json:"spin,omitempty"`
-	ColorFlow []int32   `protobuf:"varint,11,rep,packed,name=colorFlow" json:"colorFlow,omitempty"`
-	GenStatus int32     `protobuf:"varint,12,opt,name=genStatus,proto3" json:"genStatus,omitempty"`
-	SimStatus uint32    `protobuf:"varint,13,opt,name=simStatus,proto3" json:"simStatus,omitempty"`
+	Id        uint32       `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Parents   []*Reference `protobuf:"bytes,2,rep,name=parents" json:"parents,omitempty"`
+	Children  []*Reference `protobuf:"bytes,3,rep,name=children" json:"children,omitempty"`
+	PDG       int32        `protobuf:"varint,4,opt,name=PDG,proto3" json:"PDG,omitempty"`
+	Vertex    []float64    `protobuf:"fixed64,5,rep,packed,name=vertex" json:"vertex,omitempty"`
+	Time      float32      `protobuf:"fixed32,6,opt,name=time,proto3" json:"time,omitempty"`
+	P         []float64    `protobuf:"fixed64,7,rep,packed,name=p" json:"p,omitempty"`
+	Mass      float64      `protobuf:"fixed64,8,opt,name=mass,proto3" json:"mass,omitempty"`
+	Charge    float32      `protobuf:"fixed32,9,opt,name=charge,proto3" json:"charge,omitempty"`
+	PEndPoint []float64    `protobuf:"fixed64,10,rep,packed,name=PEndPoint" json:"PEndPoint,omitempty"`
+	Spin      []float32    `protobuf:"fixed32,11,rep,packed,name=spin" json:"spin,omitempty"`
+	ColorFlow []int32      `protobuf:"varint,12,rep,packed,name=colorFlow" json:"colorFlow,omitempty"`
+	GenStatus int32        `protobuf:"varint,13,opt,name=genStatus,proto3" json:"genStatus,omitempty"`
+	SimStatus uint32       `protobuf:"varint,14,opt,name=simStatus,proto3" json:"simStatus,omitempty"`
 }
 
 func (m *MCParticle) Reset()                    { *m = MCParticle{} }
@@ -414,14 +423,21 @@ func (m *MCParticle) String() string            { return proto.CompactTextString
 func (*MCParticle) ProtoMessage()               {}
 func (*MCParticle) Descriptor() ([]byte, []int) { return fileDescriptorEicio, []int{7} }
 
-func (m *MCParticle) GetParents() []int32 {
+func (m *MCParticle) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *MCParticle) GetParents() []*Reference {
 	if m != nil {
 		return m.Parents
 	}
 	return nil
 }
 
-func (m *MCParticle) GetChildren() []int32 {
+func (m *MCParticle) GetChildren() []*Reference {
 	if m != nil {
 		return m.Children
 	}
@@ -506,9 +522,10 @@ func (m *MCParticle) GetSimStatus() uint32 {
 }
 
 type MCParticleCollection struct {
-	Flags    int32         `protobuf:"varint,1,opt,name=flags,proto3" json:"flags,omitempty"`
-	Params   *Params       `protobuf:"bytes,2,opt,name=params" json:"params,omitempty"`
-	Particle []*MCParticle `protobuf:"bytes,3,rep,name=particle" json:"particle,omitempty"`
+	Id      uint32        `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Flags   uint32        `protobuf:"varint,2,opt,name=flags,proto3" json:"flags,omitempty"`
+	Params  *Params       `protobuf:"bytes,3,opt,name=params" json:"params,omitempty"`
+	Entries []*MCParticle `protobuf:"bytes,4,rep,name=entries" json:"entries,omitempty"`
 }
 
 func (m *MCParticleCollection) Reset()                    { *m = MCParticleCollection{} }
@@ -516,7 +533,14 @@ func (m *MCParticleCollection) String() string            { return proto.Compact
 func (*MCParticleCollection) ProtoMessage()               {}
 func (*MCParticleCollection) Descriptor() ([]byte, []int) { return fileDescriptorEicio, []int{8} }
 
-func (m *MCParticleCollection) GetFlags() int32 {
+func (m *MCParticleCollection) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *MCParticleCollection) GetFlags() uint32 {
 	if m != nil {
 		return m.Flags
 	}
@@ -530,29 +554,37 @@ func (m *MCParticleCollection) GetParams() *Params {
 	return nil
 }
 
-func (m *MCParticleCollection) GetParticle() []*MCParticle {
+func (m *MCParticleCollection) GetEntries() []*MCParticle {
 	if m != nil {
-		return m.Particle
+		return m.Entries
 	}
 	return nil
 }
 
 type SimTrackerHit struct {
-	CellID0    int32      `protobuf:"varint,1,opt,name=cellID0,proto3" json:"cellID0,omitempty"`
-	CellID1    int32      `protobuf:"varint,2,opt,name=cellID1,proto3" json:"cellID1,omitempty"`
-	Pos        []float64  `protobuf:"fixed64,3,rep,packed,name=pos" json:"pos,omitempty"`
-	EDep       float32    `protobuf:"fixed32,4,opt,name=EDep,proto3" json:"EDep,omitempty"`
-	Time       float32    `protobuf:"fixed32,5,opt,name=time,proto3" json:"time,omitempty"`
-	Mc         *Reference `protobuf:"bytes,6,opt,name=mc" json:"mc,omitempty"`
-	P          float32    `protobuf:"fixed32,7,opt,name=p,proto3" json:"p,omitempty"`
-	PathLength float32    `protobuf:"fixed32,8,opt,name=pathLength,proto3" json:"pathLength,omitempty"`
-	Quality    int32      `protobuf:"varint,9,opt,name=quality,proto3" json:"quality,omitempty"`
+	Id         uint32     `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	CellID0    int32      `protobuf:"varint,2,opt,name=cellID0,proto3" json:"cellID0,omitempty"`
+	CellID1    int32      `protobuf:"varint,3,opt,name=cellID1,proto3" json:"cellID1,omitempty"`
+	Pos        []float64  `protobuf:"fixed64,4,rep,packed,name=pos" json:"pos,omitempty"`
+	EDep       float32    `protobuf:"fixed32,5,opt,name=EDep,proto3" json:"EDep,omitempty"`
+	Time       float32    `protobuf:"fixed32,6,opt,name=time,proto3" json:"time,omitempty"`
+	Mc         *Reference `protobuf:"bytes,7,opt,name=mc" json:"mc,omitempty"`
+	P          []float32  `protobuf:"fixed32,8,rep,packed,name=p" json:"p,omitempty"`
+	PathLength float32    `protobuf:"fixed32,9,opt,name=pathLength,proto3" json:"pathLength,omitempty"`
+	Quality    int32      `protobuf:"varint,10,opt,name=quality,proto3" json:"quality,omitempty"`
 }
 
 func (m *SimTrackerHit) Reset()                    { *m = SimTrackerHit{} }
 func (m *SimTrackerHit) String() string            { return proto.CompactTextString(m) }
 func (*SimTrackerHit) ProtoMessage()               {}
 func (*SimTrackerHit) Descriptor() ([]byte, []int) { return fileDescriptorEicio, []int{9} }
+
+func (m *SimTrackerHit) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
 
 func (m *SimTrackerHit) GetCellID0() int32 {
 	if m != nil {
@@ -596,11 +628,11 @@ func (m *SimTrackerHit) GetMc() *Reference {
 	return nil
 }
 
-func (m *SimTrackerHit) GetP() float32 {
+func (m *SimTrackerHit) GetP() []float32 {
 	if m != nil {
 		return m.P
 	}
-	return 0
+	return nil
 }
 
 func (m *SimTrackerHit) GetPathLength() float32 {
@@ -618,9 +650,10 @@ func (m *SimTrackerHit) GetQuality() int32 {
 }
 
 type SimTrackerHitCollection struct {
-	Flags  int32            `protobuf:"varint,1,opt,name=flags,proto3" json:"flags,omitempty"`
-	Params *Params          `protobuf:"bytes,2,opt,name=params" json:"params,omitempty"`
-	Hit    []*SimTrackerHit `protobuf:"bytes,3,rep,name=hit" json:"hit,omitempty"`
+	Id      uint32           `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Flags   uint32           `protobuf:"varint,2,opt,name=flags,proto3" json:"flags,omitempty"`
+	Params  *Params          `protobuf:"bytes,3,opt,name=params" json:"params,omitempty"`
+	Entries []*SimTrackerHit `protobuf:"bytes,4,rep,name=entries" json:"entries,omitempty"`
 }
 
 func (m *SimTrackerHitCollection) Reset()                    { *m = SimTrackerHitCollection{} }
@@ -628,7 +661,14 @@ func (m *SimTrackerHitCollection) String() string            { return proto.Comp
 func (*SimTrackerHitCollection) ProtoMessage()               {}
 func (*SimTrackerHitCollection) Descriptor() ([]byte, []int) { return fileDescriptorEicio, []int{10} }
 
-func (m *SimTrackerHitCollection) GetFlags() int32 {
+func (m *SimTrackerHitCollection) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *SimTrackerHitCollection) GetFlags() uint32 {
 	if m != nil {
 		return m.Flags
 	}
@@ -642,24 +682,32 @@ func (m *SimTrackerHitCollection) GetParams() *Params {
 	return nil
 }
 
-func (m *SimTrackerHitCollection) GetHit() []*SimTrackerHit {
+func (m *SimTrackerHitCollection) GetEntries() []*SimTrackerHit {
 	if m != nil {
-		return m.Hit
+		return m.Entries
 	}
 	return nil
 }
 
 type TrackerRawData struct {
-	CellID0 int32    `protobuf:"varint,1,opt,name=cellID0,proto3" json:"cellID0,omitempty"`
-	CellID1 int32    `protobuf:"varint,2,opt,name=cellID1,proto3" json:"cellID1,omitempty"`
-	Time    int32    `protobuf:"varint,3,opt,name=time,proto3" json:"time,omitempty"`
-	ADCs    []uint32 `protobuf:"varint,4,rep,packed,name=ADCs" json:"ADCs,omitempty"`
+	Id      uint32   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	CellID0 int32    `protobuf:"varint,2,opt,name=cellID0,proto3" json:"cellID0,omitempty"`
+	CellID1 int32    `protobuf:"varint,3,opt,name=cellID1,proto3" json:"cellID1,omitempty"`
+	Time    int32    `protobuf:"varint,4,opt,name=time,proto3" json:"time,omitempty"`
+	ADCs    []uint32 `protobuf:"varint,5,rep,packed,name=ADCs" json:"ADCs,omitempty"`
 }
 
 func (m *TrackerRawData) Reset()                    { *m = TrackerRawData{} }
 func (m *TrackerRawData) String() string            { return proto.CompactTextString(m) }
 func (*TrackerRawData) ProtoMessage()               {}
 func (*TrackerRawData) Descriptor() ([]byte, []int) { return fileDescriptorEicio, []int{11} }
+
+func (m *TrackerRawData) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
 
 func (m *TrackerRawData) GetCellID0() int32 {
 	if m != nil {
@@ -690,9 +738,10 @@ func (m *TrackerRawData) GetADCs() []uint32 {
 }
 
 type TrackerRawDataCollection struct {
-	Flags  int32             `protobuf:"varint,1,opt,name=flags,proto3" json:"flags,omitempty"`
-	Params *Params           `protobuf:"bytes,2,opt,name=params" json:"params,omitempty"`
-	Data   []*TrackerRawData `protobuf:"bytes,3,rep,name=data" json:"data,omitempty"`
+	Id      uint32            `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Flags   uint32            `protobuf:"varint,2,opt,name=flags,proto3" json:"flags,omitempty"`
+	Params  *Params           `protobuf:"bytes,3,opt,name=params" json:"params,omitempty"`
+	Entries []*TrackerRawData `protobuf:"bytes,4,rep,name=entries" json:"entries,omitempty"`
 }
 
 func (m *TrackerRawDataCollection) Reset()                    { *m = TrackerRawDataCollection{} }
@@ -700,7 +749,14 @@ func (m *TrackerRawDataCollection) String() string            { return proto.Com
 func (*TrackerRawDataCollection) ProtoMessage()               {}
 func (*TrackerRawDataCollection) Descriptor() ([]byte, []int) { return fileDescriptorEicio, []int{12} }
 
-func (m *TrackerRawDataCollection) GetFlags() int32 {
+func (m *TrackerRawDataCollection) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *TrackerRawDataCollection) GetFlags() uint32 {
 	if m != nil {
 		return m.Flags
 	}
@@ -714,24 +770,32 @@ func (m *TrackerRawDataCollection) GetParams() *Params {
 	return nil
 }
 
-func (m *TrackerRawDataCollection) GetData() []*TrackerRawData {
+func (m *TrackerRawDataCollection) GetEntries() []*TrackerRawData {
 	if m != nil {
-		return m.Data
+		return m.Entries
 	}
 	return nil
 }
 
 type TrackerData struct {
-	CellID0 int32     `protobuf:"varint,1,opt,name=cellID0,proto3" json:"cellID0,omitempty"`
-	CellID1 int32     `protobuf:"varint,2,opt,name=cellID1,proto3" json:"cellID1,omitempty"`
-	Time    float32   `protobuf:"fixed32,3,opt,name=time,proto3" json:"time,omitempty"`
-	Charges []float32 `protobuf:"fixed32,4,rep,packed,name=charges" json:"charges,omitempty"`
+	Id      uint32    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	CellID0 int32     `protobuf:"varint,2,opt,name=cellID0,proto3" json:"cellID0,omitempty"`
+	CellID1 int32     `protobuf:"varint,3,opt,name=cellID1,proto3" json:"cellID1,omitempty"`
+	Time    float32   `protobuf:"fixed32,4,opt,name=time,proto3" json:"time,omitempty"`
+	Charges []float32 `protobuf:"fixed32,5,rep,packed,name=charges" json:"charges,omitempty"`
 }
 
 func (m *TrackerData) Reset()                    { *m = TrackerData{} }
 func (m *TrackerData) String() string            { return proto.CompactTextString(m) }
 func (*TrackerData) ProtoMessage()               {}
 func (*TrackerData) Descriptor() ([]byte, []int) { return fileDescriptorEicio, []int{13} }
+
+func (m *TrackerData) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
 
 func (m *TrackerData) GetCellID0() int32 {
 	if m != nil {
@@ -762,9 +826,10 @@ func (m *TrackerData) GetCharges() []float32 {
 }
 
 type TrackerDataCollection struct {
-	Flags  int32          `protobuf:"varint,1,opt,name=flags,proto3" json:"flags,omitempty"`
-	Params *Params        `protobuf:"bytes,2,opt,name=params" json:"params,omitempty"`
-	Data   []*TrackerData `protobuf:"bytes,3,rep,name=data" json:"data,omitempty"`
+	Id      uint32         `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Flags   uint32         `protobuf:"varint,2,opt,name=flags,proto3" json:"flags,omitempty"`
+	Params  *Params        `protobuf:"bytes,3,opt,name=params" json:"params,omitempty"`
+	Entries []*TrackerData `protobuf:"bytes,4,rep,name=entries" json:"entries,omitempty"`
 }
 
 func (m *TrackerDataCollection) Reset()                    { *m = TrackerDataCollection{} }
@@ -772,7 +837,14 @@ func (m *TrackerDataCollection) String() string            { return proto.Compac
 func (*TrackerDataCollection) ProtoMessage()               {}
 func (*TrackerDataCollection) Descriptor() ([]byte, []int) { return fileDescriptorEicio, []int{14} }
 
-func (m *TrackerDataCollection) GetFlags() int32 {
+func (m *TrackerDataCollection) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *TrackerDataCollection) GetFlags() uint32 {
 	if m != nil {
 		return m.Flags
 	}
@@ -786,30 +858,38 @@ func (m *TrackerDataCollection) GetParams() *Params {
 	return nil
 }
 
-func (m *TrackerDataCollection) GetData() []*TrackerData {
+func (m *TrackerDataCollection) GetEntries() []*TrackerData {
 	if m != nil {
-		return m.Data
+		return m.Entries
 	}
 	return nil
 }
 
 type TrackerHit struct {
-	CellID0 int32        `protobuf:"varint,1,opt,name=cellID0,proto3" json:"cellID0,omitempty"`
-	CellID1 int32        `protobuf:"varint,2,opt,name=cellID1,proto3" json:"cellID1,omitempty"`
-	Type    int32        `protobuf:"varint,3,opt,name=type,proto3" json:"type,omitempty"`
-	Pos     []float64    `protobuf:"fixed64,4,rep,packed,name=pos" json:"pos,omitempty"`
-	Cov     []float64    `protobuf:"fixed64,5,rep,packed,name=cov" json:"cov,omitempty"`
-	EDep    float32      `protobuf:"fixed32,6,opt,name=EDep,proto3" json:"EDep,omitempty"`
-	EDepErr float32      `protobuf:"fixed32,7,opt,name=EDepErr,proto3" json:"EDepErr,omitempty"`
-	Time    float32      `protobuf:"fixed32,8,opt,name=time,proto3" json:"time,omitempty"`
-	Quality int32        `protobuf:"varint,9,opt,name=quality,proto3" json:"quality,omitempty"`
-	RawHits []*Reference `protobuf:"bytes,10,rep,name=rawHits" json:"rawHits,omitempty"`
+	Id      uint32       `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	CellID0 int32        `protobuf:"varint,2,opt,name=cellID0,proto3" json:"cellID0,omitempty"`
+	CellID1 int32        `protobuf:"varint,3,opt,name=cellID1,proto3" json:"cellID1,omitempty"`
+	Type    int32        `protobuf:"varint,4,opt,name=type,proto3" json:"type,omitempty"`
+	Pos     []float64    `protobuf:"fixed64,5,rep,packed,name=pos" json:"pos,omitempty"`
+	Cov     []float64    `protobuf:"fixed64,6,rep,packed,name=cov" json:"cov,omitempty"`
+	EDep    float32      `protobuf:"fixed32,7,opt,name=EDep,proto3" json:"EDep,omitempty"`
+	EDepErr float32      `protobuf:"fixed32,8,opt,name=EDepErr,proto3" json:"EDepErr,omitempty"`
+	Time    float32      `protobuf:"fixed32,9,opt,name=time,proto3" json:"time,omitempty"`
+	Quality int32        `protobuf:"varint,10,opt,name=quality,proto3" json:"quality,omitempty"`
+	RawHits []*Reference `protobuf:"bytes,11,rep,name=rawHits" json:"rawHits,omitempty"`
 }
 
 func (m *TrackerHit) Reset()                    { *m = TrackerHit{} }
 func (m *TrackerHit) String() string            { return proto.CompactTextString(m) }
 func (*TrackerHit) ProtoMessage()               {}
 func (*TrackerHit) Descriptor() ([]byte, []int) { return fileDescriptorEicio, []int{15} }
+
+func (m *TrackerHit) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
 
 func (m *TrackerHit) GetCellID0() int32 {
 	if m != nil {
@@ -882,9 +962,10 @@ func (m *TrackerHit) GetRawHits() []*Reference {
 }
 
 type TrackerHitCollection struct {
-	Flags  int32         `protobuf:"varint,1,opt,name=flags,proto3" json:"flags,omitempty"`
-	Params *Params       `protobuf:"bytes,2,opt,name=params" json:"params,omitempty"`
-	Hit    []*TrackerHit `protobuf:"bytes,3,rep,name=hit" json:"hit,omitempty"`
+	Id      uint32        `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Flags   uint32        `protobuf:"varint,2,opt,name=flags,proto3" json:"flags,omitempty"`
+	Params  *Params       `protobuf:"bytes,3,opt,name=params" json:"params,omitempty"`
+	Entries []*TrackerHit `protobuf:"bytes,4,rep,name=entries" json:"entries,omitempty"`
 }
 
 func (m *TrackerHitCollection) Reset()                    { *m = TrackerHitCollection{} }
@@ -892,7 +973,14 @@ func (m *TrackerHitCollection) String() string            { return proto.Compact
 func (*TrackerHitCollection) ProtoMessage()               {}
 func (*TrackerHitCollection) Descriptor() ([]byte, []int) { return fileDescriptorEicio, []int{16} }
 
-func (m *TrackerHitCollection) GetFlags() int32 {
+func (m *TrackerHitCollection) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *TrackerHitCollection) GetFlags() uint32 {
 	if m != nil {
 		return m.Flags
 	}
@@ -906,27 +994,35 @@ func (m *TrackerHitCollection) GetParams() *Params {
 	return nil
 }
 
-func (m *TrackerHitCollection) GetHit() []*TrackerHit {
+func (m *TrackerHitCollection) GetEntries() []*TrackerHit {
 	if m != nil {
-		return m.Hit
+		return m.Entries
 	}
 	return nil
 }
 
 type TrackerPulse struct {
-	CellID0 int32      `protobuf:"varint,1,opt,name=cellID0,proto3" json:"cellID0,omitempty"`
-	CellID1 int32      `protobuf:"varint,2,opt,name=cellID1,proto3" json:"cellID1,omitempty"`
-	Time    float32    `protobuf:"fixed32,3,opt,name=time,proto3" json:"time,omitempty"`
-	Charge  float32    `protobuf:"fixed32,4,opt,name=charge,proto3" json:"charge,omitempty"`
-	Cov     []float32  `protobuf:"fixed32,5,rep,packed,name=cov" json:"cov,omitempty"`
-	Quality int32      `protobuf:"varint,6,opt,name=quality,proto3" json:"quality,omitempty"`
-	TPC     *Reference `protobuf:"bytes,7,opt,name=TPC" json:"TPC,omitempty"`
+	Id      uint32     `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	CellID0 int32      `protobuf:"varint,2,opt,name=cellID0,proto3" json:"cellID0,omitempty"`
+	CellID1 int32      `protobuf:"varint,3,opt,name=cellID1,proto3" json:"cellID1,omitempty"`
+	Time    float32    `protobuf:"fixed32,4,opt,name=time,proto3" json:"time,omitempty"`
+	Charge  float32    `protobuf:"fixed32,5,opt,name=charge,proto3" json:"charge,omitempty"`
+	Cov     []float32  `protobuf:"fixed32,6,rep,packed,name=cov" json:"cov,omitempty"`
+	Quality int32      `protobuf:"varint,7,opt,name=quality,proto3" json:"quality,omitempty"`
+	TPC     *Reference `protobuf:"bytes,8,opt,name=TPC" json:"TPC,omitempty"`
 }
 
 func (m *TrackerPulse) Reset()                    { *m = TrackerPulse{} }
 func (m *TrackerPulse) String() string            { return proto.CompactTextString(m) }
 func (*TrackerPulse) ProtoMessage()               {}
 func (*TrackerPulse) Descriptor() ([]byte, []int) { return fileDescriptorEicio, []int{17} }
+
+func (m *TrackerPulse) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
 
 func (m *TrackerPulse) GetCellID0() int32 {
 	if m != nil {
@@ -978,9 +1074,10 @@ func (m *TrackerPulse) GetTPC() *Reference {
 }
 
 type TrackerPulseCollection struct {
-	Flags  int32           `protobuf:"varint,1,opt,name=flags,proto3" json:"flags,omitempty"`
-	Params *Params         `protobuf:"bytes,2,opt,name=params" json:"params,omitempty"`
-	Pulse  []*TrackerPulse `protobuf:"bytes,3,rep,name=pulse" json:"pulse,omitempty"`
+	Id      uint32          `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Flags   uint32          `protobuf:"varint,2,opt,name=flags,proto3" json:"flags,omitempty"`
+	Params  *Params         `protobuf:"bytes,3,opt,name=params" json:"params,omitempty"`
+	Entries []*TrackerPulse `protobuf:"bytes,4,rep,name=entries" json:"entries,omitempty"`
 }
 
 func (m *TrackerPulseCollection) Reset()                    { *m = TrackerPulseCollection{} }
@@ -988,7 +1085,14 @@ func (m *TrackerPulseCollection) String() string            { return proto.Compa
 func (*TrackerPulseCollection) ProtoMessage()               {}
 func (*TrackerPulseCollection) Descriptor() ([]byte, []int) { return fileDescriptorEicio, []int{18} }
 
-func (m *TrackerPulseCollection) GetFlags() int32 {
+func (m *TrackerPulseCollection) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *TrackerPulseCollection) GetFlags() uint32 {
 	if m != nil {
 		return m.Flags
 	}
@@ -1002,33 +1106,41 @@ func (m *TrackerPulseCollection) GetParams() *Params {
 	return nil
 }
 
-func (m *TrackerPulseCollection) GetPulse() []*TrackerPulse {
+func (m *TrackerPulseCollection) GetEntries() []*TrackerPulse {
 	if m != nil {
-		return m.Pulse
+		return m.Entries
 	}
 	return nil
 }
 
 type TrackerHitPlane struct {
-	CellID0 int32        `protobuf:"varint,1,opt,name=cellID0,proto3" json:"cellID0,omitempty"`
-	CellID1 int32        `protobuf:"varint,2,opt,name=cellID1,proto3" json:"cellID1,omitempty"`
-	Type    int32        `protobuf:"varint,3,opt,name=type,proto3" json:"type,omitempty"`
-	Pos     []float64    `protobuf:"fixed64,4,rep,packed,name=pos" json:"pos,omitempty"`
-	U       []float32    `protobuf:"fixed32,5,rep,packed,name=U" json:"U,omitempty"`
-	V       []float32    `protobuf:"fixed32,6,rep,packed,name=V" json:"V,omitempty"`
-	DU      float32      `protobuf:"fixed32,7,opt,name=dU,proto3" json:"dU,omitempty"`
-	DV      float32      `protobuf:"fixed32,8,opt,name=dV,proto3" json:"dV,omitempty"`
-	EDep    float32      `protobuf:"fixed32,9,opt,name=EDep,proto3" json:"EDep,omitempty"`
-	EDepErr float32      `protobuf:"fixed32,10,opt,name=EDepErr,proto3" json:"EDepErr,omitempty"`
-	Time    float32      `protobuf:"fixed32,11,opt,name=time,proto3" json:"time,omitempty"`
-	Quality int32        `protobuf:"varint,12,opt,name=quality,proto3" json:"quality,omitempty"`
-	RawHits []*Reference `protobuf:"bytes,13,rep,name=rawHits" json:"rawHits,omitempty"`
+	Id      uint32       `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	CellID0 int32        `protobuf:"varint,2,opt,name=cellID0,proto3" json:"cellID0,omitempty"`
+	CellID1 int32        `protobuf:"varint,3,opt,name=cellID1,proto3" json:"cellID1,omitempty"`
+	Type    int32        `protobuf:"varint,4,opt,name=type,proto3" json:"type,omitempty"`
+	Pos     []float64    `protobuf:"fixed64,5,rep,packed,name=pos" json:"pos,omitempty"`
+	U       []float32    `protobuf:"fixed32,6,rep,packed,name=U" json:"U,omitempty"`
+	V       []float32    `protobuf:"fixed32,7,rep,packed,name=V" json:"V,omitempty"`
+	DU      float32      `protobuf:"fixed32,8,opt,name=dU,proto3" json:"dU,omitempty"`
+	DV      float32      `protobuf:"fixed32,9,opt,name=dV,proto3" json:"dV,omitempty"`
+	EDep    float32      `protobuf:"fixed32,10,opt,name=EDep,proto3" json:"EDep,omitempty"`
+	EDepErr float32      `protobuf:"fixed32,11,opt,name=EDepErr,proto3" json:"EDepErr,omitempty"`
+	Time    float32      `protobuf:"fixed32,12,opt,name=time,proto3" json:"time,omitempty"`
+	Quality int32        `protobuf:"varint,13,opt,name=quality,proto3" json:"quality,omitempty"`
+	RawHits []*Reference `protobuf:"bytes,14,rep,name=rawHits" json:"rawHits,omitempty"`
 }
 
 func (m *TrackerHitPlane) Reset()                    { *m = TrackerHitPlane{} }
 func (m *TrackerHitPlane) String() string            { return proto.CompactTextString(m) }
 func (*TrackerHitPlane) ProtoMessage()               {}
 func (*TrackerHitPlane) Descriptor() ([]byte, []int) { return fileDescriptorEicio, []int{19} }
+
+func (m *TrackerHitPlane) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
 
 func (m *TrackerHitPlane) GetCellID0() int32 {
 	if m != nil {
@@ -1122,9 +1234,10 @@ func (m *TrackerHitPlane) GetRawHits() []*Reference {
 }
 
 type TrackerHitPlaneCollection struct {
-	Flags  int32              `protobuf:"varint,1,opt,name=flags,proto3" json:"flags,omitempty"`
-	Params *Params            `protobuf:"bytes,2,opt,name=params" json:"params,omitempty"`
-	Plane  []*TrackerHitPlane `protobuf:"bytes,3,rep,name=plane" json:"plane,omitempty"`
+	Id      uint32             `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Flags   uint32             `protobuf:"varint,2,opt,name=flags,proto3" json:"flags,omitempty"`
+	Params  *Params            `protobuf:"bytes,3,opt,name=params" json:"params,omitempty"`
+	Entries []*TrackerHitPlane `protobuf:"bytes,4,rep,name=entries" json:"entries,omitempty"`
 }
 
 func (m *TrackerHitPlaneCollection) Reset()                    { *m = TrackerHitPlaneCollection{} }
@@ -1132,7 +1245,14 @@ func (m *TrackerHitPlaneCollection) String() string            { return proto.Co
 func (*TrackerHitPlaneCollection) ProtoMessage()               {}
 func (*TrackerHitPlaneCollection) Descriptor() ([]byte, []int) { return fileDescriptorEicio, []int{20} }
 
-func (m *TrackerHitPlaneCollection) GetFlags() int32 {
+func (m *TrackerHitPlaneCollection) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *TrackerHitPlaneCollection) GetFlags() uint32 {
 	if m != nil {
 		return m.Flags
 	}
@@ -1146,32 +1266,40 @@ func (m *TrackerHitPlaneCollection) GetParams() *Params {
 	return nil
 }
 
-func (m *TrackerHitPlaneCollection) GetPlane() []*TrackerHitPlane {
+func (m *TrackerHitPlaneCollection) GetEntries() []*TrackerHitPlane {
 	if m != nil {
-		return m.Plane
+		return m.Entries
 	}
 	return nil
 }
 
 type TrackerHitZCylinder struct {
-	CellID0 int32        `protobuf:"varint,1,opt,name=cellID0,proto3" json:"cellID0,omitempty"`
-	CellID1 int32        `protobuf:"varint,2,opt,name=cellID1,proto3" json:"cellID1,omitempty"`
-	Type    int32        `protobuf:"varint,3,opt,name=type,proto3" json:"type,omitempty"`
-	Pos     []float64    `protobuf:"fixed64,4,rep,packed,name=pos" json:"pos,omitempty"`
-	Center  []float32    `protobuf:"fixed32,5,rep,packed,name=center" json:"center,omitempty"`
-	DRPhi   float32      `protobuf:"fixed32,6,opt,name=dRPhi,proto3" json:"dRPhi,omitempty"`
-	DZ      float32      `protobuf:"fixed32,7,opt,name=dZ,proto3" json:"dZ,omitempty"`
-	EDep    float32      `protobuf:"fixed32,8,opt,name=EDep,proto3" json:"EDep,omitempty"`
-	EDepErr float32      `protobuf:"fixed32,9,opt,name=EDepErr,proto3" json:"EDepErr,omitempty"`
-	Time    float32      `protobuf:"fixed32,10,opt,name=time,proto3" json:"time,omitempty"`
-	Quality int32        `protobuf:"varint,11,opt,name=quality,proto3" json:"quality,omitempty"`
-	RawHits []*Reference `protobuf:"bytes,12,rep,name=rawHits" json:"rawHits,omitempty"`
+	Id      uint32       `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	CellID0 int32        `protobuf:"varint,2,opt,name=cellID0,proto3" json:"cellID0,omitempty"`
+	CellID1 int32        `protobuf:"varint,3,opt,name=cellID1,proto3" json:"cellID1,omitempty"`
+	Type    int32        `protobuf:"varint,4,opt,name=type,proto3" json:"type,omitempty"`
+	Pos     []float64    `protobuf:"fixed64,5,rep,packed,name=pos" json:"pos,omitempty"`
+	Center  []float32    `protobuf:"fixed32,6,rep,packed,name=center" json:"center,omitempty"`
+	DRPhi   float32      `protobuf:"fixed32,7,opt,name=dRPhi,proto3" json:"dRPhi,omitempty"`
+	DZ      float32      `protobuf:"fixed32,8,opt,name=dZ,proto3" json:"dZ,omitempty"`
+	EDep    float32      `protobuf:"fixed32,9,opt,name=EDep,proto3" json:"EDep,omitempty"`
+	EDepErr float32      `protobuf:"fixed32,10,opt,name=EDepErr,proto3" json:"EDepErr,omitempty"`
+	Time    float32      `protobuf:"fixed32,11,opt,name=time,proto3" json:"time,omitempty"`
+	Quality int32        `protobuf:"varint,12,opt,name=quality,proto3" json:"quality,omitempty"`
+	RawHits []*Reference `protobuf:"bytes,13,rep,name=rawHits" json:"rawHits,omitempty"`
 }
 
 func (m *TrackerHitZCylinder) Reset()                    { *m = TrackerHitZCylinder{} }
 func (m *TrackerHitZCylinder) String() string            { return proto.CompactTextString(m) }
 func (*TrackerHitZCylinder) ProtoMessage()               {}
 func (*TrackerHitZCylinder) Descriptor() ([]byte, []int) { return fileDescriptorEicio, []int{21} }
+
+func (m *TrackerHitZCylinder) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
 
 func (m *TrackerHitZCylinder) GetCellID0() int32 {
 	if m != nil {
@@ -1258,9 +1386,10 @@ func (m *TrackerHitZCylinder) GetRawHits() []*Reference {
 }
 
 type TrackerHitZCylinderCollection struct {
-	Flags  int32                  `protobuf:"varint,1,opt,name=flags,proto3" json:"flags,omitempty"`
-	Params *Params                `protobuf:"bytes,2,opt,name=params" json:"params,omitempty"`
-	Cyl    []*TrackerHitZCylinder `protobuf:"bytes,3,rep,name=cyl" json:"cyl,omitempty"`
+	Id      uint32                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Flags   uint32                 `protobuf:"varint,2,opt,name=flags,proto3" json:"flags,omitempty"`
+	Params  *Params                `protobuf:"bytes,3,opt,name=params" json:"params,omitempty"`
+	Entries []*TrackerHitZCylinder `protobuf:"bytes,4,rep,name=entries" json:"entries,omitempty"`
 }
 
 func (m *TrackerHitZCylinderCollection) Reset()         { *m = TrackerHitZCylinderCollection{} }
@@ -1270,7 +1399,14 @@ func (*TrackerHitZCylinderCollection) Descriptor() ([]byte, []int) {
 	return fileDescriptorEicio, []int{22}
 }
 
-func (m *TrackerHitZCylinderCollection) GetFlags() int32 {
+func (m *TrackerHitZCylinderCollection) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *TrackerHitZCylinderCollection) GetFlags() uint32 {
 	if m != nil {
 		return m.Flags
 	}
@@ -1284,30 +1420,38 @@ func (m *TrackerHitZCylinderCollection) GetParams() *Params {
 	return nil
 }
 
-func (m *TrackerHitZCylinderCollection) GetCyl() []*TrackerHitZCylinder {
+func (m *TrackerHitZCylinderCollection) GetEntries() []*TrackerHitZCylinder {
 	if m != nil {
-		return m.Cyl
+		return m.Entries
 	}
 	return nil
 }
 
 type Track struct {
-	Type       int32               `protobuf:"varint,1,opt,name=type,proto3" json:"type,omitempty"`
-	Chi2       float32             `protobuf:"fixed32,2,opt,name=chi2,proto3" json:"chi2,omitempty"`
-	NDF        int32               `protobuf:"varint,3,opt,name=NDF,proto3" json:"NDF,omitempty"`
-	DEdx       float32             `protobuf:"fixed32,4,opt,name=dEdx,proto3" json:"dEdx,omitempty"`
-	DEdxErr    float32             `protobuf:"fixed32,5,opt,name=dEdxErr,proto3" json:"dEdxErr,omitempty"`
-	Radius     float32             `protobuf:"fixed32,6,opt,name=radius,proto3" json:"radius,omitempty"`
-	SubDetHits []int32             `protobuf:"varint,7,rep,packed,name=subDetHits" json:"subDetHits,omitempty"`
-	States     []*Track_TrackState `protobuf:"bytes,8,rep,name=states" json:"states,omitempty"`
-	Hits       []*Reference        `protobuf:"bytes,9,rep,name=hits" json:"hits,omitempty"`
-	TrackIDs   []*Reference        `protobuf:"bytes,10,rep,name=trackIDs" json:"trackIDs,omitempty"`
+	Id         uint32              `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Type       int32               `protobuf:"varint,2,opt,name=type,proto3" json:"type,omitempty"`
+	Chi2       float32             `protobuf:"fixed32,3,opt,name=chi2,proto3" json:"chi2,omitempty"`
+	NDF        int32               `protobuf:"varint,4,opt,name=NDF,proto3" json:"NDF,omitempty"`
+	DEdx       float32             `protobuf:"fixed32,5,opt,name=dEdx,proto3" json:"dEdx,omitempty"`
+	DEdxErr    float32             `protobuf:"fixed32,6,opt,name=dEdxErr,proto3" json:"dEdxErr,omitempty"`
+	Radius     float32             `protobuf:"fixed32,7,opt,name=radius,proto3" json:"radius,omitempty"`
+	SubDetHits []int32             `protobuf:"varint,8,rep,packed,name=subDetHits" json:"subDetHits,omitempty"`
+	States     []*Track_TrackState `protobuf:"bytes,9,rep,name=states" json:"states,omitempty"`
+	Hits       []*Reference        `protobuf:"bytes,10,rep,name=hits" json:"hits,omitempty"`
+	Tracks     []*Reference        `protobuf:"bytes,11,rep,name=tracks" json:"tracks,omitempty"`
 }
 
 func (m *Track) Reset()                    { *m = Track{} }
 func (m *Track) String() string            { return proto.CompactTextString(m) }
 func (*Track) ProtoMessage()               {}
 func (*Track) Descriptor() ([]byte, []int) { return fileDescriptorEicio, []int{23} }
+
+func (m *Track) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
 
 func (m *Track) GetType() int32 {
 	if m != nil {
@@ -1372,9 +1516,9 @@ func (m *Track) GetHits() []*Reference {
 	return nil
 }
 
-func (m *Track) GetTrackIDs() []*Reference {
+func (m *Track) GetTracks() []*Reference {
 	if m != nil {
-		return m.TrackIDs
+		return m.Tracks
 	}
 	return nil
 }
@@ -1452,9 +1596,10 @@ func (m *Track_TrackState) GetRef() []float32 {
 }
 
 type TrackCollection struct {
-	Flags  int32    `protobuf:"varint,1,opt,name=flags,proto3" json:"flags,omitempty"`
-	Params *Params  `protobuf:"bytes,2,opt,name=params" json:"params,omitempty"`
-	Track  []*Track `protobuf:"bytes,3,rep,name=track" json:"track,omitempty"`
+	Id      uint32   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Flags   uint32   `protobuf:"varint,2,opt,name=flags,proto3" json:"flags,omitempty"`
+	Params  *Params  `protobuf:"bytes,3,opt,name=params" json:"params,omitempty"`
+	Entries []*Track `protobuf:"bytes,4,rep,name=entries" json:"entries,omitempty"`
 }
 
 func (m *TrackCollection) Reset()                    { *m = TrackCollection{} }
@@ -1462,7 +1607,14 @@ func (m *TrackCollection) String() string            { return proto.CompactTextS
 func (*TrackCollection) ProtoMessage()               {}
 func (*TrackCollection) Descriptor() ([]byte, []int) { return fileDescriptorEicio, []int{24} }
 
-func (m *TrackCollection) GetFlags() int32 {
+func (m *TrackCollection) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *TrackCollection) GetFlags() uint32 {
 	if m != nil {
 		return m.Flags
 	}
@@ -1476,26 +1628,34 @@ func (m *TrackCollection) GetParams() *Params {
 	return nil
 }
 
-func (m *TrackCollection) GetTrack() []*Track {
+func (m *TrackCollection) GetEntries() []*Track {
 	if m != nil {
-		return m.Track
+		return m.Entries
 	}
 	return nil
 }
 
 type SimCalorimeterHit struct {
-	Params        *Params                      `protobuf:"bytes,1,opt,name=params" json:"params,omitempty"`
-	CellID0       int32                        `protobuf:"varint,2,opt,name=cellID0,proto3" json:"cellID0,omitempty"`
-	CellID1       int32                        `protobuf:"varint,3,opt,name=cellID1,proto3" json:"cellID1,omitempty"`
-	Energy        float32                      `protobuf:"fixed32,4,opt,name=energy,proto3" json:"energy,omitempty"`
-	Pos           []float32                    `protobuf:"fixed32,5,rep,packed,name=pos" json:"pos,omitempty"`
-	Contributions []*SimCalorimeterHit_Contrib `protobuf:"bytes,6,rep,name=contributions" json:"contributions,omitempty"`
+	Id            uint32                       `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Params        *Params                      `protobuf:"bytes,2,opt,name=params" json:"params,omitempty"`
+	CellID0       int32                        `protobuf:"varint,3,opt,name=cellID0,proto3" json:"cellID0,omitempty"`
+	CellID1       int32                        `protobuf:"varint,4,opt,name=cellID1,proto3" json:"cellID1,omitempty"`
+	Energy        float32                      `protobuf:"fixed32,5,opt,name=energy,proto3" json:"energy,omitempty"`
+	Pos           []float32                    `protobuf:"fixed32,6,rep,packed,name=pos" json:"pos,omitempty"`
+	Contributions []*SimCalorimeterHit_Contrib `protobuf:"bytes,7,rep,name=contributions" json:"contributions,omitempty"`
 }
 
 func (m *SimCalorimeterHit) Reset()                    { *m = SimCalorimeterHit{} }
 func (m *SimCalorimeterHit) String() string            { return proto.CompactTextString(m) }
 func (*SimCalorimeterHit) ProtoMessage()               {}
 func (*SimCalorimeterHit) Descriptor() ([]byte, []int) { return fileDescriptorEicio, []int{25} }
+
+func (m *SimCalorimeterHit) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
 
 func (m *SimCalorimeterHit) GetParams() *Params {
 	if m != nil {
@@ -1540,11 +1700,11 @@ func (m *SimCalorimeterHit) GetContributions() []*SimCalorimeterHit_Contrib {
 }
 
 type SimCalorimeterHit_Contrib struct {
-	MCParticle int32     `protobuf:"varint,1,opt,name=MCParticle,proto3" json:"MCParticle,omitempty"`
-	Energy     float32   `protobuf:"fixed32,2,opt,name=energy,proto3" json:"energy,omitempty"`
-	Time       float32   `protobuf:"fixed32,3,opt,name=time,proto3" json:"time,omitempty"`
-	PDG        int32     `protobuf:"varint,4,opt,name=PDG,proto3" json:"PDG,omitempty"`
-	StepPos    []float32 `protobuf:"fixed32,5,rep,packed,name=stepPos" json:"stepPos,omitempty"`
+	MCParticle *Reference `protobuf:"bytes,1,opt,name=MCParticle" json:"MCParticle,omitempty"`
+	Energy     float32    `protobuf:"fixed32,2,opt,name=energy,proto3" json:"energy,omitempty"`
+	Time       float32    `protobuf:"fixed32,3,opt,name=time,proto3" json:"time,omitempty"`
+	PDG        int32      `protobuf:"varint,4,opt,name=PDG,proto3" json:"PDG,omitempty"`
+	StepPos    []float32  `protobuf:"fixed32,5,rep,packed,name=stepPos" json:"stepPos,omitempty"`
 }
 
 func (m *SimCalorimeterHit_Contrib) Reset()         { *m = SimCalorimeterHit_Contrib{} }
@@ -1554,11 +1714,11 @@ func (*SimCalorimeterHit_Contrib) Descriptor() ([]byte, []int) {
 	return fileDescriptorEicio, []int{25, 0}
 }
 
-func (m *SimCalorimeterHit_Contrib) GetMCParticle() int32 {
+func (m *SimCalorimeterHit_Contrib) GetMCParticle() *Reference {
 	if m != nil {
 		return m.MCParticle
 	}
-	return 0
+	return nil
 }
 
 func (m *SimCalorimeterHit_Contrib) GetEnergy() float32 {
@@ -1590,9 +1750,10 @@ func (m *SimCalorimeterHit_Contrib) GetStepPos() []float32 {
 }
 
 type SimCalorimeterHitCollection struct {
-	Flags  int32                `protobuf:"varint,1,opt,name=flags,proto3" json:"flags,omitempty"`
-	Params *Params              `protobuf:"bytes,2,opt,name=params" json:"params,omitempty"`
-	Hit    []*SimCalorimeterHit `protobuf:"bytes,3,rep,name=hit" json:"hit,omitempty"`
+	Id      uint32               `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Flags   uint32               `protobuf:"varint,2,opt,name=flags,proto3" json:"flags,omitempty"`
+	Params  *Params              `protobuf:"bytes,3,opt,name=params" json:"params,omitempty"`
+	Entries []*SimCalorimeterHit `protobuf:"bytes,4,rep,name=entries" json:"entries,omitempty"`
 }
 
 func (m *SimCalorimeterHitCollection) Reset()         { *m = SimCalorimeterHitCollection{} }
@@ -1602,7 +1763,14 @@ func (*SimCalorimeterHitCollection) Descriptor() ([]byte, []int) {
 	return fileDescriptorEicio, []int{26}
 }
 
-func (m *SimCalorimeterHitCollection) GetFlags() int32 {
+func (m *SimCalorimeterHitCollection) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *SimCalorimeterHitCollection) GetFlags() uint32 {
 	if m != nil {
 		return m.Flags
 	}
@@ -1616,24 +1784,32 @@ func (m *SimCalorimeterHitCollection) GetParams() *Params {
 	return nil
 }
 
-func (m *SimCalorimeterHitCollection) GetHit() []*SimCalorimeterHit {
+func (m *SimCalorimeterHitCollection) GetEntries() []*SimCalorimeterHit {
 	if m != nil {
-		return m.Hit
+		return m.Entries
 	}
 	return nil
 }
 
 type RawCalorimeterHit struct {
-	CellID0   int32 `protobuf:"varint,1,opt,name=cellID0,proto3" json:"cellID0,omitempty"`
-	CellID1   int32 `protobuf:"varint,2,opt,name=cellID1,proto3" json:"cellID1,omitempty"`
-	Amplitude int32 `protobuf:"varint,4,opt,name=amplitude,proto3" json:"amplitude,omitempty"`
-	TimeStamp int32 `protobuf:"varint,5,opt,name=timeStamp,proto3" json:"timeStamp,omitempty"`
+	Id        uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	CellID0   int32  `protobuf:"varint,2,opt,name=cellID0,proto3" json:"cellID0,omitempty"`
+	CellID1   int32  `protobuf:"varint,3,opt,name=cellID1,proto3" json:"cellID1,omitempty"`
+	Amplitude int32  `protobuf:"varint,4,opt,name=amplitude,proto3" json:"amplitude,omitempty"`
+	TimeStamp int32  `protobuf:"varint,5,opt,name=timeStamp,proto3" json:"timeStamp,omitempty"`
 }
 
 func (m *RawCalorimeterHit) Reset()                    { *m = RawCalorimeterHit{} }
 func (m *RawCalorimeterHit) String() string            { return proto.CompactTextString(m) }
 func (*RawCalorimeterHit) ProtoMessage()               {}
 func (*RawCalorimeterHit) Descriptor() ([]byte, []int) { return fileDescriptorEicio, []int{27} }
+
+func (m *RawCalorimeterHit) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
 
 func (m *RawCalorimeterHit) GetCellID0() int32 {
 	if m != nil {
@@ -1664,9 +1840,10 @@ func (m *RawCalorimeterHit) GetTimeStamp() int32 {
 }
 
 type RawCalorimeterHitCollection struct {
-	Flags  int32                `protobuf:"varint,1,opt,name=flags,proto3" json:"flags,omitempty"`
-	Params *Params              `protobuf:"bytes,2,opt,name=params" json:"params,omitempty"`
-	Hit    []*RawCalorimeterHit `protobuf:"bytes,3,rep,name=hit" json:"hit,omitempty"`
+	Id      uint32               `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Flags   uint32               `protobuf:"varint,2,opt,name=flags,proto3" json:"flags,omitempty"`
+	Params  *Params              `protobuf:"bytes,3,opt,name=params" json:"params,omitempty"`
+	Entries []*RawCalorimeterHit `protobuf:"bytes,4,rep,name=entries" json:"entries,omitempty"`
 }
 
 func (m *RawCalorimeterHitCollection) Reset()         { *m = RawCalorimeterHitCollection{} }
@@ -1676,7 +1853,14 @@ func (*RawCalorimeterHitCollection) Descriptor() ([]byte, []int) {
 	return fileDescriptorEicio, []int{28}
 }
 
-func (m *RawCalorimeterHitCollection) GetFlags() int32 {
+func (m *RawCalorimeterHitCollection) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *RawCalorimeterHitCollection) GetFlags() uint32 {
 	if m != nil {
 		return m.Flags
 	}
@@ -1690,28 +1874,36 @@ func (m *RawCalorimeterHitCollection) GetParams() *Params {
 	return nil
 }
 
-func (m *RawCalorimeterHitCollection) GetHit() []*RawCalorimeterHit {
+func (m *RawCalorimeterHitCollection) GetEntries() []*RawCalorimeterHit {
 	if m != nil {
-		return m.Hit
+		return m.Entries
 	}
 	return nil
 }
 
 type CalorimeterHit struct {
-	CellID0   int32      `protobuf:"varint,1,opt,name=cellID0,proto3" json:"cellID0,omitempty"`
-	CellID1   int32      `protobuf:"varint,2,opt,name=cellID1,proto3" json:"cellID1,omitempty"`
-	Energy    float32    `protobuf:"fixed32,3,opt,name=energy,proto3" json:"energy,omitempty"`
-	EnergyErr float32    `protobuf:"fixed32,4,opt,name=energyErr,proto3" json:"energyErr,omitempty"`
-	Time      float32    `protobuf:"fixed32,5,opt,name=time,proto3" json:"time,omitempty"`
-	Pos       []float32  `protobuf:"fixed32,6,rep,packed,name=pos" json:"pos,omitempty"`
-	Type      int32      `protobuf:"varint,7,opt,name=type,proto3" json:"type,omitempty"`
-	Raw       *Reference `protobuf:"bytes,8,opt,name=raw" json:"raw,omitempty"`
+	Id        uint32     `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	CellID0   int32      `protobuf:"varint,2,opt,name=cellID0,proto3" json:"cellID0,omitempty"`
+	CellID1   int32      `protobuf:"varint,3,opt,name=cellID1,proto3" json:"cellID1,omitempty"`
+	Energy    float32    `protobuf:"fixed32,4,opt,name=energy,proto3" json:"energy,omitempty"`
+	EnergyErr float32    `protobuf:"fixed32,5,opt,name=energyErr,proto3" json:"energyErr,omitempty"`
+	Time      float32    `protobuf:"fixed32,6,opt,name=time,proto3" json:"time,omitempty"`
+	Pos       []float32  `protobuf:"fixed32,7,rep,packed,name=pos" json:"pos,omitempty"`
+	Type      int32      `protobuf:"varint,8,opt,name=type,proto3" json:"type,omitempty"`
+	Raw       *Reference `protobuf:"bytes,9,opt,name=raw" json:"raw,omitempty"`
 }
 
 func (m *CalorimeterHit) Reset()                    { *m = CalorimeterHit{} }
 func (m *CalorimeterHit) String() string            { return proto.CompactTextString(m) }
 func (*CalorimeterHit) ProtoMessage()               {}
 func (*CalorimeterHit) Descriptor() ([]byte, []int) { return fileDescriptorEicio, []int{29} }
+
+func (m *CalorimeterHit) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
 
 func (m *CalorimeterHit) GetCellID0() int32 {
 	if m != nil {
@@ -1770,9 +1962,10 @@ func (m *CalorimeterHit) GetRaw() *Reference {
 }
 
 type CalorimeterHitCollection struct {
-	Flags  int32             `protobuf:"varint,1,opt,name=flags,proto3" json:"flags,omitempty"`
-	Params *Params           `protobuf:"bytes,2,opt,name=params" json:"params,omitempty"`
-	Hit    []*CalorimeterHit `protobuf:"bytes,3,rep,name=hit" json:"hit,omitempty"`
+	Id      uint32            `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Flags   uint32            `protobuf:"varint,2,opt,name=flags,proto3" json:"flags,omitempty"`
+	Params  *Params           `protobuf:"bytes,3,opt,name=params" json:"params,omitempty"`
+	Entries []*CalorimeterHit `protobuf:"bytes,4,rep,name=entries" json:"entries,omitempty"`
 }
 
 func (m *CalorimeterHitCollection) Reset()                    { *m = CalorimeterHitCollection{} }
@@ -1780,7 +1973,14 @@ func (m *CalorimeterHitCollection) String() string            { return proto.Com
 func (*CalorimeterHitCollection) ProtoMessage()               {}
 func (*CalorimeterHitCollection) Descriptor() ([]byte, []int) { return fileDescriptorEicio, []int{30} }
 
-func (m *CalorimeterHitCollection) GetFlags() int32 {
+func (m *CalorimeterHitCollection) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *CalorimeterHitCollection) GetFlags() uint32 {
 	if m != nil {
 		return m.Flags
 	}
@@ -1794,33 +1994,42 @@ func (m *CalorimeterHitCollection) GetParams() *Params {
 	return nil
 }
 
-func (m *CalorimeterHitCollection) GetHit() []*CalorimeterHit {
+func (m *CalorimeterHitCollection) GetEntries() []*CalorimeterHit {
 	if m != nil {
-		return m.Hit
+		return m.Entries
 	}
 	return nil
 }
 
 type Cluster struct {
-	Type       int32         `protobuf:"varint,1,opt,name=type,proto3" json:"type,omitempty"`
-	Energy     float32       `protobuf:"fixed32,2,opt,name=energy,proto3" json:"energy,omitempty"`
-	EnergyErr  float32       `protobuf:"fixed32,3,opt,name=energyErr,proto3" json:"energyErr,omitempty"`
-	Pos        []float32     `protobuf:"fixed32,4,rep,packed,name=pos" json:"pos,omitempty"`
-	PosErr     []float32     `protobuf:"fixed32,5,rep,packed,name=posErr" json:"posErr,omitempty"`
-	Theta      float32       `protobuf:"fixed32,6,opt,name=theta,proto3" json:"theta,omitempty"`
-	Phi        float32       `protobuf:"fixed32,7,opt,name=phi,proto3" json:"phi,omitempty"`
-	DirErr     []float32     `protobuf:"fixed32,8,rep,packed,name=dirErr" json:"dirErr,omitempty"`
-	Shape      []float32     `protobuf:"fixed32,9,rep,packed,name=shape" json:"shape,omitempty"`
-	PIDs       []*ParticleID `protobuf:"bytes,10,rep,name=PIDs" json:"PIDs,omitempty"`
-	Hits       []*Reference  `protobuf:"bytes,11,rep,name=hits" json:"hits,omitempty"`
-	Weights    []float32     `protobuf:"fixed32,12,rep,packed,name=weights" json:"weights,omitempty"`
-	SubDetEnes []float32     `protobuf:"fixed32,13,rep,packed,name=subDetEnes" json:"subDetEnes,omitempty"`
+	Id         uint32        `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Type       int32         `protobuf:"varint,2,opt,name=type,proto3" json:"type,omitempty"`
+	Energy     float32       `protobuf:"fixed32,3,opt,name=energy,proto3" json:"energy,omitempty"`
+	EnergyErr  float32       `protobuf:"fixed32,4,opt,name=energyErr,proto3" json:"energyErr,omitempty"`
+	Pos        []float32     `protobuf:"fixed32,5,rep,packed,name=pos" json:"pos,omitempty"`
+	PosErr     []float32     `protobuf:"fixed32,6,rep,packed,name=posErr" json:"posErr,omitempty"`
+	Theta      float32       `protobuf:"fixed32,7,opt,name=theta,proto3" json:"theta,omitempty"`
+	Phi        float32       `protobuf:"fixed32,8,opt,name=phi,proto3" json:"phi,omitempty"`
+	DirErr     []float32     `protobuf:"fixed32,9,rep,packed,name=dirErr" json:"dirErr,omitempty"`
+	Shape      []float32     `protobuf:"fixed32,10,rep,packed,name=shape" json:"shape,omitempty"`
+	PIDs       []*ParticleID `protobuf:"bytes,11,rep,name=PIDs" json:"PIDs,omitempty"`
+	Clusters   []*Reference  `protobuf:"bytes,12,rep,name=clusters" json:"clusters,omitempty"`
+	Hits       []*Reference  `protobuf:"bytes,13,rep,name=hits" json:"hits,omitempty"`
+	Weights    []float32     `protobuf:"fixed32,14,rep,packed,name=weights" json:"weights,omitempty"`
+	SubDetEnes []float32     `protobuf:"fixed32,15,rep,packed,name=subDetEnes" json:"subDetEnes,omitempty"`
 }
 
 func (m *Cluster) Reset()                    { *m = Cluster{} }
 func (m *Cluster) String() string            { return proto.CompactTextString(m) }
 func (*Cluster) ProtoMessage()               {}
 func (*Cluster) Descriptor() ([]byte, []int) { return fileDescriptorEicio, []int{31} }
+
+func (m *Cluster) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
 
 func (m *Cluster) GetType() int32 {
 	if m != nil {
@@ -1892,6 +2101,13 @@ func (m *Cluster) GetPIDs() []*ParticleID {
 	return nil
 }
 
+func (m *Cluster) GetClusters() []*Reference {
+	if m != nil {
+		return m.Clusters
+	}
+	return nil
+}
+
 func (m *Cluster) GetHits() []*Reference {
 	if m != nil {
 		return m.Hits
@@ -1914,9 +2130,10 @@ func (m *Cluster) GetSubDetEnes() []float32 {
 }
 
 type ClusterCollection struct {
-	Flags   int32      `protobuf:"varint,1,opt,name=flags,proto3" json:"flags,omitempty"`
-	Params  *Params    `protobuf:"bytes,2,opt,name=params" json:"params,omitempty"`
-	Cluster []*Cluster `protobuf:"bytes,3,rep,name=cluster" json:"cluster,omitempty"`
+	Id      uint32     `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Flags   uint32     `protobuf:"varint,2,opt,name=flags,proto3" json:"flags,omitempty"`
+	Params  *Params    `protobuf:"bytes,3,opt,name=params" json:"params,omitempty"`
+	Entries []*Cluster `protobuf:"bytes,4,rep,name=entries" json:"entries,omitempty"`
 }
 
 func (m *ClusterCollection) Reset()                    { *m = ClusterCollection{} }
@@ -1924,7 +2141,14 @@ func (m *ClusterCollection) String() string            { return proto.CompactTex
 func (*ClusterCollection) ProtoMessage()               {}
 func (*ClusterCollection) Descriptor() ([]byte, []int) { return fileDescriptorEicio, []int{32} }
 
-func (m *ClusterCollection) GetFlags() int32 {
+func (m *ClusterCollection) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *ClusterCollection) GetFlags() uint32 {
 	if m != nil {
 		return m.Flags
 	}
@@ -1938,34 +2162,42 @@ func (m *ClusterCollection) GetParams() *Params {
 	return nil
 }
 
-func (m *ClusterCollection) GetCluster() []*Cluster {
+func (m *ClusterCollection) GetEntries() []*Cluster {
 	if m != nil {
-		return m.Cluster
+		return m.Entries
 	}
 	return nil
 }
 
 type RecParticle struct {
-	Type          int32         `protobuf:"varint,1,opt,name=type,proto3" json:"type,omitempty"`
-	P             []float32     `protobuf:"fixed32,2,rep,packed,name=p" json:"p,omitempty"`
-	Energy        float32       `protobuf:"fixed32,3,opt,name=energy,proto3" json:"energy,omitempty"`
-	Cov           []float32     `protobuf:"fixed32,4,rep,packed,name=cov" json:"cov,omitempty"`
-	Mass          float32       `protobuf:"fixed32,5,opt,name=mass,proto3" json:"mass,omitempty"`
-	Charge        float32       `protobuf:"fixed32,6,opt,name=charge,proto3" json:"charge,omitempty"`
-	Ref           []float32     `protobuf:"fixed32,7,rep,packed,name=ref" json:"ref,omitempty"`
-	PIDs          []*ParticleID `protobuf:"bytes,8,rep,name=PIDs" json:"PIDs,omitempty"`
-	PIDUsed       int32         `protobuf:"varint,9,opt,name=PIDUsed,proto3" json:"PIDUsed,omitempty"`
-	GoodnessOfPID float32       `protobuf:"fixed32,10,opt,name=goodnessOfPID,proto3" json:"goodnessOfPID,omitempty"`
-	Recs          []*Reference  `protobuf:"bytes,11,rep,name=recs" json:"recs,omitempty"`
-	Tracks        []*Reference  `protobuf:"bytes,12,rep,name=tracks" json:"tracks,omitempty"`
-	Clusters      []*Reference  `protobuf:"bytes,13,rep,name=clusters" json:"clusters,omitempty"`
-	StartVtx      *Reference    `protobuf:"bytes,14,opt,name=startVtx" json:"startVtx,omitempty"`
+	Id            uint32        `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Type          int32         `protobuf:"varint,2,opt,name=type,proto3" json:"type,omitempty"`
+	P             []float32     `protobuf:"fixed32,3,rep,packed,name=p" json:"p,omitempty"`
+	Energy        float32       `protobuf:"fixed32,4,opt,name=energy,proto3" json:"energy,omitempty"`
+	Cov           []float32     `protobuf:"fixed32,5,rep,packed,name=cov" json:"cov,omitempty"`
+	Mass          float32       `protobuf:"fixed32,6,opt,name=mass,proto3" json:"mass,omitempty"`
+	Charge        float32       `protobuf:"fixed32,7,opt,name=charge,proto3" json:"charge,omitempty"`
+	Ref           []float32     `protobuf:"fixed32,8,rep,packed,name=ref" json:"ref,omitempty"`
+	PIDs          []*ParticleID `protobuf:"bytes,9,rep,name=PIDs" json:"PIDs,omitempty"`
+	PIDUsed       int32         `protobuf:"varint,10,opt,name=PIDUsed,proto3" json:"PIDUsed,omitempty"`
+	GoodnessOfPID float32       `protobuf:"fixed32,11,opt,name=goodnessOfPID,proto3" json:"goodnessOfPID,omitempty"`
+	Recs          []*Reference  `protobuf:"bytes,12,rep,name=recs" json:"recs,omitempty"`
+	Tracks        []*Reference  `protobuf:"bytes,13,rep,name=tracks" json:"tracks,omitempty"`
+	Clusters      []*Reference  `protobuf:"bytes,14,rep,name=clusters" json:"clusters,omitempty"`
+	StartVtx      *Reference    `protobuf:"bytes,15,opt,name=startVtx" json:"startVtx,omitempty"`
 }
 
 func (m *RecParticle) Reset()                    { *m = RecParticle{} }
 func (m *RecParticle) String() string            { return proto.CompactTextString(m) }
 func (*RecParticle) ProtoMessage()               {}
 func (*RecParticle) Descriptor() ([]byte, []int) { return fileDescriptorEicio, []int{33} }
+
+func (m *RecParticle) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
 
 func (m *RecParticle) GetType() int32 {
 	if m != nil {
@@ -2066,9 +2298,10 @@ func (m *RecParticle) GetStartVtx() *Reference {
 }
 
 type RecParticleCollection struct {
-	Flags    int32          `protobuf:"varint,1,opt,name=flags,proto3" json:"flags,omitempty"`
-	Params   *Params        `protobuf:"bytes,2,opt,name=params" json:"params,omitempty"`
-	Particle []*RecParticle `protobuf:"bytes,3,rep,name=particle" json:"particle,omitempty"`
+	Id      uint32         `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Flags   uint32         `protobuf:"varint,2,opt,name=flags,proto3" json:"flags,omitempty"`
+	Params  *Params        `protobuf:"bytes,3,opt,name=params" json:"params,omitempty"`
+	Entries []*RecParticle `protobuf:"bytes,4,rep,name=entries" json:"entries,omitempty"`
 }
 
 func (m *RecParticleCollection) Reset()                    { *m = RecParticleCollection{} }
@@ -2076,7 +2309,14 @@ func (m *RecParticleCollection) String() string            { return proto.Compac
 func (*RecParticleCollection) ProtoMessage()               {}
 func (*RecParticleCollection) Descriptor() ([]byte, []int) { return fileDescriptorEicio, []int{34} }
 
-func (m *RecParticleCollection) GetFlags() int32 {
+func (m *RecParticleCollection) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *RecParticleCollection) GetFlags() uint32 {
 	if m != nil {
 		return m.Flags
 	}
@@ -2090,28 +2330,36 @@ func (m *RecParticleCollection) GetParams() *Params {
 	return nil
 }
 
-func (m *RecParticleCollection) GetParticle() []*RecParticle {
+func (m *RecParticleCollection) GetEntries() []*RecParticle {
 	if m != nil {
-		return m.Particle
+		return m.Entries
 	}
 	return nil
 }
 
 type Vertex struct {
-	Primary int32      `protobuf:"varint,1,opt,name=primary,proto3" json:"primary,omitempty"`
-	AlgType int32      `protobuf:"varint,2,opt,name=algType,proto3" json:"algType,omitempty"`
-	Chi2    float32    `protobuf:"fixed32,3,opt,name=chi2,proto3" json:"chi2,omitempty"`
-	Prob    float32    `protobuf:"fixed32,4,opt,name=prob,proto3" json:"prob,omitempty"`
-	Pos     []float32  `protobuf:"fixed32,5,rep,packed,name=pos" json:"pos,omitempty"`
-	Cov     []float32  `protobuf:"fixed32,6,rep,packed,name=cov" json:"cov,omitempty"`
-	Params  []float32  `protobuf:"fixed32,7,rep,packed,name=params" json:"params,omitempty"`
-	RecPart *Reference `protobuf:"bytes,8,opt,name=recPart" json:"recPart,omitempty"`
+	Id      uint32     `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Primary int32      `protobuf:"varint,2,opt,name=primary,proto3" json:"primary,omitempty"`
+	AlgType int32      `protobuf:"varint,3,opt,name=algType,proto3" json:"algType,omitempty"`
+	Chi2    float32    `protobuf:"fixed32,4,opt,name=chi2,proto3" json:"chi2,omitempty"`
+	Prob    float32    `protobuf:"fixed32,5,opt,name=prob,proto3" json:"prob,omitempty"`
+	Pos     []float32  `protobuf:"fixed32,6,rep,packed,name=pos" json:"pos,omitempty"`
+	Cov     []float32  `protobuf:"fixed32,7,rep,packed,name=cov" json:"cov,omitempty"`
+	Params  []float32  `protobuf:"fixed32,8,rep,packed,name=params" json:"params,omitempty"`
+	RecPart *Reference `protobuf:"bytes,9,opt,name=recPart" json:"recPart,omitempty"`
 }
 
 func (m *Vertex) Reset()                    { *m = Vertex{} }
 func (m *Vertex) String() string            { return proto.CompactTextString(m) }
 func (*Vertex) ProtoMessage()               {}
 func (*Vertex) Descriptor() ([]byte, []int) { return fileDescriptorEicio, []int{35} }
+
+func (m *Vertex) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
 
 func (m *Vertex) GetPrimary() int32 {
 	if m != nil {
@@ -2170,9 +2418,10 @@ func (m *Vertex) GetRecPart() *Reference {
 }
 
 type VertexCollection struct {
-	Flags  int32     `protobuf:"varint,1,opt,name=flags,proto3" json:"flags,omitempty"`
-	Params *Params   `protobuf:"bytes,2,opt,name=params" json:"params,omitempty"`
-	Vertex []*Vertex `protobuf:"bytes,3,rep,name=vertex" json:"vertex,omitempty"`
+	Id      uint32    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Flags   uint32    `protobuf:"varint,2,opt,name=flags,proto3" json:"flags,omitempty"`
+	Params  *Params   `protobuf:"bytes,3,opt,name=params" json:"params,omitempty"`
+	Entries []*Vertex `protobuf:"bytes,4,rep,name=entries" json:"entries,omitempty"`
 }
 
 func (m *VertexCollection) Reset()                    { *m = VertexCollection{} }
@@ -2180,7 +2429,14 @@ func (m *VertexCollection) String() string            { return proto.CompactText
 func (*VertexCollection) ProtoMessage()               {}
 func (*VertexCollection) Descriptor() ([]byte, []int) { return fileDescriptorEicio, []int{36} }
 
-func (m *VertexCollection) GetFlags() int32 {
+func (m *VertexCollection) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *VertexCollection) GetFlags() uint32 {
 	if m != nil {
 		return m.Flags
 	}
@@ -2194,23 +2450,31 @@ func (m *VertexCollection) GetParams() *Params {
 	return nil
 }
 
-func (m *VertexCollection) GetVertex() []*Vertex {
+func (m *VertexCollection) GetEntries() []*Vertex {
 	if m != nil {
-		return m.Vertex
+		return m.Entries
 	}
 	return nil
 }
 
 type Relation struct {
-	From   *Reference `protobuf:"bytes,1,opt,name=from" json:"from,omitempty"`
-	To     *Reference `protobuf:"bytes,2,opt,name=to" json:"to,omitempty"`
-	Weight float32    `protobuf:"fixed32,3,opt,name=weight,proto3" json:"weight,omitempty"`
+	Id     uint32     `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	From   *Reference `protobuf:"bytes,2,opt,name=from" json:"from,omitempty"`
+	To     *Reference `protobuf:"bytes,3,opt,name=to" json:"to,omitempty"`
+	Weight float32    `protobuf:"fixed32,4,opt,name=weight,proto3" json:"weight,omitempty"`
 }
 
 func (m *Relation) Reset()                    { *m = Relation{} }
 func (m *Relation) String() string            { return proto.CompactTextString(m) }
 func (*Relation) ProtoMessage()               {}
 func (*Relation) Descriptor() ([]byte, []int) { return fileDescriptorEicio, []int{37} }
+
+func (m *Relation) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
 
 func (m *Relation) GetFrom() *Reference {
 	if m != nil {
@@ -2234,9 +2498,10 @@ func (m *Relation) GetWeight() float32 {
 }
 
 type RelationCollection struct {
-	Flags    int32       `protobuf:"varint,1,opt,name=flags,proto3" json:"flags,omitempty"`
-	Params   *Params     `protobuf:"bytes,2,opt,name=params" json:"params,omitempty"`
-	Relation []*Relation `protobuf:"bytes,3,rep,name=relation" json:"relation,omitempty"`
+	Id      uint32      `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Flags   uint32      `protobuf:"varint,2,opt,name=flags,proto3" json:"flags,omitempty"`
+	Params  *Params     `protobuf:"bytes,3,opt,name=params" json:"params,omitempty"`
+	Entries []*Relation `protobuf:"bytes,4,rep,name=entries" json:"entries,omitempty"`
 }
 
 func (m *RelationCollection) Reset()                    { *m = RelationCollection{} }
@@ -2244,7 +2509,14 @@ func (m *RelationCollection) String() string            { return proto.CompactTe
 func (*RelationCollection) ProtoMessage()               {}
 func (*RelationCollection) Descriptor() ([]byte, []int) { return fileDescriptorEicio, []int{38} }
 
-func (m *RelationCollection) GetFlags() int32 {
+func (m *RelationCollection) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *RelationCollection) GetFlags() uint32 {
 	if m != nil {
 		return m.Flags
 	}
@@ -2258,9 +2530,9 @@ func (m *RelationCollection) GetParams() *Params {
 	return nil
 }
 
-func (m *RelationCollection) GetRelation() []*Relation {
+func (m *RelationCollection) GetEntries() []*Relation {
 	if m != nil {
-		return m.Relation
+		return m.Entries
 	}
 	return nil
 }
@@ -2410,8 +2682,13 @@ func (m *EventHeader_CollectionHeader) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintEicio(dAtA, i, uint64(len(m.Name)))
 		i += copy(dAtA[i:], m.Name)
 	}
-	if m.PayloadSize != 0 {
+	if m.Id != 0 {
 		dAtA[i] = 0x18
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
+	}
+	if m.PayloadSize != 0 {
+		dAtA[i] = 0x20
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.PayloadSize))
 	}
@@ -2720,175 +2997,168 @@ func (m *MCParticle) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if len(m.Parents) > 0 {
-		dAtA10 := make([]byte, len(m.Parents)*10)
-		var j9 int
-		for _, num1 := range m.Parents {
-			num := uint64(num1)
-			for num >= 1<<7 {
-				dAtA10[j9] = uint8(uint64(num)&0x7f | 0x80)
-				num >>= 7
-				j9++
-			}
-			dAtA10[j9] = uint8(num)
-			j9++
-		}
-		dAtA[i] = 0xa
+	if m.Id != 0 {
+		dAtA[i] = 0x8
 		i++
-		i = encodeVarintEicio(dAtA, i, uint64(j9))
-		i += copy(dAtA[i:], dAtA10[:j9])
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
+	}
+	if len(m.Parents) > 0 {
+		for _, msg := range m.Parents {
+			dAtA[i] = 0x12
+			i++
+			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(dAtA[i:])
+			if err != nil {
+				return 0, err
+			}
+			i += n
+		}
 	}
 	if len(m.Children) > 0 {
-		dAtA12 := make([]byte, len(m.Children)*10)
-		var j11 int
-		for _, num1 := range m.Children {
-			num := uint64(num1)
-			for num >= 1<<7 {
-				dAtA12[j11] = uint8(uint64(num)&0x7f | 0x80)
-				num >>= 7
-				j11++
+		for _, msg := range m.Children {
+			dAtA[i] = 0x1a
+			i++
+			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(dAtA[i:])
+			if err != nil {
+				return 0, err
 			}
-			dAtA12[j11] = uint8(num)
-			j11++
+			i += n
 		}
-		dAtA[i] = 0x12
-		i++
-		i = encodeVarintEicio(dAtA, i, uint64(j11))
-		i += copy(dAtA[i:], dAtA12[:j11])
 	}
 	if m.PDG != 0 {
-		dAtA[i] = 0x18
+		dAtA[i] = 0x20
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.PDG))
 	}
 	if len(m.Vertex) > 0 {
-		dAtA[i] = 0x22
+		dAtA[i] = 0x2a
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(len(m.Vertex)*8))
 		for _, num := range m.Vertex {
-			f13 := math.Float64bits(float64(num))
-			dAtA[i] = uint8(f13)
+			f9 := math.Float64bits(float64(num))
+			dAtA[i] = uint8(f9)
 			i++
-			dAtA[i] = uint8(f13 >> 8)
+			dAtA[i] = uint8(f9 >> 8)
 			i++
-			dAtA[i] = uint8(f13 >> 16)
+			dAtA[i] = uint8(f9 >> 16)
 			i++
-			dAtA[i] = uint8(f13 >> 24)
+			dAtA[i] = uint8(f9 >> 24)
 			i++
-			dAtA[i] = uint8(f13 >> 32)
+			dAtA[i] = uint8(f9 >> 32)
 			i++
-			dAtA[i] = uint8(f13 >> 40)
+			dAtA[i] = uint8(f9 >> 40)
 			i++
-			dAtA[i] = uint8(f13 >> 48)
+			dAtA[i] = uint8(f9 >> 48)
 			i++
-			dAtA[i] = uint8(f13 >> 56)
+			dAtA[i] = uint8(f9 >> 56)
 			i++
 		}
 	}
 	if m.Time != 0 {
-		dAtA[i] = 0x2d
+		dAtA[i] = 0x35
 		i++
 		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.Time))))
 	}
 	if len(m.P) > 0 {
-		dAtA[i] = 0x32
+		dAtA[i] = 0x3a
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(len(m.P)*8))
 		for _, num := range m.P {
-			f14 := math.Float64bits(float64(num))
-			dAtA[i] = uint8(f14)
+			f10 := math.Float64bits(float64(num))
+			dAtA[i] = uint8(f10)
 			i++
-			dAtA[i] = uint8(f14 >> 8)
+			dAtA[i] = uint8(f10 >> 8)
 			i++
-			dAtA[i] = uint8(f14 >> 16)
+			dAtA[i] = uint8(f10 >> 16)
 			i++
-			dAtA[i] = uint8(f14 >> 24)
+			dAtA[i] = uint8(f10 >> 24)
 			i++
-			dAtA[i] = uint8(f14 >> 32)
+			dAtA[i] = uint8(f10 >> 32)
 			i++
-			dAtA[i] = uint8(f14 >> 40)
+			dAtA[i] = uint8(f10 >> 40)
 			i++
-			dAtA[i] = uint8(f14 >> 48)
+			dAtA[i] = uint8(f10 >> 48)
 			i++
-			dAtA[i] = uint8(f14 >> 56)
+			dAtA[i] = uint8(f10 >> 56)
 			i++
 		}
 	}
 	if m.Mass != 0 {
-		dAtA[i] = 0x39
+		dAtA[i] = 0x41
 		i++
 		i = encodeFixed64Eicio(dAtA, i, uint64(math.Float64bits(float64(m.Mass))))
 	}
 	if m.Charge != 0 {
-		dAtA[i] = 0x45
+		dAtA[i] = 0x4d
 		i++
 		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.Charge))))
 	}
 	if len(m.PEndPoint) > 0 {
-		dAtA[i] = 0x4a
+		dAtA[i] = 0x52
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(len(m.PEndPoint)*8))
 		for _, num := range m.PEndPoint {
-			f15 := math.Float64bits(float64(num))
-			dAtA[i] = uint8(f15)
+			f11 := math.Float64bits(float64(num))
+			dAtA[i] = uint8(f11)
 			i++
-			dAtA[i] = uint8(f15 >> 8)
+			dAtA[i] = uint8(f11 >> 8)
 			i++
-			dAtA[i] = uint8(f15 >> 16)
+			dAtA[i] = uint8(f11 >> 16)
 			i++
-			dAtA[i] = uint8(f15 >> 24)
+			dAtA[i] = uint8(f11 >> 24)
 			i++
-			dAtA[i] = uint8(f15 >> 32)
+			dAtA[i] = uint8(f11 >> 32)
 			i++
-			dAtA[i] = uint8(f15 >> 40)
+			dAtA[i] = uint8(f11 >> 40)
 			i++
-			dAtA[i] = uint8(f15 >> 48)
+			dAtA[i] = uint8(f11 >> 48)
 			i++
-			dAtA[i] = uint8(f15 >> 56)
+			dAtA[i] = uint8(f11 >> 56)
 			i++
 		}
 	}
 	if len(m.Spin) > 0 {
-		dAtA[i] = 0x52
+		dAtA[i] = 0x5a
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(len(m.Spin)*4))
 		for _, num := range m.Spin {
-			f16 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f16)
+			f12 := math.Float32bits(float32(num))
+			dAtA[i] = uint8(f12)
 			i++
-			dAtA[i] = uint8(f16 >> 8)
+			dAtA[i] = uint8(f12 >> 8)
 			i++
-			dAtA[i] = uint8(f16 >> 16)
+			dAtA[i] = uint8(f12 >> 16)
 			i++
-			dAtA[i] = uint8(f16 >> 24)
+			dAtA[i] = uint8(f12 >> 24)
 			i++
 		}
 	}
 	if len(m.ColorFlow) > 0 {
-		dAtA18 := make([]byte, len(m.ColorFlow)*10)
-		var j17 int
+		dAtA14 := make([]byte, len(m.ColorFlow)*10)
+		var j13 int
 		for _, num1 := range m.ColorFlow {
 			num := uint64(num1)
 			for num >= 1<<7 {
-				dAtA18[j17] = uint8(uint64(num)&0x7f | 0x80)
+				dAtA14[j13] = uint8(uint64(num)&0x7f | 0x80)
 				num >>= 7
-				j17++
+				j13++
 			}
-			dAtA18[j17] = uint8(num)
-			j17++
+			dAtA14[j13] = uint8(num)
+			j13++
 		}
-		dAtA[i] = 0x5a
+		dAtA[i] = 0x62
 		i++
-		i = encodeVarintEicio(dAtA, i, uint64(j17))
-		i += copy(dAtA[i:], dAtA18[:j17])
+		i = encodeVarintEicio(dAtA, i, uint64(j13))
+		i += copy(dAtA[i:], dAtA14[:j13])
 	}
 	if m.GenStatus != 0 {
-		dAtA[i] = 0x60
+		dAtA[i] = 0x68
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.GenStatus))
 	}
 	if m.SimStatus != 0 {
-		dAtA[i] = 0x68
+		dAtA[i] = 0x70
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.SimStatus))
 	}
@@ -2910,24 +3180,29 @@ func (m *MCParticleCollection) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.Flags != 0 {
+	if m.Id != 0 {
 		dAtA[i] = 0x8
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
+	}
+	if m.Flags != 0 {
+		dAtA[i] = 0x10
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Flags))
 	}
 	if m.Params != nil {
-		dAtA[i] = 0x12
+		dAtA[i] = 0x1a
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Params.Size()))
-		n19, err := m.Params.MarshalTo(dAtA[i:])
+		n15, err := m.Params.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n19
+		i += n15
 	}
-	if len(m.Particle) > 0 {
-		for _, msg := range m.Particle {
-			dAtA[i] = 0x1a
+	if len(m.Entries) > 0 {
+		for _, msg := range m.Entries {
+			dAtA[i] = 0x22
 			i++
 			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
 			n, err := msg.MarshalTo(dAtA[i:])
@@ -2955,72 +3230,88 @@ func (m *SimTrackerHit) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.CellID0 != 0 {
+	if m.Id != 0 {
 		dAtA[i] = 0x8
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
+	}
+	if m.CellID0 != 0 {
+		dAtA[i] = 0x10
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.CellID0))
 	}
 	if m.CellID1 != 0 {
-		dAtA[i] = 0x10
+		dAtA[i] = 0x18
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.CellID1))
 	}
 	if len(m.Pos) > 0 {
-		dAtA[i] = 0x1a
+		dAtA[i] = 0x22
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(len(m.Pos)*8))
 		for _, num := range m.Pos {
-			f20 := math.Float64bits(float64(num))
-			dAtA[i] = uint8(f20)
+			f16 := math.Float64bits(float64(num))
+			dAtA[i] = uint8(f16)
 			i++
-			dAtA[i] = uint8(f20 >> 8)
+			dAtA[i] = uint8(f16 >> 8)
 			i++
-			dAtA[i] = uint8(f20 >> 16)
+			dAtA[i] = uint8(f16 >> 16)
 			i++
-			dAtA[i] = uint8(f20 >> 24)
+			dAtA[i] = uint8(f16 >> 24)
 			i++
-			dAtA[i] = uint8(f20 >> 32)
+			dAtA[i] = uint8(f16 >> 32)
 			i++
-			dAtA[i] = uint8(f20 >> 40)
+			dAtA[i] = uint8(f16 >> 40)
 			i++
-			dAtA[i] = uint8(f20 >> 48)
+			dAtA[i] = uint8(f16 >> 48)
 			i++
-			dAtA[i] = uint8(f20 >> 56)
+			dAtA[i] = uint8(f16 >> 56)
 			i++
 		}
 	}
 	if m.EDep != 0 {
-		dAtA[i] = 0x25
+		dAtA[i] = 0x2d
 		i++
 		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.EDep))))
 	}
 	if m.Time != 0 {
-		dAtA[i] = 0x2d
+		dAtA[i] = 0x35
 		i++
 		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.Time))))
 	}
 	if m.Mc != nil {
-		dAtA[i] = 0x32
+		dAtA[i] = 0x3a
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Mc.Size()))
-		n21, err := m.Mc.MarshalTo(dAtA[i:])
+		n17, err := m.Mc.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n21
+		i += n17
 	}
-	if m.P != 0 {
-		dAtA[i] = 0x3d
+	if len(m.P) > 0 {
+		dAtA[i] = 0x42
 		i++
-		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.P))))
+		i = encodeVarintEicio(dAtA, i, uint64(len(m.P)*4))
+		for _, num := range m.P {
+			f18 := math.Float32bits(float32(num))
+			dAtA[i] = uint8(f18)
+			i++
+			dAtA[i] = uint8(f18 >> 8)
+			i++
+			dAtA[i] = uint8(f18 >> 16)
+			i++
+			dAtA[i] = uint8(f18 >> 24)
+			i++
+		}
 	}
 	if m.PathLength != 0 {
-		dAtA[i] = 0x45
+		dAtA[i] = 0x4d
 		i++
 		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.PathLength))))
 	}
 	if m.Quality != 0 {
-		dAtA[i] = 0x48
+		dAtA[i] = 0x50
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Quality))
 	}
@@ -3042,24 +3333,29 @@ func (m *SimTrackerHitCollection) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.Flags != 0 {
+	if m.Id != 0 {
 		dAtA[i] = 0x8
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
+	}
+	if m.Flags != 0 {
+		dAtA[i] = 0x10
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Flags))
 	}
 	if m.Params != nil {
-		dAtA[i] = 0x12
+		dAtA[i] = 0x1a
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Params.Size()))
-		n22, err := m.Params.MarshalTo(dAtA[i:])
+		n19, err := m.Params.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n22
+		i += n19
 	}
-	if len(m.Hit) > 0 {
-		for _, msg := range m.Hit {
-			dAtA[i] = 0x1a
+	if len(m.Entries) > 0 {
+		for _, msg := range m.Entries {
+			dAtA[i] = 0x22
 			i++
 			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
 			n, err := msg.MarshalTo(dAtA[i:])
@@ -3087,37 +3383,42 @@ func (m *TrackerRawData) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.CellID0 != 0 {
+	if m.Id != 0 {
 		dAtA[i] = 0x8
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
+	}
+	if m.CellID0 != 0 {
+		dAtA[i] = 0x10
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.CellID0))
 	}
 	if m.CellID1 != 0 {
-		dAtA[i] = 0x10
+		dAtA[i] = 0x18
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.CellID1))
 	}
 	if m.Time != 0 {
-		dAtA[i] = 0x18
+		dAtA[i] = 0x20
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Time))
 	}
 	if len(m.ADCs) > 0 {
-		dAtA24 := make([]byte, len(m.ADCs)*10)
-		var j23 int
+		dAtA21 := make([]byte, len(m.ADCs)*10)
+		var j20 int
 		for _, num := range m.ADCs {
 			for num >= 1<<7 {
-				dAtA24[j23] = uint8(uint64(num)&0x7f | 0x80)
+				dAtA21[j20] = uint8(uint64(num)&0x7f | 0x80)
 				num >>= 7
-				j23++
+				j20++
 			}
-			dAtA24[j23] = uint8(num)
-			j23++
+			dAtA21[j20] = uint8(num)
+			j20++
 		}
-		dAtA[i] = 0x22
+		dAtA[i] = 0x2a
 		i++
-		i = encodeVarintEicio(dAtA, i, uint64(j23))
-		i += copy(dAtA[i:], dAtA24[:j23])
+		i = encodeVarintEicio(dAtA, i, uint64(j20))
+		i += copy(dAtA[i:], dAtA21[:j20])
 	}
 	return i, nil
 }
@@ -3137,24 +3438,29 @@ func (m *TrackerRawDataCollection) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.Flags != 0 {
+	if m.Id != 0 {
 		dAtA[i] = 0x8
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
+	}
+	if m.Flags != 0 {
+		dAtA[i] = 0x10
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Flags))
 	}
 	if m.Params != nil {
-		dAtA[i] = 0x12
+		dAtA[i] = 0x1a
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Params.Size()))
-		n25, err := m.Params.MarshalTo(dAtA[i:])
+		n22, err := m.Params.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n25
+		i += n22
 	}
-	if len(m.Data) > 0 {
-		for _, msg := range m.Data {
-			dAtA[i] = 0x1a
+	if len(m.Entries) > 0 {
+		for _, msg := range m.Entries {
+			dAtA[i] = 0x22
 			i++
 			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
 			n, err := msg.MarshalTo(dAtA[i:])
@@ -3182,34 +3488,39 @@ func (m *TrackerData) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.CellID0 != 0 {
+	if m.Id != 0 {
 		dAtA[i] = 0x8
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
+	}
+	if m.CellID0 != 0 {
+		dAtA[i] = 0x10
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.CellID0))
 	}
 	if m.CellID1 != 0 {
-		dAtA[i] = 0x10
+		dAtA[i] = 0x18
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.CellID1))
 	}
 	if m.Time != 0 {
-		dAtA[i] = 0x1d
+		dAtA[i] = 0x25
 		i++
 		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.Time))))
 	}
 	if len(m.Charges) > 0 {
-		dAtA[i] = 0x22
+		dAtA[i] = 0x2a
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(len(m.Charges)*4))
 		for _, num := range m.Charges {
-			f26 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f26)
+			f23 := math.Float32bits(float32(num))
+			dAtA[i] = uint8(f23)
 			i++
-			dAtA[i] = uint8(f26 >> 8)
+			dAtA[i] = uint8(f23 >> 8)
 			i++
-			dAtA[i] = uint8(f26 >> 16)
+			dAtA[i] = uint8(f23 >> 16)
 			i++
-			dAtA[i] = uint8(f26 >> 24)
+			dAtA[i] = uint8(f23 >> 24)
 			i++
 		}
 	}
@@ -3231,24 +3542,29 @@ func (m *TrackerDataCollection) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.Flags != 0 {
+	if m.Id != 0 {
 		dAtA[i] = 0x8
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
+	}
+	if m.Flags != 0 {
+		dAtA[i] = 0x10
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Flags))
 	}
 	if m.Params != nil {
-		dAtA[i] = 0x12
+		dAtA[i] = 0x1a
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Params.Size()))
-		n27, err := m.Params.MarshalTo(dAtA[i:])
+		n24, err := m.Params.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n27
+		i += n24
 	}
-	if len(m.Data) > 0 {
-		for _, msg := range m.Data {
-			dAtA[i] = 0x1a
+	if len(m.Entries) > 0 {
+		for _, msg := range m.Entries {
+			dAtA[i] = 0x22
 			i++
 			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
 			n, err := msg.MarshalTo(dAtA[i:])
@@ -3276,92 +3592,97 @@ func (m *TrackerHit) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.CellID0 != 0 {
+	if m.Id != 0 {
 		dAtA[i] = 0x8
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
+	}
+	if m.CellID0 != 0 {
+		dAtA[i] = 0x10
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.CellID0))
 	}
 	if m.CellID1 != 0 {
-		dAtA[i] = 0x10
+		dAtA[i] = 0x18
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.CellID1))
 	}
 	if m.Type != 0 {
-		dAtA[i] = 0x18
+		dAtA[i] = 0x20
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Type))
 	}
 	if len(m.Pos) > 0 {
-		dAtA[i] = 0x22
+		dAtA[i] = 0x2a
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(len(m.Pos)*8))
 		for _, num := range m.Pos {
-			f28 := math.Float64bits(float64(num))
-			dAtA[i] = uint8(f28)
+			f25 := math.Float64bits(float64(num))
+			dAtA[i] = uint8(f25)
 			i++
-			dAtA[i] = uint8(f28 >> 8)
+			dAtA[i] = uint8(f25 >> 8)
 			i++
-			dAtA[i] = uint8(f28 >> 16)
+			dAtA[i] = uint8(f25 >> 16)
 			i++
-			dAtA[i] = uint8(f28 >> 24)
+			dAtA[i] = uint8(f25 >> 24)
 			i++
-			dAtA[i] = uint8(f28 >> 32)
+			dAtA[i] = uint8(f25 >> 32)
 			i++
-			dAtA[i] = uint8(f28 >> 40)
+			dAtA[i] = uint8(f25 >> 40)
 			i++
-			dAtA[i] = uint8(f28 >> 48)
+			dAtA[i] = uint8(f25 >> 48)
 			i++
-			dAtA[i] = uint8(f28 >> 56)
+			dAtA[i] = uint8(f25 >> 56)
 			i++
 		}
 	}
 	if len(m.Cov) > 0 {
-		dAtA[i] = 0x2a
+		dAtA[i] = 0x32
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(len(m.Cov)*8))
 		for _, num := range m.Cov {
-			f29 := math.Float64bits(float64(num))
-			dAtA[i] = uint8(f29)
+			f26 := math.Float64bits(float64(num))
+			dAtA[i] = uint8(f26)
 			i++
-			dAtA[i] = uint8(f29 >> 8)
+			dAtA[i] = uint8(f26 >> 8)
 			i++
-			dAtA[i] = uint8(f29 >> 16)
+			dAtA[i] = uint8(f26 >> 16)
 			i++
-			dAtA[i] = uint8(f29 >> 24)
+			dAtA[i] = uint8(f26 >> 24)
 			i++
-			dAtA[i] = uint8(f29 >> 32)
+			dAtA[i] = uint8(f26 >> 32)
 			i++
-			dAtA[i] = uint8(f29 >> 40)
+			dAtA[i] = uint8(f26 >> 40)
 			i++
-			dAtA[i] = uint8(f29 >> 48)
+			dAtA[i] = uint8(f26 >> 48)
 			i++
-			dAtA[i] = uint8(f29 >> 56)
+			dAtA[i] = uint8(f26 >> 56)
 			i++
 		}
 	}
 	if m.EDep != 0 {
-		dAtA[i] = 0x35
+		dAtA[i] = 0x3d
 		i++
 		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.EDep))))
 	}
 	if m.EDepErr != 0 {
-		dAtA[i] = 0x3d
+		dAtA[i] = 0x45
 		i++
 		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.EDepErr))))
 	}
 	if m.Time != 0 {
-		dAtA[i] = 0x45
+		dAtA[i] = 0x4d
 		i++
 		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.Time))))
 	}
 	if m.Quality != 0 {
-		dAtA[i] = 0x48
+		dAtA[i] = 0x50
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Quality))
 	}
 	if len(m.RawHits) > 0 {
 		for _, msg := range m.RawHits {
-			dAtA[i] = 0x52
+			dAtA[i] = 0x5a
 			i++
 			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
 			n, err := msg.MarshalTo(dAtA[i:])
@@ -3389,24 +3710,29 @@ func (m *TrackerHitCollection) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.Flags != 0 {
+	if m.Id != 0 {
 		dAtA[i] = 0x8
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
+	}
+	if m.Flags != 0 {
+		dAtA[i] = 0x10
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Flags))
 	}
 	if m.Params != nil {
-		dAtA[i] = 0x12
+		dAtA[i] = 0x1a
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Params.Size()))
-		n30, err := m.Params.MarshalTo(dAtA[i:])
+		n27, err := m.Params.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n30
+		i += n27
 	}
-	if len(m.Hit) > 0 {
-		for _, msg := range m.Hit {
-			dAtA[i] = 0x1a
+	if len(m.Entries) > 0 {
+		for _, msg := range m.Entries {
+			dAtA[i] = 0x22
 			i++
 			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
 			n, err := msg.MarshalTo(dAtA[i:])
@@ -3434,56 +3760,61 @@ func (m *TrackerPulse) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.CellID0 != 0 {
+	if m.Id != 0 {
 		dAtA[i] = 0x8
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
+	}
+	if m.CellID0 != 0 {
+		dAtA[i] = 0x10
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.CellID0))
 	}
 	if m.CellID1 != 0 {
-		dAtA[i] = 0x10
+		dAtA[i] = 0x18
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.CellID1))
 	}
 	if m.Time != 0 {
-		dAtA[i] = 0x1d
+		dAtA[i] = 0x25
 		i++
 		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.Time))))
 	}
 	if m.Charge != 0 {
-		dAtA[i] = 0x25
+		dAtA[i] = 0x2d
 		i++
 		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.Charge))))
 	}
 	if len(m.Cov) > 0 {
-		dAtA[i] = 0x2a
+		dAtA[i] = 0x32
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(len(m.Cov)*4))
 		for _, num := range m.Cov {
-			f31 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f31)
+			f28 := math.Float32bits(float32(num))
+			dAtA[i] = uint8(f28)
 			i++
-			dAtA[i] = uint8(f31 >> 8)
+			dAtA[i] = uint8(f28 >> 8)
 			i++
-			dAtA[i] = uint8(f31 >> 16)
+			dAtA[i] = uint8(f28 >> 16)
 			i++
-			dAtA[i] = uint8(f31 >> 24)
+			dAtA[i] = uint8(f28 >> 24)
 			i++
 		}
 	}
 	if m.Quality != 0 {
-		dAtA[i] = 0x30
+		dAtA[i] = 0x38
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Quality))
 	}
 	if m.TPC != nil {
-		dAtA[i] = 0x3a
+		dAtA[i] = 0x42
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.TPC.Size()))
-		n32, err := m.TPC.MarshalTo(dAtA[i:])
+		n29, err := m.TPC.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n32
+		i += n29
 	}
 	return i, nil
 }
@@ -3503,24 +3834,29 @@ func (m *TrackerPulseCollection) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.Flags != 0 {
+	if m.Id != 0 {
 		dAtA[i] = 0x8
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
+	}
+	if m.Flags != 0 {
+		dAtA[i] = 0x10
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Flags))
 	}
 	if m.Params != nil {
-		dAtA[i] = 0x12
+		dAtA[i] = 0x1a
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Params.Size()))
-		n33, err := m.Params.MarshalTo(dAtA[i:])
+		n30, err := m.Params.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n33
+		i += n30
 	}
-	if len(m.Pulse) > 0 {
-		for _, msg := range m.Pulse {
-			dAtA[i] = 0x1a
+	if len(m.Entries) > 0 {
+		for _, msg := range m.Entries {
+			dAtA[i] = 0x22
 			i++
 			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
 			n, err := msg.MarshalTo(dAtA[i:])
@@ -3548,51 +3884,218 @@ func (m *TrackerHitPlane) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.CellID0 != 0 {
+	if m.Id != 0 {
 		dAtA[i] = 0x8
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
+	}
+	if m.CellID0 != 0 {
+		dAtA[i] = 0x10
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.CellID0))
 	}
 	if m.CellID1 != 0 {
-		dAtA[i] = 0x10
+		dAtA[i] = 0x18
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.CellID1))
 	}
 	if m.Type != 0 {
-		dAtA[i] = 0x18
+		dAtA[i] = 0x20
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Type))
 	}
 	if len(m.Pos) > 0 {
-		dAtA[i] = 0x22
+		dAtA[i] = 0x2a
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(len(m.Pos)*8))
 		for _, num := range m.Pos {
-			f34 := math.Float64bits(float64(num))
-			dAtA[i] = uint8(f34)
+			f31 := math.Float64bits(float64(num))
+			dAtA[i] = uint8(f31)
 			i++
-			dAtA[i] = uint8(f34 >> 8)
+			dAtA[i] = uint8(f31 >> 8)
 			i++
-			dAtA[i] = uint8(f34 >> 16)
+			dAtA[i] = uint8(f31 >> 16)
 			i++
-			dAtA[i] = uint8(f34 >> 24)
+			dAtA[i] = uint8(f31 >> 24)
 			i++
-			dAtA[i] = uint8(f34 >> 32)
+			dAtA[i] = uint8(f31 >> 32)
 			i++
-			dAtA[i] = uint8(f34 >> 40)
+			dAtA[i] = uint8(f31 >> 40)
 			i++
-			dAtA[i] = uint8(f34 >> 48)
+			dAtA[i] = uint8(f31 >> 48)
 			i++
-			dAtA[i] = uint8(f34 >> 56)
+			dAtA[i] = uint8(f31 >> 56)
 			i++
 		}
 	}
 	if len(m.U) > 0 {
-		dAtA[i] = 0x2a
+		dAtA[i] = 0x32
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(len(m.U)*4))
 		for _, num := range m.U {
-			f35 := math.Float32bits(float32(num))
+			f32 := math.Float32bits(float32(num))
+			dAtA[i] = uint8(f32)
+			i++
+			dAtA[i] = uint8(f32 >> 8)
+			i++
+			dAtA[i] = uint8(f32 >> 16)
+			i++
+			dAtA[i] = uint8(f32 >> 24)
+			i++
+		}
+	}
+	if len(m.V) > 0 {
+		dAtA[i] = 0x3a
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(len(m.V)*4))
+		for _, num := range m.V {
+			f33 := math.Float32bits(float32(num))
+			dAtA[i] = uint8(f33)
+			i++
+			dAtA[i] = uint8(f33 >> 8)
+			i++
+			dAtA[i] = uint8(f33 >> 16)
+			i++
+			dAtA[i] = uint8(f33 >> 24)
+			i++
+		}
+	}
+	if m.DU != 0 {
+		dAtA[i] = 0x45
+		i++
+		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.DU))))
+	}
+	if m.DV != 0 {
+		dAtA[i] = 0x4d
+		i++
+		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.DV))))
+	}
+	if m.EDep != 0 {
+		dAtA[i] = 0x55
+		i++
+		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.EDep))))
+	}
+	if m.EDepErr != 0 {
+		dAtA[i] = 0x5d
+		i++
+		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.EDepErr))))
+	}
+	if m.Time != 0 {
+		dAtA[i] = 0x65
+		i++
+		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.Time))))
+	}
+	if m.Quality != 0 {
+		dAtA[i] = 0x68
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Quality))
+	}
+	if len(m.RawHits) > 0 {
+		for _, msg := range m.RawHits {
+			dAtA[i] = 0x72
+			i++
+			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(dAtA[i:])
+			if err != nil {
+				return 0, err
+			}
+			i += n
+		}
+	}
+	return i, nil
+}
+
+func (m *TrackerHitPlaneCollection) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *TrackerHitPlaneCollection) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if m.Id != 0 {
+		dAtA[i] = 0x8
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
+	}
+	if m.Flags != 0 {
+		dAtA[i] = 0x10
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Flags))
+	}
+	if m.Params != nil {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Params.Size()))
+		n34, err := m.Params.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n34
+	}
+	if len(m.Entries) > 0 {
+		for _, msg := range m.Entries {
+			dAtA[i] = 0x22
+			i++
+			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(dAtA[i:])
+			if err != nil {
+				return 0, err
+			}
+			i += n
+		}
+	}
+	return i, nil
+}
+
+func (m *TrackerHitZCylinder) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *TrackerHitZCylinder) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if m.Id != 0 {
+		dAtA[i] = 0x8
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
+	}
+	if m.CellID0 != 0 {
+		dAtA[i] = 0x10
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.CellID0))
+	}
+	if m.CellID1 != 0 {
+		dAtA[i] = 0x18
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.CellID1))
+	}
+	if m.Type != 0 {
+		dAtA[i] = 0x20
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Type))
+	}
+	if len(m.Pos) > 0 {
+		dAtA[i] = 0x2a
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(len(m.Pos)*8))
+		for _, num := range m.Pos {
+			f35 := math.Float64bits(float64(num))
 			dAtA[i] = uint8(f35)
 			i++
 			dAtA[i] = uint8(f35 >> 8)
@@ -3601,13 +4104,21 @@ func (m *TrackerHitPlane) MarshalTo(dAtA []byte) (int, error) {
 			i++
 			dAtA[i] = uint8(f35 >> 24)
 			i++
+			dAtA[i] = uint8(f35 >> 32)
+			i++
+			dAtA[i] = uint8(f35 >> 40)
+			i++
+			dAtA[i] = uint8(f35 >> 48)
+			i++
+			dAtA[i] = uint8(f35 >> 56)
+			i++
 		}
 	}
-	if len(m.V) > 0 {
+	if len(m.Center) > 0 {
 		dAtA[i] = 0x32
 		i++
-		i = encodeVarintEicio(dAtA, i, uint64(len(m.V)*4))
-		for _, num := range m.V {
+		i = encodeVarintEicio(dAtA, i, uint64(len(m.Center)*4))
+		for _, num := range m.Center {
 			f36 := math.Float32bits(float32(num))
 			dAtA[i] = uint8(f36)
 			i++
@@ -3619,15 +4130,15 @@ func (m *TrackerHitPlane) MarshalTo(dAtA []byte) (int, error) {
 			i++
 		}
 	}
-	if m.DU != 0 {
+	if m.DRPhi != 0 {
 		dAtA[i] = 0x3d
 		i++
-		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.DU))))
+		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.DRPhi))))
 	}
-	if m.DV != 0 {
+	if m.DZ != 0 {
 		dAtA[i] = 0x45
 		i++
-		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.DV))))
+		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.DZ))))
 	}
 	if m.EDep != 0 {
 		dAtA[i] = 0x4d
@@ -3664,166 +4175,6 @@ func (m *TrackerHitPlane) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 
-func (m *TrackerHitPlaneCollection) Marshal() (dAtA []byte, err error) {
-	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalTo(dAtA)
-	if err != nil {
-		return nil, err
-	}
-	return dAtA[:n], nil
-}
-
-func (m *TrackerHitPlaneCollection) MarshalTo(dAtA []byte) (int, error) {
-	var i int
-	_ = i
-	var l int
-	_ = l
-	if m.Flags != 0 {
-		dAtA[i] = 0x8
-		i++
-		i = encodeVarintEicio(dAtA, i, uint64(m.Flags))
-	}
-	if m.Params != nil {
-		dAtA[i] = 0x12
-		i++
-		i = encodeVarintEicio(dAtA, i, uint64(m.Params.Size()))
-		n37, err := m.Params.MarshalTo(dAtA[i:])
-		if err != nil {
-			return 0, err
-		}
-		i += n37
-	}
-	if len(m.Plane) > 0 {
-		for _, msg := range m.Plane {
-			dAtA[i] = 0x1a
-			i++
-			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
-			n, err := msg.MarshalTo(dAtA[i:])
-			if err != nil {
-				return 0, err
-			}
-			i += n
-		}
-	}
-	return i, nil
-}
-
-func (m *TrackerHitZCylinder) Marshal() (dAtA []byte, err error) {
-	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalTo(dAtA)
-	if err != nil {
-		return nil, err
-	}
-	return dAtA[:n], nil
-}
-
-func (m *TrackerHitZCylinder) MarshalTo(dAtA []byte) (int, error) {
-	var i int
-	_ = i
-	var l int
-	_ = l
-	if m.CellID0 != 0 {
-		dAtA[i] = 0x8
-		i++
-		i = encodeVarintEicio(dAtA, i, uint64(m.CellID0))
-	}
-	if m.CellID1 != 0 {
-		dAtA[i] = 0x10
-		i++
-		i = encodeVarintEicio(dAtA, i, uint64(m.CellID1))
-	}
-	if m.Type != 0 {
-		dAtA[i] = 0x18
-		i++
-		i = encodeVarintEicio(dAtA, i, uint64(m.Type))
-	}
-	if len(m.Pos) > 0 {
-		dAtA[i] = 0x22
-		i++
-		i = encodeVarintEicio(dAtA, i, uint64(len(m.Pos)*8))
-		for _, num := range m.Pos {
-			f38 := math.Float64bits(float64(num))
-			dAtA[i] = uint8(f38)
-			i++
-			dAtA[i] = uint8(f38 >> 8)
-			i++
-			dAtA[i] = uint8(f38 >> 16)
-			i++
-			dAtA[i] = uint8(f38 >> 24)
-			i++
-			dAtA[i] = uint8(f38 >> 32)
-			i++
-			dAtA[i] = uint8(f38 >> 40)
-			i++
-			dAtA[i] = uint8(f38 >> 48)
-			i++
-			dAtA[i] = uint8(f38 >> 56)
-			i++
-		}
-	}
-	if len(m.Center) > 0 {
-		dAtA[i] = 0x2a
-		i++
-		i = encodeVarintEicio(dAtA, i, uint64(len(m.Center)*4))
-		for _, num := range m.Center {
-			f39 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f39)
-			i++
-			dAtA[i] = uint8(f39 >> 8)
-			i++
-			dAtA[i] = uint8(f39 >> 16)
-			i++
-			dAtA[i] = uint8(f39 >> 24)
-			i++
-		}
-	}
-	if m.DRPhi != 0 {
-		dAtA[i] = 0x35
-		i++
-		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.DRPhi))))
-	}
-	if m.DZ != 0 {
-		dAtA[i] = 0x3d
-		i++
-		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.DZ))))
-	}
-	if m.EDep != 0 {
-		dAtA[i] = 0x45
-		i++
-		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.EDep))))
-	}
-	if m.EDepErr != 0 {
-		dAtA[i] = 0x4d
-		i++
-		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.EDepErr))))
-	}
-	if m.Time != 0 {
-		dAtA[i] = 0x55
-		i++
-		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.Time))))
-	}
-	if m.Quality != 0 {
-		dAtA[i] = 0x58
-		i++
-		i = encodeVarintEicio(dAtA, i, uint64(m.Quality))
-	}
-	if len(m.RawHits) > 0 {
-		for _, msg := range m.RawHits {
-			dAtA[i] = 0x62
-			i++
-			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
-			n, err := msg.MarshalTo(dAtA[i:])
-			if err != nil {
-				return 0, err
-			}
-			i += n
-		}
-	}
-	return i, nil
-}
-
 func (m *TrackerHitZCylinderCollection) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
@@ -3839,24 +4190,29 @@ func (m *TrackerHitZCylinderCollection) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.Flags != 0 {
+	if m.Id != 0 {
 		dAtA[i] = 0x8
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
+	}
+	if m.Flags != 0 {
+		dAtA[i] = 0x10
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Flags))
 	}
 	if m.Params != nil {
-		dAtA[i] = 0x12
+		dAtA[i] = 0x1a
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Params.Size()))
-		n40, err := m.Params.MarshalTo(dAtA[i:])
+		n37, err := m.Params.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n40
+		i += n37
 	}
-	if len(m.Cyl) > 0 {
-		for _, msg := range m.Cyl {
-			dAtA[i] = 0x1a
+	if len(m.Entries) > 0 {
+		for _, msg := range m.Entries {
+			dAtA[i] = 0x22
 			i++
 			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
 			n, err := msg.MarshalTo(dAtA[i:])
@@ -3884,57 +4240,62 @@ func (m *Track) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.Type != 0 {
+	if m.Id != 0 {
 		dAtA[i] = 0x8
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
+	}
+	if m.Type != 0 {
+		dAtA[i] = 0x10
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Type))
 	}
 	if m.Chi2 != 0 {
-		dAtA[i] = 0x15
+		dAtA[i] = 0x1d
 		i++
 		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.Chi2))))
 	}
 	if m.NDF != 0 {
-		dAtA[i] = 0x18
+		dAtA[i] = 0x20
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.NDF))
 	}
 	if m.DEdx != 0 {
-		dAtA[i] = 0x25
+		dAtA[i] = 0x2d
 		i++
 		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.DEdx))))
 	}
 	if m.DEdxErr != 0 {
-		dAtA[i] = 0x2d
+		dAtA[i] = 0x35
 		i++
 		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.DEdxErr))))
 	}
 	if m.Radius != 0 {
-		dAtA[i] = 0x35
+		dAtA[i] = 0x3d
 		i++
 		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.Radius))))
 	}
 	if len(m.SubDetHits) > 0 {
-		dAtA42 := make([]byte, len(m.SubDetHits)*10)
-		var j41 int
+		dAtA39 := make([]byte, len(m.SubDetHits)*10)
+		var j38 int
 		for _, num1 := range m.SubDetHits {
 			num := uint64(num1)
 			for num >= 1<<7 {
-				dAtA42[j41] = uint8(uint64(num)&0x7f | 0x80)
+				dAtA39[j38] = uint8(uint64(num)&0x7f | 0x80)
 				num >>= 7
-				j41++
+				j38++
 			}
-			dAtA42[j41] = uint8(num)
-			j41++
+			dAtA39[j38] = uint8(num)
+			j38++
 		}
-		dAtA[i] = 0x3a
+		dAtA[i] = 0x42
 		i++
-		i = encodeVarintEicio(dAtA, i, uint64(j41))
-		i += copy(dAtA[i:], dAtA42[:j41])
+		i = encodeVarintEicio(dAtA, i, uint64(j38))
+		i += copy(dAtA[i:], dAtA39[:j38])
 	}
 	if len(m.States) > 0 {
 		for _, msg := range m.States {
-			dAtA[i] = 0x42
+			dAtA[i] = 0x4a
 			i++
 			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
 			n, err := msg.MarshalTo(dAtA[i:])
@@ -3946,7 +4307,7 @@ func (m *Track) MarshalTo(dAtA []byte) (int, error) {
 	}
 	if len(m.Hits) > 0 {
 		for _, msg := range m.Hits {
-			dAtA[i] = 0x4a
+			dAtA[i] = 0x52
 			i++
 			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
 			n, err := msg.MarshalTo(dAtA[i:])
@@ -3956,9 +4317,9 @@ func (m *Track) MarshalTo(dAtA []byte) (int, error) {
 			i += n
 		}
 	}
-	if len(m.TrackIDs) > 0 {
-		for _, msg := range m.TrackIDs {
-			dAtA[i] = 0x52
+	if len(m.Tracks) > 0 {
+		for _, msg := range m.Tracks {
+			dAtA[i] = 0x5a
 			i++
 			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
 			n, err := msg.MarshalTo(dAtA[i:])
@@ -4021,14 +4382,14 @@ func (m *Track_TrackState) MarshalTo(dAtA []byte) (int, error) {
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(len(m.Cov)*4))
 		for _, num := range m.Cov {
-			f43 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f43)
+			f40 := math.Float32bits(float32(num))
+			dAtA[i] = uint8(f40)
 			i++
-			dAtA[i] = uint8(f43 >> 8)
+			dAtA[i] = uint8(f40 >> 8)
 			i++
-			dAtA[i] = uint8(f43 >> 16)
+			dAtA[i] = uint8(f40 >> 16)
 			i++
-			dAtA[i] = uint8(f43 >> 24)
+			dAtA[i] = uint8(f40 >> 24)
 			i++
 		}
 	}
@@ -4037,14 +4398,14 @@ func (m *Track_TrackState) MarshalTo(dAtA []byte) (int, error) {
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(len(m.Ref)*4))
 		for _, num := range m.Ref {
-			f44 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f44)
+			f41 := math.Float32bits(float32(num))
+			dAtA[i] = uint8(f41)
 			i++
-			dAtA[i] = uint8(f44 >> 8)
+			dAtA[i] = uint8(f41 >> 8)
 			i++
-			dAtA[i] = uint8(f44 >> 16)
+			dAtA[i] = uint8(f41 >> 16)
 			i++
-			dAtA[i] = uint8(f44 >> 24)
+			dAtA[i] = uint8(f41 >> 24)
 			i++
 		}
 	}
@@ -4066,24 +4427,29 @@ func (m *TrackCollection) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.Flags != 0 {
+	if m.Id != 0 {
 		dAtA[i] = 0x8
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
+	}
+	if m.Flags != 0 {
+		dAtA[i] = 0x10
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Flags))
 	}
 	if m.Params != nil {
-		dAtA[i] = 0x12
+		dAtA[i] = 0x1a
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Params.Size()))
-		n45, err := m.Params.MarshalTo(dAtA[i:])
+		n42, err := m.Params.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n45
+		i += n42
 	}
-	if len(m.Track) > 0 {
-		for _, msg := range m.Track {
-			dAtA[i] = 0x1a
+	if len(m.Entries) > 0 {
+		for _, msg := range m.Entries {
+			dAtA[i] = 0x22
 			i++
 			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
 			n, err := msg.MarshalTo(dAtA[i:])
@@ -4111,50 +4477,55 @@ func (m *SimCalorimeterHit) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
+	if m.Id != 0 {
+		dAtA[i] = 0x8
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
+	}
 	if m.Params != nil {
-		dAtA[i] = 0xa
+		dAtA[i] = 0x12
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Params.Size()))
-		n46, err := m.Params.MarshalTo(dAtA[i:])
+		n43, err := m.Params.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n46
+		i += n43
 	}
 	if m.CellID0 != 0 {
-		dAtA[i] = 0x10
+		dAtA[i] = 0x18
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.CellID0))
 	}
 	if m.CellID1 != 0 {
-		dAtA[i] = 0x18
+		dAtA[i] = 0x20
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.CellID1))
 	}
 	if m.Energy != 0 {
-		dAtA[i] = 0x25
+		dAtA[i] = 0x2d
 		i++
 		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.Energy))))
 	}
 	if len(m.Pos) > 0 {
-		dAtA[i] = 0x2a
+		dAtA[i] = 0x32
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(len(m.Pos)*4))
 		for _, num := range m.Pos {
-			f47 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f47)
+			f44 := math.Float32bits(float32(num))
+			dAtA[i] = uint8(f44)
 			i++
-			dAtA[i] = uint8(f47 >> 8)
+			dAtA[i] = uint8(f44 >> 8)
 			i++
-			dAtA[i] = uint8(f47 >> 16)
+			dAtA[i] = uint8(f44 >> 16)
 			i++
-			dAtA[i] = uint8(f47 >> 24)
+			dAtA[i] = uint8(f44 >> 24)
 			i++
 		}
 	}
 	if len(m.Contributions) > 0 {
 		for _, msg := range m.Contributions {
-			dAtA[i] = 0x32
+			dAtA[i] = 0x3a
 			i++
 			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
 			n, err := msg.MarshalTo(dAtA[i:])
@@ -4182,10 +4553,15 @@ func (m *SimCalorimeterHit_Contrib) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.MCParticle != 0 {
-		dAtA[i] = 0x8
+	if m.MCParticle != nil {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintEicio(dAtA, i, uint64(m.MCParticle))
+		i = encodeVarintEicio(dAtA, i, uint64(m.MCParticle.Size()))
+		n45, err := m.MCParticle.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n45
 	}
 	if m.Energy != 0 {
 		dAtA[i] = 0x15
@@ -4207,14 +4583,14 @@ func (m *SimCalorimeterHit_Contrib) MarshalTo(dAtA []byte) (int, error) {
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(len(m.StepPos)*4))
 		for _, num := range m.StepPos {
-			f48 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f48)
+			f46 := math.Float32bits(float32(num))
+			dAtA[i] = uint8(f46)
 			i++
-			dAtA[i] = uint8(f48 >> 8)
+			dAtA[i] = uint8(f46 >> 8)
 			i++
-			dAtA[i] = uint8(f48 >> 16)
+			dAtA[i] = uint8(f46 >> 16)
 			i++
-			dAtA[i] = uint8(f48 >> 24)
+			dAtA[i] = uint8(f46 >> 24)
 			i++
 		}
 	}
@@ -4236,24 +4612,29 @@ func (m *SimCalorimeterHitCollection) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.Flags != 0 {
+	if m.Id != 0 {
 		dAtA[i] = 0x8
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
+	}
+	if m.Flags != 0 {
+		dAtA[i] = 0x10
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Flags))
 	}
 	if m.Params != nil {
-		dAtA[i] = 0x12
+		dAtA[i] = 0x1a
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Params.Size()))
-		n49, err := m.Params.MarshalTo(dAtA[i:])
+		n47, err := m.Params.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n49
+		i += n47
 	}
-	if len(m.Hit) > 0 {
-		for _, msg := range m.Hit {
-			dAtA[i] = 0x1a
+	if len(m.Entries) > 0 {
+		for _, msg := range m.Entries {
+			dAtA[i] = 0x22
 			i++
 			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
 			n, err := msg.MarshalTo(dAtA[i:])
@@ -4281,13 +4662,18 @@ func (m *RawCalorimeterHit) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.CellID0 != 0 {
+	if m.Id != 0 {
 		dAtA[i] = 0x8
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
+	}
+	if m.CellID0 != 0 {
+		dAtA[i] = 0x10
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.CellID0))
 	}
 	if m.CellID1 != 0 {
-		dAtA[i] = 0x10
+		dAtA[i] = 0x18
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.CellID1))
 	}
@@ -4319,24 +4705,29 @@ func (m *RawCalorimeterHitCollection) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.Flags != 0 {
+	if m.Id != 0 {
 		dAtA[i] = 0x8
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
+	}
+	if m.Flags != 0 {
+		dAtA[i] = 0x10
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Flags))
 	}
 	if m.Params != nil {
-		dAtA[i] = 0x12
+		dAtA[i] = 0x1a
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Params.Size()))
-		n50, err := m.Params.MarshalTo(dAtA[i:])
+		n48, err := m.Params.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n50
+		i += n48
 	}
-	if len(m.Hit) > 0 {
-		for _, msg := range m.Hit {
-			dAtA[i] = 0x1a
+	if len(m.Entries) > 0 {
+		for _, msg := range m.Entries {
+			dAtA[i] = 0x22
 			i++
 			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
 			n, err := msg.MarshalTo(dAtA[i:])
@@ -4364,61 +4755,66 @@ func (m *CalorimeterHit) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.CellID0 != 0 {
+	if m.Id != 0 {
 		dAtA[i] = 0x8
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
+	}
+	if m.CellID0 != 0 {
+		dAtA[i] = 0x10
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.CellID0))
 	}
 	if m.CellID1 != 0 {
-		dAtA[i] = 0x10
+		dAtA[i] = 0x18
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.CellID1))
 	}
 	if m.Energy != 0 {
-		dAtA[i] = 0x1d
+		dAtA[i] = 0x25
 		i++
 		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.Energy))))
 	}
 	if m.EnergyErr != 0 {
-		dAtA[i] = 0x25
+		dAtA[i] = 0x2d
 		i++
 		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.EnergyErr))))
 	}
 	if m.Time != 0 {
-		dAtA[i] = 0x2d
+		dAtA[i] = 0x35
 		i++
 		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.Time))))
 	}
 	if len(m.Pos) > 0 {
-		dAtA[i] = 0x32
+		dAtA[i] = 0x3a
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(len(m.Pos)*4))
 		for _, num := range m.Pos {
-			f51 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f51)
+			f49 := math.Float32bits(float32(num))
+			dAtA[i] = uint8(f49)
 			i++
-			dAtA[i] = uint8(f51 >> 8)
+			dAtA[i] = uint8(f49 >> 8)
 			i++
-			dAtA[i] = uint8(f51 >> 16)
+			dAtA[i] = uint8(f49 >> 16)
 			i++
-			dAtA[i] = uint8(f51 >> 24)
+			dAtA[i] = uint8(f49 >> 24)
 			i++
 		}
 	}
 	if m.Type != 0 {
-		dAtA[i] = 0x38
+		dAtA[i] = 0x40
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Type))
 	}
 	if m.Raw != nil {
-		dAtA[i] = 0x42
+		dAtA[i] = 0x4a
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Raw.Size()))
-		n52, err := m.Raw.MarshalTo(dAtA[i:])
+		n50, err := m.Raw.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n52
+		i += n50
 	}
 	return i, nil
 }
@@ -4438,24 +4834,29 @@ func (m *CalorimeterHitCollection) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.Flags != 0 {
+	if m.Id != 0 {
 		dAtA[i] = 0x8
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
+	}
+	if m.Flags != 0 {
+		dAtA[i] = 0x10
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Flags))
 	}
 	if m.Params != nil {
-		dAtA[i] = 0x12
+		dAtA[i] = 0x1a
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Params.Size()))
-		n53, err := m.Params.MarshalTo(dAtA[i:])
+		n51, err := m.Params.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n53
+		i += n51
 	}
-	if len(m.Hit) > 0 {
-		for _, msg := range m.Hit {
-			dAtA[i] = 0x1a
+	if len(m.Entries) > 0 {
+		for _, msg := range m.Entries {
+			dAtA[i] = 0x22
 			i++
 			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
 			n, err := msg.MarshalTo(dAtA[i:])
@@ -4483,26 +4884,73 @@ func (m *Cluster) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.Type != 0 {
+	if m.Id != 0 {
 		dAtA[i] = 0x8
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
+	}
+	if m.Type != 0 {
+		dAtA[i] = 0x10
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Type))
 	}
 	if m.Energy != 0 {
-		dAtA[i] = 0x15
+		dAtA[i] = 0x1d
 		i++
 		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.Energy))))
 	}
 	if m.EnergyErr != 0 {
-		dAtA[i] = 0x1d
+		dAtA[i] = 0x25
 		i++
 		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.EnergyErr))))
 	}
 	if len(m.Pos) > 0 {
-		dAtA[i] = 0x22
+		dAtA[i] = 0x2a
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(len(m.Pos)*4))
 		for _, num := range m.Pos {
+			f52 := math.Float32bits(float32(num))
+			dAtA[i] = uint8(f52)
+			i++
+			dAtA[i] = uint8(f52 >> 8)
+			i++
+			dAtA[i] = uint8(f52 >> 16)
+			i++
+			dAtA[i] = uint8(f52 >> 24)
+			i++
+		}
+	}
+	if len(m.PosErr) > 0 {
+		dAtA[i] = 0x32
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(len(m.PosErr)*4))
+		for _, num := range m.PosErr {
+			f53 := math.Float32bits(float32(num))
+			dAtA[i] = uint8(f53)
+			i++
+			dAtA[i] = uint8(f53 >> 8)
+			i++
+			dAtA[i] = uint8(f53 >> 16)
+			i++
+			dAtA[i] = uint8(f53 >> 24)
+			i++
+		}
+	}
+	if m.Theta != 0 {
+		dAtA[i] = 0x3d
+		i++
+		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.Theta))))
+	}
+	if m.Phi != 0 {
+		dAtA[i] = 0x45
+		i++
+		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.Phi))))
+	}
+	if len(m.DirErr) > 0 {
+		dAtA[i] = 0x4a
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(len(m.DirErr)*4))
+		for _, num := range m.DirErr {
 			f54 := math.Float32bits(float32(num))
 			dAtA[i] = uint8(f54)
 			i++
@@ -4514,11 +4962,11 @@ func (m *Cluster) MarshalTo(dAtA []byte) (int, error) {
 			i++
 		}
 	}
-	if len(m.PosErr) > 0 {
-		dAtA[i] = 0x2a
+	if len(m.Shape) > 0 {
+		dAtA[i] = 0x52
 		i++
-		i = encodeVarintEicio(dAtA, i, uint64(len(m.PosErr)*4))
-		for _, num := range m.PosErr {
+		i = encodeVarintEicio(dAtA, i, uint64(len(m.Shape)*4))
+		for _, num := range m.Shape {
 			f55 := math.Float32bits(float32(num))
 			dAtA[i] = uint8(f55)
 			i++
@@ -4530,51 +4978,21 @@ func (m *Cluster) MarshalTo(dAtA []byte) (int, error) {
 			i++
 		}
 	}
-	if m.Theta != 0 {
-		dAtA[i] = 0x35
-		i++
-		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.Theta))))
-	}
-	if m.Phi != 0 {
-		dAtA[i] = 0x3d
-		i++
-		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.Phi))))
-	}
-	if len(m.DirErr) > 0 {
-		dAtA[i] = 0x42
-		i++
-		i = encodeVarintEicio(dAtA, i, uint64(len(m.DirErr)*4))
-		for _, num := range m.DirErr {
-			f56 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f56)
-			i++
-			dAtA[i] = uint8(f56 >> 8)
-			i++
-			dAtA[i] = uint8(f56 >> 16)
-			i++
-			dAtA[i] = uint8(f56 >> 24)
-			i++
-		}
-	}
-	if len(m.Shape) > 0 {
-		dAtA[i] = 0x4a
-		i++
-		i = encodeVarintEicio(dAtA, i, uint64(len(m.Shape)*4))
-		for _, num := range m.Shape {
-			f57 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f57)
-			i++
-			dAtA[i] = uint8(f57 >> 8)
-			i++
-			dAtA[i] = uint8(f57 >> 16)
-			i++
-			dAtA[i] = uint8(f57 >> 24)
-			i++
-		}
-	}
 	if len(m.PIDs) > 0 {
 		for _, msg := range m.PIDs {
-			dAtA[i] = 0x52
+			dAtA[i] = 0x5a
+			i++
+			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(dAtA[i:])
+			if err != nil {
+				return 0, err
+			}
+			i += n
+		}
+	}
+	if len(m.Clusters) > 0 {
+		for _, msg := range m.Clusters {
+			dAtA[i] = 0x62
 			i++
 			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
 			n, err := msg.MarshalTo(dAtA[i:])
@@ -4586,7 +5004,7 @@ func (m *Cluster) MarshalTo(dAtA []byte) (int, error) {
 	}
 	if len(m.Hits) > 0 {
 		for _, msg := range m.Hits {
-			dAtA[i] = 0x5a
+			dAtA[i] = 0x6a
 			i++
 			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
 			n, err := msg.MarshalTo(dAtA[i:])
@@ -4597,34 +5015,34 @@ func (m *Cluster) MarshalTo(dAtA []byte) (int, error) {
 		}
 	}
 	if len(m.Weights) > 0 {
-		dAtA[i] = 0x62
+		dAtA[i] = 0x72
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(len(m.Weights)*4))
 		for _, num := range m.Weights {
-			f58 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f58)
+			f56 := math.Float32bits(float32(num))
+			dAtA[i] = uint8(f56)
 			i++
-			dAtA[i] = uint8(f58 >> 8)
+			dAtA[i] = uint8(f56 >> 8)
 			i++
-			dAtA[i] = uint8(f58 >> 16)
+			dAtA[i] = uint8(f56 >> 16)
 			i++
-			dAtA[i] = uint8(f58 >> 24)
+			dAtA[i] = uint8(f56 >> 24)
 			i++
 		}
 	}
 	if len(m.SubDetEnes) > 0 {
-		dAtA[i] = 0x6a
+		dAtA[i] = 0x7a
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(len(m.SubDetEnes)*4))
 		for _, num := range m.SubDetEnes {
-			f59 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f59)
+			f57 := math.Float32bits(float32(num))
+			dAtA[i] = uint8(f57)
 			i++
-			dAtA[i] = uint8(f59 >> 8)
+			dAtA[i] = uint8(f57 >> 8)
 			i++
-			dAtA[i] = uint8(f59 >> 16)
+			dAtA[i] = uint8(f57 >> 16)
 			i++
-			dAtA[i] = uint8(f59 >> 24)
+			dAtA[i] = uint8(f57 >> 24)
 			i++
 		}
 	}
@@ -4646,24 +5064,29 @@ func (m *ClusterCollection) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.Flags != 0 {
+	if m.Id != 0 {
 		dAtA[i] = 0x8
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
+	}
+	if m.Flags != 0 {
+		dAtA[i] = 0x10
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Flags))
 	}
 	if m.Params != nil {
-		dAtA[i] = 0x12
+		dAtA[i] = 0x1a
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Params.Size()))
-		n60, err := m.Params.MarshalTo(dAtA[i:])
+		n58, err := m.Params.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n60
+		i += n58
 	}
-	if len(m.Cluster) > 0 {
-		for _, msg := range m.Cluster {
-			dAtA[i] = 0x1a
+	if len(m.Entries) > 0 {
+		for _, msg := range m.Entries {
+			dAtA[i] = 0x22
 			i++
 			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
 			n, err := msg.MarshalTo(dAtA[i:])
@@ -4691,16 +5114,68 @@ func (m *RecParticle) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.Type != 0 {
+	if m.Id != 0 {
 		dAtA[i] = 0x8
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
+	}
+	if m.Type != 0 {
+		dAtA[i] = 0x10
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Type))
 	}
 	if len(m.P) > 0 {
-		dAtA[i] = 0x12
+		dAtA[i] = 0x1a
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(len(m.P)*4))
 		for _, num := range m.P {
+			f59 := math.Float32bits(float32(num))
+			dAtA[i] = uint8(f59)
+			i++
+			dAtA[i] = uint8(f59 >> 8)
+			i++
+			dAtA[i] = uint8(f59 >> 16)
+			i++
+			dAtA[i] = uint8(f59 >> 24)
+			i++
+		}
+	}
+	if m.Energy != 0 {
+		dAtA[i] = 0x25
+		i++
+		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.Energy))))
+	}
+	if len(m.Cov) > 0 {
+		dAtA[i] = 0x2a
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(len(m.Cov)*4))
+		for _, num := range m.Cov {
+			f60 := math.Float32bits(float32(num))
+			dAtA[i] = uint8(f60)
+			i++
+			dAtA[i] = uint8(f60 >> 8)
+			i++
+			dAtA[i] = uint8(f60 >> 16)
+			i++
+			dAtA[i] = uint8(f60 >> 24)
+			i++
+		}
+	}
+	if m.Mass != 0 {
+		dAtA[i] = 0x35
+		i++
+		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.Mass))))
+	}
+	if m.Charge != 0 {
+		dAtA[i] = 0x3d
+		i++
+		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.Charge))))
+	}
+	if len(m.Ref) > 0 {
+		dAtA[i] = 0x42
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(len(m.Ref)*4))
+		for _, num := range m.Ref {
 			f61 := math.Float32bits(float32(num))
 			dAtA[i] = uint8(f61)
 			i++
@@ -4712,56 +5187,9 @@ func (m *RecParticle) MarshalTo(dAtA []byte) (int, error) {
 			i++
 		}
 	}
-	if m.Energy != 0 {
-		dAtA[i] = 0x1d
-		i++
-		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.Energy))))
-	}
-	if len(m.Cov) > 0 {
-		dAtA[i] = 0x22
-		i++
-		i = encodeVarintEicio(dAtA, i, uint64(len(m.Cov)*4))
-		for _, num := range m.Cov {
-			f62 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f62)
-			i++
-			dAtA[i] = uint8(f62 >> 8)
-			i++
-			dAtA[i] = uint8(f62 >> 16)
-			i++
-			dAtA[i] = uint8(f62 >> 24)
-			i++
-		}
-	}
-	if m.Mass != 0 {
-		dAtA[i] = 0x2d
-		i++
-		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.Mass))))
-	}
-	if m.Charge != 0 {
-		dAtA[i] = 0x35
-		i++
-		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.Charge))))
-	}
-	if len(m.Ref) > 0 {
-		dAtA[i] = 0x3a
-		i++
-		i = encodeVarintEicio(dAtA, i, uint64(len(m.Ref)*4))
-		for _, num := range m.Ref {
-			f63 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f63)
-			i++
-			dAtA[i] = uint8(f63 >> 8)
-			i++
-			dAtA[i] = uint8(f63 >> 16)
-			i++
-			dAtA[i] = uint8(f63 >> 24)
-			i++
-		}
-	}
 	if len(m.PIDs) > 0 {
 		for _, msg := range m.PIDs {
-			dAtA[i] = 0x42
+			dAtA[i] = 0x4a
 			i++
 			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
 			n, err := msg.MarshalTo(dAtA[i:])
@@ -4772,18 +5200,18 @@ func (m *RecParticle) MarshalTo(dAtA []byte) (int, error) {
 		}
 	}
 	if m.PIDUsed != 0 {
-		dAtA[i] = 0x48
+		dAtA[i] = 0x50
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.PIDUsed))
 	}
 	if m.GoodnessOfPID != 0 {
-		dAtA[i] = 0x55
+		dAtA[i] = 0x5d
 		i++
 		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.GoodnessOfPID))))
 	}
 	if len(m.Recs) > 0 {
 		for _, msg := range m.Recs {
-			dAtA[i] = 0x5a
+			dAtA[i] = 0x62
 			i++
 			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
 			n, err := msg.MarshalTo(dAtA[i:])
@@ -4795,7 +5223,7 @@ func (m *RecParticle) MarshalTo(dAtA []byte) (int, error) {
 	}
 	if len(m.Tracks) > 0 {
 		for _, msg := range m.Tracks {
-			dAtA[i] = 0x62
+			dAtA[i] = 0x6a
 			i++
 			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
 			n, err := msg.MarshalTo(dAtA[i:])
@@ -4807,7 +5235,7 @@ func (m *RecParticle) MarshalTo(dAtA []byte) (int, error) {
 	}
 	if len(m.Clusters) > 0 {
 		for _, msg := range m.Clusters {
-			dAtA[i] = 0x6a
+			dAtA[i] = 0x72
 			i++
 			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
 			n, err := msg.MarshalTo(dAtA[i:])
@@ -4818,14 +5246,14 @@ func (m *RecParticle) MarshalTo(dAtA []byte) (int, error) {
 		}
 	}
 	if m.StartVtx != nil {
-		dAtA[i] = 0x72
+		dAtA[i] = 0x7a
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.StartVtx.Size()))
-		n64, err := m.StartVtx.MarshalTo(dAtA[i:])
+		n62, err := m.StartVtx.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n64
+		i += n62
 	}
 	return i, nil
 }
@@ -4845,24 +5273,29 @@ func (m *RecParticleCollection) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.Flags != 0 {
+	if m.Id != 0 {
 		dAtA[i] = 0x8
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
+	}
+	if m.Flags != 0 {
+		dAtA[i] = 0x10
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Flags))
 	}
 	if m.Params != nil {
-		dAtA[i] = 0x12
+		dAtA[i] = 0x1a
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Params.Size()))
-		n65, err := m.Params.MarshalTo(dAtA[i:])
+		n63, err := m.Params.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n65
+		i += n63
 	}
-	if len(m.Particle) > 0 {
-		for _, msg := range m.Particle {
-			dAtA[i] = 0x1a
+	if len(m.Entries) > 0 {
+		for _, msg := range m.Entries {
+			dAtA[i] = 0x22
 			i++
 			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
 			n, err := msg.MarshalTo(dAtA[i:])
@@ -4890,31 +5323,68 @@ func (m *Vertex) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.Primary != 0 {
+	if m.Id != 0 {
 		dAtA[i] = 0x8
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
+	}
+	if m.Primary != 0 {
+		dAtA[i] = 0x10
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Primary))
 	}
 	if m.AlgType != 0 {
-		dAtA[i] = 0x10
+		dAtA[i] = 0x18
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.AlgType))
 	}
 	if m.Chi2 != 0 {
-		dAtA[i] = 0x1d
+		dAtA[i] = 0x25
 		i++
 		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.Chi2))))
 	}
 	if m.Prob != 0 {
-		dAtA[i] = 0x25
+		dAtA[i] = 0x2d
 		i++
 		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.Prob))))
 	}
 	if len(m.Pos) > 0 {
-		dAtA[i] = 0x2a
+		dAtA[i] = 0x32
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(len(m.Pos)*4))
 		for _, num := range m.Pos {
+			f64 := math.Float32bits(float32(num))
+			dAtA[i] = uint8(f64)
+			i++
+			dAtA[i] = uint8(f64 >> 8)
+			i++
+			dAtA[i] = uint8(f64 >> 16)
+			i++
+			dAtA[i] = uint8(f64 >> 24)
+			i++
+		}
+	}
+	if len(m.Cov) > 0 {
+		dAtA[i] = 0x3a
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(len(m.Cov)*4))
+		for _, num := range m.Cov {
+			f65 := math.Float32bits(float32(num))
+			dAtA[i] = uint8(f65)
+			i++
+			dAtA[i] = uint8(f65 >> 8)
+			i++
+			dAtA[i] = uint8(f65 >> 16)
+			i++
+			dAtA[i] = uint8(f65 >> 24)
+			i++
+		}
+	}
+	if len(m.Params) > 0 {
+		dAtA[i] = 0x42
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(len(m.Params)*4))
+		for _, num := range m.Params {
 			f66 := math.Float32bits(float32(num))
 			dAtA[i] = uint8(f66)
 			i++
@@ -4926,47 +5396,15 @@ func (m *Vertex) MarshalTo(dAtA []byte) (int, error) {
 			i++
 		}
 	}
-	if len(m.Cov) > 0 {
-		dAtA[i] = 0x32
-		i++
-		i = encodeVarintEicio(dAtA, i, uint64(len(m.Cov)*4))
-		for _, num := range m.Cov {
-			f67 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f67)
-			i++
-			dAtA[i] = uint8(f67 >> 8)
-			i++
-			dAtA[i] = uint8(f67 >> 16)
-			i++
-			dAtA[i] = uint8(f67 >> 24)
-			i++
-		}
-	}
-	if len(m.Params) > 0 {
-		dAtA[i] = 0x3a
-		i++
-		i = encodeVarintEicio(dAtA, i, uint64(len(m.Params)*4))
-		for _, num := range m.Params {
-			f68 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f68)
-			i++
-			dAtA[i] = uint8(f68 >> 8)
-			i++
-			dAtA[i] = uint8(f68 >> 16)
-			i++
-			dAtA[i] = uint8(f68 >> 24)
-			i++
-		}
-	}
 	if m.RecPart != nil {
-		dAtA[i] = 0x42
+		dAtA[i] = 0x4a
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.RecPart.Size()))
-		n69, err := m.RecPart.MarshalTo(dAtA[i:])
+		n67, err := m.RecPart.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n69
+		i += n67
 	}
 	return i, nil
 }
@@ -4986,24 +5424,29 @@ func (m *VertexCollection) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.Flags != 0 {
+	if m.Id != 0 {
 		dAtA[i] = 0x8
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
+	}
+	if m.Flags != 0 {
+		dAtA[i] = 0x10
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Flags))
 	}
 	if m.Params != nil {
-		dAtA[i] = 0x12
+		dAtA[i] = 0x1a
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Params.Size()))
-		n70, err := m.Params.MarshalTo(dAtA[i:])
+		n68, err := m.Params.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n70
+		i += n68
 	}
-	if len(m.Vertex) > 0 {
-		for _, msg := range m.Vertex {
-			dAtA[i] = 0x1a
+	if len(m.Entries) > 0 {
+		for _, msg := range m.Entries {
+			dAtA[i] = 0x22
 			i++
 			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
 			n, err := msg.MarshalTo(dAtA[i:])
@@ -5031,28 +5474,33 @@ func (m *Relation) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.From != nil {
-		dAtA[i] = 0xa
+	if m.Id != 0 {
+		dAtA[i] = 0x8
 		i++
-		i = encodeVarintEicio(dAtA, i, uint64(m.From.Size()))
-		n71, err := m.From.MarshalTo(dAtA[i:])
-		if err != nil {
-			return 0, err
-		}
-		i += n71
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
 	}
-	if m.To != nil {
+	if m.From != nil {
 		dAtA[i] = 0x12
 		i++
-		i = encodeVarintEicio(dAtA, i, uint64(m.To.Size()))
-		n72, err := m.To.MarshalTo(dAtA[i:])
+		i = encodeVarintEicio(dAtA, i, uint64(m.From.Size()))
+		n69, err := m.From.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n72
+		i += n69
+	}
+	if m.To != nil {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.To.Size()))
+		n70, err := m.To.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n70
 	}
 	if m.Weight != 0 {
-		dAtA[i] = 0x1d
+		dAtA[i] = 0x25
 		i++
 		i = encodeFixed32Eicio(dAtA, i, uint32(math.Float32bits(float32(m.Weight))))
 	}
@@ -5074,24 +5522,29 @@ func (m *RelationCollection) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.Flags != 0 {
+	if m.Id != 0 {
 		dAtA[i] = 0x8
+		i++
+		i = encodeVarintEicio(dAtA, i, uint64(m.Id))
+	}
+	if m.Flags != 0 {
+		dAtA[i] = 0x10
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Flags))
 	}
 	if m.Params != nil {
-		dAtA[i] = 0x12
+		dAtA[i] = 0x1a
 		i++
 		i = encodeVarintEicio(dAtA, i, uint64(m.Params.Size()))
-		n73, err := m.Params.MarshalTo(dAtA[i:])
+		n71, err := m.Params.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n73
+		i += n71
 	}
-	if len(m.Relation) > 0 {
-		for _, msg := range m.Relation {
-			dAtA[i] = 0x1a
+	if len(m.Entries) > 0 {
+		for _, msg := range m.Entries {
+			dAtA[i] = 0x22
 			i++
 			i = encodeVarintEicio(dAtA, i, uint64(msg.Size()))
 			n, err := msg.MarshalTo(dAtA[i:])
@@ -5176,6 +5629,9 @@ func (m *EventHeader_CollectionHeader) Size() (n int) {
 	l = len(m.Name)
 	if l > 0 {
 		n += 1 + l + sovEicio(uint64(l))
+	}
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
 	}
 	if m.PayloadSize != 0 {
 		n += 1 + sovEicio(uint64(m.PayloadSize))
@@ -5298,19 +5754,20 @@ func (m *ParticleID) Size() (n int) {
 func (m *MCParticle) Size() (n int) {
 	var l int
 	_ = l
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
+	}
 	if len(m.Parents) > 0 {
-		l = 0
 		for _, e := range m.Parents {
-			l += sovEicio(uint64(e))
+			l = e.Size()
+			n += 1 + l + sovEicio(uint64(l))
 		}
-		n += 1 + sovEicio(uint64(l)) + l
 	}
 	if len(m.Children) > 0 {
-		l = 0
 		for _, e := range m.Children {
-			l += sovEicio(uint64(e))
+			l = e.Size()
+			n += 1 + l + sovEicio(uint64(l))
 		}
-		n += 1 + sovEicio(uint64(l)) + l
 	}
 	if m.PDG != 0 {
 		n += 1 + sovEicio(uint64(m.PDG))
@@ -5355,6 +5812,9 @@ func (m *MCParticle) Size() (n int) {
 func (m *MCParticleCollection) Size() (n int) {
 	var l int
 	_ = l
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
+	}
 	if m.Flags != 0 {
 		n += 1 + sovEicio(uint64(m.Flags))
 	}
@@ -5362,8 +5822,8 @@ func (m *MCParticleCollection) Size() (n int) {
 		l = m.Params.Size()
 		n += 1 + l + sovEicio(uint64(l))
 	}
-	if len(m.Particle) > 0 {
-		for _, e := range m.Particle {
+	if len(m.Entries) > 0 {
+		for _, e := range m.Entries {
 			l = e.Size()
 			n += 1 + l + sovEicio(uint64(l))
 		}
@@ -5374,6 +5834,9 @@ func (m *MCParticleCollection) Size() (n int) {
 func (m *SimTrackerHit) Size() (n int) {
 	var l int
 	_ = l
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
+	}
 	if m.CellID0 != 0 {
 		n += 1 + sovEicio(uint64(m.CellID0))
 	}
@@ -5393,8 +5856,8 @@ func (m *SimTrackerHit) Size() (n int) {
 		l = m.Mc.Size()
 		n += 1 + l + sovEicio(uint64(l))
 	}
-	if m.P != 0 {
-		n += 5
+	if len(m.P) > 0 {
+		n += 1 + sovEicio(uint64(len(m.P)*4)) + len(m.P)*4
 	}
 	if m.PathLength != 0 {
 		n += 5
@@ -5408,6 +5871,9 @@ func (m *SimTrackerHit) Size() (n int) {
 func (m *SimTrackerHitCollection) Size() (n int) {
 	var l int
 	_ = l
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
+	}
 	if m.Flags != 0 {
 		n += 1 + sovEicio(uint64(m.Flags))
 	}
@@ -5415,8 +5881,8 @@ func (m *SimTrackerHitCollection) Size() (n int) {
 		l = m.Params.Size()
 		n += 1 + l + sovEicio(uint64(l))
 	}
-	if len(m.Hit) > 0 {
-		for _, e := range m.Hit {
+	if len(m.Entries) > 0 {
+		for _, e := range m.Entries {
 			l = e.Size()
 			n += 1 + l + sovEicio(uint64(l))
 		}
@@ -5427,6 +5893,9 @@ func (m *SimTrackerHitCollection) Size() (n int) {
 func (m *TrackerRawData) Size() (n int) {
 	var l int
 	_ = l
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
+	}
 	if m.CellID0 != 0 {
 		n += 1 + sovEicio(uint64(m.CellID0))
 	}
@@ -5449,6 +5918,9 @@ func (m *TrackerRawData) Size() (n int) {
 func (m *TrackerRawDataCollection) Size() (n int) {
 	var l int
 	_ = l
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
+	}
 	if m.Flags != 0 {
 		n += 1 + sovEicio(uint64(m.Flags))
 	}
@@ -5456,8 +5928,8 @@ func (m *TrackerRawDataCollection) Size() (n int) {
 		l = m.Params.Size()
 		n += 1 + l + sovEicio(uint64(l))
 	}
-	if len(m.Data) > 0 {
-		for _, e := range m.Data {
+	if len(m.Entries) > 0 {
+		for _, e := range m.Entries {
 			l = e.Size()
 			n += 1 + l + sovEicio(uint64(l))
 		}
@@ -5468,6 +5940,9 @@ func (m *TrackerRawDataCollection) Size() (n int) {
 func (m *TrackerData) Size() (n int) {
 	var l int
 	_ = l
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
+	}
 	if m.CellID0 != 0 {
 		n += 1 + sovEicio(uint64(m.CellID0))
 	}
@@ -5486,6 +5961,9 @@ func (m *TrackerData) Size() (n int) {
 func (m *TrackerDataCollection) Size() (n int) {
 	var l int
 	_ = l
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
+	}
 	if m.Flags != 0 {
 		n += 1 + sovEicio(uint64(m.Flags))
 	}
@@ -5493,8 +5971,8 @@ func (m *TrackerDataCollection) Size() (n int) {
 		l = m.Params.Size()
 		n += 1 + l + sovEicio(uint64(l))
 	}
-	if len(m.Data) > 0 {
-		for _, e := range m.Data {
+	if len(m.Entries) > 0 {
+		for _, e := range m.Entries {
 			l = e.Size()
 			n += 1 + l + sovEicio(uint64(l))
 		}
@@ -5505,6 +5983,9 @@ func (m *TrackerDataCollection) Size() (n int) {
 func (m *TrackerHit) Size() (n int) {
 	var l int
 	_ = l
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
+	}
 	if m.CellID0 != 0 {
 		n += 1 + sovEicio(uint64(m.CellID0))
 	}
@@ -5544,6 +6025,9 @@ func (m *TrackerHit) Size() (n int) {
 func (m *TrackerHitCollection) Size() (n int) {
 	var l int
 	_ = l
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
+	}
 	if m.Flags != 0 {
 		n += 1 + sovEicio(uint64(m.Flags))
 	}
@@ -5551,8 +6035,8 @@ func (m *TrackerHitCollection) Size() (n int) {
 		l = m.Params.Size()
 		n += 1 + l + sovEicio(uint64(l))
 	}
-	if len(m.Hit) > 0 {
-		for _, e := range m.Hit {
+	if len(m.Entries) > 0 {
+		for _, e := range m.Entries {
 			l = e.Size()
 			n += 1 + l + sovEicio(uint64(l))
 		}
@@ -5563,6 +6047,9 @@ func (m *TrackerHitCollection) Size() (n int) {
 func (m *TrackerPulse) Size() (n int) {
 	var l int
 	_ = l
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
+	}
 	if m.CellID0 != 0 {
 		n += 1 + sovEicio(uint64(m.CellID0))
 	}
@@ -5591,6 +6078,9 @@ func (m *TrackerPulse) Size() (n int) {
 func (m *TrackerPulseCollection) Size() (n int) {
 	var l int
 	_ = l
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
+	}
 	if m.Flags != 0 {
 		n += 1 + sovEicio(uint64(m.Flags))
 	}
@@ -5598,8 +6088,8 @@ func (m *TrackerPulseCollection) Size() (n int) {
 		l = m.Params.Size()
 		n += 1 + l + sovEicio(uint64(l))
 	}
-	if len(m.Pulse) > 0 {
-		for _, e := range m.Pulse {
+	if len(m.Entries) > 0 {
+		for _, e := range m.Entries {
 			l = e.Size()
 			n += 1 + l + sovEicio(uint64(l))
 		}
@@ -5610,6 +6100,9 @@ func (m *TrackerPulseCollection) Size() (n int) {
 func (m *TrackerHitPlane) Size() (n int) {
 	var l int
 	_ = l
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
+	}
 	if m.CellID0 != 0 {
 		n += 1 + sovEicio(uint64(m.CellID0))
 	}
@@ -5658,6 +6151,9 @@ func (m *TrackerHitPlane) Size() (n int) {
 func (m *TrackerHitPlaneCollection) Size() (n int) {
 	var l int
 	_ = l
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
+	}
 	if m.Flags != 0 {
 		n += 1 + sovEicio(uint64(m.Flags))
 	}
@@ -5665,8 +6161,8 @@ func (m *TrackerHitPlaneCollection) Size() (n int) {
 		l = m.Params.Size()
 		n += 1 + l + sovEicio(uint64(l))
 	}
-	if len(m.Plane) > 0 {
-		for _, e := range m.Plane {
+	if len(m.Entries) > 0 {
+		for _, e := range m.Entries {
 			l = e.Size()
 			n += 1 + l + sovEicio(uint64(l))
 		}
@@ -5677,6 +6173,9 @@ func (m *TrackerHitPlaneCollection) Size() (n int) {
 func (m *TrackerHitZCylinder) Size() (n int) {
 	var l int
 	_ = l
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
+	}
 	if m.CellID0 != 0 {
 		n += 1 + sovEicio(uint64(m.CellID0))
 	}
@@ -5722,6 +6221,9 @@ func (m *TrackerHitZCylinder) Size() (n int) {
 func (m *TrackerHitZCylinderCollection) Size() (n int) {
 	var l int
 	_ = l
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
+	}
 	if m.Flags != 0 {
 		n += 1 + sovEicio(uint64(m.Flags))
 	}
@@ -5729,8 +6231,8 @@ func (m *TrackerHitZCylinderCollection) Size() (n int) {
 		l = m.Params.Size()
 		n += 1 + l + sovEicio(uint64(l))
 	}
-	if len(m.Cyl) > 0 {
-		for _, e := range m.Cyl {
+	if len(m.Entries) > 0 {
+		for _, e := range m.Entries {
 			l = e.Size()
 			n += 1 + l + sovEicio(uint64(l))
 		}
@@ -5741,6 +6243,9 @@ func (m *TrackerHitZCylinderCollection) Size() (n int) {
 func (m *Track) Size() (n int) {
 	var l int
 	_ = l
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
+	}
 	if m.Type != 0 {
 		n += 1 + sovEicio(uint64(m.Type))
 	}
@@ -5778,8 +6283,8 @@ func (m *Track) Size() (n int) {
 			n += 1 + l + sovEicio(uint64(l))
 		}
 	}
-	if len(m.TrackIDs) > 0 {
-		for _, e := range m.TrackIDs {
+	if len(m.Tracks) > 0 {
+		for _, e := range m.Tracks {
 			l = e.Size()
 			n += 1 + l + sovEicio(uint64(l))
 		}
@@ -5820,6 +6325,9 @@ func (m *Track_TrackState) Size() (n int) {
 func (m *TrackCollection) Size() (n int) {
 	var l int
 	_ = l
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
+	}
 	if m.Flags != 0 {
 		n += 1 + sovEicio(uint64(m.Flags))
 	}
@@ -5827,8 +6335,8 @@ func (m *TrackCollection) Size() (n int) {
 		l = m.Params.Size()
 		n += 1 + l + sovEicio(uint64(l))
 	}
-	if len(m.Track) > 0 {
-		for _, e := range m.Track {
+	if len(m.Entries) > 0 {
+		for _, e := range m.Entries {
 			l = e.Size()
 			n += 1 + l + sovEicio(uint64(l))
 		}
@@ -5839,6 +6347,9 @@ func (m *TrackCollection) Size() (n int) {
 func (m *SimCalorimeterHit) Size() (n int) {
 	var l int
 	_ = l
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
+	}
 	if m.Params != nil {
 		l = m.Params.Size()
 		n += 1 + l + sovEicio(uint64(l))
@@ -5867,8 +6378,9 @@ func (m *SimCalorimeterHit) Size() (n int) {
 func (m *SimCalorimeterHit_Contrib) Size() (n int) {
 	var l int
 	_ = l
-	if m.MCParticle != 0 {
-		n += 1 + sovEicio(uint64(m.MCParticle))
+	if m.MCParticle != nil {
+		l = m.MCParticle.Size()
+		n += 1 + l + sovEicio(uint64(l))
 	}
 	if m.Energy != 0 {
 		n += 5
@@ -5888,6 +6400,9 @@ func (m *SimCalorimeterHit_Contrib) Size() (n int) {
 func (m *SimCalorimeterHitCollection) Size() (n int) {
 	var l int
 	_ = l
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
+	}
 	if m.Flags != 0 {
 		n += 1 + sovEicio(uint64(m.Flags))
 	}
@@ -5895,8 +6410,8 @@ func (m *SimCalorimeterHitCollection) Size() (n int) {
 		l = m.Params.Size()
 		n += 1 + l + sovEicio(uint64(l))
 	}
-	if len(m.Hit) > 0 {
-		for _, e := range m.Hit {
+	if len(m.Entries) > 0 {
+		for _, e := range m.Entries {
 			l = e.Size()
 			n += 1 + l + sovEicio(uint64(l))
 		}
@@ -5907,6 +6422,9 @@ func (m *SimCalorimeterHitCollection) Size() (n int) {
 func (m *RawCalorimeterHit) Size() (n int) {
 	var l int
 	_ = l
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
+	}
 	if m.CellID0 != 0 {
 		n += 1 + sovEicio(uint64(m.CellID0))
 	}
@@ -5925,6 +6443,9 @@ func (m *RawCalorimeterHit) Size() (n int) {
 func (m *RawCalorimeterHitCollection) Size() (n int) {
 	var l int
 	_ = l
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
+	}
 	if m.Flags != 0 {
 		n += 1 + sovEicio(uint64(m.Flags))
 	}
@@ -5932,8 +6453,8 @@ func (m *RawCalorimeterHitCollection) Size() (n int) {
 		l = m.Params.Size()
 		n += 1 + l + sovEicio(uint64(l))
 	}
-	if len(m.Hit) > 0 {
-		for _, e := range m.Hit {
+	if len(m.Entries) > 0 {
+		for _, e := range m.Entries {
 			l = e.Size()
 			n += 1 + l + sovEicio(uint64(l))
 		}
@@ -5944,6 +6465,9 @@ func (m *RawCalorimeterHitCollection) Size() (n int) {
 func (m *CalorimeterHit) Size() (n int) {
 	var l int
 	_ = l
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
+	}
 	if m.CellID0 != 0 {
 		n += 1 + sovEicio(uint64(m.CellID0))
 	}
@@ -5975,6 +6499,9 @@ func (m *CalorimeterHit) Size() (n int) {
 func (m *CalorimeterHitCollection) Size() (n int) {
 	var l int
 	_ = l
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
+	}
 	if m.Flags != 0 {
 		n += 1 + sovEicio(uint64(m.Flags))
 	}
@@ -5982,8 +6509,8 @@ func (m *CalorimeterHitCollection) Size() (n int) {
 		l = m.Params.Size()
 		n += 1 + l + sovEicio(uint64(l))
 	}
-	if len(m.Hit) > 0 {
-		for _, e := range m.Hit {
+	if len(m.Entries) > 0 {
+		for _, e := range m.Entries {
 			l = e.Size()
 			n += 1 + l + sovEicio(uint64(l))
 		}
@@ -5994,6 +6521,9 @@ func (m *CalorimeterHitCollection) Size() (n int) {
 func (m *Cluster) Size() (n int) {
 	var l int
 	_ = l
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
+	}
 	if m.Type != 0 {
 		n += 1 + sovEicio(uint64(m.Type))
 	}
@@ -6027,6 +6557,12 @@ func (m *Cluster) Size() (n int) {
 			n += 1 + l + sovEicio(uint64(l))
 		}
 	}
+	if len(m.Clusters) > 0 {
+		for _, e := range m.Clusters {
+			l = e.Size()
+			n += 1 + l + sovEicio(uint64(l))
+		}
+	}
 	if len(m.Hits) > 0 {
 		for _, e := range m.Hits {
 			l = e.Size()
@@ -6045,6 +6581,9 @@ func (m *Cluster) Size() (n int) {
 func (m *ClusterCollection) Size() (n int) {
 	var l int
 	_ = l
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
+	}
 	if m.Flags != 0 {
 		n += 1 + sovEicio(uint64(m.Flags))
 	}
@@ -6052,8 +6591,8 @@ func (m *ClusterCollection) Size() (n int) {
 		l = m.Params.Size()
 		n += 1 + l + sovEicio(uint64(l))
 	}
-	if len(m.Cluster) > 0 {
-		for _, e := range m.Cluster {
+	if len(m.Entries) > 0 {
+		for _, e := range m.Entries {
 			l = e.Size()
 			n += 1 + l + sovEicio(uint64(l))
 		}
@@ -6064,6 +6603,9 @@ func (m *ClusterCollection) Size() (n int) {
 func (m *RecParticle) Size() (n int) {
 	var l int
 	_ = l
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
+	}
 	if m.Type != 0 {
 		n += 1 + sovEicio(uint64(m.Type))
 	}
@@ -6125,6 +6667,9 @@ func (m *RecParticle) Size() (n int) {
 func (m *RecParticleCollection) Size() (n int) {
 	var l int
 	_ = l
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
+	}
 	if m.Flags != 0 {
 		n += 1 + sovEicio(uint64(m.Flags))
 	}
@@ -6132,8 +6677,8 @@ func (m *RecParticleCollection) Size() (n int) {
 		l = m.Params.Size()
 		n += 1 + l + sovEicio(uint64(l))
 	}
-	if len(m.Particle) > 0 {
-		for _, e := range m.Particle {
+	if len(m.Entries) > 0 {
+		for _, e := range m.Entries {
 			l = e.Size()
 			n += 1 + l + sovEicio(uint64(l))
 		}
@@ -6144,6 +6689,9 @@ func (m *RecParticleCollection) Size() (n int) {
 func (m *Vertex) Size() (n int) {
 	var l int
 	_ = l
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
+	}
 	if m.Primary != 0 {
 		n += 1 + sovEicio(uint64(m.Primary))
 	}
@@ -6175,6 +6723,9 @@ func (m *Vertex) Size() (n int) {
 func (m *VertexCollection) Size() (n int) {
 	var l int
 	_ = l
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
+	}
 	if m.Flags != 0 {
 		n += 1 + sovEicio(uint64(m.Flags))
 	}
@@ -6182,8 +6733,8 @@ func (m *VertexCollection) Size() (n int) {
 		l = m.Params.Size()
 		n += 1 + l + sovEicio(uint64(l))
 	}
-	if len(m.Vertex) > 0 {
-		for _, e := range m.Vertex {
+	if len(m.Entries) > 0 {
+		for _, e := range m.Entries {
 			l = e.Size()
 			n += 1 + l + sovEicio(uint64(l))
 		}
@@ -6194,6 +6745,9 @@ func (m *VertexCollection) Size() (n int) {
 func (m *Relation) Size() (n int) {
 	var l int
 	_ = l
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
+	}
 	if m.From != nil {
 		l = m.From.Size()
 		n += 1 + l + sovEicio(uint64(l))
@@ -6211,6 +6765,9 @@ func (m *Relation) Size() (n int) {
 func (m *RelationCollection) Size() (n int) {
 	var l int
 	_ = l
+	if m.Id != 0 {
+		n += 1 + sovEicio(uint64(m.Id))
+	}
 	if m.Flags != 0 {
 		n += 1 + sovEicio(uint64(m.Flags))
 	}
@@ -6218,8 +6775,8 @@ func (m *RelationCollection) Size() (n int) {
 		l = m.Params.Size()
 		n += 1 + l + sovEicio(uint64(l))
 	}
-	if len(m.Relation) > 0 {
-		for _, e := range m.Relation {
+	if len(m.Entries) > 0 {
+		for _, e := range m.Entries {
 			l = e.Size()
 			n += 1 + l + sovEicio(uint64(l))
 		}
@@ -6566,6 +7123,25 @@ func (m *EventHeader_CollectionHeader) Unmarshal(dAtA []byte) error {
 			m.Name = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 4:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field PayloadSize", wireType)
 			}
@@ -7608,130 +8184,87 @@ func (m *MCParticle) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType == 0 {
-				var v int32
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return ErrIntOverflowEicio
-					}
-					if iNdEx >= l {
-						return io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					v |= (int32(b) & 0x7F) << shift
-					if b < 0x80 {
-						break
-					}
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
 				}
-				m.Parents = append(m.Parents, v)
-			} else if wireType == 2 {
-				var packedLen int
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return ErrIntOverflowEicio
-					}
-					if iNdEx >= l {
-						return io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					packedLen |= (int(b) & 0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				if packedLen < 0 {
-					return ErrInvalidLengthEicio
-				}
-				postIndex := iNdEx + packedLen
-				if postIndex > l {
+				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				for iNdEx < postIndex {
-					var v int32
-					for shift := uint(0); ; shift += 7 {
-						if shift >= 64 {
-							return ErrIntOverflowEicio
-						}
-						if iNdEx >= l {
-							return io.ErrUnexpectedEOF
-						}
-						b := dAtA[iNdEx]
-						iNdEx++
-						v |= (int32(b) & 0x7F) << shift
-						if b < 0x80 {
-							break
-						}
-					}
-					m.Parents = append(m.Parents, v)
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
 				}
-			} else {
-				return fmt.Errorf("proto: wrong wireType = %d for field Parents", wireType)
 			}
 		case 2:
-			if wireType == 0 {
-				var v int32
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return ErrIntOverflowEicio
-					}
-					if iNdEx >= l {
-						return io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					v |= (int32(b) & 0x7F) << shift
-					if b < 0x80 {
-						break
-					}
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Parents", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
 				}
-				m.Children = append(m.Children, v)
-			} else if wireType == 2 {
-				var packedLen int
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return ErrIntOverflowEicio
-					}
-					if iNdEx >= l {
-						return io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					packedLen |= (int(b) & 0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				if packedLen < 0 {
-					return ErrInvalidLengthEicio
-				}
-				postIndex := iNdEx + packedLen
-				if postIndex > l {
+				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				for iNdEx < postIndex {
-					var v int32
-					for shift := uint(0); ; shift += 7 {
-						if shift >= 64 {
-							return ErrIntOverflowEicio
-						}
-						if iNdEx >= l {
-							return io.ErrUnexpectedEOF
-						}
-						b := dAtA[iNdEx]
-						iNdEx++
-						v |= (int32(b) & 0x7F) << shift
-						if b < 0x80 {
-							break
-						}
-					}
-					m.Children = append(m.Children, v)
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
 				}
-			} else {
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthEicio
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Parents = append(m.Parents, &Reference{})
+			if err := m.Parents[len(m.Parents)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Children", wireType)
 			}
-		case 3:
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthEicio
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Children = append(m.Children, &Reference{})
+			if err := m.Children[len(m.Children)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 4:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field PDG", wireType)
 			}
@@ -7750,7 +8283,7 @@ func (m *MCParticle) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 4:
+		case 5:
 			if wireType == 1 {
 				var v uint64
 				if (iNdEx + 8) > l {
@@ -7810,7 +8343,7 @@ func (m *MCParticle) Unmarshal(dAtA []byte) error {
 			} else {
 				return fmt.Errorf("proto: wrong wireType = %d for field Vertex", wireType)
 			}
-		case 5:
+		case 6:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Time", wireType)
 			}
@@ -7824,7 +8357,7 @@ func (m *MCParticle) Unmarshal(dAtA []byte) error {
 			v |= uint32(dAtA[iNdEx-2]) << 16
 			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Time = float32(math.Float32frombits(v))
-		case 6:
+		case 7:
 			if wireType == 1 {
 				var v uint64
 				if (iNdEx + 8) > l {
@@ -7884,7 +8417,7 @@ func (m *MCParticle) Unmarshal(dAtA []byte) error {
 			} else {
 				return fmt.Errorf("proto: wrong wireType = %d for field P", wireType)
 			}
-		case 7:
+		case 8:
 			if wireType != 1 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Mass", wireType)
 			}
@@ -7902,7 +8435,7 @@ func (m *MCParticle) Unmarshal(dAtA []byte) error {
 			v |= uint64(dAtA[iNdEx-2]) << 48
 			v |= uint64(dAtA[iNdEx-1]) << 56
 			m.Mass = float64(math.Float64frombits(v))
-		case 8:
+		case 9:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Charge", wireType)
 			}
@@ -7916,7 +8449,7 @@ func (m *MCParticle) Unmarshal(dAtA []byte) error {
 			v |= uint32(dAtA[iNdEx-2]) << 16
 			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Charge = float32(math.Float32frombits(v))
-		case 9:
+		case 10:
 			if wireType == 1 {
 				var v uint64
 				if (iNdEx + 8) > l {
@@ -7976,7 +8509,7 @@ func (m *MCParticle) Unmarshal(dAtA []byte) error {
 			} else {
 				return fmt.Errorf("proto: wrong wireType = %d for field PEndPoint", wireType)
 			}
-		case 10:
+		case 11:
 			if wireType == 5 {
 				var v uint32
 				if (iNdEx + 4) > l {
@@ -8028,7 +8561,7 @@ func (m *MCParticle) Unmarshal(dAtA []byte) error {
 			} else {
 				return fmt.Errorf("proto: wrong wireType = %d for field Spin", wireType)
 			}
-		case 11:
+		case 12:
 			if wireType == 0 {
 				var v int32
 				for shift := uint(0); ; shift += 7 {
@@ -8090,7 +8623,7 @@ func (m *MCParticle) Unmarshal(dAtA []byte) error {
 			} else {
 				return fmt.Errorf("proto: wrong wireType = %d for field ColorFlow", wireType)
 			}
-		case 12:
+		case 13:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field GenStatus", wireType)
 			}
@@ -8109,7 +8642,7 @@ func (m *MCParticle) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 13:
+		case 14:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field SimStatus", wireType)
 			}
@@ -8180,6 +8713,25 @@ func (m *MCParticleCollection) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Flags", wireType)
 			}
 			m.Flags = 0
@@ -8192,12 +8744,12 @@ func (m *MCParticleCollection) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Flags |= (int32(b) & 0x7F) << shift
+				m.Flags |= (uint32(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-		case 2:
+		case 3:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Params", wireType)
 			}
@@ -8230,9 +8782,9 @@ func (m *MCParticleCollection) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 3:
+		case 4:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Particle", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Entries", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -8256,8 +8808,8 @@ func (m *MCParticleCollection) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Particle = append(m.Particle, &MCParticle{})
-			if err := m.Particle[len(m.Particle)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			m.Entries = append(m.Entries, &MCParticle{})
+			if err := m.Entries[len(m.Entries)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -8313,6 +8865,25 @@ func (m *SimTrackerHit) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field CellID0", wireType)
 			}
 			m.CellID0 = 0
@@ -8330,7 +8901,7 @@ func (m *SimTrackerHit) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 2:
+		case 3:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field CellID1", wireType)
 			}
@@ -8349,7 +8920,7 @@ func (m *SimTrackerHit) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 3:
+		case 4:
 			if wireType == 1 {
 				var v uint64
 				if (iNdEx + 8) > l {
@@ -8409,7 +8980,7 @@ func (m *SimTrackerHit) Unmarshal(dAtA []byte) error {
 			} else {
 				return fmt.Errorf("proto: wrong wireType = %d for field Pos", wireType)
 			}
-		case 4:
+		case 5:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field EDep", wireType)
 			}
@@ -8423,7 +8994,7 @@ func (m *SimTrackerHit) Unmarshal(dAtA []byte) error {
 			v |= uint32(dAtA[iNdEx-2]) << 16
 			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.EDep = float32(math.Float32frombits(v))
-		case 5:
+		case 6:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Time", wireType)
 			}
@@ -8437,7 +9008,7 @@ func (m *SimTrackerHit) Unmarshal(dAtA []byte) error {
 			v |= uint32(dAtA[iNdEx-2]) << 16
 			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Time = float32(math.Float32frombits(v))
-		case 6:
+		case 7:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Mc", wireType)
 			}
@@ -8470,21 +9041,59 @@ func (m *SimTrackerHit) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 7:
-			if wireType != 5 {
+		case 8:
+			if wireType == 5 {
+				var v uint32
+				if (iNdEx + 4) > l {
+					return io.ErrUnexpectedEOF
+				}
+				iNdEx += 4
+				v = uint32(dAtA[iNdEx-4])
+				v |= uint32(dAtA[iNdEx-3]) << 8
+				v |= uint32(dAtA[iNdEx-2]) << 16
+				v |= uint32(dAtA[iNdEx-1]) << 24
+				v2 := float32(math.Float32frombits(v))
+				m.P = append(m.P, v2)
+			} else if wireType == 2 {
+				var packedLen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowEicio
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					packedLen |= (int(b) & 0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if packedLen < 0 {
+					return ErrInvalidLengthEicio
+				}
+				postIndex := iNdEx + packedLen
+				if postIndex > l {
+					return io.ErrUnexpectedEOF
+				}
+				for iNdEx < postIndex {
+					var v uint32
+					if (iNdEx + 4) > l {
+						return io.ErrUnexpectedEOF
+					}
+					iNdEx += 4
+					v = uint32(dAtA[iNdEx-4])
+					v |= uint32(dAtA[iNdEx-3]) << 8
+					v |= uint32(dAtA[iNdEx-2]) << 16
+					v |= uint32(dAtA[iNdEx-1]) << 24
+					v2 := float32(math.Float32frombits(v))
+					m.P = append(m.P, v2)
+				}
+			} else {
 				return fmt.Errorf("proto: wrong wireType = %d for field P", wireType)
 			}
-			var v uint32
-			if (iNdEx + 4) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
-			m.P = float32(math.Float32frombits(v))
-		case 8:
+		case 9:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field PathLength", wireType)
 			}
@@ -8498,7 +9107,7 @@ func (m *SimTrackerHit) Unmarshal(dAtA []byte) error {
 			v |= uint32(dAtA[iNdEx-2]) << 16
 			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.PathLength = float32(math.Float32frombits(v))
-		case 9:
+		case 10:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Quality", wireType)
 			}
@@ -8569,6 +9178,25 @@ func (m *SimTrackerHitCollection) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Flags", wireType)
 			}
 			m.Flags = 0
@@ -8581,12 +9209,12 @@ func (m *SimTrackerHitCollection) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Flags |= (int32(b) & 0x7F) << shift
+				m.Flags |= (uint32(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-		case 2:
+		case 3:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Params", wireType)
 			}
@@ -8619,9 +9247,9 @@ func (m *SimTrackerHitCollection) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 3:
+		case 4:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Hit", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Entries", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -8645,8 +9273,8 @@ func (m *SimTrackerHitCollection) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Hit = append(m.Hit, &SimTrackerHit{})
-			if err := m.Hit[len(m.Hit)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			m.Entries = append(m.Entries, &SimTrackerHit{})
+			if err := m.Entries[len(m.Entries)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -8702,6 +9330,25 @@ func (m *TrackerRawData) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field CellID0", wireType)
 			}
 			m.CellID0 = 0
@@ -8719,7 +9366,7 @@ func (m *TrackerRawData) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 2:
+		case 3:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field CellID1", wireType)
 			}
@@ -8738,7 +9385,7 @@ func (m *TrackerRawData) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 3:
+		case 4:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Time", wireType)
 			}
@@ -8757,7 +9404,7 @@ func (m *TrackerRawData) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 4:
+		case 5:
 			if wireType == 0 {
 				var v uint32
 				for shift := uint(0); ; shift += 7 {
@@ -8871,6 +9518,25 @@ func (m *TrackerRawDataCollection) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Flags", wireType)
 			}
 			m.Flags = 0
@@ -8883,12 +9549,12 @@ func (m *TrackerRawDataCollection) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Flags |= (int32(b) & 0x7F) << shift
+				m.Flags |= (uint32(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-		case 2:
+		case 3:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Params", wireType)
 			}
@@ -8921,9 +9587,9 @@ func (m *TrackerRawDataCollection) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 3:
+		case 4:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Data", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Entries", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -8947,8 +9613,8 @@ func (m *TrackerRawDataCollection) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Data = append(m.Data, &TrackerRawData{})
-			if err := m.Data[len(m.Data)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			m.Entries = append(m.Entries, &TrackerRawData{})
+			if err := m.Entries[len(m.Entries)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -9004,6 +9670,25 @@ func (m *TrackerData) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field CellID0", wireType)
 			}
 			m.CellID0 = 0
@@ -9021,7 +9706,7 @@ func (m *TrackerData) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 2:
+		case 3:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field CellID1", wireType)
 			}
@@ -9040,7 +9725,7 @@ func (m *TrackerData) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 3:
+		case 4:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Time", wireType)
 			}
@@ -9054,7 +9739,7 @@ func (m *TrackerData) Unmarshal(dAtA []byte) error {
 			v |= uint32(dAtA[iNdEx-2]) << 16
 			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Time = float32(math.Float32frombits(v))
-		case 4:
+		case 5:
 			if wireType == 5 {
 				var v uint32
 				if (iNdEx + 4) > l {
@@ -9158,6 +9843,25 @@ func (m *TrackerDataCollection) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Flags", wireType)
 			}
 			m.Flags = 0
@@ -9170,12 +9874,12 @@ func (m *TrackerDataCollection) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Flags |= (int32(b) & 0x7F) << shift
+				m.Flags |= (uint32(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-		case 2:
+		case 3:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Params", wireType)
 			}
@@ -9208,9 +9912,9 @@ func (m *TrackerDataCollection) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 3:
+		case 4:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Data", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Entries", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -9234,8 +9938,8 @@ func (m *TrackerDataCollection) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Data = append(m.Data, &TrackerData{})
-			if err := m.Data[len(m.Data)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			m.Entries = append(m.Entries, &TrackerData{})
+			if err := m.Entries[len(m.Entries)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -9291,6 +9995,25 @@ func (m *TrackerHit) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field CellID0", wireType)
 			}
 			m.CellID0 = 0
@@ -9308,7 +10031,7 @@ func (m *TrackerHit) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 2:
+		case 3:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field CellID1", wireType)
 			}
@@ -9327,7 +10050,7 @@ func (m *TrackerHit) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 3:
+		case 4:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
 			}
@@ -9346,7 +10069,7 @@ func (m *TrackerHit) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 4:
+		case 5:
 			if wireType == 1 {
 				var v uint64
 				if (iNdEx + 8) > l {
@@ -9406,7 +10129,7 @@ func (m *TrackerHit) Unmarshal(dAtA []byte) error {
 			} else {
 				return fmt.Errorf("proto: wrong wireType = %d for field Pos", wireType)
 			}
-		case 5:
+		case 6:
 			if wireType == 1 {
 				var v uint64
 				if (iNdEx + 8) > l {
@@ -9466,7 +10189,7 @@ func (m *TrackerHit) Unmarshal(dAtA []byte) error {
 			} else {
 				return fmt.Errorf("proto: wrong wireType = %d for field Cov", wireType)
 			}
-		case 6:
+		case 7:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field EDep", wireType)
 			}
@@ -9480,7 +10203,7 @@ func (m *TrackerHit) Unmarshal(dAtA []byte) error {
 			v |= uint32(dAtA[iNdEx-2]) << 16
 			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.EDep = float32(math.Float32frombits(v))
-		case 7:
+		case 8:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field EDepErr", wireType)
 			}
@@ -9494,7 +10217,7 @@ func (m *TrackerHit) Unmarshal(dAtA []byte) error {
 			v |= uint32(dAtA[iNdEx-2]) << 16
 			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.EDepErr = float32(math.Float32frombits(v))
-		case 8:
+		case 9:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Time", wireType)
 			}
@@ -9508,7 +10231,7 @@ func (m *TrackerHit) Unmarshal(dAtA []byte) error {
 			v |= uint32(dAtA[iNdEx-2]) << 16
 			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Time = float32(math.Float32frombits(v))
-		case 9:
+		case 10:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Quality", wireType)
 			}
@@ -9527,7 +10250,7 @@ func (m *TrackerHit) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 10:
+		case 11:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field RawHits", wireType)
 			}
@@ -9610,6 +10333,25 @@ func (m *TrackerHitCollection) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Flags", wireType)
 			}
 			m.Flags = 0
@@ -9622,12 +10364,12 @@ func (m *TrackerHitCollection) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Flags |= (int32(b) & 0x7F) << shift
+				m.Flags |= (uint32(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-		case 2:
+		case 3:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Params", wireType)
 			}
@@ -9660,9 +10402,9 @@ func (m *TrackerHitCollection) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 3:
+		case 4:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Hit", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Entries", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -9686,8 +10428,8 @@ func (m *TrackerHitCollection) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Hit = append(m.Hit, &TrackerHit{})
-			if err := m.Hit[len(m.Hit)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			m.Entries = append(m.Entries, &TrackerHit{})
+			if err := m.Entries[len(m.Entries)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -9743,6 +10485,25 @@ func (m *TrackerPulse) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field CellID0", wireType)
 			}
 			m.CellID0 = 0
@@ -9760,7 +10521,7 @@ func (m *TrackerPulse) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 2:
+		case 3:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field CellID1", wireType)
 			}
@@ -9779,7 +10540,7 @@ func (m *TrackerPulse) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 3:
+		case 4:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Time", wireType)
 			}
@@ -9793,7 +10554,7 @@ func (m *TrackerPulse) Unmarshal(dAtA []byte) error {
 			v |= uint32(dAtA[iNdEx-2]) << 16
 			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Time = float32(math.Float32frombits(v))
-		case 4:
+		case 5:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Charge", wireType)
 			}
@@ -9807,7 +10568,7 @@ func (m *TrackerPulse) Unmarshal(dAtA []byte) error {
 			v |= uint32(dAtA[iNdEx-2]) << 16
 			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Charge = float32(math.Float32frombits(v))
-		case 5:
+		case 6:
 			if wireType == 5 {
 				var v uint32
 				if (iNdEx + 4) > l {
@@ -9859,7 +10620,7 @@ func (m *TrackerPulse) Unmarshal(dAtA []byte) error {
 			} else {
 				return fmt.Errorf("proto: wrong wireType = %d for field Cov", wireType)
 			}
-		case 6:
+		case 7:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Quality", wireType)
 			}
@@ -9878,7 +10639,7 @@ func (m *TrackerPulse) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 7:
+		case 8:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field TPC", wireType)
 			}
@@ -9963,6 +10724,25 @@ func (m *TrackerPulseCollection) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Flags", wireType)
 			}
 			m.Flags = 0
@@ -9975,12 +10755,12 @@ func (m *TrackerPulseCollection) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Flags |= (int32(b) & 0x7F) << shift
+				m.Flags |= (uint32(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-		case 2:
+		case 3:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Params", wireType)
 			}
@@ -10013,9 +10793,9 @@ func (m *TrackerPulseCollection) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 3:
+		case 4:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Pulse", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Entries", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -10039,8 +10819,8 @@ func (m *TrackerPulseCollection) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Pulse = append(m.Pulse, &TrackerPulse{})
-			if err := m.Pulse[len(m.Pulse)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			m.Entries = append(m.Entries, &TrackerPulse{})
+			if err := m.Entries[len(m.Entries)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -10096,6 +10876,25 @@ func (m *TrackerHitPlane) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field CellID0", wireType)
 			}
 			m.CellID0 = 0
@@ -10113,7 +10912,7 @@ func (m *TrackerHitPlane) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 2:
+		case 3:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field CellID1", wireType)
 			}
@@ -10132,7 +10931,7 @@ func (m *TrackerHitPlane) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 3:
+		case 4:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
 			}
@@ -10151,7 +10950,7 @@ func (m *TrackerHitPlane) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 4:
+		case 5:
 			if wireType == 1 {
 				var v uint64
 				if (iNdEx + 8) > l {
@@ -10211,7 +11010,7 @@ func (m *TrackerHitPlane) Unmarshal(dAtA []byte) error {
 			} else {
 				return fmt.Errorf("proto: wrong wireType = %d for field Pos", wireType)
 			}
-		case 5:
+		case 6:
 			if wireType == 5 {
 				var v uint32
 				if (iNdEx + 4) > l {
@@ -10263,7 +11062,7 @@ func (m *TrackerHitPlane) Unmarshal(dAtA []byte) error {
 			} else {
 				return fmt.Errorf("proto: wrong wireType = %d for field U", wireType)
 			}
-		case 6:
+		case 7:
 			if wireType == 5 {
 				var v uint32
 				if (iNdEx + 4) > l {
@@ -10315,7 +11114,7 @@ func (m *TrackerHitPlane) Unmarshal(dAtA []byte) error {
 			} else {
 				return fmt.Errorf("proto: wrong wireType = %d for field V", wireType)
 			}
-		case 7:
+		case 8:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field DU", wireType)
 			}
@@ -10329,7 +11128,7 @@ func (m *TrackerHitPlane) Unmarshal(dAtA []byte) error {
 			v |= uint32(dAtA[iNdEx-2]) << 16
 			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.DU = float32(math.Float32frombits(v))
-		case 8:
+		case 9:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field DV", wireType)
 			}
@@ -10343,6 +11142,516 @@ func (m *TrackerHitPlane) Unmarshal(dAtA []byte) error {
 			v |= uint32(dAtA[iNdEx-2]) << 16
 			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.DV = float32(math.Float32frombits(v))
+		case 10:
+			if wireType != 5 {
+				return fmt.Errorf("proto: wrong wireType = %d for field EDep", wireType)
+			}
+			var v uint32
+			if (iNdEx + 4) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += 4
+			v = uint32(dAtA[iNdEx-4])
+			v |= uint32(dAtA[iNdEx-3]) << 8
+			v |= uint32(dAtA[iNdEx-2]) << 16
+			v |= uint32(dAtA[iNdEx-1]) << 24
+			m.EDep = float32(math.Float32frombits(v))
+		case 11:
+			if wireType != 5 {
+				return fmt.Errorf("proto: wrong wireType = %d for field EDepErr", wireType)
+			}
+			var v uint32
+			if (iNdEx + 4) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += 4
+			v = uint32(dAtA[iNdEx-4])
+			v |= uint32(dAtA[iNdEx-3]) << 8
+			v |= uint32(dAtA[iNdEx-2]) << 16
+			v |= uint32(dAtA[iNdEx-1]) << 24
+			m.EDepErr = float32(math.Float32frombits(v))
+		case 12:
+			if wireType != 5 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Time", wireType)
+			}
+			var v uint32
+			if (iNdEx + 4) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += 4
+			v = uint32(dAtA[iNdEx-4])
+			v |= uint32(dAtA[iNdEx-3]) << 8
+			v |= uint32(dAtA[iNdEx-2]) << 16
+			v |= uint32(dAtA[iNdEx-1]) << 24
+			m.Time = float32(math.Float32frombits(v))
+		case 13:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Quality", wireType)
+			}
+			m.Quality = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Quality |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 14:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field RawHits", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthEicio
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.RawHits = append(m.RawHits, &Reference{})
+			if err := m.RawHits[len(m.RawHits)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipEicio(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthEicio
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *TrackerHitPlaneCollection) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowEicio
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: TrackerHitPlaneCollection: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: TrackerHitPlaneCollection: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Flags", wireType)
+			}
+			m.Flags = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Flags |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Params", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthEicio
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Params == nil {
+				m.Params = &Params{}
+			}
+			if err := m.Params.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Entries", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthEicio
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Entries = append(m.Entries, &TrackerHitPlane{})
+			if err := m.Entries[len(m.Entries)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipEicio(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthEicio
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *TrackerHitZCylinder) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowEicio
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: TrackerHitZCylinder: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: TrackerHitZCylinder: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CellID0", wireType)
+			}
+			m.CellID0 = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.CellID0 |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CellID1", wireType)
+			}
+			m.CellID1 = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.CellID1 |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
+			}
+			m.Type = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Type |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 5:
+			if wireType == 1 {
+				var v uint64
+				if (iNdEx + 8) > l {
+					return io.ErrUnexpectedEOF
+				}
+				iNdEx += 8
+				v = uint64(dAtA[iNdEx-8])
+				v |= uint64(dAtA[iNdEx-7]) << 8
+				v |= uint64(dAtA[iNdEx-6]) << 16
+				v |= uint64(dAtA[iNdEx-5]) << 24
+				v |= uint64(dAtA[iNdEx-4]) << 32
+				v |= uint64(dAtA[iNdEx-3]) << 40
+				v |= uint64(dAtA[iNdEx-2]) << 48
+				v |= uint64(dAtA[iNdEx-1]) << 56
+				v2 := float64(math.Float64frombits(v))
+				m.Pos = append(m.Pos, v2)
+			} else if wireType == 2 {
+				var packedLen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowEicio
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					packedLen |= (int(b) & 0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if packedLen < 0 {
+					return ErrInvalidLengthEicio
+				}
+				postIndex := iNdEx + packedLen
+				if postIndex > l {
+					return io.ErrUnexpectedEOF
+				}
+				for iNdEx < postIndex {
+					var v uint64
+					if (iNdEx + 8) > l {
+						return io.ErrUnexpectedEOF
+					}
+					iNdEx += 8
+					v = uint64(dAtA[iNdEx-8])
+					v |= uint64(dAtA[iNdEx-7]) << 8
+					v |= uint64(dAtA[iNdEx-6]) << 16
+					v |= uint64(dAtA[iNdEx-5]) << 24
+					v |= uint64(dAtA[iNdEx-4]) << 32
+					v |= uint64(dAtA[iNdEx-3]) << 40
+					v |= uint64(dAtA[iNdEx-2]) << 48
+					v |= uint64(dAtA[iNdEx-1]) << 56
+					v2 := float64(math.Float64frombits(v))
+					m.Pos = append(m.Pos, v2)
+				}
+			} else {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pos", wireType)
+			}
+		case 6:
+			if wireType == 5 {
+				var v uint32
+				if (iNdEx + 4) > l {
+					return io.ErrUnexpectedEOF
+				}
+				iNdEx += 4
+				v = uint32(dAtA[iNdEx-4])
+				v |= uint32(dAtA[iNdEx-3]) << 8
+				v |= uint32(dAtA[iNdEx-2]) << 16
+				v |= uint32(dAtA[iNdEx-1]) << 24
+				v2 := float32(math.Float32frombits(v))
+				m.Center = append(m.Center, v2)
+			} else if wireType == 2 {
+				var packedLen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowEicio
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					packedLen |= (int(b) & 0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if packedLen < 0 {
+					return ErrInvalidLengthEicio
+				}
+				postIndex := iNdEx + packedLen
+				if postIndex > l {
+					return io.ErrUnexpectedEOF
+				}
+				for iNdEx < postIndex {
+					var v uint32
+					if (iNdEx + 4) > l {
+						return io.ErrUnexpectedEOF
+					}
+					iNdEx += 4
+					v = uint32(dAtA[iNdEx-4])
+					v |= uint32(dAtA[iNdEx-3]) << 8
+					v |= uint32(dAtA[iNdEx-2]) << 16
+					v |= uint32(dAtA[iNdEx-1]) << 24
+					v2 := float32(math.Float32frombits(v))
+					m.Center = append(m.Center, v2)
+				}
+			} else {
+				return fmt.Errorf("proto: wrong wireType = %d for field Center", wireType)
+			}
+		case 7:
+			if wireType != 5 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DRPhi", wireType)
+			}
+			var v uint32
+			if (iNdEx + 4) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += 4
+			v = uint32(dAtA[iNdEx-4])
+			v |= uint32(dAtA[iNdEx-3]) << 8
+			v |= uint32(dAtA[iNdEx-2]) << 16
+			v |= uint32(dAtA[iNdEx-1]) << 24
+			m.DRPhi = float32(math.Float32frombits(v))
+		case 8:
+			if wireType != 5 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DZ", wireType)
+			}
+			var v uint32
+			if (iNdEx + 4) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += 4
+			v = uint32(dAtA[iNdEx-4])
+			v |= uint32(dAtA[iNdEx-3]) << 8
+			v |= uint32(dAtA[iNdEx-2]) << 16
+			v |= uint32(dAtA[iNdEx-1]) << 24
+			m.DZ = float32(math.Float32frombits(v))
 		case 9:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field EDep", wireType)
@@ -10456,478 +11765,6 @@ func (m *TrackerHitPlane) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *TrackerHitPlaneCollection) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowEicio
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= (uint64(b) & 0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: TrackerHitPlaneCollection: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: TrackerHitPlaneCollection: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		case 1:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Flags", wireType)
-			}
-			m.Flags = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowEicio
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.Flags |= (int32(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 2:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Params", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowEicio
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				msglen |= (int(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthEicio
-			}
-			postIndex := iNdEx + msglen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			if m.Params == nil {
-				m.Params = &Params{}
-			}
-			if err := m.Params.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
-		case 3:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Plane", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowEicio
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				msglen |= (int(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthEicio
-			}
-			postIndex := iNdEx + msglen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Plane = append(m.Plane, &TrackerHitPlane{})
-			if err := m.Plane[len(m.Plane)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
-		default:
-			iNdEx = preIndex
-			skippy, err := skipEicio(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if skippy < 0 {
-				return ErrInvalidLengthEicio
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *TrackerHitZCylinder) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowEicio
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= (uint64(b) & 0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: TrackerHitZCylinder: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: TrackerHitZCylinder: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		case 1:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field CellID0", wireType)
-			}
-			m.CellID0 = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowEicio
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.CellID0 |= (int32(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 2:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field CellID1", wireType)
-			}
-			m.CellID1 = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowEicio
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.CellID1 |= (int32(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 3:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
-			}
-			m.Type = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowEicio
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.Type |= (int32(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 4:
-			if wireType == 1 {
-				var v uint64
-				if (iNdEx + 8) > l {
-					return io.ErrUnexpectedEOF
-				}
-				iNdEx += 8
-				v = uint64(dAtA[iNdEx-8])
-				v |= uint64(dAtA[iNdEx-7]) << 8
-				v |= uint64(dAtA[iNdEx-6]) << 16
-				v |= uint64(dAtA[iNdEx-5]) << 24
-				v |= uint64(dAtA[iNdEx-4]) << 32
-				v |= uint64(dAtA[iNdEx-3]) << 40
-				v |= uint64(dAtA[iNdEx-2]) << 48
-				v |= uint64(dAtA[iNdEx-1]) << 56
-				v2 := float64(math.Float64frombits(v))
-				m.Pos = append(m.Pos, v2)
-			} else if wireType == 2 {
-				var packedLen int
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return ErrIntOverflowEicio
-					}
-					if iNdEx >= l {
-						return io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					packedLen |= (int(b) & 0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				if packedLen < 0 {
-					return ErrInvalidLengthEicio
-				}
-				postIndex := iNdEx + packedLen
-				if postIndex > l {
-					return io.ErrUnexpectedEOF
-				}
-				for iNdEx < postIndex {
-					var v uint64
-					if (iNdEx + 8) > l {
-						return io.ErrUnexpectedEOF
-					}
-					iNdEx += 8
-					v = uint64(dAtA[iNdEx-8])
-					v |= uint64(dAtA[iNdEx-7]) << 8
-					v |= uint64(dAtA[iNdEx-6]) << 16
-					v |= uint64(dAtA[iNdEx-5]) << 24
-					v |= uint64(dAtA[iNdEx-4]) << 32
-					v |= uint64(dAtA[iNdEx-3]) << 40
-					v |= uint64(dAtA[iNdEx-2]) << 48
-					v |= uint64(dAtA[iNdEx-1]) << 56
-					v2 := float64(math.Float64frombits(v))
-					m.Pos = append(m.Pos, v2)
-				}
-			} else {
-				return fmt.Errorf("proto: wrong wireType = %d for field Pos", wireType)
-			}
-		case 5:
-			if wireType == 5 {
-				var v uint32
-				if (iNdEx + 4) > l {
-					return io.ErrUnexpectedEOF
-				}
-				iNdEx += 4
-				v = uint32(dAtA[iNdEx-4])
-				v |= uint32(dAtA[iNdEx-3]) << 8
-				v |= uint32(dAtA[iNdEx-2]) << 16
-				v |= uint32(dAtA[iNdEx-1]) << 24
-				v2 := float32(math.Float32frombits(v))
-				m.Center = append(m.Center, v2)
-			} else if wireType == 2 {
-				var packedLen int
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return ErrIntOverflowEicio
-					}
-					if iNdEx >= l {
-						return io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					packedLen |= (int(b) & 0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				if packedLen < 0 {
-					return ErrInvalidLengthEicio
-				}
-				postIndex := iNdEx + packedLen
-				if postIndex > l {
-					return io.ErrUnexpectedEOF
-				}
-				for iNdEx < postIndex {
-					var v uint32
-					if (iNdEx + 4) > l {
-						return io.ErrUnexpectedEOF
-					}
-					iNdEx += 4
-					v = uint32(dAtA[iNdEx-4])
-					v |= uint32(dAtA[iNdEx-3]) << 8
-					v |= uint32(dAtA[iNdEx-2]) << 16
-					v |= uint32(dAtA[iNdEx-1]) << 24
-					v2 := float32(math.Float32frombits(v))
-					m.Center = append(m.Center, v2)
-				}
-			} else {
-				return fmt.Errorf("proto: wrong wireType = %d for field Center", wireType)
-			}
-		case 6:
-			if wireType != 5 {
-				return fmt.Errorf("proto: wrong wireType = %d for field DRPhi", wireType)
-			}
-			var v uint32
-			if (iNdEx + 4) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
-			m.DRPhi = float32(math.Float32frombits(v))
-		case 7:
-			if wireType != 5 {
-				return fmt.Errorf("proto: wrong wireType = %d for field DZ", wireType)
-			}
-			var v uint32
-			if (iNdEx + 4) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
-			m.DZ = float32(math.Float32frombits(v))
-		case 8:
-			if wireType != 5 {
-				return fmt.Errorf("proto: wrong wireType = %d for field EDep", wireType)
-			}
-			var v uint32
-			if (iNdEx + 4) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
-			m.EDep = float32(math.Float32frombits(v))
-		case 9:
-			if wireType != 5 {
-				return fmt.Errorf("proto: wrong wireType = %d for field EDepErr", wireType)
-			}
-			var v uint32
-			if (iNdEx + 4) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
-			m.EDepErr = float32(math.Float32frombits(v))
-		case 10:
-			if wireType != 5 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Time", wireType)
-			}
-			var v uint32
-			if (iNdEx + 4) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
-			m.Time = float32(math.Float32frombits(v))
-		case 11:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Quality", wireType)
-			}
-			m.Quality = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowEicio
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.Quality |= (int32(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 12:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field RawHits", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowEicio
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				msglen |= (int(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthEicio
-			}
-			postIndex := iNdEx + msglen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.RawHits = append(m.RawHits, &Reference{})
-			if err := m.RawHits[len(m.RawHits)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
-		default:
-			iNdEx = preIndex
-			skippy, err := skipEicio(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if skippy < 0 {
-				return ErrInvalidLengthEicio
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
 func (m *TrackerHitZCylinderCollection) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
@@ -10959,6 +11796,25 @@ func (m *TrackerHitZCylinderCollection) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Flags", wireType)
 			}
 			m.Flags = 0
@@ -10971,12 +11827,12 @@ func (m *TrackerHitZCylinderCollection) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Flags |= (int32(b) & 0x7F) << shift
+				m.Flags |= (uint32(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-		case 2:
+		case 3:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Params", wireType)
 			}
@@ -11009,9 +11865,9 @@ func (m *TrackerHitZCylinderCollection) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 3:
+		case 4:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Cyl", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Entries", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -11035,8 +11891,8 @@ func (m *TrackerHitZCylinderCollection) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Cyl = append(m.Cyl, &TrackerHitZCylinder{})
-			if err := m.Cyl[len(m.Cyl)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			m.Entries = append(m.Entries, &TrackerHitZCylinder{})
+			if err := m.Entries[len(m.Entries)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -11092,6 +11948,25 @@ func (m *Track) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
 			}
 			m.Type = 0
@@ -11109,7 +11984,7 @@ func (m *Track) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 2:
+		case 3:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Chi2", wireType)
 			}
@@ -11123,7 +11998,7 @@ func (m *Track) Unmarshal(dAtA []byte) error {
 			v |= uint32(dAtA[iNdEx-2]) << 16
 			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Chi2 = float32(math.Float32frombits(v))
-		case 3:
+		case 4:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field NDF", wireType)
 			}
@@ -11142,7 +12017,7 @@ func (m *Track) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 4:
+		case 5:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field DEdx", wireType)
 			}
@@ -11156,7 +12031,7 @@ func (m *Track) Unmarshal(dAtA []byte) error {
 			v |= uint32(dAtA[iNdEx-2]) << 16
 			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.DEdx = float32(math.Float32frombits(v))
-		case 5:
+		case 6:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field DEdxErr", wireType)
 			}
@@ -11170,7 +12045,7 @@ func (m *Track) Unmarshal(dAtA []byte) error {
 			v |= uint32(dAtA[iNdEx-2]) << 16
 			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.DEdxErr = float32(math.Float32frombits(v))
-		case 6:
+		case 7:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Radius", wireType)
 			}
@@ -11184,7 +12059,7 @@ func (m *Track) Unmarshal(dAtA []byte) error {
 			v |= uint32(dAtA[iNdEx-2]) << 16
 			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Radius = float32(math.Float32frombits(v))
-		case 7:
+		case 8:
 			if wireType == 0 {
 				var v int32
 				for shift := uint(0); ; shift += 7 {
@@ -11246,7 +12121,7 @@ func (m *Track) Unmarshal(dAtA []byte) error {
 			} else {
 				return fmt.Errorf("proto: wrong wireType = %d for field SubDetHits", wireType)
 			}
-		case 8:
+		case 9:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field States", wireType)
 			}
@@ -11277,7 +12152,7 @@ func (m *Track) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 9:
+		case 10:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Hits", wireType)
 			}
@@ -11308,9 +12183,9 @@ func (m *Track) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 10:
+		case 11:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field TrackIDs", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Tracks", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -11334,8 +12209,8 @@ func (m *Track) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.TrackIDs = append(m.TrackIDs, &Reference{})
-			if err := m.TrackIDs[len(m.TrackIDs)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			m.Tracks = append(m.Tracks, &Reference{})
+			if err := m.Tracks[len(m.Tracks)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -11634,6 +12509,25 @@ func (m *TrackCollection) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Flags", wireType)
 			}
 			m.Flags = 0
@@ -11646,12 +12540,12 @@ func (m *TrackCollection) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Flags |= (int32(b) & 0x7F) << shift
+				m.Flags |= (uint32(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-		case 2:
+		case 3:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Params", wireType)
 			}
@@ -11684,9 +12578,9 @@ func (m *TrackCollection) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 3:
+		case 4:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Track", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Entries", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -11710,8 +12604,8 @@ func (m *TrackCollection) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Track = append(m.Track, &Track{})
-			if err := m.Track[len(m.Track)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			m.Entries = append(m.Entries, &Track{})
+			if err := m.Entries[len(m.Entries)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -11766,6 +12660,25 @@ func (m *SimCalorimeterHit) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Params", wireType)
 			}
@@ -11798,7 +12711,7 @@ func (m *SimCalorimeterHit) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 2:
+		case 3:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field CellID0", wireType)
 			}
@@ -11817,7 +12730,7 @@ func (m *SimCalorimeterHit) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 3:
+		case 4:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field CellID1", wireType)
 			}
@@ -11836,7 +12749,7 @@ func (m *SimCalorimeterHit) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 4:
+		case 5:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Energy", wireType)
 			}
@@ -11850,7 +12763,7 @@ func (m *SimCalorimeterHit) Unmarshal(dAtA []byte) error {
 			v |= uint32(dAtA[iNdEx-2]) << 16
 			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Energy = float32(math.Float32frombits(v))
-		case 5:
+		case 6:
 			if wireType == 5 {
 				var v uint32
 				if (iNdEx + 4) > l {
@@ -11902,7 +12815,7 @@ func (m *SimCalorimeterHit) Unmarshal(dAtA []byte) error {
 			} else {
 				return fmt.Errorf("proto: wrong wireType = %d for field Pos", wireType)
 			}
-		case 6:
+		case 7:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Contributions", wireType)
 			}
@@ -11984,10 +12897,10 @@ func (m *SimCalorimeterHit_Contrib) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field MCParticle", wireType)
 			}
-			m.MCParticle = 0
+			var msglen int
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowEicio
@@ -11997,11 +12910,25 @@ func (m *SimCalorimeterHit_Contrib) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.MCParticle |= (int32(b) & 0x7F) << shift
+				msglen |= (int(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			if msglen < 0 {
+				return ErrInvalidLengthEicio
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.MCParticle == nil {
+				m.MCParticle = &Reference{}
+			}
+			if err := m.MCParticle.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
 		case 2:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Energy", wireType)
@@ -12153,6 +13080,25 @@ func (m *SimCalorimeterHitCollection) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Flags", wireType)
 			}
 			m.Flags = 0
@@ -12165,12 +13111,12 @@ func (m *SimCalorimeterHitCollection) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Flags |= (int32(b) & 0x7F) << shift
+				m.Flags |= (uint32(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-		case 2:
+		case 3:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Params", wireType)
 			}
@@ -12203,9 +13149,9 @@ func (m *SimCalorimeterHitCollection) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 3:
+		case 4:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Hit", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Entries", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -12229,8 +13175,8 @@ func (m *SimCalorimeterHitCollection) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Hit = append(m.Hit, &SimCalorimeterHit{})
-			if err := m.Hit[len(m.Hit)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			m.Entries = append(m.Entries, &SimCalorimeterHit{})
+			if err := m.Entries[len(m.Entries)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -12286,6 +13232,25 @@ func (m *RawCalorimeterHit) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field CellID0", wireType)
 			}
 			m.CellID0 = 0
@@ -12303,7 +13268,7 @@ func (m *RawCalorimeterHit) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 2:
+		case 3:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field CellID1", wireType)
 			}
@@ -12412,6 +13377,25 @@ func (m *RawCalorimeterHitCollection) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Flags", wireType)
 			}
 			m.Flags = 0
@@ -12424,12 +13408,12 @@ func (m *RawCalorimeterHitCollection) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Flags |= (int32(b) & 0x7F) << shift
+				m.Flags |= (uint32(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-		case 2:
+		case 3:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Params", wireType)
 			}
@@ -12462,9 +13446,9 @@ func (m *RawCalorimeterHitCollection) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 3:
+		case 4:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Hit", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Entries", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -12488,8 +13472,8 @@ func (m *RawCalorimeterHitCollection) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Hit = append(m.Hit, &RawCalorimeterHit{})
-			if err := m.Hit[len(m.Hit)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			m.Entries = append(m.Entries, &RawCalorimeterHit{})
+			if err := m.Entries[len(m.Entries)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -12545,6 +13529,25 @@ func (m *CalorimeterHit) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field CellID0", wireType)
 			}
 			m.CellID0 = 0
@@ -12562,7 +13565,7 @@ func (m *CalorimeterHit) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 2:
+		case 3:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field CellID1", wireType)
 			}
@@ -12581,7 +13584,7 @@ func (m *CalorimeterHit) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 3:
+		case 4:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Energy", wireType)
 			}
@@ -12595,7 +13598,7 @@ func (m *CalorimeterHit) Unmarshal(dAtA []byte) error {
 			v |= uint32(dAtA[iNdEx-2]) << 16
 			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Energy = float32(math.Float32frombits(v))
-		case 4:
+		case 5:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field EnergyErr", wireType)
 			}
@@ -12609,7 +13612,7 @@ func (m *CalorimeterHit) Unmarshal(dAtA []byte) error {
 			v |= uint32(dAtA[iNdEx-2]) << 16
 			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.EnergyErr = float32(math.Float32frombits(v))
-		case 5:
+		case 6:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Time", wireType)
 			}
@@ -12623,7 +13626,7 @@ func (m *CalorimeterHit) Unmarshal(dAtA []byte) error {
 			v |= uint32(dAtA[iNdEx-2]) << 16
 			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Time = float32(math.Float32frombits(v))
-		case 6:
+		case 7:
 			if wireType == 5 {
 				var v uint32
 				if (iNdEx + 4) > l {
@@ -12675,7 +13678,7 @@ func (m *CalorimeterHit) Unmarshal(dAtA []byte) error {
 			} else {
 				return fmt.Errorf("proto: wrong wireType = %d for field Pos", wireType)
 			}
-		case 7:
+		case 8:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
 			}
@@ -12694,7 +13697,7 @@ func (m *CalorimeterHit) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 8:
+		case 9:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Raw", wireType)
 			}
@@ -12779,6 +13782,25 @@ func (m *CalorimeterHitCollection) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Flags", wireType)
 			}
 			m.Flags = 0
@@ -12791,12 +13813,12 @@ func (m *CalorimeterHitCollection) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Flags |= (int32(b) & 0x7F) << shift
+				m.Flags |= (uint32(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-		case 2:
+		case 3:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Params", wireType)
 			}
@@ -12829,9 +13851,9 @@ func (m *CalorimeterHitCollection) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 3:
+		case 4:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Hit", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Entries", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -12855,8 +13877,8 @@ func (m *CalorimeterHitCollection) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Hit = append(m.Hit, &CalorimeterHit{})
-			if err := m.Hit[len(m.Hit)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			m.Entries = append(m.Entries, &CalorimeterHit{})
+			if err := m.Entries[len(m.Entries)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -12912,6 +13934,25 @@ func (m *Cluster) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
 			}
 			m.Type = 0
@@ -12929,7 +13970,7 @@ func (m *Cluster) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 2:
+		case 3:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Energy", wireType)
 			}
@@ -12943,7 +13984,7 @@ func (m *Cluster) Unmarshal(dAtA []byte) error {
 			v |= uint32(dAtA[iNdEx-2]) << 16
 			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Energy = float32(math.Float32frombits(v))
-		case 3:
+		case 4:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field EnergyErr", wireType)
 			}
@@ -12957,7 +13998,7 @@ func (m *Cluster) Unmarshal(dAtA []byte) error {
 			v |= uint32(dAtA[iNdEx-2]) << 16
 			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.EnergyErr = float32(math.Float32frombits(v))
-		case 4:
+		case 5:
 			if wireType == 5 {
 				var v uint32
 				if (iNdEx + 4) > l {
@@ -13009,7 +14050,7 @@ func (m *Cluster) Unmarshal(dAtA []byte) error {
 			} else {
 				return fmt.Errorf("proto: wrong wireType = %d for field Pos", wireType)
 			}
-		case 5:
+		case 6:
 			if wireType == 5 {
 				var v uint32
 				if (iNdEx + 4) > l {
@@ -13061,7 +14102,7 @@ func (m *Cluster) Unmarshal(dAtA []byte) error {
 			} else {
 				return fmt.Errorf("proto: wrong wireType = %d for field PosErr", wireType)
 			}
-		case 6:
+		case 7:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Theta", wireType)
 			}
@@ -13075,7 +14116,7 @@ func (m *Cluster) Unmarshal(dAtA []byte) error {
 			v |= uint32(dAtA[iNdEx-2]) << 16
 			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Theta = float32(math.Float32frombits(v))
-		case 7:
+		case 8:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Phi", wireType)
 			}
@@ -13089,7 +14130,7 @@ func (m *Cluster) Unmarshal(dAtA []byte) error {
 			v |= uint32(dAtA[iNdEx-2]) << 16
 			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Phi = float32(math.Float32frombits(v))
-		case 8:
+		case 9:
 			if wireType == 5 {
 				var v uint32
 				if (iNdEx + 4) > l {
@@ -13141,7 +14182,7 @@ func (m *Cluster) Unmarshal(dAtA []byte) error {
 			} else {
 				return fmt.Errorf("proto: wrong wireType = %d for field DirErr", wireType)
 			}
-		case 9:
+		case 10:
 			if wireType == 5 {
 				var v uint32
 				if (iNdEx + 4) > l {
@@ -13193,7 +14234,7 @@ func (m *Cluster) Unmarshal(dAtA []byte) error {
 			} else {
 				return fmt.Errorf("proto: wrong wireType = %d for field Shape", wireType)
 			}
-		case 10:
+		case 11:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field PIDs", wireType)
 			}
@@ -13224,7 +14265,38 @@ func (m *Cluster) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 11:
+		case 12:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Clusters", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthEicio
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Clusters = append(m.Clusters, &Reference{})
+			if err := m.Clusters[len(m.Clusters)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 13:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Hits", wireType)
 			}
@@ -13255,7 +14327,7 @@ func (m *Cluster) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 12:
+		case 14:
 			if wireType == 5 {
 				var v uint32
 				if (iNdEx + 4) > l {
@@ -13307,7 +14379,7 @@ func (m *Cluster) Unmarshal(dAtA []byte) error {
 			} else {
 				return fmt.Errorf("proto: wrong wireType = %d for field Weights", wireType)
 			}
-		case 13:
+		case 15:
 			if wireType == 5 {
 				var v uint32
 				if (iNdEx + 4) > l {
@@ -13411,6 +14483,25 @@ func (m *ClusterCollection) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Flags", wireType)
 			}
 			m.Flags = 0
@@ -13423,12 +14514,12 @@ func (m *ClusterCollection) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Flags |= (int32(b) & 0x7F) << shift
+				m.Flags |= (uint32(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-		case 2:
+		case 3:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Params", wireType)
 			}
@@ -13461,9 +14552,9 @@ func (m *ClusterCollection) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 3:
+		case 4:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Cluster", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Entries", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -13487,8 +14578,8 @@ func (m *ClusterCollection) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Cluster = append(m.Cluster, &Cluster{})
-			if err := m.Cluster[len(m.Cluster)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			m.Entries = append(m.Entries, &Cluster{})
+			if err := m.Entries[len(m.Entries)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -13544,6 +14635,25 @@ func (m *RecParticle) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
 			}
 			m.Type = 0
@@ -13561,7 +14671,7 @@ func (m *RecParticle) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 2:
+		case 3:
 			if wireType == 5 {
 				var v uint32
 				if (iNdEx + 4) > l {
@@ -13613,7 +14723,7 @@ func (m *RecParticle) Unmarshal(dAtA []byte) error {
 			} else {
 				return fmt.Errorf("proto: wrong wireType = %d for field P", wireType)
 			}
-		case 3:
+		case 4:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Energy", wireType)
 			}
@@ -13627,7 +14737,7 @@ func (m *RecParticle) Unmarshal(dAtA []byte) error {
 			v |= uint32(dAtA[iNdEx-2]) << 16
 			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Energy = float32(math.Float32frombits(v))
-		case 4:
+		case 5:
 			if wireType == 5 {
 				var v uint32
 				if (iNdEx + 4) > l {
@@ -13679,7 +14789,7 @@ func (m *RecParticle) Unmarshal(dAtA []byte) error {
 			} else {
 				return fmt.Errorf("proto: wrong wireType = %d for field Cov", wireType)
 			}
-		case 5:
+		case 6:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Mass", wireType)
 			}
@@ -13693,7 +14803,7 @@ func (m *RecParticle) Unmarshal(dAtA []byte) error {
 			v |= uint32(dAtA[iNdEx-2]) << 16
 			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Mass = float32(math.Float32frombits(v))
-		case 6:
+		case 7:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Charge", wireType)
 			}
@@ -13707,7 +14817,7 @@ func (m *RecParticle) Unmarshal(dAtA []byte) error {
 			v |= uint32(dAtA[iNdEx-2]) << 16
 			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Charge = float32(math.Float32frombits(v))
-		case 7:
+		case 8:
 			if wireType == 5 {
 				var v uint32
 				if (iNdEx + 4) > l {
@@ -13759,7 +14869,7 @@ func (m *RecParticle) Unmarshal(dAtA []byte) error {
 			} else {
 				return fmt.Errorf("proto: wrong wireType = %d for field Ref", wireType)
 			}
-		case 8:
+		case 9:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field PIDs", wireType)
 			}
@@ -13790,7 +14900,7 @@ func (m *RecParticle) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 9:
+		case 10:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field PIDUsed", wireType)
 			}
@@ -13809,7 +14919,7 @@ func (m *RecParticle) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 10:
+		case 11:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field GoodnessOfPID", wireType)
 			}
@@ -13823,7 +14933,7 @@ func (m *RecParticle) Unmarshal(dAtA []byte) error {
 			v |= uint32(dAtA[iNdEx-2]) << 16
 			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.GoodnessOfPID = float32(math.Float32frombits(v))
-		case 11:
+		case 12:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Recs", wireType)
 			}
@@ -13854,7 +14964,7 @@ func (m *RecParticle) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 12:
+		case 13:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Tracks", wireType)
 			}
@@ -13885,7 +14995,7 @@ func (m *RecParticle) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 13:
+		case 14:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Clusters", wireType)
 			}
@@ -13916,7 +15026,7 @@ func (m *RecParticle) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 14:
+		case 15:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field StartVtx", wireType)
 			}
@@ -14001,6 +15111,25 @@ func (m *RecParticleCollection) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Flags", wireType)
 			}
 			m.Flags = 0
@@ -14013,12 +15142,12 @@ func (m *RecParticleCollection) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Flags |= (int32(b) & 0x7F) << shift
+				m.Flags |= (uint32(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-		case 2:
+		case 3:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Params", wireType)
 			}
@@ -14051,9 +15180,9 @@ func (m *RecParticleCollection) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 3:
+		case 4:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Particle", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Entries", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -14077,8 +15206,8 @@ func (m *RecParticleCollection) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Particle = append(m.Particle, &RecParticle{})
-			if err := m.Particle[len(m.Particle)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			m.Entries = append(m.Entries, &RecParticle{})
+			if err := m.Entries[len(m.Entries)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -14134,6 +15263,25 @@ func (m *Vertex) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Primary", wireType)
 			}
 			m.Primary = 0
@@ -14151,7 +15299,7 @@ func (m *Vertex) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 2:
+		case 3:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field AlgType", wireType)
 			}
@@ -14170,7 +15318,7 @@ func (m *Vertex) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 3:
+		case 4:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Chi2", wireType)
 			}
@@ -14184,7 +15332,7 @@ func (m *Vertex) Unmarshal(dAtA []byte) error {
 			v |= uint32(dAtA[iNdEx-2]) << 16
 			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Chi2 = float32(math.Float32frombits(v))
-		case 4:
+		case 5:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Prob", wireType)
 			}
@@ -14198,7 +15346,7 @@ func (m *Vertex) Unmarshal(dAtA []byte) error {
 			v |= uint32(dAtA[iNdEx-2]) << 16
 			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Prob = float32(math.Float32frombits(v))
-		case 5:
+		case 6:
 			if wireType == 5 {
 				var v uint32
 				if (iNdEx + 4) > l {
@@ -14250,7 +15398,7 @@ func (m *Vertex) Unmarshal(dAtA []byte) error {
 			} else {
 				return fmt.Errorf("proto: wrong wireType = %d for field Pos", wireType)
 			}
-		case 6:
+		case 7:
 			if wireType == 5 {
 				var v uint32
 				if (iNdEx + 4) > l {
@@ -14302,7 +15450,7 @@ func (m *Vertex) Unmarshal(dAtA []byte) error {
 			} else {
 				return fmt.Errorf("proto: wrong wireType = %d for field Cov", wireType)
 			}
-		case 7:
+		case 8:
 			if wireType == 5 {
 				var v uint32
 				if (iNdEx + 4) > l {
@@ -14354,7 +15502,7 @@ func (m *Vertex) Unmarshal(dAtA []byte) error {
 			} else {
 				return fmt.Errorf("proto: wrong wireType = %d for field Params", wireType)
 			}
-		case 8:
+		case 9:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field RecPart", wireType)
 			}
@@ -14439,6 +15587,25 @@ func (m *VertexCollection) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Flags", wireType)
 			}
 			m.Flags = 0
@@ -14451,12 +15618,12 @@ func (m *VertexCollection) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Flags |= (int32(b) & 0x7F) << shift
+				m.Flags |= (uint32(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-		case 2:
+		case 3:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Params", wireType)
 			}
@@ -14489,9 +15656,9 @@ func (m *VertexCollection) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 3:
+		case 4:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Vertex", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Entries", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -14515,8 +15682,8 @@ func (m *VertexCollection) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Vertex = append(m.Vertex, &Vertex{})
-			if err := m.Vertex[len(m.Vertex)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			m.Entries = append(m.Entries, &Vertex{})
+			if err := m.Entries[len(m.Entries)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -14571,6 +15738,25 @@ func (m *Relation) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field From", wireType)
 			}
@@ -14603,7 +15789,7 @@ func (m *Relation) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 2:
+		case 3:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field To", wireType)
 			}
@@ -14636,7 +15822,7 @@ func (m *Relation) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 3:
+		case 4:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Weight", wireType)
 			}
@@ -14702,6 +15888,25 @@ func (m *RelationCollection) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEicio
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Flags", wireType)
 			}
 			m.Flags = 0
@@ -14714,12 +15919,12 @@ func (m *RelationCollection) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Flags |= (int32(b) & 0x7F) << shift
+				m.Flags |= (uint32(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-		case 2:
+		case 3:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Params", wireType)
 			}
@@ -14752,9 +15957,9 @@ func (m *RelationCollection) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 3:
+		case 4:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Relation", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Entries", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -14778,8 +15983,8 @@ func (m *RelationCollection) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Relation = append(m.Relation, &Relation{})
-			if err := m.Relation[len(m.Relation)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			m.Entries = append(m.Entries, &Relation{})
+			if err := m.Entries[len(m.Entries)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -14912,150 +16117,150 @@ var (
 func init() { proto.RegisterFile("eicio.proto", fileDescriptorEicio) }
 
 var fileDescriptorEicio = []byte{
-	// 2306 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x59, 0x4b, 0x6f, 0x1c, 0x59,
-	0x15, 0x9e, 0xaa, 0xea, 0xe7, 0x69, 0xb7, 0x53, 0xbe, 0x49, 0x9c, 0x1a, 0x13, 0xa2, 0xa6, 0x92,
-	0x0c, 0x3d, 0x0f, 0x4c, 0xc6, 0xb0, 0x40, 0x08, 0x16, 0xe0, 0x76, 0x88, 0xa5, 0x99, 0xa4, 0x75,
-	0x9d, 0x78, 0x91, 0x5d, 0xa5, 0xfa, 0xda, 0x5d, 0xa4, 0xba, 0xaa, 0xa8, 0xba, 0x6d, 0xa7, 0x23,
-	0x34, 0x1a, 0x60, 0x84, 0x04, 0xbf, 0x80, 0x15, 0x3f, 0x00, 0x09, 0xb1, 0x82, 0x25, 0x4b, 0xc4,
-	0x02, 0x24, 0x96, 0x88, 0x15, 0x0a, 0x48, 0xf0, 0x33, 0xd0, 0xb9, 0x8f, 0x7a, 0xb4, 0xab, 0x3d,
-	0x28, 0xd3, 0xd9, 0xd8, 0xf7, 0x9c, 0x7b, 0xee, 0xe3, 0x7c, 0xe7, 0x59, 0xb7, 0xa1, 0xc7, 0x02,
-	0x3f, 0x88, 0x77, 0x93, 0x34, 0xe6, 0x31, 0x69, 0x0a, 0xc2, 0xfd, 0x6f, 0x13, 0x7a, 0x07, 0x67,
-	0x2c, 0xe2, 0x0f, 0x98, 0x37, 0x61, 0x29, 0x71, 0xa0, 0x7d, 0xc6, 0xd2, 0x2c, 0x88, 0x23, 0xc7,
-	0x18, 0x18, 0xc3, 0x3e, 0xd5, 0x24, 0xb9, 0x09, 0xdd, 0x74, 0x1e, 0x3d, 0x9c, 0xcf, 0x9e, 0xb1,
-	0xd4, 0x31, 0x07, 0xc6, 0xb0, 0x41, 0x0b, 0x06, 0x19, 0x40, 0x8f, 0xe1, 0x36, 0x6a, 0xde, 0x12,
-	0xf3, 0x65, 0x16, 0xae, 0xe7, 0xc1, 0x8c, 0x1d, 0x71, 0x6f, 0x96, 0x38, 0x0d, 0xb9, 0x3e, 0x67,
-	0x90, 0x1d, 0xe8, 0x4c, 0x18, 0x67, 0x3e, 0x8f, 0x53, 0xa7, 0x39, 0x30, 0x86, 0x5d, 0x9a, 0xd3,
-	0xe4, 0x2e, 0xb4, 0x12, 0x2f, 0xf5, 0x66, 0x99, 0xd3, 0x1a, 0x18, 0xc3, 0xde, 0x5e, 0x7f, 0x57,
-	0x2a, 0x32, 0x16, 0x4c, 0xaa, 0x26, 0xc9, 0x3e, 0x80, 0x1f, 0x87, 0x21, 0xf3, 0x39, 0xde, 0xbe,
-	0x3d, 0xb0, 0x86, 0xbd, 0xbd, 0xdb, 0x4a, 0xb4, 0xa4, 0xe2, 0xee, 0x7e, 0x2e, 0x24, 0x19, 0xb4,
-	0xb4, 0x0c, 0xf5, 0x98, 0xb0, 0xcc, 0x4f, 0x83, 0x44, 0xec, 0x62, 0x8b, 0xab, 0x94, 0x59, 0x3b,
-	0x7f, 0xb0, 0xc0, 0x5e, 0xde, 0x82, 0x7c, 0x07, 0x1a, 0x7c, 0x91, 0x30, 0x81, 0xd9, 0xe6, 0xde,
-	0xf0, 0xff, 0x38, 0x75, 0xf7, 0xf1, 0x22, 0x61, 0x54, 0xac, 0x22, 0x04, 0x1a, 0x91, 0x37, 0x63,
-	0x02, 0xd5, 0x2e, 0x15, 0x63, 0xbc, 0x48, 0xe2, 0x2d, 0xc2, 0xd8, 0x9b, 0x1c, 0x05, 0x2f, 0x99,
-	0x00, 0xb4, 0x4f, 0xcb, 0x2c, 0xf7, 0xb7, 0x26, 0x34, 0x70, 0x13, 0xd2, 0x81, 0xc6, 0xc3, 0x47,
-	0x0f, 0x0f, 0xec, 0xb7, 0xc8, 0x26, 0xc0, 0xc7, 0xfb, 0x63, 0x2f, 0xe5, 0x81, 0x1f, 0x32, 0xdb,
-	0x20, 0x5b, 0xd0, 0x3f, 0x0a, 0x66, 0x8f, 0x53, 0xcf, 0x7f, 0xce, 0xd2, 0x07, 0x01, 0xb7, 0x4d,
-	0x72, 0x05, 0x7a, 0x8a, 0x1e, 0x79, 0xdc, 0xb3, 0x2d, 0x42, 0x60, 0x53, 0x31, 0xa8, 0x77, 0x2e,
-	0x78, 0x0d, 0xdc, 0xa7, 0xb4, 0xa8, 0x49, 0x6c, 0xd8, 0x50, 0xf4, 0x78, 0x1e, 0x66, 0xcc, 0x6e,
-	0x91, 0xab, 0x70, 0xa5, 0x90, 0x18, 0x87, 0x5e, 0xc4, 0xec, 0x36, 0xb9, 0x01, 0x57, 0x0b, 0xe6,
-	0xd3, 0xfd, 0x45, 0x18, 0x44, 0x13, 0x96, 0xda, 0x1d, 0xd2, 0x85, 0xa6, 0x98, 0xb0, 0xbb, 0xe4,
-	0x3a, 0x6c, 0x1d, 0x05, 0xb3, 0x7d, 0x2f, 0x8c, 0xd3, 0x60, 0xc6, 0xb8, 0x3c, 0x01, 0x90, 0x4d,
-	0xbd, 0xf3, 0x25, 0x76, 0x0f, 0x2f, 0xb7, 0xc4, 0xdb, 0x20, 0x3d, 0x68, 0xef, 0x87, 0xf3, 0x8c,
-	0xb3, 0xd4, 0xee, 0xa3, 0x3a, 0x94, 0xf9, 0xb9, 0xca, 0x9b, 0x04, 0xa0, 0x75, 0xcc, 0x52, 0xce,
-	0x5e, 0xd8, 0x57, 0xc8, 0x06, 0x74, 0x28, 0x0b, 0x3d, 0x04, 0xdd, 0xb6, 0xdd, 0xaf, 0x40, 0xf7,
-	0x30, 0xe2, 0xd2, 0x69, 0xc8, 0x35, 0x68, 0x7a, 0x69, 0xea, 0x2d, 0x1c, 0x63, 0x60, 0x0d, 0x9b,
-	0x54, 0x12, 0xee, 0x6d, 0xe8, 0xdd, 0x0f, 0x63, 0xaf, 0x56, 0xc8, 0xd4, 0x42, 0x77, 0x60, 0xe3,
-	0x88, 0xa7, 0x41, 0x74, 0x5a, 0x27, 0xd5, 0xd5, 0x52, 0xbf, 0xb0, 0xa0, 0xa5, 0x04, 0xde, 0x87,
-	0x46, 0x10, 0xf1, 0x4c, 0xcc, 0xf7, 0xf6, 0x6e, 0x54, 0xbc, 0x77, 0xf7, 0x30, 0xe2, 0xd9, 0x41,
-	0xc4, 0xd3, 0x05, 0x15, 0x42, 0xe4, 0x43, 0x68, 0x9d, 0xe0, 0x15, 0x32, 0xc7, 0x14, 0xe2, 0x6f,
-	0x57, 0xc5, 0xc5, 0xf5, 0xd4, 0x02, 0x25, 0x48, 0xbe, 0x09, 0xed, 0x4c, 0x5c, 0x28, 0x73, 0x2c,
-	0xb1, 0x66, 0xa7, 0xba, 0x46, 0xde, 0x56, 0x2d, 0xd2, 0xa2, 0x3b, 0x87, 0x02, 0x0e, 0xc9, 0x25,
-	0x36, 0x58, 0xcf, 0xd9, 0x42, 0xb8, 0x6f, 0x97, 0xe2, 0x90, 0xbc, 0x03, 0xcd, 0x33, 0x2f, 0x9c,
-	0x4b, 0xa7, 0xec, 0xed, 0xd9, 0x6a, 0xcb, 0x1c, 0x41, 0x2a, 0xa7, 0xbf, 0x6d, 0x7e, 0xcb, 0xd8,
-	0xf9, 0x58, 0xc1, 0xb6, 0x72, 0xb3, 0x61, 0x75, 0x33, 0xa2, 0x36, 0x2b, 0x61, 0x5d, 0xde, 0xee,
-	0x91, 0x06, 0x78, 0xe5, 0x7e, 0xef, 0x56, 0xf7, 0xbb, 0xaa, 0xf6, 0x2b, 0x9b, 0xa5, 0xb4, 0xa1,
-	0xfb, 0x5d, 0xe8, 0x52, 0x76, 0xc2, 0x52, 0x16, 0xf9, 0x8c, 0x6c, 0x43, 0x0b, 0xe3, 0xfd, 0x70,
-	0xa4, 0x12, 0x9c, 0xa2, 0x30, 0xf3, 0x31, 0x3c, 0xee, 0x70, 0x24, 0x76, 0xed, 0x53, 0x4d, 0xba,
-	0x9f, 0x19, 0x00, 0xda, 0xc3, 0x0e, 0x47, 0xe4, 0x16, 0x40, 0x18, 0x3c, 0x67, 0x61, 0x30, 0x8d,
-	0xe3, 0x89, 0xd8, 0xc4, 0xa4, 0x25, 0x0e, 0x46, 0xb3, 0xc8, 0x05, 0xb8, 0x4b, 0x53, 0x45, 0xb8,
-	0x0d, 0xd6, 0x78, 0xf4, 0x03, 0x11, 0xc5, 0x4d, 0x8a, 0x43, 0x3c, 0xce, 0x0b, 0x4f, 0x31, 0x7e,
-	0x45, 0x32, 0x6c, 0x52, 0x4d, 0xe2, 0x05, 0x55, 0xba, 0x6b, 0x0a, 0xb7, 0x53, 0x94, 0xfb, 0x27,
-	0xb3, 0x1c, 0xdd, 0xb8, 0x41, 0xe2, 0xa5, 0x4c, 0x3b, 0x56, 0x93, 0x6a, 0x12, 0x73, 0xa9, 0x3f,
-	0x0d, 0xc2, 0x49, 0xca, 0x22, 0xe1, 0x44, 0x4d, 0x9a, 0xd3, 0x35, 0x17, 0xd9, 0x86, 0xd6, 0x99,
-	0x08, 0x18, 0xa7, 0x31, 0xb0, 0x86, 0x06, 0x55, 0x94, 0x50, 0x23, 0x98, 0x31, 0x91, 0x8d, 0x4d,
-	0x2a, 0xc6, 0x64, 0x03, 0x8c, 0xc4, 0x69, 0x09, 0x31, 0x23, 0x41, 0x89, 0x99, 0x97, 0x65, 0x4e,
-	0x7b, 0x60, 0x0c, 0x0d, 0x2a, 0xc6, 0x02, 0xdd, 0xa9, 0x97, 0x9e, 0x32, 0xa7, 0x23, 0xd6, 0x29,
-	0x0a, 0xb3, 0xff, 0xf8, 0x20, 0x9a, 0x8c, 0xe3, 0x20, 0xe2, 0x4e, 0x57, 0xec, 0x50, 0x30, 0x70,
-	0xa7, 0x2c, 0x09, 0x22, 0x07, 0x84, 0xc2, 0x62, 0x8c, 0x2b, 0xfc, 0x38, 0x8c, 0xd3, 0xfb, 0x61,
-	0x7c, 0xee, 0xf4, 0x84, 0x1a, 0x05, 0x03, 0x67, 0x4f, 0x59, 0x74, 0xc4, 0x3d, 0x3e, 0xcf, 0x9c,
-	0x0d, 0xa1, 0x4d, 0xc1, 0xc0, 0xd9, 0x2c, 0x98, 0xa9, 0xd9, 0xbe, 0xb0, 0x66, 0xc1, 0x70, 0x7f,
-	0x6a, 0xc0, 0xb5, 0x02, 0xc8, 0x22, 0x31, 0x63, 0x24, 0x9f, 0x84, 0xde, 0x69, 0x26, 0x8c, 0xda,
-	0xa4, 0x92, 0x28, 0x95, 0x1f, 0xf3, 0xb2, 0xf2, 0xf3, 0x35, 0xe8, 0x24, 0x6a, 0x4b, 0x15, 0x86,
-	0x5b, 0x4a, 0xb0, 0x38, 0x8b, 0xe6, 0x22, 0xee, 0x7f, 0x8c, 0xa5, 0xdc, 0x8c, 0x06, 0xf5, 0x19,
-	0xba, 0xe2, 0x3d, 0x75, 0xbe, 0x26, 0x8b, 0x99, 0x0f, 0x95, 0x53, 0x69, 0x12, 0xcd, 0x99, 0xc4,
-	0x32, 0xec, 0x0d, 0x8a, 0x43, 0x84, 0xf2, 0x60, 0xc4, 0x64, 0x85, 0x35, 0xa9, 0x18, 0xd7, 0x9a,
-	0x72, 0x00, 0xe6, 0xcc, 0x57, 0x05, 0x55, 0x07, 0x77, 0x1e, 0x24, 0xd4, 0x9c, 0xf9, 0xd2, 0xd8,
-	0x6d, 0xb1, 0xc4, 0x48, 0xd0, 0xeb, 0x13, 0x8f, 0x4f, 0x3f, 0x62, 0xd1, 0x29, 0x9f, 0x2a, 0xe3,
-	0x96, 0x38, 0x78, 0xc7, 0x1f, 0xcd, 0xbd, 0x30, 0xe0, 0x0b, 0xa7, 0x2b, 0xef, 0xa8, 0x48, 0xf7,
-	0x13, 0xb8, 0x51, 0x51, 0x74, 0x5d, 0x80, 0xbf, 0x03, 0xd6, 0x34, 0xe0, 0x0a, 0xeb, 0x6b, 0x3a,
-	0x05, 0x94, 0x4f, 0xa2, 0x28, 0xe0, 0x86, 0xcb, 0x05, 0xee, 0xb5, 0x90, 0xd6, 0x18, 0x5a, 0x2a,
-	0xaa, 0x11, 0x43, 0x02, 0x8d, 0xef, 0x8d, 0xf6, 0x33, 0x11, 0x38, 0x7d, 0x2a, 0xc6, 0xe8, 0x5c,
-	0x4e, 0xf5, 0xb8, 0x75, 0xe9, 0xfb, 0x2e, 0x34, 0x26, 0x1e, 0xf7, 0x94, 0xc2, 0xd7, 0x95, 0x50,
-	0xf5, 0x2c, 0x2a, 0x44, 0xdc, 0xb8, 0x52, 0xe4, 0xbf, 0xb0, 0xbe, 0xda, 0x67, 0x50, 0x5a, 0x84,
-	0xb3, 0x54, 0xd9, 0xa4, 0x9a, 0x74, 0x7f, 0x0c, 0xd7, 0x4b, 0x07, 0xae, 0xcf, 0xc2, 0x65, 0x8d,
-	0x49, 0x55, 0xe3, 0x92, 0xba, 0x9f, 0x9a, 0xe5, 0x7e, 0xe5, 0xb5, 0xd5, 0xc5, 0x5c, 0x6c, 0x55,
-	0x93, 0x36, 0x06, 0x57, 0xa3, 0x08, 0x2e, 0x1b, 0x2c, 0x3f, 0x3e, 0x13, 0x79, 0xd9, 0xa0, 0x38,
-	0xcc, 0xc3, 0xad, 0x55, 0x0a, 0x37, 0x07, 0xda, 0xf8, 0xff, 0x20, 0x4d, 0x55, 0xf8, 0x68, 0x32,
-	0x07, 0xb5, 0x53, 0x05, 0xb5, 0x3e, 0x70, 0xc8, 0x7b, 0xd0, 0x4e, 0xbd, 0xf3, 0x07, 0x01, 0xcf,
-	0x44, 0x62, 0xac, 0x8b, 0x53, 0x2d, 0xe0, 0xbe, 0x80, 0x6b, 0xeb, 0x8f, 0xb0, 0xdb, 0xe5, 0x08,
-	0xdb, 0xaa, 0xc2, 0x9f, 0x87, 0xd7, 0x1f, 0x8d, 0x6a, 0x73, 0xb8, 0x36, 0x6f, 0x2b, 0x4a, 0x49,
-	0xa3, 0x52, 0x4a, 0x4a, 0x46, 0x30, 0xa5, 0x11, 0x4a, 0x10, 0xb6, 0xaa, 0x10, 0xba, 0x60, 0x3d,
-	0x1e, 0xef, 0x0b, 0x33, 0xd4, 0xc1, 0x87, 0x93, 0xee, 0xa7, 0x06, 0x6c, 0x97, 0x15, 0x58, 0x5f,
-	0xbc, 0x36, 0x13, 0xdc, 0x4f, 0xe1, 0x77, 0xb5, 0x8a, 0x9f, 0x38, 0x8a, 0x4a, 0x09, 0xf7, 0x77,
-	0xe6, 0x85, 0x76, 0xfa, 0x0d, 0x7a, 0xf1, 0x06, 0x18, 0x4f, 0x14, 0x7c, 0xc6, 0x13, 0xa4, 0x8e,
-	0x45, 0x4d, 0x37, 0xa9, 0x71, 0x4c, 0x36, 0xc1, 0x9c, 0x3c, 0x51, 0x6e, 0x6b, 0x4e, 0x9e, 0x08,
-	0xfa, 0x58, 0xf9, 0xab, 0x39, 0x39, 0xce, 0xfd, 0xbd, 0x5b, 0xef, 0xef, 0x50, 0xef, 0xef, 0xbd,
-	0x7a, 0x7f, 0xdf, 0x58, 0xe9, 0xef, 0xfd, 0xcf, 0xf3, 0xf7, 0x9f, 0x1b, 0xf0, 0xf6, 0x12, 0x62,
-	0xeb, 0xb2, 0xdb, 0x07, 0xd0, 0x4c, 0x70, 0x3f, 0x65, 0xb7, 0xed, 0x0b, 0x7e, 0x2f, 0x4e, 0xa3,
-	0x52, 0xc8, 0xfd, 0xbd, 0x59, 0xfb, 0xd1, 0xf3, 0x06, 0xcd, 0x87, 0x71, 0xc1, 0x22, 0xce, 0x52,
-	0xdd, 0x1f, 0x4a, 0x0a, 0x95, 0x9e, 0xd0, 0xf1, 0x34, 0x50, 0xb9, 0x48, 0x12, 0xc2, 0x80, 0x4f,
-	0x73, 0x83, 0x3e, 0xcd, 0x0d, 0xd8, 0xa9, 0x37, 0x60, 0xb7, 0xde, 0x80, 0x50, 0x6f, 0xc0, 0xde,
-	0x4a, 0x03, 0x6e, 0x7c, 0x9e, 0x01, 0x7f, 0x69, 0xc0, 0x97, 0x6b, 0x70, 0x5b, 0x9f, 0x11, 0x2d,
-	0x7f, 0x11, 0x2e, 0x7d, 0x0f, 0xd5, 0x9c, 0x47, 0x51, 0xcc, 0xfd, 0xab, 0xa5, 0x3e, 0x50, 0x73,
-	0x13, 0x18, 0x25, 0x13, 0x10, 0x68, 0xf8, 0xd3, 0x60, 0x4f, 0x1c, 0x68, 0x52, 0x31, 0x46, 0xb3,
-	0x3c, 0x1c, 0xdd, 0xd7, 0x7d, 0xf4, 0xc3, 0xd1, 0x7d, 0x94, 0x9a, 0x1c, 0x4c, 0x5e, 0xe8, 0xc6,
-	0x0b, 0xc7, 0x08, 0x15, 0xfe, 0x47, 0x60, 0x65, 0xef, 0xa5, 0x49, 0x34, 0x62, 0xea, 0x4d, 0x82,
-	0x79, 0xa6, 0xac, 0xa5, 0x28, 0x6c, 0xb3, 0xb2, 0xf9, 0xb3, 0x11, 0xe3, 0x02, 0xc5, 0xb6, 0x68,
-	0x7b, 0x4b, 0x1c, 0xf2, 0x75, 0x68, 0x65, 0xdc, 0xe3, 0x2c, 0x73, 0x3a, 0x95, 0xaf, 0x49, 0x71,
-	0x7b, 0xf9, 0x17, 0xbb, 0x5c, 0x46, 0x95, 0x18, 0xb9, 0x03, 0x8d, 0x29, 0x6e, 0xd5, 0x5d, 0x61,
-	0x10, 0x31, 0x4b, 0x3e, 0x80, 0x0e, 0xc7, 0xb5, 0x87, 0xa3, 0xd5, 0xb5, 0x26, 0x97, 0xd8, 0xf9,
-	0xb5, 0xa1, 0xea, 0xad, 0x38, 0x0a, 0xb1, 0x08, 0x63, 0x5f, 0x41, 0x86, 0x43, 0xe1, 0x74, 0xf7,
-	0x14, 0x5e, 0xe6, 0xe4, 0x9e, 0x70, 0xe2, 0x69, 0xa0, 0xb2, 0x3b, 0x0e, 0xd1, 0xb8, 0xf1, 0x8c,
-	0x9d, 0x7a, 0x0a, 0x2e, 0x49, 0xe0, 0xba, 0x97, 0xf7, 0x14, 0x54, 0xe6, 0xcb, 0x7b, 0xc2, 0x1a,
-	0x5e, 0xf4, 0x91, 0xae, 0xae, 0x38, 0xd6, 0xe9, 0xbf, 0x5d, 0xa4, 0x7f, 0x1b, 0xac, 0x94, 0x9d,
-	0x08, 0x40, 0x4c, 0x8a, 0x43, 0x37, 0x55, 0xe9, 0x74, 0x5d, 0xde, 0xe4, 0x42, 0x53, 0x28, 0xaf,
-	0xfc, 0x69, 0xa3, 0x0c, 0x3a, 0x95, 0x53, 0xee, 0xbf, 0xcd, 0x9a, 0x97, 0x8d, 0xd2, 0x01, 0xc6,
-	0x65, 0x07, 0x94, 0xb2, 0x85, 0xb9, 0x32, 0x5b, 0x58, 0xd5, 0x6c, 0xb1, 0x0d, 0x2d, 0x16, 0xb1,
-	0xf4, 0x74, 0xa1, 0xeb, 0xa3, 0xa4, 0x74, 0xc6, 0x50, 0xf5, 0x11, 0x33, 0xc6, 0x7d, 0xe8, 0xfb,
-	0x71, 0xc4, 0xd3, 0xe0, 0xd9, 0x1c, 0xb1, 0xc8, 0x44, 0xba, 0xef, 0xed, 0x0d, 0x8a, 0x9e, 0xb9,
-	0x7a, 0xeb, 0xdd, 0x7d, 0x29, 0x4d, 0xab, 0xcb, 0x76, 0x7e, 0x62, 0x40, 0x5b, 0x4d, 0xa1, 0xa3,
-	0x16, 0xdf, 0x35, 0x0a, 0xd4, 0xf2, 0xe7, 0x69, 0x71, 0x3b, 0xb3, 0x72, 0xbb, 0xba, 0x4a, 0xaf,
-	0x3e, 0x4a, 0x1b, 0x95, 0xaf, 0xe3, 0x8c, 0xb3, 0x64, 0x9c, 0xeb, 0xa1, 0x49, 0x4c, 0xfc, 0x5f,
-	0xba, 0x70, 0xe1, 0x75, 0xd9, 0xf9, 0xbd, 0x72, 0xc3, 0xe3, 0xac, 0x82, 0x47, 0xf6, 0x3d, 0x3f,
-	0x33, 0x6a, 0x9e, 0xac, 0x5e, 0x2b, 0xed, 0xdf, 0x84, 0xae, 0x37, 0x4b, 0xc2, 0x80, 0xcf, 0x27,
-	0xfa, 0x31, 0xa0, 0x60, 0x54, 0xdf, 0x4d, 0x9b, 0x72, 0x36, 0x67, 0x08, 0x38, 0x2e, 0xdc, 0xe2,
-	0x8d, 0xc2, 0x71, 0xe1, 0x34, 0x09, 0xc7, 0xdf, 0x8d, 0xe5, 0xa7, 0xba, 0xd7, 0xc2, 0xa2, 0x70,
-	0x1b, 0xab, 0xe2, 0x36, 0x37, 0xa1, 0x2b, 0x47, 0x98, 0x4b, 0xa5, 0xbf, 0x17, 0x8c, 0xda, 0x0f,
-	0x5c, 0x15, 0x06, 0xad, 0x22, 0x0c, 0x74, 0x6e, 0x6f, 0x97, 0x72, 0xbb, 0x0b, 0x56, 0xea, 0x9d,
-	0x8b, 0x6a, 0x58, 0xdb, 0x20, 0xa6, 0xde, 0x39, 0x36, 0x88, 0xce, 0x9b, 0x01, 0xf8, 0xab, 0x65,
-	0x80, 0xf5, 0x17, 0x5d, 0x1d, 0xba, 0xff, 0x30, 0xf3, 0x47, 0xcf, 0xda, 0x12, 0xb5, 0x2a, 0xda,
-	0x2a, 0xb0, 0x59, 0xcb, 0xb0, 0x95, 0x7a, 0x0b, 0x33, 0xef, 0x2d, 0x92, 0x38, 0x93, 0xf5, 0x4a,
-	0xbe, 0x3d, 0x09, 0x0a, 0xb5, 0xe4, 0x53, 0xc6, 0x3d, 0xdd, 0x5b, 0x08, 0x42, 0xa7, 0xf5, 0x76,
-	0x91, 0xd6, 0xb7, 0xa1, 0x35, 0x09, 0x52, 0x5c, 0x2f, 0xb3, 0xb1, 0xa2, 0x70, 0x7d, 0x36, 0xf5,
-	0x12, 0x26, 0xca, 0x90, 0x49, 0x25, 0x41, 0xee, 0x42, 0x63, 0x5c, 0x54, 0x9c, 0xad, 0x02, 0x23,
-	0xf5, 0xd4, 0x46, 0xc5, 0x74, 0x5e, 0xc2, 0x7a, 0x97, 0x96, 0x30, 0x07, 0xda, 0xe7, 0x2c, 0x38,
-	0x9d, 0xaa, 0xe6, 0xc3, 0xa4, 0x9a, 0x2c, 0x6a, 0xea, 0x41, 0xc4, 0x64, 0x6b, 0x69, 0xd2, 0x12,
-	0xc7, 0x7d, 0x09, 0x5b, 0x0a, 0xdb, 0x75, 0xd9, 0x75, 0x08, 0x6d, 0x5f, 0xee, 0xa8, 0x6c, 0xbb,
-	0xa9, 0x6d, 0x2b, 0xb9, 0x54, 0x4f, 0xbb, 0xbf, 0xb1, 0x2a, 0x0f, 0xd8, 0xb5, 0xc6, 0x15, 0x0f,
-	0x31, 0xa6, 0xec, 0xd0, 0x93, 0x95, 0x11, 0xa2, 0xea, 0x62, 0xa3, 0xa8, 0x8b, 0xfa, 0x7d, 0x4e,
-	0x45, 0xc5, 0xd2, 0xfb, 0x5c, 0x6b, 0xf9, 0xa3, 0x0a, 0x6b, 0x68, 0x3b, 0xaf, 0xa1, 0xb9, 0x71,
-	0x3a, 0x97, 0x1b, 0xc7, 0x81, 0xf6, 0xf8, 0x70, 0xf4, 0x24, 0x63, 0x13, 0xfd, 0xf9, 0xaa, 0x48,
-	0x72, 0x07, 0xfa, 0xa7, 0x71, 0x3c, 0x89, 0x58, 0x96, 0x3d, 0x3a, 0x19, 0x1f, 0x8e, 0x54, 0x13,
-	0x59, 0x65, 0xa2, 0x71, 0x53, 0xe6, 0x5f, 0x62, 0x5c, 0x9c, 0x25, 0x43, 0x68, 0x89, 0x2a, 0xbb,
-	0xba, 0xb1, 0x54, 0xf3, 0xd8, 0xc9, 0x28, 0x6c, 0x57, 0x7f, 0x45, 0xe4, 0x12, 0x28, 0x9d, 0x71,
-	0x2f, 0xe5, 0xc7, 0xfc, 0x85, 0xb3, 0xb9, 0x22, 0x07, 0xe4, 0x12, 0xee, 0x67, 0x06, 0x5c, 0x2f,
-	0x19, 0x6b, 0x5d, 0xde, 0xb2, 0x7b, 0xe1, 0xe5, 0x90, 0xe4, 0x97, 0xf0, 0x6b, 0x9e, 0x0e, 0xff,
-	0x62, 0xe8, 0xdf, 0x38, 0xc4, 0x23, 0x70, 0x1a, 0xcc, 0xbc, 0x74, 0xa1, 0x53, 0xac, 0x22, 0xcb,
-	0xef, 0xcb, 0x66, 0xf5, 0x7d, 0x59, 0xb7, 0xb3, 0x56, 0xa9, 0x9d, 0x25, 0xd0, 0x48, 0xd2, 0xf8,
-	0x99, 0x6e, 0x5e, 0x71, 0x5c, 0xd3, 0x47, 0x28, 0x17, 0x6b, 0x15, 0x2e, 0x56, 0xbc, 0x55, 0xb7,
-	0xcb, 0x6f, 0xd5, 0xe2, 0x4b, 0x40, 0xde, 0x7d, 0x65, 0x6a, 0xd5, 0x02, 0xee, 0x19, 0xd8, 0x52,
-	0x9b, 0x75, 0xe1, 0x79, 0x37, 0x7f, 0xd1, 0x96, 0x68, 0x6a, 0x31, 0x79, 0x8a, 0x7e, 0xe0, 0x76,
-	0x7f, 0x58, 0xfc, 0x3a, 0x84, 0x5e, 0x78, 0x92, 0xc6, 0x33, 0xd5, 0xa4, 0xd5, 0x78, 0x21, 0xce,
-	0x92, 0x01, 0x98, 0x3c, 0x5e, 0xfa, 0x41, 0xa4, 0xf4, 0x66, 0xca, 0x63, 0xc4, 0x43, 0x66, 0x1d,
-	0x1d, 0x9c, 0x92, 0x72, 0x3f, 0x01, 0xa2, 0xcf, 0x5a, 0x97, 0x96, 0xef, 0x43, 0x27, 0x55, 0x5b,
-	0x2a, 0x3d, 0xaf, 0xe4, 0x57, 0x92, 0x6c, 0x9a, 0x0b, 0x7c, 0xdf, 0xfe, 0xf3, 0xab, 0x5b, 0xc6,
-	0xdf, 0x5e, 0xdd, 0x32, 0xfe, 0xf9, 0xea, 0x96, 0xf1, 0xab, 0x7f, 0xdd, 0x7a, 0xeb, 0x59, 0x4b,
-	0xfc, 0x0c, 0xfc, 0x8d, 0xff, 0x05, 0x00, 0x00, 0xff, 0xff, 0x53, 0xd7, 0x23, 0x60, 0x15, 0x1e,
-	0x00, 0x00,
+	// 2320 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xbc, 0x5a, 0x4f, 0x8f, 0xdc, 0x48,
+	0x15, 0xdf, 0xb2, 0xdd, 0xff, 0x5e, 0x4f, 0xcf, 0x38, 0x95, 0xec, 0xc4, 0x3b, 0x84, 0xa8, 0xe9,
+	0xcd, 0x2e, 0xbd, 0x6c, 0x98, 0x9d, 0x1d, 0xf6, 0x80, 0x10, 0x1c, 0x60, 0x7a, 0x42, 0x46, 0xca,
+	0x26, 0x2d, 0x4f, 0x32, 0x87, 0xdc, 0x9c, 0x76, 0xcd, 0xb4, 0x15, 0xb7, 0x6d, 0x6c, 0xf7, 0x4c,
+	0x3a, 0x42, 0xe2, 0x82, 0x56, 0x80, 0x38, 0xac, 0x58, 0x84, 0x22, 0x0e, 0x7b, 0xe0, 0xce, 0x17,
+	0xe0, 0xc2, 0x09, 0xc4, 0x09, 0x71, 0x45, 0xe2, 0x80, 0xc2, 0x85, 0x6f, 0x00, 0xe2, 0x84, 0xea,
+	0xb9, 0xca, 0x65, 0xbb, 0xdd, 0x49, 0x0e, 0xe9, 0x5c, 0x32, 0xf5, 0x5e, 0xbd, 0xaa, 0x7a, 0xf5,
+	0x7b, 0x7f, 0x5d, 0x1d, 0xe8, 0x32, 0x6f, 0xe2, 0x85, 0xbb, 0x51, 0x1c, 0xa6, 0x21, 0x6d, 0x20,
+	0x31, 0xf8, 0x6f, 0x03, 0xba, 0x87, 0xe7, 0x2c, 0x48, 0x6f, 0x33, 0xc7, 0x65, 0x31, 0xb5, 0xa0,
+	0x75, 0xce, 0xe2, 0xc4, 0x0b, 0x03, 0x8b, 0xf4, 0xc9, 0xb0, 0x67, 0x4b, 0x92, 0x5e, 0x83, 0x4e,
+	0x3c, 0x0f, 0xee, 0xce, 0x67, 0x8f, 0x58, 0x6c, 0x69, 0x7d, 0x32, 0x34, 0x6c, 0xc5, 0xa0, 0x7d,
+	0xe8, 0x32, 0xbe, 0x8d, 0x98, 0xd7, 0x71, 0xbe, 0xc8, 0xe2, 0xeb, 0x53, 0x6f, 0xc6, 0x8e, 0x53,
+	0x67, 0x16, 0x59, 0x46, 0xb6, 0x3e, 0x67, 0xd0, 0x1d, 0x68, 0xbb, 0x2c, 0x65, 0x93, 0x34, 0x8c,
+	0xad, 0x46, 0x9f, 0x0c, 0x3b, 0x76, 0x4e, 0xd3, 0xf7, 0xa0, 0x19, 0x39, 0xb1, 0x33, 0x4b, 0xac,
+	0x66, 0x9f, 0x0c, 0xbb, 0xfb, 0xbd, 0xdd, 0xec, 0x22, 0x63, 0x64, 0xda, 0x62, 0x92, 0x1e, 0x00,
+	0x4c, 0x42, 0xdf, 0x67, 0x93, 0x94, 0x6b, 0xdf, 0xea, 0xeb, 0xc3, 0xee, 0xfe, 0xbb, 0x42, 0xb4,
+	0x70, 0xc5, 0xdd, 0x83, 0x5c, 0x28, 0x63, 0xd8, 0x85, 0x65, 0xfc, 0x1e, 0x2e, 0x4b, 0x26, 0xb1,
+	0x17, 0xe1, 0x2e, 0x26, 0xaa, 0x52, 0x64, 0xed, 0xfc, 0x59, 0x07, 0xb3, 0xba, 0x05, 0xfd, 0x2e,
+	0x18, 0xe9, 0x22, 0x62, 0x88, 0xd9, 0xe6, 0xfe, 0xf0, 0x15, 0x4e, 0xdd, 0xbd, 0xbf, 0x88, 0x98,
+	0x8d, 0xab, 0x28, 0x05, 0x23, 0x70, 0x66, 0x0c, 0x51, 0xed, 0xd8, 0x38, 0xa6, 0x9b, 0xa0, 0x79,
+	0x2e, 0xe2, 0xd8, 0xb3, 0x35, 0xcf, 0xe5, 0x8a, 0x45, 0xce, 0xc2, 0x0f, 0x1d, 0xf7, 0xd8, 0x7b,
+	0xca, 0x10, 0xc0, 0x9e, 0x5d, 0x64, 0x0d, 0x7e, 0xaf, 0x81, 0xc1, 0x37, 0xa5, 0x6d, 0x30, 0xee,
+	0xde, 0xbb, 0x7b, 0x68, 0xbe, 0x45, 0x37, 0x01, 0x3e, 0x3d, 0x18, 0x3b, 0x71, 0xea, 0x4d, 0x7c,
+	0x66, 0x12, 0x7a, 0x09, 0x7a, 0xc7, 0xde, 0xec, 0x7e, 0xec, 0x4c, 0x1e, 0xb3, 0xf8, 0xb6, 0x97,
+	0x9a, 0x1a, 0xdd, 0x82, 0xae, 0xa0, 0x47, 0x4e, 0xea, 0x98, 0x3a, 0xa5, 0xb0, 0x29, 0x18, 0xb6,
+	0x73, 0x81, 0x3c, 0x83, 0xef, 0x53, 0x58, 0xd4, 0xa0, 0x26, 0x6c, 0x08, 0x7a, 0x3c, 0xf7, 0x13,
+	0x66, 0x36, 0xe9, 0x65, 0xd8, 0x52, 0x12, 0x63, 0xdf, 0x09, 0x98, 0xd9, 0xa2, 0x57, 0xe1, 0xb2,
+	0x62, 0x3e, 0x3c, 0x58, 0xf8, 0x5e, 0xe0, 0xb2, 0xd8, 0x6c, 0xd3, 0x0e, 0x34, 0x70, 0xc2, 0xec,
+	0xd0, 0xb7, 0xe1, 0xd2, 0xb1, 0x37, 0x3b, 0x70, 0xfc, 0x30, 0xf6, 0x66, 0x2c, 0xcd, 0x4e, 0x00,
+	0xce, 0xb6, 0x9d, 0x8b, 0x0a, 0xbb, 0xcb, 0x95, 0xab, 0xf0, 0x36, 0x68, 0x17, 0x5a, 0x07, 0xfe,
+	0x3c, 0x49, 0x59, 0x6c, 0xf6, 0xf8, 0x75, 0x6c, 0x36, 0xc9, 0xaf, 0xbc, 0x49, 0x01, 0x9a, 0x27,
+	0x2c, 0x4e, 0xd9, 0x13, 0x73, 0x8b, 0x6e, 0x40, 0xdb, 0x66, 0xbe, 0xc3, 0x8d, 0x60, 0x9a, 0x83,
+	0xaf, 0x41, 0xe7, 0x28, 0x48, 0x33, 0x27, 0xa2, 0x57, 0xa0, 0xe1, 0xc4, 0xb1, 0xb3, 0xb0, 0x48,
+	0x5f, 0x1f, 0x36, 0xec, 0x8c, 0x18, 0xbc, 0x0b, 0xdd, 0x5b, 0x7e, 0xe8, 0xd4, 0x0a, 0x69, 0x52,
+	0xe8, 0x06, 0x6c, 0x1c, 0xa7, 0xb1, 0x17, 0x9c, 0xd5, 0x49, 0x75, 0xa4, 0xd4, 0xcf, 0x75, 0x68,
+	0x0a, 0x81, 0x0f, 0xc1, 0xf0, 0x82, 0x34, 0xc1, 0xf9, 0xee, 0xfe, 0xd5, 0x92, 0x37, 0xef, 0x1e,
+	0x05, 0x69, 0x72, 0x18, 0xa4, 0xf1, 0xc2, 0x46, 0x21, 0xfa, 0x31, 0x34, 0x4f, 0xb9, 0x0a, 0x89,
+	0xa5, 0xa1, 0xf8, 0x3b, 0x65, 0x71, 0x54, 0x4f, 0x2c, 0x10, 0x82, 0xf4, 0x13, 0x68, 0x25, 0xa8,
+	0x50, 0x62, 0xe9, 0xb8, 0x66, 0xa7, 0xbc, 0x26, 0xd3, 0x56, 0x2c, 0x92, 0xa2, 0x3b, 0x47, 0x08,
+	0x47, 0xc6, 0xa5, 0x26, 0xe8, 0x8f, 0xd9, 0x02, 0xdd, 0xb9, 0x63, 0xf3, 0x21, 0x7d, 0x1f, 0x1a,
+	0xe7, 0x8e, 0x3f, 0xcf, 0x9c, 0xb4, 0xbb, 0x6f, 0x8a, 0x2d, 0x73, 0x04, 0xed, 0x6c, 0xfa, 0x3b,
+	0xda, 0xb7, 0xc9, 0xce, 0xa7, 0x02, 0xb6, 0x95, 0x9b, 0x0d, 0xcb, 0x9b, 0x51, 0xb1, 0x59, 0x01,
+	0xeb, 0xe2, 0x76, 0xf7, 0x24, 0xc0, 0x2b, 0xf7, 0xfb, 0xa0, 0xbc, 0xdf, 0x65, 0xb1, 0x5f, 0xd1,
+	0x2c, 0x85, 0x0d, 0x07, 0xdf, 0x83, 0x8e, 0xcd, 0x4e, 0x59, 0xcc, 0x82, 0x09, 0xa3, 0xdb, 0xd0,
+	0xe4, 0xf1, 0x7f, 0x34, 0x12, 0x09, 0x4f, 0x50, 0x3c, 0x13, 0x32, 0x7e, 0xdc, 0xd1, 0x08, 0x77,
+	0xed, 0xd9, 0x92, 0x1c, 0xfc, 0x94, 0x00, 0x48, 0x0f, 0x3b, 0x1a, 0xd1, 0xeb, 0x00, 0xbe, 0xf7,
+	0x98, 0xf9, 0xde, 0x34, 0x0c, 0x5d, 0xdc, 0x44, 0xb3, 0x0b, 0x1c, 0x1e, 0xdd, 0x98, 0x1b, 0xf8,
+	0x2e, 0x0d, 0x11, 0xf1, 0x26, 0xe8, 0xe3, 0xd1, 0x0f, 0x31, 0xbc, 0x1b, 0x36, 0x1f, 0xf2, 0xe3,
+	0x1c, 0xff, 0x8c, 0xc7, 0x2f, 0xc6, 0x76, 0xc3, 0x96, 0x24, 0x57, 0x50, 0xa4, 0xbf, 0x06, 0xba,
+	0x9d, 0xa0, 0x06, 0xff, 0xd3, 0x8a, 0xd1, 0x2d, 0x12, 0x06, 0xc9, 0x13, 0xc6, 0x37, 0xa0, 0x15,
+	0x39, 0x31, 0x0b, 0x72, 0xcf, 0x91, 0x26, 0xcb, 0xaf, 0x6e, 0x4b, 0x01, 0x7a, 0x13, 0xda, 0x93,
+	0xa9, 0xe7, 0xbb, 0x31, 0x0b, 0x84, 0xcb, 0x2c, 0x0b, 0xe7, 0x12, 0x52, 0x79, 0x43, 0x29, 0xbf,
+	0x0d, 0xcd, 0x73, 0x0c, 0x32, 0x54, 0x91, 0xd8, 0x82, 0xc2, 0xab, 0x7b, 0x33, 0x86, 0x79, 0x5b,
+	0xb3, 0x71, 0x4c, 0x37, 0x80, 0x44, 0x98, 0x9d, 0x89, 0x4d, 0x22, 0x2e, 0x31, 0x73, 0x92, 0xc4,
+	0x6a, 0xf7, 0xc9, 0x90, 0xd8, 0x38, 0x46, 0x8b, 0x4c, 0x9d, 0xf8, 0x8c, 0x59, 0x1d, 0x5c, 0x27,
+	0x28, 0x5e, 0x41, 0xc6, 0x87, 0x81, 0x3b, 0x0e, 0xbd, 0x20, 0xb5, 0x00, 0x77, 0x50, 0x0c, 0xbe,
+	0x53, 0x12, 0x79, 0x81, 0xd5, 0x45, 0x90, 0x70, 0xcc, 0x57, 0x4c, 0x42, 0x3f, 0x8c, 0x6f, 0xf9,
+	0xe1, 0x85, 0xb5, 0x81, 0x91, 0xad, 0x18, 0x7c, 0xf6, 0x8c, 0x05, 0xc7, 0xa9, 0x93, 0xce, 0x13,
+	0xab, 0x87, 0xb7, 0x51, 0x0c, 0x3e, 0x9b, 0x78, 0x33, 0x31, 0xbb, 0x89, 0xb0, 0x2a, 0xc6, 0xe0,
+	0x73, 0x02, 0x57, 0x14, 0xf8, 0x2a, 0xb9, 0x2f, 0x99, 0xe1, 0x0a, 0x34, 0x4e, 0x7d, 0xe7, 0x2c,
+	0x11, 0x4e, 0x94, 0x11, 0x85, 0x92, 0xa6, 0xbf, 0xa8, 0xa4, 0x7d, 0x98, 0xf9, 0xa0, 0xc7, 0x12,
+	0xcb, 0x40, 0xb3, 0x5c, 0x12, 0x72, 0xea, 0x68, 0x5b, 0x4a, 0x0c, 0xfe, 0x43, 0x2a, 0xd9, 0x7d,
+	0x49, 0x17, 0x0b, 0x5a, 0x13, 0xc6, 0x9d, 0x7b, 0x4f, 0x38, 0xa3, 0x24, 0xd5, 0xcc, 0xc7, 0xc2,
+	0x27, 0x25, 0xc9, 0x8d, 0x1d, 0x85, 0xd9, 0xf1, 0xc4, 0xe6, 0x43, 0x0e, 0xf4, 0xe1, 0x88, 0x45,
+	0x58, 0xa6, 0x35, 0x1b, 0xc7, 0xb5, 0x86, 0xee, 0x83, 0x36, 0x9b, 0x58, 0xad, 0x52, 0xba, 0x50,
+	0xee, 0xa4, 0xcd, 0x26, 0x99, 0x2b, 0xb4, 0xd1, 0x5e, 0x24, 0xe2, 0x71, 0x14, 0x39, 0xe9, 0xf4,
+	0x0e, 0x0b, 0xce, 0xd2, 0xa9, 0x30, 0x7d, 0x81, 0xc3, 0x75, 0xfc, 0xd1, 0xdc, 0xf1, 0xbd, 0x74,
+	0x61, 0x41, 0xa6, 0xa3, 0x20, 0x07, 0xbf, 0x21, 0x70, 0xb5, 0x74, 0xf3, 0x75, 0xd9, 0x63, 0xb7,
+	0x6a, 0x8f, 0x2b, 0x32, 0xd3, 0x14, 0x4f, 0x57, 0x26, 0xf9, 0x71, 0xb5, 0x96, 0xbe, 0x16, 0x93,
+	0x48, 0xb0, 0x0d, 0x91, 0x50, 0x38, 0xd8, 0x14, 0x8c, 0xef, 0x8f, 0x0e, 0xb2, 0x14, 0xd1, 0xb3,
+	0x71, 0x3c, 0x78, 0x46, 0xc0, 0x2a, 0x1f, 0xbf, 0x2e, 0x5c, 0x3e, 0xaa, 0xe2, 0xf2, 0xb6, 0x90,
+	0x2b, 0x1f, 0xaf, 0x80, 0xf9, 0x49, 0xa9, 0xeb, 0x78, 0xed, 0xa8, 0x48, 0x17, 0xe4, 0xd2, 0x98,
+	0x3b, 0x64, 0xee, 0x94, 0xe4, 0xe0, 0x57, 0x04, 0xde, 0x2e, 0x68, 0xb0, 0x2e, 0x60, 0x6e, 0x56,
+	0x81, 0xa1, 0x65, 0x60, 0xca, 0xa8, 0x7c, 0xae, 0x15, 0xfb, 0xac, 0xd7, 0x86, 0x8a, 0xaa, 0x29,
+	0x79, 0xf1, 0xe1, 0x21, 0xdd, 0x50, 0x21, 0x6d, 0x82, 0x3e, 0x09, 0xcf, 0xad, 0x66, 0xc6, 0x99,
+	0x84, 0xe7, 0x79, 0x90, 0xb7, 0x0a, 0x41, 0x6e, 0x41, 0x8b, 0xff, 0x3d, 0x8c, 0x63, 0x4c, 0xd7,
+	0x9a, 0x2d, 0xc9, 0x1c, 0xfb, 0x4e, 0x19, 0xfb, 0xfa, 0x70, 0xe5, 0x95, 0x29, 0x76, 0x2e, 0x6e,
+	0x7b, 0x69, 0x82, 0xc9, 0xba, 0xb6, 0x32, 0x09, 0x01, 0xcc, 0xb3, 0xeb, 0x8f, 0xeb, 0x95, 0x79,
+	0xb6, 0x2e, 0xa8, 0xff, 0x4a, 0xca, 0xdd, 0xef, 0xda, 0xbc, 0x57, 0xd5, 0xc1, 0x46, 0xa9, 0x0e,
+	0x16, 0xac, 0xa5, 0x65, 0xd6, 0x2a, 0x60, 0xdd, 0x2a, 0x63, 0x3d, 0x00, 0xfd, 0xfe, 0xf8, 0x00,
+	0xed, 0x55, 0x87, 0x33, 0x9f, 0x1c, 0xfc, 0x9a, 0xc0, 0x76, 0xf1, 0x42, 0xeb, 0x42, 0xf9, 0x9b,
+	0x55, 0x94, 0x2f, 0x97, 0x51, 0xc6, 0xc3, 0x15, 0xce, 0x7f, 0xd4, 0x96, 0xbe, 0x29, 0xde, 0x60,
+	0x48, 0x6c, 0x00, 0x79, 0x20, 0x20, 0x26, 0x0f, 0x38, 0x75, 0x82, 0x4d, 0x8b, 0x66, 0x93, 0x13,
+	0xae, 0x85, 0xfb, 0x40, 0xc4, 0x80, 0xe6, 0x3e, 0x40, 0xfa, 0x44, 0x38, 0xbf, 0xe6, 0x9e, 0xe4,
+	0xc1, 0x03, 0xf5, 0xc1, 0xd3, 0xad, 0x0f, 0x9e, 0x8d, 0xfa, 0xe0, 0xe9, 0xad, 0x0c, 0x9e, 0xcd,
+	0x97, 0x05, 0xcf, 0x6f, 0x09, 0xbc, 0x53, 0x41, 0x70, 0x5d, 0xb6, 0xdd, 0xab, 0xda, 0x76, 0x7b,
+	0x29, 0x82, 0xf0, 0x7c, 0x65, 0xde, 0x3f, 0x69, 0xb5, 0x5f, 0x87, 0x6f, 0xd0, 0xc4, 0x3c, 0xbe,
+	0x58, 0x90, 0xb2, 0x58, 0xd8, 0x59, 0x50, 0x1c, 0x08, 0xd7, 0x1e, 0x4f, 0x3d, 0x91, 0xfc, 0x32,
+	0x02, 0x8d, 0xfc, 0x30, 0x37, 0xfa, 0xc3, 0xdc, 0xc8, 0x9d, 0x7a, 0x23, 0x43, 0xbd, 0x91, 0xbb,
+	0xf5, 0x46, 0xde, 0x58, 0x69, 0xe4, 0xde, 0xcb, 0x8c, 0xfc, 0x3b, 0x02, 0x5f, 0xad, 0xc1, 0x71,
+	0x5d, 0x86, 0xfe, 0xa4, 0x6a, 0xe8, 0x9d, 0x25, 0x43, 0xe7, 0x3a, 0x28, 0x63, 0xff, 0x5d, 0x17,
+	0x5f, 0xfc, 0x4b, 0xca, 0xd4, 0x7d, 0x1d, 0x51, 0x30, 0x26, 0x53, 0x6f, 0x1f, 0x15, 0xd1, 0x6c,
+	0x1c, 0x73, 0xf3, 0xdd, 0x1d, 0xdd, 0x92, 0x1f, 0x1d, 0x77, 0x47, 0xb7, 0xb8, 0x94, 0x7b, 0xe8,
+	0x3e, 0x91, 0x7d, 0x28, 0x1f, 0x73, 0x48, 0xf9, 0x5f, 0x6e, 0x80, 0xac, 0x15, 0x95, 0x24, 0x37,
+	0x76, 0xec, 0xb8, 0xde, 0x3c, 0x11, 0x56, 0x15, 0x14, 0xef, 0x3a, 0x93, 0xf9, 0xa3, 0x11, 0x4b,
+	0x11, 0xed, 0x36, 0x7e, 0x23, 0x14, 0x38, 0xf4, 0x23, 0x68, 0x26, 0xa9, 0x93, 0xb2, 0xc4, 0xea,
+	0x94, 0x3e, 0xd7, 0xf1, 0x36, 0xd9, 0xbf, 0xfc, 0x93, 0x80, 0xd9, 0x42, 0x8c, 0xde, 0x00, 0x63,
+	0xca, 0xb7, 0x82, 0x15, 0x86, 0xc3, 0x59, 0x3a, 0x84, 0x66, 0xca, 0xd7, 0xae, 0x2e, 0x81, 0x62,
+	0x7e, 0xe7, 0x4b, 0x22, 0x9a, 0x02, 0x3c, 0x86, 0xe3, 0xe0, 0x87, 0x13, 0x04, 0xb0, 0x61, 0xf3,
+	0x21, 0x3a, 0x66, 0x16, 0x1b, 0xdc, 0x31, 0xf7, 0xd0, 0xd1, 0xa7, 0x9e, 0x00, 0x8f, 0x0f, 0xb9,
+	0xc1, 0xc3, 0x19, 0x3b, 0x73, 0x44, 0x75, 0xc9, 0x08, 0xbe, 0xee, 0xe9, 0x9e, 0x40, 0x4f, 0x7b,
+	0xba, 0x87, 0x96, 0x70, 0x82, 0x3b, 0x79, 0x0f, 0xef, 0x04, 0x77, 0x64, 0xa9, 0x69, 0xa9, 0x52,
+	0x63, 0x82, 0x1e, 0xb3, 0x53, 0xd1, 0xb5, 0xf3, 0xe1, 0xe0, 0x33, 0x22, 0xf2, 0xf4, 0xba, 0x5c,
+	0xee, 0xfd, 0xaa, 0xcb, 0x6d, 0x14, 0x6d, 0xa0, 0x9c, 0xec, 0x33, 0xbd, 0xe6, 0x2d, 0x69, 0x49,
+	0x15, 0x75, 0xa8, 0xf6, 0xa2, 0x43, 0x0b, 0x69, 0x47, 0x5f, 0x99, 0x76, 0x8c, 0x72, 0xda, 0xd9,
+	0x86, 0x26, 0x0b, 0x58, 0x7c, 0xb6, 0x90, 0x05, 0x3b, 0xa3, 0x64, 0xea, 0x11, 0x05, 0x9b, 0xa7,
+	0x9e, 0x5b, 0xd0, 0x9b, 0x84, 0x5c, 0xed, 0x47, 0x73, 0x8e, 0x57, 0x22, 0x9e, 0x2b, 0xfb, 0xea,
+	0x73, 0xa2, 0x7c, 0x8b, 0xdd, 0x83, 0x4c, 0xda, 0x2e, 0x2f, 0xdb, 0xf9, 0x82, 0x40, 0x4b, 0x4c,
+	0xd1, 0xbd, 0xe2, 0x73, 0x00, 0x5e, 0xb8, 0xce, 0xad, 0x8a, 0x4f, 0x06, 0x4a, 0x5f, 0xad, 0xa4,
+	0xaf, 0x4c, 0x56, 0x7a, 0x21, 0x59, 0x2d, 0x7f, 0xf4, 0x5b, 0xd0, 0x4a, 0x52, 0x16, 0x8d, 0xc3,
+	0xbc, 0xb9, 0x16, 0xe4, 0xe0, 0x4b, 0x02, 0x5f, 0x59, 0xba, 0xc2, 0xba, 0xbc, 0x63, 0xbf, 0xea,
+	0x1d, 0xd6, 0x2a, 0x10, 0x95, 0xa7, 0x7c, 0x41, 0x6a, 0x9e, 0x17, 0x5f, 0x4b, 0xe5, 0xb9, 0x06,
+	0x1d, 0x67, 0x16, 0xf9, 0x5e, 0x3a, 0x77, 0x65, 0xf9, 0x51, 0x8c, 0xf2, 0x1b, 0x78, 0x23, 0x9b,
+	0xcd, 0x19, 0x08, 0xdb, 0x92, 0x56, 0x6f, 0x1c, 0xb6, 0x25, 0x0d, 0x14, 0x6c, 0xff, 0x26, 0xd5,
+	0xe7, 0xd7, 0xd7, 0x82, 0x99, 0x72, 0x43, 0xa3, 0xe4, 0x86, 0xd7, 0xa0, 0x93, 0x8d, 0x78, 0x3a,
+	0xcf, 0x22, 0x4a, 0x31, 0x6a, 0x9f, 0x1c, 0x44, 0xa0, 0xb5, 0x54, 0xa0, 0xc9, 0xf2, 0xd2, 0x2e,
+	0x94, 0x97, 0x01, 0xe8, 0xb1, 0x73, 0x81, 0x85, 0xbb, 0xb6, 0x27, 0x8e, 0x9d, 0x0b, 0xfc, 0x76,
+	0x7e, 0x33, 0x86, 0x58, 0xf9, 0xed, 0xbc, 0xca, 0x0a, 0xcf, 0xf4, 0xfc, 0xc1, 0xfb, 0x95, 0xaa,
+	0xa9, 0x82, 0x57, 0x5f, 0x0d, 0xaf, 0x51, 0x85, 0xb7, 0xd0, 0x2e, 0x69, 0x79, 0xbb, 0x14, 0x85,
+	0x49, 0x56, 0x5a, 0xb3, 0x77, 0x48, 0xa4, 0xf8, 0xed, 0xd3, 0x29, 0x4b, 0x1d, 0xd9, 0x2e, 0x21,
+	0x21, 0xab, 0x50, 0x5b, 0x55, 0xa1, 0x6d, 0x68, 0xba, 0x5e, 0xcc, 0xd7, 0x77, 0xb2, 0xf5, 0x19,
+	0xc5, 0xd7, 0x27, 0x53, 0x27, 0x62, 0x58, 0x31, 0x35, 0x3b, 0x23, 0xe8, 0x7b, 0x60, 0x8c, 0x8f,
+	0x46, 0xb2, 0x3c, 0x5e, 0x52, 0xd8, 0x89, 0x67, 0x57, 0x1b, 0xa7, 0xf1, 0xe5, 0x32, 0xc3, 0x22,
+	0xc1, 0x07, 0xbe, 0xfa, 0x97, 0x4b, 0x21, 0x91, 0xd7, 0xe6, 0xde, 0x0b, 0x6b, 0xb3, 0x05, 0xad,
+	0x0b, 0xe6, 0x9d, 0x4d, 0x45, 0x8b, 0xad, 0xd9, 0x92, 0x54, 0xcd, 0xc2, 0x61, 0xc0, 0x12, 0x6b,
+	0x0b, 0x27, 0x0b, 0x9c, 0xc1, 0x2f, 0x08, 0x5c, 0x12, 0xa6, 0x59, 0x97, 0xbb, 0x0c, 0xab, 0xee,
+	0xb2, 0x29, 0xdd, 0x25, 0x3b, 0x57, 0xf9, 0xc9, 0x1f, 0xf4, 0xd2, 0x6f, 0x21, 0xaf, 0xe4, 0x2b,
+	0xf8, 0x22, 0xa7, 0xcb, 0x17, 0xb9, 0x55, 0x81, 0x29, 0xba, 0x82, 0x86, 0xea, 0x0a, 0xe4, 0x33,
+	0xae, 0x08, 0xc6, 0xca, 0x33, 0x6e, 0xab, 0xfa, 0xf9, 0x5a, 0xee, 0x20, 0x72, 0x5b, 0x77, 0x5e,
+	0x6c, 0x6b, 0x0b, 0x5a, 0xe3, 0xa3, 0xd1, 0x83, 0x84, 0xb9, 0xf2, 0x45, 0x41, 0x90, 0xf4, 0x06,
+	0xf4, 0xce, 0xc2, 0xd0, 0x0d, 0x58, 0x92, 0xdc, 0x3b, 0x1d, 0x1f, 0x8d, 0x44, 0x9b, 0x5d, 0x66,
+	0x72, 0xeb, 0xc7, 0x6c, 0xb2, 0xda, 0x4f, 0x70, 0xb6, 0xd0, 0x99, 0xf5, 0x5e, 0xdc, 0x99, 0x95,
+	0x7c, 0x6f, 0xf3, 0xa5, 0xbe, 0x77, 0x13, 0xda, 0x49, 0xea, 0xc4, 0xe9, 0x49, 0xfa, 0xc4, 0xda,
+	0x5a, 0x91, 0x7a, 0x72, 0x09, 0x7c, 0x9f, 0x2a, 0x18, 0xef, 0x8d, 0xbf, 0x4f, 0x15, 0xce, 0x56,
+	0x1e, 0xf5, 0x0f, 0x22, 0x7f, 0x4c, 0xab, 0xcb, 0xfb, 0x51, 0xec, 0xcd, 0x9c, 0x78, 0x21, 0xf3,
+	0xbe, 0x20, 0x8b, 0x3f, 0x6c, 0xe8, 0xe5, 0x1f, 0x36, 0x64, 0x9b, 0x6f, 0x14, 0xda, 0x7c, 0x0a,
+	0x46, 0x14, 0x87, 0x8f, 0x64, 0x53, 0xcf, 0xc7, 0x35, 0xed, 0xd3, 0x72, 0x5b, 0xaa, 0x7e, 0x24,
+	0x69, 0x17, 0x7f, 0x24, 0xc1, 0x2f, 0xa9, 0xec, 0x2a, 0x2b, 0xf3, 0xbd, 0x14, 0x18, 0xfc, 0x8c,
+	0x80, 0x99, 0x5d, 0x6f, 0x5d, 0x70, 0x7f, 0xbd, 0x0a, 0xb7, 0x94, 0xcb, 0x8e, 0x55, 0x48, 0x3f,
+	0x55, 0xbf, 0x54, 0x2e, 0x69, 0x70, 0x03, 0x8c, 0xd3, 0x38, 0x9c, 0x55, 0x7e, 0x88, 0x2b, 0xb8,
+	0x31, 0x9f, 0xa5, 0x7d, 0xd0, 0xd2, 0x50, 0x68, 0x53, 0xf3, 0xfa, 0x9e, 0x86, 0x1c, 0xb2, 0x2c,
+	0xaf, 0xc9, 0xe8, 0xce, 0xa8, 0xc1, 0x2f, 0x09, 0x50, 0x79, 0xf8, 0xba, 0x80, 0xf8, 0xa0, 0x0a,
+	0xc4, 0x56, 0xae, 0x62, 0x76, 0x70, 0x0e, 0xc5, 0x0f, 0xcc, 0xbf, 0x3c, 0xbf, 0x4e, 0xfe, 0xf6,
+	0xfc, 0x3a, 0xf9, 0xe7, 0xf3, 0xeb, 0xe4, 0xd9, 0xbf, 0xae, 0xbf, 0xf5, 0xa8, 0x89, 0xff, 0x83,
+	0xe1, 0x5b, 0xff, 0x0f, 0x00, 0x00, 0xff, 0xff, 0x46, 0x3f, 0x67, 0x83, 0xd0, 0x20, 0x00, 0x00,
 }
