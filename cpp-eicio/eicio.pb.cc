@@ -22,6 +22,12 @@ class EventHeader_CollectionHeaderDefaultTypeInternal : public ::google::protobu
 } _EventHeader_CollectionHeader_default_instance_;
 class EventHeaderDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<EventHeader> {
 } _EventHeader_default_instance_;
+class IntParamsDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<IntParams> {
+} _IntParams_default_instance_;
+class FloatParamsDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<FloatParams> {
+} _FloatParams_default_instance_;
+class StringParamsDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<StringParams> {
+} _StringParams_default_instance_;
 class Params_IntsEntryDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<Params::Params_IntsEntry> {
 } _Params_IntsEntry_default_instance_;
 class Params_FloatsEntryDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<Params::Params_FloatsEntry> {
@@ -108,7 +114,7 @@ namespace protobuf_eicio_2eproto {
 
 namespace {
 
-::google::protobuf::Metadata file_level_metadata[42];
+::google::protobuf::Metadata file_level_metadata[45];
 const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors[1];
 
 }  // namespace
@@ -124,6 +130,9 @@ PROTOBUF_CONSTEXPR_VAR ::google::protobuf::internal::AuxillaryParseTableField
 };
 PROTOBUF_CONSTEXPR_VAR ::google::protobuf::internal::ParseTable const
     TableStruct::schema[] = {
+  { NULL, NULL, 0, -1, -1, false },
+  { NULL, NULL, 0, -1, -1, false },
+  { NULL, NULL, 0, -1, -1, false },
   { NULL, NULL, 0, -1, -1, false },
   { NULL, NULL, 0, -1, -1, false },
   { NULL, NULL, 0, -1, -1, false },
@@ -190,6 +199,24 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EventHeader, params_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EventHeader, collection_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EventHeader, description_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IntParams, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IntParams, array_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FloatParams, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FloatParams, array_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StringParams, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StringParams, array_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Params, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -589,48 +616,54 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
 static const ::google::protobuf::internal::MigrationSchema schemas[] = {
   { 0, -1, sizeof(EventHeader_CollectionHeader)},
   { 8, -1, sizeof(EventHeader)},
-  { 21, -1, sizeof(Params)},
-  { 29, -1, sizeof(Reference)},
-  { 36, -1, sizeof(ParticleID)},
-  { 46, -1, sizeof(MCParticle)},
-  { 64, -1, sizeof(MCParticleCollection)},
-  { 72, -1, sizeof(SimTrackerHit)},
-  { 86, -1, sizeof(SimTrackerHitCollection)},
-  { 94, -1, sizeof(TrackerRawData)},
-  { 103, -1, sizeof(TrackerRawDataCollection)},
-  { 111, -1, sizeof(TrackerData)},
-  { 120, -1, sizeof(TrackerDataCollection)},
-  { 128, -1, sizeof(TrackerHit)},
-  { 143, -1, sizeof(TrackerHitCollection)},
-  { 151, -1, sizeof(TrackerPulse)},
-  { 163, -1, sizeof(TrackerPulseCollection)},
-  { 171, -1, sizeof(TrackerHitPlane)},
-  { 189, -1, sizeof(TrackerHitPlaneCollection)},
-  { 197, -1, sizeof(TrackerHitZCylinder)},
-  { 214, -1, sizeof(TrackerHitZCylinderCollection)},
-  { 222, -1, sizeof(Track_TrackState)},
-  { 235, -1, sizeof(Track)},
-  { 250, -1, sizeof(TrackCollection)},
-  { 258, -1, sizeof(SimCalorimeterHit_Contrib)},
-  { 268, -1, sizeof(SimCalorimeterHit)},
-  { 279, -1, sizeof(SimCalorimeterHitCollection)},
-  { 287, -1, sizeof(RawCalorimeterHit)},
-  { 296, -1, sizeof(RawCalorimeterHitCollection)},
-  { 304, -1, sizeof(CalorimeterHit)},
-  { 317, -1, sizeof(CalorimeterHitCollection)},
-  { 325, -1, sizeof(Cluster)},
-  { 343, -1, sizeof(ClusterCollection)},
-  { 351, -1, sizeof(RecParticle)},
-  { 370, -1, sizeof(RecParticleCollection)},
-  { 378, -1, sizeof(Vertex)},
-  { 391, -1, sizeof(VertexCollection)},
-  { 399, -1, sizeof(Relation)},
-  { 407, -1, sizeof(RelationCollection)},
+  { 21, -1, sizeof(IntParams)},
+  { 27, -1, sizeof(FloatParams)},
+  { 33, -1, sizeof(StringParams)},
+  { 39, -1, sizeof(Params)},
+  { 47, -1, sizeof(Reference)},
+  { 54, -1, sizeof(ParticleID)},
+  { 64, -1, sizeof(MCParticle)},
+  { 82, -1, sizeof(MCParticleCollection)},
+  { 90, -1, sizeof(SimTrackerHit)},
+  { 104, -1, sizeof(SimTrackerHitCollection)},
+  { 112, -1, sizeof(TrackerRawData)},
+  { 121, -1, sizeof(TrackerRawDataCollection)},
+  { 129, -1, sizeof(TrackerData)},
+  { 138, -1, sizeof(TrackerDataCollection)},
+  { 146, -1, sizeof(TrackerHit)},
+  { 161, -1, sizeof(TrackerHitCollection)},
+  { 169, -1, sizeof(TrackerPulse)},
+  { 181, -1, sizeof(TrackerPulseCollection)},
+  { 189, -1, sizeof(TrackerHitPlane)},
+  { 207, -1, sizeof(TrackerHitPlaneCollection)},
+  { 215, -1, sizeof(TrackerHitZCylinder)},
+  { 232, -1, sizeof(TrackerHitZCylinderCollection)},
+  { 240, -1, sizeof(Track_TrackState)},
+  { 253, -1, sizeof(Track)},
+  { 268, -1, sizeof(TrackCollection)},
+  { 276, -1, sizeof(SimCalorimeterHit_Contrib)},
+  { 286, -1, sizeof(SimCalorimeterHit)},
+  { 297, -1, sizeof(SimCalorimeterHitCollection)},
+  { 305, -1, sizeof(RawCalorimeterHit)},
+  { 314, -1, sizeof(RawCalorimeterHitCollection)},
+  { 322, -1, sizeof(CalorimeterHit)},
+  { 335, -1, sizeof(CalorimeterHitCollection)},
+  { 343, -1, sizeof(Cluster)},
+  { 361, -1, sizeof(ClusterCollection)},
+  { 369, -1, sizeof(RecParticle)},
+  { 388, -1, sizeof(RecParticleCollection)},
+  { 396, -1, sizeof(Vertex)},
+  { 409, -1, sizeof(VertexCollection)},
+  { 417, -1, sizeof(Relation)},
+  { 425, -1, sizeof(RelationCollection)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&_EventHeader_CollectionHeader_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&_EventHeader_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_IntParams_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_FloatParams_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_StringParams_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&_Params_IntsEntry_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&_Params_FloatsEntry_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&_Params_StringsEntry_default_instance_),
@@ -681,9 +714,9 @@ void protobuf_AssignDescriptors() {
   AssignDescriptors(
       "eicio.proto", schemas, file_default_instances, TableStruct::offsets, factory,
       file_level_metadata, file_level_enum_descriptors, NULL);
-file_level_metadata[2].reflection = Params::Params_IntsEntry::CreateReflection(file_level_metadata[2].descriptor, _Params_IntsEntry_default_instance_.get_mutable());
-file_level_metadata[3].reflection = Params::Params_FloatsEntry::CreateReflection(file_level_metadata[3].descriptor, _Params_FloatsEntry_default_instance_.get_mutable());
-file_level_metadata[4].reflection = Params::Params_StringsEntry::CreateReflection(file_level_metadata[4].descriptor, _Params_StringsEntry_default_instance_.get_mutable());
+file_level_metadata[5].reflection = Params::Params_IntsEntry::CreateReflection(file_level_metadata[5].descriptor, _Params_IntsEntry_default_instance_.get_mutable());
+file_level_metadata[6].reflection = Params::Params_FloatsEntry::CreateReflection(file_level_metadata[6].descriptor, _Params_FloatsEntry_default_instance_.get_mutable());
+file_level_metadata[7].reflection = Params::Params_StringsEntry::CreateReflection(file_level_metadata[7].descriptor, _Params_StringsEntry_default_instance_.get_mutable());
 }
 
 void protobuf_AssignDescriptorsOnce() {
@@ -694,7 +727,7 @@ void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 42);
+  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 45);
 }
 
 }  // namespace
@@ -704,83 +737,89 @@ void TableStruct::Shutdown() {
   delete file_level_metadata[0].reflection;
   _EventHeader_default_instance_.Shutdown();
   delete file_level_metadata[1].reflection;
-  _Params_default_instance_.Shutdown();
-  delete file_level_metadata[5].reflection;
-  _Reference_default_instance_.Shutdown();
-  delete file_level_metadata[6].reflection;
-  _ParticleID_default_instance_.Shutdown();
-  delete file_level_metadata[7].reflection;
-  _MCParticle_default_instance_.Shutdown();
-  delete file_level_metadata[8].reflection;
-  _MCParticleCollection_default_instance_.Shutdown();
-  delete file_level_metadata[9].reflection;
-  _SimTrackerHit_default_instance_.Shutdown();
-  delete file_level_metadata[10].reflection;
-  _SimTrackerHitCollection_default_instance_.Shutdown();
-  delete file_level_metadata[11].reflection;
-  _TrackerRawData_default_instance_.Shutdown();
-  delete file_level_metadata[12].reflection;
-  _TrackerRawDataCollection_default_instance_.Shutdown();
-  delete file_level_metadata[13].reflection;
-  _TrackerData_default_instance_.Shutdown();
-  delete file_level_metadata[14].reflection;
-  _TrackerDataCollection_default_instance_.Shutdown();
-  delete file_level_metadata[15].reflection;
-  _TrackerHit_default_instance_.Shutdown();
-  delete file_level_metadata[16].reflection;
-  _TrackerHitCollection_default_instance_.Shutdown();
-  delete file_level_metadata[17].reflection;
-  _TrackerPulse_default_instance_.Shutdown();
-  delete file_level_metadata[18].reflection;
-  _TrackerPulseCollection_default_instance_.Shutdown();
-  delete file_level_metadata[19].reflection;
-  _TrackerHitPlane_default_instance_.Shutdown();
-  delete file_level_metadata[20].reflection;
-  _TrackerHitPlaneCollection_default_instance_.Shutdown();
-  delete file_level_metadata[21].reflection;
-  _TrackerHitZCylinder_default_instance_.Shutdown();
-  delete file_level_metadata[22].reflection;
-  _TrackerHitZCylinderCollection_default_instance_.Shutdown();
-  delete file_level_metadata[23].reflection;
-  _Track_TrackState_default_instance_.Shutdown();
-  delete file_level_metadata[24].reflection;
-  _Track_default_instance_.Shutdown();
-  delete file_level_metadata[25].reflection;
-  _TrackCollection_default_instance_.Shutdown();
-  delete file_level_metadata[26].reflection;
-  _SimCalorimeterHit_Contrib_default_instance_.Shutdown();
-  delete file_level_metadata[27].reflection;
-  _SimCalorimeterHit_default_instance_.Shutdown();
-  delete file_level_metadata[28].reflection;
-  _SimCalorimeterHitCollection_default_instance_.Shutdown();
-  delete file_level_metadata[29].reflection;
-  _RawCalorimeterHit_default_instance_.Shutdown();
-  delete file_level_metadata[30].reflection;
-  _RawCalorimeterHitCollection_default_instance_.Shutdown();
-  delete file_level_metadata[31].reflection;
-  _CalorimeterHit_default_instance_.Shutdown();
-  delete file_level_metadata[32].reflection;
-  _CalorimeterHitCollection_default_instance_.Shutdown();
-  delete file_level_metadata[33].reflection;
-  _Cluster_default_instance_.Shutdown();
-  delete file_level_metadata[34].reflection;
-  _ClusterCollection_default_instance_.Shutdown();
-  delete file_level_metadata[35].reflection;
-  _RecParticle_default_instance_.Shutdown();
-  delete file_level_metadata[36].reflection;
-  _RecParticleCollection_default_instance_.Shutdown();
-  delete file_level_metadata[37].reflection;
-  _Vertex_default_instance_.Shutdown();
-  delete file_level_metadata[38].reflection;
-  _VertexCollection_default_instance_.Shutdown();
-  delete file_level_metadata[39].reflection;
-  _Relation_default_instance_.Shutdown();
-  delete file_level_metadata[40].reflection;
-  _RelationCollection_default_instance_.Shutdown();
-  delete file_level_metadata[41].reflection;
+  _IntParams_default_instance_.Shutdown();
   delete file_level_metadata[2].reflection;
+  _FloatParams_default_instance_.Shutdown();
   delete file_level_metadata[3].reflection;
+  _StringParams_default_instance_.Shutdown();
   delete file_level_metadata[4].reflection;
+  _Params_default_instance_.Shutdown();
+  delete file_level_metadata[8].reflection;
+  _Reference_default_instance_.Shutdown();
+  delete file_level_metadata[9].reflection;
+  _ParticleID_default_instance_.Shutdown();
+  delete file_level_metadata[10].reflection;
+  _MCParticle_default_instance_.Shutdown();
+  delete file_level_metadata[11].reflection;
+  _MCParticleCollection_default_instance_.Shutdown();
+  delete file_level_metadata[12].reflection;
+  _SimTrackerHit_default_instance_.Shutdown();
+  delete file_level_metadata[13].reflection;
+  _SimTrackerHitCollection_default_instance_.Shutdown();
+  delete file_level_metadata[14].reflection;
+  _TrackerRawData_default_instance_.Shutdown();
+  delete file_level_metadata[15].reflection;
+  _TrackerRawDataCollection_default_instance_.Shutdown();
+  delete file_level_metadata[16].reflection;
+  _TrackerData_default_instance_.Shutdown();
+  delete file_level_metadata[17].reflection;
+  _TrackerDataCollection_default_instance_.Shutdown();
+  delete file_level_metadata[18].reflection;
+  _TrackerHit_default_instance_.Shutdown();
+  delete file_level_metadata[19].reflection;
+  _TrackerHitCollection_default_instance_.Shutdown();
+  delete file_level_metadata[20].reflection;
+  _TrackerPulse_default_instance_.Shutdown();
+  delete file_level_metadata[21].reflection;
+  _TrackerPulseCollection_default_instance_.Shutdown();
+  delete file_level_metadata[22].reflection;
+  _TrackerHitPlane_default_instance_.Shutdown();
+  delete file_level_metadata[23].reflection;
+  _TrackerHitPlaneCollection_default_instance_.Shutdown();
+  delete file_level_metadata[24].reflection;
+  _TrackerHitZCylinder_default_instance_.Shutdown();
+  delete file_level_metadata[25].reflection;
+  _TrackerHitZCylinderCollection_default_instance_.Shutdown();
+  delete file_level_metadata[26].reflection;
+  _Track_TrackState_default_instance_.Shutdown();
+  delete file_level_metadata[27].reflection;
+  _Track_default_instance_.Shutdown();
+  delete file_level_metadata[28].reflection;
+  _TrackCollection_default_instance_.Shutdown();
+  delete file_level_metadata[29].reflection;
+  _SimCalorimeterHit_Contrib_default_instance_.Shutdown();
+  delete file_level_metadata[30].reflection;
+  _SimCalorimeterHit_default_instance_.Shutdown();
+  delete file_level_metadata[31].reflection;
+  _SimCalorimeterHitCollection_default_instance_.Shutdown();
+  delete file_level_metadata[32].reflection;
+  _RawCalorimeterHit_default_instance_.Shutdown();
+  delete file_level_metadata[33].reflection;
+  _RawCalorimeterHitCollection_default_instance_.Shutdown();
+  delete file_level_metadata[34].reflection;
+  _CalorimeterHit_default_instance_.Shutdown();
+  delete file_level_metadata[35].reflection;
+  _CalorimeterHitCollection_default_instance_.Shutdown();
+  delete file_level_metadata[36].reflection;
+  _Cluster_default_instance_.Shutdown();
+  delete file_level_metadata[37].reflection;
+  _ClusterCollection_default_instance_.Shutdown();
+  delete file_level_metadata[38].reflection;
+  _RecParticle_default_instance_.Shutdown();
+  delete file_level_metadata[39].reflection;
+  _RecParticleCollection_default_instance_.Shutdown();
+  delete file_level_metadata[40].reflection;
+  _Vertex_default_instance_.Shutdown();
+  delete file_level_metadata[41].reflection;
+  _VertexCollection_default_instance_.Shutdown();
+  delete file_level_metadata[42].reflection;
+  _Relation_default_instance_.Shutdown();
+  delete file_level_metadata[43].reflection;
+  _RelationCollection_default_instance_.Shutdown();
+  delete file_level_metadata[44].reflection;
+  delete file_level_metadata[5].reflection;
+  delete file_level_metadata[6].reflection;
+  delete file_level_metadata[7].reflection;
 }
 
 void TableStruct::InitDefaultsImpl() {
@@ -789,6 +828,9 @@ void TableStruct::InitDefaultsImpl() {
   ::google::protobuf::internal::InitProtobufDefaults();
   _EventHeader_CollectionHeader_default_instance_.DefaultConstruct();
   _EventHeader_default_instance_.DefaultConstruct();
+  _IntParams_default_instance_.DefaultConstruct();
+  _FloatParams_default_instance_.DefaultConstruct();
+  _StringParams_default_instance_.DefaultConstruct();
   _Params_IntsEntry_default_instance_.DefaultConstruct();
   _Params_FloatsEntry_default_instance_.DefaultConstruct();
   _Params_StringsEntry_default_instance_.DefaultConstruct();
@@ -910,139 +952,142 @@ void AddDescriptorsImpl() {
       "\020\010\022\t\n\005Track\020\t\022\025\n\021SimCalorimeterHit\020\n\022\025\n\021"
       "RawCalorimeterHit\020\013\022\022\n\016CalorimeterHit\020\014\022"
       "\013\n\007Cluster\020\r\022\017\n\013RecParticle\020\016\022\n\n\006Vertex\020"
-      "\017\022\014\n\010Relation\020\020\"\223\002\n\006Params\022%\n\004ints\030\001 \003(\013"
-      "2\027.eicio.Params.IntsEntry\022)\n\006floats\030\002 \003("
-      "\0132\031.eicio.Params.FloatsEntry\022+\n\007strings\030"
-      "\003 \003(\0132\032.eicio.Params.StringsEntry\032+\n\tInt"
-      "sEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\005:\0028\001\032-"
-      "\n\013FloatsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001("
-      "\002:\0028\001\032.\n\014StringsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005va"
-      "lue\030\002 \001(\t:\0028\001\",\n\tReference\022\016\n\006collID\030\001 \001"
-      "(\r\022\017\n\007entryID\030\002 \001(\r\"\\\n\nParticleID\022\022\n\nlik"
-      "elihood\030\001 \001(\002\022\014\n\004type\030\002 \001(\005\022\013\n\003PDG\030\003 \001(\005"
-      "\022\017\n\007algType\030\004 \001(\005\022\016\n\006params\030\005 \003(\002\"\335\001\n\nMC"
-      "Particle\022\017\n\007parents\030\001 \003(\005\022\020\n\010children\030\002 "
-      "\003(\005\022\013\n\003PDG\030\003 \001(\005\022\016\n\006vertex\030\004 \003(\001\022\014\n\004time"
-      "\030\005 \001(\002\022\t\n\001p\030\006 \003(\001\022\014\n\004mass\030\007 \001(\001\022\016\n\006charg"
-      "e\030\010 \001(\002\022\021\n\tPEndPoint\030\t \003(\001\022\014\n\004spin\030\n \003(\002"
-      "\022\021\n\tcolorFlow\030\013 \003(\005\022\021\n\tgenStatus\030\014 \001(\005\022\021"
-      "\n\tsimStatus\030\r \001(\r\"i\n\024MCParticleCollectio"
-      "n\022\r\n\005flags\030\001 \001(\005\022\035\n\006params\030\002 \001(\0132\r.eicio"
-      ".Params\022#\n\010particle\030\003 \003(\0132\021.eicio.MCPart"
-      "icle\"\250\001\n\rSimTrackerHit\022\017\n\007cellID0\030\001 \001(\005\022"
-      "\017\n\007cellID1\030\002 \001(\005\022\013\n\003pos\030\003 \003(\001\022\014\n\004EDep\030\004 "
-      "\001(\002\022\014\n\004time\030\005 \001(\002\022\034\n\002mc\030\006 \001(\0132\020.eicio.Re"
-      "ference\022\t\n\001p\030\007 \001(\002\022\022\n\npathLength\030\010 \001(\002\022\017"
-      "\n\007quality\030\t \001(\005\"j\n\027SimTrackerHitCollecti"
-      "on\022\r\n\005flags\030\001 \001(\005\022\035\n\006params\030\002 \001(\0132\r.eici"
-      "o.Params\022!\n\003hit\030\003 \003(\0132\024.eicio.SimTracker"
-      "Hit\"N\n\016TrackerRawData\022\017\n\007cellID0\030\001 \001(\005\022\017"
-      "\n\007cellID1\030\002 \001(\005\022\014\n\004time\030\003 \001(\005\022\014\n\004ADCs\030\004 "
-      "\003(\r\"m\n\030TrackerRawDataCollection\022\r\n\005flags"
-      "\030\001 \001(\005\022\035\n\006params\030\002 \001(\0132\r.eicio.Params\022#\n"
-      "\004data\030\003 \003(\0132\025.eicio.TrackerRawData\"N\n\013Tr"
-      "ackerData\022\017\n\007cellID0\030\001 \001(\005\022\017\n\007cellID1\030\002 "
-      "\001(\005\022\014\n\004time\030\003 \001(\002\022\017\n\007charges\030\004 \003(\002\"g\n\025Tr"
-      "ackerDataCollection\022\r\n\005flags\030\001 \001(\005\022\035\n\006pa"
-      "rams\030\002 \001(\0132\r.eicio.Params\022 \n\004data\030\003 \003(\0132"
-      "\022.eicio.TrackerData\"\267\001\n\nTrackerHit\022\017\n\007ce"
-      "llID0\030\001 \001(\005\022\017\n\007cellID1\030\002 \001(\005\022\014\n\004type\030\003 \001"
-      "(\005\022\013\n\003pos\030\004 \003(\001\022\013\n\003cov\030\005 \003(\001\022\014\n\004EDep\030\006 \001"
-      "(\002\022\017\n\007EDepErr\030\007 \001(\002\022\014\n\004time\030\010 \001(\002\022\017\n\007qua"
-      "lity\030\t \001(\005\022!\n\007rawHits\030\n \003(\0132\020.eicio.Refe"
-      "rence\"d\n\024TrackerHitCollection\022\r\n\005flags\030\001"
-      " \001(\005\022\035\n\006params\030\002 \001(\0132\r.eicio.Params\022\036\n\003h"
-      "it\030\003 \003(\0132\021.eicio.TrackerHit\"\213\001\n\014TrackerP"
-      "ulse\022\017\n\007cellID0\030\001 \001(\005\022\017\n\007cellID1\030\002 \001(\005\022\014"
-      "\n\004time\030\003 \001(\002\022\016\n\006charge\030\004 \001(\002\022\013\n\003cov\030\005 \003("
-      "\002\022\017\n\007quality\030\006 \001(\005\022\035\n\003TPC\030\007 \001(\0132\020.eicio."
-      "Reference\"j\n\026TrackerPulseCollection\022\r\n\005f"
-      "lags\030\001 \001(\005\022\035\n\006params\030\002 \001(\0132\r.eicio.Param"
-      "s\022\"\n\005pulse\030\003 \003(\0132\023.eicio.TrackerPulse\"\335\001"
-      "\n\017TrackerHitPlane\022\017\n\007cellID0\030\001 \001(\005\022\017\n\007ce"
-      "llID1\030\002 \001(\005\022\014\n\004type\030\003 \001(\005\022\013\n\003pos\030\004 \003(\001\022\t"
-      "\n\001U\030\005 \003(\002\022\t\n\001V\030\006 \003(\002\022\n\n\002dU\030\007 \001(\002\022\n\n\002dV\030\010"
-      " \001(\002\022\014\n\004EDep\030\t \001(\002\022\017\n\007EDepErr\030\n \001(\002\022\014\n\004t"
-      "ime\030\013 \001(\002\022\017\n\007quality\030\014 \001(\005\022!\n\007rawHits\030\r "
-      "\003(\0132\020.eicio.Reference\"p\n\031TrackerHitPlane"
-      "Collection\022\r\n\005flags\030\001 \001(\005\022\035\n\006params\030\002 \001("
-      "\0132\r.eicio.Params\022%\n\005plane\030\003 \003(\0132\026.eicio."
-      "TrackerHitPlane\"\336\001\n\023TrackerHitZCylinder\022"
-      "\017\n\007cellID0\030\001 \001(\005\022\017\n\007cellID1\030\002 \001(\005\022\014\n\004typ"
-      "e\030\003 \001(\005\022\013\n\003pos\030\004 \003(\001\022\016\n\006center\030\005 \003(\002\022\r\n\005"
-      "dRPhi\030\006 \001(\002\022\n\n\002dZ\030\007 \001(\002\022\014\n\004EDep\030\010 \001(\002\022\017\n"
-      "\007EDepErr\030\t \001(\002\022\014\n\004time\030\n \001(\002\022\017\n\007quality\030"
-      "\013 \001(\005\022!\n\007rawHits\030\014 \003(\0132\020.eicio.Reference"
-      "\"v\n\035TrackerHitZCylinderCollection\022\r\n\005fla"
+      "\017\022\014\n\010Relation\020\020\"\032\n\tIntParams\022\r\n\005array\030\001 "
+      "\003(\005\"\034\n\013FloatParams\022\r\n\005array\030\001 \003(\002\"\035\n\014Str"
+      "ingParams\022\r\n\005array\030\001 \003(\t\"\316\002\n\006Params\022%\n\004i"
+      "nts\030\001 \003(\0132\027.eicio.Params.IntsEntry\022)\n\006fl"
+      "oats\030\002 \003(\0132\031.eicio.Params.FloatsEntry\022+\n"
+      "\007strings\030\003 \003(\0132\032.eicio.Params.StringsEnt"
+      "ry\032=\n\tIntsEntry\022\013\n\003key\030\001 \001(\t\022\037\n\005value\030\002 "
+      "\001(\0132\020.eicio.IntParams:\0028\001\032A\n\013FloatsEntry"
+      "\022\013\n\003key\030\001 \001(\t\022!\n\005value\030\002 \001(\0132\022.eicio.Flo"
+      "atParams:\0028\001\032C\n\014StringsEntry\022\013\n\003key\030\001 \001("
+      "\t\022\"\n\005value\030\002 \001(\0132\023.eicio.StringParams:\0028"
+      "\001\",\n\tReference\022\016\n\006collID\030\001 \001(\r\022\017\n\007entryI"
+      "D\030\002 \001(\r\"\\\n\nParticleID\022\022\n\nlikelihood\030\001 \001("
+      "\002\022\014\n\004type\030\002 \001(\005\022\013\n\003PDG\030\003 \001(\005\022\017\n\007algType\030"
+      "\004 \001(\005\022\016\n\006params\030\005 \003(\002\"\335\001\n\nMCParticle\022\017\n\007"
+      "parents\030\001 \003(\005\022\020\n\010children\030\002 \003(\005\022\013\n\003PDG\030\003"
+      " \001(\005\022\016\n\006vertex\030\004 \003(\001\022\014\n\004time\030\005 \001(\002\022\t\n\001p\030"
+      "\006 \003(\001\022\014\n\004mass\030\007 \001(\001\022\016\n\006charge\030\010 \001(\002\022\021\n\tP"
+      "EndPoint\030\t \003(\001\022\014\n\004spin\030\n \003(\002\022\021\n\tcolorFlo"
+      "w\030\013 \003(\005\022\021\n\tgenStatus\030\014 \001(\005\022\021\n\tsimStatus\030"
+      "\r \001(\r\"i\n\024MCParticleCollection\022\r\n\005flags\030\001"
+      " \001(\005\022\035\n\006params\030\002 \001(\0132\r.eicio.Params\022#\n\010p"
+      "article\030\003 \003(\0132\021.eicio.MCParticle\"\250\001\n\rSim"
+      "TrackerHit\022\017\n\007cellID0\030\001 \001(\005\022\017\n\007cellID1\030\002"
+      " \001(\005\022\013\n\003pos\030\003 \003(\001\022\014\n\004EDep\030\004 \001(\002\022\014\n\004time\030"
+      "\005 \001(\002\022\034\n\002mc\030\006 \001(\0132\020.eicio.Reference\022\t\n\001p"
+      "\030\007 \001(\002\022\022\n\npathLength\030\010 \001(\002\022\017\n\007quality\030\t "
+      "\001(\005\"j\n\027SimTrackerHitCollection\022\r\n\005flags\030"
+      "\001 \001(\005\022\035\n\006params\030\002 \001(\0132\r.eicio.Params\022!\n\003"
+      "hit\030\003 \003(\0132\024.eicio.SimTrackerHit\"N\n\016Track"
+      "erRawData\022\017\n\007cellID0\030\001 \001(\005\022\017\n\007cellID1\030\002 "
+      "\001(\005\022\014\n\004time\030\003 \001(\005\022\014\n\004ADCs\030\004 \003(\r\"m\n\030Track"
+      "erRawDataCollection\022\r\n\005flags\030\001 \001(\005\022\035\n\006pa"
+      "rams\030\002 \001(\0132\r.eicio.Params\022#\n\004data\030\003 \003(\0132"
+      "\025.eicio.TrackerRawData\"N\n\013TrackerData\022\017\n"
+      "\007cellID0\030\001 \001(\005\022\017\n\007cellID1\030\002 \001(\005\022\014\n\004time\030"
+      "\003 \001(\002\022\017\n\007charges\030\004 \003(\002\"g\n\025TrackerDataCol"
+      "lection\022\r\n\005flags\030\001 \001(\005\022\035\n\006params\030\002 \001(\0132\r"
+      ".eicio.Params\022 \n\004data\030\003 \003(\0132\022.eicio.Trac"
+      "kerData\"\267\001\n\nTrackerHit\022\017\n\007cellID0\030\001 \001(\005\022"
+      "\017\n\007cellID1\030\002 \001(\005\022\014\n\004type\030\003 \001(\005\022\013\n\003pos\030\004 "
+      "\003(\001\022\013\n\003cov\030\005 \003(\001\022\014\n\004EDep\030\006 \001(\002\022\017\n\007EDepEr"
+      "r\030\007 \001(\002\022\014\n\004time\030\010 \001(\002\022\017\n\007quality\030\t \001(\005\022!"
+      "\n\007rawHits\030\n \003(\0132\020.eicio.Reference\"d\n\024Tra"
+      "ckerHitCollection\022\r\n\005flags\030\001 \001(\005\022\035\n\006para"
+      "ms\030\002 \001(\0132\r.eicio.Params\022\036\n\003hit\030\003 \003(\0132\021.e"
+      "icio.TrackerHit\"\213\001\n\014TrackerPulse\022\017\n\007cell"
+      "ID0\030\001 \001(\005\022\017\n\007cellID1\030\002 \001(\005\022\014\n\004time\030\003 \001(\002"
+      "\022\016\n\006charge\030\004 \001(\002\022\013\n\003cov\030\005 \003(\002\022\017\n\007quality"
+      "\030\006 \001(\005\022\035\n\003TPC\030\007 \001(\0132\020.eicio.Reference\"j\n"
+      "\026TrackerPulseCollection\022\r\n\005flags\030\001 \001(\005\022\035"
+      "\n\006params\030\002 \001(\0132\r.eicio.Params\022\"\n\005pulse\030\003"
+      " \003(\0132\023.eicio.TrackerPulse\"\335\001\n\017TrackerHit"
+      "Plane\022\017\n\007cellID0\030\001 \001(\005\022\017\n\007cellID1\030\002 \001(\005\022"
+      "\014\n\004type\030\003 \001(\005\022\013\n\003pos\030\004 \003(\001\022\t\n\001U\030\005 \003(\002\022\t\n"
+      "\001V\030\006 \003(\002\022\n\n\002dU\030\007 \001(\002\022\n\n\002dV\030\010 \001(\002\022\014\n\004EDep"
+      "\030\t \001(\002\022\017\n\007EDepErr\030\n \001(\002\022\014\n\004time\030\013 \001(\002\022\017\n"
+      "\007quality\030\014 \001(\005\022!\n\007rawHits\030\r \003(\0132\020.eicio."
+      "Reference\"p\n\031TrackerHitPlaneCollection\022\r"
+      "\n\005flags\030\001 \001(\005\022\035\n\006params\030\002 \001(\0132\r.eicio.Pa"
+      "rams\022%\n\005plane\030\003 \003(\0132\026.eicio.TrackerHitPl"
+      "ane\"\336\001\n\023TrackerHitZCylinder\022\017\n\007cellID0\030\001"
+      " \001(\005\022\017\n\007cellID1\030\002 \001(\005\022\014\n\004type\030\003 \001(\005\022\013\n\003p"
+      "os\030\004 \003(\001\022\016\n\006center\030\005 \003(\002\022\r\n\005dRPhi\030\006 \001(\002\022"
+      "\n\n\002dZ\030\007 \001(\002\022\014\n\004EDep\030\010 \001(\002\022\017\n\007EDepErr\030\t \001"
+      "(\002\022\014\n\004time\030\n \001(\002\022\017\n\007quality\030\013 \001(\005\022!\n\007raw"
+      "Hits\030\014 \003(\0132\020.eicio.Reference\"v\n\035TrackerH"
+      "itZCylinderCollection\022\r\n\005flags\030\001 \001(\005\022\035\n\006"
+      "params\030\002 \001(\0132\r.eicio.Params\022\'\n\003cyl\030\003 \003(\013"
+      "2\032.eicio.TrackerHitZCylinder\"\327\002\n\005Track\022\014"
+      "\n\004type\030\001 \001(\005\022\014\n\004chi2\030\002 \001(\002\022\013\n\003NDF\030\003 \001(\005\022"
+      "\014\n\004dEdx\030\004 \001(\002\022\017\n\007dEdxErr\030\005 \001(\002\022\016\n\006radius"
+      "\030\006 \001(\002\022\022\n\nsubDetHits\030\007 \003(\005\022\'\n\006states\030\010 \003"
+      "(\0132\027.eicio.Track.TrackState\022\036\n\004hits\030\t \003("
+      "\0132\020.eicio.Reference\022\"\n\010trackIDs\030\n \003(\0132\020."
+      "eicio.Reference\032u\n\nTrackState\022\013\n\003loc\030\001 \001"
+      "(\005\022\n\n\002d0\030\002 \001(\002\022\013\n\003phi\030\003 \001(\002\022\r\n\005omega\030\004 \001"
+      "(\002\022\n\n\002z0\030\005 \001(\002\022\014\n\004tanL\030\006 \001(\002\022\013\n\003cov\030\007 \003("
+      "\002\022\013\n\003ref\030\010 \003(\002\"\\\n\017TrackCollection\022\r\n\005fla"
       "gs\030\001 \001(\005\022\035\n\006params\030\002 \001(\0132\r.eicio.Params\022"
-      "\'\n\003cyl\030\003 \003(\0132\032.eicio.TrackerHitZCylinder"
-      "\"\327\002\n\005Track\022\014\n\004type\030\001 \001(\005\022\014\n\004chi2\030\002 \001(\002\022\013"
-      "\n\003NDF\030\003 \001(\005\022\014\n\004dEdx\030\004 \001(\002\022\017\n\007dEdxErr\030\005 \001"
-      "(\002\022\016\n\006radius\030\006 \001(\002\022\022\n\nsubDetHits\030\007 \003(\005\022\'"
-      "\n\006states\030\010 \003(\0132\027.eicio.Track.TrackState\022"
-      "\036\n\004hits\030\t \003(\0132\020.eicio.Reference\022\"\n\010track"
-      "IDs\030\n \003(\0132\020.eicio.Reference\032u\n\nTrackStat"
-      "e\022\013\n\003loc\030\001 \001(\005\022\n\n\002d0\030\002 \001(\002\022\013\n\003phi\030\003 \001(\002\022"
-      "\r\n\005omega\030\004 \001(\002\022\n\n\002z0\030\005 \001(\002\022\014\n\004tanL\030\006 \001(\002"
-      "\022\013\n\003cov\030\007 \003(\002\022\013\n\003ref\030\010 \003(\002\"\\\n\017TrackColle"
+      "\033\n\005track\030\003 \003(\0132\014.eicio.Track\"\205\002\n\021SimCalo"
+      "rimeterHit\022\035\n\006params\030\001 \001(\0132\r.eicio.Param"
+      "s\022\017\n\007cellID0\030\002 \001(\005\022\017\n\007cellID1\030\003 \001(\005\022\016\n\006e"
+      "nergy\030\004 \001(\002\022\013\n\003pos\030\005 \003(\002\0227\n\rcontribution"
+      "s\030\006 \003(\0132 .eicio.SimCalorimeterHit.Contri"
+      "b\032Y\n\007Contrib\022\022\n\nMCParticle\030\001 \001(\005\022\016\n\006ener"
+      "gy\030\002 \001(\002\022\014\n\004time\030\003 \001(\002\022\013\n\003PDG\030\004 \001(\005\022\017\n\007s"
+      "tepPos\030\005 \003(\002\"r\n\033SimCalorimeterHitCollect"
+      "ion\022\r\n\005flags\030\001 \001(\005\022\035\n\006params\030\002 \001(\0132\r.eic"
+      "io.Params\022%\n\003hit\030\003 \003(\0132\030.eicio.SimCalori"
+      "meterHit\"[\n\021RawCalorimeterHit\022\017\n\007cellID0"
+      "\030\001 \001(\005\022\017\n\007cellID1\030\002 \001(\005\022\021\n\tamplitude\030\004 \001"
+      "(\005\022\021\n\ttimeStamp\030\005 \001(\005\"r\n\033RawCalorimeterH"
+      "itCollection\022\r\n\005flags\030\001 \001(\005\022\035\n\006params\030\002 "
+      "\001(\0132\r.eicio.Params\022%\n\003hit\030\003 \003(\0132\030.eicio."
+      "RawCalorimeterHit\"\235\001\n\016CalorimeterHit\022\017\n\007"
+      "cellID0\030\001 \001(\005\022\017\n\007cellID1\030\002 \001(\005\022\016\n\006energy"
+      "\030\003 \001(\002\022\021\n\tenergyErr\030\004 \001(\002\022\014\n\004time\030\005 \001(\002\022"
+      "\013\n\003pos\030\006 \003(\002\022\014\n\004type\030\007 \001(\005\022\035\n\003raw\030\010 \001(\0132"
+      "\020.eicio.Reference\"l\n\030CalorimeterHitColle"
       "ction\022\r\n\005flags\030\001 \001(\005\022\035\n\006params\030\002 \001(\0132\r.e"
-      "icio.Params\022\033\n\005track\030\003 \003(\0132\014.eicio.Track"
-      "\"\205\002\n\021SimCalorimeterHit\022\035\n\006params\030\001 \001(\0132\r"
-      ".eicio.Params\022\017\n\007cellID0\030\002 \001(\005\022\017\n\007cellID"
-      "1\030\003 \001(\005\022\016\n\006energy\030\004 \001(\002\022\013\n\003pos\030\005 \003(\002\0227\n\r"
-      "contributions\030\006 \003(\0132 .eicio.SimCalorimet"
-      "erHit.Contrib\032Y\n\007Contrib\022\022\n\nMCParticle\030\001"
-      " \001(\005\022\016\n\006energy\030\002 \001(\002\022\014\n\004time\030\003 \001(\002\022\013\n\003PD"
-      "G\030\004 \001(\005\022\017\n\007stepPos\030\005 \003(\002\"r\n\033SimCalorimet"
-      "erHitCollection\022\r\n\005flags\030\001 \001(\005\022\035\n\006params"
-      "\030\002 \001(\0132\r.eicio.Params\022%\n\003hit\030\003 \003(\0132\030.eic"
-      "io.SimCalorimeterHit\"[\n\021RawCalorimeterHi"
-      "t\022\017\n\007cellID0\030\001 \001(\005\022\017\n\007cellID1\030\002 \001(\005\022\021\n\ta"
-      "mplitude\030\004 \001(\005\022\021\n\ttimeStamp\030\005 \001(\005\"r\n\033Raw"
-      "CalorimeterHitCollection\022\r\n\005flags\030\001 \001(\005\022"
-      "\035\n\006params\030\002 \001(\0132\r.eicio.Params\022%\n\003hit\030\003 "
-      "\003(\0132\030.eicio.RawCalorimeterHit\"\235\001\n\016Calori"
-      "meterHit\022\017\n\007cellID0\030\001 \001(\005\022\017\n\007cellID1\030\002 \001"
-      "(\005\022\016\n\006energy\030\003 \001(\002\022\021\n\tenergyErr\030\004 \001(\002\022\014\n"
-      "\004time\030\005 \001(\002\022\013\n\003pos\030\006 \003(\002\022\014\n\004type\030\007 \001(\005\022\035"
-      "\n\003raw\030\010 \001(\0132\020.eicio.Reference\"l\n\030Calorim"
-      "eterHitCollection\022\r\n\005flags\030\001 \001(\005\022\035\n\006para"
-      "ms\030\002 \001(\0132\r.eicio.Params\022\"\n\003hit\030\003 \003(\0132\025.e"
-      "icio.CalorimeterHit\"\370\001\n\007Cluster\022\014\n\004type\030"
-      "\001 \001(\005\022\016\n\006energy\030\002 \001(\002\022\021\n\tenergyErr\030\003 \001(\002"
-      "\022\013\n\003pos\030\004 \003(\002\022\016\n\006posErr\030\005 \003(\002\022\r\n\005theta\030\006"
-      " \001(\002\022\013\n\003phi\030\007 \001(\002\022\016\n\006dirErr\030\010 \003(\002\022\r\n\005sha"
-      "pe\030\t \003(\002\022\037\n\004PIDs\030\n \003(\0132\021.eicio.ParticleI"
-      "D\022\036\n\004hits\030\013 \003(\0132\020.eicio.Reference\022\017\n\007wei"
-      "ghts\030\014 \003(\002\022\022\n\nsubDetEnes\030\r \003(\002\"b\n\021Cluste"
-      "rCollection\022\r\n\005flags\030\001 \001(\005\022\035\n\006params\030\002 \001"
-      "(\0132\r.eicio.Params\022\037\n\007cluster\030\003 \003(\0132\016.eic"
-      "io.Cluster\"\301\002\n\013RecParticle\022\014\n\004type\030\001 \001(\005"
-      "\022\t\n\001p\030\002 \003(\002\022\016\n\006energy\030\003 \001(\002\022\013\n\003cov\030\004 \003(\002"
-      "\022\014\n\004mass\030\005 \001(\002\022\016\n\006charge\030\006 \001(\002\022\013\n\003ref\030\007 "
-      "\003(\002\022\037\n\004PIDs\030\010 \003(\0132\021.eicio.ParticleID\022\017\n\007"
-      "PIDUsed\030\t \001(\005\022\025\n\rgoodnessOfPID\030\n \001(\002\022\036\n\004"
-      "recs\030\013 \003(\0132\020.eicio.Reference\022 \n\006tracks\030\014"
-      " \003(\0132\020.eicio.Reference\022\"\n\010clusters\030\r \003(\013"
-      "2\020.eicio.Reference\022\"\n\010startVtx\030\016 \001(\0132\020.e"
-      "icio.Reference\"k\n\025RecParticleCollection\022"
+      "icio.Params\022\"\n\003hit\030\003 \003(\0132\025.eicio.Calorim"
+      "eterHit\"\370\001\n\007Cluster\022\014\n\004type\030\001 \001(\005\022\016\n\006ene"
+      "rgy\030\002 \001(\002\022\021\n\tenergyErr\030\003 \001(\002\022\013\n\003pos\030\004 \003("
+      "\002\022\016\n\006posErr\030\005 \003(\002\022\r\n\005theta\030\006 \001(\002\022\013\n\003phi\030"
+      "\007 \001(\002\022\016\n\006dirErr\030\010 \003(\002\022\r\n\005shape\030\t \003(\002\022\037\n\004"
+      "PIDs\030\n \003(\0132\021.eicio.ParticleID\022\036\n\004hits\030\013 "
+      "\003(\0132\020.eicio.Reference\022\017\n\007weights\030\014 \003(\002\022\022"
+      "\n\nsubDetEnes\030\r \003(\002\"b\n\021ClusterCollection\022"
       "\r\n\005flags\030\001 \001(\005\022\035\n\006params\030\002 \001(\0132\r.eicio.P"
-      "arams\022$\n\010particle\030\003 \003(\0132\022.eicio.RecParti"
-      "cle\"\223\001\n\006Vertex\022\017\n\007primary\030\001 \001(\005\022\017\n\007algTy"
-      "pe\030\002 \001(\005\022\014\n\004chi2\030\003 \001(\002\022\014\n\004prob\030\004 \001(\002\022\013\n\003"
-      "pos\030\005 \003(\002\022\013\n\003cov\030\006 \003(\002\022\016\n\006params\030\007 \003(\002\022!"
-      "\n\007recPart\030\010 \001(\0132\020.eicio.Reference\"_\n\020Ver"
-      "texCollection\022\r\n\005flags\030\001 \001(\005\022\035\n\006params\030\002"
-      " \001(\0132\r.eicio.Params\022\035\n\006vertex\030\003 \003(\0132\r.ei"
-      "cio.Vertex\"X\n\010Relation\022\036\n\004from\030\001 \001(\0132\020.e"
-      "icio.Reference\022\034\n\002to\030\002 \001(\0132\020.eicio.Refer"
-      "ence\022\016\n\006weight\030\003 \001(\002\"e\n\022RelationCollecti"
-      "on\022\r\n\005flags\030\001 \001(\005\022\035\n\006params\030\002 \001(\0132\r.eici"
-      "o.Params\022!\n\010relation\030\003 \003(\0132\017.eicio.Relat"
-      "ionb\006proto3"
+      "arams\022\037\n\007cluster\030\003 \003(\0132\016.eicio.Cluster\"\301"
+      "\002\n\013RecParticle\022\014\n\004type\030\001 \001(\005\022\t\n\001p\030\002 \003(\002\022"
+      "\016\n\006energy\030\003 \001(\002\022\013\n\003cov\030\004 \003(\002\022\014\n\004mass\030\005 \001"
+      "(\002\022\016\n\006charge\030\006 \001(\002\022\013\n\003ref\030\007 \003(\002\022\037\n\004PIDs\030"
+      "\010 \003(\0132\021.eicio.ParticleID\022\017\n\007PIDUsed\030\t \001("
+      "\005\022\025\n\rgoodnessOfPID\030\n \001(\002\022\036\n\004recs\030\013 \003(\0132\020"
+      ".eicio.Reference\022 \n\006tracks\030\014 \003(\0132\020.eicio"
+      ".Reference\022\"\n\010clusters\030\r \003(\0132\020.eicio.Ref"
+      "erence\022\"\n\010startVtx\030\016 \001(\0132\020.eicio.Referen"
+      "ce\"k\n\025RecParticleCollection\022\r\n\005flags\030\001 \001"
+      "(\005\022\035\n\006params\030\002 \001(\0132\r.eicio.Params\022$\n\010par"
+      "ticle\030\003 \003(\0132\022.eicio.RecParticle\"\223\001\n\006Vert"
+      "ex\022\017\n\007primary\030\001 \001(\005\022\017\n\007algType\030\002 \001(\005\022\014\n\004"
+      "chi2\030\003 \001(\002\022\014\n\004prob\030\004 \001(\002\022\013\n\003pos\030\005 \003(\002\022\013\n"
+      "\003cov\030\006 \003(\002\022\016\n\006params\030\007 \003(\002\022!\n\007recPart\030\010 "
+      "\001(\0132\020.eicio.Reference\"_\n\020VertexCollectio"
+      "n\022\r\n\005flags\030\001 \001(\005\022\035\n\006params\030\002 \001(\0132\r.eicio"
+      ".Params\022\035\n\006vertex\030\003 \003(\0132\r.eicio.Vertex\"X"
+      "\n\010Relation\022\036\n\004from\030\001 \001(\0132\020.eicio.Referen"
+      "ce\022\034\n\002to\030\002 \001(\0132\020.eicio.Reference\022\016\n\006weig"
+      "ht\030\003 \001(\002\"e\n\022RelationCollection\022\r\n\005flags\030"
+      "\001 \001(\005\022\035\n\006params\030\002 \001(\0132\r.eicio.Params\022!\n\010"
+      "relation\030\003 \003(\0132\017.eicio.Relationb\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 5811);
+      descriptor, 5959);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "eicio.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
@@ -2284,11 +2329,854 @@ void EventHeader::set_allocated_description(::std::string* description) {
 
 // ===================================================================
 
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int IntParams::kArrayFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+IntParams::IntParams()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_eicio_2eproto::InitDefaults();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:eicio.IntParams)
+}
+IntParams::IntParams(const IntParams& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      array_(from.array_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:eicio.IntParams)
+}
+
+void IntParams::SharedCtor() {
+  _cached_size_ = 0;
+}
+
+IntParams::~IntParams() {
+  // @@protoc_insertion_point(destructor:eicio.IntParams)
+  SharedDtor();
+}
+
+void IntParams::SharedDtor() {
+}
+
+void IntParams::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* IntParams::descriptor() {
+  protobuf_eicio_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_eicio_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const IntParams& IntParams::default_instance() {
+  protobuf_eicio_2eproto::InitDefaults();
+  return *internal_default_instance();
+}
+
+IntParams* IntParams::New(::google::protobuf::Arena* arena) const {
+  IntParams* n = new IntParams;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void IntParams::Clear() {
+// @@protoc_insertion_point(message_clear_start:eicio.IntParams)
+  array_.Clear();
+}
+
+bool IntParams::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:eicio.IntParams)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // repeated int32 array = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u)) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, this->mutable_array())));
+        } else if (static_cast< ::google::protobuf::uint8>(tag) ==
+                   static_cast< ::google::protobuf::uint8>(8u)) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 1, 10u, input, this->mutable_array())));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:eicio.IntParams)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:eicio.IntParams)
+  return false;
+#undef DO_
+}
+
+void IntParams::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:eicio.IntParams)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated int32 array = 1;
+  if (this->array_size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteTag(1, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
+    output->WriteVarint32(_array_cached_byte_size_);
+  }
+  for (int i = 0, n = this->array_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32NoTag(
+      this->array(i), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:eicio.IntParams)
+}
+
+::google::protobuf::uint8* IntParams::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:eicio.IntParams)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated int32 array = 1;
+  if (this->array_size() > 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
+      1,
+      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
+      target);
+    target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
+      _array_cached_byte_size_, target);
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteInt32NoTagToArray(this->array_, target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:eicio.IntParams)
+  return target;
+}
+
+size_t IntParams::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:eicio.IntParams)
+  size_t total_size = 0;
+
+  // repeated int32 array = 1;
+  {
+    size_t data_size = ::google::protobuf::internal::WireFormatLite::
+      Int32Size(this->array_);
+    if (data_size > 0) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
+    }
+    int cached_size = ::google::protobuf::internal::ToCachedSize(data_size);
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _array_cached_byte_size_ = cached_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    total_size += data_size;
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void IntParams::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:eicio.IntParams)
+  GOOGLE_DCHECK_NE(&from, this);
+  const IntParams* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const IntParams>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:eicio.IntParams)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:eicio.IntParams)
+    MergeFrom(*source);
+  }
+}
+
+void IntParams::MergeFrom(const IntParams& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:eicio.IntParams)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  array_.MergeFrom(from.array_);
+}
+
+void IntParams::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:eicio.IntParams)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void IntParams::CopyFrom(const IntParams& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:eicio.IntParams)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool IntParams::IsInitialized() const {
+  return true;
+}
+
+void IntParams::Swap(IntParams* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void IntParams::InternalSwap(IntParams* other) {
+  array_.InternalSwap(&other->array_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata IntParams::GetMetadata() const {
+  protobuf_eicio_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_eicio_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// IntParams
+
+// repeated int32 array = 1;
+int IntParams::array_size() const {
+  return array_.size();
+}
+void IntParams::clear_array() {
+  array_.Clear();
+}
+::google::protobuf::int32 IntParams::array(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.IntParams.array)
+  return array_.Get(index);
+}
+void IntParams::set_array(int index, ::google::protobuf::int32 value) {
+  array_.Set(index, value);
+  // @@protoc_insertion_point(field_set:eicio.IntParams.array)
+}
+void IntParams::add_array(::google::protobuf::int32 value) {
+  array_.Add(value);
+  // @@protoc_insertion_point(field_add:eicio.IntParams.array)
+}
+const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+IntParams::array() const {
+  // @@protoc_insertion_point(field_list:eicio.IntParams.array)
+  return array_;
+}
+::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+IntParams::mutable_array() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.IntParams.array)
+  return &array_;
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int FloatParams::kArrayFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+FloatParams::FloatParams()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_eicio_2eproto::InitDefaults();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:eicio.FloatParams)
+}
+FloatParams::FloatParams(const FloatParams& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      array_(from.array_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:eicio.FloatParams)
+}
+
+void FloatParams::SharedCtor() {
+  _cached_size_ = 0;
+}
+
+FloatParams::~FloatParams() {
+  // @@protoc_insertion_point(destructor:eicio.FloatParams)
+  SharedDtor();
+}
+
+void FloatParams::SharedDtor() {
+}
+
+void FloatParams::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* FloatParams::descriptor() {
+  protobuf_eicio_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_eicio_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const FloatParams& FloatParams::default_instance() {
+  protobuf_eicio_2eproto::InitDefaults();
+  return *internal_default_instance();
+}
+
+FloatParams* FloatParams::New(::google::protobuf::Arena* arena) const {
+  FloatParams* n = new FloatParams;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void FloatParams::Clear() {
+// @@protoc_insertion_point(message_clear_start:eicio.FloatParams)
+  array_.Clear();
+}
+
+bool FloatParams::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:eicio.FloatParams)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // repeated float array = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u)) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, this->mutable_array())));
+        } else if (static_cast< ::google::protobuf::uint8>(tag) ==
+                   static_cast< ::google::protobuf::uint8>(13u)) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 1, 10u, input, this->mutable_array())));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:eicio.FloatParams)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:eicio.FloatParams)
+  return false;
+#undef DO_
+}
+
+void FloatParams::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:eicio.FloatParams)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated float array = 1;
+  if (this->array_size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteTag(1, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
+    output->WriteVarint32(_array_cached_byte_size_);
+    ::google::protobuf::internal::WireFormatLite::WriteFloatArray(
+      this->array().data(), this->array_size(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:eicio.FloatParams)
+}
+
+::google::protobuf::uint8* FloatParams::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:eicio.FloatParams)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated float array = 1;
+  if (this->array_size() > 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
+      1,
+      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
+      target);
+    target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
+      _array_cached_byte_size_, target);
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteFloatNoTagToArray(this->array_, target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:eicio.FloatParams)
+  return target;
+}
+
+size_t FloatParams::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:eicio.FloatParams)
+  size_t total_size = 0;
+
+  // repeated float array = 1;
+  {
+    unsigned int count = this->array_size();
+    size_t data_size = 4UL * count;
+    if (data_size > 0) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
+    }
+    int cached_size = ::google::protobuf::internal::ToCachedSize(data_size);
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _array_cached_byte_size_ = cached_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    total_size += data_size;
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void FloatParams::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:eicio.FloatParams)
+  GOOGLE_DCHECK_NE(&from, this);
+  const FloatParams* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const FloatParams>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:eicio.FloatParams)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:eicio.FloatParams)
+    MergeFrom(*source);
+  }
+}
+
+void FloatParams::MergeFrom(const FloatParams& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:eicio.FloatParams)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  array_.MergeFrom(from.array_);
+}
+
+void FloatParams::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:eicio.FloatParams)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void FloatParams::CopyFrom(const FloatParams& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:eicio.FloatParams)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool FloatParams::IsInitialized() const {
+  return true;
+}
+
+void FloatParams::Swap(FloatParams* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void FloatParams::InternalSwap(FloatParams* other) {
+  array_.InternalSwap(&other->array_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata FloatParams::GetMetadata() const {
+  protobuf_eicio_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_eicio_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// FloatParams
+
+// repeated float array = 1;
+int FloatParams::array_size() const {
+  return array_.size();
+}
+void FloatParams::clear_array() {
+  array_.Clear();
+}
+float FloatParams::array(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.FloatParams.array)
+  return array_.Get(index);
+}
+void FloatParams::set_array(int index, float value) {
+  array_.Set(index, value);
+  // @@protoc_insertion_point(field_set:eicio.FloatParams.array)
+}
+void FloatParams::add_array(float value) {
+  array_.Add(value);
+  // @@protoc_insertion_point(field_add:eicio.FloatParams.array)
+}
+const ::google::protobuf::RepeatedField< float >&
+FloatParams::array() const {
+  // @@protoc_insertion_point(field_list:eicio.FloatParams.array)
+  return array_;
+}
+::google::protobuf::RepeatedField< float >*
+FloatParams::mutable_array() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.FloatParams.array)
+  return &array_;
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int StringParams::kArrayFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+StringParams::StringParams()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_eicio_2eproto::InitDefaults();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:eicio.StringParams)
+}
+StringParams::StringParams(const StringParams& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      array_(from.array_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:eicio.StringParams)
+}
+
+void StringParams::SharedCtor() {
+  _cached_size_ = 0;
+}
+
+StringParams::~StringParams() {
+  // @@protoc_insertion_point(destructor:eicio.StringParams)
+  SharedDtor();
+}
+
+void StringParams::SharedDtor() {
+}
+
+void StringParams::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* StringParams::descriptor() {
+  protobuf_eicio_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_eicio_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const StringParams& StringParams::default_instance() {
+  protobuf_eicio_2eproto::InitDefaults();
+  return *internal_default_instance();
+}
+
+StringParams* StringParams::New(::google::protobuf::Arena* arena) const {
+  StringParams* n = new StringParams;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void StringParams::Clear() {
+// @@protoc_insertion_point(message_clear_start:eicio.StringParams)
+  array_.Clear();
+}
+
+bool StringParams::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:eicio.StringParams)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // repeated string array = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->add_array()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->array(this->array_size() - 1).data(),
+            this->array(this->array_size() - 1).length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "eicio.StringParams.array"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:eicio.StringParams)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:eicio.StringParams)
+  return false;
+#undef DO_
+}
+
+void StringParams::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:eicio.StringParams)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated string array = 1;
+  for (int i = 0, n = this->array_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->array(i).data(), this->array(i).length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "eicio.StringParams.array");
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      1, this->array(i), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:eicio.StringParams)
+}
+
+::google::protobuf::uint8* StringParams::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:eicio.StringParams)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated string array = 1;
+  for (int i = 0, n = this->array_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->array(i).data(), this->array(i).length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "eicio.StringParams.array");
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteStringToArray(1, this->array(i), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:eicio.StringParams)
+  return target;
+}
+
+size_t StringParams::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:eicio.StringParams)
+  size_t total_size = 0;
+
+  // repeated string array = 1;
+  total_size += 1 *
+      ::google::protobuf::internal::FromIntSize(this->array_size());
+  for (int i = 0, n = this->array_size(); i < n; i++) {
+    total_size += ::google::protobuf::internal::WireFormatLite::StringSize(
+      this->array(i));
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void StringParams::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:eicio.StringParams)
+  GOOGLE_DCHECK_NE(&from, this);
+  const StringParams* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const StringParams>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:eicio.StringParams)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:eicio.StringParams)
+    MergeFrom(*source);
+  }
+}
+
+void StringParams::MergeFrom(const StringParams& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:eicio.StringParams)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  array_.MergeFrom(from.array_);
+}
+
+void StringParams::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:eicio.StringParams)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void StringParams::CopyFrom(const StringParams& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:eicio.StringParams)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool StringParams::IsInitialized() const {
+  return true;
+}
+
+void StringParams::Swap(StringParams* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void StringParams::InternalSwap(StringParams* other) {
+  array_.InternalSwap(&other->array_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata StringParams::GetMetadata() const {
+  protobuf_eicio_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_eicio_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// StringParams
+
+// repeated string array = 1;
+int StringParams::array_size() const {
+  return array_.size();
+}
+void StringParams::clear_array() {
+  array_.Clear();
+}
+const ::std::string& StringParams::array(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.StringParams.array)
+  return array_.Get(index);
+}
+::std::string* StringParams::mutable_array(int index) {
+  // @@protoc_insertion_point(field_mutable:eicio.StringParams.array)
+  return array_.Mutable(index);
+}
+void StringParams::set_array(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:eicio.StringParams.array)
+  array_.Mutable(index)->assign(value);
+}
+#if LANG_CXX11
+void StringParams::set_array(int index, ::std::string&& value) {
+  // @@protoc_insertion_point(field_set:eicio.StringParams.array)
+  array_.Mutable(index)->assign(std::move(value));
+}
+#endif
+void StringParams::set_array(int index, const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  array_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:eicio.StringParams.array)
+}
+void StringParams::set_array(int index, const char* value, size_t size) {
+  array_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:eicio.StringParams.array)
+}
+::std::string* StringParams::add_array() {
+  // @@protoc_insertion_point(field_add_mutable:eicio.StringParams.array)
+  return array_.Add();
+}
+void StringParams::add_array(const ::std::string& value) {
+  array_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:eicio.StringParams.array)
+}
+#if LANG_CXX11
+void StringParams::add_array(::std::string&& value) {
+  array_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:eicio.StringParams.array)
+}
+#endif
+void StringParams::add_array(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  array_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:eicio.StringParams.array)
+}
+void StringParams::add_array(const char* value, size_t size) {
+  array_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:eicio.StringParams.array)
+}
+const ::google::protobuf::RepeatedPtrField< ::std::string>&
+StringParams::array() const {
+  // @@protoc_insertion_point(field_list:eicio.StringParams.array)
+  return array_;
+}
+::google::protobuf::RepeatedPtrField< ::std::string>*
+StringParams::mutable_array() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.StringParams.array)
+  return &array_;
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
 Params::Params_IntsEntry::Params_IntsEntry() {}
 Params::Params_IntsEntry::Params_IntsEntry(::google::protobuf::Arena* arena) : SuperType(arena) {}
 ::google::protobuf::Metadata Params::Params_IntsEntry::GetMetadata() const {
   protobuf_eicio_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_eicio_2eproto::file_level_metadata[2];
+  return protobuf_eicio_2eproto::file_level_metadata[5];
 }
 void Params::Params_IntsEntry::MergeFrom(
     const ::google::protobuf::Message& other) {
@@ -2307,7 +3195,7 @@ Params::Params_FloatsEntry::Params_FloatsEntry() {}
 Params::Params_FloatsEntry::Params_FloatsEntry(::google::protobuf::Arena* arena) : SuperType(arena) {}
 ::google::protobuf::Metadata Params::Params_FloatsEntry::GetMetadata() const {
   protobuf_eicio_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_eicio_2eproto::file_level_metadata[3];
+  return protobuf_eicio_2eproto::file_level_metadata[6];
 }
 void Params::Params_FloatsEntry::MergeFrom(
     const ::google::protobuf::Message& other) {
@@ -2326,7 +3214,7 @@ Params::Params_StringsEntry::Params_StringsEntry() {}
 Params::Params_StringsEntry::Params_StringsEntry(::google::protobuf::Arena* arena) : SuperType(arena) {}
 ::google::protobuf::Metadata Params::Params_StringsEntry::GetMetadata() const {
   protobuf_eicio_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_eicio_2eproto::file_level_metadata[4];
+  return protobuf_eicio_2eproto::file_level_metadata[7];
 }
 void Params::Params_StringsEntry::MergeFrom(
     const ::google::protobuf::Message& other) {
@@ -2418,17 +3306,17 @@ bool Params::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // map<string, int32> ints = 1;
+      // map<string, .eicio.IntParams> ints = 1;
       case 1: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(10u)) {
           Params_IntsEntry::Parser< ::google::protobuf::internal::MapField<
               Params_IntsEntry,
-              ::std::string, ::google::protobuf::int32,
+              ::std::string, ::eicio::IntParams,
               ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-              ::google::protobuf::internal::WireFormatLite::TYPE_INT32,
+              ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
               0 >,
-            ::google::protobuf::Map< ::std::string, ::google::protobuf::int32 > > parser(&ints_);
+            ::google::protobuf::Map< ::std::string, ::eicio::IntParams > > parser(&ints_);
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
               input, &parser));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -2441,17 +3329,17 @@ bool Params::MergePartialFromCodedStream(
         break;
       }
 
-      // map<string, float> floats = 2;
+      // map<string, .eicio.FloatParams> floats = 2;
       case 2: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(18u)) {
           Params_FloatsEntry::Parser< ::google::protobuf::internal::MapField<
               Params_FloatsEntry,
-              ::std::string, float,
+              ::std::string, ::eicio::FloatParams,
               ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-              ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT,
+              ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
               0 >,
-            ::google::protobuf::Map< ::std::string, float > > parser(&floats_);
+            ::google::protobuf::Map< ::std::string, ::eicio::FloatParams > > parser(&floats_);
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
               input, &parser));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -2464,27 +3352,23 @@ bool Params::MergePartialFromCodedStream(
         break;
       }
 
-      // map<string, string> strings = 3;
+      // map<string, .eicio.StringParams> strings = 3;
       case 3: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(26u)) {
           Params_StringsEntry::Parser< ::google::protobuf::internal::MapField<
               Params_StringsEntry,
-              ::std::string, ::std::string,
+              ::std::string, ::eicio::StringParams,
               ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-              ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+              ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
               0 >,
-            ::google::protobuf::Map< ::std::string, ::std::string > > parser(&strings_);
+            ::google::protobuf::Map< ::std::string, ::eicio::StringParams > > parser(&strings_);
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
               input, &parser));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             parser.key().data(), parser.key().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
             "eicio.Params.StringsEntry.key"));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            parser.value().data(), parser.value().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "eicio.Params.StringsEntry.value"));
         } else {
           goto handle_unusual;
         }
@@ -2518,9 +3402,9 @@ void Params::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // map<string, int32> ints = 1;
+  // map<string, .eicio.IntParams> ints = 1;
   if (!this->ints().empty()) {
-    typedef ::google::protobuf::Map< ::std::string, ::google::protobuf::int32 >::const_pointer
+    typedef ::google::protobuf::Map< ::std::string, ::eicio::IntParams >::const_pointer
         ConstPtr;
     typedef ConstPtr SortItem;
     typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
@@ -2537,9 +3421,9 @@ void Params::SerializeWithCachedSizes(
         this->ints().size() > 1) {
       ::google::protobuf::scoped_array<SortItem> items(
           new SortItem[this->ints().size()]);
-      typedef ::google::protobuf::Map< ::std::string, ::google::protobuf::int32 >::size_type size_type;
+      typedef ::google::protobuf::Map< ::std::string, ::eicio::IntParams >::size_type size_type;
       size_type n = 0;
-      for (::google::protobuf::Map< ::std::string, ::google::protobuf::int32 >::const_iterator
+      for (::google::protobuf::Map< ::std::string, ::eicio::IntParams >::const_iterator
           it = this->ints().begin();
           it != this->ints().end(); ++it, ++n) {
         items[n] = SortItem(&*it);
@@ -2555,7 +3439,7 @@ void Params::SerializeWithCachedSizes(
       }
     } else {
       ::google::protobuf::scoped_ptr<Params_IntsEntry> entry;
-      for (::google::protobuf::Map< ::std::string, ::google::protobuf::int32 >::const_iterator
+      for (::google::protobuf::Map< ::std::string, ::eicio::IntParams >::const_iterator
           it = this->ints().begin();
           it != this->ints().end(); ++it) {
         entry.reset(ints_.NewEntryWrapper(
@@ -2567,9 +3451,9 @@ void Params::SerializeWithCachedSizes(
     }
   }
 
-  // map<string, float> floats = 2;
+  // map<string, .eicio.FloatParams> floats = 2;
   if (!this->floats().empty()) {
-    typedef ::google::protobuf::Map< ::std::string, float >::const_pointer
+    typedef ::google::protobuf::Map< ::std::string, ::eicio::FloatParams >::const_pointer
         ConstPtr;
     typedef ConstPtr SortItem;
     typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
@@ -2586,9 +3470,9 @@ void Params::SerializeWithCachedSizes(
         this->floats().size() > 1) {
       ::google::protobuf::scoped_array<SortItem> items(
           new SortItem[this->floats().size()]);
-      typedef ::google::protobuf::Map< ::std::string, float >::size_type size_type;
+      typedef ::google::protobuf::Map< ::std::string, ::eicio::FloatParams >::size_type size_type;
       size_type n = 0;
-      for (::google::protobuf::Map< ::std::string, float >::const_iterator
+      for (::google::protobuf::Map< ::std::string, ::eicio::FloatParams >::const_iterator
           it = this->floats().begin();
           it != this->floats().end(); ++it, ++n) {
         items[n] = SortItem(&*it);
@@ -2604,7 +3488,7 @@ void Params::SerializeWithCachedSizes(
       }
     } else {
       ::google::protobuf::scoped_ptr<Params_FloatsEntry> entry;
-      for (::google::protobuf::Map< ::std::string, float >::const_iterator
+      for (::google::protobuf::Map< ::std::string, ::eicio::FloatParams >::const_iterator
           it = this->floats().begin();
           it != this->floats().end(); ++it) {
         entry.reset(floats_.NewEntryWrapper(
@@ -2616,9 +3500,9 @@ void Params::SerializeWithCachedSizes(
     }
   }
 
-  // map<string, string> strings = 3;
+  // map<string, .eicio.StringParams> strings = 3;
   if (!this->strings().empty()) {
-    typedef ::google::protobuf::Map< ::std::string, ::std::string >::const_pointer
+    typedef ::google::protobuf::Map< ::std::string, ::eicio::StringParams >::const_pointer
         ConstPtr;
     typedef ConstPtr SortItem;
     typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
@@ -2628,10 +3512,6 @@ void Params::SerializeWithCachedSizes(
           p->first.data(), p->first.length(),
           ::google::protobuf::internal::WireFormatLite::SERIALIZE,
           "eicio.Params.StringsEntry.key");
-        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-          p->second.data(), p->second.length(),
-          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-          "eicio.Params.StringsEntry.value");
       }
     };
 
@@ -2639,9 +3519,9 @@ void Params::SerializeWithCachedSizes(
         this->strings().size() > 1) {
       ::google::protobuf::scoped_array<SortItem> items(
           new SortItem[this->strings().size()]);
-      typedef ::google::protobuf::Map< ::std::string, ::std::string >::size_type size_type;
+      typedef ::google::protobuf::Map< ::std::string, ::eicio::StringParams >::size_type size_type;
       size_type n = 0;
-      for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
+      for (::google::protobuf::Map< ::std::string, ::eicio::StringParams >::const_iterator
           it = this->strings().begin();
           it != this->strings().end(); ++it, ++n) {
         items[n] = SortItem(&*it);
@@ -2657,7 +3537,7 @@ void Params::SerializeWithCachedSizes(
       }
     } else {
       ::google::protobuf::scoped_ptr<Params_StringsEntry> entry;
-      for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
+      for (::google::protobuf::Map< ::std::string, ::eicio::StringParams >::const_iterator
           it = this->strings().begin();
           it != this->strings().end(); ++it) {
         entry.reset(strings_.NewEntryWrapper(
@@ -2679,9 +3559,9 @@ void Params::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // map<string, int32> ints = 1;
+  // map<string, .eicio.IntParams> ints = 1;
   if (!this->ints().empty()) {
-    typedef ::google::protobuf::Map< ::std::string, ::google::protobuf::int32 >::const_pointer
+    typedef ::google::protobuf::Map< ::std::string, ::eicio::IntParams >::const_pointer
         ConstPtr;
     typedef ConstPtr SortItem;
     typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
@@ -2698,9 +3578,9 @@ void Params::SerializeWithCachedSizes(
         this->ints().size() > 1) {
       ::google::protobuf::scoped_array<SortItem> items(
           new SortItem[this->ints().size()]);
-      typedef ::google::protobuf::Map< ::std::string, ::google::protobuf::int32 >::size_type size_type;
+      typedef ::google::protobuf::Map< ::std::string, ::eicio::IntParams >::size_type size_type;
       size_type n = 0;
-      for (::google::protobuf::Map< ::std::string, ::google::protobuf::int32 >::const_iterator
+      for (::google::protobuf::Map< ::std::string, ::eicio::IntParams >::const_iterator
           it = this->ints().begin();
           it != this->ints().end(); ++it, ++n) {
         items[n] = SortItem(&*it);
@@ -2718,7 +3598,7 @@ void Params::SerializeWithCachedSizes(
       }
     } else {
       ::google::protobuf::scoped_ptr<Params_IntsEntry> entry;
-      for (::google::protobuf::Map< ::std::string, ::google::protobuf::int32 >::const_iterator
+      for (::google::protobuf::Map< ::std::string, ::eicio::IntParams >::const_iterator
           it = this->ints().begin();
           it != this->ints().end(); ++it) {
         entry.reset(ints_.NewEntryWrapper(
@@ -2732,9 +3612,9 @@ void Params::SerializeWithCachedSizes(
     }
   }
 
-  // map<string, float> floats = 2;
+  // map<string, .eicio.FloatParams> floats = 2;
   if (!this->floats().empty()) {
-    typedef ::google::protobuf::Map< ::std::string, float >::const_pointer
+    typedef ::google::protobuf::Map< ::std::string, ::eicio::FloatParams >::const_pointer
         ConstPtr;
     typedef ConstPtr SortItem;
     typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
@@ -2751,9 +3631,9 @@ void Params::SerializeWithCachedSizes(
         this->floats().size() > 1) {
       ::google::protobuf::scoped_array<SortItem> items(
           new SortItem[this->floats().size()]);
-      typedef ::google::protobuf::Map< ::std::string, float >::size_type size_type;
+      typedef ::google::protobuf::Map< ::std::string, ::eicio::FloatParams >::size_type size_type;
       size_type n = 0;
-      for (::google::protobuf::Map< ::std::string, float >::const_iterator
+      for (::google::protobuf::Map< ::std::string, ::eicio::FloatParams >::const_iterator
           it = this->floats().begin();
           it != this->floats().end(); ++it, ++n) {
         items[n] = SortItem(&*it);
@@ -2771,7 +3651,7 @@ void Params::SerializeWithCachedSizes(
       }
     } else {
       ::google::protobuf::scoped_ptr<Params_FloatsEntry> entry;
-      for (::google::protobuf::Map< ::std::string, float >::const_iterator
+      for (::google::protobuf::Map< ::std::string, ::eicio::FloatParams >::const_iterator
           it = this->floats().begin();
           it != this->floats().end(); ++it) {
         entry.reset(floats_.NewEntryWrapper(
@@ -2785,9 +3665,9 @@ void Params::SerializeWithCachedSizes(
     }
   }
 
-  // map<string, string> strings = 3;
+  // map<string, .eicio.StringParams> strings = 3;
   if (!this->strings().empty()) {
-    typedef ::google::protobuf::Map< ::std::string, ::std::string >::const_pointer
+    typedef ::google::protobuf::Map< ::std::string, ::eicio::StringParams >::const_pointer
         ConstPtr;
     typedef ConstPtr SortItem;
     typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
@@ -2797,10 +3677,6 @@ void Params::SerializeWithCachedSizes(
           p->first.data(), p->first.length(),
           ::google::protobuf::internal::WireFormatLite::SERIALIZE,
           "eicio.Params.StringsEntry.key");
-        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-          p->second.data(), p->second.length(),
-          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-          "eicio.Params.StringsEntry.value");
       }
     };
 
@@ -2808,9 +3684,9 @@ void Params::SerializeWithCachedSizes(
         this->strings().size() > 1) {
       ::google::protobuf::scoped_array<SortItem> items(
           new SortItem[this->strings().size()]);
-      typedef ::google::protobuf::Map< ::std::string, ::std::string >::size_type size_type;
+      typedef ::google::protobuf::Map< ::std::string, ::eicio::StringParams >::size_type size_type;
       size_type n = 0;
-      for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
+      for (::google::protobuf::Map< ::std::string, ::eicio::StringParams >::const_iterator
           it = this->strings().begin();
           it != this->strings().end(); ++it, ++n) {
         items[n] = SortItem(&*it);
@@ -2828,7 +3704,7 @@ void Params::SerializeWithCachedSizes(
       }
     } else {
       ::google::protobuf::scoped_ptr<Params_StringsEntry> entry;
-      for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
+      for (::google::protobuf::Map< ::std::string, ::eicio::StringParams >::const_iterator
           it = this->strings().begin();
           it != this->strings().end(); ++it) {
         entry.reset(strings_.NewEntryWrapper(
@@ -2850,12 +3726,12 @@ size_t Params::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:eicio.Params)
   size_t total_size = 0;
 
-  // map<string, int32> ints = 1;
+  // map<string, .eicio.IntParams> ints = 1;
   total_size += 1 *
       ::google::protobuf::internal::FromIntSize(this->ints_size());
   {
     ::google::protobuf::scoped_ptr<Params_IntsEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::google::protobuf::int32 >::const_iterator
+    for (::google::protobuf::Map< ::std::string, ::eicio::IntParams >::const_iterator
         it = this->ints().begin();
         it != this->ints().end(); ++it) {
       entry.reset(ints_.NewEntryWrapper(it->first, it->second));
@@ -2864,12 +3740,12 @@ size_t Params::ByteSizeLong() const {
     }
   }
 
-  // map<string, float> floats = 2;
+  // map<string, .eicio.FloatParams> floats = 2;
   total_size += 1 *
       ::google::protobuf::internal::FromIntSize(this->floats_size());
   {
     ::google::protobuf::scoped_ptr<Params_FloatsEntry> entry;
-    for (::google::protobuf::Map< ::std::string, float >::const_iterator
+    for (::google::protobuf::Map< ::std::string, ::eicio::FloatParams >::const_iterator
         it = this->floats().begin();
         it != this->floats().end(); ++it) {
       entry.reset(floats_.NewEntryWrapper(it->first, it->second));
@@ -2878,12 +3754,12 @@ size_t Params::ByteSizeLong() const {
     }
   }
 
-  // map<string, string> strings = 3;
+  // map<string, .eicio.StringParams> strings = 3;
   total_size += 1 *
       ::google::protobuf::internal::FromIntSize(this->strings_size());
   {
     ::google::protobuf::scoped_ptr<Params_StringsEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
+    for (::google::protobuf::Map< ::std::string, ::eicio::StringParams >::const_iterator
         it = this->strings().begin();
         it != this->strings().end(); ++it) {
       entry.reset(strings_.NewEntryWrapper(it->first, it->second));
@@ -2963,55 +3839,55 @@ void Params::InternalSwap(Params* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // Params
 
-// map<string, int32> ints = 1;
+// map<string, .eicio.IntParams> ints = 1;
 int Params::ints_size() const {
   return ints_.size();
 }
 void Params::clear_ints() {
   ints_.Clear();
 }
- const ::google::protobuf::Map< ::std::string, ::google::protobuf::int32 >&
+ const ::google::protobuf::Map< ::std::string, ::eicio::IntParams >&
 Params::ints() const {
   // @@protoc_insertion_point(field_map:eicio.Params.ints)
   return ints_.GetMap();
 }
- ::google::protobuf::Map< ::std::string, ::google::protobuf::int32 >*
+ ::google::protobuf::Map< ::std::string, ::eicio::IntParams >*
 Params::mutable_ints() {
   // @@protoc_insertion_point(field_mutable_map:eicio.Params.ints)
   return ints_.MutableMap();
 }
 
-// map<string, float> floats = 2;
+// map<string, .eicio.FloatParams> floats = 2;
 int Params::floats_size() const {
   return floats_.size();
 }
 void Params::clear_floats() {
   floats_.Clear();
 }
- const ::google::protobuf::Map< ::std::string, float >&
+ const ::google::protobuf::Map< ::std::string, ::eicio::FloatParams >&
 Params::floats() const {
   // @@protoc_insertion_point(field_map:eicio.Params.floats)
   return floats_.GetMap();
 }
- ::google::protobuf::Map< ::std::string, float >*
+ ::google::protobuf::Map< ::std::string, ::eicio::FloatParams >*
 Params::mutable_floats() {
   // @@protoc_insertion_point(field_mutable_map:eicio.Params.floats)
   return floats_.MutableMap();
 }
 
-// map<string, string> strings = 3;
+// map<string, .eicio.StringParams> strings = 3;
 int Params::strings_size() const {
   return strings_.size();
 }
 void Params::clear_strings() {
   strings_.Clear();
 }
- const ::google::protobuf::Map< ::std::string, ::std::string >&
+ const ::google::protobuf::Map< ::std::string, ::eicio::StringParams >&
 Params::strings() const {
   // @@protoc_insertion_point(field_map:eicio.Params.strings)
   return strings_.GetMap();
 }
- ::google::protobuf::Map< ::std::string, ::std::string >*
+ ::google::protobuf::Map< ::std::string, ::eicio::StringParams >*
 Params::mutable_strings() {
   // @@protoc_insertion_point(field_mutable_map:eicio.Params.strings)
   return strings_.MutableMap();

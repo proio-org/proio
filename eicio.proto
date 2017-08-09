@@ -40,10 +40,22 @@ message EventHeader {
 	string description = 16;
 }
 
+message IntParams {
+	repeated int32 array = 1;
+}
+
+message FloatParams {
+	repeated float array = 1;
+}
+
+message StringParams {
+	repeated string array = 1;
+}
+
 message Params {
-	map<string, int32> ints = 1;
-	map<string, float> floats = 2;
-	map<string, string> strings = 3;
+	map<string, IntParams> ints = 1;
+	map<string, FloatParams> floats = 2;
+	map<string, StringParams> strings = 3;
 }
 
 message Reference {

@@ -52,6 +52,12 @@ extern EventHeaderDefaultTypeInternal _EventHeader_default_instance_;
 class EventHeader_CollectionHeader;
 class EventHeader_CollectionHeaderDefaultTypeInternal;
 extern EventHeader_CollectionHeaderDefaultTypeInternal _EventHeader_CollectionHeader_default_instance_;
+class FloatParams;
+class FloatParamsDefaultTypeInternal;
+extern FloatParamsDefaultTypeInternal _FloatParams_default_instance_;
+class IntParams;
+class IntParamsDefaultTypeInternal;
+extern IntParamsDefaultTypeInternal _IntParams_default_instance_;
 class MCParticle;
 class MCParticleDefaultTypeInternal;
 extern MCParticleDefaultTypeInternal _MCParticle_default_instance_;
@@ -109,6 +115,9 @@ extern SimTrackerHitDefaultTypeInternal _SimTrackerHit_default_instance_;
 class SimTrackerHitCollection;
 class SimTrackerHitCollectionDefaultTypeInternal;
 extern SimTrackerHitCollectionDefaultTypeInternal _SimTrackerHitCollection_default_instance_;
+class StringParams;
+class StringParamsDefaultTypeInternal;
+extern StringParamsDefaultTypeInternal _StringParams_default_instance_;
 class Track;
 class TrackDefaultTypeInternal;
 extern TrackDefaultTypeInternal _Track_default_instance_;
@@ -530,6 +539,276 @@ class EventHeader : public ::google::protobuf::Message /* @@protoc_insertion_poi
 };
 // -------------------------------------------------------------------
 
+class IntParams : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.IntParams) */ {
+ public:
+  IntParams();
+  virtual ~IntParams();
+
+  IntParams(const IntParams& from);
+
+  inline IntParams& operator=(const IntParams& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const IntParams& default_instance();
+
+  static inline const IntParams* internal_default_instance() {
+    return reinterpret_cast<const IntParams*>(
+               &_IntParams_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    2;
+
+  void Swap(IntParams* other);
+
+  // implements Message ----------------------------------------------
+
+  inline IntParams* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  IntParams* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const IntParams& from);
+  void MergeFrom(const IntParams& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(IntParams* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated int32 array = 1;
+  int array_size() const;
+  void clear_array();
+  static const int kArrayFieldNumber = 1;
+  ::google::protobuf::int32 array(int index) const;
+  void set_array(int index, ::google::protobuf::int32 value);
+  void add_array(::google::protobuf::int32 value);
+  const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+      array() const;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+      mutable_array();
+
+  // @@protoc_insertion_point(class_scope:eicio.IntParams)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int32 > array_;
+  mutable int _array_cached_byte_size_;
+  mutable int _cached_size_;
+  friend struct protobuf_eicio_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class FloatParams : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.FloatParams) */ {
+ public:
+  FloatParams();
+  virtual ~FloatParams();
+
+  FloatParams(const FloatParams& from);
+
+  inline FloatParams& operator=(const FloatParams& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const FloatParams& default_instance();
+
+  static inline const FloatParams* internal_default_instance() {
+    return reinterpret_cast<const FloatParams*>(
+               &_FloatParams_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    3;
+
+  void Swap(FloatParams* other);
+
+  // implements Message ----------------------------------------------
+
+  inline FloatParams* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  FloatParams* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const FloatParams& from);
+  void MergeFrom(const FloatParams& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(FloatParams* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated float array = 1;
+  int array_size() const;
+  void clear_array();
+  static const int kArrayFieldNumber = 1;
+  float array(int index) const;
+  void set_array(int index, float value);
+  void add_array(float value);
+  const ::google::protobuf::RepeatedField< float >&
+      array() const;
+  ::google::protobuf::RepeatedField< float >*
+      mutable_array();
+
+  // @@protoc_insertion_point(class_scope:eicio.FloatParams)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedField< float > array_;
+  mutable int _array_cached_byte_size_;
+  mutable int _cached_size_;
+  friend struct protobuf_eicio_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class StringParams : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.StringParams) */ {
+ public:
+  StringParams();
+  virtual ~StringParams();
+
+  StringParams(const StringParams& from);
+
+  inline StringParams& operator=(const StringParams& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const StringParams& default_instance();
+
+  static inline const StringParams* internal_default_instance() {
+    return reinterpret_cast<const StringParams*>(
+               &_StringParams_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    4;
+
+  void Swap(StringParams* other);
+
+  // implements Message ----------------------------------------------
+
+  inline StringParams* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  StringParams* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const StringParams& from);
+  void MergeFrom(const StringParams& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(StringParams* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated string array = 1;
+  int array_size() const;
+  void clear_array();
+  static const int kArrayFieldNumber = 1;
+  const ::std::string& array(int index) const;
+  ::std::string* mutable_array(int index);
+  void set_array(int index, const ::std::string& value);
+  #if LANG_CXX11
+  void set_array(int index, ::std::string&& value);
+  #endif
+  void set_array(int index, const char* value);
+  void set_array(int index, const char* value, size_t size);
+  ::std::string* add_array();
+  void add_array(const ::std::string& value);
+  #if LANG_CXX11
+  void add_array(::std::string&& value);
+  #endif
+  void add_array(const char* value);
+  void add_array(const char* value, size_t size);
+  const ::google::protobuf::RepeatedPtrField< ::std::string>& array() const;
+  ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_array();
+
+  // @@protoc_insertion_point(class_scope:eicio.StringParams)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedPtrField< ::std::string> array_;
+  mutable int _cached_size_;
+  friend struct protobuf_eicio_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
 
 // -------------------------------------------------------------------
 
@@ -559,7 +838,7 @@ class Params : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
                &_Params_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    5;
+    8;
 
   void Swap(Params* other);
 
@@ -604,31 +883,31 @@ class Params : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
 
   // accessors -------------------------------------------------------
 
-  // map<string, int32> ints = 1;
+  // map<string, .eicio.IntParams> ints = 1;
   int ints_size() const;
   void clear_ints();
   static const int kIntsFieldNumber = 1;
-  const ::google::protobuf::Map< ::std::string, ::google::protobuf::int32 >&
+  const ::google::protobuf::Map< ::std::string, ::eicio::IntParams >&
       ints() const;
-  ::google::protobuf::Map< ::std::string, ::google::protobuf::int32 >*
+  ::google::protobuf::Map< ::std::string, ::eicio::IntParams >*
       mutable_ints();
 
-  // map<string, float> floats = 2;
+  // map<string, .eicio.FloatParams> floats = 2;
   int floats_size() const;
   void clear_floats();
   static const int kFloatsFieldNumber = 2;
-  const ::google::protobuf::Map< ::std::string, float >&
+  const ::google::protobuf::Map< ::std::string, ::eicio::FloatParams >&
       floats() const;
-  ::google::protobuf::Map< ::std::string, float >*
+  ::google::protobuf::Map< ::std::string, ::eicio::FloatParams >*
       mutable_floats();
 
-  // map<string, string> strings = 3;
+  // map<string, .eicio.StringParams> strings = 3;
   int strings_size() const;
   void clear_strings();
   static const int kStringsFieldNumber = 3;
-  const ::google::protobuf::Map< ::std::string, ::std::string >&
+  const ::google::protobuf::Map< ::std::string, ::eicio::StringParams >&
       strings() const;
-  ::google::protobuf::Map< ::std::string, ::std::string >*
+  ::google::protobuf::Map< ::std::string, ::eicio::StringParams >*
       mutable_strings();
 
   // @@protoc_insertion_point(class_scope:eicio.Params)
@@ -637,15 +916,15 @@ class Params : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   public:
   class Params_IntsEntry : public ::google::protobuf::internal::MapEntry<Params_IntsEntry, 
-      ::std::string, ::google::protobuf::int32,
+      ::std::string, ::eicio::IntParams,
       ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-      ::google::protobuf::internal::WireFormatLite::TYPE_INT32,
+      ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
       0 > {
   public:
     typedef ::google::protobuf::internal::MapEntry<Params_IntsEntry, 
-      ::std::string, ::google::protobuf::int32,
+      ::std::string, ::eicio::IntParams,
       ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-      ::google::protobuf::internal::WireFormatLite::TYPE_INT32,
+      ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
       0 > SuperType;
     Params_IntsEntry();
     Params_IntsEntry(::google::protobuf::Arena* arena);
@@ -656,22 +935,22 @@ class Params : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
   };
   ::google::protobuf::internal::MapField<
       Params_IntsEntry,
-      ::std::string, ::google::protobuf::int32,
+      ::std::string, ::eicio::IntParams,
       ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-      ::google::protobuf::internal::WireFormatLite::TYPE_INT32,
+      ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
       0 > ints_;
   private:
   public:
   class Params_FloatsEntry : public ::google::protobuf::internal::MapEntry<Params_FloatsEntry, 
-      ::std::string, float,
+      ::std::string, ::eicio::FloatParams,
       ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-      ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT,
+      ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
       0 > {
   public:
     typedef ::google::protobuf::internal::MapEntry<Params_FloatsEntry, 
-      ::std::string, float,
+      ::std::string, ::eicio::FloatParams,
       ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-      ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT,
+      ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
       0 > SuperType;
     Params_FloatsEntry();
     Params_FloatsEntry(::google::protobuf::Arena* arena);
@@ -682,22 +961,22 @@ class Params : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
   };
   ::google::protobuf::internal::MapField<
       Params_FloatsEntry,
-      ::std::string, float,
+      ::std::string, ::eicio::FloatParams,
       ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-      ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT,
+      ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
       0 > floats_;
   private:
   public:
   class Params_StringsEntry : public ::google::protobuf::internal::MapEntry<Params_StringsEntry, 
-      ::std::string, ::std::string,
+      ::std::string, ::eicio::StringParams,
       ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+      ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
       0 > {
   public:
     typedef ::google::protobuf::internal::MapEntry<Params_StringsEntry, 
-      ::std::string, ::std::string,
+      ::std::string, ::eicio::StringParams,
       ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+      ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
       0 > SuperType;
     Params_StringsEntry();
     Params_StringsEntry(::google::protobuf::Arena* arena);
@@ -708,9 +987,9 @@ class Params : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
   };
   ::google::protobuf::internal::MapField<
       Params_StringsEntry,
-      ::std::string, ::std::string,
+      ::std::string, ::eicio::StringParams,
       ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+      ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
       0 > strings_;
   private:
   mutable int _cached_size_;
@@ -738,7 +1017,7 @@ class Reference : public ::google::protobuf::Message /* @@protoc_insertion_point
                &_Reference_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    6;
+    9;
 
   void Swap(Reference* other);
 
@@ -825,7 +1104,7 @@ class ParticleID : public ::google::protobuf::Message /* @@protoc_insertion_poin
                &_ParticleID_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    7;
+    10;
 
   void Swap(ParticleID* other);
 
@@ -940,7 +1219,7 @@ class MCParticle : public ::google::protobuf::Message /* @@protoc_insertion_poin
                &_MCParticle_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    8;
+    11;
 
   void Swap(MCParticle* other);
 
@@ -1153,7 +1432,7 @@ class MCParticleCollection : public ::google::protobuf::Message /* @@protoc_inse
                &_MCParticleCollection_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    9;
+    12;
 
   void Swap(MCParticleCollection* other);
 
@@ -1256,7 +1535,7 @@ class SimTrackerHit : public ::google::protobuf::Message /* @@protoc_insertion_p
                &_SimTrackerHit_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    10;
+    13;
 
   void Swap(SimTrackerHit* other);
 
@@ -1402,7 +1681,7 @@ class SimTrackerHitCollection : public ::google::protobuf::Message /* @@protoc_i
                &_SimTrackerHitCollection_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    11;
+    14;
 
   void Swap(SimTrackerHitCollection* other);
 
@@ -1505,7 +1784,7 @@ class TrackerRawData : public ::google::protobuf::Message /* @@protoc_insertion_
                &_TrackerRawData_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    12;
+    15;
 
   void Swap(TrackerRawData* other);
 
@@ -1613,7 +1892,7 @@ class TrackerRawDataCollection : public ::google::protobuf::Message /* @@protoc_
                &_TrackerRawDataCollection_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    13;
+    16;
 
   void Swap(TrackerRawDataCollection* other);
 
@@ -1716,7 +1995,7 @@ class TrackerData : public ::google::protobuf::Message /* @@protoc_insertion_poi
                &_TrackerData_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    14;
+    17;
 
   void Swap(TrackerData* other);
 
@@ -1824,7 +2103,7 @@ class TrackerDataCollection : public ::google::protobuf::Message /* @@protoc_ins
                &_TrackerDataCollection_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    15;
+    18;
 
   void Swap(TrackerDataCollection* other);
 
@@ -1927,7 +2206,7 @@ class TrackerHit : public ::google::protobuf::Message /* @@protoc_insertion_poin
                &_TrackerHit_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    16;
+    19;
 
   void Swap(TrackerHit* other);
 
@@ -2090,7 +2369,7 @@ class TrackerHitCollection : public ::google::protobuf::Message /* @@protoc_inse
                &_TrackerHitCollection_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    17;
+    20;
 
   void Swap(TrackerHitCollection* other);
 
@@ -2193,7 +2472,7 @@ class TrackerPulse : public ::google::protobuf::Message /* @@protoc_insertion_po
                &_TrackerPulse_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    18;
+    21;
 
   void Swap(TrackerPulse* other);
 
@@ -2325,7 +2604,7 @@ class TrackerPulseCollection : public ::google::protobuf::Message /* @@protoc_in
                &_TrackerPulseCollection_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    19;
+    22;
 
   void Swap(TrackerPulseCollection* other);
 
@@ -2428,7 +2707,7 @@ class TrackerHitPlane : public ::google::protobuf::Message /* @@protoc_insertion
                &_TrackerHitPlane_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    20;
+    23;
 
   void Swap(TrackerHitPlane* other);
 
@@ -2619,7 +2898,7 @@ class TrackerHitPlaneCollection : public ::google::protobuf::Message /* @@protoc
                &_TrackerHitPlaneCollection_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    21;
+    24;
 
   void Swap(TrackerHitPlaneCollection* other);
 
@@ -2722,7 +3001,7 @@ class TrackerHitZCylinder : public ::google::protobuf::Message /* @@protoc_inser
                &_TrackerHitZCylinder_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    22;
+    25;
 
   void Swap(TrackerHitZCylinder* other);
 
@@ -2899,7 +3178,7 @@ class TrackerHitZCylinderCollection : public ::google::protobuf::Message /* @@pr
                &_TrackerHitZCylinderCollection_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    23;
+    26;
 
   void Swap(TrackerHitZCylinderCollection* other);
 
@@ -3002,7 +3281,7 @@ class Track_TrackState : public ::google::protobuf::Message /* @@protoc_insertio
                &_Track_TrackState_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    24;
+    27;
 
   void Swap(Track_TrackState* other);
 
@@ -3145,7 +3424,7 @@ class Track : public ::google::protobuf::Message /* @@protoc_insertion_point(cla
                &_Track_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    25;
+    28;
 
   void Swap(Track* other);
 
@@ -3315,7 +3594,7 @@ class TrackCollection : public ::google::protobuf::Message /* @@protoc_insertion
                &_TrackCollection_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    26;
+    29;
 
   void Swap(TrackCollection* other);
 
@@ -3418,7 +3697,7 @@ class SimCalorimeterHit_Contrib : public ::google::protobuf::Message /* @@protoc
                &_SimCalorimeterHit_Contrib_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    27;
+    30;
 
   void Swap(SimCalorimeterHit_Contrib* other);
 
@@ -3533,7 +3812,7 @@ class SimCalorimeterHit : public ::google::protobuf::Message /* @@protoc_inserti
                &_SimCalorimeterHit_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    28;
+    31;
 
   void Swap(SimCalorimeterHit* other);
 
@@ -3666,7 +3945,7 @@ class SimCalorimeterHitCollection : public ::google::protobuf::Message /* @@prot
                &_SimCalorimeterHitCollection_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    29;
+    32;
 
   void Swap(SimCalorimeterHitCollection* other);
 
@@ -3769,7 +4048,7 @@ class RawCalorimeterHit : public ::google::protobuf::Message /* @@protoc_inserti
                &_RawCalorimeterHit_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    30;
+    33;
 
   void Swap(RawCalorimeterHit* other);
 
@@ -3870,7 +4149,7 @@ class RawCalorimeterHitCollection : public ::google::protobuf::Message /* @@prot
                &_RawCalorimeterHitCollection_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    31;
+    34;
 
   void Swap(RawCalorimeterHitCollection* other);
 
@@ -3973,7 +4252,7 @@ class CalorimeterHit : public ::google::protobuf::Message /* @@protoc_insertion_
                &_CalorimeterHit_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    32;
+    35;
 
   void Swap(CalorimeterHit* other);
 
@@ -4112,7 +4391,7 @@ class CalorimeterHitCollection : public ::google::protobuf::Message /* @@protoc_
                &_CalorimeterHitCollection_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    33;
+    36;
 
   void Swap(CalorimeterHitCollection* other);
 
@@ -4215,7 +4494,7 @@ class Cluster : public ::google::protobuf::Message /* @@protoc_insertion_point(c
                &_Cluster_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    34;
+    37;
 
   void Swap(Cluster* other);
 
@@ -4433,7 +4712,7 @@ class ClusterCollection : public ::google::protobuf::Message /* @@protoc_inserti
                &_ClusterCollection_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    35;
+    38;
 
   void Swap(ClusterCollection* other);
 
@@ -4536,7 +4815,7 @@ class RecParticle : public ::google::protobuf::Message /* @@protoc_insertion_poi
                &_RecParticle_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    36;
+    39;
 
   void Swap(RecParticle* other);
 
@@ -4755,7 +5034,7 @@ class RecParticleCollection : public ::google::protobuf::Message /* @@protoc_ins
                &_RecParticleCollection_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    37;
+    40;
 
   void Swap(RecParticleCollection* other);
 
@@ -4858,7 +5137,7 @@ class Vertex : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
                &_Vertex_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    38;
+    41;
 
   void Swap(Vertex* other);
 
@@ -5011,7 +5290,7 @@ class VertexCollection : public ::google::protobuf::Message /* @@protoc_insertio
                &_VertexCollection_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    39;
+    42;
 
   void Swap(VertexCollection* other);
 
@@ -5114,7 +5393,7 @@ class Relation : public ::google::protobuf::Message /* @@protoc_insertion_point(
                &_Relation_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    40;
+    43;
 
   void Swap(Relation* other);
 
@@ -5214,7 +5493,7 @@ class RelationCollection : public ::google::protobuf::Message /* @@protoc_insert
                &_RelationCollection_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    41;
+    44;
 
   void Swap(RelationCollection* other);
 
@@ -5621,6 +5900,147 @@ inline void EventHeader::set_allocated_description(::std::string* description) {
 
 // -------------------------------------------------------------------
 
+// IntParams
+
+// repeated int32 array = 1;
+inline int IntParams::array_size() const {
+  return array_.size();
+}
+inline void IntParams::clear_array() {
+  array_.Clear();
+}
+inline ::google::protobuf::int32 IntParams::array(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.IntParams.array)
+  return array_.Get(index);
+}
+inline void IntParams::set_array(int index, ::google::protobuf::int32 value) {
+  array_.Set(index, value);
+  // @@protoc_insertion_point(field_set:eicio.IntParams.array)
+}
+inline void IntParams::add_array(::google::protobuf::int32 value) {
+  array_.Add(value);
+  // @@protoc_insertion_point(field_add:eicio.IntParams.array)
+}
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+IntParams::array() const {
+  // @@protoc_insertion_point(field_list:eicio.IntParams.array)
+  return array_;
+}
+inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+IntParams::mutable_array() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.IntParams.array)
+  return &array_;
+}
+
+// -------------------------------------------------------------------
+
+// FloatParams
+
+// repeated float array = 1;
+inline int FloatParams::array_size() const {
+  return array_.size();
+}
+inline void FloatParams::clear_array() {
+  array_.Clear();
+}
+inline float FloatParams::array(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.FloatParams.array)
+  return array_.Get(index);
+}
+inline void FloatParams::set_array(int index, float value) {
+  array_.Set(index, value);
+  // @@protoc_insertion_point(field_set:eicio.FloatParams.array)
+}
+inline void FloatParams::add_array(float value) {
+  array_.Add(value);
+  // @@protoc_insertion_point(field_add:eicio.FloatParams.array)
+}
+inline const ::google::protobuf::RepeatedField< float >&
+FloatParams::array() const {
+  // @@protoc_insertion_point(field_list:eicio.FloatParams.array)
+  return array_;
+}
+inline ::google::protobuf::RepeatedField< float >*
+FloatParams::mutable_array() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.FloatParams.array)
+  return &array_;
+}
+
+// -------------------------------------------------------------------
+
+// StringParams
+
+// repeated string array = 1;
+inline int StringParams::array_size() const {
+  return array_.size();
+}
+inline void StringParams::clear_array() {
+  array_.Clear();
+}
+inline const ::std::string& StringParams::array(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.StringParams.array)
+  return array_.Get(index);
+}
+inline ::std::string* StringParams::mutable_array(int index) {
+  // @@protoc_insertion_point(field_mutable:eicio.StringParams.array)
+  return array_.Mutable(index);
+}
+inline void StringParams::set_array(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:eicio.StringParams.array)
+  array_.Mutable(index)->assign(value);
+}
+#if LANG_CXX11
+inline void StringParams::set_array(int index, ::std::string&& value) {
+  // @@protoc_insertion_point(field_set:eicio.StringParams.array)
+  array_.Mutable(index)->assign(std::move(value));
+}
+#endif
+inline void StringParams::set_array(int index, const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  array_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:eicio.StringParams.array)
+}
+inline void StringParams::set_array(int index, const char* value, size_t size) {
+  array_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:eicio.StringParams.array)
+}
+inline ::std::string* StringParams::add_array() {
+  // @@protoc_insertion_point(field_add_mutable:eicio.StringParams.array)
+  return array_.Add();
+}
+inline void StringParams::add_array(const ::std::string& value) {
+  array_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:eicio.StringParams.array)
+}
+#if LANG_CXX11
+inline void StringParams::add_array(::std::string&& value) {
+  array_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:eicio.StringParams.array)
+}
+#endif
+inline void StringParams::add_array(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  array_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:eicio.StringParams.array)
+}
+inline void StringParams::add_array(const char* value, size_t size) {
+  array_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:eicio.StringParams.array)
+}
+inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
+StringParams::array() const {
+  // @@protoc_insertion_point(field_list:eicio.StringParams.array)
+  return array_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::std::string>*
+StringParams::mutable_array() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.StringParams.array)
+  return &array_;
+}
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
@@ -5629,55 +6049,55 @@ inline void EventHeader::set_allocated_description(::std::string* description) {
 
 // Params
 
-// map<string, int32> ints = 1;
+// map<string, .eicio.IntParams> ints = 1;
 inline int Params::ints_size() const {
   return ints_.size();
 }
 inline void Params::clear_ints() {
   ints_.Clear();
 }
-inline const ::google::protobuf::Map< ::std::string, ::google::protobuf::int32 >&
+inline const ::google::protobuf::Map< ::std::string, ::eicio::IntParams >&
 Params::ints() const {
   // @@protoc_insertion_point(field_map:eicio.Params.ints)
   return ints_.GetMap();
 }
-inline ::google::protobuf::Map< ::std::string, ::google::protobuf::int32 >*
+inline ::google::protobuf::Map< ::std::string, ::eicio::IntParams >*
 Params::mutable_ints() {
   // @@protoc_insertion_point(field_mutable_map:eicio.Params.ints)
   return ints_.MutableMap();
 }
 
-// map<string, float> floats = 2;
+// map<string, .eicio.FloatParams> floats = 2;
 inline int Params::floats_size() const {
   return floats_.size();
 }
 inline void Params::clear_floats() {
   floats_.Clear();
 }
-inline const ::google::protobuf::Map< ::std::string, float >&
+inline const ::google::protobuf::Map< ::std::string, ::eicio::FloatParams >&
 Params::floats() const {
   // @@protoc_insertion_point(field_map:eicio.Params.floats)
   return floats_.GetMap();
 }
-inline ::google::protobuf::Map< ::std::string, float >*
+inline ::google::protobuf::Map< ::std::string, ::eicio::FloatParams >*
 Params::mutable_floats() {
   // @@protoc_insertion_point(field_mutable_map:eicio.Params.floats)
   return floats_.MutableMap();
 }
 
-// map<string, string> strings = 3;
+// map<string, .eicio.StringParams> strings = 3;
 inline int Params::strings_size() const {
   return strings_.size();
 }
 inline void Params::clear_strings() {
   strings_.Clear();
 }
-inline const ::google::protobuf::Map< ::std::string, ::std::string >&
+inline const ::google::protobuf::Map< ::std::string, ::eicio::StringParams >&
 Params::strings() const {
   // @@protoc_insertion_point(field_map:eicio.Params.strings)
   return strings_.GetMap();
 }
-inline ::google::protobuf::Map< ::std::string, ::std::string >*
+inline ::google::protobuf::Map< ::std::string, ::eicio::StringParams >*
 Params::mutable_strings() {
   // @@protoc_insertion_point(field_mutable_map:eicio.Params.strings)
   return strings_.MutableMap();
@@ -10368,6 +10788,12 @@ RelationCollection::relation() const {
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

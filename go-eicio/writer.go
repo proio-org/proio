@@ -3,10 +3,23 @@ package eicio
 import (
 	"encoding/binary"
 	"io"
+	"os"
 )
 
 type Writer struct {
 	byteWriter io.Writer
+}
+
+func Create(filename string) (*Writer, error) {
+	file, err := os.Create(filename)
+	if err != nil {
+		return nil, err
+	}
+	return NewWriter(file), nil
+}
+
+func (wrt *Writer) Close() {
+	(wrt.byteWriter.(*os.File)).Close()
 }
 
 func NewWriter(byteWriter io.Writer) *Writer {
