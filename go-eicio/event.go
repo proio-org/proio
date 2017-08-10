@@ -62,6 +62,8 @@ func (evt *Event) AddCollection(collection Message, name string) {
 		collHdr.Type = EventHeader_CollectionHeader_RecParticle
 	case *VertexCollection:
 		collHdr.Type = EventHeader_CollectionHeader_Vertex
+	case *RelationCollection:
+		collHdr.Type = EventHeader_CollectionHeader_Relation
 	}
 
 	collHdr.Name = name
@@ -127,6 +129,8 @@ func (evt *Event) GetCollection(name string) Message {
 		coll = &RecParticleCollection{}
 	case EventHeader_CollectionHeader_Vertex:
 		coll = &VertexCollection{}
+	case EventHeader_CollectionHeader_Relation:
+		coll = &RelationCollection{}
 	}
 
 	if err := coll.Unmarshal(evt.payload[offset : offset+size]); err != nil {

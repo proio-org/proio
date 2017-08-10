@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"reflect"
 
 	eicio "github.com/decibelCooper/eicio/go-eicio"
 	"go-hep.org/x/hep/lcio"
@@ -82,6 +83,8 @@ func main() {
 				eicioColl = convertRecParticleCollection(lcioColl.(*lcio.RecParticleContainer), &lcioEvent, uint32(i))
 			case *lcio.VertexContainer:
 				eicioColl = convertVertexCollection(lcioColl.(*lcio.VertexContainer), &lcioEvent, uint32(i))
+			case *lcio.RelationContainer:
+				eicioColl = convertRelationCollection(lcioColl.(*lcio.RelationContainer), &lcioEvent, uint32(i))
 			}
 
 			if eicioColl != nil {
@@ -125,34 +128,114 @@ func convertParams(lcioParams lcio.Params) *eicio.Params {
 	}
 }
 
-func refMCParticle(entry *lcio.McParticle, event *lcio.Event) *eicio.Reference {
+func makeRef(entry interface{}, event *lcio.Event) *eicio.Reference {
+	//	if entry.CanAddr() {
+	//		entry = entry.Addr()
+	//	}
+
 	for i, collName := range event.Names() {
 		collGen := event.Get(collName)
 
+		j := 0
+		found := false
 		switch collGen.(type) {
 		case *lcio.McParticleContainer:
-		default:
-			continue
+			coll := collGen.(*lcio.McParticleContainer)
+			for j, _ = range coll.Particles {
+				if &coll.Particles[j] == entry {
+					found = true
+					break
+				}
+			}
+		case *lcio.TrackerRawDataContainer:
+			coll := collGen.(*lcio.TrackerRawDataContainer)
+			for j, _ = range coll.Data {
+				if &coll.Data[j] == entry {
+					found = true
+					break
+				}
+			}
+		case *lcio.TrackerDataContainer:
+			coll := collGen.(*lcio.TrackerDataContainer)
+			for j, _ = range coll.Data {
+				if &coll.Data[j] == entry {
+					found = true
+					break
+				}
+			}
+		case *lcio.RawCalorimeterHitContainer:
+			coll := collGen.(*lcio.RawCalorimeterHitContainer)
+			for j, _ = range coll.Hits {
+				if &coll.Hits[j] == entry {
+					found = true
+					break
+				}
+			}
+		case *lcio.TrackContainer:
+			coll := collGen.(*lcio.TrackContainer)
+			for j, _ = range coll.Tracks {
+				if &coll.Tracks[j] == entry {
+					found = true
+					break
+				}
+			}
+		case *lcio.TrackerHitContainer:
+			coll := collGen.(*lcio.TrackerHitContainer)
+			for j, _ = range coll.Hits {
+				if &coll.Hits[j] == entry {
+					found = true
+					break
+				}
+			}
+		case *lcio.ClusterContainer:
+			coll := collGen.(*lcio.ClusterContainer)
+			for j, _ = range coll.Clusters {
+				if &coll.Clusters[j] == entry {
+					found = true
+					break
+				}
+			}
+		case *lcio.CalorimeterHitContainer:
+			coll := collGen.(*lcio.CalorimeterHitContainer)
+			for j, _ = range coll.Hits {
+				if &coll.Hits[j] == entry {
+					found = true
+					break
+				}
+			}
+		case *lcio.RecParticleContainer:
+			coll := collGen.(*lcio.RecParticleContainer)
+			for j, _ = range coll.Parts {
+				if &coll.Parts[j] == entry {
+					found = true
+					break
+				}
+			}
+		case *lcio.VertexContainer:
+			coll := collGen.(*lcio.VertexContainer)
+			for j, _ = range coll.Vtxs {
+				if &coll.Vtxs[j] == entry {
+					found = true
+					break
+				}
+			}
 		}
 
-		coll := collGen.(*lcio.McParticleContainer)
-
-		for j, _ := range coll.Particles {
-			if &coll.Particles[j] == entry {
-				return &eicio.Reference{
-					CollID:  uint32(i),
-					EntryID: uint32(j),
-				}
+		if found {
+			return &eicio.Reference{
+				CollID:  uint32(i),
+				EntryID: uint32(j),
 			}
 		}
 	}
 	return nil
 }
 
-func refMCParticles(entries []*lcio.McParticle, event *lcio.Event) []*eicio.Reference {
+func makeRefs(entries interface{}, event *lcio.Event) []*eicio.Reference {
+	slice := reflect.ValueOf(entries)
 	refs := make([]*eicio.Reference, 0)
-	for _, entry := range entries {
-		ref := refMCParticle(entry, event)
+	for i := 0; i < slice.Len(); i++ {
+		ref := makeRef(slice.Index(i).Interface(), event)
 		if ref != nil {
 			refs = append(refs, ref)
 		}
@@ -170,8 +253,8 @@ func convertMCParticleCollection(lcioColl *lcio.McParticleContainer, lcioEvent *
 	for i, lcioEntry := range lcioColl.Particles {
 		eicioEntry := &eicio.MCParticle{
 			Id:        uint32(i),
-			Parents:   refMCParticles(lcioEntry.Parents, lcioEvent),
-			Children:  refMCParticles(lcioEntry.Children, lcioEvent),
+			Parents:   makeRefs(lcioEntry.Parents, lcioEvent),
+			Children:  makeRefs(lcioEntry.Children, lcioEvent),
 			PDG:       lcioEntry.PDG,
 			GenStatus: lcioEntry.GenStatus,
 			SimStatus: lcioEntry.SimStatus,
@@ -206,7 +289,7 @@ func convertSimTrackerHitCollection(lcioColl *lcio.SimTrackerHitContainer, lcioE
 			Pos:        lcioEntry.Pos[:],
 			EDep:       lcioEntry.EDep,
 			Time:       lcioEntry.Time,
-			Mc:         refMCParticle(lcioEntry.Mc, lcioEvent),
+			Mc:         makeRef(lcioEntry.Mc, lcioEvent),
 			P:          lcioEntry.Momentum[:],
 			PathLength: lcioEntry.PathLength,
 			Quality:    lcioEntry.Quality,
@@ -270,41 +353,6 @@ func convertTrackerDataCollection(lcioColl *lcio.TrackerDataContainer, lcioEvent
 	return eicioColl
 }
 
-func refTrackerRawHit(entry *lcio.TrackerRawData, event *lcio.Event) *eicio.Reference {
-	for i, collName := range event.Names() {
-		collGen := event.Get(collName)
-
-		switch collGen.(type) {
-		case *lcio.TrackerRawDataContainer:
-		default:
-			continue
-		}
-
-		coll := collGen.(*lcio.TrackerRawDataContainer)
-
-		for j, _ := range coll.Data {
-			if &coll.Data[j] == entry {
-				return &eicio.Reference{
-					CollID:  uint32(i),
-					EntryID: uint32(j),
-				}
-			}
-		}
-	}
-	return nil
-}
-
-func refTrackerRawHits(entries []lcio.Hit, event *lcio.Event) []*eicio.Reference {
-	refs := make([]*eicio.Reference, 0)
-	for _, entry := range entries {
-		ref := refTrackerRawHit(entry.(*lcio.TrackerRawData), event)
-		if ref != nil {
-			refs = append(refs, ref)
-		}
-	}
-	return refs
-}
-
 func convertTrackerHitCollection(lcioColl *lcio.TrackerHitContainer, lcioEvent *lcio.Event, collID uint32) *eicio.TrackerHitCollection {
 	eicioColl := &eicio.TrackerHitCollection{
 		Id:     collID,
@@ -324,37 +372,13 @@ func convertTrackerHitCollection(lcioColl *lcio.TrackerHitContainer, lcioEvent *
 			EDepErr: lcioEntry.EDepErr,
 			Time:    lcioEntry.Time,
 			Quality: lcioEntry.Quality,
-			RawHits: refTrackerRawHits(lcioEntry.RawHits, lcioEvent),
+			RawHits: makeRefs(lcioEntry.RawHits, lcioEvent),
 		}
 
 		eicioColl.Entries = append(eicioColl.Entries, eicioEntry)
 	}
 
 	return eicioColl
-}
-
-func refTrackerData(entry *lcio.TrackerData, event *lcio.Event) *eicio.Reference {
-	for i, collName := range event.Names() {
-		collGen := event.Get(collName)
-
-		switch collGen.(type) {
-		case *lcio.TrackerDataContainer:
-		default:
-			continue
-		}
-
-		coll := collGen.(*lcio.TrackerDataContainer)
-
-		for j, _ := range coll.Data {
-			if &coll.Data[j] == entry {
-				return &eicio.Reference{
-					CollID:  uint32(i),
-					EntryID: uint32(j),
-				}
-			}
-		}
-	}
-	return nil
 }
 
 func convertTrackerPulseCollection(lcioColl *lcio.TrackerPulseContainer, lcioEvent *lcio.Event, collID uint32) *eicio.TrackerPulseCollection {
@@ -373,48 +397,13 @@ func convertTrackerPulseCollection(lcioColl *lcio.TrackerPulseContainer, lcioEve
 			Charge:  lcioEntry.Charge,
 			Cov:     lcioEntry.Cov[:],
 			Quality: lcioEntry.Quality,
-			TPC:     refTrackerData(lcioEntry.TPC, lcioEvent),
+			TPC:     makeRef(lcioEntry.TPC, lcioEvent),
 		}
 
 		eicioColl.Entries = append(eicioColl.Entries, eicioEntry)
 	}
 
 	return eicioColl
-}
-
-func refRawCalorimeterHit(entry *lcio.RawCalorimeterHit, event *lcio.Event) *eicio.Reference {
-	for i, collName := range event.Names() {
-		collGen := event.Get(collName)
-
-		switch collGen.(type) {
-		case *lcio.RawCalorimeterHitContainer:
-		default:
-			continue
-		}
-
-		coll := collGen.(*lcio.RawCalorimeterHitContainer)
-
-		for j, _ := range coll.Hits {
-			if &coll.Hits[j] == entry {
-				return &eicio.Reference{
-					CollID:  uint32(i),
-					EntryID: uint32(j),
-				}
-			}
-		}
-	}
-	return nil
-}
-
-func refRawCalorimeterHits(entries []*lcio.RawCalorimeterHit, event *lcio.Event) []*eicio.Reference {
-	refs := make([]*eicio.Reference, 0)
-	for _, entry := range entries {
-		ref := refRawCalorimeterHit(entry, event)
-		if ref != nil {
-			refs = append(refs, ref)
-		}
-	}
-	return refs
 }
 
 func convertTrackerHitPlaneCollection(lcioColl *lcio.TrackerHitPlaneContainer, lcioEvent *lcio.Event, collID uint32) *eicio.TrackerHitPlaneCollection {
@@ -439,7 +428,7 @@ func convertTrackerHitPlaneCollection(lcioColl *lcio.TrackerHitPlaneContainer, l
 			EDepErr: lcioEntry.EDepErr,
 			Time:    lcioEntry.Time,
 			Quality: lcioEntry.Quality,
-			RawHits: refRawCalorimeterHits(lcioEntry.RawHits, lcioEvent),
+			RawHits: makeRefs(lcioEntry.RawHits, lcioEvent),
 		}
 
 		eicioColl.Entries = append(eicioColl.Entries, eicioEntry)
@@ -469,83 +458,13 @@ func convertTrackerHitZCylinderCollection(lcioColl *lcio.TrackerHitZCylinderCont
 			EDepErr: lcioEntry.EDepErr,
 			Time:    lcioEntry.Time,
 			Quality: lcioEntry.Quality,
-			RawHits: refTrackerRawHits(lcioEntry.RawHits, lcioEvent),
+			RawHits: makeRefs(lcioEntry.RawHits, lcioEvent),
 		}
 
 		eicioColl.Entries = append(eicioColl.Entries, eicioEntry)
 	}
 
 	return eicioColl
-}
-
-func refTrack(entry *lcio.Track, event *lcio.Event) *eicio.Reference {
-	for i, collName := range event.Names() {
-		collGen := event.Get(collName)
-
-		switch collGen.(type) {
-		case *lcio.TrackContainer:
-		default:
-			continue
-		}
-
-		coll := collGen.(*lcio.TrackContainer)
-
-		for j, _ := range coll.Tracks {
-			if &coll.Tracks[j] == entry {
-				return &eicio.Reference{
-					CollID:  uint32(i),
-					EntryID: uint32(j),
-				}
-			}
-		}
-	}
-	return nil
-}
-
-func refTracks(entries []*lcio.Track, event *lcio.Event) []*eicio.Reference {
-	refs := make([]*eicio.Reference, 0)
-	for _, entry := range entries {
-		ref := refTrack(entry, event)
-		if ref != nil {
-			refs = append(refs, ref)
-		}
-	}
-	return refs
-}
-
-func refTrackerHit(entry *lcio.TrackerHit, event *lcio.Event) *eicio.Reference {
-	for i, collName := range event.Names() {
-		collGen := event.Get(collName)
-
-		switch collGen.(type) {
-		case *lcio.TrackerHitContainer:
-		default:
-			continue
-		}
-
-		coll := collGen.(*lcio.TrackerHitContainer)
-
-		for j, _ := range coll.Hits {
-			if &coll.Hits[j] == entry {
-				return &eicio.Reference{
-					CollID:  uint32(i),
-					EntryID: uint32(j),
-				}
-			}
-		}
-	}
-	return nil
-}
-
-func refTrackerHits(entries []*lcio.TrackerHit, event *lcio.Event) []*eicio.Reference {
-	refs := make([]*eicio.Reference, 0)
-	for _, entry := range entries {
-		ref := refTrackerHit(entry, event)
-		if ref != nil {
-			refs = append(refs, ref)
-		}
-	}
-	return refs
 }
 
 func convertTrackStates(lcioStates []lcio.TrackState) []*eicio.Track_TrackState {
@@ -583,8 +502,8 @@ func convertTrackCollection(lcioColl *lcio.TrackContainer, lcioEvent *lcio.Event
 			Radius:     lcioEntry.Radius,
 			SubDetHits: lcioEntry.SubDetHits,
 			States:     convertTrackStates(lcioEntry.States),
-			Tracks:     refTracks(lcioEntry.Tracks, lcioEvent),
-			Hits:       refTrackerHits(lcioEntry.Hits, lcioEvent),
+			Tracks:     makeRefs(lcioEntry.Tracks, lcioEvent),
+			Hits:       makeRefs(lcioEntry.Hits, lcioEvent),
 		}
 
 		eicioColl.Entries = append(eicioColl.Entries, eicioEntry)
@@ -597,7 +516,7 @@ func convertContribs(lcioContribs []lcio.Contrib, lcioEvent *lcio.Event) []*eici
 	slice := make([]*eicio.SimCalorimeterHit_Contrib, 0)
 	for _, contrib := range lcioContribs {
 		slice = append(slice, &eicio.SimCalorimeterHit_Contrib{
-			MCParticle: refMCParticle(contrib.Mc, lcioEvent),
+			MCParticle: makeRef(contrib.Mc, lcioEvent),
 			Energy:     contrib.Energy,
 			Time:       contrib.Time,
 			PDG:        contrib.PDG,
@@ -663,7 +582,7 @@ func convertCalorimeterHitCollection(lcioColl *lcio.CalorimeterHitContainer, lci
 		lcioRawHit := lcioEntry.Raw
 		var rawHit *eicio.Reference
 		if lcioRawHit != nil {
-			rawHit = refRawCalorimeterHit(lcioEntry.Raw.(*lcio.RawCalorimeterHit), lcioEvent)
+			rawHit = makeRef(lcioEntry.Raw.(*lcio.RawCalorimeterHit), lcioEvent)
 		}
 
 		eicioEntry := &eicio.CalorimeterHit{
@@ -702,76 +621,6 @@ func convertParticleIDs(lcioParticleIDs []lcio.ParticleID) []*eicio.ParticleID {
 	return slice
 }
 
-func refCluster(entry *lcio.Cluster, event *lcio.Event) *eicio.Reference {
-	for i, collName := range event.Names() {
-		collGen := event.Get(collName)
-
-		switch collGen.(type) {
-		case *lcio.ClusterContainer:
-		default:
-			continue
-		}
-
-		coll := collGen.(*lcio.ClusterContainer)
-
-		for j, _ := range coll.Clusters {
-			if &coll.Clusters[j] == entry {
-				return &eicio.Reference{
-					CollID:  uint32(i),
-					EntryID: uint32(j),
-				}
-			}
-		}
-	}
-	return nil
-}
-
-func refClusters(entries []*lcio.Cluster, event *lcio.Event) []*eicio.Reference {
-	refs := make([]*eicio.Reference, 0)
-	for _, entry := range entries {
-		ref := refCluster(entry, event)
-		if ref != nil {
-			refs = append(refs, ref)
-		}
-	}
-	return refs
-}
-
-func refCalorimeterHit(entry *lcio.CalorimeterHit, event *lcio.Event) *eicio.Reference {
-	for i, collName := range event.Names() {
-		collGen := event.Get(collName)
-
-		switch collGen.(type) {
-		case *lcio.CalorimeterHitContainer:
-		default:
-			continue
-		}
-
-		coll := collGen.(*lcio.CalorimeterHitContainer)
-
-		for j, _ := range coll.Hits {
-			if &coll.Hits[j] == entry {
-				return &eicio.Reference{
-					CollID:  uint32(i),
-					EntryID: uint32(j),
-				}
-			}
-		}
-	}
-	return nil
-}
-
-func refCalorimeterHits(entries []*lcio.CalorimeterHit, event *lcio.Event) []*eicio.Reference {
-	refs := make([]*eicio.Reference, 0)
-	for _, entry := range entries {
-		ref := refCalorimeterHit(entry, event)
-		if ref != nil {
-			refs = append(refs, ref)
-		}
-	}
-	return refs
-}
-
 func convertClusterCollection(lcioColl *lcio.ClusterContainer, lcioEvent *lcio.Event, collID uint32) *eicio.ClusterCollection {
 	eicioColl := &eicio.ClusterCollection{
 		Id:     collID,
@@ -792,8 +641,8 @@ func convertClusterCollection(lcioColl *lcio.ClusterContainer, lcioEvent *lcio.E
 			DirErr:     lcioEntry.DirErr[:],
 			Shape:      lcioEntry.Shape[:],
 			PIDs:       convertParticleIDs(lcioEntry.PIDs),
-			Clusters:   refClusters(lcioEntry.Clusters, lcioEvent),
-			Hits:       refCalorimeterHits(lcioEntry.Hits, lcioEvent),
+			Clusters:   makeRefs(lcioEntry.Clusters, lcioEvent),
+			Hits:       makeRefs(lcioEntry.Hits, lcioEvent),
 			Weights:    lcioEntry.Weights[:],
 			SubDetEnes: lcioEntry.SubDetEnes[:],
 		}
@@ -811,76 +660,6 @@ func findParticleID(pids []lcio.ParticleID, pid *lcio.ParticleID) int32 {
 		}
 	}
 	return -1
-}
-
-func refRecParticle(entry *lcio.RecParticle, event *lcio.Event) *eicio.Reference {
-	for i, collName := range event.Names() {
-		collGen := event.Get(collName)
-
-		switch collGen.(type) {
-		case *lcio.RecParticleContainer:
-		default:
-			continue
-		}
-
-		coll := collGen.(*lcio.RecParticleContainer)
-
-		for j, _ := range coll.Parts {
-			if &coll.Parts[j] == entry {
-				return &eicio.Reference{
-					CollID:  uint32(i),
-					EntryID: uint32(j),
-				}
-			}
-		}
-	}
-	return nil
-}
-
-func refRecParticles(entries []*lcio.RecParticle, event *lcio.Event) []*eicio.Reference {
-	refs := make([]*eicio.Reference, 0)
-	for _, entry := range entries {
-		ref := refRecParticle(entry, event)
-		if ref != nil {
-			refs = append(refs, ref)
-		}
-	}
-	return refs
-}
-
-func refVertex(entry *lcio.Vertex, event *lcio.Event) *eicio.Reference {
-	for i, collName := range event.Names() {
-		collGen := event.Get(collName)
-
-		switch collGen.(type) {
-		case *lcio.VertexContainer:
-		default:
-			continue
-		}
-
-		coll := collGen.(*lcio.VertexContainer)
-
-		for j, _ := range coll.Vtxs {
-			if &coll.Vtxs[j] == entry {
-				return &eicio.Reference{
-					CollID:  uint32(i),
-					EntryID: uint32(j),
-				}
-			}
-		}
-	}
-	return nil
-}
-
-func refVertexs(entries []*lcio.Vertex, event *lcio.Event) []*eicio.Reference {
-	refs := make([]*eicio.Reference, 0)
-	for _, entry := range entries {
-		ref := refVertex(entry, event)
-		if ref != nil {
-			refs = append(refs, ref)
-		}
-	}
-	return refs
 }
 
 func convertRecParticleCollection(lcioColl *lcio.RecParticleContainer, lcioEvent *lcio.Event, collID uint32) *eicio.RecParticleCollection {
@@ -903,10 +682,10 @@ func convertRecParticleCollection(lcioColl *lcio.RecParticleContainer, lcioEvent
 			PIDs:          convertParticleIDs(lcioEntry.PIDs),
 			PIDUsed:       findParticleID(lcioEntry.PIDs, lcioEntry.PIDUsed),
 			GoodnessOfPID: lcioEntry.GoodnessOfPID,
-			Recs:          refRecParticles(lcioEntry.Recs, lcioEvent),
-			Tracks:        refTracks(lcioEntry.Tracks, lcioEvent),
-			Clusters:      refClusters(lcioEntry.Clusters, lcioEvent),
-			StartVtx:      refVertex(lcioEntry.StartVtx, lcioEvent),
+			Recs:          makeRefs(lcioEntry.Recs, lcioEvent),
+			Tracks:        makeRefs(lcioEntry.Tracks, lcioEvent),
+			Clusters:      makeRefs(lcioEntry.Clusters, lcioEvent),
+			StartVtx:      makeRef(lcioEntry.StartVtx, lcioEvent),
 		}
 
 		eicioColl.Entries = append(eicioColl.Entries, eicioEntry)
@@ -932,7 +711,28 @@ func convertVertexCollection(lcioColl *lcio.VertexContainer, lcioEvent *lcio.Eve
 			Pos:     lcioEntry.Pos[:],
 			Cov:     lcioEntry.Cov[:],
 			Params:  lcioEntry.Params,
-			RecPart: refRecParticle(lcioEntry.RecPart, lcioEvent),
+			RecPart: makeRef(lcioEntry.RecPart, lcioEvent),
+		}
+
+		eicioColl.Entries = append(eicioColl.Entries, eicioEntry)
+	}
+
+	return eicioColl
+}
+
+func convertRelationCollection(lcioColl *lcio.RelationContainer, lcioEvent *lcio.Event, collID uint32) *eicio.RelationCollection {
+	eicioColl := &eicio.RelationCollection{
+		Id:     collID,
+		Flags:  uint32(lcioColl.Flags),
+		Params: convertParams(lcioColl.Params),
+	}
+
+	for i, lcioEntry := range lcioColl.Rels {
+		eicioEntry := &eicio.Relation{
+			Id:     uint32(i),
+			From:   makeRef(lcioEntry.From, lcioEvent),
+			To:     makeRef(lcioEntry.To, lcioEvent),
+			Weight: lcioEntry.Weight,
 		}
 
 		eicioColl.Entries = append(eicioColl.Entries, eicioEntry)
