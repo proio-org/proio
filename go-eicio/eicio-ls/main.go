@@ -13,7 +13,7 @@ func printUsage() {
 	fmt.Fprintf(os.Stderr,
 		`Usage: eicio-ls [options] <eicio-input-file>
 options:
-	`,
+`,
 	)
 	flag.PrintDefaults()
 }
@@ -33,7 +33,7 @@ func main() {
 	}
 
 	for {
-		event := reader.GetEvent()
+		event, _ := reader.GetEvent()
 		if event == nil {
 			break
 		}

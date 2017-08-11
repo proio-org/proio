@@ -11,11 +11,16 @@ import (
 	"go-hep.org/x/hep/lcio"
 )
 
+var (
+	outFile = flag.String("o", "", "file to save output to")
+	doGzip  = flag.Bool("g", false, "compress the stdout output with gzip")
+)
+
 func printUsage() {
 	fmt.Fprintf(os.Stderr,
-		`Usage: lcio2eicio [options] <lcio-input-file> <eicio-output-file>
+		`Usage: lcio2eicio [options] <lcio-input-file>
 options:
-	`,
+`,
 	)
 	flag.PrintDefaults()
 }
@@ -24,8 +29,8 @@ func main() {
 	flag.Usage = printUsage
 	flag.Parse()
 
-	if flag.NArg() != 2 {
-		printUsage()
+	if flag.NArg() != 1 {
+		flag.Usage()
 		log.Fatal("Invalid arguments")
 	}
 
@@ -35,11 +40,24 @@ func main() {
 	}
 	defer lcioReader.Close()
 
-	eicioWriter, err := eicio.Create(flag.Arg(1))
-	if err != nil {
-		log.Fatal("Unable to create EICIO writer:", err)
+	var eicioWriter *eicio.Writer
+	if *outFile == "" {
+		if *doGzip {
+			eicioWriter, err = eicio.NewGzipWriter(os.Stdout)
+			if err != nil {
+				log.Fatal(err)
+			}
+			defer eicioWriter.Close()
+		} else {
+			eicioWriter = eicio.NewWriter(os.Stdout)
+		}
+	} else {
+		eicioWriter, err = eicio.Create(*outFile)
+		if err != nil {
+			log.Fatal("Unable to create EICIO file:", err)
+		}
+		defer eicioWriter.Close()
 	}
-	defer eicioWriter.Close()
 
 	for lcioReader.Next() {
 		lcioEvent := lcioReader.Event()
