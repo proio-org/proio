@@ -51,7 +51,7 @@ func main() {
 		for i, collName := range lcioEvent.Names() {
 			lcioColl := lcioEvent.Get(collName)
 
-			var eicioColl eicio.Identifiable
+			var eicioColl eicio.Message
 			switch lcioColl.(type) {
 			case *lcio.McParticleContainer:
 				eicioColl = convertMCParticleCollection(lcioColl.(*lcio.McParticleContainer), &lcioEvent, uint32(i))
@@ -88,7 +88,7 @@ func main() {
 			}
 
 			if eicioColl != nil {
-				eicioEvent.AddCollection(eicioColl, collName)
+				eicioEvent.Add(eicioColl, collName)
 			}
 		}
 
@@ -129,10 +129,6 @@ func convertParams(lcioParams lcio.Params) *eicio.Params {
 }
 
 func makeRef(entry interface{}, event *lcio.Event) *eicio.Reference {
-	//	if entry.CanAddr() {
-	//		entry = entry.Addr()
-	//	}
-
 	for i, collName := range event.Names() {
 		collGen := event.Get(collName)
 

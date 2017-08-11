@@ -11,29 +11,9 @@ message EventHeader {
 	Params params = 6;
 
 	message CollectionHeader {
-		enum Type {
-			NONE = 0;
-			MCParticle = 1;
-			SimTrackerHit = 2;
-			TrackerData = 3;
-			TrackerRawData = 4;
-			TrackerHit = 5;
-			TrackerPulse = 6;
-			TrackerHitPlane = 7;
-			TrackerHitZCylinder = 8;
-			Track = 9;
-			SimCalorimeterHit = 10;
-			RawCalorimeterHit = 11;
-			CalorimeterHit = 12;
-			Cluster = 13;
-			RecParticle = 14;
-			Vertex = 15;
-			Relation = 16;
-		}
-
-		Type type = 1;
-		string name = 2;
-		uint32 id = 3;
+		string name = 1;
+		uint32 id = 2;
+		string type = 3;
 		uint32 payloadSize = 4;
 	}
 	repeated CollectionHeader collection = 7;

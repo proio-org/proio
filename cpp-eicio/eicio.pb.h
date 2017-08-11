@@ -30,7 +30,6 @@
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/map.h>  // IWYU pragma: export
 #include <google/protobuf/map_field_inl.h>
-#include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 namespace eicio {
@@ -187,42 +186,6 @@ void AddDescriptors();
 void InitDefaults();
 }  // namespace protobuf_eicio_2eproto
 
-enum EventHeader_CollectionHeader_Type {
-  EventHeader_CollectionHeader_Type_NONE = 0,
-  EventHeader_CollectionHeader_Type_MCParticle = 1,
-  EventHeader_CollectionHeader_Type_SimTrackerHit = 2,
-  EventHeader_CollectionHeader_Type_TrackerData = 3,
-  EventHeader_CollectionHeader_Type_TrackerRawData = 4,
-  EventHeader_CollectionHeader_Type_TrackerHit = 5,
-  EventHeader_CollectionHeader_Type_TrackerPulse = 6,
-  EventHeader_CollectionHeader_Type_TrackerHitPlane = 7,
-  EventHeader_CollectionHeader_Type_TrackerHitZCylinder = 8,
-  EventHeader_CollectionHeader_Type_Track = 9,
-  EventHeader_CollectionHeader_Type_SimCalorimeterHit = 10,
-  EventHeader_CollectionHeader_Type_RawCalorimeterHit = 11,
-  EventHeader_CollectionHeader_Type_CalorimeterHit = 12,
-  EventHeader_CollectionHeader_Type_Cluster = 13,
-  EventHeader_CollectionHeader_Type_RecParticle = 14,
-  EventHeader_CollectionHeader_Type_Vertex = 15,
-  EventHeader_CollectionHeader_Type_Relation = 16,
-  EventHeader_CollectionHeader_Type_EventHeader_CollectionHeader_Type_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
-  EventHeader_CollectionHeader_Type_EventHeader_CollectionHeader_Type_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
-};
-bool EventHeader_CollectionHeader_Type_IsValid(int value);
-const EventHeader_CollectionHeader_Type EventHeader_CollectionHeader_Type_Type_MIN = EventHeader_CollectionHeader_Type_NONE;
-const EventHeader_CollectionHeader_Type EventHeader_CollectionHeader_Type_Type_MAX = EventHeader_CollectionHeader_Type_Relation;
-const int EventHeader_CollectionHeader_Type_Type_ARRAYSIZE = EventHeader_CollectionHeader_Type_Type_MAX + 1;
-
-const ::google::protobuf::EnumDescriptor* EventHeader_CollectionHeader_Type_descriptor();
-inline const ::std::string& EventHeader_CollectionHeader_Type_Name(EventHeader_CollectionHeader_Type value) {
-  return ::google::protobuf::internal::NameOfEnum(
-    EventHeader_CollectionHeader_Type_descriptor(), value);
-}
-inline bool EventHeader_CollectionHeader_Type_Parse(
-    const ::std::string& name, EventHeader_CollectionHeader_Type* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<EventHeader_CollectionHeader_Type>(
-    EventHeader_CollectionHeader_Type_descriptor(), name, value);
-}
 // ===================================================================
 
 class EventHeader_CollectionHeader : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.EventHeader.CollectionHeader) */ {
@@ -287,67 +250,11 @@ class EventHeader_CollectionHeader : public ::google::protobuf::Message /* @@pro
 
   // nested types ----------------------------------------------------
 
-  typedef EventHeader_CollectionHeader_Type Type;
-  static const Type NONE =
-    EventHeader_CollectionHeader_Type_NONE;
-  static const Type MCParticle =
-    EventHeader_CollectionHeader_Type_MCParticle;
-  static const Type SimTrackerHit =
-    EventHeader_CollectionHeader_Type_SimTrackerHit;
-  static const Type TrackerData =
-    EventHeader_CollectionHeader_Type_TrackerData;
-  static const Type TrackerRawData =
-    EventHeader_CollectionHeader_Type_TrackerRawData;
-  static const Type TrackerHit =
-    EventHeader_CollectionHeader_Type_TrackerHit;
-  static const Type TrackerPulse =
-    EventHeader_CollectionHeader_Type_TrackerPulse;
-  static const Type TrackerHitPlane =
-    EventHeader_CollectionHeader_Type_TrackerHitPlane;
-  static const Type TrackerHitZCylinder =
-    EventHeader_CollectionHeader_Type_TrackerHitZCylinder;
-  static const Type Track =
-    EventHeader_CollectionHeader_Type_Track;
-  static const Type SimCalorimeterHit =
-    EventHeader_CollectionHeader_Type_SimCalorimeterHit;
-  static const Type RawCalorimeterHit =
-    EventHeader_CollectionHeader_Type_RawCalorimeterHit;
-  static const Type CalorimeterHit =
-    EventHeader_CollectionHeader_Type_CalorimeterHit;
-  static const Type Cluster =
-    EventHeader_CollectionHeader_Type_Cluster;
-  static const Type RecParticle =
-    EventHeader_CollectionHeader_Type_RecParticle;
-  static const Type Vertex =
-    EventHeader_CollectionHeader_Type_Vertex;
-  static const Type Relation =
-    EventHeader_CollectionHeader_Type_Relation;
-  static inline bool Type_IsValid(int value) {
-    return EventHeader_CollectionHeader_Type_IsValid(value);
-  }
-  static const Type Type_MIN =
-    EventHeader_CollectionHeader_Type_Type_MIN;
-  static const Type Type_MAX =
-    EventHeader_CollectionHeader_Type_Type_MAX;
-  static const int Type_ARRAYSIZE =
-    EventHeader_CollectionHeader_Type_Type_ARRAYSIZE;
-  static inline const ::google::protobuf::EnumDescriptor*
-  Type_descriptor() {
-    return EventHeader_CollectionHeader_Type_descriptor();
-  }
-  static inline const ::std::string& Type_Name(Type value) {
-    return EventHeader_CollectionHeader_Type_Name(value);
-  }
-  static inline bool Type_Parse(const ::std::string& name,
-      Type* value) {
-    return EventHeader_CollectionHeader_Type_Parse(name, value);
-  }
-
   // accessors -------------------------------------------------------
 
-  // string name = 2;
+  // string name = 1;
   void clear_name();
-  static const int kNameFieldNumber = 2;
+  static const int kNameFieldNumber = 1;
   const ::std::string& name() const;
   void set_name(const ::std::string& value);
   #if LANG_CXX11
@@ -359,15 +266,23 @@ class EventHeader_CollectionHeader : public ::google::protobuf::Message /* @@pro
   ::std::string* release_name();
   void set_allocated_name(::std::string* name);
 
-  // .eicio.EventHeader.CollectionHeader.Type type = 1;
+  // string type = 3;
   void clear_type();
-  static const int kTypeFieldNumber = 1;
-  ::eicio::EventHeader_CollectionHeader_Type type() const;
-  void set_type(::eicio::EventHeader_CollectionHeader_Type value);
+  static const int kTypeFieldNumber = 3;
+  const ::std::string& type() const;
+  void set_type(const ::std::string& value);
+  #if LANG_CXX11
+  void set_type(::std::string&& value);
+  #endif
+  void set_type(const char* value);
+  void set_type(const char* value, size_t size);
+  ::std::string* mutable_type();
+  ::std::string* release_type();
+  void set_allocated_type(::std::string* type);
 
-  // uint32 id = 3;
+  // uint32 id = 2;
   void clear_id();
-  static const int kIdFieldNumber = 3;
+  static const int kIdFieldNumber = 2;
   ::google::protobuf::uint32 id() const;
   void set_id(::google::protobuf::uint32 value);
 
@@ -382,7 +297,7 @@ class EventHeader_CollectionHeader : public ::google::protobuf::Message /* @@pro
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::ArenaStringPtr name_;
-  int type_;
+  ::google::protobuf::internal::ArenaStringPtr type_;
   ::google::protobuf::uint32 id_;
   ::google::protobuf::uint32 payloadsize_;
   mutable int _cached_size_;
@@ -5834,21 +5749,7 @@ class RelationCollection : public ::google::protobuf::Message /* @@protoc_insert
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
 // EventHeader_CollectionHeader
 
-// .eicio.EventHeader.CollectionHeader.Type type = 1;
-inline void EventHeader_CollectionHeader::clear_type() {
-  type_ = 0;
-}
-inline ::eicio::EventHeader_CollectionHeader_Type EventHeader_CollectionHeader::type() const {
-  // @@protoc_insertion_point(field_get:eicio.EventHeader.CollectionHeader.type)
-  return static_cast< ::eicio::EventHeader_CollectionHeader_Type >(type_);
-}
-inline void EventHeader_CollectionHeader::set_type(::eicio::EventHeader_CollectionHeader_Type value) {
-  
-  type_ = value;
-  // @@protoc_insertion_point(field_set:eicio.EventHeader.CollectionHeader.type)
-}
-
-// string name = 2;
+// string name = 1;
 inline void EventHeader_CollectionHeader::clear_name() {
   name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -5901,7 +5802,7 @@ inline void EventHeader_CollectionHeader::set_allocated_name(::std::string* name
   // @@protoc_insertion_point(field_set_allocated:eicio.EventHeader.CollectionHeader.name)
 }
 
-// uint32 id = 3;
+// uint32 id = 2;
 inline void EventHeader_CollectionHeader::clear_id() {
   id_ = 0u;
 }
@@ -5913,6 +5814,59 @@ inline void EventHeader_CollectionHeader::set_id(::google::protobuf::uint32 valu
   
   id_ = value;
   // @@protoc_insertion_point(field_set:eicio.EventHeader.CollectionHeader.id)
+}
+
+// string type = 3;
+inline void EventHeader_CollectionHeader::clear_type() {
+  type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& EventHeader_CollectionHeader::type() const {
+  // @@protoc_insertion_point(field_get:eicio.EventHeader.CollectionHeader.type)
+  return type_.GetNoArena();
+}
+inline void EventHeader_CollectionHeader::set_type(const ::std::string& value) {
+  
+  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:eicio.EventHeader.CollectionHeader.type)
+}
+#if LANG_CXX11
+inline void EventHeader_CollectionHeader::set_type(::std::string&& value) {
+  
+  type_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:eicio.EventHeader.CollectionHeader.type)
+}
+#endif
+inline void EventHeader_CollectionHeader::set_type(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:eicio.EventHeader.CollectionHeader.type)
+}
+inline void EventHeader_CollectionHeader::set_type(const char* value, size_t size) {
+  
+  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:eicio.EventHeader.CollectionHeader.type)
+}
+inline ::std::string* EventHeader_CollectionHeader::mutable_type() {
+  
+  // @@protoc_insertion_point(field_mutable:eicio.EventHeader.CollectionHeader.type)
+  return type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* EventHeader_CollectionHeader::release_type() {
+  // @@protoc_insertion_point(field_release:eicio.EventHeader.CollectionHeader.type)
+  
+  return type_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void EventHeader_CollectionHeader::set_allocated_type(::std::string* type) {
+  if (type != NULL) {
+    
+  } else {
+    
+  }
+  type_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), type);
+  // @@protoc_insertion_point(field_set_allocated:eicio.EventHeader.CollectionHeader.type)
 }
 
 // uint32 payloadSize = 4;
@@ -11666,20 +11620,6 @@ RelationCollection::entries() const {
 
 
 }  // namespace eicio
-
-#ifndef SWIG
-namespace google {
-namespace protobuf {
-
-template <> struct is_proto_enum< ::eicio::EventHeader_CollectionHeader_Type> : ::google::protobuf::internal::true_type {};
-template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::eicio::EventHeader_CollectionHeader_Type>() {
-  return ::eicio::EventHeader_CollectionHeader_Type_descriptor();
-}
-
-}  // namespace protobuf
-}  // namespace google
-#endif  // SWIG
 
 // @@protoc_insertion_point(global_scope)
 
