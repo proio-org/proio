@@ -22,11 +22,13 @@ func NewEvent() *Event {
 func (evt *Event) String() string {
 	buffer := &bytes.Buffer{}
 
-	fmt.Fprint(buffer, "Event header...\n", proto.MarshalTextString(evt.Header), "\n")
+	fmt.Fprint(buffer, "event header...\n", proto.MarshalTextString(evt.Header), "\n")
 	for _, collHdr := range evt.Header.Collection {
 		coll, err := evt.Get(collHdr.Name)
 		if coll != nil && err == nil {
-			fmt.Fprint(buffer, collHdr.Name, " collection\n", proto.MarshalTextString(coll), "\n")
+			fmt.Fprint(buffer, "collection name: ", collHdr.Name, "\n")
+			fmt.Fprint(buffer, "type: ", collHdr.Type, "\n")
+			fmt.Fprint(buffer, proto.MarshalTextString(coll), "\n")
 		}
 	}
 
@@ -54,6 +56,8 @@ func (evt *Event) Add(coll Message, name string) error {
 	return nil
 }
 
+var BlankColl = errors.New("collection not found or type is blank")
+
 func (evt *Event) Get(name string) (Message, error) {
 	offset := uint32(0)
 	size := uint32(0)
@@ -67,7 +71,7 @@ func (evt *Event) Get(name string) (Message, error) {
 		offset += coll.PayloadSize
 	}
 	if collType == "" {
-		return nil, errors.New("GetCollection(): collection found but type is blank")
+		return nil, BlankColl
 	}
 
 	msgType := proto.MessageType("eicio." + collType).Elem()

@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"reflect"
@@ -36,7 +37,7 @@ func main() {
 
 	lcioReader, err := lcio.Open(flag.Arg(0))
 	if err != nil {
-		log.Fatal("Unable to open LCIO file:", err)
+		log.Fatal(err)
 	}
 	defer lcioReader.Close()
 
@@ -54,7 +55,7 @@ func main() {
 	} else {
 		eicioWriter, err = eicio.Create(*outFile)
 		if err != nil {
-			log.Fatal("Unable to create EICIO file:", err)
+			log.Fatal(err)
 		}
 		defer eicioWriter.Close()
 	}
@@ -111,6 +112,11 @@ func main() {
 		}
 
 		eicioWriter.PushEvent(eicioEvent)
+	}
+
+	err = lcioReader.Err()
+	if err != nil && err != io.EOF {
+		log.Fatal(err)
 	}
 }
 

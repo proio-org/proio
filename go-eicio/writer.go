@@ -50,6 +50,13 @@ func NewGzipWriter(byteWriter io.Writer) (*Writer, error) {
 	return NewWriter(gzWriter), nil
 }
 
+var magicBytes = [...]byte{
+	byte(0xe1),
+	byte(0xc1),
+	byte(0x00),
+	byte(0x00),
+}
+
 func (wrt *Writer) PushEvent(event *Event) (err error) {
 	headerBuf, err := event.Header.Marshal()
 	if err != nil {
@@ -59,6 +66,7 @@ func (wrt *Writer) PushEvent(event *Event) (err error) {
 	headerSizeBuf := make([]byte, 4)
 	binary.LittleEndian.PutUint32(headerSizeBuf, uint32(len(headerBuf)))
 
+	wrt.byteWriter.Write(magicBytes[:])
 	wrt.byteWriter.Write(headerSizeBuf)
 	wrt.byteWriter.Write(headerBuf)
 	wrt.byteWriter.Write(event.getPayload())
