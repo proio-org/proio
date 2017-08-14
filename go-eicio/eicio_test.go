@@ -16,12 +16,12 @@ func TestEventPushGet(t *testing.T) {
 	MCParticles := &MCParticleCollection{}
 	MCParticles.Entries = append(MCParticles.Entries, &MCParticle{})
 	MCParticles.Entries = append(MCParticles.Entries, &MCParticle{})
-	event0Out.AddCollection(MCParticles, "MCParticles")
+	event0Out.Add(MCParticles, "MCParticles")
 
 	simTrackHits := &SimTrackerHitCollection{}
 	simTrackHits.Entries = append(simTrackHits.Entries, &SimTrackerHit{})
 	simTrackHits.Entries = append(simTrackHits.Entries, &SimTrackerHit{})
-	event0Out.AddCollection(simTrackHits, "TrackerHits")
+	event0Out.Add(simTrackHits, "TrackerHits")
 
 	writer.PushEvent(event0Out)
 
@@ -30,13 +30,16 @@ func TestEventPushGet(t *testing.T) {
 	simTrackHits = &SimTrackerHitCollection{}
 	simTrackHits.Entries = append(simTrackHits.Entries, &SimTrackerHit{})
 	simTrackHits.Entries = append(simTrackHits.Entries, &SimTrackerHit{})
-	event1Out.AddCollection(simTrackHits, "TrackerHits")
+	event1Out.Add(simTrackHits, "TrackerHits")
 
 	writer.PushEvent(event1Out)
 
 	reader := NewReader(buffer)
 
-	event0In := reader.GetEvent()
+	event0In, err := reader.Next()
+	if err != nil {
+		t.Error(err)
+	}
 	if event0In == nil {
 		t.Error("Event 0 failed to Get")
 	}
@@ -44,7 +47,10 @@ func TestEventPushGet(t *testing.T) {
 		t.Error("Event 0 corrupted")
 	}
 
-	event1In := reader.GetEvent()
+	event1In, err := reader.Next()
+	if err != nil {
+		t.Error(err)
+	}
 	if event1In == nil {
 		t.Error("Event 1 failed to Get")
 	}
