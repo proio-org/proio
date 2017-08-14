@@ -2,19 +2,16 @@
 
 PROTO := eicio.proto
 
-GO_PATH := go-eicio
-CPP_PATH := cpp-eicio
+GO_TARGET := go-eicio/eicio.pb.go
+CPP_TARGET := cpp-eicio/eicio.pb.h
 
-GO_TARGET := $(GO_PATH)/eicio.pb.go
-CPP_TARGET := $(CPP_PATH)/eicio.pb.h
-
-TARGETS := $(GO_TARGET) \
-			$(CPP_TARGET)
+TARGETS := $(GO_TARGET) $(CPP_TARGET)
 
 all: $(TARGETS)
 
 $(GO_TARGET): $(PROTO)
-	protoc --gofast_out=$(GO_PATH) $<
+	protoc --gofast_out=$(@D) $<
+	sed -i '/\/\*/,/\*\//d' $@
 
 $(CPP_TARGET): $(PROTO)
-	protoc --cpp_out=$(CPP_PATH) $<
+	protoc --cpp_out=$(@D) $<

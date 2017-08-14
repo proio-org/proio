@@ -14,6 +14,10 @@ type Reader struct {
 	deferredUntilClose []func() error
 }
 
+// opens a file and adds the file as an io.Reader to a new Reader that is
+// returned.  If the file name ends with ".gz", the file is wrapped with
+// gzip.NewReader().  If the function returns successful (err == nil), the
+// Close() function should be called when finished.
 func Open(filename string) (*Reader, error) {
 	file, err := os.Open(filename)
 	if err != nil {
@@ -106,6 +110,9 @@ var (
 	ErrTruncated = errors.New("data stream is truncated early")
 )
 
+// returns the next even upon success.  If the data stream is not aligned with
+// the beginning of an event, the stream will be resynchronized to the next
+// event, and ErrResync will be returned along with the event.
 func (rdr *Reader) Next() (*Event, error) {
 	n, err := rdr.syncToMagic()
 	if err != nil {
