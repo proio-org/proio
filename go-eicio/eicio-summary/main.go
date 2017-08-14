@@ -16,7 +16,7 @@ var (
 
 func printUsage() {
 	fmt.Fprintf(os.Stderr,
-		`Usage: eicio-ls [options] <eicio-input-file>
+		`Usage: eicio-summary [options] <eicio-input-file>
 options:
 `,
 	)
@@ -50,16 +50,20 @@ func main() {
 	}
 	defer reader.Close()
 
-	var event *eicio.Event
-	for event, err = reader.Next(); event != nil; event, err = reader.Next() {
+	nEvents := 0
+
+	var header *eicio.EventHeader
+	for header, err = reader.NextHeader(); header != nil; header, err = reader.NextHeader() {
 		if err != nil {
 			log.Print(err)
 		}
 
-		fmt.Print(event)
+		nEvents++
 	}
 
 	if err != nil && err != io.EOF {
 		log.Print(err)
 	}
+
+	fmt.Println("Number of events:", nEvents)
 }

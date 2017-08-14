@@ -66,7 +66,6 @@ func NewGzipWriter(byteWriter io.Writer) (*Writer, error) {
 	}
 
 	writer := NewWriter(gzWriter)
-	writer.deferUntilClose(gzWriter.Flush)
 	writer.deferUntilClose(gzWriter.Close)
 
 	return writer, nil
