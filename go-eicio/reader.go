@@ -12,6 +12,7 @@ import (
 type Reader struct {
 	byteReader         io.Reader
 	deferredUntilClose []func() error
+	lastEvent          int
 }
 
 // opens a file and adds the file as an io.Reader to a new Reader that is
@@ -148,22 +149,81 @@ func (rdr *Reader) Next() (*Event, error) {
 
 	if n != 4 {
 		err = ErrResync
+	}
+
+	return event, err
+}
+
+func (rdr *Reader) NextHeader() (*EventHeader, error) {
+	n, err := rdr.syncToMagic()
+	if err != nil {
+		return nil, err
+	}
+
+	headerSizeBuf := make([]byte, 4)
+	if err = readBytes(rdr.byteReader, headerSizeBuf); err != nil {
+		return nil, ErrTruncated
+	}
+	headerSize := binary.LittleEndian.Uint32(headerSizeBuf)
+	headerBuf := make([]byte, headerSize)
+	if err = readBytes(rdr.byteReader, headerBuf); err != nil {
+		return nil, ErrTruncated
+	}
+	header := &EventHeader{}
+	if err = header.Unmarshal(headerBuf); err != nil {
+		return nil, ErrTruncated
+	}
+
+	payloadSize := uint32(0)
+	for _, collHdr := range header.Collection {
+		payloadSize += collHdr.PayloadSize
+	}
+	seeker, ok := rdr.byteReader.(io.Seeker)
+	if ok {
+		if err = seekBytes(seeker, int64(payloadSize)); err != nil {
+			return header, ErrTruncated
+		}
+	} else {
+		payload := make([]byte, payloadSize)
+		if err = readBytes(rdr.byteReader, payload); err != nil {
+			return header, ErrTruncated
+		}
+	}
+
+	if n != 4 {
+		err = ErrResync
 	} else {
 		err = nil
 	}
 
-	return event, err
+	return header, err
 }
 
 func readBytes(rdr io.Reader, buf []byte) error {
 	tot := 0
 	for tot < len(buf) {
 		n, err := rdr.Read(buf[tot:])
-		if err != nil {
+		tot += n
+		if err != nil && tot != len(buf) {
 			return err
 		}
+	}
+	return nil
+}
 
-		tot += n
+func seekBytes(seeker io.Seeker, nBytes int64) error {
+	start, err := seeker.Seek(0, io.SeekCurrent)
+	if err != nil {
+		return err
+	}
+
+	tot := int64(0)
+	for tot < nBytes {
+		n, err := seeker.Seek(int64(nBytes-tot), io.SeekCurrent)
+		tot += n - start
+		if err != nil && tot != nBytes {
+			return err
+		}
 	}
 	return nil
 }
