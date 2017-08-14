@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"flag"
 	"fmt"
 	"io"
@@ -12,6 +13,7 @@ import (
 
 var (
 	doGzip = flag.Bool("g", false, "decompress the stdin input with gzip")
+	event  = flag.Int("e", -1, "list specified event, numbered consecutively from the start of the file or stream")
 )
 
 func printUsage() {
@@ -37,10 +39,11 @@ func main() {
 
 	filename := flag.Arg(0)
 	if filename == "-" {
+		stdin := bufio.NewReader(os.Stdin)
 		if *doGzip {
-			reader, err = eicio.NewGzipReader(os.Stdin)
+			reader, err = eicio.NewGzipReader(stdin)
 		} else {
-			reader = eicio.NewReader(os.Stdin)
+			reader = eicio.NewReader(stdin)
 		}
 	} else {
 		reader, err = eicio.Open(filename)
@@ -50,6 +53,19 @@ func main() {
 	}
 	defer reader.Close()
 
+	singleEvent := false
+	if *event >= 0 {
+		singleEvent = true
+		_, err = reader.Skip(*event)
+		if err == eicio.ErrResync {
+			log.Print(err)
+		} else if err != nil {
+			log.Fatal(err)
+		}
+	}
+
+	nEventsRead := 0
+
 	var event *eicio.Event
 	for event, err = reader.Next(); event != nil; event, err = reader.Next() {
 		if err != nil {
@@ -57,9 +73,14 @@ func main() {
 		}
 
 		fmt.Print(event)
+
+		nEventsRead++
+		if singleEvent {
+			break
+		}
 	}
 
-	if err != nil && err != io.EOF {
+	if (err != nil && err != io.EOF) || nEventsRead == 0 {
 		log.Print(err)
 	}
 }

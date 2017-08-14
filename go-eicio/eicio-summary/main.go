@@ -1,13 +1,16 @@
 package main
 
 import (
+	"bufio"
 	"flag"
 	"fmt"
 	"io"
 	"log"
 	"os"
+	"sort"
 
 	"github.com/decibelCooper/eicio/go-eicio"
+	humanize "github.com/dustin/go-humanize"
 )
 
 var (
@@ -37,10 +40,11 @@ func main() {
 
 	filename := flag.Arg(0)
 	if filename == "-" {
+		stdin := bufio.NewReader(os.Stdin)
 		if *doGzip {
-			reader, err = eicio.NewGzipReader(os.Stdin)
+			reader, err = eicio.NewGzipReader(stdin)
 		} else {
-			reader = eicio.NewReader(os.Stdin)
+			reader = eicio.NewReader(stdin)
 		}
 	} else {
 		reader, err = eicio.Open(filename)
@@ -51,6 +55,9 @@ func main() {
 	defer reader.Close()
 
 	nEvents := 0
+	colls := make([]string, 0)
+	collBytes := make(map[string]uint64)
+	runs := make(map[uint64]bool)
 
 	var header *eicio.EventHeader
 	for header, err = reader.NextHeader(); header != nil; header, err = reader.NextHeader() {
@@ -58,12 +65,26 @@ func main() {
 			log.Print(err)
 		}
 
+		runs[header.RunNumber] = true
 		nEvents++
+
+		for _, collHdr := range header.Collection {
+			if _, ok := collBytes[collHdr.Type]; !ok {
+				colls = append(colls, collHdr.Type)
+				sort.Strings(colls)
+			}
+			collBytes[collHdr.Type] += uint64(collHdr.PayloadSize)
+		}
 	}
 
 	if err != nil && err != io.EOF {
 		log.Print(err)
 	}
 
+	fmt.Println("Number of runs:", len(runs))
 	fmt.Println("Number of events:", nEvents)
+	fmt.Println("Total bytes for...")
+	for _, key := range colls {
+		fmt.Print("\t", key, ": ", humanize.Bytes(collBytes[key]), "\n")
+	}
 }
