@@ -13,6 +13,11 @@ type Writer struct {
 	deferredUntilClose []func() error
 }
 
+// creates a new file (overwriting existing file) and adds the file as an
+// io.Writer to a new Writer that is returned.  If the file name ends with
+// ".gz", the file is wrapped with gzip.NewWriterLevel() with level
+// gzip.BestSpeed.  If the function returns successful (err == nil), the
+// Close() function should be called when finished.
 func Create(filename string) (*Writer, error) {
 	file, err := os.Create(filename)
 	if err != nil {

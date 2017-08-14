@@ -35,6 +35,8 @@ func (evt *Event) String() string {
 	return string(buffer.Bytes())
 }
 
+// adds a collection to the event.  The collection is serialized upon calling
+// this function.
 func (evt *Event) Add(coll Message, name string) error {
 	collHdr := &EventHeader_CollectionHeader{}
 	collHdr.Name = name
@@ -58,6 +60,8 @@ func (evt *Event) Add(coll Message, name string) error {
 
 var ErrBlankColl = errors.New("collection not found or type is blank")
 
+// gets a collection from the event.  The collection is deserialized upon
+// calling this function.
 func (evt *Event) Get(name string) (Message, error) {
 	offset := uint32(0)
 	size := uint32(0)
