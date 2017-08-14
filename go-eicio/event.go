@@ -56,7 +56,7 @@ func (evt *Event) Add(coll Message, name string) error {
 	return nil
 }
 
-var BlankColl = errors.New("collection not found or type is blank")
+var ErrBlankColl = errors.New("collection not found or type is blank")
 
 func (evt *Event) Get(name string) (Message, error) {
 	offset := uint32(0)
@@ -71,7 +71,7 @@ func (evt *Event) Get(name string) (Message, error) {
 		offset += coll.PayloadSize
 	}
 	if collType == "" {
-		return nil, BlankColl
+		return nil, ErrBlankColl
 	}
 
 	msgType := proto.MessageType("eicio." + collType).Elem()

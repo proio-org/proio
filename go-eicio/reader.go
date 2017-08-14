@@ -10,7 +10,8 @@ import (
 )
 
 type Reader struct {
-	byteReader io.Reader
+	byteReader         io.Reader
+	deferredUntilClose []func() error
 }
 
 func Open(filename string) (*Reader, error) {
@@ -19,15 +20,33 @@ func Open(filename string) (*Reader, error) {
 		return nil, err
 	}
 
+	var reader *Reader
 	if strings.HasSuffix(filename, ".gz") {
-		return NewGzipReader(file)
+		reader, err = NewGzipReader(file)
+		if err != nil {
+			file.Close()
+			return nil, err
+		}
+	} else {
+		reader = NewReader(file)
 	}
+	reader.deferUntilClose(file.Close)
 
-	return NewReader(file), nil
+	return reader, nil
 }
 
+// closes anything created by Open() or NewGzipReader()
 func (rdr *Reader) Close() error {
-	return rdr.byteReader.(io.Closer).Close()
+	for _, thisFunc := range rdr.deferredUntilClose {
+		if err := thisFunc(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (rdr *Reader) deferUntilClose(thisFunc func() error) {
+	rdr.deferredUntilClose = append(rdr.deferredUntilClose, thisFunc)
 }
 
 func NewReader(byteReader io.Reader) *Reader {
@@ -41,7 +60,11 @@ func NewGzipReader(byteReader io.Reader) (*Reader, error) {
 	if err != nil {
 		return nil, err
 	}
-	return NewReader(gzReader), nil
+
+	reader := NewReader(gzReader)
+	reader.deferUntilClose(gzReader.Close)
+
+	return reader, nil
 }
 
 func (rdr *Reader) syncToMagic() (int, error) {
@@ -79,8 +102,8 @@ func (rdr *Reader) syncToMagic() (int, error) {
 }
 
 var (
-	Resync    = errors.New("data stream had to be resynchronized")
-	Truncated = errors.New("data stream is truncated early")
+	ErrResync    = errors.New("data stream had to be resynchronized")
+	ErrTruncated = errors.New("data stream is truncated early")
 )
 
 func (rdr *Reader) Next() (*Event, error) {
@@ -91,16 +114,16 @@ func (rdr *Reader) Next() (*Event, error) {
 
 	headerSizeBuf := make([]byte, 4)
 	if err = readBytes(rdr.byteReader, headerSizeBuf); err != nil {
-		return nil, Truncated
+		return nil, ErrTruncated
 	}
 	headerSize := binary.LittleEndian.Uint32(headerSizeBuf)
 	headerBuf := make([]byte, headerSize)
 	if err = readBytes(rdr.byteReader, headerBuf); err != nil {
-		return nil, Truncated
+		return nil, ErrTruncated
 	}
 	header := &EventHeader{}
 	if err = header.Unmarshal(headerBuf); err != nil {
-		return nil, Truncated
+		return nil, ErrTruncated
 	}
 
 	payloadSize := uint32(0)
@@ -109,7 +132,7 @@ func (rdr *Reader) Next() (*Event, error) {
 	}
 	payload := make([]byte, payloadSize)
 	if err = readBytes(rdr.byteReader, payload); err != nil {
-		return nil, Truncated
+		return nil, ErrTruncated
 	}
 
 	event := &Event{}
@@ -117,7 +140,7 @@ func (rdr *Reader) Next() (*Event, error) {
 	event.setPayload(payload)
 
 	if n != 4 {
-		err = Resync
+		err = ErrResync
 	} else {
 		err = nil
 	}

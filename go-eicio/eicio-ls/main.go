@@ -48,10 +48,11 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer reader.Close()
 
 	var event *eicio.Event
 	for event, err = reader.Next(); event != nil; event, err = reader.Next() {
-		if err == eicio.Resync {
+		if err == eicio.ErrResync {
 			log.Print(err)
 		}
 
