@@ -87,10 +87,15 @@ func (wrt *Writer) PushEvent(event *Event) (err error) {
 	headerSizeBuf := make([]byte, 4)
 	binary.LittleEndian.PutUint32(headerSizeBuf, uint32(len(headerBuf)))
 
+	payload := event.getPayload()
+	payloadSizeBuf := make([]byte, 4)
+	binary.LittleEndian.PutUint32(payloadSizeBuf, uint32(len(payload)))
+
 	wrt.byteWriter.Write(magicBytes[:])
 	wrt.byteWriter.Write(headerSizeBuf)
+	wrt.byteWriter.Write(payloadSizeBuf)
 	wrt.byteWriter.Write(headerBuf)
-	wrt.byteWriter.Write(event.getPayload())
+	wrt.byteWriter.Write(payload)
 
 	return
 }

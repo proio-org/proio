@@ -125,6 +125,12 @@ func (rdr *Reader) Next() (*Event, error) {
 		return nil, ErrTruncated
 	}
 	headerSize := binary.LittleEndian.Uint32(headerSizeBuf)
+	payloadSizeBuf := make([]byte, 4)
+	if err = readBytes(rdr.byteReader, payloadSizeBuf); err != nil {
+		return nil, ErrTruncated
+	}
+	payloadSize := binary.LittleEndian.Uint32(payloadSizeBuf)
+
 	headerBuf := make([]byte, headerSize)
 	if err = readBytes(rdr.byteReader, headerBuf); err != nil {
 		return nil, ErrTruncated
@@ -134,10 +140,6 @@ func (rdr *Reader) Next() (*Event, error) {
 		return nil, ErrTruncated
 	}
 
-	payloadSize := uint32(0)
-	for _, collHdr := range header.Collection {
-		payloadSize += collHdr.PayloadSize
-	}
 	payload := make([]byte, payloadSize)
 	if err = readBytes(rdr.byteReader, payload); err != nil {
 		return nil, ErrTruncated
@@ -165,6 +167,12 @@ func (rdr *Reader) NextHeader() (*EventHeader, error) {
 		return nil, ErrTruncated
 	}
 	headerSize := binary.LittleEndian.Uint32(headerSizeBuf)
+	payloadSizeBuf := make([]byte, 4)
+	if err = readBytes(rdr.byteReader, payloadSizeBuf); err != nil {
+		return nil, ErrTruncated
+	}
+	payloadSize := binary.LittleEndian.Uint32(payloadSizeBuf)
+
 	headerBuf := make([]byte, headerSize)
 	if err = readBytes(rdr.byteReader, headerBuf); err != nil {
 		return nil, ErrTruncated
@@ -174,10 +182,6 @@ func (rdr *Reader) NextHeader() (*EventHeader, error) {
 		return nil, ErrTruncated
 	}
 
-	payloadSize := uint32(0)
-	for _, collHdr := range header.Collection {
-		payloadSize += collHdr.PayloadSize
-	}
 	seeker, ok := rdr.byteReader.(io.Seeker)
 	if ok {
 		if err = seekBytes(seeker, int64(payloadSize)); err != nil {
@@ -197,6 +201,74 @@ func (rdr *Reader) NextHeader() (*EventHeader, error) {
 	}
 
 	return header, err
+}
+
+func (rdr *Reader) Skip(nEvents int) (int, error) {
+	seeker, isSeeker := rdr.byteReader.(io.Seeker)
+	wasResynced := false
+
+	nSkipped := 0
+	for i := 0; i < nEvents; i++ {
+		n, err := rdr.syncToMagic()
+		if err != nil {
+			return nSkipped, err
+		}
+		if n != 4 {
+			wasResynced = true
+		}
+
+		headerSizeBuf := make([]byte, 4)
+		if err = readBytes(rdr.byteReader, headerSizeBuf); err != nil {
+			return nSkipped, ErrTruncated
+		}
+		headerSize := binary.LittleEndian.Uint32(headerSizeBuf)
+
+		payloadSizeBuf := make([]byte, 4)
+		if err = readBytes(rdr.byteReader, payloadSizeBuf); err != nil {
+			return nSkipped, ErrTruncated
+		}
+		payloadSize := binary.LittleEndian.Uint32(payloadSizeBuf)
+
+		if isSeeker {
+			if err = seekBytes(seeker, int64(headerSize+payloadSize)); err != nil {
+				return nSkipped, ErrTruncated
+			}
+		} else {
+			headerBuf := make([]byte, headerSize+payloadSize)
+			if err = readBytes(rdr.byteReader, headerBuf); err != nil {
+				return nSkipped, ErrTruncated
+			}
+		}
+
+		nSkipped++
+	}
+
+	var err error = nil
+	if wasResynced {
+		err = ErrResync
+	}
+
+	return nSkipped, err
+}
+
+var ErrNotSeekable = errors.New("data stream is not seekable")
+
+func (rdr *Reader) SeekToStart() error {
+	seeker, ok := rdr.byteReader.(io.Seeker)
+	if !ok {
+		return ErrNotSeekable
+	}
+
+	for {
+		n, err := seeker.Seek(0, io.SeekStart)
+		if err != nil {
+			return err
+		}
+		if n == 0 {
+			break
+		}
+	}
+	return nil
 }
 
 func readBytes(rdr io.Reader, buf []byte) error {
