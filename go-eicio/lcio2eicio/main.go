@@ -48,7 +48,6 @@ func main() {
 			if err != nil {
 				log.Fatal(err)
 			}
-			defer eicioWriter.Close()
 		} else {
 			eicioWriter = eicio.NewWriter(os.Stdout)
 		}
@@ -57,8 +56,8 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		defer eicioWriter.Close()
 	}
+	defer eicioWriter.Close()
 
 	for lcioReader.Next() {
 		lcioEvent := lcioReader.Event()

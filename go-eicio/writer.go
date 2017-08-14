@@ -9,7 +9,8 @@ import (
 )
 
 type Writer struct {
-	byteWriter io.Writer
+	byteWriter         io.Writer
+	deferredUntilClose []func() error
 }
 
 func Create(filename string) (*Writer, error) {
@@ -18,22 +19,33 @@ func Create(filename string) (*Writer, error) {
 		return nil, err
 	}
 
+	var writer *Writer
 	if strings.HasSuffix(filename, ".gz") {
-		return NewGzipWriter(file)
+		writer, err = NewGzipWriter(file)
+		if err != nil {
+			file.Close()
+			return nil, err
+		}
+	} else {
+		writer = NewWriter(file)
 	}
+	writer.deferUntilClose(file.Close)
 
-	return NewWriter(file), nil
+	return writer, nil
 }
 
+// closes anything created by Create() or NewGzipWriter()
 func (wrt *Writer) Close() error {
-	flusher, ok := wrt.byteWriter.(Flusher)
-	if ok {
-		if err := flusher.Flush(); err != nil {
+	for _, thisFunc := range wrt.deferredUntilClose {
+		if err := thisFunc(); err != nil {
 			return err
 		}
 	}
+	return nil
+}
 
-	return wrt.byteWriter.(io.Closer).Close()
+func (wrt *Writer) deferUntilClose(thisFunc func() error) {
+	wrt.deferredUntilClose = append(wrt.deferredUntilClose, thisFunc)
 }
 
 func NewWriter(byteWriter io.Writer) *Writer {
@@ -47,7 +59,12 @@ func NewGzipWriter(byteWriter io.Writer) (*Writer, error) {
 	if err != nil {
 		return nil, err
 	}
-	return NewWriter(gzWriter), nil
+
+	writer := NewWriter(gzWriter)
+	writer.deferUntilClose(gzWriter.Flush)
+	writer.deferUntilClose(gzWriter.Close)
+
+	return writer, nil
 }
 
 var magicBytes = [...]byte{
@@ -72,8 +89,4 @@ func (wrt *Writer) PushEvent(event *Event) (err error) {
 	wrt.byteWriter.Write(event.getPayload())
 
 	return
-}
-
-type Flusher interface {
-	Flush() error
 }
