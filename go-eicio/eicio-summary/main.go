@@ -68,7 +68,7 @@ func main() {
 		runs[header.RunNumber] = true
 		nEvents++
 
-		for _, collHdr := range header.Collection {
+		for _, collHdr := range header.Collections {
 			if _, ok := collBytes[collHdr.Type]; !ok {
 				colls = append(colls, collHdr.Type)
 				sort.Strings(colls)

@@ -197,7 +197,8 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EventHeader, timestamp_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EventHeader, detector_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EventHeader, params_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EventHeader, collection_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EventHeader, collections_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EventHeader, nuniqueids_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EventHeader, description_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IntParams, _internal_metadata_),
@@ -649,46 +650,46 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
 static const ::google::protobuf::internal::MigrationSchema schemas[] = {
   { 0, -1, sizeof(EventHeader_CollectionHeader)},
   { 9, -1, sizeof(EventHeader)},
-  { 22, -1, sizeof(IntParams)},
-  { 28, -1, sizeof(FloatParams)},
-  { 34, -1, sizeof(StringParams)},
-  { 40, -1, sizeof(Params)},
-  { 48, -1, sizeof(Reference)},
-  { 55, -1, sizeof(ParticleID)},
-  { 65, -1, sizeof(MCParticle)},
-  { 84, -1, sizeof(MCParticleCollection)},
-  { 93, -1, sizeof(SimTrackerHit)},
-  { 108, -1, sizeof(SimTrackerHitCollection)},
-  { 117, -1, sizeof(TrackerRawData)},
-  { 127, -1, sizeof(TrackerRawDataCollection)},
-  { 136, -1, sizeof(TrackerData)},
-  { 146, -1, sizeof(TrackerDataCollection)},
-  { 155, -1, sizeof(TrackerHit)},
-  { 171, -1, sizeof(TrackerHitCollection)},
-  { 180, -1, sizeof(TrackerPulse)},
-  { 193, -1, sizeof(TrackerPulseCollection)},
-  { 202, -1, sizeof(TrackerHitPlane)},
-  { 221, -1, sizeof(TrackerHitPlaneCollection)},
-  { 230, -1, sizeof(TrackerHitZCylinder)},
-  { 248, -1, sizeof(TrackerHitZCylinderCollection)},
-  { 257, -1, sizeof(Track_TrackState)},
-  { 270, -1, sizeof(Track)},
-  { 286, -1, sizeof(TrackCollection)},
-  { 295, -1, sizeof(SimCalorimeterHit_Contrib)},
-  { 305, -1, sizeof(SimCalorimeterHit)},
-  { 317, -1, sizeof(SimCalorimeterHitCollection)},
-  { 326, -1, sizeof(RawCalorimeterHit)},
-  { 336, -1, sizeof(RawCalorimeterHitCollection)},
-  { 345, -1, sizeof(CalorimeterHit)},
-  { 359, -1, sizeof(CalorimeterHitCollection)},
-  { 368, -1, sizeof(Cluster)},
-  { 388, -1, sizeof(ClusterCollection)},
-  { 397, -1, sizeof(RecParticle)},
-  { 417, -1, sizeof(RecParticleCollection)},
-  { 426, -1, sizeof(Vertex)},
-  { 440, -1, sizeof(VertexCollection)},
-  { 449, -1, sizeof(Relation)},
-  { 458, -1, sizeof(RelationCollection)},
+  { 23, -1, sizeof(IntParams)},
+  { 29, -1, sizeof(FloatParams)},
+  { 35, -1, sizeof(StringParams)},
+  { 41, -1, sizeof(Params)},
+  { 49, -1, sizeof(Reference)},
+  { 56, -1, sizeof(ParticleID)},
+  { 66, -1, sizeof(MCParticle)},
+  { 85, -1, sizeof(MCParticleCollection)},
+  { 94, -1, sizeof(SimTrackerHit)},
+  { 109, -1, sizeof(SimTrackerHitCollection)},
+  { 118, -1, sizeof(TrackerRawData)},
+  { 128, -1, sizeof(TrackerRawDataCollection)},
+  { 137, -1, sizeof(TrackerData)},
+  { 147, -1, sizeof(TrackerDataCollection)},
+  { 156, -1, sizeof(TrackerHit)},
+  { 172, -1, sizeof(TrackerHitCollection)},
+  { 181, -1, sizeof(TrackerPulse)},
+  { 194, -1, sizeof(TrackerPulseCollection)},
+  { 203, -1, sizeof(TrackerHitPlane)},
+  { 222, -1, sizeof(TrackerHitPlaneCollection)},
+  { 231, -1, sizeof(TrackerHitZCylinder)},
+  { 249, -1, sizeof(TrackerHitZCylinderCollection)},
+  { 258, -1, sizeof(Track_TrackState)},
+  { 271, -1, sizeof(Track)},
+  { 287, -1, sizeof(TrackCollection)},
+  { 296, -1, sizeof(SimCalorimeterHit_Contrib)},
+  { 306, -1, sizeof(SimCalorimeterHit)},
+  { 318, -1, sizeof(SimCalorimeterHitCollection)},
+  { 327, -1, sizeof(RawCalorimeterHit)},
+  { 337, -1, sizeof(RawCalorimeterHitCollection)},
+  { 346, -1, sizeof(CalorimeterHit)},
+  { 360, -1, sizeof(CalorimeterHitCollection)},
+  { 369, -1, sizeof(Cluster)},
+  { 389, -1, sizeof(ClusterCollection)},
+  { 398, -1, sizeof(RecParticle)},
+  { 418, -1, sizeof(RecParticleCollection)},
+  { 427, -1, sizeof(Vertex)},
+  { 441, -1, sizeof(VertexCollection)},
+  { 450, -1, sizeof(Relation)},
+  { 459, -1, sizeof(RelationCollection)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -971,163 +972,163 @@ void InitDefaults() {
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] = {
-      "\n\013eicio.proto\022\005eicio\"\251\002\n\013EventHeader\022\017\n\007"
+      "\n\013eicio.proto\022\005eicio\"\276\002\n\013EventHeader\022\017\n\007"
       "version\030\001 \001(\r\022\021\n\trunNumber\030\002 \001(\004\022\023\n\013even"
       "tNumber\030\003 \001(\004\022\021\n\ttimeStamp\030\004 \001(\004\022\020\n\010dete"
       "ctor\030\005 \001(\t\022\035\n\006params\030\006 \001(\0132\r.eicio.Param"
-      "s\0227\n\ncollection\030\007 \003(\0132#.eicio.EventHeade"
-      "r.CollectionHeader\022\023\n\013description\030\020 \001(\t\032"
-      "O\n\020CollectionHeader\022\014\n\004name\030\001 \001(\t\022\n\n\002id\030"
-      "\002 \001(\r\022\014\n\004type\030\003 \001(\t\022\023\n\013payloadSize\030\004 \001(\r"
-      "\"\032\n\tIntParams\022\r\n\005array\030\001 \003(\005\"\034\n\013FloatPar"
-      "ams\022\r\n\005array\030\001 \003(\002\"\035\n\014StringParams\022\r\n\005ar"
-      "ray\030\001 \003(\t\"\316\002\n\006Params\022%\n\004ints\030\001 \003(\0132\027.eic"
-      "io.Params.IntsEntry\022)\n\006floats\030\002 \003(\0132\031.ei"
-      "cio.Params.FloatsEntry\022+\n\007strings\030\003 \003(\0132"
-      "\032.eicio.Params.StringsEntry\032=\n\tIntsEntry"
-      "\022\013\n\003key\030\001 \001(\t\022\037\n\005value\030\002 \001(\0132\020.eicio.Int"
-      "Params:\0028\001\032A\n\013FloatsEntry\022\013\n\003key\030\001 \001(\t\022!"
-      "\n\005value\030\002 \001(\0132\022.eicio.FloatParams:\0028\001\032C\n"
-      "\014StringsEntry\022\013\n\003key\030\001 \001(\t\022\"\n\005value\030\002 \001("
-      "\0132\023.eicio.StringParams:\0028\001\",\n\tReference\022"
-      "\016\n\006collID\030\001 \001(\r\022\017\n\007entryID\030\002 \001(\r\"\\\n\nPart"
-      "icleID\022\022\n\nlikelihood\030\001 \001(\002\022\014\n\004type\030\002 \001(\005"
-      "\022\013\n\003PDG\030\003 \001(\005\022\017\n\007algType\030\004 \001(\005\022\016\n\006params"
-      "\030\005 \003(\002\"\215\002\n\nMCParticle\022\n\n\002id\030\001 \001(\r\022!\n\007par"
-      "ents\030\002 \003(\0132\020.eicio.Reference\022\"\n\010children"
-      "\030\003 \003(\0132\020.eicio.Reference\022\013\n\003PDG\030\004 \001(\005\022\016\n"
-      "\006vertex\030\005 \003(\001\022\014\n\004time\030\006 \001(\002\022\t\n\001p\030\007 \003(\001\022\014"
-      "\n\004mass\030\010 \001(\001\022\016\n\006charge\030\t \001(\002\022\021\n\tPEndPoin"
-      "t\030\n \003(\001\022\014\n\004spin\030\013 \003(\002\022\021\n\tcolorFlow\030\014 \003(\005"
-      "\022\021\n\tgenStatus\030\r \001(\005\022\021\n\tsimStatus\030\016 \001(\r\"t"
-      "\n\024MCParticleCollection\022\n\n\002id\030\001 \001(\r\022\r\n\005fl"
-      "ags\030\002 \001(\r\022\035\n\006params\030\003 \001(\0132\r.eicio.Params"
-      "\022\"\n\007entries\030\004 \003(\0132\021.eicio.MCParticle\"\264\001\n"
-      "\rSimTrackerHit\022\n\n\002id\030\001 \001(\r\022\017\n\007cellID0\030\002 "
-      "\001(\005\022\017\n\007cellID1\030\003 \001(\005\022\013\n\003pos\030\004 \003(\001\022\014\n\004EDe"
-      "p\030\005 \001(\002\022\014\n\004time\030\006 \001(\002\022\034\n\002mc\030\007 \001(\0132\020.eici"
-      "o.Reference\022\t\n\001p\030\010 \003(\002\022\022\n\npathLength\030\t \001"
-      "(\002\022\017\n\007quality\030\n \001(\005\"z\n\027SimTrackerHitColl"
-      "ection\022\n\n\002id\030\001 \001(\r\022\r\n\005flags\030\002 \001(\r\022\035\n\006par"
-      "ams\030\003 \001(\0132\r.eicio.Params\022%\n\007entries\030\004 \003("
-      "\0132\024.eicio.SimTrackerHit\"Z\n\016TrackerRawDat"
-      "a\022\n\n\002id\030\001 \001(\r\022\017\n\007cellID0\030\002 \001(\005\022\017\n\007cellID"
-      "1\030\003 \001(\005\022\014\n\004time\030\004 \001(\005\022\014\n\004ADCs\030\005 \003(\r\"|\n\030T"
-      "rackerRawDataCollection\022\n\n\002id\030\001 \001(\r\022\r\n\005f"
-      "lags\030\002 \001(\r\022\035\n\006params\030\003 \001(\0132\r.eicio.Param"
-      "s\022&\n\007entries\030\004 \003(\0132\025.eicio.TrackerRawDat"
-      "a\"Z\n\013TrackerData\022\n\n\002id\030\001 \001(\r\022\017\n\007cellID0\030"
-      "\002 \001(\005\022\017\n\007cellID1\030\003 \001(\005\022\014\n\004time\030\004 \001(\002\022\017\n\007"
-      "charges\030\005 \003(\002\"v\n\025TrackerDataCollection\022\n"
-      "\n\002id\030\001 \001(\r\022\r\n\005flags\030\002 \001(\r\022\035\n\006params\030\003 \001("
-      "\0132\r.eicio.Params\022#\n\007entries\030\004 \003(\0132\022.eici"
-      "o.TrackerData\"\303\001\n\nTrackerHit\022\n\n\002id\030\001 \001(\r"
-      "\022\017\n\007cellID0\030\002 \001(\005\022\017\n\007cellID1\030\003 \001(\005\022\014\n\004ty"
-      "pe\030\004 \001(\005\022\013\n\003pos\030\005 \003(\001\022\013\n\003cov\030\006 \003(\001\022\014\n\004ED"
-      "ep\030\007 \001(\002\022\017\n\007EDepErr\030\010 \001(\002\022\014\n\004time\030\t \001(\002\022"
-      "\017\n\007quality\030\n \001(\005\022!\n\007rawHits\030\013 \003(\0132\020.eici"
-      "o.Reference\"t\n\024TrackerHitCollection\022\n\n\002i"
-      "d\030\001 \001(\r\022\r\n\005flags\030\002 \001(\r\022\035\n\006params\030\003 \001(\0132\r"
-      ".eicio.Params\022\"\n\007entries\030\004 \003(\0132\021.eicio.T"
-      "rackerHit\"\227\001\n\014TrackerPulse\022\n\n\002id\030\001 \001(\r\022\017"
-      "\n\007cellID0\030\002 \001(\005\022\017\n\007cellID1\030\003 \001(\005\022\014\n\004time"
-      "\030\004 \001(\002\022\016\n\006charge\030\005 \001(\002\022\013\n\003cov\030\006 \003(\002\022\017\n\007q"
-      "uality\030\007 \001(\005\022\035\n\003TPC\030\010 \001(\0132\020.eicio.Refere"
-      "nce\"x\n\026TrackerPulseCollection\022\n\n\002id\030\001 \001("
-      "\r\022\r\n\005flags\030\002 \001(\r\022\035\n\006params\030\003 \001(\0132\r.eicio"
-      ".Params\022$\n\007entries\030\004 \003(\0132\023.eicio.Tracker"
-      "Pulse\"\351\001\n\017TrackerHitPlane\022\n\n\002id\030\001 \001(\r\022\017\n"
-      "\007cellID0\030\002 \001(\005\022\017\n\007cellID1\030\003 \001(\005\022\014\n\004type\030"
-      "\004 \001(\005\022\013\n\003pos\030\005 \003(\001\022\t\n\001U\030\006 \003(\002\022\t\n\001V\030\007 \003(\002"
-      "\022\n\n\002dU\030\010 \001(\002\022\n\n\002dV\030\t \001(\002\022\014\n\004EDep\030\n \001(\002\022\017"
-      "\n\007EDepErr\030\013 \001(\002\022\014\n\004time\030\014 \001(\002\022\017\n\007quality"
-      "\030\r \001(\005\022!\n\007rawHits\030\016 \003(\0132\020.eicio.Referenc"
-      "e\"~\n\031TrackerHitPlaneCollection\022\n\n\002id\030\001 \001"
-      "(\r\022\r\n\005flags\030\002 \001(\r\022\035\n\006params\030\003 \001(\0132\r.eici"
-      "o.Params\022\'\n\007entries\030\004 \003(\0132\026.eicio.Tracke"
-      "rHitPlane\"\352\001\n\023TrackerHitZCylinder\022\n\n\002id\030"
-      "\001 \001(\r\022\017\n\007cellID0\030\002 \001(\005\022\017\n\007cellID1\030\003 \001(\005\022"
-      "\014\n\004type\030\004 \001(\005\022\013\n\003pos\030\005 \003(\001\022\016\n\006center\030\006 \003"
-      "(\002\022\r\n\005dRPhi\030\007 \001(\002\022\n\n\002dZ\030\010 \001(\002\022\014\n\004EDep\030\t "
-      "\001(\002\022\017\n\007EDepErr\030\n \001(\002\022\014\n\004time\030\013 \001(\002\022\017\n\007qu"
-      "ality\030\014 \001(\005\022!\n\007rawHits\030\r \003(\0132\020.eicio.Ref"
-      "erence\"\206\001\n\035TrackerHitZCylinderCollection"
-      "\022\n\n\002id\030\001 \001(\r\022\r\n\005flags\030\002 \001(\r\022\035\n\006params\030\003 "
-      "\001(\0132\r.eicio.Params\022+\n\007entries\030\004 \003(\0132\032.ei"
-      "cio.TrackerHitZCylinder\"\341\002\n\005Track\022\n\n\002id\030"
-      "\001 \001(\r\022\014\n\004type\030\002 \001(\005\022\014\n\004chi2\030\003 \001(\002\022\013\n\003NDF"
-      "\030\004 \001(\005\022\014\n\004dEdx\030\005 \001(\002\022\017\n\007dEdxErr\030\006 \001(\002\022\016\n"
-      "\006radius\030\007 \001(\002\022\022\n\nsubDetHits\030\010 \003(\005\022\'\n\006sta"
-      "tes\030\t \003(\0132\027.eicio.Track.TrackState\022\036\n\004hi"
-      "ts\030\n \003(\0132\020.eicio.Reference\022 \n\006tracks\030\013 \003"
-      "(\0132\020.eicio.Reference\032u\n\nTrackState\022\013\n\003lo"
-      "c\030\001 \001(\005\022\n\n\002d0\030\002 \001(\002\022\013\n\003phi\030\003 \001(\002\022\r\n\005omeg"
-      "a\030\004 \001(\002\022\n\n\002z0\030\005 \001(\002\022\014\n\004tanL\030\006 \001(\002\022\013\n\003cov"
-      "\030\007 \003(\002\022\013\n\003ref\030\010 \003(\002\"j\n\017TrackCollection\022\n"
-      "\n\002id\030\001 \001(\r\022\r\n\005flags\030\002 \001(\r\022\035\n\006params\030\003 \001("
-      "\0132\r.eicio.Params\022\035\n\007entries\030\004 \003(\0132\014.eici"
-      "o.Track\"\243\002\n\021SimCalorimeterHit\022\n\n\002id\030\001 \001("
-      "\r\022\035\n\006params\030\002 \001(\0132\r.eicio.Params\022\017\n\007cell"
-      "ID0\030\003 \001(\005\022\017\n\007cellID1\030\004 \001(\005\022\016\n\006energy\030\005 \001"
-      "(\002\022\013\n\003pos\030\006 \003(\002\0227\n\rcontributions\030\007 \003(\0132 "
-      ".eicio.SimCalorimeterHit.Contrib\032k\n\007Cont"
-      "rib\022$\n\nMCParticle\030\001 \001(\0132\020.eicio.Referenc"
-      "e\022\016\n\006energy\030\002 \001(\002\022\014\n\004time\030\003 \001(\002\022\013\n\003PDG\030\004"
-      " \001(\005\022\017\n\007stepPos\030\005 \003(\002\"\202\001\n\033SimCalorimeter"
-      "HitCollection\022\n\n\002id\030\001 \001(\r\022\r\n\005flags\030\002 \001(\r"
-      "\022\035\n\006params\030\003 \001(\0132\r.eicio.Params\022)\n\007entri"
-      "es\030\004 \003(\0132\030.eicio.SimCalorimeterHit\"g\n\021Ra"
-      "wCalorimeterHit\022\n\n\002id\030\001 \001(\r\022\017\n\007cellID0\030\002"
-      " \001(\005\022\017\n\007cellID1\030\003 \001(\005\022\021\n\tamplitude\030\004 \001(\005"
-      "\022\021\n\ttimeStamp\030\005 \001(\005\"\202\001\n\033RawCalorimeterHi"
-      "tCollection\022\n\n\002id\030\001 \001(\r\022\r\n\005flags\030\002 \001(\r\022\035"
-      "\n\006params\030\003 \001(\0132\r.eicio.Params\022)\n\007entries"
-      "\030\004 \003(\0132\030.eicio.RawCalorimeterHit\"\251\001\n\016Cal"
-      "orimeterHit\022\n\n\002id\030\001 \001(\r\022\017\n\007cellID0\030\002 \001(\005"
-      "\022\017\n\007cellID1\030\003 \001(\005\022\016\n\006energy\030\004 \001(\002\022\021\n\tene"
-      "rgyErr\030\005 \001(\002\022\014\n\004time\030\006 \001(\002\022\013\n\003pos\030\007 \003(\002\022"
-      "\014\n\004type\030\010 \001(\005\022\035\n\003raw\030\t \001(\0132\020.eicio.Refer"
-      "ence\"|\n\030CalorimeterHitCollection\022\n\n\002id\030\001"
-      " \001(\r\022\r\n\005flags\030\002 \001(\r\022\035\n\006params\030\003 \001(\0132\r.ei"
-      "cio.Params\022&\n\007entries\030\004 \003(\0132\025.eicio.Calo"
-      "rimeterHit\"\250\002\n\007Cluster\022\n\n\002id\030\001 \001(\r\022\014\n\004ty"
-      "pe\030\002 \001(\005\022\016\n\006energy\030\003 \001(\002\022\021\n\tenergyErr\030\004 "
-      "\001(\002\022\013\n\003pos\030\005 \003(\002\022\016\n\006posErr\030\006 \003(\002\022\r\n\005thet"
-      "a\030\007 \001(\002\022\013\n\003phi\030\010 \001(\002\022\016\n\006dirErr\030\t \003(\002\022\r\n\005"
-      "shape\030\n \003(\002\022\037\n\004PIDs\030\013 \003(\0132\021.eicio.Partic"
-      "leID\022\"\n\010clusters\030\014 \003(\0132\020.eicio.Reference"
-      "\022\036\n\004hits\030\r \003(\0132\020.eicio.Reference\022\017\n\007weig"
-      "hts\030\016 \003(\002\022\022\n\nsubDetEnes\030\017 \003(\002\"n\n\021Cluster"
+      "s\0228\n\013collections\030\007 \003(\0132#.eicio.EventHead"
+      "er.CollectionHeader\022\022\n\nnUniqueIDs\030\010 \001(\r\022"
+      "\023\n\013description\030\020 \001(\t\032O\n\020CollectionHeader"
+      "\022\014\n\004name\030\001 \001(\t\022\n\n\002id\030\002 \001(\r\022\014\n\004type\030\003 \001(\t"
+      "\022\023\n\013payloadSize\030\004 \001(\r\"\032\n\tIntParams\022\r\n\005ar"
+      "ray\030\001 \003(\005\"\034\n\013FloatParams\022\r\n\005array\030\001 \003(\002\""
+      "\035\n\014StringParams\022\r\n\005array\030\001 \003(\t\"\316\002\n\006Param"
+      "s\022%\n\004ints\030\001 \003(\0132\027.eicio.Params.IntsEntry"
+      "\022)\n\006floats\030\002 \003(\0132\031.eicio.Params.FloatsEn"
+      "try\022+\n\007strings\030\003 \003(\0132\032.eicio.Params.Stri"
+      "ngsEntry\032=\n\tIntsEntry\022\013\n\003key\030\001 \001(\t\022\037\n\005va"
+      "lue\030\002 \001(\0132\020.eicio.IntParams:\0028\001\032A\n\013Float"
+      "sEntry\022\013\n\003key\030\001 \001(\t\022!\n\005value\030\002 \001(\0132\022.eic"
+      "io.FloatParams:\0028\001\032C\n\014StringsEntry\022\013\n\003ke"
+      "y\030\001 \001(\t\022\"\n\005value\030\002 \001(\0132\023.eicio.StringPar"
+      "ams:\0028\001\",\n\tReference\022\016\n\006collID\030\001 \001(\r\022\017\n\007"
+      "entryID\030\002 \001(\r\"\\\n\nParticleID\022\022\n\nlikelihoo"
+      "d\030\001 \001(\002\022\014\n\004type\030\002 \001(\005\022\013\n\003PDG\030\003 \001(\005\022\017\n\007al"
+      "gType\030\004 \001(\005\022\016\n\006params\030\005 \003(\002\"\215\002\n\nMCPartic"
+      "le\022\n\n\002id\030\001 \001(\r\022!\n\007parents\030\002 \003(\0132\020.eicio."
+      "Reference\022\"\n\010children\030\003 \003(\0132\020.eicio.Refe"
+      "rence\022\013\n\003PDG\030\004 \001(\005\022\016\n\006vertex\030\005 \003(\001\022\014\n\004ti"
+      "me\030\006 \001(\002\022\t\n\001p\030\007 \003(\001\022\014\n\004mass\030\010 \001(\001\022\016\n\006cha"
+      "rge\030\t \001(\002\022\021\n\tPEndPoint\030\n \003(\001\022\014\n\004spin\030\013 \003"
+      "(\002\022\021\n\tcolorFlow\030\014 \003(\005\022\021\n\tgenStatus\030\r \001(\005"
+      "\022\021\n\tsimStatus\030\016 \001(\r\"t\n\024MCParticleCollect"
+      "ion\022\n\n\002id\030\001 \001(\r\022\r\n\005flags\030\002 \001(\r\022\035\n\006params"
+      "\030\003 \001(\0132\r.eicio.Params\022\"\n\007entries\030\004 \003(\0132\021"
+      ".eicio.MCParticle\"\264\001\n\rSimTrackerHit\022\n\n\002i"
+      "d\030\001 \001(\r\022\017\n\007cellID0\030\002 \001(\005\022\017\n\007cellID1\030\003 \001("
+      "\005\022\013\n\003pos\030\004 \003(\001\022\014\n\004EDep\030\005 \001(\002\022\014\n\004time\030\006 \001"
+      "(\002\022\034\n\002mc\030\007 \001(\0132\020.eicio.Reference\022\t\n\001p\030\010 "
+      "\003(\002\022\022\n\npathLength\030\t \001(\002\022\017\n\007quality\030\n \001(\005"
+      "\"z\n\027SimTrackerHitCollection\022\n\n\002id\030\001 \001(\r\022"
+      "\r\n\005flags\030\002 \001(\r\022\035\n\006params\030\003 \001(\0132\r.eicio.P"
+      "arams\022%\n\007entries\030\004 \003(\0132\024.eicio.SimTracke"
+      "rHit\"Z\n\016TrackerRawData\022\n\n\002id\030\001 \001(\r\022\017\n\007ce"
+      "llID0\030\002 \001(\005\022\017\n\007cellID1\030\003 \001(\005\022\014\n\004time\030\004 \001"
+      "(\005\022\014\n\004ADCs\030\005 \003(\r\"|\n\030TrackerRawDataCollec"
+      "tion\022\n\n\002id\030\001 \001(\r\022\r\n\005flags\030\002 \001(\r\022\035\n\006param"
+      "s\030\003 \001(\0132\r.eicio.Params\022&\n\007entries\030\004 \003(\0132"
+      "\025.eicio.TrackerRawData\"Z\n\013TrackerData\022\n\n"
+      "\002id\030\001 \001(\r\022\017\n\007cellID0\030\002 \001(\005\022\017\n\007cellID1\030\003 "
+      "\001(\005\022\014\n\004time\030\004 \001(\002\022\017\n\007charges\030\005 \003(\002\"v\n\025Tr"
+      "ackerDataCollection\022\n\n\002id\030\001 \001(\r\022\r\n\005flags"
+      "\030\002 \001(\r\022\035\n\006params\030\003 \001(\0132\r.eicio.Params\022#\n"
+      "\007entries\030\004 \003(\0132\022.eicio.TrackerData\"\303\001\n\nT"
+      "rackerHit\022\n\n\002id\030\001 \001(\r\022\017\n\007cellID0\030\002 \001(\005\022\017"
+      "\n\007cellID1\030\003 \001(\005\022\014\n\004type\030\004 \001(\005\022\013\n\003pos\030\005 \003"
+      "(\001\022\013\n\003cov\030\006 \003(\001\022\014\n\004EDep\030\007 \001(\002\022\017\n\007EDepErr"
+      "\030\010 \001(\002\022\014\n\004time\030\t \001(\002\022\017\n\007quality\030\n \001(\005\022!\n"
+      "\007rawHits\030\013 \003(\0132\020.eicio.Reference\"t\n\024Trac"
+      "kerHitCollection\022\n\n\002id\030\001 \001(\r\022\r\n\005flags\030\002 "
+      "\001(\r\022\035\n\006params\030\003 \001(\0132\r.eicio.Params\022\"\n\007en"
+      "tries\030\004 \003(\0132\021.eicio.TrackerHit\"\227\001\n\014Track"
+      "erPulse\022\n\n\002id\030\001 \001(\r\022\017\n\007cellID0\030\002 \001(\005\022\017\n\007"
+      "cellID1\030\003 \001(\005\022\014\n\004time\030\004 \001(\002\022\016\n\006charge\030\005 "
+      "\001(\002\022\013\n\003cov\030\006 \003(\002\022\017\n\007quality\030\007 \001(\005\022\035\n\003TPC"
+      "\030\010 \001(\0132\020.eicio.Reference\"x\n\026TrackerPulse"
       "Collection\022\n\n\002id\030\001 \001(\r\022\r\n\005flags\030\002 \001(\r\022\035\n"
-      "\006params\030\003 \001(\0132\r.eicio.Params\022\037\n\007entries\030"
-      "\004 \003(\0132\016.eicio.Cluster\"\315\002\n\013RecParticle\022\n\n"
-      "\002id\030\001 \001(\r\022\014\n\004type\030\002 \001(\005\022\t\n\001p\030\003 \003(\002\022\016\n\006en"
-      "ergy\030\004 \001(\002\022\013\n\003cov\030\005 \003(\002\022\014\n\004mass\030\006 \001(\002\022\016\n"
-      "\006charge\030\007 \001(\002\022\013\n\003ref\030\010 \003(\002\022\037\n\004PIDs\030\t \003(\013"
-      "2\021.eicio.ParticleID\022\017\n\007PIDUsed\030\n \001(\005\022\025\n\r"
-      "goodnessOfPID\030\013 \001(\002\022\036\n\004recs\030\014 \003(\0132\020.eici"
-      "o.Reference\022 \n\006tracks\030\r \003(\0132\020.eicio.Refe"
-      "rence\022\"\n\010clusters\030\016 \003(\0132\020.eicio.Referenc"
-      "e\022\"\n\010startVtx\030\017 \001(\0132\020.eicio.Reference\"v\n"
-      "\025RecParticleCollection\022\n\n\002id\030\001 \001(\r\022\r\n\005fl"
-      "ags\030\002 \001(\r\022\035\n\006params\030\003 \001(\0132\r.eicio.Params"
-      "\022#\n\007entries\030\004 \003(\0132\022.eicio.RecParticle\"\237\001"
-      "\n\006Vertex\022\n\n\002id\030\001 \001(\r\022\017\n\007primary\030\002 \001(\005\022\017\n"
-      "\007algType\030\003 \001(\005\022\014\n\004chi2\030\004 \001(\002\022\014\n\004prob\030\005 \001"
-      "(\002\022\013\n\003pos\030\006 \003(\002\022\013\n\003cov\030\007 \003(\002\022\016\n\006params\030\010"
-      " \003(\002\022!\n\007recPart\030\t \001(\0132\020.eicio.Reference\""
-      "l\n\020VertexCollection\022\n\n\002id\030\001 \001(\r\022\r\n\005flags"
-      "\030\002 \001(\r\022\035\n\006params\030\003 \001(\0132\r.eicio.Params\022\036\n"
-      "\007entries\030\004 \003(\0132\r.eicio.Vertex\"d\n\010Relatio"
-      "n\022\n\n\002id\030\001 \001(\r\022\036\n\004from\030\002 \001(\0132\020.eicio.Refe"
-      "rence\022\034\n\002to\030\003 \001(\0132\020.eicio.Reference\022\016\n\006w"
-      "eight\030\004 \001(\002\"p\n\022RelationCollection\022\n\n\002id\030"
-      "\001 \001(\r\022\r\n\005flags\030\002 \001(\r\022\035\n\006params\030\003 \001(\0132\r.e"
-      "icio.Params\022 \n\007entries\030\004 \003(\0132\017.eicio.Rel"
-      "ationb\006proto3"
+      "\006params\030\003 \001(\0132\r.eicio.Params\022$\n\007entries\030"
+      "\004 \003(\0132\023.eicio.TrackerPulse\"\351\001\n\017TrackerHi"
+      "tPlane\022\n\n\002id\030\001 \001(\r\022\017\n\007cellID0\030\002 \001(\005\022\017\n\007c"
+      "ellID1\030\003 \001(\005\022\014\n\004type\030\004 \001(\005\022\013\n\003pos\030\005 \003(\001\022"
+      "\t\n\001U\030\006 \003(\002\022\t\n\001V\030\007 \003(\002\022\n\n\002dU\030\010 \001(\002\022\n\n\002dV\030"
+      "\t \001(\002\022\014\n\004EDep\030\n \001(\002\022\017\n\007EDepErr\030\013 \001(\002\022\014\n\004"
+      "time\030\014 \001(\002\022\017\n\007quality\030\r \001(\005\022!\n\007rawHits\030\016"
+      " \003(\0132\020.eicio.Reference\"~\n\031TrackerHitPlan"
+      "eCollection\022\n\n\002id\030\001 \001(\r\022\r\n\005flags\030\002 \001(\r\022\035"
+      "\n\006params\030\003 \001(\0132\r.eicio.Params\022\'\n\007entries"
+      "\030\004 \003(\0132\026.eicio.TrackerHitPlane\"\352\001\n\023Track"
+      "erHitZCylinder\022\n\n\002id\030\001 \001(\r\022\017\n\007cellID0\030\002 "
+      "\001(\005\022\017\n\007cellID1\030\003 \001(\005\022\014\n\004type\030\004 \001(\005\022\013\n\003po"
+      "s\030\005 \003(\001\022\016\n\006center\030\006 \003(\002\022\r\n\005dRPhi\030\007 \001(\002\022\n"
+      "\n\002dZ\030\010 \001(\002\022\014\n\004EDep\030\t \001(\002\022\017\n\007EDepErr\030\n \001("
+      "\002\022\014\n\004time\030\013 \001(\002\022\017\n\007quality\030\014 \001(\005\022!\n\007rawH"
+      "its\030\r \003(\0132\020.eicio.Reference\"\206\001\n\035TrackerH"
+      "itZCylinderCollection\022\n\n\002id\030\001 \001(\r\022\r\n\005fla"
+      "gs\030\002 \001(\r\022\035\n\006params\030\003 \001(\0132\r.eicio.Params\022"
+      "+\n\007entries\030\004 \003(\0132\032.eicio.TrackerHitZCyli"
+      "nder\"\341\002\n\005Track\022\n\n\002id\030\001 \001(\r\022\014\n\004type\030\002 \001(\005"
+      "\022\014\n\004chi2\030\003 \001(\002\022\013\n\003NDF\030\004 \001(\005\022\014\n\004dEdx\030\005 \001("
+      "\002\022\017\n\007dEdxErr\030\006 \001(\002\022\016\n\006radius\030\007 \001(\002\022\022\n\nsu"
+      "bDetHits\030\010 \003(\005\022\'\n\006states\030\t \003(\0132\027.eicio.T"
+      "rack.TrackState\022\036\n\004hits\030\n \003(\0132\020.eicio.Re"
+      "ference\022 \n\006tracks\030\013 \003(\0132\020.eicio.Referenc"
+      "e\032u\n\nTrackState\022\013\n\003loc\030\001 \001(\005\022\n\n\002d0\030\002 \001(\002"
+      "\022\013\n\003phi\030\003 \001(\002\022\r\n\005omega\030\004 \001(\002\022\n\n\002z0\030\005 \001(\002"
+      "\022\014\n\004tanL\030\006 \001(\002\022\013\n\003cov\030\007 \003(\002\022\013\n\003ref\030\010 \003(\002"
+      "\"j\n\017TrackCollection\022\n\n\002id\030\001 \001(\r\022\r\n\005flags"
+      "\030\002 \001(\r\022\035\n\006params\030\003 \001(\0132\r.eicio.Params\022\035\n"
+      "\007entries\030\004 \003(\0132\014.eicio.Track\"\243\002\n\021SimCalo"
+      "rimeterHit\022\n\n\002id\030\001 \001(\r\022\035\n\006params\030\002 \001(\0132\r"
+      ".eicio.Params\022\017\n\007cellID0\030\003 \001(\005\022\017\n\007cellID"
+      "1\030\004 \001(\005\022\016\n\006energy\030\005 \001(\002\022\013\n\003pos\030\006 \003(\002\0227\n\r"
+      "contributions\030\007 \003(\0132 .eicio.SimCalorimet"
+      "erHit.Contrib\032k\n\007Contrib\022$\n\nMCParticle\030\001"
+      " \001(\0132\020.eicio.Reference\022\016\n\006energy\030\002 \001(\002\022\014"
+      "\n\004time\030\003 \001(\002\022\013\n\003PDG\030\004 \001(\005\022\017\n\007stepPos\030\005 \003"
+      "(\002\"\202\001\n\033SimCalorimeterHitCollection\022\n\n\002id"
+      "\030\001 \001(\r\022\r\n\005flags\030\002 \001(\r\022\035\n\006params\030\003 \001(\0132\r."
+      "eicio.Params\022)\n\007entries\030\004 \003(\0132\030.eicio.Si"
+      "mCalorimeterHit\"g\n\021RawCalorimeterHit\022\n\n\002"
+      "id\030\001 \001(\r\022\017\n\007cellID0\030\002 \001(\005\022\017\n\007cellID1\030\003 \001"
+      "(\005\022\021\n\tamplitude\030\004 \001(\005\022\021\n\ttimeStamp\030\005 \001(\005"
+      "\"\202\001\n\033RawCalorimeterHitCollection\022\n\n\002id\030\001"
+      " \001(\r\022\r\n\005flags\030\002 \001(\r\022\035\n\006params\030\003 \001(\0132\r.ei"
+      "cio.Params\022)\n\007entries\030\004 \003(\0132\030.eicio.RawC"
+      "alorimeterHit\"\251\001\n\016CalorimeterHit\022\n\n\002id\030\001"
+      " \001(\r\022\017\n\007cellID0\030\002 \001(\005\022\017\n\007cellID1\030\003 \001(\005\022\016"
+      "\n\006energy\030\004 \001(\002\022\021\n\tenergyErr\030\005 \001(\002\022\014\n\004tim"
+      "e\030\006 \001(\002\022\013\n\003pos\030\007 \003(\002\022\014\n\004type\030\010 \001(\005\022\035\n\003ra"
+      "w\030\t \001(\0132\020.eicio.Reference\"|\n\030Calorimeter"
+      "HitCollection\022\n\n\002id\030\001 \001(\r\022\r\n\005flags\030\002 \001(\r"
+      "\022\035\n\006params\030\003 \001(\0132\r.eicio.Params\022&\n\007entri"
+      "es\030\004 \003(\0132\025.eicio.CalorimeterHit\"\250\002\n\007Clus"
+      "ter\022\n\n\002id\030\001 \001(\r\022\014\n\004type\030\002 \001(\005\022\016\n\006energy\030"
+      "\003 \001(\002\022\021\n\tenergyErr\030\004 \001(\002\022\013\n\003pos\030\005 \003(\002\022\016\n"
+      "\006posErr\030\006 \003(\002\022\r\n\005theta\030\007 \001(\002\022\013\n\003phi\030\010 \001("
+      "\002\022\016\n\006dirErr\030\t \003(\002\022\r\n\005shape\030\n \003(\002\022\037\n\004PIDs"
+      "\030\013 \003(\0132\021.eicio.ParticleID\022\"\n\010clusters\030\014 "
+      "\003(\0132\020.eicio.Reference\022\036\n\004hits\030\r \003(\0132\020.ei"
+      "cio.Reference\022\017\n\007weights\030\016 \003(\002\022\022\n\nsubDet"
+      "Enes\030\017 \003(\002\"n\n\021ClusterCollection\022\n\n\002id\030\001 "
+      "\001(\r\022\r\n\005flags\030\002 \001(\r\022\035\n\006params\030\003 \001(\0132\r.eic"
+      "io.Params\022\037\n\007entries\030\004 \003(\0132\016.eicio.Clust"
+      "er\"\315\002\n\013RecParticle\022\n\n\002id\030\001 \001(\r\022\014\n\004type\030\002"
+      " \001(\005\022\t\n\001p\030\003 \003(\002\022\016\n\006energy\030\004 \001(\002\022\013\n\003cov\030\005"
+      " \003(\002\022\014\n\004mass\030\006 \001(\002\022\016\n\006charge\030\007 \001(\002\022\013\n\003re"
+      "f\030\010 \003(\002\022\037\n\004PIDs\030\t \003(\0132\021.eicio.ParticleID"
+      "\022\017\n\007PIDUsed\030\n \001(\005\022\025\n\rgoodnessOfPID\030\013 \001(\002"
+      "\022\036\n\004recs\030\014 \003(\0132\020.eicio.Reference\022 \n\006trac"
+      "ks\030\r \003(\0132\020.eicio.Reference\022\"\n\010clusters\030\016"
+      " \003(\0132\020.eicio.Reference\022\"\n\010startVtx\030\017 \001(\013"
+      "2\020.eicio.Reference\"v\n\025RecParticleCollect"
+      "ion\022\n\n\002id\030\001 \001(\r\022\r\n\005flags\030\002 \001(\r\022\035\n\006params"
+      "\030\003 \001(\0132\r.eicio.Params\022#\n\007entries\030\004 \003(\0132\022"
+      ".eicio.RecParticle\"\237\001\n\006Vertex\022\n\n\002id\030\001 \001("
+      "\r\022\017\n\007primary\030\002 \001(\005\022\017\n\007algType\030\003 \001(\005\022\014\n\004c"
+      "hi2\030\004 \001(\002\022\014\n\004prob\030\005 \001(\002\022\013\n\003pos\030\006 \003(\002\022\013\n\003"
+      "cov\030\007 \003(\002\022\016\n\006params\030\010 \003(\002\022!\n\007recPart\030\t \001"
+      "(\0132\020.eicio.Reference\"l\n\020VertexCollection"
+      "\022\n\n\002id\030\001 \001(\r\022\r\n\005flags\030\002 \001(\r\022\035\n\006params\030\003 "
+      "\001(\0132\r.eicio.Params\022\036\n\007entries\030\004 \003(\0132\r.ei"
+      "cio.Vertex\"d\n\010Relation\022\n\n\002id\030\001 \001(\r\022\036\n\004fr"
+      "om\030\002 \001(\0132\020.eicio.Reference\022\034\n\002to\030\003 \001(\0132\020"
+      ".eicio.Reference\022\016\n\006weight\030\004 \001(\002\"p\n\022Rela"
+      "tionCollection\022\n\n\002id\030\001 \001(\r\022\r\n\005flags\030\002 \001("
+      "\r\022\035\n\006params\030\003 \001(\0132\r.eicio.Params\022 \n\007entr"
+      "ies\030\004 \003(\0132\017.eicio.Relationb\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 6133);
+      descriptor, 6154);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "eicio.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
@@ -1665,7 +1666,8 @@ const int EventHeader::kEventNumberFieldNumber;
 const int EventHeader::kTimeStampFieldNumber;
 const int EventHeader::kDetectorFieldNumber;
 const int EventHeader::kParamsFieldNumber;
-const int EventHeader::kCollectionFieldNumber;
+const int EventHeader::kCollectionsFieldNumber;
+const int EventHeader::kNUniqueIDsFieldNumber;
 const int EventHeader::kDescriptionFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -1680,7 +1682,7 @@ EventHeader::EventHeader()
 EventHeader::EventHeader(const EventHeader& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
-      collection_(from.collection_),
+      collections_(from.collections_),
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   detector_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -1697,16 +1699,16 @@ EventHeader::EventHeader(const EventHeader& from)
     params_ = NULL;
   }
   ::memcpy(&runnumber_, &from.runnumber_,
-    reinterpret_cast<char*>(&version_) -
-    reinterpret_cast<char*>(&runnumber_) + sizeof(version_));
+    reinterpret_cast<char*>(&nuniqueids_) -
+    reinterpret_cast<char*>(&runnumber_) + sizeof(nuniqueids_));
   // @@protoc_insertion_point(copy_constructor:eicio.EventHeader)
 }
 
 void EventHeader::SharedCtor() {
   detector_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   description_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(&params_, 0, reinterpret_cast<char*>(&version_) -
-    reinterpret_cast<char*>(&params_) + sizeof(version_));
+  ::memset(&params_, 0, reinterpret_cast<char*>(&nuniqueids_) -
+    reinterpret_cast<char*>(&params_) + sizeof(nuniqueids_));
   _cached_size_ = 0;
 }
 
@@ -1748,15 +1750,15 @@ EventHeader* EventHeader::New(::google::protobuf::Arena* arena) const {
 
 void EventHeader::Clear() {
 // @@protoc_insertion_point(message_clear_start:eicio.EventHeader)
-  collection_.Clear();
+  collections_.Clear();
   detector_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   description_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (GetArenaNoVirtual() == NULL && params_ != NULL) {
     delete params_;
   }
   params_ = NULL;
-  ::memset(&runnumber_, 0, reinterpret_cast<char*>(&version_) -
-    reinterpret_cast<char*>(&runnumber_) + sizeof(version_));
+  ::memset(&runnumber_, 0, reinterpret_cast<char*>(&nuniqueids_) -
+    reinterpret_cast<char*>(&runnumber_) + sizeof(nuniqueids_));
 }
 
 bool EventHeader::MergePartialFromCodedStream(
@@ -1853,12 +1855,26 @@ bool EventHeader::MergePartialFromCodedStream(
         break;
       }
 
-      // repeated .eicio.EventHeader.CollectionHeader collection = 7;
+      // repeated .eicio.EventHeader.CollectionHeader collections = 7;
       case 7: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(58u)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-                input, add_collection()));
+                input, add_collections()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // uint32 nUniqueIDs = 8;
+      case 8: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(64u)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &nuniqueids_)));
         } else {
           goto handle_unusual;
         }
@@ -1944,10 +1960,15 @@ void EventHeader::SerializeWithCachedSizes(
       6, *this->params_, output);
   }
 
-  // repeated .eicio.EventHeader.CollectionHeader collection = 7;
-  for (unsigned int i = 0, n = this->collection_size(); i < n; i++) {
+  // repeated .eicio.EventHeader.CollectionHeader collections = 7;
+  for (unsigned int i = 0, n = this->collections_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      7, this->collection(i), output);
+      7, this->collections(i), output);
+  }
+
+  // uint32 nUniqueIDs = 8;
+  if (this->nuniqueids() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(8, this->nuniqueids(), output);
   }
 
   // string description = 16;
@@ -2008,11 +2029,16 @@ void EventHeader::SerializeWithCachedSizes(
         6, *this->params_, deterministic, target);
   }
 
-  // repeated .eicio.EventHeader.CollectionHeader collection = 7;
-  for (unsigned int i = 0, n = this->collection_size(); i < n; i++) {
+  // repeated .eicio.EventHeader.CollectionHeader collections = 7;
+  for (unsigned int i = 0, n = this->collections_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        7, this->collection(i), deterministic, target);
+        7, this->collections(i), deterministic, target);
+  }
+
+  // uint32 nUniqueIDs = 8;
+  if (this->nuniqueids() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(8, this->nuniqueids(), target);
   }
 
   // string description = 16;
@@ -2034,14 +2060,14 @@ size_t EventHeader::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:eicio.EventHeader)
   size_t total_size = 0;
 
-  // repeated .eicio.EventHeader.CollectionHeader collection = 7;
+  // repeated .eicio.EventHeader.CollectionHeader collections = 7;
   {
-    unsigned int count = this->collection_size();
+    unsigned int count = this->collections_size();
     total_size += 1UL * count;
     for (unsigned int i = 0; i < count; i++) {
       total_size +=
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->collection(i));
+          this->collections(i));
     }
   }
 
@@ -2094,6 +2120,13 @@ size_t EventHeader::ByteSizeLong() const {
         this->version());
   }
 
+  // uint32 nUniqueIDs = 8;
+  if (this->nuniqueids() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->nuniqueids());
+  }
+
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -2123,7 +2156,7 @@ void EventHeader::MergeFrom(const EventHeader& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  collection_.MergeFrom(from.collection_);
+  collections_.MergeFrom(from.collections_);
   if (from.detector().size() > 0) {
 
     detector_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.detector_);
@@ -2146,6 +2179,9 @@ void EventHeader::MergeFrom(const EventHeader& from) {
   }
   if (from.version() != 0) {
     set_version(from.version());
+  }
+  if (from.nuniqueids() != 0) {
+    set_nuniqueids(from.nuniqueids());
   }
 }
 
@@ -2172,7 +2208,7 @@ void EventHeader::Swap(EventHeader* other) {
   InternalSwap(other);
 }
 void EventHeader::InternalSwap(EventHeader* other) {
-  collection_.InternalSwap(&other->collection_);
+  collections_.InternalSwap(&other->collections_);
   detector_.Swap(&other->detector_);
   description_.Swap(&other->description_);
   std::swap(params_, other->params_);
@@ -2180,6 +2216,7 @@ void EventHeader::InternalSwap(EventHeader* other) {
   std::swap(eventnumber_, other->eventnumber_);
   std::swap(timestamp_, other->timestamp_);
   std::swap(version_, other->version_);
+  std::swap(nuniqueids_, other->nuniqueids_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
@@ -2339,34 +2376,48 @@ void EventHeader::set_allocated_params(::eicio::Params* params) {
   // @@protoc_insertion_point(field_set_allocated:eicio.EventHeader.params)
 }
 
-// repeated .eicio.EventHeader.CollectionHeader collection = 7;
-int EventHeader::collection_size() const {
-  return collection_.size();
+// repeated .eicio.EventHeader.CollectionHeader collections = 7;
+int EventHeader::collections_size() const {
+  return collections_.size();
 }
-void EventHeader::clear_collection() {
-  collection_.Clear();
+void EventHeader::clear_collections() {
+  collections_.Clear();
 }
-const ::eicio::EventHeader_CollectionHeader& EventHeader::collection(int index) const {
-  // @@protoc_insertion_point(field_get:eicio.EventHeader.collection)
-  return collection_.Get(index);
+const ::eicio::EventHeader_CollectionHeader& EventHeader::collections(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.EventHeader.collections)
+  return collections_.Get(index);
 }
-::eicio::EventHeader_CollectionHeader* EventHeader::mutable_collection(int index) {
-  // @@protoc_insertion_point(field_mutable:eicio.EventHeader.collection)
-  return collection_.Mutable(index);
+::eicio::EventHeader_CollectionHeader* EventHeader::mutable_collections(int index) {
+  // @@protoc_insertion_point(field_mutable:eicio.EventHeader.collections)
+  return collections_.Mutable(index);
 }
-::eicio::EventHeader_CollectionHeader* EventHeader::add_collection() {
-  // @@protoc_insertion_point(field_add:eicio.EventHeader.collection)
-  return collection_.Add();
+::eicio::EventHeader_CollectionHeader* EventHeader::add_collections() {
+  // @@protoc_insertion_point(field_add:eicio.EventHeader.collections)
+  return collections_.Add();
 }
 ::google::protobuf::RepeatedPtrField< ::eicio::EventHeader_CollectionHeader >*
-EventHeader::mutable_collection() {
-  // @@protoc_insertion_point(field_mutable_list:eicio.EventHeader.collection)
-  return &collection_;
+EventHeader::mutable_collections() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.EventHeader.collections)
+  return &collections_;
 }
 const ::google::protobuf::RepeatedPtrField< ::eicio::EventHeader_CollectionHeader >&
-EventHeader::collection() const {
-  // @@protoc_insertion_point(field_list:eicio.EventHeader.collection)
-  return collection_;
+EventHeader::collections() const {
+  // @@protoc_insertion_point(field_list:eicio.EventHeader.collections)
+  return collections_;
+}
+
+// uint32 nUniqueIDs = 8;
+void EventHeader::clear_nuniqueids() {
+  nuniqueids_ = 0u;
+}
+::google::protobuf::uint32 EventHeader::nuniqueids() const {
+  // @@protoc_insertion_point(field_get:eicio.EventHeader.nUniqueIDs)
+  return nuniqueids_;
+}
+void EventHeader::set_nuniqueids(::google::protobuf::uint32 value) {
+  
+  nuniqueids_ = value;
+  // @@protoc_insertion_point(field_set:eicio.EventHeader.nUniqueIDs)
 }
 
 // string description = 16;

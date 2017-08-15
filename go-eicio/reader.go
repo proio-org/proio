@@ -145,7 +145,7 @@ func (rdr *Reader) Next() (*Event, error) {
 		return nil, ErrTruncated
 	}
 
-	event := &Event{}
+	event := NewEvent()
 	event.Header = header
 	event.setPayload(payload)
 
