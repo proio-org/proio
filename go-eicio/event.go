@@ -22,13 +22,20 @@ func NewEvent() *Event {
 func (evt *Event) String() string {
 	buffer := &bytes.Buffer{}
 
-	fmt.Fprint(buffer, "event header...\n", proto.MarshalTextString(evt.Header), "\n")
+	stringBuf := fmt.Sprint(evt.Header, "\n")
+	stringBuf = strings.Replace(stringBuf, " collection:", "\n\tcollection:", -1)
+	stringBuf = strings.Replace(stringBuf, " >", ">", -1)
+	fmt.Fprint(buffer, stringBuf, "\n")
+
 	for _, collHdr := range evt.Header.Collection {
 		coll, err := evt.Get(collHdr.Name)
 		if coll != nil && err == nil {
-			fmt.Fprint(buffer, "collection name: ", collHdr.Name, "\n")
-			fmt.Fprint(buffer, "type: ", collHdr.Type, "\n")
-			fmt.Fprint(buffer, proto.MarshalTextString(coll), "\n")
+			fmt.Fprint(buffer, "\tname:", collHdr.Name, " type:", collHdr.Type, "\n")
+
+			stringBuf = fmt.Sprint("\t\t", coll, "\n")
+			stringBuf = strings.Replace(stringBuf, " entries:", "\n\t\tentries:", -1)
+			stringBuf = strings.Replace(stringBuf, " >", ">", -1)
+			fmt.Fprint(buffer, stringBuf)
 		}
 	}
 
