@@ -97,14 +97,12 @@ func (evt *Event) Get(name string) (Collection, error) {
 	return evt.getFromPayload(name, true)
 }
 
-var ErrMsgNotFound = errors.New("unable to reference: message not found")
-
 func (evt *Event) GetUniqueID() uint32 {
 	evt.Header.NUniqueIDs++
 	return evt.Header.NUniqueIDs
 }
 
-func (evt *Event) Reference(msg Message) (*Reference, error) {
+func (evt *Event) Reference(msg Message) *Reference {
 	for _, coll := range evt.collCache {
 		if coll == msg {
 			collID := coll.GetId()
@@ -115,7 +113,7 @@ func (evt *Event) Reference(msg Message) (*Reference, error) {
 			return &Reference{
 				CollID:  collID,
 				EntryID: 0,
-			}, nil
+			}
 		}
 
 		for i := uint32(0); i < coll.GetNEntries(); i++ {
@@ -134,49 +132,47 @@ func (evt *Event) Reference(msg Message) (*Reference, error) {
 				return &Reference{
 					CollID:  collID,
 					EntryID: entryID,
-				}, nil
+				}
 			}
 		}
 	}
 
-	return nil, ErrMsgNotFound
+	return nil
 }
 
-func (evt *Event) Dereference(ref *Reference) (Message, error) {
+func (evt *Event) Dereference(ref *Reference) Message {
 	var refColl Collection
 	for _, coll := range evt.collCache {
 		if coll.GetId() == ref.CollID {
 			if ref.EntryID == 0 {
-				return coll, nil
+				return coll
 			}
 			refColl = coll
 			break
 		}
 	}
 	if refColl == nil {
-		payloadCollections := make([]*EventHeader_CollectionHeader, len(evt.Header.PayloadCollections))
-		copy(evt.Header.PayloadCollections, payloadCollections)
-		for _, collHdr := range payloadCollections {
+		for _, collHdr := range evt.Header.PayloadCollections {
 			if collHdr.Id == ref.CollID {
 				var err error
 				if refColl, err = evt.Get(collHdr.Name); err != nil {
-					return nil, err
+					return nil
 				}
 				break
 			}
 		}
 	}
 	if refColl == nil {
-		return nil, ErrMsgNotFound
+		return nil
 	}
 
 	for i := uint32(0); i < refColl.GetNEntries(); i++ {
 		entry := refColl.GetEntry(i)
 		if entry.GetId() == ref.EntryID {
-			return entry, nil
+			return entry
 		}
 	}
-	return nil, ErrMsgNotFound
+	return nil
 }
 
 func (evt *Event) String() string {

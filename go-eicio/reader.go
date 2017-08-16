@@ -12,7 +12,6 @@ import (
 type Reader struct {
 	byteReader         io.Reader
 	deferredUntilClose []func() error
-	lastEvent          int
 }
 
 // opens a file and adds the file as an io.Reader to a new Reader that is
