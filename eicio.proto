@@ -1,6 +1,9 @@
 syntax = "proto3";
 package eicio;
 
+// Warning: do not change EventHeader's fields without understanding how the
+// changes affect the EICIO libraries.
+
 message EventHeader {
 	uint32 version = 1;
 
@@ -21,6 +24,9 @@ message EventHeader {
 	uint32 nUniqueIDs = 8;
 	string description = 16;
 }
+
+// Message types shared by different collection and entry messages.  These are
+// in general needed by the libraries.
 
 message IntParams {
 	repeated int32 array = 1;
@@ -52,6 +58,10 @@ message ParticleID {
 	int32 algType = 4;
 	repeated float params = 5;
 }
+
+// Data model messages.  Each message type must be accompanied by one with the
+// identical name suffixed with Collection.  Both message and it's colleciton
+// message must have the field "id"
 
 message MCParticle {
 	uint32 id = 1;
