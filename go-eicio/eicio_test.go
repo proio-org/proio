@@ -2,8 +2,11 @@ package eicio
 
 import (
 	"bytes"
+	"math"
 	"reflect"
 	"testing"
+
+	"go-hep.org/x/hep/lcio"
 )
 
 func TestEventPushGet(t *testing.T) {
@@ -23,7 +26,7 @@ func TestEventPushGet(t *testing.T) {
 	simTrackHits.Entries = append(simTrackHits.Entries, &SimTrackerHit{})
 	event0Out.Add(simTrackHits, "TrackerHits")
 
-	writer.PushEvent(event0Out)
+	writer.Push(event0Out)
 
 	event1Out := NewEvent()
 
@@ -32,11 +35,11 @@ func TestEventPushGet(t *testing.T) {
 	simTrackHits.Entries = append(simTrackHits.Entries, &SimTrackerHit{})
 	event1Out.Add(simTrackHits, "TrackerHits")
 
-	writer.PushEvent(event1Out)
+	writer.Push(event1Out)
 
 	reader := NewReader(buffer)
 
-	event0In, err := reader.Next()
+	event0In, err := reader.Get()
 	if err != nil {
 		t.Error(err)
 	}
@@ -47,7 +50,7 @@ func TestEventPushGet(t *testing.T) {
 		t.Error("Event 0 corrupted")
 	}
 
-	event1In, err := reader.Next()
+	event1In, err := reader.Get()
 	if err != nil {
 		t.Error(err)
 	}
@@ -79,17 +82,17 @@ func TestRefDeref(t *testing.T) {
 	part2.Parents = append(part2.Parents, eventOut.Reference(part1))
 	part3.Parents = append(part3.Parents, eventOut.Reference(part1))
 
-	writer.PushEvent(eventOut)
+	writer.Push(eventOut)
 
 	reader := NewReader(buffer)
 
-	eventIn, err := reader.Next()
+	eventIn, err := reader.Get()
 	if err != nil {
 		t.Error("Error reading back event")
 	}
 
-	MCParticles_, err := eventIn.Get("MCParticles")
-	if err != nil {
+	MCParticles_ := eventIn.Get("MCParticles")
+	if MCParticles_ == nil {
 		t.Error("Failed to get MCParticles collection")
 	}
 
@@ -132,8 +135,8 @@ func TestRefDeref2(t *testing.T) {
 	part2.Parents = append(part2.Parents, event.Reference(part1))
 	part3.Parents = append(part3.Parents, event.Reference(part1))
 
-	MCParticles_, err := event.Get("MCParticles")
-	if err != nil {
+	MCParticles_ := event.Get("MCParticles")
+	if MCParticles_ == nil {
 		t.Error("Failed to get MCParticles collection")
 	}
 
@@ -184,17 +187,17 @@ func TestRefDeref3(t *testing.T) {
 	part2.Parents = append(part2.Parents, eventOut.Reference(part1))
 	part3.Parents = append(part3.Parents, eventOut.Reference(part1))
 
-	writer.PushEvent(eventOut)
+	writer.Push(eventOut)
 
 	reader := NewReader(buffer)
 
-	eventIn, err := reader.Next()
+	eventIn, err := reader.Get()
 	if err != nil {
 		t.Error("Error reading back event")
 	}
 
-	MCParticles_, err := eventIn.Get("MCParticles")
-	if err != nil {
+	MCParticles_ := eventIn.Get("MCParticles")
+	if MCParticles_ == nil {
 		t.Error("Failed to get MCParticles collection")
 	}
 
@@ -221,5 +224,228 @@ func TestRefDeref3(t *testing.T) {
 
 	if eventIn.Header.NUniqueIDs != eventOut.Header.NUniqueIDs {
 		t.Error("Unique ID count was not carried over in push/get")
+	}
+}
+
+type TruthRelation struct {
+	Truth *MCParticle
+	PNorm []float64
+	Eta   float64
+	P_T   float64
+}
+
+func normalizeVector(vector []float64) []float64 {
+	normFactor := math.Sqrt(dotProduct(vector, vector))
+	for i, value := range vector {
+		vector[i] = value / normFactor
+	}
+	return vector
+}
+
+func dotProduct(vector1 []float64, vector2 []float64) float64 {
+	return vector1[0]*vector2[0] + vector1[1]*vector2[1] + vector1[2]*vector2[2]
+}
+
+func BenchmarkTracking(b *testing.B) {
+	filename := "../samples/largeSample.eicio"
+	reader, err := Open(filename)
+	if err != nil {
+		b.Skip("Skipping tracking benchmark: missing input file ", filename)
+	}
+
+	b.ResetTimer()
+	tracking(reader, b)
+}
+
+func BenchmarkTrackingGzip(b *testing.B) {
+	filename := "../samples/largeSample.eicio.gz"
+	reader, err := Open(filename)
+	if err != nil {
+		b.Skip("Skipping tracking benchmark: missing input file ", filename)
+	}
+
+	b.ResetTimer()
+	tracking(reader, b)
+}
+
+type TruthRelationLCIO struct {
+	Truth *lcio.McParticle
+	PNorm [3]float64
+	Eta   float64
+	P_T   float64
+}
+
+func normalizeVectorLCIO(vector [3]float64) [3]float64 {
+	normFactor := math.Sqrt(dotProductLCIO(vector, vector))
+	for i, value := range vector {
+		vector[i] = value / normFactor
+	}
+	return vector
+}
+
+func dotProductLCIO(vector1 [3]float64, vector2 [3]float64) float64 {
+	return vector1[0]*vector2[0] + vector1[1]*vector2[1] + vector1[2]*vector2[2]
+}
+
+func BenchmarkTrackingLCIO(b *testing.B) {
+	filename := "../samples/largeSample.slcio"
+	reader, err := lcio.Open(filename)
+	if err != nil {
+		b.Skip("Skipping tracking benchmark: missing input file ", filename)
+	}
+
+	b.ResetTimer()
+	trackingLCIO(reader, b)
+}
+
+func tracking(reader *Reader, b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		event, err := reader.Get()
+		if err != nil {
+			b.N = i
+			break
+		}
+
+		truthColl := event.Get("MCParticle").(*MCParticleCollection)
+		trackColl := event.Get("Tracks").(*TrackCollection)
+
+		// FIXME: boost back from crossing angle?
+
+		var truthRelations []TruthRelation
+		for i, truth := range truthColl.Entries {
+			if truth.GenStatus != 1 || truth.Charge == float32(0) {
+				continue
+			}
+
+			pNorm := normalizeVector(truth.P)
+			eta := math.Atanh(pNorm[2])
+			pT := math.Sqrt(truth.P[0]*truth.P[0] + truth.P[1]*truth.P[1])
+
+			if pT > 0.5 {
+				truthRelations = append(truthRelations, TruthRelation{
+					Truth: truthColl.Entries[i],
+					PNorm: pNorm,
+					Eta:   eta,
+					P_T:   pT,
+				})
+
+				/*
+					trueResults <- TrueResult{
+						Eta: eta,
+						P_T: pT,
+					}
+				*/
+			}
+		}
+
+		for _, track := range trackColl.Entries {
+			tanLambda := float64(track.States[0].TanL)
+
+			lambda := math.Atan(tanLambda)
+			px := math.Cos(float64(track.States[0].Phi)) * math.Cos(lambda)
+			py := math.Sin(float64(track.States[0].Phi)) * math.Cos(lambda)
+			pz := math.Sin(lambda)
+
+			pNorm := [3]float64{px, py, pz}
+
+			minAngle := math.Inf(1)
+			minIndex := -1
+			for i, truthRelation := range truthRelations {
+				angle := math.Acos(dotProduct(pNorm[:], truthRelation.PNorm))
+				if angle < minAngle {
+					minAngle = angle
+					minIndex = i
+				}
+			}
+
+			if minIndex >= 0 && minAngle < 0.01 {
+				/*
+					trackResults <- TrackResult{
+						MinAngle: minAngle,
+						Eta:      truthRelations[minIndex].Eta,
+						P_T:      truthRelations[minIndex].P_T,
+					}
+				*/
+
+				truthRelations = append(truthRelations[:minIndex], truthRelations[minIndex+1:]...)
+			}
+		}
+	}
+}
+
+func trackingLCIO(reader *lcio.Reader, b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		if !reader.Next() {
+			b.N = i
+			break
+		}
+
+		event := reader.Event()
+
+		truthColl := event.Get("MCParticle").(*lcio.McParticleContainer)
+		trackColl := event.Get("Tracks").(*lcio.TrackContainer)
+
+		// FIXME: boost back from crossing angle?
+
+		var truthRelations []TruthRelationLCIO
+		for i, truth := range truthColl.Particles {
+			if truth.GenStatus != 1 || truth.Charge == float32(0) {
+				continue
+			}
+
+			pNorm := normalizeVectorLCIO(truth.P)
+			eta := math.Atanh(pNorm[2])
+			pT := math.Sqrt(truth.P[0]*truth.P[0] + truth.P[1]*truth.P[1])
+
+			if pT > 0.5 {
+				truthRelations = append(truthRelations, TruthRelationLCIO{
+					Truth: &truthColl.Particles[i],
+					PNorm: pNorm,
+					Eta:   eta,
+					P_T:   pT,
+				})
+
+				/*
+					trueResults <- TrueResult{
+						Eta: eta,
+						P_T: pT,
+					}
+				*/
+			}
+		}
+
+		for _, track := range trackColl.Tracks {
+			tanLambda := track.TanL()
+			//eta := -math.Log(math.Sqrt(1+tanLambda*tanLambda) - tanLambda)
+
+			lambda := math.Atan(tanLambda)
+			px := math.Cos(track.Phi()) * math.Cos(lambda)
+			py := math.Sin(track.Phi()) * math.Cos(lambda)
+			pz := math.Sin(lambda)
+
+			pNorm := [3]float64{px, py, pz}
+
+			minAngle := math.Inf(1)
+			minIndex := -1
+			for i, truthRelation := range truthRelations {
+				angle := math.Acos(dotProductLCIO(pNorm, truthRelation.PNorm))
+				if angle < minAngle {
+					minAngle = angle
+					minIndex = i
+				}
+			}
+
+			if minIndex >= 0 && minAngle < 0.01 {
+				/*
+					trackResults <- TrackResult{
+						MinAngle: minAngle,
+						Eta:      truthRelations[minIndex].Eta,
+						P_T:      truthRelations[minIndex].P_T,
+					}
+				*/
+
+				truthRelations = append(truthRelations[:minIndex], truthRelations[minIndex+1:]...)
+			}
+		}
 	}
 }

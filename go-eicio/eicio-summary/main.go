@@ -60,7 +60,7 @@ func main() {
 	runs := make(map[uint64]bool)
 
 	var header *eicio.EventHeader
-	for header, err = reader.NextHeader(); header != nil; header, err = reader.NextHeader() {
+	for header, err = reader.GetHeader(); header != nil; header, err = reader.GetHeader() {
 		if err != nil {
 			log.Print(err)
 		}

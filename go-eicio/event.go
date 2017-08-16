@@ -10,6 +10,8 @@ import (
 	"github.com/golang/protobuf/proto"
 )
 
+// Struct representing an event either created with NewEvent() or retrieved
+// with (*Reader) Next()
 type Event struct {
 	Header  *EventHeader
 	payload []byte
@@ -18,6 +20,7 @@ type Event struct {
 	namesCached []string
 }
 
+// Returns a new event with minimal initialization
 func NewEvent() *Event {
 	return &Event{
 		Header:    &EventHeader{},
@@ -25,6 +28,7 @@ func NewEvent() *Event {
 	}
 }
 
+// Get a list of collection names in the event
 func (evt *Event) GetNames() []string {
 	names := make([]string, 0)
 
@@ -38,6 +42,7 @@ func (evt *Event) GetNames() []string {
 	return names
 }
 
+// Get a string representing the collection type
 func GetType(coll Collection) string {
 	return strings.TrimPrefix(proto.MessageName(coll), "eicio.")
 }
@@ -47,6 +52,10 @@ var (
 	ErrDupID         = errors.New("duplicate collection id")
 )
 
+// Add a collection to the event.  This allows automatic referencing with
+// (*Event) Reference(), and queues the collection for serialization once
+// (*Writer) Push() is called.  The collection may be modified further after
+// adding.
 func (evt *Event) Add(coll Collection, name string) error {
 	for key, coll_ := range evt.collCache {
 		if key == name {
@@ -71,6 +80,7 @@ func (evt *Event) Add(coll Collection, name string) error {
 	return nil
 }
 
+// Remove a collection from the event by name
 func (evt *Event) Remove(name string) {
 	for key, _ := range evt.collCache {
 		if key == name {
@@ -88,20 +98,27 @@ func (evt *Event) Remove(name string) {
 
 // Gets a collection from the event.  The collection is deserialized upon the
 // first time calling this function.  Once deserialized, the collection is
-// removed from Header.PayloadCollection
-func (evt *Event) Get(name string) (Collection, error) {
+// removed from Header.PayloadCollection, and placed back into a queue for
+// reserialization.  The event may be safely modified before reserializing.
+func (evt *Event) Get(name string) Collection {
 	if msg := evt.collCache[name]; msg != nil {
-		return msg, nil
+		return msg
 	}
 
 	return evt.getFromPayload(name, true)
 }
 
+// Get a unique ID for referencing collections or entries.  This is typically
+// not needed, and instead (*Event) Reference() should be called.
 func (evt *Event) GetUniqueID() uint32 {
 	evt.Header.NUniqueIDs++
 	return evt.Header.NUniqueIDs
 }
 
+// Reference a message that exists in the event.  The message may be a
+// collection or entry within a collection.  In both cases, the collection must
+// have been added to the event, or it must be a collection retrieved with
+// (*Event) Get().
 func (evt *Event) Reference(msg Message) *Reference {
 	for _, coll := range evt.collCache {
 		if coll == msg {
@@ -140,6 +157,9 @@ func (evt *Event) Reference(msg Message) *Reference {
 	return nil
 }
 
+// Dereference a message from the event.  This returns a message (either
+// collection or collection entry) referred to by a Reference.  The message
+// must exist in the event.
 func (evt *Event) Dereference(ref *Reference) Message {
 	var refColl Collection
 	for _, coll := range evt.collCache {
@@ -154,8 +174,7 @@ func (evt *Event) Dereference(ref *Reference) Message {
 	if refColl == nil {
 		for _, collHdr := range evt.Header.PayloadCollections {
 			if collHdr.Id == ref.CollID {
-				var err error
-				if refColl, err = evt.Get(collHdr.Name); err != nil {
+				if refColl = evt.Get(collHdr.Name); refColl == nil {
 					return nil
 				}
 				break
@@ -184,7 +203,7 @@ func (evt *Event) String() string {
 	fmt.Fprint(buffer, stringBuf, "\n")
 
 	for _, name := range evt.GetNames() {
-		coll, _ := evt.Get(name)
+		coll := evt.Get(name)
 		if coll != nil {
 			fmt.Fprint(buffer, "    name:", name, " type:", GetType(coll), "\n")
 
@@ -198,9 +217,7 @@ func (evt *Event) String() string {
 	return string(buffer.Bytes())
 }
 
-var ErrBlankColl = errors.New("collection not found or type is blank")
-
-func (evt *Event) getFromPayload(name string, unmarshal bool) (Collection, error) {
+func (evt *Event) getFromPayload(name string, unmarshal bool) Collection {
 	offset := uint32(0)
 	size := uint32(0)
 	collType := ""
@@ -215,7 +232,7 @@ func (evt *Event) getFromPayload(name string, unmarshal bool) (Collection, error
 		offset += collHdr.PayloadSize
 	}
 	if collType == "" {
-		return nil, ErrBlankColl
+		return nil
 	}
 
 	var coll Collection
@@ -223,7 +240,7 @@ func (evt *Event) getFromPayload(name string, unmarshal bool) (Collection, error
 		msgType := proto.MessageType("eicio." + collType).Elem()
 		coll = reflect.New(msgType).Interface().(Collection)
 		if err := coll.Unmarshal(evt.payload[offset : offset+size]); err != nil {
-			return nil, err
+			return nil
 		}
 
 		evt.collCache[name] = coll
@@ -233,7 +250,7 @@ func (evt *Event) getFromPayload(name string, unmarshal bool) (Collection, error
 	evt.Header.PayloadCollections = append(evt.Header.PayloadCollections[:collIndex], evt.Header.PayloadCollections[collIndex+1:]...)
 	evt.payload = append(evt.payload[:offset], evt.payload[offset+size:]...)
 
-	return coll, nil
+	return coll
 }
 func (evt *Event) flushCollCache() error {
 	for _, name := range evt.namesCached {

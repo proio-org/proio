@@ -13,7 +13,7 @@ type Writer struct {
 	deferredUntilClose []func() error
 }
 
-// creates a new file (overwriting existing file) and adds the file as an
+// Creates a new file (overwriting existing file) and adds the file as an
 // io.Writer to a new Writer that is returned.  If the file name ends with
 // ".gz", the file is wrapped with gzip.NewWriter().  If the function returns
 // successful (err == nil), the Close() function should be called when
@@ -35,7 +35,7 @@ func Create(filename string) (*Writer, error) {
 	return writer, nil
 }
 
-// closes anything created by Create() or NewGzipWriter()
+// Closes anything created by Create() or NewGzipWriter()
 func (wrt *Writer) Close() error {
 	for _, thisFunc := range wrt.deferredUntilClose {
 		if err := thisFunc(); err != nil {
@@ -49,12 +49,15 @@ func (wrt *Writer) deferUntilClose(thisFunc func() error) {
 	wrt.deferredUntilClose = append(wrt.deferredUntilClose, thisFunc)
 }
 
+// Returns a new Writer for pushing event to a stream
 func NewWriter(byteWriter io.Writer) *Writer {
 	return &Writer{
 		byteWriter: byteWriter,
 	}
 }
 
+// Creates a gzip stream and adds it as an io.Writer to a new Writer that is
+// returned.  The Close() function should be called before closing the stream.
 func NewGzipWriter(byteWriter io.Writer) *Writer {
 	gzWriter := gzip.NewWriter(byteWriter)
 	writer := NewWriter(gzWriter)
@@ -70,7 +73,9 @@ var magicBytes = [...]byte{
 	byte(0x00),
 }
 
-func (wrt *Writer) PushEvent(event *Event) (err error) {
+// Pushes an event into the Writer's stream.  Any unserialized collections are
+// serialized first.
+func (wrt *Writer) Push(event *Event) (err error) {
 	if err := event.flushCollCache(); err != nil {
 		return err
 	}
