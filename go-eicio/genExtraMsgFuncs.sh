@@ -3,8 +3,8 @@
 protoFile=$1
 outFile=$2
 
-collections=$(grep "Collection\>" $protoFile | sed "s/^.*\<\(\S*Collection\)\>.*/\1/")
-messages=$(grep "Collection\>" $protoFile | sed "s/^.*\<\(\S*\)Collection\>.*/\1/")
+collections=$(grep "^message.*Collection\>" $protoFile | sed "s/^.*\<\(\S*Collection\)\>.*/\1/")
+messages=$(grep "^message.*Collection\>" $protoFile | sed "s/^.*\<\(\S*\)Collection\>.*/\1/")
 
 printf "\n\n// Extra generated functions for compliance with Message and Collection interfaces\n\n" >> $outFile
 
