@@ -71,14 +71,11 @@ func TestRefDeref(t *testing.T) {
 	}
 
 	part1 := &MCParticle{PDG: 11}
-	MCParticles.Entries = append(MCParticles.Entries, part1)
 	part2 := &MCParticle{PDG: 11}
-	MCParticles.Entries = append(MCParticles.Entries, part2)
 	part3 := &MCParticle{PDG: 22}
-	MCParticles.Entries = append(MCParticles.Entries, part3)
+	MCParticles.Entries = append(MCParticles.Entries, part1, part2, part3)
 
-	part1.Children = append(part1.Children, eventOut.Reference(part2))
-	part1.Children = append(part1.Children, eventOut.Reference(part3))
+	part1.Children = append(part1.Children, eventOut.Reference(part2), eventOut.Reference(part3))
 	part2.Parents = append(part2.Parents, eventOut.Reference(part1))
 	part3.Parents = append(part3.Parents, eventOut.Reference(part1))
 
@@ -127,14 +124,11 @@ func TestRefDeref2(t *testing.T) {
 	}
 
 	part1 := &MCParticle{PDG: 11}
-	MCParticles.Entries = append(MCParticles.Entries, part1)
 	part2 := &MCParticle{PDG: 11}
-	MCParticles.Entries = append(MCParticles.Entries, part2)
 	part3 := &MCParticle{PDG: 22}
-	MCParticles.Entries = append(MCParticles.Entries, part3)
+	MCParticles.Entries = append(MCParticles.Entries, part1, part2, part3)
 
-	part1.Children = append(part1.Children, event.Reference(part2))
-	part1.Children = append(part1.Children, event.Reference(part3))
+	part1.Children = append(part1.Children, event.Reference(part2), event.Reference(part3))
 	part2.Parents = append(part2.Parents, event.Reference(part1))
 	part3.Parents = append(part3.Parents, event.Reference(part1))
 
@@ -183,12 +177,10 @@ func TestRefDeref3(t *testing.T) {
 		t.Error("Can't add SimParticles collection: ", err)
 	}
 	part2 := &MCParticle{PDG: 11}
-	SimParticles.Entries = append(SimParticles.Entries, part2)
 	part3 := &MCParticle{PDG: 22}
-	SimParticles.Entries = append(SimParticles.Entries, part3)
+	SimParticles.Entries = append(SimParticles.Entries, part2, part3)
 
-	part1.Children = append(part1.Children, eventOut.Reference(part2))
-	part1.Children = append(part1.Children, eventOut.Reference(part3))
+	part1.Children = append(part1.Children, eventOut.Reference(part2), eventOut.Reference(part3))
 	part2.Parents = append(part2.Parents, eventOut.Reference(part1))
 	part3.Parents = append(part3.Parents, eventOut.Reference(part1))
 

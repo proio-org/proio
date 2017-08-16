@@ -179,17 +179,17 @@ func (evt *Event) String() string {
 	buffer := &bytes.Buffer{}
 
 	stringBuf := fmt.Sprint(evt.Header, "\n")
-	stringBuf = strings.Replace(stringBuf, " payloadCollections:", "\n\tpayloadCollections:", -1)
+	stringBuf = strings.Replace(stringBuf, " payloadCollections:", "\n    payloadCollections:", -1)
 	stringBuf = strings.Replace(stringBuf, " >", ">", -1)
 	fmt.Fprint(buffer, stringBuf, "\n")
 
 	for _, name := range evt.GetNames() {
 		coll, _ := evt.Get(name)
 		if coll != nil {
-			fmt.Fprint(buffer, "\tname:", name, " type:", GetType(coll), "\n")
+			fmt.Fprint(buffer, "    name:", name, " type:", GetType(coll), "\n")
 
-			stringBuf = fmt.Sprint("\t\t", coll, "\n")
-			stringBuf = strings.Replace(stringBuf, " entries:", "\n\t\tentries:", -1)
+			stringBuf = fmt.Sprint("        ", coll, "\n")
+			stringBuf = strings.Replace(stringBuf, " entries:", "\n        entries:", -1)
 			stringBuf = strings.Replace(stringBuf, " >", ">", -1)
 			fmt.Fprint(buffer, stringBuf)
 		}
