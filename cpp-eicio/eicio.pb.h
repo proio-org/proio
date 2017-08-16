@@ -371,17 +371,17 @@ class EventHeader : public ::google::protobuf::Message /* @@protoc_insertion_poi
 
   // accessors -------------------------------------------------------
 
-  // repeated .eicio.EventHeader.CollectionHeader collections = 7;
-  int collections_size() const;
-  void clear_collections();
-  static const int kCollectionsFieldNumber = 7;
-  const ::eicio::EventHeader_CollectionHeader& collections(int index) const;
-  ::eicio::EventHeader_CollectionHeader* mutable_collections(int index);
-  ::eicio::EventHeader_CollectionHeader* add_collections();
+  // repeated .eicio.EventHeader.CollectionHeader payloadCollections = 7;
+  int payloadcollections_size() const;
+  void clear_payloadcollections();
+  static const int kPayloadCollectionsFieldNumber = 7;
+  const ::eicio::EventHeader_CollectionHeader& payloadcollections(int index) const;
+  ::eicio::EventHeader_CollectionHeader* mutable_payloadcollections(int index);
+  ::eicio::EventHeader_CollectionHeader* add_payloadcollections();
   ::google::protobuf::RepeatedPtrField< ::eicio::EventHeader_CollectionHeader >*
-      mutable_collections();
+      mutable_payloadcollections();
   const ::google::protobuf::RepeatedPtrField< ::eicio::EventHeader_CollectionHeader >&
-      collections() const;
+      payloadcollections() const;
 
   // string detector = 5;
   void clear_detector();
@@ -454,7 +454,7 @@ class EventHeader : public ::google::protobuf::Message /* @@protoc_insertion_poi
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::RepeatedPtrField< ::eicio::EventHeader_CollectionHeader > collections_;
+  ::google::protobuf::RepeatedPtrField< ::eicio::EventHeader_CollectionHeader > payloadcollections_;
   ::google::protobuf::internal::ArenaStringPtr detector_;
   ::google::protobuf::internal::ArenaStringPtr description_;
   ::eicio::Params* params_;
@@ -6042,34 +6042,34 @@ inline void EventHeader::set_allocated_params(::eicio::Params* params) {
   // @@protoc_insertion_point(field_set_allocated:eicio.EventHeader.params)
 }
 
-// repeated .eicio.EventHeader.CollectionHeader collections = 7;
-inline int EventHeader::collections_size() const {
-  return collections_.size();
+// repeated .eicio.EventHeader.CollectionHeader payloadCollections = 7;
+inline int EventHeader::payloadcollections_size() const {
+  return payloadcollections_.size();
 }
-inline void EventHeader::clear_collections() {
-  collections_.Clear();
+inline void EventHeader::clear_payloadcollections() {
+  payloadcollections_.Clear();
 }
-inline const ::eicio::EventHeader_CollectionHeader& EventHeader::collections(int index) const {
-  // @@protoc_insertion_point(field_get:eicio.EventHeader.collections)
-  return collections_.Get(index);
+inline const ::eicio::EventHeader_CollectionHeader& EventHeader::payloadcollections(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.EventHeader.payloadCollections)
+  return payloadcollections_.Get(index);
 }
-inline ::eicio::EventHeader_CollectionHeader* EventHeader::mutable_collections(int index) {
-  // @@protoc_insertion_point(field_mutable:eicio.EventHeader.collections)
-  return collections_.Mutable(index);
+inline ::eicio::EventHeader_CollectionHeader* EventHeader::mutable_payloadcollections(int index) {
+  // @@protoc_insertion_point(field_mutable:eicio.EventHeader.payloadCollections)
+  return payloadcollections_.Mutable(index);
 }
-inline ::eicio::EventHeader_CollectionHeader* EventHeader::add_collections() {
-  // @@protoc_insertion_point(field_add:eicio.EventHeader.collections)
-  return collections_.Add();
+inline ::eicio::EventHeader_CollectionHeader* EventHeader::add_payloadcollections() {
+  // @@protoc_insertion_point(field_add:eicio.EventHeader.payloadCollections)
+  return payloadcollections_.Add();
 }
 inline ::google::protobuf::RepeatedPtrField< ::eicio::EventHeader_CollectionHeader >*
-EventHeader::mutable_collections() {
-  // @@protoc_insertion_point(field_mutable_list:eicio.EventHeader.collections)
-  return &collections_;
+EventHeader::mutable_payloadcollections() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.EventHeader.payloadCollections)
+  return &payloadcollections_;
 }
 inline const ::google::protobuf::RepeatedPtrField< ::eicio::EventHeader_CollectionHeader >&
-EventHeader::collections() const {
-  // @@protoc_insertion_point(field_list:eicio.EventHeader.collections)
-  return collections_;
+EventHeader::payloadcollections() const {
+  // @@protoc_insertion_point(field_list:eicio.EventHeader.payloadCollections)
+  return payloadcollections_;
 }
 
 // uint32 nUniqueIDs = 8;

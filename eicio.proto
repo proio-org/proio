@@ -16,7 +16,7 @@ message EventHeader {
 		string type = 3;
 		uint32 payloadSize = 4;
 	}
-	repeated CollectionHeader collections = 7;
+	repeated CollectionHeader payloadCollections = 7;
 
 	uint32 nUniqueIDs = 8;
 	string description = 16;
