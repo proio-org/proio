@@ -14,7 +14,7 @@ type Reader struct {
 	deferredUntilClose []func() error
 }
 
-// opens a file and adds the file as an io.Reader to a new Reader that is
+// Opens a file and adds the file as an io.Reader to a new Reader that is
 // returned.  If the file name ends with ".gz", the file is wrapped with
 // gzip.NewReader().  If the function returns successful (err == nil), the
 // Close() function should be called when finished.
@@ -39,7 +39,7 @@ func Open(filename string) (*Reader, error) {
 	return reader, nil
 }
 
-// closes anything created by Open() or NewGzipReader()
+// Closes anything created by Open() or NewGzipReader()
 func (rdr *Reader) Close() error {
 	for _, thisFunc := range rdr.deferredUntilClose {
 		if err := thisFunc(); err != nil {
@@ -53,12 +53,15 @@ func (rdr *Reader) deferUntilClose(thisFunc func() error) {
 	rdr.deferredUntilClose = append(rdr.deferredUntilClose, thisFunc)
 }
 
+// Returns a new Reader for reading events from a stream
 func NewReader(byteReader io.Reader) *Reader {
 	return &Reader{
 		byteReader: byteReader,
 	}
 }
 
+// Opens a gzip stream and adds it as an io.Reader to a new Reader that is
+// returned.  The Close() function should be called before closing the stream.
 func NewGzipReader(byteReader io.Reader) (*Reader, error) {
 	gzReader, err := gzip.NewReader(byteReader)
 	if err != nil {
@@ -110,10 +113,10 @@ var (
 	ErrTruncated = errors.New("data stream is truncated early")
 )
 
-// returns the next even upon success.  If the data stream is not aligned with
+// Returns the next even upon success.  If the data stream is not aligned with
 // the beginning of an event, the stream will be resynchronized to the next
 // event, and ErrResync will be returned along with the event.
-func (rdr *Reader) Next() (*Event, error) {
+func (rdr *Reader) Get() (*Event, error) {
 	n, err := rdr.syncToMagic()
 	if err != nil {
 		return nil, err
@@ -155,7 +158,10 @@ func (rdr *Reader) Next() (*Event, error) {
 	return event, err
 }
 
-func (rdr *Reader) NextHeader() (*EventHeader, error) {
+// Get the next Header only from the stream, and seek past the collection
+// payload if possible.  This is useful for parsing the metadata of a file or
+// stream.
+func (rdr *Reader) GetHeader() (*EventHeader, error) {
 	n, err := rdr.syncToMagic()
 	if err != nil {
 		return nil, err
@@ -202,6 +208,7 @@ func (rdr *Reader) NextHeader() (*EventHeader, error) {
 	return header, err
 }
 
+// Skip the next nEvents events
 func (rdr *Reader) Skip(nEvents int) (int, error) {
 	seeker, isSeeker := rdr.byteReader.(io.Seeker)
 	wasResynced := false
@@ -252,6 +259,8 @@ func (rdr *Reader) Skip(nEvents int) (int, error) {
 
 var ErrNotSeekable = errors.New("data stream is not seekable")
 
+// If the stream implements io.Seeker (typically a file), reset back to the
+// beginning of the file.
 func (rdr *Reader) SeekToStart() error {
 	seeker, ok := rdr.byteReader.(io.Seeker)
 	if !ok {

@@ -67,7 +67,7 @@ func main() {
 	nEventsRead := 0
 
 	var event *eicio.Event
-	for event, err = reader.Next(); event != nil; event, err = reader.Next() {
+	for event, err = reader.Get(); event != nil; event, err = reader.Get() {
 		if err != nil {
 			log.Print(err)
 		}

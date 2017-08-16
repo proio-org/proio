@@ -14,6 +14,10 @@ func Example_pushGetInspect() {
 	eventOut := eicio.NewEvent()
 	eventOut.Header.EventNumber = 1
 
+	// Build MCParticle collections
+	// These must be added to the event before they can be automatically
+	// referenced
+
 	MCParticles := &eicio.MCParticleCollection{}
 	eventOut.Add(MCParticles, "MCParticles")
 	part1 := &eicio.MCParticle{PDG: 11}
@@ -29,16 +33,16 @@ func Example_pushGetInspect() {
 	part2.Parents = append(part2.Parents, eventOut.Reference(part1))
 	part3.Parents = append(part3.Parents, eventOut.Reference(part1))
 
-	writer.PushEvent(eventOut)
+	writer.Push(eventOut)
 
 	// Event created and serialized, now to deserialize and inspect
 
 	reader := eicio.NewReader(buffer)
-	eventIn, _ := reader.Next()
+	eventIn, _ := reader.Get()
 
-	mcColl, _ := eventIn.Get("MCParticles")
+	mcColl, _ := eventIn.Get("MCParticles").(*eicio.MCParticleCollection)
 	fmt.Print(mcColl.GetNEntries(), " MCParticle(s)...\n")
-	for i, part := range mcColl.(*eicio.MCParticleCollection).Entries {
+	for i, part := range mcColl.Entries {
 		fmt.Print(i, ". PDG: ", part.PDG, "\n")
 		fmt.Print("  ", len(part.Children), " Children...\n")
 		for j, ref := range part.Children {

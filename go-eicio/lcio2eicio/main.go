@@ -109,7 +109,7 @@ func main() {
 			}
 		}
 
-		eicioWriter.PushEvent(eicioEvent)
+		eicioWriter.Push(eicioEvent)
 	}
 
 	err = lcioReader.Err()
