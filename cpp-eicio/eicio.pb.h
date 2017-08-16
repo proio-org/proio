@@ -371,17 +371,17 @@ class EventHeader : public ::google::protobuf::Message /* @@protoc_insertion_poi
 
   // accessors -------------------------------------------------------
 
-  // repeated .eicio.EventHeader.CollectionHeader collection = 7;
-  int collection_size() const;
-  void clear_collection();
-  static const int kCollectionFieldNumber = 7;
-  const ::eicio::EventHeader_CollectionHeader& collection(int index) const;
-  ::eicio::EventHeader_CollectionHeader* mutable_collection(int index);
-  ::eicio::EventHeader_CollectionHeader* add_collection();
+  // repeated .eicio.EventHeader.CollectionHeader payloadCollections = 7;
+  int payloadcollections_size() const;
+  void clear_payloadcollections();
+  static const int kPayloadCollectionsFieldNumber = 7;
+  const ::eicio::EventHeader_CollectionHeader& payloadcollections(int index) const;
+  ::eicio::EventHeader_CollectionHeader* mutable_payloadcollections(int index);
+  ::eicio::EventHeader_CollectionHeader* add_payloadcollections();
   ::google::protobuf::RepeatedPtrField< ::eicio::EventHeader_CollectionHeader >*
-      mutable_collection();
+      mutable_payloadcollections();
   const ::google::protobuf::RepeatedPtrField< ::eicio::EventHeader_CollectionHeader >&
-      collection() const;
+      payloadcollections() const;
 
   // string detector = 5;
   void clear_detector();
@@ -444,11 +444,17 @@ class EventHeader : public ::google::protobuf::Message /* @@protoc_insertion_poi
   ::google::protobuf::uint32 version() const;
   void set_version(::google::protobuf::uint32 value);
 
+  // uint32 nUniqueIDs = 8;
+  void clear_nuniqueids();
+  static const int kNUniqueIDsFieldNumber = 8;
+  ::google::protobuf::uint32 nuniqueids() const;
+  void set_nuniqueids(::google::protobuf::uint32 value);
+
   // @@protoc_insertion_point(class_scope:eicio.EventHeader)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::RepeatedPtrField< ::eicio::EventHeader_CollectionHeader > collection_;
+  ::google::protobuf::RepeatedPtrField< ::eicio::EventHeader_CollectionHeader > payloadcollections_;
   ::google::protobuf::internal::ArenaStringPtr detector_;
   ::google::protobuf::internal::ArenaStringPtr description_;
   ::eicio::Params* params_;
@@ -456,6 +462,7 @@ class EventHeader : public ::google::protobuf::Message /* @@protoc_insertion_poi
   ::google::protobuf::uint64 eventnumber_;
   ::google::protobuf::uint64 timestamp_;
   ::google::protobuf::uint32 version_;
+  ::google::protobuf::uint32 nuniqueids_;
   mutable int _cached_size_;
   friend struct protobuf_eicio_2eproto::TableStruct;
 };
@@ -6035,34 +6042,48 @@ inline void EventHeader::set_allocated_params(::eicio::Params* params) {
   // @@protoc_insertion_point(field_set_allocated:eicio.EventHeader.params)
 }
 
-// repeated .eicio.EventHeader.CollectionHeader collection = 7;
-inline int EventHeader::collection_size() const {
-  return collection_.size();
+// repeated .eicio.EventHeader.CollectionHeader payloadCollections = 7;
+inline int EventHeader::payloadcollections_size() const {
+  return payloadcollections_.size();
 }
-inline void EventHeader::clear_collection() {
-  collection_.Clear();
+inline void EventHeader::clear_payloadcollections() {
+  payloadcollections_.Clear();
 }
-inline const ::eicio::EventHeader_CollectionHeader& EventHeader::collection(int index) const {
-  // @@protoc_insertion_point(field_get:eicio.EventHeader.collection)
-  return collection_.Get(index);
+inline const ::eicio::EventHeader_CollectionHeader& EventHeader::payloadcollections(int index) const {
+  // @@protoc_insertion_point(field_get:eicio.EventHeader.payloadCollections)
+  return payloadcollections_.Get(index);
 }
-inline ::eicio::EventHeader_CollectionHeader* EventHeader::mutable_collection(int index) {
-  // @@protoc_insertion_point(field_mutable:eicio.EventHeader.collection)
-  return collection_.Mutable(index);
+inline ::eicio::EventHeader_CollectionHeader* EventHeader::mutable_payloadcollections(int index) {
+  // @@protoc_insertion_point(field_mutable:eicio.EventHeader.payloadCollections)
+  return payloadcollections_.Mutable(index);
 }
-inline ::eicio::EventHeader_CollectionHeader* EventHeader::add_collection() {
-  // @@protoc_insertion_point(field_add:eicio.EventHeader.collection)
-  return collection_.Add();
+inline ::eicio::EventHeader_CollectionHeader* EventHeader::add_payloadcollections() {
+  // @@protoc_insertion_point(field_add:eicio.EventHeader.payloadCollections)
+  return payloadcollections_.Add();
 }
 inline ::google::protobuf::RepeatedPtrField< ::eicio::EventHeader_CollectionHeader >*
-EventHeader::mutable_collection() {
-  // @@protoc_insertion_point(field_mutable_list:eicio.EventHeader.collection)
-  return &collection_;
+EventHeader::mutable_payloadcollections() {
+  // @@protoc_insertion_point(field_mutable_list:eicio.EventHeader.payloadCollections)
+  return &payloadcollections_;
 }
 inline const ::google::protobuf::RepeatedPtrField< ::eicio::EventHeader_CollectionHeader >&
-EventHeader::collection() const {
-  // @@protoc_insertion_point(field_list:eicio.EventHeader.collection)
-  return collection_;
+EventHeader::payloadcollections() const {
+  // @@protoc_insertion_point(field_list:eicio.EventHeader.payloadCollections)
+  return payloadcollections_;
+}
+
+// uint32 nUniqueIDs = 8;
+inline void EventHeader::clear_nuniqueids() {
+  nuniqueids_ = 0u;
+}
+inline ::google::protobuf::uint32 EventHeader::nuniqueids() const {
+  // @@protoc_insertion_point(field_get:eicio.EventHeader.nUniqueIDs)
+  return nuniqueids_;
+}
+inline void EventHeader::set_nuniqueids(::google::protobuf::uint32 value) {
+  
+  nuniqueids_ = value;
+  // @@protoc_insertion_point(field_set:eicio.EventHeader.nUniqueIDs)
 }
 
 // string description = 16;

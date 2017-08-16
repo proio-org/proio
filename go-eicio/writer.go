@@ -15,9 +15,9 @@ type Writer struct {
 
 // creates a new file (overwriting existing file) and adds the file as an
 // io.Writer to a new Writer that is returned.  If the file name ends with
-// ".gz", the file is wrapped with gzip.NewWriterLevel() with level
-// gzip.BestSpeed.  If the function returns successful (err == nil), the
-// Close() function should be called when finished.
+// ".gz", the file is wrapped with gzip.NewWriter().  If the function returns
+// successful (err == nil), the Close() function should be called when
+// finished.
 func Create(filename string) (*Writer, error) {
 	file, err := os.Create(filename)
 	if err != nil {
@@ -26,11 +26,7 @@ func Create(filename string) (*Writer, error) {
 
 	var writer *Writer
 	if strings.HasSuffix(filename, ".gz") {
-		writer, err = NewGzipWriter(file)
-		if err != nil {
-			file.Close()
-			return nil, err
-		}
+		writer = NewGzipWriter(file)
 	} else {
 		writer = NewWriter(file)
 	}
@@ -59,16 +55,12 @@ func NewWriter(byteWriter io.Writer) *Writer {
 	}
 }
 
-func NewGzipWriter(byteWriter io.Writer) (*Writer, error) {
-	gzWriter, err := gzip.NewWriterLevel(byteWriter, gzip.BestSpeed)
-	if err != nil {
-		return nil, err
-	}
-
+func NewGzipWriter(byteWriter io.Writer) *Writer {
+	gzWriter := gzip.NewWriter(byteWriter)
 	writer := NewWriter(gzWriter)
 	writer.deferUntilClose(gzWriter.Close)
 
-	return writer, nil
+	return writer
 }
 
 var magicBytes = [...]byte{
@@ -79,6 +71,10 @@ var magicBytes = [...]byte{
 }
 
 func (wrt *Writer) PushEvent(event *Event) (err error) {
+	if err := event.flushCollCache(); err != nil {
+		return err
+	}
+
 	headerBuf, err := event.Header.Marshal()
 	if err != nil {
 		return
