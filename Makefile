@@ -9,10 +9,10 @@ TARGETS := $(GO_TARGET) $(CPP_TARGET)
 
 all: $(TARGETS)
 
-$(GO_TARGET): $(PROTO) go-eicio/genExtraMsgFuncs
+$(GO_TARGET): $(PROTO) go-eicio/genExtraMsgFuncs.sh
 	protoc --gofast_out=$(@D) $<
 	sed -i '/\/\*/,/\*\//d' $@
-	go-eicio/genExtraMsgFuncs $< $@
+	. go-eicio/genExtraMsgFuncs.sh $< $@
 
 $(CPP_TARGET): $(PROTO)
 	protoc --cpp_out=$(@D) $<
