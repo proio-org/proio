@@ -25,3 +25,7 @@ install(FILES ${libeicioheaders} DESTINATION include/eicio)
 add_executable(eicio2root src/tools/eicio2root/main.cc)
 target_link_libraries(eicio2root PUBLIC eicio protobuf)
 install(TARGETS eicio2root DESTINATION bin)
+
+add_executable(eicio-ls src/tools/eicio-ls/main.cc)
+target_link_libraries(eicio-ls PUBLIC eicio protobuf)
+install(TARGETS eicio-ls DESTINATION bin)
