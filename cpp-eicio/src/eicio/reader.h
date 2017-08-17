@@ -1,29 +1,30 @@
 #ifndef READER_H
 #define READER_H
 
-#include "eicio.pb.h"
+#include <string.h>
 
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include "eicio.pb.h"
+#include "eicio/event.h"
+
+#include <google/protobuf/io/zero_copy_stream.h>
 
 namespace eicio {
 class Reader {
    public:
     Reader(int fd, bool gzip = false);
-    Reader(const char *filename);
+    Reader(std::string filename);
     virtual ~Reader();
 
-    class Stream : public google::protobuf::io::CopyingInputStream {
-       public:
-        Stream(int fd);
-        virtual ~Stream();
-
-        int Read(void *buffer, int size);
-        int Skip(int count);
-    };
+    Event *Get();
 
    private:
-    Stream *stream;
+    google::protobuf::uint32 syncToMagic();
+
+    google::protobuf::io::CodedInputStream *stream;
+    google::protobuf::io::ZeroCopyInputStream *inputStream;
 };
+
+const unsigned char magicBytes[] = {0xe1, 0xc1, 0x00, 0x00};
 }
 
 #endif  // READER_H

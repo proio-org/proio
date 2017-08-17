@@ -2,6 +2,24 @@
 
 #include "event.h"
 
-eicio::Event::Event() { std::cout << "Constructor!" << std::endl; }
+using namespace google::protobuf;
 
-eicio::Event::~Event() { std::cout << "Destructor!" << std::endl; }
+eicio::Event::Event() { header = new eicio::EventHeader(); }
+
+eicio::Event::~Event() {
+    if (header) delete header;
+}
+
+Message *eicio::Event::Get(std::string collName) { ; }
+
+void eicio::Event::SetHeader(eicio::EventHeader *newHeader) {
+    if (header) delete header;
+    header = newHeader;
+}
+
+eicio::EventHeader *eicio::Event::GetHeader() { return header; }
+
+void *eicio::Event::SetPayloadSize(uint32 size) {
+    payload.resize(size);
+    return &payload[0];
+}
