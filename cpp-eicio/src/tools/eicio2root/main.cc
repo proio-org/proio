@@ -5,6 +5,8 @@
 
 #include "eicio/reader.h"
 
+using namespace google::protobuf;
+
 int main(int argc, char **argv) {
     if (argc < 3) return EXIT_FAILURE;  // TODO: implement getopts
 
@@ -15,89 +17,88 @@ int main(int argc, char **argv) {
 
     while (eicio::Event *event = reader->Get()) {
         for (auto name : event->GetNames()) {
-            google::protobuf::Message *coll = event->Get(name);
+            Message *coll = event->Get(name);
             if (coll != NULL) {
-                const google::protobuf::Descriptor *desc = coll->GetDescriptor();
-                const google::protobuf::Reflection *ref = coll->GetReflection();
+                const Descriptor *desc = coll->GetDescriptor();
+                const Reflection *ref = coll->GetReflection();
 
-                const google::protobuf::RepeatedPtrField<google::protobuf::Message> entries =
-                    ref->GetRepeatedPtrField<google::protobuf::Message>(
-                        *((const google::protobuf::Message *)coll), desc->FindFieldByName("entries"));
+                const RepeatedPtrField<Message> entries = ref->GetRepeatedPtrField<Message>(
+                    *((const Message *)coll), desc->FindFieldByName("entries"));
                 for (int i = 0; i < entries.size(); i++) {
-                    std::vector<const google::protobuf::FieldDescriptor *> fieldDescs;
-                    const google::protobuf::Reflection *entryRef = entries[i].GetReflection();
+                    std::vector<const FieldDescriptor *> fieldDescs;
+                    const Reflection *entryRef = entries[i].GetReflection();
                     entryRef->ListFields(entries[i], &fieldDescs);
 
                     for (auto fieldDesc : fieldDescs) {
                         if (fieldVars[name].find(fieldDesc->name()) == fieldVars[name].end()) {
                             switch (fieldDesc->type()) {
-                                case google::protobuf::FieldDescriptor::TYPE_UINT32:
+                                case FieldDescriptor::TYPE_UINT32:
                                     if (!fieldDesc->is_repeated()) {
-                                        fieldVars[name][fieldDesc->name()] = new google::protobuf::uint32;
+                                        fieldVars[name][fieldDesc->name()] = new uint32;
                                     }
                                     break;
-                                case google::protobuf::FieldDescriptor::TYPE_UINT64:
+                                case FieldDescriptor::TYPE_UINT64:
                                     if (!fieldDesc->is_repeated()) {
-                                        fieldVars[name][fieldDesc->name()] = new google::protobuf::uint64;
+                                        fieldVars[name][fieldDesc->name()] = new uint64;
                                     }
                                     break;
-                                case google::protobuf::FieldDescriptor::TYPE_FLOAT:
+                                case FieldDescriptor::TYPE_FLOAT:
                                     if (!fieldDesc->is_repeated()) {
                                         fieldVars[name][fieldDesc->name()] = new float;
                                     }
                                     break;
-                                case google::protobuf::FieldDescriptor::TYPE_DOUBLE:
+                                case FieldDescriptor::TYPE_DOUBLE:
                                     if (!fieldDesc->is_repeated()) {
                                         fieldVars[name][fieldDesc->name()] = new double;
                                     }
                                     break;
-                                case google::protobuf::FieldDescriptor::TYPE_INT32:
+                                case FieldDescriptor::TYPE_INT32:
                                     if (!fieldDesc->is_repeated()) {
-                                        fieldVars[name][fieldDesc->name()] = new google::protobuf::int32;
+                                        fieldVars[name][fieldDesc->name()] = new int32;
                                     }
                                     break;
-                                case google::protobuf::FieldDescriptor::TYPE_INT64:
+                                case FieldDescriptor::TYPE_INT64:
                                     if (!fieldDesc->is_repeated()) {
-                                        fieldVars[name][fieldDesc->name()] = new google::protobuf::int64;
+                                        fieldVars[name][fieldDesc->name()] = new int64;
                                     }
                                     break;
                             }
                         }
 
                         switch (fieldDesc->type()) {
-                            case google::protobuf::FieldDescriptor::TYPE_UINT32:
+                            case FieldDescriptor::TYPE_UINT32:
                                 if (!fieldDesc->is_repeated()) {
-                                    *((google::protobuf::uint32 *)fieldVars[name][fieldDesc->name()]) =
+                                    *((uint32 *)fieldVars[name][fieldDesc->name()]) =
                                         entryRef->GetUInt32(entries[i], fieldDesc);
                                 }
                                 break;
-                            case google::protobuf::FieldDescriptor::TYPE_UINT64:
+                            case FieldDescriptor::TYPE_UINT64:
                                 if (!fieldDesc->is_repeated()) {
-                                    *((google::protobuf::uint64 *)fieldVars[name][fieldDesc->name()]) =
+                                    *((uint64 *)fieldVars[name][fieldDesc->name()]) =
                                         entryRef->GetUInt64(entries[i], fieldDesc);
                                 }
                                 break;
-                            case google::protobuf::FieldDescriptor::TYPE_FLOAT:
+                            case FieldDescriptor::TYPE_FLOAT:
                                 if (!fieldDesc->is_repeated()) {
                                     *((float *)fieldVars[name][fieldDesc->name()]) =
                                         entryRef->GetFloat(entries[i], fieldDesc);
                                 }
                                 break;
-                            case google::protobuf::FieldDescriptor::TYPE_DOUBLE:
+                            case FieldDescriptor::TYPE_DOUBLE:
                                 if (!fieldDesc->is_repeated()) {
                                     *((double *)fieldVars[name][fieldDesc->name()]) =
                                         entryRef->GetDouble(entries[i], fieldDesc);
                                 }
                                 break;
-                            case google::protobuf::FieldDescriptor::TYPE_INT32:
+                            case FieldDescriptor::TYPE_INT32:
                                 if (!fieldDesc->is_repeated()) {
-                                    *((google::protobuf::int32 *)fieldVars[name][fieldDesc->name()]) =
+                                    *((int32 *)fieldVars[name][fieldDesc->name()]) =
                                         entryRef->GetInt32(entries[i], fieldDesc);
                                 }
                                 break;
-                            case google::protobuf::FieldDescriptor::TYPE_INT64:
+                            case FieldDescriptor::TYPE_INT64:
                                 if (!fieldDesc->is_repeated()) {
-                                    *((google::protobuf::int64 *)fieldVars[name][fieldDesc->name()]) =
+                                    *((int64 *)fieldVars[name][fieldDesc->name()]) =
                                         entryRef->GetInt64(entries[i], fieldDesc);
                                 }
                                 break;
@@ -111,37 +112,37 @@ int main(int argc, char **argv) {
 
                         for (auto fieldDesc : fieldDescs) {
                             switch (fieldDesc->type()) {
-                                case google::protobuf::FieldDescriptor::TYPE_UINT32:
+                                case FieldDescriptor::TYPE_UINT32:
                                     if (!fieldDesc->is_repeated()) {
                                         tree->Branch(fieldDesc->name().c_str(),
                                                      fieldVars[name][fieldDesc->name()], "uint32/i");
                                     }
                                     break;
-                                case google::protobuf::FieldDescriptor::TYPE_UINT64:
+                                case FieldDescriptor::TYPE_UINT64:
                                     if (!fieldDesc->is_repeated()) {
                                         tree->Branch(fieldDesc->name().c_str(),
                                                      fieldVars[name][fieldDesc->name()], "uint64/l");
                                     }
                                     break;
-                                case google::protobuf::FieldDescriptor::TYPE_FLOAT:
+                                case FieldDescriptor::TYPE_FLOAT:
                                     if (!fieldDesc->is_repeated()) {
                                         tree->Branch(fieldDesc->name().c_str(),
                                                      fieldVars[name][fieldDesc->name()], "float/F");
                                     }
                                     break;
-                                case google::protobuf::FieldDescriptor::TYPE_DOUBLE:
+                                case FieldDescriptor::TYPE_DOUBLE:
                                     if (!fieldDesc->is_repeated()) {
                                         tree->Branch(fieldDesc->name().c_str(),
                                                      fieldVars[name][fieldDesc->name()], "double/D");
                                     }
                                     break;
-                                case google::protobuf::FieldDescriptor::TYPE_INT32:
+                                case FieldDescriptor::TYPE_INT32:
                                     if (!fieldDesc->is_repeated()) {
                                         tree->Branch(fieldDesc->name().c_str(),
                                                      fieldVars[name][fieldDesc->name()], "int32/I");
                                     }
                                     break;
-                                case google::protobuf::FieldDescriptor::TYPE_INT64:
+                                case FieldDescriptor::TYPE_INT64:
                                     if (!fieldDesc->is_repeated()) {
                                         tree->Branch(fieldDesc->name().c_str(),
                                                      fieldVars[name][fieldDesc->name()], "int64/L");
