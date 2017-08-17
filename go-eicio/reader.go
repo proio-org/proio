@@ -268,7 +268,7 @@ func (rdr *Reader) SeekToStart() error {
 	}
 
 	for {
-		n, err := seeker.Seek(0, io.SeekStart)
+		n, err := seeker.Seek(0, 0 /*io.SeekStart*/)
 		if err != nil {
 			return err
 		}
@@ -292,14 +292,14 @@ func readBytes(rdr io.Reader, buf []byte) error {
 }
 
 func seekBytes(seeker io.Seeker, nBytes int64) error {
-	start, err := seeker.Seek(0, io.SeekCurrent)
+	start, err := seeker.Seek(0, 1 /*io.SeekCurrent*/)
 	if err != nil {
 		return err
 	}
 
 	tot := int64(0)
 	for tot < nBytes {
-		n, err := seeker.Seek(int64(nBytes-tot), io.SeekCurrent)
+		n, err := seeker.Seek(int64(nBytes-tot), 1 /*io.SeekCurrent*/)
 		tot += n - start
 		if err != nil && tot != nBytes {
 			return err
