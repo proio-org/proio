@@ -5,9 +5,7 @@
 int main(int argc, char **argv) {
     auto reader = new eicio::Reader(argv[1]);
 
-    int nEvents = 0;
     while (auto event = reader->Get()) {
-        nEvents++;
         event->GetHeader()->PrintDebugString();
 
         for (auto name : event->GetNames()) {
