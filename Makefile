@@ -12,6 +12,8 @@ all: $(TARGETS)
 clean: 
 	rm -f $(GO_TARGET) $(CPP_TARGET)
 
+# call to genExtraMsgFuncs may be removed later.  This is to avoid expensive
+# reflection, but there may be another way I'm not seeing right now.
 $(GO_TARGET): $(PROTO) go-eicio/genExtraMsgFuncs.sh
 	protoc --gofast_out=$(@D) $<
 	sed -i '/\/\*/,/\*\//d' $@
