@@ -7,153 +7,227 @@
 
 using namespace google::protobuf;
 
-int main(int argc, char **argv) {
-    if (argc < 3) return EXIT_FAILURE;  // TODO: implement getopts
+void printUsage() {
+    std::cerr << "Usage: [options] <input eicio file> <output root file>\n";
+    std::cerr << "options:\n";
+    // std::cerr << "  -g	decompress the stdin input with gzip\n";
+    std::cerr << std::endl;
+}
 
-    eicio::Reader *reader = new eicio::Reader(argv[1]);
-    TFile oFile(argv[2], "recreate");
+int main(int argc, char **argv) {
+    int opt;
+    while ((opt = getopt(argc, argv, "h" /*"gh"*/)) != -1) {
+        switch (opt) {
+            // case 'g':
+            //    break;
+            default:
+                printUsage();
+                exit(EXIT_FAILURE);
+        }
+    }
+
+    std::string inputFilename;
+    std::string outputFilename;
+    if (optind + 1 < argc) {
+        inputFilename = argv[optind];
+        outputFilename = argv[optind + 1];
+    } else {
+        printUsage();
+        exit(EXIT_FAILURE);
+    }
+
+    eicio::Reader *reader = new eicio::Reader(inputFilename.c_str());
+    TFile oFile(outputFilename.c_str(), "recreate");
     std::vector<TTree *> trees;
     std::map<std::string, std::map<std::string, void *>> fieldVars;
 
     while (eicio::Event *event = reader->Get()) {
         for (auto name : event->GetNames()) {
             Message *coll = event->Get(name);
-            if (coll != NULL) {
-                const Descriptor *desc = coll->GetDescriptor();
-                const Reflection *ref = coll->GetReflection();
+            if (!coll) continue;
 
-                const RepeatedPtrField<Message> entries = ref->GetRepeatedPtrField<Message>(
-                    *((const Message *)coll), desc->FindFieldByName("entries"));
-                for (int i = 0; i < entries.size(); i++) {
-                    std::vector<const FieldDescriptor *> fieldDescs;
-                    const Reflection *entryRef = entries[i].GetReflection();
-                    entryRef->ListFields(entries[i], &fieldDescs);
+            const Descriptor *desc = coll->GetDescriptor();
+            const Reflection *ref = coll->GetReflection();
 
-                    for (auto fieldDesc : fieldDescs) {
-                        if (fieldVars[name].find(fieldDesc->name()) == fieldVars[name].end()) {
-                            switch (fieldDesc->type()) {
-                                case FieldDescriptor::TYPE_UINT32:
-                                    if (!fieldDesc->is_repeated()) {
-                                        fieldVars[name][fieldDesc->name()] = new uint32;
-                                    }
-                                    break;
-                                case FieldDescriptor::TYPE_UINT64:
-                                    if (!fieldDesc->is_repeated()) {
-                                        fieldVars[name][fieldDesc->name()] = new uint64;
-                                    }
-                                    break;
-                                case FieldDescriptor::TYPE_FLOAT:
-                                    if (!fieldDesc->is_repeated()) {
-                                        fieldVars[name][fieldDesc->name()] = new float;
-                                    }
-                                    break;
-                                case FieldDescriptor::TYPE_DOUBLE:
-                                    if (!fieldDesc->is_repeated()) {
-                                        fieldVars[name][fieldDesc->name()] = new double;
-                                    }
-                                    break;
-                                case FieldDescriptor::TYPE_INT32:
-                                    if (!fieldDesc->is_repeated()) {
-                                        fieldVars[name][fieldDesc->name()] = new int32;
-                                    }
-                                    break;
-                                case FieldDescriptor::TYPE_INT64:
-                                    if (!fieldDesc->is_repeated()) {
-                                        fieldVars[name][fieldDesc->name()] = new int64;
-                                    }
-                                    break;
-                            }
+            const FieldDescriptor *entriesFieldDesc = desc->FindFieldByName("entries");
+            if (!entriesFieldDesc) continue;
+            const RepeatedPtrField<Message> entries =
+                ref->GetRepeatedPtrField<Message>(*coll, entriesFieldDesc);
+
+            for (int i = 0; i < entries.size(); i++) {
+                const Descriptor *entryDesc = entries[i].GetDescriptor();
+                const Reflection *entryRef = entries[i].GetReflection();
+
+                for (int j = 0; j < entryDesc->field_count(); j++) {
+                    const FieldDescriptor *fieldDesc = entryDesc->field(j);
+
+                    if (fieldVars[name].find(fieldDesc->name()) == fieldVars[name].end()) {
+                        switch (fieldDesc->type()) {
+                            case FieldDescriptor::TYPE_UINT32:
+                                fieldVars[name][fieldDesc->name()] = fieldDesc->is_repeated()
+                                                                         ? (void *)new std::vector<uint32>
+                                                                         : (void *)new uint32;
+                                break;
+                            case FieldDescriptor::TYPE_UINT64:
+                                fieldVars[name][fieldDesc->name()] = fieldDesc->is_repeated()
+                                                                         ? (void *)new std::vector<uint64>
+                                                                         : (void *)new uint64;
+                                break;
+                            case FieldDescriptor::TYPE_INT32:
+                                fieldVars[name][fieldDesc->name()] = fieldDesc->is_repeated()
+                                                                         ? (void *)new std::vector<int32>
+                                                                         : (void *)new int32;
+                                break;
+                            case FieldDescriptor::TYPE_INT64:
+                                fieldVars[name][fieldDesc->name()] = fieldDesc->is_repeated()
+                                                                         ? (void *)new std::vector<int64>
+                                                                         : (void *)new int64;
+                                break;
+                            case FieldDescriptor::TYPE_FLOAT:
+                                fieldVars[name][fieldDesc->name()] = fieldDesc->is_repeated()
+                                                                         ? (void *)new std::vector<float>
+                                                                         : (void *)new float;
+                                break;
+                            case FieldDescriptor::TYPE_DOUBLE:
+                                fieldVars[name][fieldDesc->name()] = fieldDesc->is_repeated()
+                                                                         ? (void *)new std::vector<double>
+                                                                         : (void *)new double;
+                                break;
                         }
+                    }
+
+                    switch (fieldDesc->type()) {
+                        case FieldDescriptor::TYPE_UINT32:
+                            if (!fieldDesc->is_repeated()) {
+                                *((uint32 *)fieldVars[name][fieldDesc->name()]) =
+                                    entryRef->GetUInt32(entries[i], fieldDesc);
+                            } else {
+                                auto vec = (std::vector<uint32> *)fieldVars[name][fieldDesc->name()];
+                                vec->clear();
+                                for (int k = 0; k < entryRef->FieldSize(entries[i], fieldDesc); k++)
+                                    vec->push_back(entryRef->GetRepeatedUInt32(entries[i], fieldDesc, k));
+                            }
+                            break;
+                        case FieldDescriptor::TYPE_UINT64:
+                            if (!fieldDesc->is_repeated()) {
+                                *((uint64 *)fieldVars[name][fieldDesc->name()]) =
+                                    entryRef->GetUInt64(entries[i], fieldDesc);
+                            } else {
+                                auto vec = (std::vector<uint64> *)fieldVars[name][fieldDesc->name()];
+                                vec->clear();
+                                for (int k = 0; k < entryRef->FieldSize(entries[i], fieldDesc); k++)
+                                    vec->push_back(entryRef->GetRepeatedUInt64(entries[i], fieldDesc, k));
+                            }
+                            break;
+                        case FieldDescriptor::TYPE_INT32:
+                            if (!fieldDesc->is_repeated()) {
+                                *((int32 *)fieldVars[name][fieldDesc->name()]) =
+                                    entryRef->GetInt32(entries[i], fieldDesc);
+                            } else {
+                                auto vec = (std::vector<int32> *)fieldVars[name][fieldDesc->name()];
+                                vec->clear();
+                                for (int k = 0; k < entryRef->FieldSize(entries[i], fieldDesc); k++)
+                                    vec->push_back(entryRef->GetRepeatedInt32(entries[i], fieldDesc, k));
+                            }
+                            break;
+                        case FieldDescriptor::TYPE_INT64:
+                            if (!fieldDesc->is_repeated()) {
+                                *((int64 *)fieldVars[name][fieldDesc->name()]) =
+                                    entryRef->GetInt64(entries[i], fieldDesc);
+                            } else {
+                                auto vec = (std::vector<int64> *)fieldVars[name][fieldDesc->name()];
+                                vec->clear();
+                                for (int k = 0; k < entryRef->FieldSize(entries[i], fieldDesc); k++)
+                                    vec->push_back(entryRef->GetRepeatedInt64(entries[i], fieldDesc, k));
+                            }
+                            break;
+                        case FieldDescriptor::TYPE_FLOAT:
+                            if (!fieldDesc->is_repeated()) {
+                                *((float *)fieldVars[name][fieldDesc->name()]) =
+                                    entryRef->GetFloat(entries[i], fieldDesc);
+                            } else {
+                                auto vec = (std::vector<float> *)fieldVars[name][fieldDesc->name()];
+                                vec->clear();
+                                for (int k = 0; k < entryRef->FieldSize(entries[i], fieldDesc); k++)
+                                    vec->push_back(entryRef->GetRepeatedFloat(entries[i], fieldDesc, k));
+                            }
+                            break;
+                        case FieldDescriptor::TYPE_DOUBLE:
+                            if (!fieldDesc->is_repeated()) {
+                                *((double *)fieldVars[name][fieldDesc->name()]) =
+                                    entryRef->GetDouble(entries[i], fieldDesc);
+                            } else {
+                                auto vec = (std::vector<double> *)fieldVars[name][fieldDesc->name()];
+                                vec->clear();
+                                for (int k = 0; k < entryRef->FieldSize(entries[i], fieldDesc); k++)
+                                    vec->push_back(entryRef->GetRepeatedDouble(entries[i], fieldDesc, k));
+                            }
+                            break;
+                    }
+                }
+
+                auto tree = (TTree *)oFile.Get(name.c_str());
+                if (tree == NULL) {
+                    tree = new TTree(name.c_str(), desc->full_name().c_str());
+                    trees.push_back(tree);
+
+                    for (int j = 0; j < entryDesc->field_count(); j++) {
+                        const FieldDescriptor *fieldDesc = entryDesc->field(j);
 
                         switch (fieldDesc->type()) {
                             case FieldDescriptor::TYPE_UINT32:
-                                if (!fieldDesc->is_repeated()) {
-                                    *((uint32 *)fieldVars[name][fieldDesc->name()]) =
-                                        entryRef->GetUInt32(entries[i], fieldDesc);
-                                }
+                                if (!fieldDesc->is_repeated())
+                                    tree->Branch(fieldDesc->name().c_str(),
+                                                 fieldVars[name][fieldDesc->name()], "i");
+                                else
+                                    tree->Branch(fieldDesc->name().c_str(), "std::vector<unsigned int>",
+                                                 (std::vector<uint32> *)fieldVars[name][fieldDesc->name()]);
                                 break;
                             case FieldDescriptor::TYPE_UINT64:
-                                if (!fieldDesc->is_repeated()) {
-                                    *((uint64 *)fieldVars[name][fieldDesc->name()]) =
-                                        entryRef->GetUInt64(entries[i], fieldDesc);
-                                }
-                                break;
-                            case FieldDescriptor::TYPE_FLOAT:
-                                if (!fieldDesc->is_repeated()) {
-                                    *((float *)fieldVars[name][fieldDesc->name()]) =
-                                        entryRef->GetFloat(entries[i], fieldDesc);
-                                }
-                                break;
-                            case FieldDescriptor::TYPE_DOUBLE:
-                                if (!fieldDesc->is_repeated()) {
-                                    *((double *)fieldVars[name][fieldDesc->name()]) =
-                                        entryRef->GetDouble(entries[i], fieldDesc);
-                                }
+                                if (!fieldDesc->is_repeated())
+                                    tree->Branch(fieldDesc->name().c_str(),
+                                                 fieldVars[name][fieldDesc->name()], "l");
+                                else
+                                    tree->Branch(fieldDesc->name().c_str(), "std::vector<unsigned long>",
+                                                 (std::vector<uint64> *)fieldVars[name][fieldDesc->name()]);
                                 break;
                             case FieldDescriptor::TYPE_INT32:
-                                if (!fieldDesc->is_repeated()) {
-                                    *((int32 *)fieldVars[name][fieldDesc->name()]) =
-                                        entryRef->GetInt32(entries[i], fieldDesc);
-                                }
+                                if (!fieldDesc->is_repeated())
+                                    tree->Branch(fieldDesc->name().c_str(),
+                                                 fieldVars[name][fieldDesc->name()], "I");
+                                else
+                                    tree->Branch(fieldDesc->name().c_str(), "std::vector<int>",
+                                                 (std::vector<int> *)fieldVars[name][fieldDesc->name()]);
                                 break;
                             case FieldDescriptor::TYPE_INT64:
-                                if (!fieldDesc->is_repeated()) {
-                                    *((int64 *)fieldVars[name][fieldDesc->name()]) =
-                                        entryRef->GetInt64(entries[i], fieldDesc);
-                                }
+                                if (!fieldDesc->is_repeated())
+                                    tree->Branch(fieldDesc->name().c_str(),
+                                                 fieldVars[name][fieldDesc->name()], "L");
+                                else
+                                    tree->Branch(fieldDesc->name().c_str(), "std::vector<long>",
+                                                 (std::vector<long> *)fieldVars[name][fieldDesc->name()]);
+                                break;
+                            case FieldDescriptor::TYPE_FLOAT:
+                                if (!fieldDesc->is_repeated())
+                                    tree->Branch(fieldDesc->name().c_str(),
+                                                 fieldVars[name][fieldDesc->name()], "F");
+                                else
+                                    tree->Branch(fieldDesc->name().c_str(), "std::vector<float>",
+                                                 (std::vector<float> *)fieldVars[name][fieldDesc->name()]);
+                                break;
+                            case FieldDescriptor::TYPE_DOUBLE:
+                                if (!fieldDesc->is_repeated())
+                                    tree->Branch(fieldDesc->name().c_str(),
+                                                 fieldVars[name][fieldDesc->name()], "D");
+                                else
+                                    tree->Branch(fieldDesc->name().c_str(), "std::vector<double>",
+                                                 (std::vector<double> *)fieldVars[name][fieldDesc->name()]);
                                 break;
                         }
                     }
-
-                    auto tree = (TTree *)oFile.Get(name.c_str());
-                    if (tree == NULL) {
-                        tree = new TTree(name.c_str(), desc->full_name().c_str());
-                        trees.push_back(tree);
-
-                        for (auto fieldDesc : fieldDescs) {
-                            switch (fieldDesc->type()) {
-                                case FieldDescriptor::TYPE_UINT32:
-                                    if (!fieldDesc->is_repeated()) {
-                                        tree->Branch(fieldDesc->name().c_str(),
-                                                     fieldVars[name][fieldDesc->name()], "uint32/i");
-                                    }
-                                    break;
-                                case FieldDescriptor::TYPE_UINT64:
-                                    if (!fieldDesc->is_repeated()) {
-                                        tree->Branch(fieldDesc->name().c_str(),
-                                                     fieldVars[name][fieldDesc->name()], "uint64/l");
-                                    }
-                                    break;
-                                case FieldDescriptor::TYPE_FLOAT:
-                                    if (!fieldDesc->is_repeated()) {
-                                        tree->Branch(fieldDesc->name().c_str(),
-                                                     fieldVars[name][fieldDesc->name()], "float/F");
-                                    }
-                                    break;
-                                case FieldDescriptor::TYPE_DOUBLE:
-                                    if (!fieldDesc->is_repeated()) {
-                                        tree->Branch(fieldDesc->name().c_str(),
-                                                     fieldVars[name][fieldDesc->name()], "double/D");
-                                    }
-                                    break;
-                                case FieldDescriptor::TYPE_INT32:
-                                    if (!fieldDesc->is_repeated()) {
-                                        tree->Branch(fieldDesc->name().c_str(),
-                                                     fieldVars[name][fieldDesc->name()], "int32/I");
-                                    }
-                                    break;
-                                case FieldDescriptor::TYPE_INT64:
-                                    if (!fieldDesc->is_repeated()) {
-                                        tree->Branch(fieldDesc->name().c_str(),
-                                                     fieldVars[name][fieldDesc->name()], "int64/L");
-                                    }
-                                    break;
-                            }
-                        }
-                    }
-
-                    tree->Fill();
                 }
+
+                tree->Fill();
             }
         }
 
