@@ -2,7 +2,8 @@ syntax = "proto3";
 package eicio;
 
 // Warning: do not change EventHeader's fields without understanding how the
-// changes affect the EICIO libraries.
+// changes affect the EICIO libraries.  Any field may be added without affecting
+// the libraries.
 
 message EventHeader {
 	uint32 version = 1;
@@ -25,8 +26,7 @@ message EventHeader {
 	string description = 16;
 }
 
-// Message types shared by different collection and entry messages.  These are
-// in general needed by the libraries.
+// Message types shared by different collection and entry messages.
 
 message IntParams {
 	repeated int32 array = 1;
@@ -46,6 +46,8 @@ message Params {
 	map<string, StringParams> strings = 3;
 }
 
+// References are required by the libraries, and should not be removed.
+// However, more fields may be added.
 message Reference {
 	uint32 collID = 1;
 	uint32 entryID = 2;
