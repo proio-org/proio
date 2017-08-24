@@ -178,7 +178,7 @@ int main(int argc, char **argv) {
                             case FieldDescriptor::TYPE_UINT32:
                                 if (!fieldDesc->is_repeated())
                                     tree->Branch(fieldDesc->name().c_str(),
-                                                 fieldVars[name][fieldDesc->name()], "i");
+                                                 fieldVars[name][fieldDesc->name()], "uint32/i");
                                 else
                                     tree->Branch(fieldDesc->name().c_str(), "std::vector<unsigned int>",
                                                  (std::vector<uint32> *)fieldVars[name][fieldDesc->name()]);
@@ -186,7 +186,7 @@ int main(int argc, char **argv) {
                             case FieldDescriptor::TYPE_UINT64:
                                 if (!fieldDesc->is_repeated())
                                     tree->Branch(fieldDesc->name().c_str(),
-                                                 fieldVars[name][fieldDesc->name()], "l");
+                                                 fieldVars[name][fieldDesc->name()], "uint64/l");
                                 else
                                     tree->Branch(fieldDesc->name().c_str(), "std::vector<unsigned long>",
                                                  (std::vector<uint64> *)fieldVars[name][fieldDesc->name()]);
@@ -194,7 +194,7 @@ int main(int argc, char **argv) {
                             case FieldDescriptor::TYPE_INT32:
                                 if (!fieldDesc->is_repeated())
                                     tree->Branch(fieldDesc->name().c_str(),
-                                                 fieldVars[name][fieldDesc->name()], "I");
+                                                 fieldVars[name][fieldDesc->name()], "int32/I");
                                 else
                                     tree->Branch(fieldDesc->name().c_str(), "std::vector<int>",
                                                  (std::vector<int> *)fieldVars[name][fieldDesc->name()]);
@@ -202,7 +202,7 @@ int main(int argc, char **argv) {
                             case FieldDescriptor::TYPE_INT64:
                                 if (!fieldDesc->is_repeated())
                                     tree->Branch(fieldDesc->name().c_str(),
-                                                 fieldVars[name][fieldDesc->name()], "L");
+                                                 fieldVars[name][fieldDesc->name()], "int64/L");
                                 else
                                     tree->Branch(fieldDesc->name().c_str(), "std::vector<long>",
                                                  (std::vector<long> *)fieldVars[name][fieldDesc->name()]);
@@ -210,7 +210,7 @@ int main(int argc, char **argv) {
                             case FieldDescriptor::TYPE_FLOAT:
                                 if (!fieldDesc->is_repeated())
                                     tree->Branch(fieldDesc->name().c_str(),
-                                                 fieldVars[name][fieldDesc->name()], "F");
+                                                 fieldVars[name][fieldDesc->name()], "float/F");
                                 else
                                     tree->Branch(fieldDesc->name().c_str(), "std::vector<float>",
                                                  (std::vector<float> *)fieldVars[name][fieldDesc->name()]);
@@ -218,7 +218,7 @@ int main(int argc, char **argv) {
                             case FieldDescriptor::TYPE_DOUBLE:
                                 if (!fieldDesc->is_repeated())
                                     tree->Branch(fieldDesc->name().c_str(),
-                                                 fieldVars[name][fieldDesc->name()], "D");
+                                                 fieldVars[name][fieldDesc->name()], "double/D");
                                 else
                                     tree->Branch(fieldDesc->name().c_str(), "std::vector<double>",
                                                  (std::vector<double> *)fieldVars[name][fieldDesc->name()]);
