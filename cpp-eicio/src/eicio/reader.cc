@@ -82,6 +82,25 @@ eicio::Event *eicio::Reader::Get() {  // TODO: figure out error handling for thi
     return event;
 }
 
+int eicio::Reader::Skip(int nEvents) {
+    int nSkipped = 0;
+    for (int i = 0; i < nEvents; i++) {
+        uint32 n;
+        if ((n = syncToMagic()) < 4) return -1;
+
+        uint32 headerSize;
+        if (!stream->ReadLittleEndian32(&headerSize)) return -1;
+        uint32 payloadSize;
+        if (!stream->ReadLittleEndian32(&payloadSize)) return -1;
+
+        if (!stream->Skip(headerSize + payloadSize)) return -1;
+
+        nSkipped++;
+    }
+
+    return nSkipped;
+}
+
 uint32 eicio::Reader::syncToMagic() {
     unsigned char num;
     uint32 nRead = 0;

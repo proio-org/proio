@@ -6,9 +6,9 @@
 void printUsage() {
     std::cerr << "Usage: eicio-ls [options] <input eicio file>\n";
     std::cerr << "options:\n";
-    //std::cerr << "  -e int\n";
-    //std::cerr << "    	list specified event, numbered consecutively from the start of the file or stream "
-    //             "(default -1)\n";
+    std::cerr << "  -e int\n";
+    std::cerr << "    	list specified event, numbered consecutively from the start of the file or stream "
+                 "(default -1)\n";
     std::cerr << "  -g	decompress the stdin input with gzip\n";
     std::cerr << std::endl;
 }
@@ -18,11 +18,11 @@ int main(int argc, char **argv) {
     int event = -1;
 
     int opt;
-    while ((opt = getopt(argc, argv, /*"e:gh"*/ "gh")) != -1) {
+    while ((opt = getopt(argc, argv, "e:gh")) != -1) {
         switch (opt) {
-            //case 'e':
-            //    event = atoi(optarg);
-            //    break;
+            case 'e':
+                event = atoi(optarg);
+                break;
             case 'g':
                 gzip = true;
                 break;
@@ -46,6 +46,12 @@ int main(int argc, char **argv) {
     else
         reader = new eicio::Reader(inputFilename.c_str());
 
+    bool singleEvent = false;
+    if (event >= 0) {
+        singleEvent = true;
+        reader->Skip(event);
+    }
+
     while (auto event = reader->Get()) {
         event->GetHeader()->PrintDebugString();
 
@@ -57,6 +63,8 @@ int main(int argc, char **argv) {
         }
 
         delete event;
+
+        if (singleEvent) break;
     }
 
     delete reader;
