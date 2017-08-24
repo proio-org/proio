@@ -10,6 +10,19 @@
 
 using namespace google::protobuf;
 
+eicio::Reader::Reader(int fd, bool gzip) {
+    stream = NULL;
+    inputStream = NULL;
+
+    auto fileStream = new io::FileInputStream(fd);
+    fileStream->SetCloseOnDelete(true);
+    inputStream = fileStream;
+
+    if (gzip) inputStream = new io::GzipInputStream(inputStream);
+
+    stream = new io::CodedInputStream(inputStream);
+}
+
 eicio::Reader::Reader(std::string filename) {
     stream = NULL;
     inputStream = NULL;
