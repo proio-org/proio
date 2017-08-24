@@ -50,18 +50,13 @@ eicio::Event *eicio::Reader::Get() {  // TODO: figure out error handling for thi
     uint32 payloadSize;
     if (!stream->ReadLittleEndian32(&payloadSize)) return NULL;
 
+    auto headerLimit = stream->PushLimit(headerSize);
     auto header = new eicio::EventHeader;
-    auto headerBuf = new unsigned char[headerSize];  // TODO: This is only temporary.  Move the low-level
-                                                     // stuff to an input stream class that inherits from
-                                                     // io::*.
-                                                     // CodedInputStream is currently only being used for
-                                                     // ReadRaw()!
-    if (!stream->ReadRaw(headerBuf, headerSize) || !header->ParseFromArray(headerBuf, headerSize)) {
+    if (!header->MergeFromCodedStream(stream) || !stream->ConsumedEntireMessage()) {
         delete header;
-        delete[] headerBuf;
         return Get();  // Indefinitely attempt to resync to magic numbers
     }
-    delete[] headerBuf;
+    stream->PopLimit(headerLimit);
 
     auto event = new Event;
     event->SetHeader(header);
