@@ -26,6 +26,10 @@ add_executable(eicio-ls src/tools/eicio-ls/main.cc)
 target_link_libraries(eicio-ls PUBLIC eicio protobuf)
 install(TARGETS eicio-ls DESTINATION bin)
 
+add_executable(eicio-summary src/tools/eicio-summary/main.cc)
+target_link_libraries(eicio-summary PUBLIC eicio protobuf)
+install(TARGETS eicio-summary DESTINATION bin)
+
 # TODO: make the following optional
 find_package(ROOT REQUIRED COMPONENTS RIO Tree)
 
