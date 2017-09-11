@@ -14,7 +14,7 @@ set(libeicioheaders
 )
 include_directories(src)
 
-find_package(Protobuf)
+find_package(Protobuf REQUIRED)
 include_directories(${Protobuf_INCLUDE_DIRS})
 
 add_library(eicio SHARED ${libeiciofiles} ${libeicioheaders})
@@ -30,10 +30,11 @@ add_executable(eicio-summary src/tools/eicio-summary/main.cc)
 target_link_libraries(eicio-summary PUBLIC eicio protobuf)
 install(TARGETS eicio-summary DESTINATION bin)
 
-# TODO: make the following optional
-find_package(ROOT REQUIRED COMPONENTS RIO Tree)
+find_package(ROOT COMPONENTS RIO Tree)
 
-add_executable(eicio2root src/tools/eicio2root/main.cc)
-target_link_libraries(eicio2root PUBLIC eicio ${Protobuf_LIBRARIES} ${ROOT_LIBRARIES})
-target_include_directories(eicio2root PUBLIC ${Protobuf_INCLUDE_DIRS} ${ROOT_INCLUDE_DIRS})
-install(TARGETS eicio2root DESTINATION bin)
+if(ROOT_FOUND)
+    add_executable(eicio2root src/tools/eicio2root/main.cc)
+    target_link_libraries(eicio2root PUBLIC eicio ${Protobuf_LIBRARIES} ${ROOT_LIBRARIES})
+    target_include_directories(eicio2root PUBLIC ${Protobuf_INCLUDE_DIRS} ${ROOT_INCLUDE_DIRS})
+    install(TARGETS eicio2root DESTINATION bin)
+endif(ROOT_FOUND)
