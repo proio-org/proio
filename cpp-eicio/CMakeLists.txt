@@ -5,12 +5,14 @@ set(libeiciofiles
 	src/eicio/eicio.pb.cc
 	src/eicio/event.cc
 	src/eicio/reader.cc
+	src/eicio/writer.cc
 )
 
 set(libeicioheaders
 	src/eicio/eicio.pb.h
 	src/eicio/event.h
 	src/eicio/reader.h
+	src/eicio/writer.h
 )
 include_directories(src)
 
@@ -29,6 +31,10 @@ install(TARGETS eicio-ls DESTINATION bin)
 add_executable(eicio-summary src/tools/eicio-summary/main.cc)
 target_link_libraries(eicio-summary PUBLIC eicio protobuf)
 install(TARGETS eicio-summary DESTINATION bin)
+
+add_executable(eicio-reserialize src/tools/eicio-reserialize/main.cc)
+target_link_libraries(eicio-reserialize PUBLIC eicio protobuf)
+install(TARGETS eicio-reserialize DESTINATION bin)
 
 find_package(ROOT COMPONENTS RIO Tree)
 

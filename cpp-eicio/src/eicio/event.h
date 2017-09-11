@@ -17,15 +17,22 @@ class Event {
 
     void SetHeader(EventHeader *newHeader);
     EventHeader *GetHeader();
+    unsigned int GetPayloadSize();
     void *SetPayloadSize(google::protobuf::uint32 size);
+    unsigned char *GetPayload();
+    std::string GetType(google::protobuf::Message *coll);
+    void FlushCollCache();
 
    private:
     google::protobuf::Message *getFromPayload(std::string collName, bool parse = true);
+
+    void collToPayload(google::protobuf::Message *coll, std::string name);
 
     EventHeader *header;
     std::vector<unsigned char> payload;
 
     std::map<std::string, google::protobuf::Message *> collCache;
+    std::vector<std::string> namesCached;
 };
 }
 

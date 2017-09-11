@@ -41,9 +41,28 @@ void eicio::Event::SetHeader(eicio::EventHeader *newHeader) {
 
 eicio::EventHeader *eicio::Event::GetHeader() { return header; }
 
+unsigned int eicio::Event::GetPayloadSize() { return payload.size(); }
+
 void *eicio::Event::SetPayloadSize(uint32 size) {
     payload.resize(size);
     return &payload[0];
+}
+
+unsigned char *eicio::Event::GetPayload() { return &payload[0]; }
+
+std::string eicio::Event::GetType(Message *coll) {
+    static const std::string prefix = "eicio.";
+    return coll->GetTypeName().substr(prefix.length());
+}
+
+void eicio::Event::FlushCollCache() {
+    for (int i = 0; i < namesCached.size(); i++) {
+        auto name = namesCached[i];
+        auto coll = collCache[name];
+        collToPayload(coll, name);
+        collCache.erase(name);
+        namesCached.erase(namesCached.begin() + i);
+    }
 }
 
 Message *eicio::Event::getFromPayload(std::string name, bool parse) {
@@ -78,10 +97,30 @@ Message *eicio::Event::getFromPayload(std::string name, bool parse) {
         }
 
         collCache[name] = coll;
+        namesCached.push_back(name);
     }
 
     header->mutable_payloadcollections()->DeleteSubrange(collIndex, 1);
     payload.erase(payload.begin() + offset, payload.begin() + offset + size);
 
     return coll;
+}
+
+void eicio::Event::collToPayload(Message *coll, std::string name) {
+    const Descriptor *desc = coll->GetDescriptor();
+    const Reflection *ref = coll->GetReflection();
+
+    const FieldDescriptor *idFieldDesc = desc->FindFieldByName("id");
+    if (!idFieldDesc) return;
+
+    eicio::EventHeader_CollectionHeader *collHdr = header->add_payloadcollections();
+    collHdr->set_name(name);
+    collHdr->set_id(ref->GetUInt32(*coll, idFieldDesc));
+    collHdr->set_type(GetType(coll));
+
+    const size_t byteSize = coll->ByteSizeLong();
+    size_t offset = payload.size();
+    payload.resize(offset + byteSize);
+    unsigned char *buf = &payload[0] + offset;
+    coll->SerializeToArray(buf, byteSize);
 }

@@ -7,6 +7,7 @@
 #include "eicio/event.h"
 
 #include <google/protobuf/io/zero_copy_stream.h>
+#include <google/protobuf/io/zero_copy_stream_impl.h>
 
 namespace eicio {
 class Reader {
@@ -20,13 +21,11 @@ class Reader {
     int Skip(int nEvents);
 
    private:
-    google::protobuf::uint32 syncToMagic();
+    google::protobuf::uint32 syncToMagic(google::protobuf::io::CodedInputStream *stream);
 
-    google::protobuf::io::CodedInputStream *stream;
     google::protobuf::io::ZeroCopyInputStream *inputStream;
+    google::protobuf::io::FileInputStream *fileStream;
 };
-
-const unsigned char magicBytes[] = {0xe1, 0xc1, 0x00, 0x00};
 }
 
 #endif  // READER_H
