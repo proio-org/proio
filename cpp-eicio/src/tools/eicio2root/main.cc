@@ -49,7 +49,16 @@ int main(int argc, char **argv) {
     std::vector<TTree *> trees;
     std::map<std::string, std::map<std::string, void *>> fieldVars;
 
+    TTree eventTree("events", "Events");
+    std::vector<std::string> containerNames;
+    std::vector<unsigned int> containerEntries;
+    eventTree.Branch("containerNames", "std::vector<std::string>", &containerNames);
+    eventTree.Branch("containerEntries", "std::vector<unsigned int>", &containerEntries);
+
     while (eicio::Event *event = reader->Get()) {
+        containerNames.clear();
+        containerEntries.clear();
+
         for (auto name : event->GetNames()) {
             Message *coll = event->Get(name);
             if (!coll) continue;
@@ -61,6 +70,9 @@ int main(int argc, char **argv) {
             if (!entriesFieldDesc) continue;
             const RepeatedPtrField<Message> entries =
                 ref->GetRepeatedPtrField<Message>(*coll, entriesFieldDesc);
+
+            containerNames.push_back(name);
+            containerEntries.push_back(entries.size());
 
             for (int i = 0; i < entries.size(); i++) {
                 const Descriptor *entryDesc = entries[i].GetDescriptor();
@@ -240,7 +252,10 @@ int main(int argc, char **argv) {
         }
 
         delete event;
+        eventTree.Fill();
     }
+
+    eventTree.Write();
 
     for (auto tree : trees) {
         tree->Write();
