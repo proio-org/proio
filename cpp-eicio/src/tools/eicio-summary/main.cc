@@ -4,7 +4,7 @@
 #include "eicio/reader.h"
 
 void printUsage() {
-    std::cerr << "Usage: eicio-ls [options] <input eicio file>\n";
+    std::cerr << "Usage: eicio-summary [options] <input eicio file>\n";
     std::cerr << "options:\n";
     std::cerr << "  -g	decompress the stdin input with gzip\n";
     std::cerr << std::endl;
