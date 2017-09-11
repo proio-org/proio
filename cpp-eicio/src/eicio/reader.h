@@ -16,7 +16,8 @@ class Reader {
     virtual ~Reader();
 
     Event *Get();
-	int Skip(int nEvents);
+    EventHeader *GetHeader();
+    int Skip(int nEvents);
 
    private:
     google::protobuf::uint32 syncToMagic();

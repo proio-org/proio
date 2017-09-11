@@ -82,6 +82,35 @@ eicio::Event *eicio::Reader::Get() {  // TODO: figure out error handling for thi
     return event;
 }
 
+eicio::EventHeader *eicio::Reader::GetHeader() {  // TODO: figure out error handling for this
+    if (!stream) return NULL;
+
+    uint32 n;
+    if ((n = syncToMagic()) < 4) {
+        return NULL;
+    }
+
+    uint32 headerSize;
+    if (!stream->ReadLittleEndian32(&headerSize)) return NULL;
+    uint32 payloadSize;
+    if (!stream->ReadLittleEndian32(&payloadSize)) return NULL;
+
+    auto headerLimit = stream->PushLimit(headerSize);
+    auto header = new eicio::EventHeader;
+    if (!header->MergeFromCodedStream(stream) || !stream->ConsumedEntireMessage()) {
+        delete header;
+        return GetHeader();  // Indefinitely attempt to resync to magic numbers
+    }
+    stream->PopLimit(headerLimit);
+
+    if (!stream->Skip(payloadSize)) {
+        delete header;
+        return NULL;
+    }
+
+    return header;
+}
+
 int eicio::Reader::Skip(int nEvents) {
     int nSkipped = 0;
     for (int i = 0; i < nEvents; i++) {
