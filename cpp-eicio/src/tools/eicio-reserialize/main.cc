@@ -2,26 +2,25 @@
 #include <iostream>
 
 #include "eicio/reader.h"
+#include "eicio/writer.h"
 
 void printUsage() {
-    std::cerr << "Usage: eicio-ls [options] <input eicio file>\n";
+    std::cerr << "Usage: eicio-reserialize [options] <input eicio file> <output eicio file>\n";
     std::cerr << "options:\n";
-    std::cerr << "  -e int\n";
-    std::cerr << "    	list specified event, numbered consecutively from the start of the file or stream "
-                 "(default -1)\n";
     std::cerr << "  -g	decompress the stdin input with gzip\n";
+    std::cerr << "  -c	compress the stdout output with gzip\n";
     std::cerr << std::endl;
 }
 
 int main(int argc, char **argv) {
+    bool compress = false;
     bool gzip = false;
-    int event = -1;
 
     int opt;
-    while ((opt = getopt(argc, argv, "e:gh")) != -1) {
+    while ((opt = getopt(argc, argv, "cgh")) != -1) {
         switch (opt) {
-            case 'e':
-                event = atoi(optarg);
+            case 'c':
+                compress = true;
                 break;
             case 'g':
                 gzip = true;
@@ -33,8 +32,10 @@ int main(int argc, char **argv) {
     }
 
     std::string inputFilename;
-    if (optind < argc) {
+    std::string outputFilename;
+    if (optind + 1 < argc) {
         inputFilename = argv[optind];
+        outputFilename = argv[optind + 1];
     } else {
         printUsage();
         exit(EXIT_FAILURE);
@@ -46,26 +47,18 @@ int main(int argc, char **argv) {
     else
         reader = new eicio::Reader(inputFilename.c_str());
 
-    bool singleEvent = false;
-    if (event >= 0) {
-        singleEvent = true;
-        reader->Skip(event);
-    }
+    eicio::Writer *writer;
+    if (outputFilename.compare("-") == 0)
+        writer = new eicio::Writer(STDOUT_FILENO, compress);
+    else
+        writer = new eicio::Writer(outputFilename.c_str());
 
     while (auto event = reader->Get()) {
-        event->GetHeader()->PrintDebugString();
-
-        for (auto name : event->GetNames()) {
-            std::cout << "\n" << name << std::endl;
-            auto coll = event->Get(name);
-            if (coll != NULL) coll->PrintDebugString();
-        }
+        writer->Push(event);
 
         delete event;
-
-        if (singleEvent) break;
     }
 
-    delete reader;
+    delete writer, reader;
     return EXIT_SUCCESS;
 }

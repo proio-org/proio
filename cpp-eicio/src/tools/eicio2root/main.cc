@@ -1,3 +1,4 @@
+#include <unistd.h>
 #include <iostream>
 
 #include <TFile.h>
@@ -8,18 +9,20 @@
 using namespace google::protobuf;
 
 void printUsage() {
-    std::cerr << "Usage: [options] <input eicio file> <output root file>\n";
+    std::cerr << "Usage: eicio2root [options] <input eicio file> <output root file>\n";
     std::cerr << "options:\n";
-    // std::cerr << "  -g	decompress the stdin input with gzip\n";
+    std::cerr << "  -g	decompress the stdin input with gzip\n";
     std::cerr << std::endl;
 }
 
 int main(int argc, char **argv) {
     int opt;
-    while ((opt = getopt(argc, argv, "h" /*"gh"*/)) != -1) {
+    bool gzip = false;
+    while ((opt = getopt(argc, argv, "gh")) != -1) {
         switch (opt) {
-            // case 'g':
-            //    break;
+            case 'g':
+                gzip = true;
+                break;
             default:
                 printUsage();
                 exit(EXIT_FAILURE);
@@ -36,12 +39,26 @@ int main(int argc, char **argv) {
         exit(EXIT_FAILURE);
     }
 
-    eicio::Reader *reader = new eicio::Reader(inputFilename.c_str());
+    eicio::Reader *reader;
+    if (inputFilename.compare("-") == 0)
+        reader = new eicio::Reader(STDIN_FILENO, gzip);
+    else
+        reader = new eicio::Reader(inputFilename.c_str());
+
     TFile oFile(outputFilename.c_str(), "recreate");
     std::vector<TTree *> trees;
     std::map<std::string, std::map<std::string, void *>> fieldVars;
 
+    TTree eventTree("events", "Events");
+    std::vector<std::string> containerNames;
+    std::vector<unsigned int> containerEntries;
+    eventTree.Branch("containerNames", "std::vector<std::string>", &containerNames);
+    eventTree.Branch("containerEntries", "std::vector<unsigned int>", &containerEntries);
+
     while (eicio::Event *event = reader->Get()) {
+        containerNames.clear();
+        containerEntries.clear();
+
         for (auto name : event->GetNames()) {
             Message *coll = event->Get(name);
             if (!coll) continue;
@@ -53,6 +70,9 @@ int main(int argc, char **argv) {
             if (!entriesFieldDesc) continue;
             const RepeatedPtrField<Message> entries =
                 ref->GetRepeatedPtrField<Message>(*coll, entriesFieldDesc);
+
+            containerNames.push_back(name);
+            containerEntries.push_back(entries.size());
 
             for (int i = 0; i < entries.size(); i++) {
                 const Descriptor *entryDesc = entries[i].GetDescriptor();
@@ -232,7 +252,10 @@ int main(int argc, char **argv) {
         }
 
         delete event;
+        eventTree.Fill();
     }
+
+    eventTree.Write();
 
     for (auto tree : trees) {
         tree->Write();

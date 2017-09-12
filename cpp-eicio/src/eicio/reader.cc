@@ -4,15 +4,30 @@
 
 #include "event.h"
 #include "reader.h"
+#include "writer.h"
 
 #include <google/protobuf/io/gzip_stream.h>
 #include <google/protobuf/io/zero_copy_stream_impl.h>
 
 using namespace google::protobuf;
 
-eicio::Reader::Reader(std::string filename) {
-    stream = NULL;
+eicio::Reader::Reader(int fd, bool gzip) {
     inputStream = NULL;
+    fileStream = NULL;
+
+    auto fileStream = new io::FileInputStream(fd);
+    fileStream->SetCloseOnDelete(true);
+    inputStream = fileStream;
+
+    if (gzip) {
+        inputStream = new io::GzipInputStream(inputStream);
+        this->fileStream = fileStream;
+    }
+}
+
+eicio::Reader::Reader(std::string filename) {
+    inputStream = NULL;
+    fileStream = NULL;
 
     int fd = open(filename.c_str(), O_RDONLY);
     if (fd != -1) {
@@ -25,48 +40,41 @@ eicio::Reader::Reader(std::string filename) {
         if (filename.length() > sfxLength) {
             if (filename.compare(filename.length() - sfxLength, sfxLength, gzipSuffix) == 0) {
                 inputStream = new io::GzipInputStream(inputStream);
+                this->fileStream = fileStream;
             }
         }
-
-        stream = new io::CodedInputStream(inputStream);
     }
 }
 
 eicio::Reader::~Reader() {
-    if (stream) delete stream;
     if (inputStream) delete inputStream;
+    if (fileStream) delete fileStream;
 }
 
 eicio::Event *eicio::Reader::Get() {  // TODO: figure out error handling for this
-    if (!stream) return NULL;
+    if (!inputStream) return NULL;
+    io::CodedInputStream stream(inputStream);
 
     uint32 n;
-    if ((n = syncToMagic()) < 4) {
-        return NULL;
-    }
+    if ((n = syncToMagic(&stream)) < 4) return NULL;
 
     uint32 headerSize;
-    if (!stream->ReadLittleEndian32(&headerSize)) return NULL;
+    if (!stream.ReadLittleEndian32(&headerSize)) return NULL;
     uint32 payloadSize;
-    if (!stream->ReadLittleEndian32(&payloadSize)) return NULL;
+    if (!stream.ReadLittleEndian32(&payloadSize)) return NULL;
 
+    auto headerLimit = stream.PushLimit(headerSize);
     auto header = new eicio::EventHeader;
-    auto headerBuf = new unsigned char[headerSize];  // TODO: This is only temporary.  Move the low-level
-                                                     // stuff to an input stream class that inherits from
-                                                     // io::*.
-                                                     // CodedInputStream is currently only being used for
-                                                     // ReadRaw()!
-    if (!stream->ReadRaw(headerBuf, headerSize) || !header->ParseFromArray(headerBuf, headerSize)) {
+    if (!header->MergeFromCodedStream(&stream) || !stream.ConsumedEntireMessage()) {
         delete header;
-        delete[] headerBuf;
         return Get();  // Indefinitely attempt to resync to magic numbers
     }
-    delete[] headerBuf;
+    stream.PopLimit(headerLimit);
 
     auto event = new Event;
     event->SetHeader(header);
     auto *payload = (unsigned char *)event->SetPayloadSize(payloadSize);
-    if (!stream->ReadRaw(payload, payloadSize)) {
+    if (!stream.ReadRaw(payload, payloadSize)) {
         delete event;
         return NULL;
     }
@@ -74,7 +82,57 @@ eicio::Event *eicio::Reader::Get() {  // TODO: figure out error handling for thi
     return event;
 }
 
-uint32 eicio::Reader::syncToMagic() {
+eicio::EventHeader *eicio::Reader::GetHeader() {  // TODO: figure out error handling for this
+    if (!inputStream) return NULL;
+    io::CodedInputStream stream(inputStream);
+
+    uint32 n;
+    if ((n = syncToMagic(&stream)) < 4) return NULL;
+
+    uint32 headerSize;
+    if (!stream.ReadLittleEndian32(&headerSize)) return NULL;
+    uint32 payloadSize;
+    if (!stream.ReadLittleEndian32(&payloadSize)) return NULL;
+
+    auto headerLimit = stream.PushLimit(headerSize);
+    auto header = new eicio::EventHeader;
+    if (!header->MergeFromCodedStream(&stream) || !stream.ConsumedEntireMessage()) {
+        delete header;
+        return GetHeader();  // Indefinitely attempt to resync to magic numbers
+    }
+    stream.PopLimit(headerLimit);
+
+    if (!stream.Skip(payloadSize)) {
+        delete header;
+        return NULL;
+    }
+
+    return header;
+}
+
+int eicio::Reader::Skip(int nEvents) {
+    if (!inputStream) return -1;
+    io::CodedInputStream stream(inputStream);
+
+    int nSkipped = 0;
+    for (int i = 0; i < nEvents; i++) {
+        uint32 n;
+        if ((n = syncToMagic(&stream)) < 4) return -1;
+
+        uint32 headerSize;
+        if (!stream.ReadLittleEndian32(&headerSize)) return -1;
+        uint32 payloadSize;
+        if (!stream.ReadLittleEndian32(&payloadSize)) return -1;
+
+        if (!stream.Skip(headerSize + payloadSize)) return -1;
+
+        nSkipped++;
+    }
+
+    return nSkipped;
+}
+
+uint32 eicio::Reader::syncToMagic(io::CodedInputStream *stream) {
     unsigned char num;
     uint32 nRead = 0;
 
