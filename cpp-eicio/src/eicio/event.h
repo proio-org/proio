@@ -12,9 +12,15 @@ class Event {
     Event();
     virtual ~Event();
 
+    bool Add(google::protobuf::Message *coll, std::string name);
+    void Remove(std::string collName);
     google::protobuf::Message *Get(std::string collName);
     std::vector<std::string> GetNames();
 
+    void MakeReference(google::protobuf::Message *msg, eicio::Reference *ref);
+    google::protobuf::Message *Dereference(const eicio::Reference &ref);
+
+    unsigned int GetUniqueID();
     void SetHeader(EventHeader *newHeader);
     EventHeader *GetHeader();
     unsigned int GetPayloadSize();

@@ -56,10 +56,9 @@ int main(int argc, char **argv) {
         event->GetHeader()->PrintDebugString();
 
         for (auto name : event->GetNames()) {
+            std::cout << "\n" << name << std::endl;
             auto coll = event->Get(name);
-            if (coll != NULL) {
-                coll->PrintDebugString();
-            }
+            if (coll != NULL) coll->PrintDebugString();
         }
 
         delete event;

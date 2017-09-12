@@ -44,3 +44,9 @@ if(ROOT_FOUND)
     target_include_directories(eicio2root PUBLIC ${Protobuf_INCLUDE_DIRS} ${ROOT_INCLUDE_DIRS})
     install(TARGETS eicio2root DESTINATION bin)
 endif(ROOT_FOUND)
+
+enable_testing()
+
+add_executable(refderef src/tests/refderef/main.cc)
+target_link_libraries(refderef PUBLIC eicio protobuf)
+add_test(RefDeref refderef)
