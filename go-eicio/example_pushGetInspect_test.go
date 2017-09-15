@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"fmt"
 
-	eicio "github.com/decibelCooper/eicio/go-eicio"
+	eicio "github.com/decibelcooper/eicio/go-eicio"
 )
 
 func Example_pushGetInspect() {

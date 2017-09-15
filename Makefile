@@ -1,6 +1,6 @@
 PROTO := eicio.proto
 
-GO_TARGET := go-eicio/eicio.pb.go
+GO_TARGET := go-eicio/model/eicio.pb.go
 CPP_TARGET := cpp-eicio/src/eicio/eicio.pb.h cpp-eicio/src/eicio/eicio.pb.cc
 
 TARGETS := $(GO_TARGET) $(CPP_TARGET)
