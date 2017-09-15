@@ -1,7 +1,7 @@
 PROTO := eicio.proto
 
 GO_TARGET := go-eicio/eicio.pb.go
-CPP_TARGET := cpp-eicio/src/eicio.pb.h cpp-eicio/src/eicio.pb.cc
+CPP_TARGET := cpp-eicio/src/eicio/eicio.pb.h cpp-eicio/src/eicio/eicio.pb.cc
 
 TARGETS := $(GO_TARGET) $(CPP_TARGET)
 
@@ -10,7 +10,7 @@ TARGETS := $(GO_TARGET) $(CPP_TARGET)
 all: $(TARGETS)
 
 clean: 
-	rm -f $(GO_TARGET) $(CPP_TARGET)
+	rm -f $(TARGETS)
 
 # call to genExtraMsgFuncs may be removed later.  This is to avoid expensive
 # reflection, but there may be another way I'm not seeing right now.
