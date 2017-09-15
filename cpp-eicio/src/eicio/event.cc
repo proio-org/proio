@@ -218,6 +218,7 @@ void eicio::Event::FlushCollCache() {
         collToPayload(coll, name);
         collCache.erase(name);
         namesCached.erase(namesCached.begin() + i);
+		delete coll;
     }
 }
 

@@ -23,7 +23,6 @@ int main(int argc, char **argv) {
     writer->Push(event);
     delete event;
     delete writer;
-    delete mcpColl;
 
     auto reader = new Reader(".test.eicio.tmp");
     event = reader->Get();
