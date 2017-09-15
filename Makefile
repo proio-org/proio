@@ -16,7 +16,6 @@ clean:
 # reflection, but there may be another way I'm not seeing right now.
 $(GO_TARGET): $(PROTO) go-eicio/genExtraMsgFuncs.sh
 	protoc --gofast_out=$(@D) $<
-	sed -i '/\/\*/,/\*\//d' $@
 	. go-eicio/genExtraMsgFuncs.sh $< $@
 
 $(CPP_TARGET): $(PROTO)
