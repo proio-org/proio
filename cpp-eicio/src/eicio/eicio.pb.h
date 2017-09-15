@@ -33,6 +33,7 @@
 #include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 namespace eicio {
+namespace model {
 class CalorimeterHit;
 class CalorimeterHitDefaultTypeInternal;
 extern CalorimeterHitDefaultTypeInternal _CalorimeterHit_default_instance_;
@@ -168,9 +169,11 @@ extern VertexDefaultTypeInternal _Vertex_default_instance_;
 class VertexCollection;
 class VertexCollectionDefaultTypeInternal;
 extern VertexCollectionDefaultTypeInternal _VertexCollection_default_instance_;
+}  // namespace model
 }  // namespace eicio
 
 namespace eicio {
+namespace model {
 
 namespace protobuf_eicio_2eproto {
 // Internal implementation detail -- do not call these.
@@ -190,7 +193,7 @@ void InitDefaults();
 
 class EventHeader_CollectionHeader
     : public ::google::protobuf::
-          Message /* @@protoc_insertion_point(class_definition:eicio.EventHeader.CollectionHeader) */ {
+          Message /* @@protoc_insertion_point(class_definition:eicio.model.EventHeader.CollectionHeader) */ {
    public:
     EventHeader_CollectionHeader();
     virtual ~EventHeader_CollectionHeader();
@@ -289,7 +292,7 @@ class EventHeader_CollectionHeader
     ::google::protobuf::uint32 payloadsize() const;
     void set_payloadsize(::google::protobuf::uint32 value);
 
-    // @@protoc_insertion_point(class_scope:eicio.EventHeader.CollectionHeader)
+    // @@protoc_insertion_point(class_scope:eicio.model.EventHeader.CollectionHeader)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
     ::google::protobuf::internal::ArenaStringPtr name_;
@@ -301,8 +304,8 @@ class EventHeader_CollectionHeader
 };
 // -------------------------------------------------------------------
 
-class EventHeader
-    : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.EventHeader) */ {
+class EventHeader : public ::google::protobuf::
+                        Message /* @@protoc_insertion_point(class_definition:eicio.model.EventHeader) */ {
    public:
     EventHeader();
     virtual ~EventHeader();
@@ -362,17 +365,17 @@ class EventHeader
 
     // accessors -------------------------------------------------------
 
-    // repeated .eicio.EventHeader.CollectionHeader payloadCollections = 7;
+    // repeated .eicio.model.EventHeader.CollectionHeader payloadCollections = 7;
     int payloadcollections_size() const;
     void clear_payloadcollections();
     static const int kPayloadCollectionsFieldNumber = 7;
-    const ::eicio::EventHeader_CollectionHeader& payloadcollections(int index) const;
-    ::eicio::EventHeader_CollectionHeader* mutable_payloadcollections(int index);
-    ::eicio::EventHeader_CollectionHeader* add_payloadcollections();
-    ::google::protobuf::RepeatedPtrField< ::eicio::EventHeader_CollectionHeader>*
+    const ::eicio::model::EventHeader_CollectionHeader& payloadcollections(int index) const;
+    ::eicio::model::EventHeader_CollectionHeader* mutable_payloadcollections(int index);
+    ::eicio::model::EventHeader_CollectionHeader* add_payloadcollections();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::EventHeader_CollectionHeader>*
     mutable_payloadcollections();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::EventHeader_CollectionHeader>& payloadcollections()
-        const;
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::EventHeader_CollectionHeader>&
+    payloadcollections() const;
 
     // string detector = 5;
     void clear_detector();
@@ -402,14 +405,14 @@ class EventHeader
     ::std::string* release_description();
     void set_allocated_description(::std::string* description);
 
-    // .eicio.Params params = 6;
+    // .eicio.model.Params params = 6;
     bool has_params() const;
     void clear_params();
     static const int kParamsFieldNumber = 6;
-    const ::eicio::Params& params() const;
-    ::eicio::Params* mutable_params();
-    ::eicio::Params* release_params();
-    void set_allocated_params(::eicio::Params* params);
+    const ::eicio::model::Params& params() const;
+    ::eicio::model::Params* mutable_params();
+    ::eicio::model::Params* release_params();
+    void set_allocated_params(::eicio::model::Params* params);
 
     // uint64 runNumber = 2;
     void clear_runnumber();
@@ -441,13 +444,13 @@ class EventHeader
     ::google::protobuf::uint32 nuniqueids() const;
     void set_nuniqueids(::google::protobuf::uint32 value);
 
-    // @@protoc_insertion_point(class_scope:eicio.EventHeader)
+    // @@protoc_insertion_point(class_scope:eicio.model.EventHeader)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::EventHeader_CollectionHeader> payloadcollections_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::EventHeader_CollectionHeader> payloadcollections_;
     ::google::protobuf::internal::ArenaStringPtr detector_;
     ::google::protobuf::internal::ArenaStringPtr description_;
-    ::eicio::Params* params_;
+    ::eicio::model::Params* params_;
     ::google::protobuf::uint64 runnumber_;
     ::google::protobuf::uint64 eventnumber_;
     ::google::protobuf::uint64 timestamp_;
@@ -458,8 +461,8 @@ class EventHeader
 };
 // -------------------------------------------------------------------
 
-class IntParams
-    : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.IntParams) */ {
+class IntParams : public ::google::protobuf::
+                      Message /* @@protoc_insertion_point(class_definition:eicio.model.IntParams) */ {
    public:
     IntParams();
     virtual ~IntParams();
@@ -527,7 +530,7 @@ class IntParams
     const ::google::protobuf::RepeatedField< ::google::protobuf::int32>& array() const;
     ::google::protobuf::RepeatedField< ::google::protobuf::int32>* mutable_array();
 
-    // @@protoc_insertion_point(class_scope:eicio.IntParams)
+    // @@protoc_insertion_point(class_scope:eicio.model.IntParams)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
     ::google::protobuf::RepeatedField< ::google::protobuf::int32> array_;
@@ -537,8 +540,8 @@ class IntParams
 };
 // -------------------------------------------------------------------
 
-class FloatParams
-    : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.FloatParams) */ {
+class FloatParams : public ::google::protobuf::
+                        Message /* @@protoc_insertion_point(class_definition:eicio.model.FloatParams) */ {
    public:
     FloatParams();
     virtual ~FloatParams();
@@ -606,7 +609,7 @@ class FloatParams
     const ::google::protobuf::RepeatedField<float>& array() const;
     ::google::protobuf::RepeatedField<float>* mutable_array();
 
-    // @@protoc_insertion_point(class_scope:eicio.FloatParams)
+    // @@protoc_insertion_point(class_scope:eicio.model.FloatParams)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
     ::google::protobuf::RepeatedField<float> array_;
@@ -616,8 +619,8 @@ class FloatParams
 };
 // -------------------------------------------------------------------
 
-class StringParams
-    : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.StringParams) */ {
+class StringParams : public ::google::protobuf::
+                         Message /* @@protoc_insertion_point(class_definition:eicio.model.StringParams) */ {
    public:
     StringParams();
     virtual ~StringParams();
@@ -697,7 +700,7 @@ class StringParams
     const ::google::protobuf::RepeatedPtrField< ::std::string>& array() const;
     ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_array();
 
-    // @@protoc_insertion_point(class_scope:eicio.StringParams)
+    // @@protoc_insertion_point(class_scope:eicio.model.StringParams)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
     ::google::protobuf::RepeatedPtrField< ::std::string> array_;
@@ -713,7 +716,7 @@ class StringParams
 // -------------------------------------------------------------------
 
 class Params
-    : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.Params) */ {
+    : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.model.Params) */ {
    public:
     Params();
     virtual ~Params();
@@ -771,39 +774,39 @@ class Params
 
     // accessors -------------------------------------------------------
 
-    // map<string, .eicio.IntParams> ints = 1;
+    // map<string, .eicio.model.IntParams> ints = 1;
     int ints_size() const;
     void clear_ints();
     static const int kIntsFieldNumber = 1;
-    const ::google::protobuf::Map< ::std::string, ::eicio::IntParams>& ints() const;
-    ::google::protobuf::Map< ::std::string, ::eicio::IntParams>* mutable_ints();
+    const ::google::protobuf::Map< ::std::string, ::eicio::model::IntParams>& ints() const;
+    ::google::protobuf::Map< ::std::string, ::eicio::model::IntParams>* mutable_ints();
 
-    // map<string, .eicio.FloatParams> floats = 2;
+    // map<string, .eicio.model.FloatParams> floats = 2;
     int floats_size() const;
     void clear_floats();
     static const int kFloatsFieldNumber = 2;
-    const ::google::protobuf::Map< ::std::string, ::eicio::FloatParams>& floats() const;
-    ::google::protobuf::Map< ::std::string, ::eicio::FloatParams>* mutable_floats();
+    const ::google::protobuf::Map< ::std::string, ::eicio::model::FloatParams>& floats() const;
+    ::google::protobuf::Map< ::std::string, ::eicio::model::FloatParams>* mutable_floats();
 
-    // map<string, .eicio.StringParams> strings = 3;
+    // map<string, .eicio.model.StringParams> strings = 3;
     int strings_size() const;
     void clear_strings();
     static const int kStringsFieldNumber = 3;
-    const ::google::protobuf::Map< ::std::string, ::eicio::StringParams>& strings() const;
-    ::google::protobuf::Map< ::std::string, ::eicio::StringParams>* mutable_strings();
+    const ::google::protobuf::Map< ::std::string, ::eicio::model::StringParams>& strings() const;
+    ::google::protobuf::Map< ::std::string, ::eicio::model::StringParams>* mutable_strings();
 
-    // @@protoc_insertion_point(class_scope:eicio.Params)
+    // @@protoc_insertion_point(class_scope:eicio.model.Params)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
 
    public:
     class Params_IntsEntry : public ::google::protobuf::internal::MapEntry<
-                                 Params_IntsEntry, ::std::string, ::eicio::IntParams,
+                                 Params_IntsEntry, ::std::string, ::eicio::model::IntParams,
                                  ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
                                  ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE, 0> {
        public:
         typedef ::google::protobuf::internal::MapEntry<
-            Params_IntsEntry, ::std::string, ::eicio::IntParams,
+            Params_IntsEntry, ::std::string, ::eicio::model::IntParams,
             ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
             ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE, 0>
             SuperType;
@@ -816,7 +819,7 @@ class Params
         }
         ::google::protobuf::Metadata GetMetadata() const;
     };
-    ::google::protobuf::internal::MapField<Params_IntsEntry, ::std::string, ::eicio::IntParams,
+    ::google::protobuf::internal::MapField<Params_IntsEntry, ::std::string, ::eicio::model::IntParams,
                                            ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
                                            ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE, 0>
         ints_;
@@ -824,12 +827,12 @@ class Params
    private:
    public:
     class Params_FloatsEntry : public ::google::protobuf::internal::MapEntry<
-                                   Params_FloatsEntry, ::std::string, ::eicio::FloatParams,
+                                   Params_FloatsEntry, ::std::string, ::eicio::model::FloatParams,
                                    ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
                                    ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE, 0> {
        public:
         typedef ::google::protobuf::internal::MapEntry<
-            Params_FloatsEntry, ::std::string, ::eicio::FloatParams,
+            Params_FloatsEntry, ::std::string, ::eicio::model::FloatParams,
             ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
             ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE, 0>
             SuperType;
@@ -842,7 +845,7 @@ class Params
         }
         ::google::protobuf::Metadata GetMetadata() const;
     };
-    ::google::protobuf::internal::MapField<Params_FloatsEntry, ::std::string, ::eicio::FloatParams,
+    ::google::protobuf::internal::MapField<Params_FloatsEntry, ::std::string, ::eicio::model::FloatParams,
                                            ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
                                            ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE, 0>
         floats_;
@@ -850,12 +853,12 @@ class Params
    private:
    public:
     class Params_StringsEntry : public ::google::protobuf::internal::MapEntry<
-                                    Params_StringsEntry, ::std::string, ::eicio::StringParams,
+                                    Params_StringsEntry, ::std::string, ::eicio::model::StringParams,
                                     ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
                                     ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE, 0> {
        public:
         typedef ::google::protobuf::internal::MapEntry<
-            Params_StringsEntry, ::std::string, ::eicio::StringParams,
+            Params_StringsEntry, ::std::string, ::eicio::model::StringParams,
             ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
             ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE, 0>
             SuperType;
@@ -868,7 +871,7 @@ class Params
         }
         ::google::protobuf::Metadata GetMetadata() const;
     };
-    ::google::protobuf::internal::MapField<Params_StringsEntry, ::std::string, ::eicio::StringParams,
+    ::google::protobuf::internal::MapField<Params_StringsEntry, ::std::string, ::eicio::model::StringParams,
                                            ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
                                            ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE, 0>
         strings_;
@@ -879,8 +882,8 @@ class Params
 };
 // -------------------------------------------------------------------
 
-class Reference
-    : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.Reference) */ {
+class Reference : public ::google::protobuf::
+                      Message /* @@protoc_insertion_point(class_definition:eicio.model.Reference) */ {
    public:
     Reference();
     virtual ~Reference();
@@ -950,7 +953,7 @@ class Reference
     ::google::protobuf::uint32 entryid() const;
     void set_entryid(::google::protobuf::uint32 value);
 
-    // @@protoc_insertion_point(class_scope:eicio.Reference)
+    // @@protoc_insertion_point(class_scope:eicio.model.Reference)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
     ::google::protobuf::uint32 collid_;
@@ -960,8 +963,8 @@ class Reference
 };
 // -------------------------------------------------------------------
 
-class ParticleID
-    : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.ParticleID) */ {
+class ParticleID : public ::google::protobuf::
+                       Message /* @@protoc_insertion_point(class_definition:eicio.model.ParticleID) */ {
    public:
     ParticleID();
     virtual ~ParticleID();
@@ -1053,7 +1056,7 @@ class ParticleID
     ::google::protobuf::int32 algtype() const;
     void set_algtype(::google::protobuf::int32 value);
 
-    // @@protoc_insertion_point(class_scope:eicio.ParticleID)
+    // @@protoc_insertion_point(class_scope:eicio.model.ParticleID)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
     ::google::protobuf::RepeatedField<float> params_;
@@ -1067,8 +1070,8 @@ class ParticleID
 };
 // -------------------------------------------------------------------
 
-class MCParticle
-    : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.MCParticle) */ {
+class MCParticle : public ::google::protobuf::
+                       Message /* @@protoc_insertion_point(class_definition:eicio.model.MCParticle) */ {
    public:
     MCParticle();
     virtual ~MCParticle();
@@ -1126,25 +1129,25 @@ class MCParticle
 
     // accessors -------------------------------------------------------
 
-    // repeated .eicio.Reference parents = 2;
+    // repeated .eicio.model.Reference parents = 2;
     int parents_size() const;
     void clear_parents();
     static const int kParentsFieldNumber = 2;
-    const ::eicio::Reference& parents(int index) const;
-    ::eicio::Reference* mutable_parents(int index);
-    ::eicio::Reference* add_parents();
-    ::google::protobuf::RepeatedPtrField< ::eicio::Reference>* mutable_parents();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::Reference>& parents() const;
+    const ::eicio::model::Reference& parents(int index) const;
+    ::eicio::model::Reference* mutable_parents(int index);
+    ::eicio::model::Reference* add_parents();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>* mutable_parents();
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>& parents() const;
 
-    // repeated .eicio.Reference children = 3;
+    // repeated .eicio.model.Reference children = 3;
     int children_size() const;
     void clear_children();
     static const int kChildrenFieldNumber = 3;
-    const ::eicio::Reference& children(int index) const;
-    ::eicio::Reference* mutable_children(int index);
-    ::eicio::Reference* add_children();
-    ::google::protobuf::RepeatedPtrField< ::eicio::Reference>* mutable_children();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::Reference>& children() const;
+    const ::eicio::model::Reference& children(int index) const;
+    ::eicio::model::Reference* mutable_children(int index);
+    ::eicio::model::Reference* add_children();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>* mutable_children();
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>& children() const;
 
     // repeated double vertex = 5;
     int vertex_size() const;
@@ -1238,11 +1241,11 @@ class MCParticle
     ::google::protobuf::uint32 simstatus() const;
     void set_simstatus(::google::protobuf::uint32 value);
 
-    // @@protoc_insertion_point(class_scope:eicio.MCParticle)
+    // @@protoc_insertion_point(class_scope:eicio.model.MCParticle)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::Reference> parents_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::Reference> children_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference> parents_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference> children_;
     ::google::protobuf::RepeatedField<double> vertex_;
     mutable int _vertex_cached_byte_size_;
     ::google::protobuf::RepeatedField<double> p_;
@@ -1267,7 +1270,7 @@ class MCParticle
 
 class MCParticleCollection
     : public ::google::protobuf::
-          Message /* @@protoc_insertion_point(class_definition:eicio.MCParticleCollection) */ {
+          Message /* @@protoc_insertion_point(class_definition:eicio.model.MCParticleCollection) */ {
    public:
     MCParticleCollection();
     virtual ~MCParticleCollection();
@@ -1325,24 +1328,24 @@ class MCParticleCollection
 
     // accessors -------------------------------------------------------
 
-    // repeated .eicio.MCParticle entries = 4;
+    // repeated .eicio.model.MCParticle entries = 4;
     int entries_size() const;
     void clear_entries();
     static const int kEntriesFieldNumber = 4;
-    const ::eicio::MCParticle& entries(int index) const;
-    ::eicio::MCParticle* mutable_entries(int index);
-    ::eicio::MCParticle* add_entries();
-    ::google::protobuf::RepeatedPtrField< ::eicio::MCParticle>* mutable_entries();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::MCParticle>& entries() const;
+    const ::eicio::model::MCParticle& entries(int index) const;
+    ::eicio::model::MCParticle* mutable_entries(int index);
+    ::eicio::model::MCParticle* add_entries();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::MCParticle>* mutable_entries();
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::MCParticle>& entries() const;
 
-    // .eicio.Params params = 3;
+    // .eicio.model.Params params = 3;
     bool has_params() const;
     void clear_params();
     static const int kParamsFieldNumber = 3;
-    const ::eicio::Params& params() const;
-    ::eicio::Params* mutable_params();
-    ::eicio::Params* release_params();
-    void set_allocated_params(::eicio::Params* params);
+    const ::eicio::model::Params& params() const;
+    ::eicio::model::Params* mutable_params();
+    ::eicio::model::Params* release_params();
+    void set_allocated_params(::eicio::model::Params* params);
 
     // uint32 id = 1;
     void clear_id();
@@ -1356,11 +1359,11 @@ class MCParticleCollection
     ::google::protobuf::uint32 flags() const;
     void set_flags(::google::protobuf::uint32 value);
 
-    // @@protoc_insertion_point(class_scope:eicio.MCParticleCollection)
+    // @@protoc_insertion_point(class_scope:eicio.model.MCParticleCollection)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::MCParticle> entries_;
-    ::eicio::Params* params_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::MCParticle> entries_;
+    ::eicio::model::Params* params_;
     ::google::protobuf::uint32 id_;
     ::google::protobuf::uint32 flags_;
     mutable int _cached_size_;
@@ -1369,7 +1372,7 @@ class MCParticleCollection
 // -------------------------------------------------------------------
 
 class SimTrackerHit : public ::google::protobuf::
-                          Message /* @@protoc_insertion_point(class_definition:eicio.SimTrackerHit) */ {
+                          Message /* @@protoc_insertion_point(class_definition:eicio.model.SimTrackerHit) */ {
    public:
     SimTrackerHit();
     virtual ~SimTrackerHit();
@@ -1447,14 +1450,14 @@ class SimTrackerHit : public ::google::protobuf::
     const ::google::protobuf::RepeatedField<float>& p() const;
     ::google::protobuf::RepeatedField<float>* mutable_p();
 
-    // .eicio.Reference mc = 7;
+    // .eicio.model.Reference mc = 7;
     bool has_mc() const;
     void clear_mc();
     static const int kMcFieldNumber = 7;
-    const ::eicio::Reference& mc() const;
-    ::eicio::Reference* mutable_mc();
-    ::eicio::Reference* release_mc();
-    void set_allocated_mc(::eicio::Reference* mc);
+    const ::eicio::model::Reference& mc() const;
+    ::eicio::model::Reference* mutable_mc();
+    ::eicio::model::Reference* release_mc();
+    void set_allocated_mc(::eicio::model::Reference* mc);
 
     // uint32 id = 1;
     void clear_id();
@@ -1498,14 +1501,14 @@ class SimTrackerHit : public ::google::protobuf::
     ::google::protobuf::int32 quality() const;
     void set_quality(::google::protobuf::int32 value);
 
-    // @@protoc_insertion_point(class_scope:eicio.SimTrackerHit)
+    // @@protoc_insertion_point(class_scope:eicio.model.SimTrackerHit)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
     ::google::protobuf::RepeatedField<double> pos_;
     mutable int _pos_cached_byte_size_;
     ::google::protobuf::RepeatedField<float> p_;
     mutable int _p_cached_byte_size_;
-    ::eicio::Reference* mc_;
+    ::eicio::model::Reference* mc_;
     ::google::protobuf::uint32 id_;
     ::google::protobuf::int32 cellid0_;
     ::google::protobuf::int32 cellid1_;
@@ -1520,7 +1523,7 @@ class SimTrackerHit : public ::google::protobuf::
 
 class SimTrackerHitCollection
     : public ::google::protobuf::
-          Message /* @@protoc_insertion_point(class_definition:eicio.SimTrackerHitCollection) */ {
+          Message /* @@protoc_insertion_point(class_definition:eicio.model.SimTrackerHitCollection) */ {
    public:
     SimTrackerHitCollection();
     virtual ~SimTrackerHitCollection();
@@ -1578,24 +1581,24 @@ class SimTrackerHitCollection
 
     // accessors -------------------------------------------------------
 
-    // repeated .eicio.SimTrackerHit entries = 4;
+    // repeated .eicio.model.SimTrackerHit entries = 4;
     int entries_size() const;
     void clear_entries();
     static const int kEntriesFieldNumber = 4;
-    const ::eicio::SimTrackerHit& entries(int index) const;
-    ::eicio::SimTrackerHit* mutable_entries(int index);
-    ::eicio::SimTrackerHit* add_entries();
-    ::google::protobuf::RepeatedPtrField< ::eicio::SimTrackerHit>* mutable_entries();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::SimTrackerHit>& entries() const;
+    const ::eicio::model::SimTrackerHit& entries(int index) const;
+    ::eicio::model::SimTrackerHit* mutable_entries(int index);
+    ::eicio::model::SimTrackerHit* add_entries();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::SimTrackerHit>* mutable_entries();
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::SimTrackerHit>& entries() const;
 
-    // .eicio.Params params = 3;
+    // .eicio.model.Params params = 3;
     bool has_params() const;
     void clear_params();
     static const int kParamsFieldNumber = 3;
-    const ::eicio::Params& params() const;
-    ::eicio::Params* mutable_params();
-    ::eicio::Params* release_params();
-    void set_allocated_params(::eicio::Params* params);
+    const ::eicio::model::Params& params() const;
+    ::eicio::model::Params* mutable_params();
+    ::eicio::model::Params* release_params();
+    void set_allocated_params(::eicio::model::Params* params);
 
     // uint32 id = 1;
     void clear_id();
@@ -1609,11 +1612,11 @@ class SimTrackerHitCollection
     ::google::protobuf::uint32 flags() const;
     void set_flags(::google::protobuf::uint32 value);
 
-    // @@protoc_insertion_point(class_scope:eicio.SimTrackerHitCollection)
+    // @@protoc_insertion_point(class_scope:eicio.model.SimTrackerHitCollection)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::SimTrackerHit> entries_;
-    ::eicio::Params* params_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::SimTrackerHit> entries_;
+    ::eicio::model::Params* params_;
     ::google::protobuf::uint32 id_;
     ::google::protobuf::uint32 flags_;
     mutable int _cached_size_;
@@ -1621,8 +1624,9 @@ class SimTrackerHitCollection
 };
 // -------------------------------------------------------------------
 
-class TrackerRawData : public ::google::protobuf::
-                           Message /* @@protoc_insertion_point(class_definition:eicio.TrackerRawData) */ {
+class TrackerRawData
+    : public ::google::protobuf::
+          Message /* @@protoc_insertion_point(class_definition:eicio.model.TrackerRawData) */ {
    public:
     TrackerRawData();
     virtual ~TrackerRawData();
@@ -1714,7 +1718,7 @@ class TrackerRawData : public ::google::protobuf::
     ::google::protobuf::int32 time() const;
     void set_time(::google::protobuf::int32 value);
 
-    // @@protoc_insertion_point(class_scope:eicio.TrackerRawData)
+    // @@protoc_insertion_point(class_scope:eicio.model.TrackerRawData)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
     ::google::protobuf::RepeatedField< ::google::protobuf::uint32> adcs_;
@@ -1730,7 +1734,7 @@ class TrackerRawData : public ::google::protobuf::
 
 class TrackerRawDataCollection
     : public ::google::protobuf::
-          Message /* @@protoc_insertion_point(class_definition:eicio.TrackerRawDataCollection) */ {
+          Message /* @@protoc_insertion_point(class_definition:eicio.model.TrackerRawDataCollection) */ {
    public:
     TrackerRawDataCollection();
     virtual ~TrackerRawDataCollection();
@@ -1789,24 +1793,24 @@ class TrackerRawDataCollection
 
     // accessors -------------------------------------------------------
 
-    // repeated .eicio.TrackerRawData entries = 4;
+    // repeated .eicio.model.TrackerRawData entries = 4;
     int entries_size() const;
     void clear_entries();
     static const int kEntriesFieldNumber = 4;
-    const ::eicio::TrackerRawData& entries(int index) const;
-    ::eicio::TrackerRawData* mutable_entries(int index);
-    ::eicio::TrackerRawData* add_entries();
-    ::google::protobuf::RepeatedPtrField< ::eicio::TrackerRawData>* mutable_entries();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::TrackerRawData>& entries() const;
+    const ::eicio::model::TrackerRawData& entries(int index) const;
+    ::eicio::model::TrackerRawData* mutable_entries(int index);
+    ::eicio::model::TrackerRawData* add_entries();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::TrackerRawData>* mutable_entries();
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::TrackerRawData>& entries() const;
 
-    // .eicio.Params params = 3;
+    // .eicio.model.Params params = 3;
     bool has_params() const;
     void clear_params();
     static const int kParamsFieldNumber = 3;
-    const ::eicio::Params& params() const;
-    ::eicio::Params* mutable_params();
-    ::eicio::Params* release_params();
-    void set_allocated_params(::eicio::Params* params);
+    const ::eicio::model::Params& params() const;
+    ::eicio::model::Params* mutable_params();
+    ::eicio::model::Params* release_params();
+    void set_allocated_params(::eicio::model::Params* params);
 
     // uint32 id = 1;
     void clear_id();
@@ -1820,11 +1824,11 @@ class TrackerRawDataCollection
     ::google::protobuf::uint32 flags() const;
     void set_flags(::google::protobuf::uint32 value);
 
-    // @@protoc_insertion_point(class_scope:eicio.TrackerRawDataCollection)
+    // @@protoc_insertion_point(class_scope:eicio.model.TrackerRawDataCollection)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::TrackerRawData> entries_;
-    ::eicio::Params* params_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::TrackerRawData> entries_;
+    ::eicio::model::Params* params_;
     ::google::protobuf::uint32 id_;
     ::google::protobuf::uint32 flags_;
     mutable int _cached_size_;
@@ -1832,8 +1836,8 @@ class TrackerRawDataCollection
 };
 // -------------------------------------------------------------------
 
-class TrackerData
-    : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.TrackerData) */ {
+class TrackerData : public ::google::protobuf::
+                        Message /* @@protoc_insertion_point(class_definition:eicio.model.TrackerData) */ {
    public:
     TrackerData();
     virtual ~TrackerData();
@@ -1925,7 +1929,7 @@ class TrackerData
     float time() const;
     void set_time(float value);
 
-    // @@protoc_insertion_point(class_scope:eicio.TrackerData)
+    // @@protoc_insertion_point(class_scope:eicio.model.TrackerData)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
     ::google::protobuf::RepeatedField<float> charges_;
@@ -1941,7 +1945,7 @@ class TrackerData
 
 class TrackerDataCollection
     : public ::google::protobuf::
-          Message /* @@protoc_insertion_point(class_definition:eicio.TrackerDataCollection) */ {
+          Message /* @@protoc_insertion_point(class_definition:eicio.model.TrackerDataCollection) */ {
    public:
     TrackerDataCollection();
     virtual ~TrackerDataCollection();
@@ -1999,24 +2003,24 @@ class TrackerDataCollection
 
     // accessors -------------------------------------------------------
 
-    // repeated .eicio.TrackerData entries = 4;
+    // repeated .eicio.model.TrackerData entries = 4;
     int entries_size() const;
     void clear_entries();
     static const int kEntriesFieldNumber = 4;
-    const ::eicio::TrackerData& entries(int index) const;
-    ::eicio::TrackerData* mutable_entries(int index);
-    ::eicio::TrackerData* add_entries();
-    ::google::protobuf::RepeatedPtrField< ::eicio::TrackerData>* mutable_entries();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::TrackerData>& entries() const;
+    const ::eicio::model::TrackerData& entries(int index) const;
+    ::eicio::model::TrackerData* mutable_entries(int index);
+    ::eicio::model::TrackerData* add_entries();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::TrackerData>* mutable_entries();
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::TrackerData>& entries() const;
 
-    // .eicio.Params params = 3;
+    // .eicio.model.Params params = 3;
     bool has_params() const;
     void clear_params();
     static const int kParamsFieldNumber = 3;
-    const ::eicio::Params& params() const;
-    ::eicio::Params* mutable_params();
-    ::eicio::Params* release_params();
-    void set_allocated_params(::eicio::Params* params);
+    const ::eicio::model::Params& params() const;
+    ::eicio::model::Params* mutable_params();
+    ::eicio::model::Params* release_params();
+    void set_allocated_params(::eicio::model::Params* params);
 
     // uint32 id = 1;
     void clear_id();
@@ -2030,11 +2034,11 @@ class TrackerDataCollection
     ::google::protobuf::uint32 flags() const;
     void set_flags(::google::protobuf::uint32 value);
 
-    // @@protoc_insertion_point(class_scope:eicio.TrackerDataCollection)
+    // @@protoc_insertion_point(class_scope:eicio.model.TrackerDataCollection)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::TrackerData> entries_;
-    ::eicio::Params* params_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::TrackerData> entries_;
+    ::eicio::model::Params* params_;
     ::google::protobuf::uint32 id_;
     ::google::protobuf::uint32 flags_;
     mutable int _cached_size_;
@@ -2042,8 +2046,8 @@ class TrackerDataCollection
 };
 // -------------------------------------------------------------------
 
-class TrackerHit
-    : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.TrackerHit) */ {
+class TrackerHit : public ::google::protobuf::
+                       Message /* @@protoc_insertion_point(class_definition:eicio.model.TrackerHit) */ {
    public:
     TrackerHit();
     virtual ~TrackerHit();
@@ -2121,15 +2125,15 @@ class TrackerHit
     const ::google::protobuf::RepeatedField<double>& cov() const;
     ::google::protobuf::RepeatedField<double>* mutable_cov();
 
-    // repeated .eicio.Reference rawHits = 11;
+    // repeated .eicio.model.Reference rawHits = 11;
     int rawhits_size() const;
     void clear_rawhits();
     static const int kRawHitsFieldNumber = 11;
-    const ::eicio::Reference& rawhits(int index) const;
-    ::eicio::Reference* mutable_rawhits(int index);
-    ::eicio::Reference* add_rawhits();
-    ::google::protobuf::RepeatedPtrField< ::eicio::Reference>* mutable_rawhits();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::Reference>& rawhits() const;
+    const ::eicio::model::Reference& rawhits(int index) const;
+    ::eicio::model::Reference* mutable_rawhits(int index);
+    ::eicio::model::Reference* add_rawhits();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>* mutable_rawhits();
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>& rawhits() const;
 
     // uint32 id = 1;
     void clear_id();
@@ -2179,14 +2183,14 @@ class TrackerHit
     ::google::protobuf::int32 quality() const;
     void set_quality(::google::protobuf::int32 value);
 
-    // @@protoc_insertion_point(class_scope:eicio.TrackerHit)
+    // @@protoc_insertion_point(class_scope:eicio.model.TrackerHit)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
     ::google::protobuf::RepeatedField<double> pos_;
     mutable int _pos_cached_byte_size_;
     ::google::protobuf::RepeatedField<double> cov_;
     mutable int _cov_cached_byte_size_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::Reference> rawhits_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference> rawhits_;
     ::google::protobuf::uint32 id_;
     ::google::protobuf::int32 cellid0_;
     ::google::protobuf::int32 cellid1_;
@@ -2202,7 +2206,7 @@ class TrackerHit
 
 class TrackerHitCollection
     : public ::google::protobuf::
-          Message /* @@protoc_insertion_point(class_definition:eicio.TrackerHitCollection) */ {
+          Message /* @@protoc_insertion_point(class_definition:eicio.model.TrackerHitCollection) */ {
    public:
     TrackerHitCollection();
     virtual ~TrackerHitCollection();
@@ -2260,24 +2264,24 @@ class TrackerHitCollection
 
     // accessors -------------------------------------------------------
 
-    // repeated .eicio.TrackerHit entries = 4;
+    // repeated .eicio.model.TrackerHit entries = 4;
     int entries_size() const;
     void clear_entries();
     static const int kEntriesFieldNumber = 4;
-    const ::eicio::TrackerHit& entries(int index) const;
-    ::eicio::TrackerHit* mutable_entries(int index);
-    ::eicio::TrackerHit* add_entries();
-    ::google::protobuf::RepeatedPtrField< ::eicio::TrackerHit>* mutable_entries();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::TrackerHit>& entries() const;
+    const ::eicio::model::TrackerHit& entries(int index) const;
+    ::eicio::model::TrackerHit* mutable_entries(int index);
+    ::eicio::model::TrackerHit* add_entries();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::TrackerHit>* mutable_entries();
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::TrackerHit>& entries() const;
 
-    // .eicio.Params params = 3;
+    // .eicio.model.Params params = 3;
     bool has_params() const;
     void clear_params();
     static const int kParamsFieldNumber = 3;
-    const ::eicio::Params& params() const;
-    ::eicio::Params* mutable_params();
-    ::eicio::Params* release_params();
-    void set_allocated_params(::eicio::Params* params);
+    const ::eicio::model::Params& params() const;
+    ::eicio::model::Params* mutable_params();
+    ::eicio::model::Params* release_params();
+    void set_allocated_params(::eicio::model::Params* params);
 
     // uint32 id = 1;
     void clear_id();
@@ -2291,11 +2295,11 @@ class TrackerHitCollection
     ::google::protobuf::uint32 flags() const;
     void set_flags(::google::protobuf::uint32 value);
 
-    // @@protoc_insertion_point(class_scope:eicio.TrackerHitCollection)
+    // @@protoc_insertion_point(class_scope:eicio.model.TrackerHitCollection)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::TrackerHit> entries_;
-    ::eicio::Params* params_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::TrackerHit> entries_;
+    ::eicio::model::Params* params_;
     ::google::protobuf::uint32 id_;
     ::google::protobuf::uint32 flags_;
     mutable int _cached_size_;
@@ -2303,8 +2307,8 @@ class TrackerHitCollection
 };
 // -------------------------------------------------------------------
 
-class TrackerPulse
-    : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.TrackerPulse) */ {
+class TrackerPulse : public ::google::protobuf::
+                         Message /* @@protoc_insertion_point(class_definition:eicio.model.TrackerPulse) */ {
    public:
     TrackerPulse();
     virtual ~TrackerPulse();
@@ -2372,14 +2376,14 @@ class TrackerPulse
     const ::google::protobuf::RepeatedField<float>& cov() const;
     ::google::protobuf::RepeatedField<float>* mutable_cov();
 
-    // .eicio.Reference TPC = 8;
+    // .eicio.model.Reference TPC = 8;
     bool has_tpc() const;
     void clear_tpc();
     static const int kTPCFieldNumber = 8;
-    const ::eicio::Reference& tpc() const;
-    ::eicio::Reference* mutable_tpc();
-    ::eicio::Reference* release_tpc();
-    void set_allocated_tpc(::eicio::Reference* tpc);
+    const ::eicio::model::Reference& tpc() const;
+    ::eicio::model::Reference* mutable_tpc();
+    ::eicio::model::Reference* release_tpc();
+    void set_allocated_tpc(::eicio::model::Reference* tpc);
 
     // uint32 id = 1;
     void clear_id();
@@ -2417,12 +2421,12 @@ class TrackerPulse
     ::google::protobuf::int32 quality() const;
     void set_quality(::google::protobuf::int32 value);
 
-    // @@protoc_insertion_point(class_scope:eicio.TrackerPulse)
+    // @@protoc_insertion_point(class_scope:eicio.model.TrackerPulse)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
     ::google::protobuf::RepeatedField<float> cov_;
     mutable int _cov_cached_byte_size_;
-    ::eicio::Reference* tpc_;
+    ::eicio::model::Reference* tpc_;
     ::google::protobuf::uint32 id_;
     ::google::protobuf::int32 cellid0_;
     ::google::protobuf::int32 cellid1_;
@@ -2436,7 +2440,7 @@ class TrackerPulse
 
 class TrackerPulseCollection
     : public ::google::protobuf::
-          Message /* @@protoc_insertion_point(class_definition:eicio.TrackerPulseCollection) */ {
+          Message /* @@protoc_insertion_point(class_definition:eicio.model.TrackerPulseCollection) */ {
    public:
     TrackerPulseCollection();
     virtual ~TrackerPulseCollection();
@@ -2494,24 +2498,24 @@ class TrackerPulseCollection
 
     // accessors -------------------------------------------------------
 
-    // repeated .eicio.TrackerPulse entries = 4;
+    // repeated .eicio.model.TrackerPulse entries = 4;
     int entries_size() const;
     void clear_entries();
     static const int kEntriesFieldNumber = 4;
-    const ::eicio::TrackerPulse& entries(int index) const;
-    ::eicio::TrackerPulse* mutable_entries(int index);
-    ::eicio::TrackerPulse* add_entries();
-    ::google::protobuf::RepeatedPtrField< ::eicio::TrackerPulse>* mutable_entries();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::TrackerPulse>& entries() const;
+    const ::eicio::model::TrackerPulse& entries(int index) const;
+    ::eicio::model::TrackerPulse* mutable_entries(int index);
+    ::eicio::model::TrackerPulse* add_entries();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::TrackerPulse>* mutable_entries();
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::TrackerPulse>& entries() const;
 
-    // .eicio.Params params = 3;
+    // .eicio.model.Params params = 3;
     bool has_params() const;
     void clear_params();
     static const int kParamsFieldNumber = 3;
-    const ::eicio::Params& params() const;
-    ::eicio::Params* mutable_params();
-    ::eicio::Params* release_params();
-    void set_allocated_params(::eicio::Params* params);
+    const ::eicio::model::Params& params() const;
+    ::eicio::model::Params* mutable_params();
+    ::eicio::model::Params* release_params();
+    void set_allocated_params(::eicio::model::Params* params);
 
     // uint32 id = 1;
     void clear_id();
@@ -2525,11 +2529,11 @@ class TrackerPulseCollection
     ::google::protobuf::uint32 flags() const;
     void set_flags(::google::protobuf::uint32 value);
 
-    // @@protoc_insertion_point(class_scope:eicio.TrackerPulseCollection)
+    // @@protoc_insertion_point(class_scope:eicio.model.TrackerPulseCollection)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::TrackerPulse> entries_;
-    ::eicio::Params* params_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::TrackerPulse> entries_;
+    ::eicio::model::Params* params_;
     ::google::protobuf::uint32 id_;
     ::google::protobuf::uint32 flags_;
     mutable int _cached_size_;
@@ -2537,8 +2541,9 @@ class TrackerPulseCollection
 };
 // -------------------------------------------------------------------
 
-class TrackerHitPlane : public ::google::protobuf::
-                            Message /* @@protoc_insertion_point(class_definition:eicio.TrackerHitPlane) */ {
+class TrackerHitPlane
+    : public ::google::protobuf::
+          Message /* @@protoc_insertion_point(class_definition:eicio.model.TrackerHitPlane) */ {
    public:
     TrackerHitPlane();
     virtual ~TrackerHitPlane();
@@ -2626,15 +2631,15 @@ class TrackerHitPlane : public ::google::protobuf::
     const ::google::protobuf::RepeatedField<float>& v() const;
     ::google::protobuf::RepeatedField<float>* mutable_v();
 
-    // repeated .eicio.Reference rawHits = 14;
+    // repeated .eicio.model.Reference rawHits = 14;
     int rawhits_size() const;
     void clear_rawhits();
     static const int kRawHitsFieldNumber = 14;
-    const ::eicio::Reference& rawhits(int index) const;
-    ::eicio::Reference* mutable_rawhits(int index);
-    ::eicio::Reference* add_rawhits();
-    ::google::protobuf::RepeatedPtrField< ::eicio::Reference>* mutable_rawhits();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::Reference>& rawhits() const;
+    const ::eicio::model::Reference& rawhits(int index) const;
+    ::eicio::model::Reference* mutable_rawhits(int index);
+    ::eicio::model::Reference* add_rawhits();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>* mutable_rawhits();
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>& rawhits() const;
 
     // uint32 id = 1;
     void clear_id();
@@ -2696,7 +2701,7 @@ class TrackerHitPlane : public ::google::protobuf::
     ::google::protobuf::int32 quality() const;
     void set_quality(::google::protobuf::int32 value);
 
-    // @@protoc_insertion_point(class_scope:eicio.TrackerHitPlane)
+    // @@protoc_insertion_point(class_scope:eicio.model.TrackerHitPlane)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
     ::google::protobuf::RepeatedField<double> pos_;
@@ -2705,7 +2710,7 @@ class TrackerHitPlane : public ::google::protobuf::
     mutable int _u_cached_byte_size_;
     ::google::protobuf::RepeatedField<float> v_;
     mutable int _v_cached_byte_size_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::Reference> rawhits_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference> rawhits_;
     ::google::protobuf::uint32 id_;
     ::google::protobuf::int32 cellid0_;
     ::google::protobuf::int32 cellid1_;
@@ -2723,7 +2728,7 @@ class TrackerHitPlane : public ::google::protobuf::
 
 class TrackerHitPlaneCollection
     : public ::google::protobuf::
-          Message /* @@protoc_insertion_point(class_definition:eicio.TrackerHitPlaneCollection) */ {
+          Message /* @@protoc_insertion_point(class_definition:eicio.model.TrackerHitPlaneCollection) */ {
    public:
     TrackerHitPlaneCollection();
     virtual ~TrackerHitPlaneCollection();
@@ -2782,24 +2787,24 @@ class TrackerHitPlaneCollection
 
     // accessors -------------------------------------------------------
 
-    // repeated .eicio.TrackerHitPlane entries = 4;
+    // repeated .eicio.model.TrackerHitPlane entries = 4;
     int entries_size() const;
     void clear_entries();
     static const int kEntriesFieldNumber = 4;
-    const ::eicio::TrackerHitPlane& entries(int index) const;
-    ::eicio::TrackerHitPlane* mutable_entries(int index);
-    ::eicio::TrackerHitPlane* add_entries();
-    ::google::protobuf::RepeatedPtrField< ::eicio::TrackerHitPlane>* mutable_entries();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::TrackerHitPlane>& entries() const;
+    const ::eicio::model::TrackerHitPlane& entries(int index) const;
+    ::eicio::model::TrackerHitPlane* mutable_entries(int index);
+    ::eicio::model::TrackerHitPlane* add_entries();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::TrackerHitPlane>* mutable_entries();
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::TrackerHitPlane>& entries() const;
 
-    // .eicio.Params params = 3;
+    // .eicio.model.Params params = 3;
     bool has_params() const;
     void clear_params();
     static const int kParamsFieldNumber = 3;
-    const ::eicio::Params& params() const;
-    ::eicio::Params* mutable_params();
-    ::eicio::Params* release_params();
-    void set_allocated_params(::eicio::Params* params);
+    const ::eicio::model::Params& params() const;
+    ::eicio::model::Params* mutable_params();
+    ::eicio::model::Params* release_params();
+    void set_allocated_params(::eicio::model::Params* params);
 
     // uint32 id = 1;
     void clear_id();
@@ -2813,11 +2818,11 @@ class TrackerHitPlaneCollection
     ::google::protobuf::uint32 flags() const;
     void set_flags(::google::protobuf::uint32 value);
 
-    // @@protoc_insertion_point(class_scope:eicio.TrackerHitPlaneCollection)
+    // @@protoc_insertion_point(class_scope:eicio.model.TrackerHitPlaneCollection)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::TrackerHitPlane> entries_;
-    ::eicio::Params* params_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::TrackerHitPlane> entries_;
+    ::eicio::model::Params* params_;
     ::google::protobuf::uint32 id_;
     ::google::protobuf::uint32 flags_;
     mutable int _cached_size_;
@@ -2827,7 +2832,7 @@ class TrackerHitPlaneCollection
 
 class TrackerHitZCylinder
     : public ::google::protobuf::
-          Message /* @@protoc_insertion_point(class_definition:eicio.TrackerHitZCylinder) */ {
+          Message /* @@protoc_insertion_point(class_definition:eicio.model.TrackerHitZCylinder) */ {
    public:
     TrackerHitZCylinder();
     virtual ~TrackerHitZCylinder();
@@ -2905,15 +2910,15 @@ class TrackerHitZCylinder
     const ::google::protobuf::RepeatedField<float>& center() const;
     ::google::protobuf::RepeatedField<float>* mutable_center();
 
-    // repeated .eicio.Reference rawHits = 13;
+    // repeated .eicio.model.Reference rawHits = 13;
     int rawhits_size() const;
     void clear_rawhits();
     static const int kRawHitsFieldNumber = 13;
-    const ::eicio::Reference& rawhits(int index) const;
-    ::eicio::Reference* mutable_rawhits(int index);
-    ::eicio::Reference* add_rawhits();
-    ::google::protobuf::RepeatedPtrField< ::eicio::Reference>* mutable_rawhits();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::Reference>& rawhits() const;
+    const ::eicio::model::Reference& rawhits(int index) const;
+    ::eicio::model::Reference* mutable_rawhits(int index);
+    ::eicio::model::Reference* add_rawhits();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>* mutable_rawhits();
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>& rawhits() const;
 
     // uint32 id = 1;
     void clear_id();
@@ -2975,14 +2980,14 @@ class TrackerHitZCylinder
     ::google::protobuf::int32 quality() const;
     void set_quality(::google::protobuf::int32 value);
 
-    // @@protoc_insertion_point(class_scope:eicio.TrackerHitZCylinder)
+    // @@protoc_insertion_point(class_scope:eicio.model.TrackerHitZCylinder)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
     ::google::protobuf::RepeatedField<double> pos_;
     mutable int _pos_cached_byte_size_;
     ::google::protobuf::RepeatedField<float> center_;
     mutable int _center_cached_byte_size_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::Reference> rawhits_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference> rawhits_;
     ::google::protobuf::uint32 id_;
     ::google::protobuf::int32 cellid0_;
     ::google::protobuf::int32 cellid1_;
@@ -3000,7 +3005,7 @@ class TrackerHitZCylinder
 
 class TrackerHitZCylinderCollection
     : public ::google::protobuf::
-          Message /* @@protoc_insertion_point(class_definition:eicio.TrackerHitZCylinderCollection) */ {
+          Message /* @@protoc_insertion_point(class_definition:eicio.model.TrackerHitZCylinderCollection) */ {
    public:
     TrackerHitZCylinderCollection();
     virtual ~TrackerHitZCylinderCollection();
@@ -3059,24 +3064,24 @@ class TrackerHitZCylinderCollection
 
     // accessors -------------------------------------------------------
 
-    // repeated .eicio.TrackerHitZCylinder entries = 4;
+    // repeated .eicio.model.TrackerHitZCylinder entries = 4;
     int entries_size() const;
     void clear_entries();
     static const int kEntriesFieldNumber = 4;
-    const ::eicio::TrackerHitZCylinder& entries(int index) const;
-    ::eicio::TrackerHitZCylinder* mutable_entries(int index);
-    ::eicio::TrackerHitZCylinder* add_entries();
-    ::google::protobuf::RepeatedPtrField< ::eicio::TrackerHitZCylinder>* mutable_entries();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::TrackerHitZCylinder>& entries() const;
+    const ::eicio::model::TrackerHitZCylinder& entries(int index) const;
+    ::eicio::model::TrackerHitZCylinder* mutable_entries(int index);
+    ::eicio::model::TrackerHitZCylinder* add_entries();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::TrackerHitZCylinder>* mutable_entries();
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::TrackerHitZCylinder>& entries() const;
 
-    // .eicio.Params params = 3;
+    // .eicio.model.Params params = 3;
     bool has_params() const;
     void clear_params();
     static const int kParamsFieldNumber = 3;
-    const ::eicio::Params& params() const;
-    ::eicio::Params* mutable_params();
-    ::eicio::Params* release_params();
-    void set_allocated_params(::eicio::Params* params);
+    const ::eicio::model::Params& params() const;
+    ::eicio::model::Params* mutable_params();
+    ::eicio::model::Params* release_params();
+    void set_allocated_params(::eicio::model::Params* params);
 
     // uint32 id = 1;
     void clear_id();
@@ -3090,11 +3095,11 @@ class TrackerHitZCylinderCollection
     ::google::protobuf::uint32 flags() const;
     void set_flags(::google::protobuf::uint32 value);
 
-    // @@protoc_insertion_point(class_scope:eicio.TrackerHitZCylinderCollection)
+    // @@protoc_insertion_point(class_scope:eicio.model.TrackerHitZCylinderCollection)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::TrackerHitZCylinder> entries_;
-    ::eicio::Params* params_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::TrackerHitZCylinder> entries_;
+    ::eicio::model::Params* params_;
     ::google::protobuf::uint32 id_;
     ::google::protobuf::uint32 flags_;
     mutable int _cached_size_;
@@ -3102,8 +3107,9 @@ class TrackerHitZCylinderCollection
 };
 // -------------------------------------------------------------------
 
-class Track_TrackState : public ::google::protobuf::
-                             Message /* @@protoc_insertion_point(class_definition:eicio.Track.TrackState) */ {
+class Track_TrackState
+    : public ::google::protobuf::
+          Message /* @@protoc_insertion_point(class_definition:eicio.model.Track.TrackState) */ {
    public:
     Track_TrackState();
     virtual ~Track_TrackState();
@@ -3217,7 +3223,7 @@ class Track_TrackState : public ::google::protobuf::
     float tanl() const;
     void set_tanl(float value);
 
-    // @@protoc_insertion_point(class_scope:eicio.Track.TrackState)
+    // @@protoc_insertion_point(class_scope:eicio.model.Track.TrackState)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
     ::google::protobuf::RepeatedField<float> cov_;
@@ -3236,7 +3242,7 @@ class Track_TrackState : public ::google::protobuf::
 // -------------------------------------------------------------------
 
 class Track
-    : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.Track) */ {
+    : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.model.Track) */ {
    public:
     Track();
     virtual ~Track();
@@ -3306,35 +3312,35 @@ class Track
     const ::google::protobuf::RepeatedField< ::google::protobuf::int32>& subdethits() const;
     ::google::protobuf::RepeatedField< ::google::protobuf::int32>* mutable_subdethits();
 
-    // repeated .eicio.Track.TrackState states = 9;
+    // repeated .eicio.model.Track.TrackState states = 9;
     int states_size() const;
     void clear_states();
     static const int kStatesFieldNumber = 9;
-    const ::eicio::Track_TrackState& states(int index) const;
-    ::eicio::Track_TrackState* mutable_states(int index);
-    ::eicio::Track_TrackState* add_states();
-    ::google::protobuf::RepeatedPtrField< ::eicio::Track_TrackState>* mutable_states();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::Track_TrackState>& states() const;
+    const ::eicio::model::Track_TrackState& states(int index) const;
+    ::eicio::model::Track_TrackState* mutable_states(int index);
+    ::eicio::model::Track_TrackState* add_states();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Track_TrackState>* mutable_states();
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::Track_TrackState>& states() const;
 
-    // repeated .eicio.Reference hits = 10;
+    // repeated .eicio.model.Reference hits = 10;
     int hits_size() const;
     void clear_hits();
     static const int kHitsFieldNumber = 10;
-    const ::eicio::Reference& hits(int index) const;
-    ::eicio::Reference* mutable_hits(int index);
-    ::eicio::Reference* add_hits();
-    ::google::protobuf::RepeatedPtrField< ::eicio::Reference>* mutable_hits();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::Reference>& hits() const;
+    const ::eicio::model::Reference& hits(int index) const;
+    ::eicio::model::Reference* mutable_hits(int index);
+    ::eicio::model::Reference* add_hits();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>* mutable_hits();
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>& hits() const;
 
-    // repeated .eicio.Reference tracks = 11;
+    // repeated .eicio.model.Reference tracks = 11;
     int tracks_size() const;
     void clear_tracks();
     static const int kTracksFieldNumber = 11;
-    const ::eicio::Reference& tracks(int index) const;
-    ::eicio::Reference* mutable_tracks(int index);
-    ::eicio::Reference* add_tracks();
-    ::google::protobuf::RepeatedPtrField< ::eicio::Reference>* mutable_tracks();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::Reference>& tracks() const;
+    const ::eicio::model::Reference& tracks(int index) const;
+    ::eicio::model::Reference* mutable_tracks(int index);
+    ::eicio::model::Reference* add_tracks();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>* mutable_tracks();
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>& tracks() const;
 
     // uint32 id = 1;
     void clear_id();
@@ -3378,14 +3384,14 @@ class Track
     float radius() const;
     void set_radius(float value);
 
-    // @@protoc_insertion_point(class_scope:eicio.Track)
+    // @@protoc_insertion_point(class_scope:eicio.model.Track)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
     ::google::protobuf::RepeatedField< ::google::protobuf::int32> subdethits_;
     mutable int _subdethits_cached_byte_size_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::Track_TrackState> states_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::Reference> hits_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::Reference> tracks_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Track_TrackState> states_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference> hits_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference> tracks_;
     ::google::protobuf::uint32 id_;
     ::google::protobuf::int32 type_;
     float chi2_;
@@ -3398,8 +3404,9 @@ class Track
 };
 // -------------------------------------------------------------------
 
-class TrackCollection : public ::google::protobuf::
-                            Message /* @@protoc_insertion_point(class_definition:eicio.TrackCollection) */ {
+class TrackCollection
+    : public ::google::protobuf::
+          Message /* @@protoc_insertion_point(class_definition:eicio.model.TrackCollection) */ {
    public:
     TrackCollection();
     virtual ~TrackCollection();
@@ -3457,24 +3464,24 @@ class TrackCollection : public ::google::protobuf::
 
     // accessors -------------------------------------------------------
 
-    // repeated .eicio.Track entries = 4;
+    // repeated .eicio.model.Track entries = 4;
     int entries_size() const;
     void clear_entries();
     static const int kEntriesFieldNumber = 4;
-    const ::eicio::Track& entries(int index) const;
-    ::eicio::Track* mutable_entries(int index);
-    ::eicio::Track* add_entries();
-    ::google::protobuf::RepeatedPtrField< ::eicio::Track>* mutable_entries();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::Track>& entries() const;
+    const ::eicio::model::Track& entries(int index) const;
+    ::eicio::model::Track* mutable_entries(int index);
+    ::eicio::model::Track* add_entries();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Track>* mutable_entries();
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::Track>& entries() const;
 
-    // .eicio.Params params = 3;
+    // .eicio.model.Params params = 3;
     bool has_params() const;
     void clear_params();
     static const int kParamsFieldNumber = 3;
-    const ::eicio::Params& params() const;
-    ::eicio::Params* mutable_params();
-    ::eicio::Params* release_params();
-    void set_allocated_params(::eicio::Params* params);
+    const ::eicio::model::Params& params() const;
+    ::eicio::model::Params* mutable_params();
+    ::eicio::model::Params* release_params();
+    void set_allocated_params(::eicio::model::Params* params);
 
     // uint32 id = 1;
     void clear_id();
@@ -3488,11 +3495,11 @@ class TrackCollection : public ::google::protobuf::
     ::google::protobuf::uint32 flags() const;
     void set_flags(::google::protobuf::uint32 value);
 
-    // @@protoc_insertion_point(class_scope:eicio.TrackCollection)
+    // @@protoc_insertion_point(class_scope:eicio.model.TrackCollection)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::Track> entries_;
-    ::eicio::Params* params_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Track> entries_;
+    ::eicio::model::Params* params_;
     ::google::protobuf::uint32 id_;
     ::google::protobuf::uint32 flags_;
     mutable int _cached_size_;
@@ -3502,7 +3509,7 @@ class TrackCollection : public ::google::protobuf::
 
 class SimCalorimeterHit_Contrib
     : public ::google::protobuf::
-          Message /* @@protoc_insertion_point(class_definition:eicio.SimCalorimeterHit.Contrib) */ {
+          Message /* @@protoc_insertion_point(class_definition:eicio.model.SimCalorimeterHit.Contrib) */ {
    public:
     SimCalorimeterHit_Contrib();
     virtual ~SimCalorimeterHit_Contrib();
@@ -3571,14 +3578,14 @@ class SimCalorimeterHit_Contrib
     const ::google::protobuf::RepeatedField<float>& steppos() const;
     ::google::protobuf::RepeatedField<float>* mutable_steppos();
 
-    // .eicio.Reference MCParticle = 1;
+    // .eicio.model.Reference MCParticle = 1;
     bool has_mcparticle() const;
     void clear_mcparticle();
     static const int kMCParticleFieldNumber = 1;
-    const ::eicio::Reference& mcparticle() const;
-    ::eicio::Reference* mutable_mcparticle();
-    ::eicio::Reference* release_mcparticle();
-    void set_allocated_mcparticle(::eicio::Reference* mcparticle);
+    const ::eicio::model::Reference& mcparticle() const;
+    ::eicio::model::Reference* mutable_mcparticle();
+    ::eicio::model::Reference* release_mcparticle();
+    void set_allocated_mcparticle(::eicio::model::Reference* mcparticle);
 
     // float energy = 2;
     void clear_energy();
@@ -3598,12 +3605,12 @@ class SimCalorimeterHit_Contrib
     ::google::protobuf::int32 pdg() const;
     void set_pdg(::google::protobuf::int32 value);
 
-    // @@protoc_insertion_point(class_scope:eicio.SimCalorimeterHit.Contrib)
+    // @@protoc_insertion_point(class_scope:eicio.model.SimCalorimeterHit.Contrib)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
     ::google::protobuf::RepeatedField<float> steppos_;
     mutable int _steppos_cached_byte_size_;
-    ::eicio::Reference* mcparticle_;
+    ::eicio::model::Reference* mcparticle_;
     float energy_;
     float time_;
     ::google::protobuf::int32 pdg_;
@@ -3614,7 +3621,7 @@ class SimCalorimeterHit_Contrib
 
 class SimCalorimeterHit
     : public ::google::protobuf::
-          Message /* @@protoc_insertion_point(class_definition:eicio.SimCalorimeterHit) */ {
+          Message /* @@protoc_insertion_point(class_definition:eicio.model.SimCalorimeterHit) */ {
    public:
     SimCalorimeterHit();
     virtual ~SimCalorimeterHit();
@@ -3684,24 +3691,25 @@ class SimCalorimeterHit
     const ::google::protobuf::RepeatedField<float>& pos() const;
     ::google::protobuf::RepeatedField<float>* mutable_pos();
 
-    // repeated .eicio.SimCalorimeterHit.Contrib contributions = 7;
+    // repeated .eicio.model.SimCalorimeterHit.Contrib contributions = 7;
     int contributions_size() const;
     void clear_contributions();
     static const int kContributionsFieldNumber = 7;
-    const ::eicio::SimCalorimeterHit_Contrib& contributions(int index) const;
-    ::eicio::SimCalorimeterHit_Contrib* mutable_contributions(int index);
-    ::eicio::SimCalorimeterHit_Contrib* add_contributions();
-    ::google::protobuf::RepeatedPtrField< ::eicio::SimCalorimeterHit_Contrib>* mutable_contributions();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::SimCalorimeterHit_Contrib>& contributions() const;
+    const ::eicio::model::SimCalorimeterHit_Contrib& contributions(int index) const;
+    ::eicio::model::SimCalorimeterHit_Contrib* mutable_contributions(int index);
+    ::eicio::model::SimCalorimeterHit_Contrib* add_contributions();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::SimCalorimeterHit_Contrib>* mutable_contributions();
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::SimCalorimeterHit_Contrib>& contributions()
+        const;
 
-    // .eicio.Params params = 2;
+    // .eicio.model.Params params = 2;
     bool has_params() const;
     void clear_params();
     static const int kParamsFieldNumber = 2;
-    const ::eicio::Params& params() const;
-    ::eicio::Params* mutable_params();
-    ::eicio::Params* release_params();
-    void set_allocated_params(::eicio::Params* params);
+    const ::eicio::model::Params& params() const;
+    ::eicio::model::Params* mutable_params();
+    ::eicio::model::Params* release_params();
+    void set_allocated_params(::eicio::model::Params* params);
 
     // uint32 id = 1;
     void clear_id();
@@ -3727,13 +3735,13 @@ class SimCalorimeterHit
     float energy() const;
     void set_energy(float value);
 
-    // @@protoc_insertion_point(class_scope:eicio.SimCalorimeterHit)
+    // @@protoc_insertion_point(class_scope:eicio.model.SimCalorimeterHit)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
     ::google::protobuf::RepeatedField<float> pos_;
     mutable int _pos_cached_byte_size_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::SimCalorimeterHit_Contrib> contributions_;
-    ::eicio::Params* params_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::SimCalorimeterHit_Contrib> contributions_;
+    ::eicio::model::Params* params_;
     ::google::protobuf::uint32 id_;
     ::google::protobuf::int32 cellid0_;
     ::google::protobuf::int32 cellid1_;
@@ -3745,7 +3753,7 @@ class SimCalorimeterHit
 
 class SimCalorimeterHitCollection
     : public ::google::protobuf::
-          Message /* @@protoc_insertion_point(class_definition:eicio.SimCalorimeterHitCollection) */ {
+          Message /* @@protoc_insertion_point(class_definition:eicio.model.SimCalorimeterHitCollection) */ {
    public:
     SimCalorimeterHitCollection();
     virtual ~SimCalorimeterHitCollection();
@@ -3804,24 +3812,24 @@ class SimCalorimeterHitCollection
 
     // accessors -------------------------------------------------------
 
-    // repeated .eicio.SimCalorimeterHit entries = 4;
+    // repeated .eicio.model.SimCalorimeterHit entries = 4;
     int entries_size() const;
     void clear_entries();
     static const int kEntriesFieldNumber = 4;
-    const ::eicio::SimCalorimeterHit& entries(int index) const;
-    ::eicio::SimCalorimeterHit* mutable_entries(int index);
-    ::eicio::SimCalorimeterHit* add_entries();
-    ::google::protobuf::RepeatedPtrField< ::eicio::SimCalorimeterHit>* mutable_entries();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::SimCalorimeterHit>& entries() const;
+    const ::eicio::model::SimCalorimeterHit& entries(int index) const;
+    ::eicio::model::SimCalorimeterHit* mutable_entries(int index);
+    ::eicio::model::SimCalorimeterHit* add_entries();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::SimCalorimeterHit>* mutable_entries();
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::SimCalorimeterHit>& entries() const;
 
-    // .eicio.Params params = 3;
+    // .eicio.model.Params params = 3;
     bool has_params() const;
     void clear_params();
     static const int kParamsFieldNumber = 3;
-    const ::eicio::Params& params() const;
-    ::eicio::Params* mutable_params();
-    ::eicio::Params* release_params();
-    void set_allocated_params(::eicio::Params* params);
+    const ::eicio::model::Params& params() const;
+    ::eicio::model::Params* mutable_params();
+    ::eicio::model::Params* release_params();
+    void set_allocated_params(::eicio::model::Params* params);
 
     // uint32 id = 1;
     void clear_id();
@@ -3835,11 +3843,11 @@ class SimCalorimeterHitCollection
     ::google::protobuf::uint32 flags() const;
     void set_flags(::google::protobuf::uint32 value);
 
-    // @@protoc_insertion_point(class_scope:eicio.SimCalorimeterHitCollection)
+    // @@protoc_insertion_point(class_scope:eicio.model.SimCalorimeterHitCollection)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::SimCalorimeterHit> entries_;
-    ::eicio::Params* params_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::SimCalorimeterHit> entries_;
+    ::eicio::model::Params* params_;
     ::google::protobuf::uint32 id_;
     ::google::protobuf::uint32 flags_;
     mutable int _cached_size_;
@@ -3849,7 +3857,7 @@ class SimCalorimeterHitCollection
 
 class RawCalorimeterHit
     : public ::google::protobuf::
-          Message /* @@protoc_insertion_point(class_definition:eicio.RawCalorimeterHit) */ {
+          Message /* @@protoc_insertion_point(class_definition:eicio.model.RawCalorimeterHit) */ {
    public:
     RawCalorimeterHit();
     virtual ~RawCalorimeterHit();
@@ -3937,7 +3945,7 @@ class RawCalorimeterHit
     ::google::protobuf::int32 timestamp() const;
     void set_timestamp(::google::protobuf::int32 value);
 
-    // @@protoc_insertion_point(class_scope:eicio.RawCalorimeterHit)
+    // @@protoc_insertion_point(class_scope:eicio.model.RawCalorimeterHit)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
     ::google::protobuf::uint32 id_;
@@ -3952,7 +3960,7 @@ class RawCalorimeterHit
 
 class RawCalorimeterHitCollection
     : public ::google::protobuf::
-          Message /* @@protoc_insertion_point(class_definition:eicio.RawCalorimeterHitCollection) */ {
+          Message /* @@protoc_insertion_point(class_definition:eicio.model.RawCalorimeterHitCollection) */ {
    public:
     RawCalorimeterHitCollection();
     virtual ~RawCalorimeterHitCollection();
@@ -4011,24 +4019,24 @@ class RawCalorimeterHitCollection
 
     // accessors -------------------------------------------------------
 
-    // repeated .eicio.RawCalorimeterHit entries = 4;
+    // repeated .eicio.model.RawCalorimeterHit entries = 4;
     int entries_size() const;
     void clear_entries();
     static const int kEntriesFieldNumber = 4;
-    const ::eicio::RawCalorimeterHit& entries(int index) const;
-    ::eicio::RawCalorimeterHit* mutable_entries(int index);
-    ::eicio::RawCalorimeterHit* add_entries();
-    ::google::protobuf::RepeatedPtrField< ::eicio::RawCalorimeterHit>* mutable_entries();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::RawCalorimeterHit>& entries() const;
+    const ::eicio::model::RawCalorimeterHit& entries(int index) const;
+    ::eicio::model::RawCalorimeterHit* mutable_entries(int index);
+    ::eicio::model::RawCalorimeterHit* add_entries();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::RawCalorimeterHit>* mutable_entries();
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::RawCalorimeterHit>& entries() const;
 
-    // .eicio.Params params = 3;
+    // .eicio.model.Params params = 3;
     bool has_params() const;
     void clear_params();
     static const int kParamsFieldNumber = 3;
-    const ::eicio::Params& params() const;
-    ::eicio::Params* mutable_params();
-    ::eicio::Params* release_params();
-    void set_allocated_params(::eicio::Params* params);
+    const ::eicio::model::Params& params() const;
+    ::eicio::model::Params* mutable_params();
+    ::eicio::model::Params* release_params();
+    void set_allocated_params(::eicio::model::Params* params);
 
     // uint32 id = 1;
     void clear_id();
@@ -4042,11 +4050,11 @@ class RawCalorimeterHitCollection
     ::google::protobuf::uint32 flags() const;
     void set_flags(::google::protobuf::uint32 value);
 
-    // @@protoc_insertion_point(class_scope:eicio.RawCalorimeterHitCollection)
+    // @@protoc_insertion_point(class_scope:eicio.model.RawCalorimeterHitCollection)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::RawCalorimeterHit> entries_;
-    ::eicio::Params* params_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::RawCalorimeterHit> entries_;
+    ::eicio::model::Params* params_;
     ::google::protobuf::uint32 id_;
     ::google::protobuf::uint32 flags_;
     mutable int _cached_size_;
@@ -4054,8 +4062,9 @@ class RawCalorimeterHitCollection
 };
 // -------------------------------------------------------------------
 
-class CalorimeterHit : public ::google::protobuf::
-                           Message /* @@protoc_insertion_point(class_definition:eicio.CalorimeterHit) */ {
+class CalorimeterHit
+    : public ::google::protobuf::
+          Message /* @@protoc_insertion_point(class_definition:eicio.model.CalorimeterHit) */ {
    public:
     CalorimeterHit();
     virtual ~CalorimeterHit();
@@ -4123,14 +4132,14 @@ class CalorimeterHit : public ::google::protobuf::
     const ::google::protobuf::RepeatedField<float>& pos() const;
     ::google::protobuf::RepeatedField<float>* mutable_pos();
 
-    // .eicio.Reference raw = 9;
+    // .eicio.model.Reference raw = 9;
     bool has_raw() const;
     void clear_raw();
     static const int kRawFieldNumber = 9;
-    const ::eicio::Reference& raw() const;
-    ::eicio::Reference* mutable_raw();
-    ::eicio::Reference* release_raw();
-    void set_allocated_raw(::eicio::Reference* raw);
+    const ::eicio::model::Reference& raw() const;
+    ::eicio::model::Reference* mutable_raw();
+    ::eicio::model::Reference* release_raw();
+    void set_allocated_raw(::eicio::model::Reference* raw);
 
     // uint32 id = 1;
     void clear_id();
@@ -4174,12 +4183,12 @@ class CalorimeterHit : public ::google::protobuf::
     ::google::protobuf::int32 type() const;
     void set_type(::google::protobuf::int32 value);
 
-    // @@protoc_insertion_point(class_scope:eicio.CalorimeterHit)
+    // @@protoc_insertion_point(class_scope:eicio.model.CalorimeterHit)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
     ::google::protobuf::RepeatedField<float> pos_;
     mutable int _pos_cached_byte_size_;
-    ::eicio::Reference* raw_;
+    ::eicio::model::Reference* raw_;
     ::google::protobuf::uint32 id_;
     ::google::protobuf::int32 cellid0_;
     ::google::protobuf::int32 cellid1_;
@@ -4194,7 +4203,7 @@ class CalorimeterHit : public ::google::protobuf::
 
 class CalorimeterHitCollection
     : public ::google::protobuf::
-          Message /* @@protoc_insertion_point(class_definition:eicio.CalorimeterHitCollection) */ {
+          Message /* @@protoc_insertion_point(class_definition:eicio.model.CalorimeterHitCollection) */ {
    public:
     CalorimeterHitCollection();
     virtual ~CalorimeterHitCollection();
@@ -4253,24 +4262,24 @@ class CalorimeterHitCollection
 
     // accessors -------------------------------------------------------
 
-    // repeated .eicio.CalorimeterHit entries = 4;
+    // repeated .eicio.model.CalorimeterHit entries = 4;
     int entries_size() const;
     void clear_entries();
     static const int kEntriesFieldNumber = 4;
-    const ::eicio::CalorimeterHit& entries(int index) const;
-    ::eicio::CalorimeterHit* mutable_entries(int index);
-    ::eicio::CalorimeterHit* add_entries();
-    ::google::protobuf::RepeatedPtrField< ::eicio::CalorimeterHit>* mutable_entries();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::CalorimeterHit>& entries() const;
+    const ::eicio::model::CalorimeterHit& entries(int index) const;
+    ::eicio::model::CalorimeterHit* mutable_entries(int index);
+    ::eicio::model::CalorimeterHit* add_entries();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::CalorimeterHit>* mutable_entries();
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::CalorimeterHit>& entries() const;
 
-    // .eicio.Params params = 3;
+    // .eicio.model.Params params = 3;
     bool has_params() const;
     void clear_params();
     static const int kParamsFieldNumber = 3;
-    const ::eicio::Params& params() const;
-    ::eicio::Params* mutable_params();
-    ::eicio::Params* release_params();
-    void set_allocated_params(::eicio::Params* params);
+    const ::eicio::model::Params& params() const;
+    ::eicio::model::Params* mutable_params();
+    ::eicio::model::Params* release_params();
+    void set_allocated_params(::eicio::model::Params* params);
 
     // uint32 id = 1;
     void clear_id();
@@ -4284,11 +4293,11 @@ class CalorimeterHitCollection
     ::google::protobuf::uint32 flags() const;
     void set_flags(::google::protobuf::uint32 value);
 
-    // @@protoc_insertion_point(class_scope:eicio.CalorimeterHitCollection)
+    // @@protoc_insertion_point(class_scope:eicio.model.CalorimeterHitCollection)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::CalorimeterHit> entries_;
-    ::eicio::Params* params_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::CalorimeterHit> entries_;
+    ::eicio::model::Params* params_;
     ::google::protobuf::uint32 id_;
     ::google::protobuf::uint32 flags_;
     mutable int _cached_size_;
@@ -4296,8 +4305,8 @@ class CalorimeterHitCollection
 };
 // -------------------------------------------------------------------
 
-class Cluster
-    : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.Cluster) */ {
+class Cluster : public ::google::protobuf::
+                    Message /* @@protoc_insertion_point(class_definition:eicio.model.Cluster) */ {
    public:
     Cluster();
     virtual ~Cluster();
@@ -4395,35 +4404,35 @@ class Cluster
     const ::google::protobuf::RepeatedField<float>& shape() const;
     ::google::protobuf::RepeatedField<float>* mutable_shape();
 
-    // repeated .eicio.ParticleID PIDs = 11;
+    // repeated .eicio.model.ParticleID PIDs = 11;
     int pids_size() const;
     void clear_pids();
     static const int kPIDsFieldNumber = 11;
-    const ::eicio::ParticleID& pids(int index) const;
-    ::eicio::ParticleID* mutable_pids(int index);
-    ::eicio::ParticleID* add_pids();
-    ::google::protobuf::RepeatedPtrField< ::eicio::ParticleID>* mutable_pids();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::ParticleID>& pids() const;
+    const ::eicio::model::ParticleID& pids(int index) const;
+    ::eicio::model::ParticleID* mutable_pids(int index);
+    ::eicio::model::ParticleID* add_pids();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::ParticleID>* mutable_pids();
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::ParticleID>& pids() const;
 
-    // repeated .eicio.Reference clusters = 12;
+    // repeated .eicio.model.Reference clusters = 12;
     int clusters_size() const;
     void clear_clusters();
     static const int kClustersFieldNumber = 12;
-    const ::eicio::Reference& clusters(int index) const;
-    ::eicio::Reference* mutable_clusters(int index);
-    ::eicio::Reference* add_clusters();
-    ::google::protobuf::RepeatedPtrField< ::eicio::Reference>* mutable_clusters();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::Reference>& clusters() const;
+    const ::eicio::model::Reference& clusters(int index) const;
+    ::eicio::model::Reference* mutable_clusters(int index);
+    ::eicio::model::Reference* add_clusters();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>* mutable_clusters();
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>& clusters() const;
 
-    // repeated .eicio.Reference hits = 13;
+    // repeated .eicio.model.Reference hits = 13;
     int hits_size() const;
     void clear_hits();
     static const int kHitsFieldNumber = 13;
-    const ::eicio::Reference& hits(int index) const;
-    ::eicio::Reference* mutable_hits(int index);
-    ::eicio::Reference* add_hits();
-    ::google::protobuf::RepeatedPtrField< ::eicio::Reference>* mutable_hits();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::Reference>& hits() const;
+    const ::eicio::model::Reference& hits(int index) const;
+    ::eicio::model::Reference* mutable_hits(int index);
+    ::eicio::model::Reference* add_hits();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>* mutable_hits();
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>& hits() const;
 
     // repeated float weights = 14;
     int weights_size() const;
@@ -4481,7 +4490,7 @@ class Cluster
     float phi() const;
     void set_phi(float value);
 
-    // @@protoc_insertion_point(class_scope:eicio.Cluster)
+    // @@protoc_insertion_point(class_scope:eicio.model.Cluster)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
     ::google::protobuf::RepeatedField<float> pos_;
@@ -4492,9 +4501,9 @@ class Cluster
     mutable int _direrr_cached_byte_size_;
     ::google::protobuf::RepeatedField<float> shape_;
     mutable int _shape_cached_byte_size_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::ParticleID> pids_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::Reference> clusters_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::Reference> hits_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::ParticleID> pids_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference> clusters_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference> hits_;
     ::google::protobuf::RepeatedField<float> weights_;
     mutable int _weights_cached_byte_size_;
     ::google::protobuf::RepeatedField<float> subdetenes_;
@@ -4512,7 +4521,7 @@ class Cluster
 
 class ClusterCollection
     : public ::google::protobuf::
-          Message /* @@protoc_insertion_point(class_definition:eicio.ClusterCollection) */ {
+          Message /* @@protoc_insertion_point(class_definition:eicio.model.ClusterCollection) */ {
    public:
     ClusterCollection();
     virtual ~ClusterCollection();
@@ -4570,24 +4579,24 @@ class ClusterCollection
 
     // accessors -------------------------------------------------------
 
-    // repeated .eicio.Cluster entries = 4;
+    // repeated .eicio.model.Cluster entries = 4;
     int entries_size() const;
     void clear_entries();
     static const int kEntriesFieldNumber = 4;
-    const ::eicio::Cluster& entries(int index) const;
-    ::eicio::Cluster* mutable_entries(int index);
-    ::eicio::Cluster* add_entries();
-    ::google::protobuf::RepeatedPtrField< ::eicio::Cluster>* mutable_entries();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::Cluster>& entries() const;
+    const ::eicio::model::Cluster& entries(int index) const;
+    ::eicio::model::Cluster* mutable_entries(int index);
+    ::eicio::model::Cluster* add_entries();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Cluster>* mutable_entries();
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::Cluster>& entries() const;
 
-    // .eicio.Params params = 3;
+    // .eicio.model.Params params = 3;
     bool has_params() const;
     void clear_params();
     static const int kParamsFieldNumber = 3;
-    const ::eicio::Params& params() const;
-    ::eicio::Params* mutable_params();
-    ::eicio::Params* release_params();
-    void set_allocated_params(::eicio::Params* params);
+    const ::eicio::model::Params& params() const;
+    ::eicio::model::Params* mutable_params();
+    ::eicio::model::Params* release_params();
+    void set_allocated_params(::eicio::model::Params* params);
 
     // uint32 id = 1;
     void clear_id();
@@ -4601,11 +4610,11 @@ class ClusterCollection
     ::google::protobuf::uint32 flags() const;
     void set_flags(::google::protobuf::uint32 value);
 
-    // @@protoc_insertion_point(class_scope:eicio.ClusterCollection)
+    // @@protoc_insertion_point(class_scope:eicio.model.ClusterCollection)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::Cluster> entries_;
-    ::eicio::Params* params_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Cluster> entries_;
+    ::eicio::model::Params* params_;
     ::google::protobuf::uint32 id_;
     ::google::protobuf::uint32 flags_;
     mutable int _cached_size_;
@@ -4613,8 +4622,8 @@ class ClusterCollection
 };
 // -------------------------------------------------------------------
 
-class RecParticle
-    : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.RecParticle) */ {
+class RecParticle : public ::google::protobuf::
+                        Message /* @@protoc_insertion_point(class_definition:eicio.model.RecParticle) */ {
    public:
     RecParticle();
     virtual ~RecParticle();
@@ -4702,54 +4711,54 @@ class RecParticle
     const ::google::protobuf::RepeatedField<float>& ref() const;
     ::google::protobuf::RepeatedField<float>* mutable_ref();
 
-    // repeated .eicio.ParticleID PIDs = 9;
+    // repeated .eicio.model.ParticleID PIDs = 9;
     int pids_size() const;
     void clear_pids();
     static const int kPIDsFieldNumber = 9;
-    const ::eicio::ParticleID& pids(int index) const;
-    ::eicio::ParticleID* mutable_pids(int index);
-    ::eicio::ParticleID* add_pids();
-    ::google::protobuf::RepeatedPtrField< ::eicio::ParticleID>* mutable_pids();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::ParticleID>& pids() const;
+    const ::eicio::model::ParticleID& pids(int index) const;
+    ::eicio::model::ParticleID* mutable_pids(int index);
+    ::eicio::model::ParticleID* add_pids();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::ParticleID>* mutable_pids();
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::ParticleID>& pids() const;
 
-    // repeated .eicio.Reference recs = 12;
+    // repeated .eicio.model.Reference recs = 12;
     int recs_size() const;
     void clear_recs();
     static const int kRecsFieldNumber = 12;
-    const ::eicio::Reference& recs(int index) const;
-    ::eicio::Reference* mutable_recs(int index);
-    ::eicio::Reference* add_recs();
-    ::google::protobuf::RepeatedPtrField< ::eicio::Reference>* mutable_recs();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::Reference>& recs() const;
+    const ::eicio::model::Reference& recs(int index) const;
+    ::eicio::model::Reference* mutable_recs(int index);
+    ::eicio::model::Reference* add_recs();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>* mutable_recs();
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>& recs() const;
 
-    // repeated .eicio.Reference tracks = 13;
+    // repeated .eicio.model.Reference tracks = 13;
     int tracks_size() const;
     void clear_tracks();
     static const int kTracksFieldNumber = 13;
-    const ::eicio::Reference& tracks(int index) const;
-    ::eicio::Reference* mutable_tracks(int index);
-    ::eicio::Reference* add_tracks();
-    ::google::protobuf::RepeatedPtrField< ::eicio::Reference>* mutable_tracks();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::Reference>& tracks() const;
+    const ::eicio::model::Reference& tracks(int index) const;
+    ::eicio::model::Reference* mutable_tracks(int index);
+    ::eicio::model::Reference* add_tracks();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>* mutable_tracks();
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>& tracks() const;
 
-    // repeated .eicio.Reference clusters = 14;
+    // repeated .eicio.model.Reference clusters = 14;
     int clusters_size() const;
     void clear_clusters();
     static const int kClustersFieldNumber = 14;
-    const ::eicio::Reference& clusters(int index) const;
-    ::eicio::Reference* mutable_clusters(int index);
-    ::eicio::Reference* add_clusters();
-    ::google::protobuf::RepeatedPtrField< ::eicio::Reference>* mutable_clusters();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::Reference>& clusters() const;
+    const ::eicio::model::Reference& clusters(int index) const;
+    ::eicio::model::Reference* mutable_clusters(int index);
+    ::eicio::model::Reference* add_clusters();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>* mutable_clusters();
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>& clusters() const;
 
-    // .eicio.Reference startVtx = 15;
+    // .eicio.model.Reference startVtx = 15;
     bool has_startvtx() const;
     void clear_startvtx();
     static const int kStartVtxFieldNumber = 15;
-    const ::eicio::Reference& startvtx() const;
-    ::eicio::Reference* mutable_startvtx();
-    ::eicio::Reference* release_startvtx();
-    void set_allocated_startvtx(::eicio::Reference* startvtx);
+    const ::eicio::model::Reference& startvtx() const;
+    ::eicio::model::Reference* mutable_startvtx();
+    ::eicio::model::Reference* release_startvtx();
+    void set_allocated_startvtx(::eicio::model::Reference* startvtx);
 
     // uint32 id = 1;
     void clear_id();
@@ -4793,7 +4802,7 @@ class RecParticle
     float goodnessofpid() const;
     void set_goodnessofpid(float value);
 
-    // @@protoc_insertion_point(class_scope:eicio.RecParticle)
+    // @@protoc_insertion_point(class_scope:eicio.model.RecParticle)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
     ::google::protobuf::RepeatedField<float> p_;
@@ -4802,11 +4811,11 @@ class RecParticle
     mutable int _cov_cached_byte_size_;
     ::google::protobuf::RepeatedField<float> ref_;
     mutable int _ref_cached_byte_size_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::ParticleID> pids_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::Reference> recs_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::Reference> tracks_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::Reference> clusters_;
-    ::eicio::Reference* startvtx_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::ParticleID> pids_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference> recs_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference> tracks_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference> clusters_;
+    ::eicio::model::Reference* startvtx_;
     ::google::protobuf::uint32 id_;
     ::google::protobuf::int32 type_;
     float energy_;
@@ -4821,7 +4830,7 @@ class RecParticle
 
 class RecParticleCollection
     : public ::google::protobuf::
-          Message /* @@protoc_insertion_point(class_definition:eicio.RecParticleCollection) */ {
+          Message /* @@protoc_insertion_point(class_definition:eicio.model.RecParticleCollection) */ {
    public:
     RecParticleCollection();
     virtual ~RecParticleCollection();
@@ -4879,24 +4888,24 @@ class RecParticleCollection
 
     // accessors -------------------------------------------------------
 
-    // repeated .eicio.RecParticle entries = 4;
+    // repeated .eicio.model.RecParticle entries = 4;
     int entries_size() const;
     void clear_entries();
     static const int kEntriesFieldNumber = 4;
-    const ::eicio::RecParticle& entries(int index) const;
-    ::eicio::RecParticle* mutable_entries(int index);
-    ::eicio::RecParticle* add_entries();
-    ::google::protobuf::RepeatedPtrField< ::eicio::RecParticle>* mutable_entries();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::RecParticle>& entries() const;
+    const ::eicio::model::RecParticle& entries(int index) const;
+    ::eicio::model::RecParticle* mutable_entries(int index);
+    ::eicio::model::RecParticle* add_entries();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::RecParticle>* mutable_entries();
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::RecParticle>& entries() const;
 
-    // .eicio.Params params = 3;
+    // .eicio.model.Params params = 3;
     bool has_params() const;
     void clear_params();
     static const int kParamsFieldNumber = 3;
-    const ::eicio::Params& params() const;
-    ::eicio::Params* mutable_params();
-    ::eicio::Params* release_params();
-    void set_allocated_params(::eicio::Params* params);
+    const ::eicio::model::Params& params() const;
+    ::eicio::model::Params* mutable_params();
+    ::eicio::model::Params* release_params();
+    void set_allocated_params(::eicio::model::Params* params);
 
     // uint32 id = 1;
     void clear_id();
@@ -4910,11 +4919,11 @@ class RecParticleCollection
     ::google::protobuf::uint32 flags() const;
     void set_flags(::google::protobuf::uint32 value);
 
-    // @@protoc_insertion_point(class_scope:eicio.RecParticleCollection)
+    // @@protoc_insertion_point(class_scope:eicio.model.RecParticleCollection)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::RecParticle> entries_;
-    ::eicio::Params* params_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::RecParticle> entries_;
+    ::eicio::model::Params* params_;
     ::google::protobuf::uint32 id_;
     ::google::protobuf::uint32 flags_;
     mutable int _cached_size_;
@@ -4923,7 +4932,7 @@ class RecParticleCollection
 // -------------------------------------------------------------------
 
 class Vertex
-    : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.Vertex) */ {
+    : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.model.Vertex) */ {
    public:
     Vertex();
     virtual ~Vertex();
@@ -5011,14 +5020,14 @@ class Vertex
     const ::google::protobuf::RepeatedField<float>& params() const;
     ::google::protobuf::RepeatedField<float>* mutable_params();
 
-    // .eicio.Reference recPart = 9;
+    // .eicio.model.Reference recPart = 9;
     bool has_recpart() const;
     void clear_recpart();
     static const int kRecPartFieldNumber = 9;
-    const ::eicio::Reference& recpart() const;
-    ::eicio::Reference* mutable_recpart();
-    ::eicio::Reference* release_recpart();
-    void set_allocated_recpart(::eicio::Reference* recpart);
+    const ::eicio::model::Reference& recpart() const;
+    ::eicio::model::Reference* mutable_recpart();
+    ::eicio::model::Reference* release_recpart();
+    void set_allocated_recpart(::eicio::model::Reference* recpart);
 
     // uint32 id = 1;
     void clear_id();
@@ -5050,7 +5059,7 @@ class Vertex
     float prob() const;
     void set_prob(float value);
 
-    // @@protoc_insertion_point(class_scope:eicio.Vertex)
+    // @@protoc_insertion_point(class_scope:eicio.model.Vertex)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
     ::google::protobuf::RepeatedField<float> pos_;
@@ -5059,7 +5068,7 @@ class Vertex
     mutable int _cov_cached_byte_size_;
     ::google::protobuf::RepeatedField<float> params_;
     mutable int _params_cached_byte_size_;
-    ::eicio::Reference* recpart_;
+    ::eicio::model::Reference* recpart_;
     ::google::protobuf::uint32 id_;
     ::google::protobuf::int32 primary_;
     ::google::protobuf::int32 algtype_;
@@ -5070,8 +5079,9 @@ class Vertex
 };
 // -------------------------------------------------------------------
 
-class VertexCollection : public ::google::protobuf::
-                             Message /* @@protoc_insertion_point(class_definition:eicio.VertexCollection) */ {
+class VertexCollection
+    : public ::google::protobuf::
+          Message /* @@protoc_insertion_point(class_definition:eicio.model.VertexCollection) */ {
    public:
     VertexCollection();
     virtual ~VertexCollection();
@@ -5129,24 +5139,24 @@ class VertexCollection : public ::google::protobuf::
 
     // accessors -------------------------------------------------------
 
-    // repeated .eicio.Vertex entries = 4;
+    // repeated .eicio.model.Vertex entries = 4;
     int entries_size() const;
     void clear_entries();
     static const int kEntriesFieldNumber = 4;
-    const ::eicio::Vertex& entries(int index) const;
-    ::eicio::Vertex* mutable_entries(int index);
-    ::eicio::Vertex* add_entries();
-    ::google::protobuf::RepeatedPtrField< ::eicio::Vertex>* mutable_entries();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::Vertex>& entries() const;
+    const ::eicio::model::Vertex& entries(int index) const;
+    ::eicio::model::Vertex* mutable_entries(int index);
+    ::eicio::model::Vertex* add_entries();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Vertex>* mutable_entries();
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::Vertex>& entries() const;
 
-    // .eicio.Params params = 3;
+    // .eicio.model.Params params = 3;
     bool has_params() const;
     void clear_params();
     static const int kParamsFieldNumber = 3;
-    const ::eicio::Params& params() const;
-    ::eicio::Params* mutable_params();
-    ::eicio::Params* release_params();
-    void set_allocated_params(::eicio::Params* params);
+    const ::eicio::model::Params& params() const;
+    ::eicio::model::Params* mutable_params();
+    ::eicio::model::Params* release_params();
+    void set_allocated_params(::eicio::model::Params* params);
 
     // uint32 id = 1;
     void clear_id();
@@ -5160,11 +5170,11 @@ class VertexCollection : public ::google::protobuf::
     ::google::protobuf::uint32 flags() const;
     void set_flags(::google::protobuf::uint32 value);
 
-    // @@protoc_insertion_point(class_scope:eicio.VertexCollection)
+    // @@protoc_insertion_point(class_scope:eicio.model.VertexCollection)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::Vertex> entries_;
-    ::eicio::Params* params_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Vertex> entries_;
+    ::eicio::model::Params* params_;
     ::google::protobuf::uint32 id_;
     ::google::protobuf::uint32 flags_;
     mutable int _cached_size_;
@@ -5172,8 +5182,8 @@ class VertexCollection : public ::google::protobuf::
 };
 // -------------------------------------------------------------------
 
-class Relation
-    : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eicio.Relation) */ {
+class Relation : public ::google::protobuf::
+                     Message /* @@protoc_insertion_point(class_definition:eicio.model.Relation) */ {
    public:
     Relation();
     virtual ~Relation();
@@ -5231,23 +5241,23 @@ class Relation
 
     // accessors -------------------------------------------------------
 
-    // .eicio.Reference from = 2;
+    // .eicio.model.Reference from = 2;
     bool has_from() const;
     void clear_from();
     static const int kFromFieldNumber = 2;
-    const ::eicio::Reference& from() const;
-    ::eicio::Reference* mutable_from();
-    ::eicio::Reference* release_from();
-    void set_allocated_from(::eicio::Reference* from);
+    const ::eicio::model::Reference& from() const;
+    ::eicio::model::Reference* mutable_from();
+    ::eicio::model::Reference* release_from();
+    void set_allocated_from(::eicio::model::Reference* from);
 
-    // .eicio.Reference to = 3;
+    // .eicio.model.Reference to = 3;
     bool has_to() const;
     void clear_to();
     static const int kToFieldNumber = 3;
-    const ::eicio::Reference& to() const;
-    ::eicio::Reference* mutable_to();
-    ::eicio::Reference* release_to();
-    void set_allocated_to(::eicio::Reference* to);
+    const ::eicio::model::Reference& to() const;
+    ::eicio::model::Reference* mutable_to();
+    ::eicio::model::Reference* release_to();
+    void set_allocated_to(::eicio::model::Reference* to);
 
     // uint32 id = 1;
     void clear_id();
@@ -5261,11 +5271,11 @@ class Relation
     float weight() const;
     void set_weight(float value);
 
-    // @@protoc_insertion_point(class_scope:eicio.Relation)
+    // @@protoc_insertion_point(class_scope:eicio.model.Relation)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-    ::eicio::Reference* from_;
-    ::eicio::Reference* to_;
+    ::eicio::model::Reference* from_;
+    ::eicio::model::Reference* to_;
     ::google::protobuf::uint32 id_;
     float weight_;
     mutable int _cached_size_;
@@ -5275,7 +5285,7 @@ class Relation
 
 class RelationCollection
     : public ::google::protobuf::
-          Message /* @@protoc_insertion_point(class_definition:eicio.RelationCollection) */ {
+          Message /* @@protoc_insertion_point(class_definition:eicio.model.RelationCollection) */ {
    public:
     RelationCollection();
     virtual ~RelationCollection();
@@ -5333,24 +5343,24 @@ class RelationCollection
 
     // accessors -------------------------------------------------------
 
-    // repeated .eicio.Relation entries = 4;
+    // repeated .eicio.model.Relation entries = 4;
     int entries_size() const;
     void clear_entries();
     static const int kEntriesFieldNumber = 4;
-    const ::eicio::Relation& entries(int index) const;
-    ::eicio::Relation* mutable_entries(int index);
-    ::eicio::Relation* add_entries();
-    ::google::protobuf::RepeatedPtrField< ::eicio::Relation>* mutable_entries();
-    const ::google::protobuf::RepeatedPtrField< ::eicio::Relation>& entries() const;
+    const ::eicio::model::Relation& entries(int index) const;
+    ::eicio::model::Relation* mutable_entries(int index);
+    ::eicio::model::Relation* add_entries();
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Relation>* mutable_entries();
+    const ::google::protobuf::RepeatedPtrField< ::eicio::model::Relation>& entries() const;
 
-    // .eicio.Params params = 3;
+    // .eicio.model.Params params = 3;
     bool has_params() const;
     void clear_params();
     static const int kParamsFieldNumber = 3;
-    const ::eicio::Params& params() const;
-    ::eicio::Params* mutable_params();
-    ::eicio::Params* release_params();
-    void set_allocated_params(::eicio::Params* params);
+    const ::eicio::model::Params& params() const;
+    ::eicio::model::Params* mutable_params();
+    ::eicio::model::Params* release_params();
+    void set_allocated_params(::eicio::model::Params* params);
 
     // uint32 id = 1;
     void clear_id();
@@ -5364,11 +5374,11 @@ class RelationCollection
     ::google::protobuf::uint32 flags() const;
     void set_flags(::google::protobuf::uint32 value);
 
-    // @@protoc_insertion_point(class_scope:eicio.RelationCollection)
+    // @@protoc_insertion_point(class_scope:eicio.model.RelationCollection)
    private:
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-    ::google::protobuf::RepeatedPtrField< ::eicio::Relation> entries_;
-    ::eicio::Params* params_;
+    ::google::protobuf::RepeatedPtrField< ::eicio::model::Relation> entries_;
+    ::eicio::model::Params* params_;
     ::google::protobuf::uint32 id_;
     ::google::protobuf::uint32 flags_;
     mutable int _cached_size_;
@@ -5386,36 +5396,36 @@ inline void EventHeader_CollectionHeader::clear_name() {
     name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& EventHeader_CollectionHeader::name() const {
-    // @@protoc_insertion_point(field_get:eicio.EventHeader.CollectionHeader.name)
+    // @@protoc_insertion_point(field_get:eicio.model.EventHeader.CollectionHeader.name)
     return name_.GetNoArena();
 }
 inline void EventHeader_CollectionHeader::set_name(const ::std::string& value) {
     name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-    // @@protoc_insertion_point(field_set:eicio.EventHeader.CollectionHeader.name)
+    // @@protoc_insertion_point(field_set:eicio.model.EventHeader.CollectionHeader.name)
 }
 #if LANG_CXX11
 inline void EventHeader_CollectionHeader::set_name(::std::string&& value) {
     name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-    // @@protoc_insertion_point(field_set_rvalue:eicio.EventHeader.CollectionHeader.name)
+    // @@protoc_insertion_point(field_set_rvalue:eicio.model.EventHeader.CollectionHeader.name)
 }
 #endif
 inline void EventHeader_CollectionHeader::set_name(const char* value) {
     GOOGLE_DCHECK(value != NULL);
 
     name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-    // @@protoc_insertion_point(field_set_char:eicio.EventHeader.CollectionHeader.name)
+    // @@protoc_insertion_point(field_set_char:eicio.model.EventHeader.CollectionHeader.name)
 }
 inline void EventHeader_CollectionHeader::set_name(const char* value, size_t size) {
     name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
                      ::std::string(reinterpret_cast<const char*>(value), size));
-    // @@protoc_insertion_point(field_set_pointer:eicio.EventHeader.CollectionHeader.name)
+    // @@protoc_insertion_point(field_set_pointer:eicio.model.EventHeader.CollectionHeader.name)
 }
 inline ::std::string* EventHeader_CollectionHeader::mutable_name() {
-    // @@protoc_insertion_point(field_mutable:eicio.EventHeader.CollectionHeader.name)
+    // @@protoc_insertion_point(field_mutable:eicio.model.EventHeader.CollectionHeader.name)
     return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* EventHeader_CollectionHeader::release_name() {
-    // @@protoc_insertion_point(field_release:eicio.EventHeader.CollectionHeader.name)
+    // @@protoc_insertion_point(field_release:eicio.model.EventHeader.CollectionHeader.name)
 
     return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -5424,18 +5434,18 @@ inline void EventHeader_CollectionHeader::set_allocated_name(::std::string* name
     } else {
     }
     name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
-    // @@protoc_insertion_point(field_set_allocated:eicio.EventHeader.CollectionHeader.name)
+    // @@protoc_insertion_point(field_set_allocated:eicio.model.EventHeader.CollectionHeader.name)
 }
 
 // uint32 id = 2;
 inline void EventHeader_CollectionHeader::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 EventHeader_CollectionHeader::id() const {
-    // @@protoc_insertion_point(field_get:eicio.EventHeader.CollectionHeader.id)
+    // @@protoc_insertion_point(field_get:eicio.model.EventHeader.CollectionHeader.id)
     return id_;
 }
 inline void EventHeader_CollectionHeader::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.EventHeader.CollectionHeader.id)
+    // @@protoc_insertion_point(field_set:eicio.model.EventHeader.CollectionHeader.id)
 }
 
 // string type = 3;
@@ -5443,36 +5453,36 @@ inline void EventHeader_CollectionHeader::clear_type() {
     type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& EventHeader_CollectionHeader::type() const {
-    // @@protoc_insertion_point(field_get:eicio.EventHeader.CollectionHeader.type)
+    // @@protoc_insertion_point(field_get:eicio.model.EventHeader.CollectionHeader.type)
     return type_.GetNoArena();
 }
 inline void EventHeader_CollectionHeader::set_type(const ::std::string& value) {
     type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-    // @@protoc_insertion_point(field_set:eicio.EventHeader.CollectionHeader.type)
+    // @@protoc_insertion_point(field_set:eicio.model.EventHeader.CollectionHeader.type)
 }
 #if LANG_CXX11
 inline void EventHeader_CollectionHeader::set_type(::std::string&& value) {
     type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-    // @@protoc_insertion_point(field_set_rvalue:eicio.EventHeader.CollectionHeader.type)
+    // @@protoc_insertion_point(field_set_rvalue:eicio.model.EventHeader.CollectionHeader.type)
 }
 #endif
 inline void EventHeader_CollectionHeader::set_type(const char* value) {
     GOOGLE_DCHECK(value != NULL);
 
     type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-    // @@protoc_insertion_point(field_set_char:eicio.EventHeader.CollectionHeader.type)
+    // @@protoc_insertion_point(field_set_char:eicio.model.EventHeader.CollectionHeader.type)
 }
 inline void EventHeader_CollectionHeader::set_type(const char* value, size_t size) {
     type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
                      ::std::string(reinterpret_cast<const char*>(value), size));
-    // @@protoc_insertion_point(field_set_pointer:eicio.EventHeader.CollectionHeader.type)
+    // @@protoc_insertion_point(field_set_pointer:eicio.model.EventHeader.CollectionHeader.type)
 }
 inline ::std::string* EventHeader_CollectionHeader::mutable_type() {
-    // @@protoc_insertion_point(field_mutable:eicio.EventHeader.CollectionHeader.type)
+    // @@protoc_insertion_point(field_mutable:eicio.model.EventHeader.CollectionHeader.type)
     return type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* EventHeader_CollectionHeader::release_type() {
-    // @@protoc_insertion_point(field_release:eicio.EventHeader.CollectionHeader.type)
+    // @@protoc_insertion_point(field_release:eicio.model.EventHeader.CollectionHeader.type)
 
     return type_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -5481,18 +5491,18 @@ inline void EventHeader_CollectionHeader::set_allocated_type(::std::string* type
     } else {
     }
     type_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), type);
-    // @@protoc_insertion_point(field_set_allocated:eicio.EventHeader.CollectionHeader.type)
+    // @@protoc_insertion_point(field_set_allocated:eicio.model.EventHeader.CollectionHeader.type)
 }
 
 // uint32 payloadSize = 4;
 inline void EventHeader_CollectionHeader::clear_payloadsize() { payloadsize_ = 0u; }
 inline ::google::protobuf::uint32 EventHeader_CollectionHeader::payloadsize() const {
-    // @@protoc_insertion_point(field_get:eicio.EventHeader.CollectionHeader.payloadSize)
+    // @@protoc_insertion_point(field_get:eicio.model.EventHeader.CollectionHeader.payloadSize)
     return payloadsize_;
 }
 inline void EventHeader_CollectionHeader::set_payloadsize(::google::protobuf::uint32 value) {
     payloadsize_ = value;
-    // @@protoc_insertion_point(field_set:eicio.EventHeader.CollectionHeader.payloadSize)
+    // @@protoc_insertion_point(field_set:eicio.model.EventHeader.CollectionHeader.payloadSize)
 }
 
 // -------------------------------------------------------------------
@@ -5502,45 +5512,45 @@ inline void EventHeader_CollectionHeader::set_payloadsize(::google::protobuf::ui
 // uint32 version = 1;
 inline void EventHeader::clear_version() { version_ = 0u; }
 inline ::google::protobuf::uint32 EventHeader::version() const {
-    // @@protoc_insertion_point(field_get:eicio.EventHeader.version)
+    // @@protoc_insertion_point(field_get:eicio.model.EventHeader.version)
     return version_;
 }
 inline void EventHeader::set_version(::google::protobuf::uint32 value) {
     version_ = value;
-    // @@protoc_insertion_point(field_set:eicio.EventHeader.version)
+    // @@protoc_insertion_point(field_set:eicio.model.EventHeader.version)
 }
 
 // uint64 runNumber = 2;
 inline void EventHeader::clear_runnumber() { runnumber_ = GOOGLE_ULONGLONG(0); }
 inline ::google::protobuf::uint64 EventHeader::runnumber() const {
-    // @@protoc_insertion_point(field_get:eicio.EventHeader.runNumber)
+    // @@protoc_insertion_point(field_get:eicio.model.EventHeader.runNumber)
     return runnumber_;
 }
 inline void EventHeader::set_runnumber(::google::protobuf::uint64 value) {
     runnumber_ = value;
-    // @@protoc_insertion_point(field_set:eicio.EventHeader.runNumber)
+    // @@protoc_insertion_point(field_set:eicio.model.EventHeader.runNumber)
 }
 
 // uint64 eventNumber = 3;
 inline void EventHeader::clear_eventnumber() { eventnumber_ = GOOGLE_ULONGLONG(0); }
 inline ::google::protobuf::uint64 EventHeader::eventnumber() const {
-    // @@protoc_insertion_point(field_get:eicio.EventHeader.eventNumber)
+    // @@protoc_insertion_point(field_get:eicio.model.EventHeader.eventNumber)
     return eventnumber_;
 }
 inline void EventHeader::set_eventnumber(::google::protobuf::uint64 value) {
     eventnumber_ = value;
-    // @@protoc_insertion_point(field_set:eicio.EventHeader.eventNumber)
+    // @@protoc_insertion_point(field_set:eicio.model.EventHeader.eventNumber)
 }
 
 // uint64 timeStamp = 4;
 inline void EventHeader::clear_timestamp() { timestamp_ = GOOGLE_ULONGLONG(0); }
 inline ::google::protobuf::uint64 EventHeader::timestamp() const {
-    // @@protoc_insertion_point(field_get:eicio.EventHeader.timeStamp)
+    // @@protoc_insertion_point(field_get:eicio.model.EventHeader.timeStamp)
     return timestamp_;
 }
 inline void EventHeader::set_timestamp(::google::protobuf::uint64 value) {
     timestamp_ = value;
-    // @@protoc_insertion_point(field_set:eicio.EventHeader.timeStamp)
+    // @@protoc_insertion_point(field_set:eicio.model.EventHeader.timeStamp)
 }
 
 // string detector = 5;
@@ -5548,36 +5558,36 @@ inline void EventHeader::clear_detector() {
     detector_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& EventHeader::detector() const {
-    // @@protoc_insertion_point(field_get:eicio.EventHeader.detector)
+    // @@protoc_insertion_point(field_get:eicio.model.EventHeader.detector)
     return detector_.GetNoArena();
 }
 inline void EventHeader::set_detector(const ::std::string& value) {
     detector_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-    // @@protoc_insertion_point(field_set:eicio.EventHeader.detector)
+    // @@protoc_insertion_point(field_set:eicio.model.EventHeader.detector)
 }
 #if LANG_CXX11
 inline void EventHeader::set_detector(::std::string&& value) {
     detector_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-    // @@protoc_insertion_point(field_set_rvalue:eicio.EventHeader.detector)
+    // @@protoc_insertion_point(field_set_rvalue:eicio.model.EventHeader.detector)
 }
 #endif
 inline void EventHeader::set_detector(const char* value) {
     GOOGLE_DCHECK(value != NULL);
 
     detector_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-    // @@protoc_insertion_point(field_set_char:eicio.EventHeader.detector)
+    // @@protoc_insertion_point(field_set_char:eicio.model.EventHeader.detector)
 }
 inline void EventHeader::set_detector(const char* value, size_t size) {
     detector_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
                          ::std::string(reinterpret_cast<const char*>(value), size));
-    // @@protoc_insertion_point(field_set_pointer:eicio.EventHeader.detector)
+    // @@protoc_insertion_point(field_set_pointer:eicio.model.EventHeader.detector)
 }
 inline ::std::string* EventHeader::mutable_detector() {
-    // @@protoc_insertion_point(field_mutable:eicio.EventHeader.detector)
+    // @@protoc_insertion_point(field_mutable:eicio.model.EventHeader.detector)
     return detector_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* EventHeader::release_detector() {
-    // @@protoc_insertion_point(field_release:eicio.EventHeader.detector)
+    // @@protoc_insertion_point(field_release:eicio.model.EventHeader.detector)
 
     return detector_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -5586,77 +5596,77 @@ inline void EventHeader::set_allocated_detector(::std::string* detector) {
     } else {
     }
     detector_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), detector);
-    // @@protoc_insertion_point(field_set_allocated:eicio.EventHeader.detector)
+    // @@protoc_insertion_point(field_set_allocated:eicio.model.EventHeader.detector)
 }
 
-// .eicio.Params params = 6;
+// .eicio.model.Params params = 6;
 inline bool EventHeader::has_params() const { return this != internal_default_instance() && params_ != NULL; }
 inline void EventHeader::clear_params() {
     if (GetArenaNoVirtual() == NULL && params_ != NULL) delete params_;
     params_ = NULL;
 }
-inline const ::eicio::Params& EventHeader::params() const {
-    // @@protoc_insertion_point(field_get:eicio.EventHeader.params)
-    return params_ != NULL ? *params_ : *::eicio::Params::internal_default_instance();
+inline const ::eicio::model::Params& EventHeader::params() const {
+    // @@protoc_insertion_point(field_get:eicio.model.EventHeader.params)
+    return params_ != NULL ? *params_ : *::eicio::model::Params::internal_default_instance();
 }
-inline ::eicio::Params* EventHeader::mutable_params() {
+inline ::eicio::model::Params* EventHeader::mutable_params() {
     if (params_ == NULL) {
-        params_ = new ::eicio::Params;
+        params_ = new ::eicio::model::Params;
     }
-    // @@protoc_insertion_point(field_mutable:eicio.EventHeader.params)
+    // @@protoc_insertion_point(field_mutable:eicio.model.EventHeader.params)
     return params_;
 }
-inline ::eicio::Params* EventHeader::release_params() {
-    // @@protoc_insertion_point(field_release:eicio.EventHeader.params)
+inline ::eicio::model::Params* EventHeader::release_params() {
+    // @@protoc_insertion_point(field_release:eicio.model.EventHeader.params)
 
-    ::eicio::Params* temp = params_;
+    ::eicio::model::Params* temp = params_;
     params_ = NULL;
     return temp;
 }
-inline void EventHeader::set_allocated_params(::eicio::Params* params) {
+inline void EventHeader::set_allocated_params(::eicio::model::Params* params) {
     delete params_;
     params_ = params;
     if (params) {
     } else {
     }
-    // @@protoc_insertion_point(field_set_allocated:eicio.EventHeader.params)
+    // @@protoc_insertion_point(field_set_allocated:eicio.model.EventHeader.params)
 }
 
-// repeated .eicio.EventHeader.CollectionHeader payloadCollections = 7;
+// repeated .eicio.model.EventHeader.CollectionHeader payloadCollections = 7;
 inline int EventHeader::payloadcollections_size() const { return payloadcollections_.size(); }
 inline void EventHeader::clear_payloadcollections() { payloadcollections_.Clear(); }
-inline const ::eicio::EventHeader_CollectionHeader& EventHeader::payloadcollections(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.EventHeader.payloadCollections)
+inline const ::eicio::model::EventHeader_CollectionHeader& EventHeader::payloadcollections(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.EventHeader.payloadCollections)
     return payloadcollections_.Get(index);
 }
-inline ::eicio::EventHeader_CollectionHeader* EventHeader::mutable_payloadcollections(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.EventHeader.payloadCollections)
+inline ::eicio::model::EventHeader_CollectionHeader* EventHeader::mutable_payloadcollections(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.EventHeader.payloadCollections)
     return payloadcollections_.Mutable(index);
 }
-inline ::eicio::EventHeader_CollectionHeader* EventHeader::add_payloadcollections() {
-    // @@protoc_insertion_point(field_add:eicio.EventHeader.payloadCollections)
+inline ::eicio::model::EventHeader_CollectionHeader* EventHeader::add_payloadcollections() {
+    // @@protoc_insertion_point(field_add:eicio.model.EventHeader.payloadCollections)
     return payloadcollections_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::EventHeader_CollectionHeader>*
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::EventHeader_CollectionHeader>*
 EventHeader::mutable_payloadcollections() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.EventHeader.payloadCollections)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.EventHeader.payloadCollections)
     return &payloadcollections_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::EventHeader_CollectionHeader>&
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::EventHeader_CollectionHeader>&
 EventHeader::payloadcollections() const {
-    // @@protoc_insertion_point(field_list:eicio.EventHeader.payloadCollections)
+    // @@protoc_insertion_point(field_list:eicio.model.EventHeader.payloadCollections)
     return payloadcollections_;
 }
 
 // uint32 nUniqueIDs = 8;
 inline void EventHeader::clear_nuniqueids() { nuniqueids_ = 0u; }
 inline ::google::protobuf::uint32 EventHeader::nuniqueids() const {
-    // @@protoc_insertion_point(field_get:eicio.EventHeader.nUniqueIDs)
+    // @@protoc_insertion_point(field_get:eicio.model.EventHeader.nUniqueIDs)
     return nuniqueids_;
 }
 inline void EventHeader::set_nuniqueids(::google::protobuf::uint32 value) {
     nuniqueids_ = value;
-    // @@protoc_insertion_point(field_set:eicio.EventHeader.nUniqueIDs)
+    // @@protoc_insertion_point(field_set:eicio.model.EventHeader.nUniqueIDs)
 }
 
 // string description = 16;
@@ -5664,17 +5674,17 @@ inline void EventHeader::clear_description() {
     description_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& EventHeader::description() const {
-    // @@protoc_insertion_point(field_get:eicio.EventHeader.description)
+    // @@protoc_insertion_point(field_get:eicio.model.EventHeader.description)
     return description_.GetNoArena();
 }
 inline void EventHeader::set_description(const ::std::string& value) {
     description_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-    // @@protoc_insertion_point(field_set:eicio.EventHeader.description)
+    // @@protoc_insertion_point(field_set:eicio.model.EventHeader.description)
 }
 #if LANG_CXX11
 inline void EventHeader::set_description(::std::string&& value) {
     description_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-    // @@protoc_insertion_point(field_set_rvalue:eicio.EventHeader.description)
+    // @@protoc_insertion_point(field_set_rvalue:eicio.model.EventHeader.description)
 }
 #endif
 inline void EventHeader::set_description(const char* value) {
@@ -5682,19 +5692,19 @@ inline void EventHeader::set_description(const char* value) {
 
     description_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
                             ::std::string(value));
-    // @@protoc_insertion_point(field_set_char:eicio.EventHeader.description)
+    // @@protoc_insertion_point(field_set_char:eicio.model.EventHeader.description)
 }
 inline void EventHeader::set_description(const char* value, size_t size) {
     description_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
                             ::std::string(reinterpret_cast<const char*>(value), size));
-    // @@protoc_insertion_point(field_set_pointer:eicio.EventHeader.description)
+    // @@protoc_insertion_point(field_set_pointer:eicio.model.EventHeader.description)
 }
 inline ::std::string* EventHeader::mutable_description() {
-    // @@protoc_insertion_point(field_mutable:eicio.EventHeader.description)
+    // @@protoc_insertion_point(field_mutable:eicio.model.EventHeader.description)
     return description_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* EventHeader::release_description() {
-    // @@protoc_insertion_point(field_release:eicio.EventHeader.description)
+    // @@protoc_insertion_point(field_release:eicio.model.EventHeader.description)
 
     return description_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -5704,7 +5714,7 @@ inline void EventHeader::set_allocated_description(::std::string* description) {
     }
     description_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
                                      description);
-    // @@protoc_insertion_point(field_set_allocated:eicio.EventHeader.description)
+    // @@protoc_insertion_point(field_set_allocated:eicio.model.EventHeader.description)
 }
 
 // -------------------------------------------------------------------
@@ -5715,23 +5725,23 @@ inline void EventHeader::set_allocated_description(::std::string* description) {
 inline int IntParams::array_size() const { return array_.size(); }
 inline void IntParams::clear_array() { array_.Clear(); }
 inline ::google::protobuf::int32 IntParams::array(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.IntParams.array)
+    // @@protoc_insertion_point(field_get:eicio.model.IntParams.array)
     return array_.Get(index);
 }
 inline void IntParams::set_array(int index, ::google::protobuf::int32 value) {
     array_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.IntParams.array)
+    // @@protoc_insertion_point(field_set:eicio.model.IntParams.array)
 }
 inline void IntParams::add_array(::google::protobuf::int32 value) {
     array_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.IntParams.array)
+    // @@protoc_insertion_point(field_add:eicio.model.IntParams.array)
 }
 inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32>& IntParams::array() const {
-    // @@protoc_insertion_point(field_list:eicio.IntParams.array)
+    // @@protoc_insertion_point(field_list:eicio.model.IntParams.array)
     return array_;
 }
 inline ::google::protobuf::RepeatedField< ::google::protobuf::int32>* IntParams::mutable_array() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.IntParams.array)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.IntParams.array)
     return &array_;
 }
 
@@ -5743,23 +5753,23 @@ inline ::google::protobuf::RepeatedField< ::google::protobuf::int32>* IntParams:
 inline int FloatParams::array_size() const { return array_.size(); }
 inline void FloatParams::clear_array() { array_.Clear(); }
 inline float FloatParams::array(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.FloatParams.array)
+    // @@protoc_insertion_point(field_get:eicio.model.FloatParams.array)
     return array_.Get(index);
 }
 inline void FloatParams::set_array(int index, float value) {
     array_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.FloatParams.array)
+    // @@protoc_insertion_point(field_set:eicio.model.FloatParams.array)
 }
 inline void FloatParams::add_array(float value) {
     array_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.FloatParams.array)
+    // @@protoc_insertion_point(field_add:eicio.model.FloatParams.array)
 }
 inline const ::google::protobuf::RepeatedField<float>& FloatParams::array() const {
-    // @@protoc_insertion_point(field_list:eicio.FloatParams.array)
+    // @@protoc_insertion_point(field_list:eicio.model.FloatParams.array)
     return array_;
 }
 inline ::google::protobuf::RepeatedField<float>* FloatParams::mutable_array() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.FloatParams.array)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.FloatParams.array)
     return &array_;
 }
 
@@ -5771,61 +5781,61 @@ inline ::google::protobuf::RepeatedField<float>* FloatParams::mutable_array() {
 inline int StringParams::array_size() const { return array_.size(); }
 inline void StringParams::clear_array() { array_.Clear(); }
 inline const ::std::string& StringParams::array(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.StringParams.array)
+    // @@protoc_insertion_point(field_get:eicio.model.StringParams.array)
     return array_.Get(index);
 }
 inline ::std::string* StringParams::mutable_array(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.StringParams.array)
+    // @@protoc_insertion_point(field_mutable:eicio.model.StringParams.array)
     return array_.Mutable(index);
 }
 inline void StringParams::set_array(int index, const ::std::string& value) {
-    // @@protoc_insertion_point(field_set:eicio.StringParams.array)
+    // @@protoc_insertion_point(field_set:eicio.model.StringParams.array)
     array_.Mutable(index)->assign(value);
 }
 #if LANG_CXX11
 inline void StringParams::set_array(int index, ::std::string&& value) {
-    // @@protoc_insertion_point(field_set:eicio.StringParams.array)
+    // @@protoc_insertion_point(field_set:eicio.model.StringParams.array)
     array_.Mutable(index)->assign(std::move(value));
 }
 #endif
 inline void StringParams::set_array(int index, const char* value) {
     GOOGLE_DCHECK(value != NULL);
     array_.Mutable(index)->assign(value);
-    // @@protoc_insertion_point(field_set_char:eicio.StringParams.array)
+    // @@protoc_insertion_point(field_set_char:eicio.model.StringParams.array)
 }
 inline void StringParams::set_array(int index, const char* value, size_t size) {
     array_.Mutable(index)->assign(reinterpret_cast<const char*>(value), size);
-    // @@protoc_insertion_point(field_set_pointer:eicio.StringParams.array)
+    // @@protoc_insertion_point(field_set_pointer:eicio.model.StringParams.array)
 }
 inline ::std::string* StringParams::add_array() {
-    // @@protoc_insertion_point(field_add_mutable:eicio.StringParams.array)
+    // @@protoc_insertion_point(field_add_mutable:eicio.model.StringParams.array)
     return array_.Add();
 }
 inline void StringParams::add_array(const ::std::string& value) {
     array_.Add()->assign(value);
-    // @@protoc_insertion_point(field_add:eicio.StringParams.array)
+    // @@protoc_insertion_point(field_add:eicio.model.StringParams.array)
 }
 #if LANG_CXX11
 inline void StringParams::add_array(::std::string&& value) {
     array_.Add(std::move(value));
-    // @@protoc_insertion_point(field_add:eicio.StringParams.array)
+    // @@protoc_insertion_point(field_add:eicio.model.StringParams.array)
 }
 #endif
 inline void StringParams::add_array(const char* value) {
     GOOGLE_DCHECK(value != NULL);
     array_.Add()->assign(value);
-    // @@protoc_insertion_point(field_add_char:eicio.StringParams.array)
+    // @@protoc_insertion_point(field_add_char:eicio.model.StringParams.array)
 }
 inline void StringParams::add_array(const char* value, size_t size) {
     array_.Add()->assign(reinterpret_cast<const char*>(value), size);
-    // @@protoc_insertion_point(field_add_pointer:eicio.StringParams.array)
+    // @@protoc_insertion_point(field_add_pointer:eicio.model.StringParams.array)
 }
 inline const ::google::protobuf::RepeatedPtrField< ::std::string>& StringParams::array() const {
-    // @@protoc_insertion_point(field_list:eicio.StringParams.array)
+    // @@protoc_insertion_point(field_list:eicio.model.StringParams.array)
     return array_;
 }
 inline ::google::protobuf::RepeatedPtrField< ::std::string>* StringParams::mutable_array() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.StringParams.array)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.StringParams.array)
     return &array_;
 }
 
@@ -5839,39 +5849,39 @@ inline ::google::protobuf::RepeatedPtrField< ::std::string>* StringParams::mutab
 
 // Params
 
-// map<string, .eicio.IntParams> ints = 1;
+// map<string, .eicio.model.IntParams> ints = 1;
 inline int Params::ints_size() const { return ints_.size(); }
 inline void Params::clear_ints() { ints_.Clear(); }
-inline const ::google::protobuf::Map< ::std::string, ::eicio::IntParams>& Params::ints() const {
-    // @@protoc_insertion_point(field_map:eicio.Params.ints)
+inline const ::google::protobuf::Map< ::std::string, ::eicio::model::IntParams>& Params::ints() const {
+    // @@protoc_insertion_point(field_map:eicio.model.Params.ints)
     return ints_.GetMap();
 }
-inline ::google::protobuf::Map< ::std::string, ::eicio::IntParams>* Params::mutable_ints() {
-    // @@protoc_insertion_point(field_mutable_map:eicio.Params.ints)
+inline ::google::protobuf::Map< ::std::string, ::eicio::model::IntParams>* Params::mutable_ints() {
+    // @@protoc_insertion_point(field_mutable_map:eicio.model.Params.ints)
     return ints_.MutableMap();
 }
 
-// map<string, .eicio.FloatParams> floats = 2;
+// map<string, .eicio.model.FloatParams> floats = 2;
 inline int Params::floats_size() const { return floats_.size(); }
 inline void Params::clear_floats() { floats_.Clear(); }
-inline const ::google::protobuf::Map< ::std::string, ::eicio::FloatParams>& Params::floats() const {
-    // @@protoc_insertion_point(field_map:eicio.Params.floats)
+inline const ::google::protobuf::Map< ::std::string, ::eicio::model::FloatParams>& Params::floats() const {
+    // @@protoc_insertion_point(field_map:eicio.model.Params.floats)
     return floats_.GetMap();
 }
-inline ::google::protobuf::Map< ::std::string, ::eicio::FloatParams>* Params::mutable_floats() {
-    // @@protoc_insertion_point(field_mutable_map:eicio.Params.floats)
+inline ::google::protobuf::Map< ::std::string, ::eicio::model::FloatParams>* Params::mutable_floats() {
+    // @@protoc_insertion_point(field_mutable_map:eicio.model.Params.floats)
     return floats_.MutableMap();
 }
 
-// map<string, .eicio.StringParams> strings = 3;
+// map<string, .eicio.model.StringParams> strings = 3;
 inline int Params::strings_size() const { return strings_.size(); }
 inline void Params::clear_strings() { strings_.Clear(); }
-inline const ::google::protobuf::Map< ::std::string, ::eicio::StringParams>& Params::strings() const {
-    // @@protoc_insertion_point(field_map:eicio.Params.strings)
+inline const ::google::protobuf::Map< ::std::string, ::eicio::model::StringParams>& Params::strings() const {
+    // @@protoc_insertion_point(field_map:eicio.model.Params.strings)
     return strings_.GetMap();
 }
-inline ::google::protobuf::Map< ::std::string, ::eicio::StringParams>* Params::mutable_strings() {
-    // @@protoc_insertion_point(field_mutable_map:eicio.Params.strings)
+inline ::google::protobuf::Map< ::std::string, ::eicio::model::StringParams>* Params::mutable_strings() {
+    // @@protoc_insertion_point(field_mutable_map:eicio.model.Params.strings)
     return strings_.MutableMap();
 }
 
@@ -5882,23 +5892,23 @@ inline ::google::protobuf::Map< ::std::string, ::eicio::StringParams>* Params::m
 // uint32 collID = 1;
 inline void Reference::clear_collid() { collid_ = 0u; }
 inline ::google::protobuf::uint32 Reference::collid() const {
-    // @@protoc_insertion_point(field_get:eicio.Reference.collID)
+    // @@protoc_insertion_point(field_get:eicio.model.Reference.collID)
     return collid_;
 }
 inline void Reference::set_collid(::google::protobuf::uint32 value) {
     collid_ = value;
-    // @@protoc_insertion_point(field_set:eicio.Reference.collID)
+    // @@protoc_insertion_point(field_set:eicio.model.Reference.collID)
 }
 
 // uint32 entryID = 2;
 inline void Reference::clear_entryid() { entryid_ = 0u; }
 inline ::google::protobuf::uint32 Reference::entryid() const {
-    // @@protoc_insertion_point(field_get:eicio.Reference.entryID)
+    // @@protoc_insertion_point(field_get:eicio.model.Reference.entryID)
     return entryid_;
 }
 inline void Reference::set_entryid(::google::protobuf::uint32 value) {
     entryid_ = value;
-    // @@protoc_insertion_point(field_set:eicio.Reference.entryID)
+    // @@protoc_insertion_point(field_set:eicio.model.Reference.entryID)
 }
 
 // -------------------------------------------------------------------
@@ -5908,68 +5918,68 @@ inline void Reference::set_entryid(::google::protobuf::uint32 value) {
 // float likelihood = 1;
 inline void ParticleID::clear_likelihood() { likelihood_ = 0; }
 inline float ParticleID::likelihood() const {
-    // @@protoc_insertion_point(field_get:eicio.ParticleID.likelihood)
+    // @@protoc_insertion_point(field_get:eicio.model.ParticleID.likelihood)
     return likelihood_;
 }
 inline void ParticleID::set_likelihood(float value) {
     likelihood_ = value;
-    // @@protoc_insertion_point(field_set:eicio.ParticleID.likelihood)
+    // @@protoc_insertion_point(field_set:eicio.model.ParticleID.likelihood)
 }
 
 // int32 type = 2;
 inline void ParticleID::clear_type() { type_ = 0; }
 inline ::google::protobuf::int32 ParticleID::type() const {
-    // @@protoc_insertion_point(field_get:eicio.ParticleID.type)
+    // @@protoc_insertion_point(field_get:eicio.model.ParticleID.type)
     return type_;
 }
 inline void ParticleID::set_type(::google::protobuf::int32 value) {
     type_ = value;
-    // @@protoc_insertion_point(field_set:eicio.ParticleID.type)
+    // @@protoc_insertion_point(field_set:eicio.model.ParticleID.type)
 }
 
 // int32 PDG = 3;
 inline void ParticleID::clear_pdg() { pdg_ = 0; }
 inline ::google::protobuf::int32 ParticleID::pdg() const {
-    // @@protoc_insertion_point(field_get:eicio.ParticleID.PDG)
+    // @@protoc_insertion_point(field_get:eicio.model.ParticleID.PDG)
     return pdg_;
 }
 inline void ParticleID::set_pdg(::google::protobuf::int32 value) {
     pdg_ = value;
-    // @@protoc_insertion_point(field_set:eicio.ParticleID.PDG)
+    // @@protoc_insertion_point(field_set:eicio.model.ParticleID.PDG)
 }
 
 // int32 algType = 4;
 inline void ParticleID::clear_algtype() { algtype_ = 0; }
 inline ::google::protobuf::int32 ParticleID::algtype() const {
-    // @@protoc_insertion_point(field_get:eicio.ParticleID.algType)
+    // @@protoc_insertion_point(field_get:eicio.model.ParticleID.algType)
     return algtype_;
 }
 inline void ParticleID::set_algtype(::google::protobuf::int32 value) {
     algtype_ = value;
-    // @@protoc_insertion_point(field_set:eicio.ParticleID.algType)
+    // @@protoc_insertion_point(field_set:eicio.model.ParticleID.algType)
 }
 
 // repeated float params = 5;
 inline int ParticleID::params_size() const { return params_.size(); }
 inline void ParticleID::clear_params() { params_.Clear(); }
 inline float ParticleID::params(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.ParticleID.params)
+    // @@protoc_insertion_point(field_get:eicio.model.ParticleID.params)
     return params_.Get(index);
 }
 inline void ParticleID::set_params(int index, float value) {
     params_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.ParticleID.params)
+    // @@protoc_insertion_point(field_set:eicio.model.ParticleID.params)
 }
 inline void ParticleID::add_params(float value) {
     params_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.ParticleID.params)
+    // @@protoc_insertion_point(field_add:eicio.model.ParticleID.params)
 }
 inline const ::google::protobuf::RepeatedField<float>& ParticleID::params() const {
-    // @@protoc_insertion_point(field_list:eicio.ParticleID.params)
+    // @@protoc_insertion_point(field_list:eicio.model.ParticleID.params)
     return params_;
 }
 inline ::google::protobuf::RepeatedField<float>* ParticleID::mutable_params() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.ParticleID.params)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.ParticleID.params)
     return &params_;
 }
 
@@ -5980,175 +5990,175 @@ inline ::google::protobuf::RepeatedField<float>* ParticleID::mutable_params() {
 // uint32 id = 1;
 inline void MCParticle::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 MCParticle::id() const {
-    // @@protoc_insertion_point(field_get:eicio.MCParticle.id)
+    // @@protoc_insertion_point(field_get:eicio.model.MCParticle.id)
     return id_;
 }
 inline void MCParticle::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.MCParticle.id)
+    // @@protoc_insertion_point(field_set:eicio.model.MCParticle.id)
 }
 
-// repeated .eicio.Reference parents = 2;
+// repeated .eicio.model.Reference parents = 2;
 inline int MCParticle::parents_size() const { return parents_.size(); }
 inline void MCParticle::clear_parents() { parents_.Clear(); }
-inline const ::eicio::Reference& MCParticle::parents(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.MCParticle.parents)
+inline const ::eicio::model::Reference& MCParticle::parents(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.MCParticle.parents)
     return parents_.Get(index);
 }
-inline ::eicio::Reference* MCParticle::mutable_parents(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.MCParticle.parents)
+inline ::eicio::model::Reference* MCParticle::mutable_parents(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.MCParticle.parents)
     return parents_.Mutable(index);
 }
-inline ::eicio::Reference* MCParticle::add_parents() {
-    // @@protoc_insertion_point(field_add:eicio.MCParticle.parents)
+inline ::eicio::model::Reference* MCParticle::add_parents() {
+    // @@protoc_insertion_point(field_add:eicio.model.MCParticle.parents)
     return parents_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::Reference>* MCParticle::mutable_parents() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.MCParticle.parents)
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>* MCParticle::mutable_parents() {
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.MCParticle.parents)
     return &parents_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::Reference>& MCParticle::parents() const {
-    // @@protoc_insertion_point(field_list:eicio.MCParticle.parents)
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>& MCParticle::parents() const {
+    // @@protoc_insertion_point(field_list:eicio.model.MCParticle.parents)
     return parents_;
 }
 
-// repeated .eicio.Reference children = 3;
+// repeated .eicio.model.Reference children = 3;
 inline int MCParticle::children_size() const { return children_.size(); }
 inline void MCParticle::clear_children() { children_.Clear(); }
-inline const ::eicio::Reference& MCParticle::children(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.MCParticle.children)
+inline const ::eicio::model::Reference& MCParticle::children(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.MCParticle.children)
     return children_.Get(index);
 }
-inline ::eicio::Reference* MCParticle::mutable_children(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.MCParticle.children)
+inline ::eicio::model::Reference* MCParticle::mutable_children(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.MCParticle.children)
     return children_.Mutable(index);
 }
-inline ::eicio::Reference* MCParticle::add_children() {
-    // @@protoc_insertion_point(field_add:eicio.MCParticle.children)
+inline ::eicio::model::Reference* MCParticle::add_children() {
+    // @@protoc_insertion_point(field_add:eicio.model.MCParticle.children)
     return children_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::Reference>* MCParticle::mutable_children() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.MCParticle.children)
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>* MCParticle::mutable_children() {
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.MCParticle.children)
     return &children_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::Reference>& MCParticle::children() const {
-    // @@protoc_insertion_point(field_list:eicio.MCParticle.children)
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>& MCParticle::children() const {
+    // @@protoc_insertion_point(field_list:eicio.model.MCParticle.children)
     return children_;
 }
 
 // int32 PDG = 4;
 inline void MCParticle::clear_pdg() { pdg_ = 0; }
 inline ::google::protobuf::int32 MCParticle::pdg() const {
-    // @@protoc_insertion_point(field_get:eicio.MCParticle.PDG)
+    // @@protoc_insertion_point(field_get:eicio.model.MCParticle.PDG)
     return pdg_;
 }
 inline void MCParticle::set_pdg(::google::protobuf::int32 value) {
     pdg_ = value;
-    // @@protoc_insertion_point(field_set:eicio.MCParticle.PDG)
+    // @@protoc_insertion_point(field_set:eicio.model.MCParticle.PDG)
 }
 
 // repeated double vertex = 5;
 inline int MCParticle::vertex_size() const { return vertex_.size(); }
 inline void MCParticle::clear_vertex() { vertex_.Clear(); }
 inline double MCParticle::vertex(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.MCParticle.vertex)
+    // @@protoc_insertion_point(field_get:eicio.model.MCParticle.vertex)
     return vertex_.Get(index);
 }
 inline void MCParticle::set_vertex(int index, double value) {
     vertex_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.MCParticle.vertex)
+    // @@protoc_insertion_point(field_set:eicio.model.MCParticle.vertex)
 }
 inline void MCParticle::add_vertex(double value) {
     vertex_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.MCParticle.vertex)
+    // @@protoc_insertion_point(field_add:eicio.model.MCParticle.vertex)
 }
 inline const ::google::protobuf::RepeatedField<double>& MCParticle::vertex() const {
-    // @@protoc_insertion_point(field_list:eicio.MCParticle.vertex)
+    // @@protoc_insertion_point(field_list:eicio.model.MCParticle.vertex)
     return vertex_;
 }
 inline ::google::protobuf::RepeatedField<double>* MCParticle::mutable_vertex() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.MCParticle.vertex)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.MCParticle.vertex)
     return &vertex_;
 }
 
 // float time = 6;
 inline void MCParticle::clear_time() { time_ = 0; }
 inline float MCParticle::time() const {
-    // @@protoc_insertion_point(field_get:eicio.MCParticle.time)
+    // @@protoc_insertion_point(field_get:eicio.model.MCParticle.time)
     return time_;
 }
 inline void MCParticle::set_time(float value) {
     time_ = value;
-    // @@protoc_insertion_point(field_set:eicio.MCParticle.time)
+    // @@protoc_insertion_point(field_set:eicio.model.MCParticle.time)
 }
 
 // repeated double p = 7;
 inline int MCParticle::p_size() const { return p_.size(); }
 inline void MCParticle::clear_p() { p_.Clear(); }
 inline double MCParticle::p(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.MCParticle.p)
+    // @@protoc_insertion_point(field_get:eicio.model.MCParticle.p)
     return p_.Get(index);
 }
 inline void MCParticle::set_p(int index, double value) {
     p_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.MCParticle.p)
+    // @@protoc_insertion_point(field_set:eicio.model.MCParticle.p)
 }
 inline void MCParticle::add_p(double value) {
     p_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.MCParticle.p)
+    // @@protoc_insertion_point(field_add:eicio.model.MCParticle.p)
 }
 inline const ::google::protobuf::RepeatedField<double>& MCParticle::p() const {
-    // @@protoc_insertion_point(field_list:eicio.MCParticle.p)
+    // @@protoc_insertion_point(field_list:eicio.model.MCParticle.p)
     return p_;
 }
 inline ::google::protobuf::RepeatedField<double>* MCParticle::mutable_p() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.MCParticle.p)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.MCParticle.p)
     return &p_;
 }
 
 // double mass = 8;
 inline void MCParticle::clear_mass() { mass_ = 0; }
 inline double MCParticle::mass() const {
-    // @@protoc_insertion_point(field_get:eicio.MCParticle.mass)
+    // @@protoc_insertion_point(field_get:eicio.model.MCParticle.mass)
     return mass_;
 }
 inline void MCParticle::set_mass(double value) {
     mass_ = value;
-    // @@protoc_insertion_point(field_set:eicio.MCParticle.mass)
+    // @@protoc_insertion_point(field_set:eicio.model.MCParticle.mass)
 }
 
 // float charge = 9;
 inline void MCParticle::clear_charge() { charge_ = 0; }
 inline float MCParticle::charge() const {
-    // @@protoc_insertion_point(field_get:eicio.MCParticle.charge)
+    // @@protoc_insertion_point(field_get:eicio.model.MCParticle.charge)
     return charge_;
 }
 inline void MCParticle::set_charge(float value) {
     charge_ = value;
-    // @@protoc_insertion_point(field_set:eicio.MCParticle.charge)
+    // @@protoc_insertion_point(field_set:eicio.model.MCParticle.charge)
 }
 
 // repeated double PEndPoint = 10;
 inline int MCParticle::pendpoint_size() const { return pendpoint_.size(); }
 inline void MCParticle::clear_pendpoint() { pendpoint_.Clear(); }
 inline double MCParticle::pendpoint(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.MCParticle.PEndPoint)
+    // @@protoc_insertion_point(field_get:eicio.model.MCParticle.PEndPoint)
     return pendpoint_.Get(index);
 }
 inline void MCParticle::set_pendpoint(int index, double value) {
     pendpoint_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.MCParticle.PEndPoint)
+    // @@protoc_insertion_point(field_set:eicio.model.MCParticle.PEndPoint)
 }
 inline void MCParticle::add_pendpoint(double value) {
     pendpoint_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.MCParticle.PEndPoint)
+    // @@protoc_insertion_point(field_add:eicio.model.MCParticle.PEndPoint)
 }
 inline const ::google::protobuf::RepeatedField<double>& MCParticle::pendpoint() const {
-    // @@protoc_insertion_point(field_list:eicio.MCParticle.PEndPoint)
+    // @@protoc_insertion_point(field_list:eicio.model.MCParticle.PEndPoint)
     return pendpoint_;
 }
 inline ::google::protobuf::RepeatedField<double>* MCParticle::mutable_pendpoint() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.MCParticle.PEndPoint)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.MCParticle.PEndPoint)
     return &pendpoint_;
 }
 
@@ -6156,23 +6166,23 @@ inline ::google::protobuf::RepeatedField<double>* MCParticle::mutable_pendpoint(
 inline int MCParticle::spin_size() const { return spin_.size(); }
 inline void MCParticle::clear_spin() { spin_.Clear(); }
 inline float MCParticle::spin(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.MCParticle.spin)
+    // @@protoc_insertion_point(field_get:eicio.model.MCParticle.spin)
     return spin_.Get(index);
 }
 inline void MCParticle::set_spin(int index, float value) {
     spin_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.MCParticle.spin)
+    // @@protoc_insertion_point(field_set:eicio.model.MCParticle.spin)
 }
 inline void MCParticle::add_spin(float value) {
     spin_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.MCParticle.spin)
+    // @@protoc_insertion_point(field_add:eicio.model.MCParticle.spin)
 }
 inline const ::google::protobuf::RepeatedField<float>& MCParticle::spin() const {
-    // @@protoc_insertion_point(field_list:eicio.MCParticle.spin)
+    // @@protoc_insertion_point(field_list:eicio.model.MCParticle.spin)
     return spin_;
 }
 inline ::google::protobuf::RepeatedField<float>* MCParticle::mutable_spin() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.MCParticle.spin)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.MCParticle.spin)
     return &spin_;
 }
 
@@ -6180,46 +6190,46 @@ inline ::google::protobuf::RepeatedField<float>* MCParticle::mutable_spin() {
 inline int MCParticle::colorflow_size() const { return colorflow_.size(); }
 inline void MCParticle::clear_colorflow() { colorflow_.Clear(); }
 inline ::google::protobuf::int32 MCParticle::colorflow(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.MCParticle.colorFlow)
+    // @@protoc_insertion_point(field_get:eicio.model.MCParticle.colorFlow)
     return colorflow_.Get(index);
 }
 inline void MCParticle::set_colorflow(int index, ::google::protobuf::int32 value) {
     colorflow_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.MCParticle.colorFlow)
+    // @@protoc_insertion_point(field_set:eicio.model.MCParticle.colorFlow)
 }
 inline void MCParticle::add_colorflow(::google::protobuf::int32 value) {
     colorflow_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.MCParticle.colorFlow)
+    // @@protoc_insertion_point(field_add:eicio.model.MCParticle.colorFlow)
 }
 inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32>& MCParticle::colorflow() const {
-    // @@protoc_insertion_point(field_list:eicio.MCParticle.colorFlow)
+    // @@protoc_insertion_point(field_list:eicio.model.MCParticle.colorFlow)
     return colorflow_;
 }
 inline ::google::protobuf::RepeatedField< ::google::protobuf::int32>* MCParticle::mutable_colorflow() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.MCParticle.colorFlow)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.MCParticle.colorFlow)
     return &colorflow_;
 }
 
 // int32 genStatus = 13;
 inline void MCParticle::clear_genstatus() { genstatus_ = 0; }
 inline ::google::protobuf::int32 MCParticle::genstatus() const {
-    // @@protoc_insertion_point(field_get:eicio.MCParticle.genStatus)
+    // @@protoc_insertion_point(field_get:eicio.model.MCParticle.genStatus)
     return genstatus_;
 }
 inline void MCParticle::set_genstatus(::google::protobuf::int32 value) {
     genstatus_ = value;
-    // @@protoc_insertion_point(field_set:eicio.MCParticle.genStatus)
+    // @@protoc_insertion_point(field_set:eicio.model.MCParticle.genStatus)
 }
 
 // uint32 simStatus = 14;
 inline void MCParticle::clear_simstatus() { simstatus_ = 0u; }
 inline ::google::protobuf::uint32 MCParticle::simstatus() const {
-    // @@protoc_insertion_point(field_get:eicio.MCParticle.simStatus)
+    // @@protoc_insertion_point(field_get:eicio.model.MCParticle.simStatus)
     return simstatus_;
 }
 inline void MCParticle::set_simstatus(::google::protobuf::uint32 value) {
     simstatus_ = value;
-    // @@protoc_insertion_point(field_set:eicio.MCParticle.simStatus)
+    // @@protoc_insertion_point(field_set:eicio.model.MCParticle.simStatus)
 }
 
 // -------------------------------------------------------------------
@@ -6229,26 +6239,26 @@ inline void MCParticle::set_simstatus(::google::protobuf::uint32 value) {
 // uint32 id = 1;
 inline void MCParticleCollection::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 MCParticleCollection::id() const {
-    // @@protoc_insertion_point(field_get:eicio.MCParticleCollection.id)
+    // @@protoc_insertion_point(field_get:eicio.model.MCParticleCollection.id)
     return id_;
 }
 inline void MCParticleCollection::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.MCParticleCollection.id)
+    // @@protoc_insertion_point(field_set:eicio.model.MCParticleCollection.id)
 }
 
 // uint32 flags = 2;
 inline void MCParticleCollection::clear_flags() { flags_ = 0u; }
 inline ::google::protobuf::uint32 MCParticleCollection::flags() const {
-    // @@protoc_insertion_point(field_get:eicio.MCParticleCollection.flags)
+    // @@protoc_insertion_point(field_get:eicio.model.MCParticleCollection.flags)
     return flags_;
 }
 inline void MCParticleCollection::set_flags(::google::protobuf::uint32 value) {
     flags_ = value;
-    // @@protoc_insertion_point(field_set:eicio.MCParticleCollection.flags)
+    // @@protoc_insertion_point(field_set:eicio.model.MCParticleCollection.flags)
 }
 
-// .eicio.Params params = 3;
+// .eicio.model.Params params = 3;
 inline bool MCParticleCollection::has_params() const {
     return this != internal_default_instance() && params_ != NULL;
 }
@@ -6256,55 +6266,56 @@ inline void MCParticleCollection::clear_params() {
     if (GetArenaNoVirtual() == NULL && params_ != NULL) delete params_;
     params_ = NULL;
 }
-inline const ::eicio::Params& MCParticleCollection::params() const {
-    // @@protoc_insertion_point(field_get:eicio.MCParticleCollection.params)
-    return params_ != NULL ? *params_ : *::eicio::Params::internal_default_instance();
+inline const ::eicio::model::Params& MCParticleCollection::params() const {
+    // @@protoc_insertion_point(field_get:eicio.model.MCParticleCollection.params)
+    return params_ != NULL ? *params_ : *::eicio::model::Params::internal_default_instance();
 }
-inline ::eicio::Params* MCParticleCollection::mutable_params() {
+inline ::eicio::model::Params* MCParticleCollection::mutable_params() {
     if (params_ == NULL) {
-        params_ = new ::eicio::Params;
+        params_ = new ::eicio::model::Params;
     }
-    // @@protoc_insertion_point(field_mutable:eicio.MCParticleCollection.params)
+    // @@protoc_insertion_point(field_mutable:eicio.model.MCParticleCollection.params)
     return params_;
 }
-inline ::eicio::Params* MCParticleCollection::release_params() {
-    // @@protoc_insertion_point(field_release:eicio.MCParticleCollection.params)
+inline ::eicio::model::Params* MCParticleCollection::release_params() {
+    // @@protoc_insertion_point(field_release:eicio.model.MCParticleCollection.params)
 
-    ::eicio::Params* temp = params_;
+    ::eicio::model::Params* temp = params_;
     params_ = NULL;
     return temp;
 }
-inline void MCParticleCollection::set_allocated_params(::eicio::Params* params) {
+inline void MCParticleCollection::set_allocated_params(::eicio::model::Params* params) {
     delete params_;
     params_ = params;
     if (params) {
     } else {
     }
-    // @@protoc_insertion_point(field_set_allocated:eicio.MCParticleCollection.params)
+    // @@protoc_insertion_point(field_set_allocated:eicio.model.MCParticleCollection.params)
 }
 
-// repeated .eicio.MCParticle entries = 4;
+// repeated .eicio.model.MCParticle entries = 4;
 inline int MCParticleCollection::entries_size() const { return entries_.size(); }
 inline void MCParticleCollection::clear_entries() { entries_.Clear(); }
-inline const ::eicio::MCParticle& MCParticleCollection::entries(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.MCParticleCollection.entries)
+inline const ::eicio::model::MCParticle& MCParticleCollection::entries(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.MCParticleCollection.entries)
     return entries_.Get(index);
 }
-inline ::eicio::MCParticle* MCParticleCollection::mutable_entries(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.MCParticleCollection.entries)
+inline ::eicio::model::MCParticle* MCParticleCollection::mutable_entries(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.MCParticleCollection.entries)
     return entries_.Mutable(index);
 }
-inline ::eicio::MCParticle* MCParticleCollection::add_entries() {
-    // @@protoc_insertion_point(field_add:eicio.MCParticleCollection.entries)
+inline ::eicio::model::MCParticle* MCParticleCollection::add_entries() {
+    // @@protoc_insertion_point(field_add:eicio.model.MCParticleCollection.entries)
     return entries_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::MCParticle>* MCParticleCollection::mutable_entries() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.MCParticleCollection.entries)
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::MCParticle>*
+MCParticleCollection::mutable_entries() {
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.MCParticleCollection.entries)
     return &entries_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::MCParticle>& MCParticleCollection::entries()
-    const {
-    // @@protoc_insertion_point(field_list:eicio.MCParticleCollection.entries)
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::MCParticle>&
+MCParticleCollection::entries() const {
+    // @@protoc_insertion_point(field_list:eicio.model.MCParticleCollection.entries)
     return entries_;
 }
 
@@ -6315,159 +6326,159 @@ inline const ::google::protobuf::RepeatedPtrField< ::eicio::MCParticle>& MCParti
 // uint32 id = 1;
 inline void SimTrackerHit::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 SimTrackerHit::id() const {
-    // @@protoc_insertion_point(field_get:eicio.SimTrackerHit.id)
+    // @@protoc_insertion_point(field_get:eicio.model.SimTrackerHit.id)
     return id_;
 }
 inline void SimTrackerHit::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.SimTrackerHit.id)
+    // @@protoc_insertion_point(field_set:eicio.model.SimTrackerHit.id)
 }
 
 // int32 cellID0 = 2;
 inline void SimTrackerHit::clear_cellid0() { cellid0_ = 0; }
 inline ::google::protobuf::int32 SimTrackerHit::cellid0() const {
-    // @@protoc_insertion_point(field_get:eicio.SimTrackerHit.cellID0)
+    // @@protoc_insertion_point(field_get:eicio.model.SimTrackerHit.cellID0)
     return cellid0_;
 }
 inline void SimTrackerHit::set_cellid0(::google::protobuf::int32 value) {
     cellid0_ = value;
-    // @@protoc_insertion_point(field_set:eicio.SimTrackerHit.cellID0)
+    // @@protoc_insertion_point(field_set:eicio.model.SimTrackerHit.cellID0)
 }
 
 // int32 cellID1 = 3;
 inline void SimTrackerHit::clear_cellid1() { cellid1_ = 0; }
 inline ::google::protobuf::int32 SimTrackerHit::cellid1() const {
-    // @@protoc_insertion_point(field_get:eicio.SimTrackerHit.cellID1)
+    // @@protoc_insertion_point(field_get:eicio.model.SimTrackerHit.cellID1)
     return cellid1_;
 }
 inline void SimTrackerHit::set_cellid1(::google::protobuf::int32 value) {
     cellid1_ = value;
-    // @@protoc_insertion_point(field_set:eicio.SimTrackerHit.cellID1)
+    // @@protoc_insertion_point(field_set:eicio.model.SimTrackerHit.cellID1)
 }
 
 // repeated double pos = 4;
 inline int SimTrackerHit::pos_size() const { return pos_.size(); }
 inline void SimTrackerHit::clear_pos() { pos_.Clear(); }
 inline double SimTrackerHit::pos(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.SimTrackerHit.pos)
+    // @@protoc_insertion_point(field_get:eicio.model.SimTrackerHit.pos)
     return pos_.Get(index);
 }
 inline void SimTrackerHit::set_pos(int index, double value) {
     pos_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.SimTrackerHit.pos)
+    // @@protoc_insertion_point(field_set:eicio.model.SimTrackerHit.pos)
 }
 inline void SimTrackerHit::add_pos(double value) {
     pos_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.SimTrackerHit.pos)
+    // @@protoc_insertion_point(field_add:eicio.model.SimTrackerHit.pos)
 }
 inline const ::google::protobuf::RepeatedField<double>& SimTrackerHit::pos() const {
-    // @@protoc_insertion_point(field_list:eicio.SimTrackerHit.pos)
+    // @@protoc_insertion_point(field_list:eicio.model.SimTrackerHit.pos)
     return pos_;
 }
 inline ::google::protobuf::RepeatedField<double>* SimTrackerHit::mutable_pos() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.SimTrackerHit.pos)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.SimTrackerHit.pos)
     return &pos_;
 }
 
 // float EDep = 5;
 inline void SimTrackerHit::clear_edep() { edep_ = 0; }
 inline float SimTrackerHit::edep() const {
-    // @@protoc_insertion_point(field_get:eicio.SimTrackerHit.EDep)
+    // @@protoc_insertion_point(field_get:eicio.model.SimTrackerHit.EDep)
     return edep_;
 }
 inline void SimTrackerHit::set_edep(float value) {
     edep_ = value;
-    // @@protoc_insertion_point(field_set:eicio.SimTrackerHit.EDep)
+    // @@protoc_insertion_point(field_set:eicio.model.SimTrackerHit.EDep)
 }
 
 // float time = 6;
 inline void SimTrackerHit::clear_time() { time_ = 0; }
 inline float SimTrackerHit::time() const {
-    // @@protoc_insertion_point(field_get:eicio.SimTrackerHit.time)
+    // @@protoc_insertion_point(field_get:eicio.model.SimTrackerHit.time)
     return time_;
 }
 inline void SimTrackerHit::set_time(float value) {
     time_ = value;
-    // @@protoc_insertion_point(field_set:eicio.SimTrackerHit.time)
+    // @@protoc_insertion_point(field_set:eicio.model.SimTrackerHit.time)
 }
 
-// .eicio.Reference mc = 7;
+// .eicio.model.Reference mc = 7;
 inline bool SimTrackerHit::has_mc() const { return this != internal_default_instance() && mc_ != NULL; }
 inline void SimTrackerHit::clear_mc() {
     if (GetArenaNoVirtual() == NULL && mc_ != NULL) delete mc_;
     mc_ = NULL;
 }
-inline const ::eicio::Reference& SimTrackerHit::mc() const {
-    // @@protoc_insertion_point(field_get:eicio.SimTrackerHit.mc)
-    return mc_ != NULL ? *mc_ : *::eicio::Reference::internal_default_instance();
+inline const ::eicio::model::Reference& SimTrackerHit::mc() const {
+    // @@protoc_insertion_point(field_get:eicio.model.SimTrackerHit.mc)
+    return mc_ != NULL ? *mc_ : *::eicio::model::Reference::internal_default_instance();
 }
-inline ::eicio::Reference* SimTrackerHit::mutable_mc() {
+inline ::eicio::model::Reference* SimTrackerHit::mutable_mc() {
     if (mc_ == NULL) {
-        mc_ = new ::eicio::Reference;
+        mc_ = new ::eicio::model::Reference;
     }
-    // @@protoc_insertion_point(field_mutable:eicio.SimTrackerHit.mc)
+    // @@protoc_insertion_point(field_mutable:eicio.model.SimTrackerHit.mc)
     return mc_;
 }
-inline ::eicio::Reference* SimTrackerHit::release_mc() {
-    // @@protoc_insertion_point(field_release:eicio.SimTrackerHit.mc)
+inline ::eicio::model::Reference* SimTrackerHit::release_mc() {
+    // @@protoc_insertion_point(field_release:eicio.model.SimTrackerHit.mc)
 
-    ::eicio::Reference* temp = mc_;
+    ::eicio::model::Reference* temp = mc_;
     mc_ = NULL;
     return temp;
 }
-inline void SimTrackerHit::set_allocated_mc(::eicio::Reference* mc) {
+inline void SimTrackerHit::set_allocated_mc(::eicio::model::Reference* mc) {
     delete mc_;
     mc_ = mc;
     if (mc) {
     } else {
     }
-    // @@protoc_insertion_point(field_set_allocated:eicio.SimTrackerHit.mc)
+    // @@protoc_insertion_point(field_set_allocated:eicio.model.SimTrackerHit.mc)
 }
 
 // repeated float p = 8;
 inline int SimTrackerHit::p_size() const { return p_.size(); }
 inline void SimTrackerHit::clear_p() { p_.Clear(); }
 inline float SimTrackerHit::p(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.SimTrackerHit.p)
+    // @@protoc_insertion_point(field_get:eicio.model.SimTrackerHit.p)
     return p_.Get(index);
 }
 inline void SimTrackerHit::set_p(int index, float value) {
     p_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.SimTrackerHit.p)
+    // @@protoc_insertion_point(field_set:eicio.model.SimTrackerHit.p)
 }
 inline void SimTrackerHit::add_p(float value) {
     p_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.SimTrackerHit.p)
+    // @@protoc_insertion_point(field_add:eicio.model.SimTrackerHit.p)
 }
 inline const ::google::protobuf::RepeatedField<float>& SimTrackerHit::p() const {
-    // @@protoc_insertion_point(field_list:eicio.SimTrackerHit.p)
+    // @@protoc_insertion_point(field_list:eicio.model.SimTrackerHit.p)
     return p_;
 }
 inline ::google::protobuf::RepeatedField<float>* SimTrackerHit::mutable_p() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.SimTrackerHit.p)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.SimTrackerHit.p)
     return &p_;
 }
 
 // float pathLength = 9;
 inline void SimTrackerHit::clear_pathlength() { pathlength_ = 0; }
 inline float SimTrackerHit::pathlength() const {
-    // @@protoc_insertion_point(field_get:eicio.SimTrackerHit.pathLength)
+    // @@protoc_insertion_point(field_get:eicio.model.SimTrackerHit.pathLength)
     return pathlength_;
 }
 inline void SimTrackerHit::set_pathlength(float value) {
     pathlength_ = value;
-    // @@protoc_insertion_point(field_set:eicio.SimTrackerHit.pathLength)
+    // @@protoc_insertion_point(field_set:eicio.model.SimTrackerHit.pathLength)
 }
 
 // int32 quality = 10;
 inline void SimTrackerHit::clear_quality() { quality_ = 0; }
 inline ::google::protobuf::int32 SimTrackerHit::quality() const {
-    // @@protoc_insertion_point(field_get:eicio.SimTrackerHit.quality)
+    // @@protoc_insertion_point(field_get:eicio.model.SimTrackerHit.quality)
     return quality_;
 }
 inline void SimTrackerHit::set_quality(::google::protobuf::int32 value) {
     quality_ = value;
-    // @@protoc_insertion_point(field_set:eicio.SimTrackerHit.quality)
+    // @@protoc_insertion_point(field_set:eicio.model.SimTrackerHit.quality)
 }
 
 // -------------------------------------------------------------------
@@ -6477,26 +6488,26 @@ inline void SimTrackerHit::set_quality(::google::protobuf::int32 value) {
 // uint32 id = 1;
 inline void SimTrackerHitCollection::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 SimTrackerHitCollection::id() const {
-    // @@protoc_insertion_point(field_get:eicio.SimTrackerHitCollection.id)
+    // @@protoc_insertion_point(field_get:eicio.model.SimTrackerHitCollection.id)
     return id_;
 }
 inline void SimTrackerHitCollection::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.SimTrackerHitCollection.id)
+    // @@protoc_insertion_point(field_set:eicio.model.SimTrackerHitCollection.id)
 }
 
 // uint32 flags = 2;
 inline void SimTrackerHitCollection::clear_flags() { flags_ = 0u; }
 inline ::google::protobuf::uint32 SimTrackerHitCollection::flags() const {
-    // @@protoc_insertion_point(field_get:eicio.SimTrackerHitCollection.flags)
+    // @@protoc_insertion_point(field_get:eicio.model.SimTrackerHitCollection.flags)
     return flags_;
 }
 inline void SimTrackerHitCollection::set_flags(::google::protobuf::uint32 value) {
     flags_ = value;
-    // @@protoc_insertion_point(field_set:eicio.SimTrackerHitCollection.flags)
+    // @@protoc_insertion_point(field_set:eicio.model.SimTrackerHitCollection.flags)
 }
 
-// .eicio.Params params = 3;
+// .eicio.model.Params params = 3;
 inline bool SimTrackerHitCollection::has_params() const {
     return this != internal_default_instance() && params_ != NULL;
 }
@@ -6504,56 +6515,56 @@ inline void SimTrackerHitCollection::clear_params() {
     if (GetArenaNoVirtual() == NULL && params_ != NULL) delete params_;
     params_ = NULL;
 }
-inline const ::eicio::Params& SimTrackerHitCollection::params() const {
-    // @@protoc_insertion_point(field_get:eicio.SimTrackerHitCollection.params)
-    return params_ != NULL ? *params_ : *::eicio::Params::internal_default_instance();
+inline const ::eicio::model::Params& SimTrackerHitCollection::params() const {
+    // @@protoc_insertion_point(field_get:eicio.model.SimTrackerHitCollection.params)
+    return params_ != NULL ? *params_ : *::eicio::model::Params::internal_default_instance();
 }
-inline ::eicio::Params* SimTrackerHitCollection::mutable_params() {
+inline ::eicio::model::Params* SimTrackerHitCollection::mutable_params() {
     if (params_ == NULL) {
-        params_ = new ::eicio::Params;
+        params_ = new ::eicio::model::Params;
     }
-    // @@protoc_insertion_point(field_mutable:eicio.SimTrackerHitCollection.params)
+    // @@protoc_insertion_point(field_mutable:eicio.model.SimTrackerHitCollection.params)
     return params_;
 }
-inline ::eicio::Params* SimTrackerHitCollection::release_params() {
-    // @@protoc_insertion_point(field_release:eicio.SimTrackerHitCollection.params)
+inline ::eicio::model::Params* SimTrackerHitCollection::release_params() {
+    // @@protoc_insertion_point(field_release:eicio.model.SimTrackerHitCollection.params)
 
-    ::eicio::Params* temp = params_;
+    ::eicio::model::Params* temp = params_;
     params_ = NULL;
     return temp;
 }
-inline void SimTrackerHitCollection::set_allocated_params(::eicio::Params* params) {
+inline void SimTrackerHitCollection::set_allocated_params(::eicio::model::Params* params) {
     delete params_;
     params_ = params;
     if (params) {
     } else {
     }
-    // @@protoc_insertion_point(field_set_allocated:eicio.SimTrackerHitCollection.params)
+    // @@protoc_insertion_point(field_set_allocated:eicio.model.SimTrackerHitCollection.params)
 }
 
-// repeated .eicio.SimTrackerHit entries = 4;
+// repeated .eicio.model.SimTrackerHit entries = 4;
 inline int SimTrackerHitCollection::entries_size() const { return entries_.size(); }
 inline void SimTrackerHitCollection::clear_entries() { entries_.Clear(); }
-inline const ::eicio::SimTrackerHit& SimTrackerHitCollection::entries(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.SimTrackerHitCollection.entries)
+inline const ::eicio::model::SimTrackerHit& SimTrackerHitCollection::entries(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.SimTrackerHitCollection.entries)
     return entries_.Get(index);
 }
-inline ::eicio::SimTrackerHit* SimTrackerHitCollection::mutable_entries(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.SimTrackerHitCollection.entries)
+inline ::eicio::model::SimTrackerHit* SimTrackerHitCollection::mutable_entries(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.SimTrackerHitCollection.entries)
     return entries_.Mutable(index);
 }
-inline ::eicio::SimTrackerHit* SimTrackerHitCollection::add_entries() {
-    // @@protoc_insertion_point(field_add:eicio.SimTrackerHitCollection.entries)
+inline ::eicio::model::SimTrackerHit* SimTrackerHitCollection::add_entries() {
+    // @@protoc_insertion_point(field_add:eicio.model.SimTrackerHitCollection.entries)
     return entries_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::SimTrackerHit>*
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::SimTrackerHit>*
 SimTrackerHitCollection::mutable_entries() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.SimTrackerHitCollection.entries)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.SimTrackerHitCollection.entries)
     return &entries_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::SimTrackerHit>& SimTrackerHitCollection::entries()
-    const {
-    // @@protoc_insertion_point(field_list:eicio.SimTrackerHitCollection.entries)
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::SimTrackerHit>&
+SimTrackerHitCollection::entries() const {
+    // @@protoc_insertion_point(field_list:eicio.model.SimTrackerHitCollection.entries)
     return entries_;
 }
 
@@ -6564,68 +6575,68 @@ inline const ::google::protobuf::RepeatedPtrField< ::eicio::SimTrackerHit>& SimT
 // uint32 id = 1;
 inline void TrackerRawData::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 TrackerRawData::id() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerRawData.id)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerRawData.id)
     return id_;
 }
 inline void TrackerRawData::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerRawData.id)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerRawData.id)
 }
 
 // int32 cellID0 = 2;
 inline void TrackerRawData::clear_cellid0() { cellid0_ = 0; }
 inline ::google::protobuf::int32 TrackerRawData::cellid0() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerRawData.cellID0)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerRawData.cellID0)
     return cellid0_;
 }
 inline void TrackerRawData::set_cellid0(::google::protobuf::int32 value) {
     cellid0_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerRawData.cellID0)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerRawData.cellID0)
 }
 
 // int32 cellID1 = 3;
 inline void TrackerRawData::clear_cellid1() { cellid1_ = 0; }
 inline ::google::protobuf::int32 TrackerRawData::cellid1() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerRawData.cellID1)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerRawData.cellID1)
     return cellid1_;
 }
 inline void TrackerRawData::set_cellid1(::google::protobuf::int32 value) {
     cellid1_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerRawData.cellID1)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerRawData.cellID1)
 }
 
 // int32 time = 4;
 inline void TrackerRawData::clear_time() { time_ = 0; }
 inline ::google::protobuf::int32 TrackerRawData::time() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerRawData.time)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerRawData.time)
     return time_;
 }
 inline void TrackerRawData::set_time(::google::protobuf::int32 value) {
     time_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerRawData.time)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerRawData.time)
 }
 
 // repeated uint32 ADCs = 5;
 inline int TrackerRawData::adcs_size() const { return adcs_.size(); }
 inline void TrackerRawData::clear_adcs() { adcs_.Clear(); }
 inline ::google::protobuf::uint32 TrackerRawData::adcs(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerRawData.ADCs)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerRawData.ADCs)
     return adcs_.Get(index);
 }
 inline void TrackerRawData::set_adcs(int index, ::google::protobuf::uint32 value) {
     adcs_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.TrackerRawData.ADCs)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerRawData.ADCs)
 }
 inline void TrackerRawData::add_adcs(::google::protobuf::uint32 value) {
     adcs_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.TrackerRawData.ADCs)
+    // @@protoc_insertion_point(field_add:eicio.model.TrackerRawData.ADCs)
 }
 inline const ::google::protobuf::RepeatedField< ::google::protobuf::uint32>& TrackerRawData::adcs() const {
-    // @@protoc_insertion_point(field_list:eicio.TrackerRawData.ADCs)
+    // @@protoc_insertion_point(field_list:eicio.model.TrackerRawData.ADCs)
     return adcs_;
 }
 inline ::google::protobuf::RepeatedField< ::google::protobuf::uint32>* TrackerRawData::mutable_adcs() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.TrackerRawData.ADCs)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.TrackerRawData.ADCs)
     return &adcs_;
 }
 
@@ -6636,26 +6647,26 @@ inline ::google::protobuf::RepeatedField< ::google::protobuf::uint32>* TrackerRa
 // uint32 id = 1;
 inline void TrackerRawDataCollection::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 TrackerRawDataCollection::id() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerRawDataCollection.id)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerRawDataCollection.id)
     return id_;
 }
 inline void TrackerRawDataCollection::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerRawDataCollection.id)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerRawDataCollection.id)
 }
 
 // uint32 flags = 2;
 inline void TrackerRawDataCollection::clear_flags() { flags_ = 0u; }
 inline ::google::protobuf::uint32 TrackerRawDataCollection::flags() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerRawDataCollection.flags)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerRawDataCollection.flags)
     return flags_;
 }
 inline void TrackerRawDataCollection::set_flags(::google::protobuf::uint32 value) {
     flags_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerRawDataCollection.flags)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerRawDataCollection.flags)
 }
 
-// .eicio.Params params = 3;
+// .eicio.model.Params params = 3;
 inline bool TrackerRawDataCollection::has_params() const {
     return this != internal_default_instance() && params_ != NULL;
 }
@@ -6663,56 +6674,56 @@ inline void TrackerRawDataCollection::clear_params() {
     if (GetArenaNoVirtual() == NULL && params_ != NULL) delete params_;
     params_ = NULL;
 }
-inline const ::eicio::Params& TrackerRawDataCollection::params() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerRawDataCollection.params)
-    return params_ != NULL ? *params_ : *::eicio::Params::internal_default_instance();
+inline const ::eicio::model::Params& TrackerRawDataCollection::params() const {
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerRawDataCollection.params)
+    return params_ != NULL ? *params_ : *::eicio::model::Params::internal_default_instance();
 }
-inline ::eicio::Params* TrackerRawDataCollection::mutable_params() {
+inline ::eicio::model::Params* TrackerRawDataCollection::mutable_params() {
     if (params_ == NULL) {
-        params_ = new ::eicio::Params;
+        params_ = new ::eicio::model::Params;
     }
-    // @@protoc_insertion_point(field_mutable:eicio.TrackerRawDataCollection.params)
+    // @@protoc_insertion_point(field_mutable:eicio.model.TrackerRawDataCollection.params)
     return params_;
 }
-inline ::eicio::Params* TrackerRawDataCollection::release_params() {
-    // @@protoc_insertion_point(field_release:eicio.TrackerRawDataCollection.params)
+inline ::eicio::model::Params* TrackerRawDataCollection::release_params() {
+    // @@protoc_insertion_point(field_release:eicio.model.TrackerRawDataCollection.params)
 
-    ::eicio::Params* temp = params_;
+    ::eicio::model::Params* temp = params_;
     params_ = NULL;
     return temp;
 }
-inline void TrackerRawDataCollection::set_allocated_params(::eicio::Params* params) {
+inline void TrackerRawDataCollection::set_allocated_params(::eicio::model::Params* params) {
     delete params_;
     params_ = params;
     if (params) {
     } else {
     }
-    // @@protoc_insertion_point(field_set_allocated:eicio.TrackerRawDataCollection.params)
+    // @@protoc_insertion_point(field_set_allocated:eicio.model.TrackerRawDataCollection.params)
 }
 
-// repeated .eicio.TrackerRawData entries = 4;
+// repeated .eicio.model.TrackerRawData entries = 4;
 inline int TrackerRawDataCollection::entries_size() const { return entries_.size(); }
 inline void TrackerRawDataCollection::clear_entries() { entries_.Clear(); }
-inline const ::eicio::TrackerRawData& TrackerRawDataCollection::entries(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerRawDataCollection.entries)
+inline const ::eicio::model::TrackerRawData& TrackerRawDataCollection::entries(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerRawDataCollection.entries)
     return entries_.Get(index);
 }
-inline ::eicio::TrackerRawData* TrackerRawDataCollection::mutable_entries(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.TrackerRawDataCollection.entries)
+inline ::eicio::model::TrackerRawData* TrackerRawDataCollection::mutable_entries(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.TrackerRawDataCollection.entries)
     return entries_.Mutable(index);
 }
-inline ::eicio::TrackerRawData* TrackerRawDataCollection::add_entries() {
-    // @@protoc_insertion_point(field_add:eicio.TrackerRawDataCollection.entries)
+inline ::eicio::model::TrackerRawData* TrackerRawDataCollection::add_entries() {
+    // @@protoc_insertion_point(field_add:eicio.model.TrackerRawDataCollection.entries)
     return entries_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::TrackerRawData>*
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::TrackerRawData>*
 TrackerRawDataCollection::mutable_entries() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.TrackerRawDataCollection.entries)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.TrackerRawDataCollection.entries)
     return &entries_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::TrackerRawData>&
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::TrackerRawData>&
 TrackerRawDataCollection::entries() const {
-    // @@protoc_insertion_point(field_list:eicio.TrackerRawDataCollection.entries)
+    // @@protoc_insertion_point(field_list:eicio.model.TrackerRawDataCollection.entries)
     return entries_;
 }
 
@@ -6723,68 +6734,68 @@ TrackerRawDataCollection::entries() const {
 // uint32 id = 1;
 inline void TrackerData::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 TrackerData::id() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerData.id)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerData.id)
     return id_;
 }
 inline void TrackerData::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerData.id)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerData.id)
 }
 
 // int32 cellID0 = 2;
 inline void TrackerData::clear_cellid0() { cellid0_ = 0; }
 inline ::google::protobuf::int32 TrackerData::cellid0() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerData.cellID0)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerData.cellID0)
     return cellid0_;
 }
 inline void TrackerData::set_cellid0(::google::protobuf::int32 value) {
     cellid0_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerData.cellID0)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerData.cellID0)
 }
 
 // int32 cellID1 = 3;
 inline void TrackerData::clear_cellid1() { cellid1_ = 0; }
 inline ::google::protobuf::int32 TrackerData::cellid1() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerData.cellID1)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerData.cellID1)
     return cellid1_;
 }
 inline void TrackerData::set_cellid1(::google::protobuf::int32 value) {
     cellid1_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerData.cellID1)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerData.cellID1)
 }
 
 // float time = 4;
 inline void TrackerData::clear_time() { time_ = 0; }
 inline float TrackerData::time() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerData.time)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerData.time)
     return time_;
 }
 inline void TrackerData::set_time(float value) {
     time_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerData.time)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerData.time)
 }
 
 // repeated float charges = 5;
 inline int TrackerData::charges_size() const { return charges_.size(); }
 inline void TrackerData::clear_charges() { charges_.Clear(); }
 inline float TrackerData::charges(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerData.charges)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerData.charges)
     return charges_.Get(index);
 }
 inline void TrackerData::set_charges(int index, float value) {
     charges_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.TrackerData.charges)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerData.charges)
 }
 inline void TrackerData::add_charges(float value) {
     charges_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.TrackerData.charges)
+    // @@protoc_insertion_point(field_add:eicio.model.TrackerData.charges)
 }
 inline const ::google::protobuf::RepeatedField<float>& TrackerData::charges() const {
-    // @@protoc_insertion_point(field_list:eicio.TrackerData.charges)
+    // @@protoc_insertion_point(field_list:eicio.model.TrackerData.charges)
     return charges_;
 }
 inline ::google::protobuf::RepeatedField<float>* TrackerData::mutable_charges() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.TrackerData.charges)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.TrackerData.charges)
     return &charges_;
 }
 
@@ -6795,26 +6806,26 @@ inline ::google::protobuf::RepeatedField<float>* TrackerData::mutable_charges() 
 // uint32 id = 1;
 inline void TrackerDataCollection::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 TrackerDataCollection::id() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerDataCollection.id)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerDataCollection.id)
     return id_;
 }
 inline void TrackerDataCollection::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerDataCollection.id)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerDataCollection.id)
 }
 
 // uint32 flags = 2;
 inline void TrackerDataCollection::clear_flags() { flags_ = 0u; }
 inline ::google::protobuf::uint32 TrackerDataCollection::flags() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerDataCollection.flags)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerDataCollection.flags)
     return flags_;
 }
 inline void TrackerDataCollection::set_flags(::google::protobuf::uint32 value) {
     flags_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerDataCollection.flags)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerDataCollection.flags)
 }
 
-// .eicio.Params params = 3;
+// .eicio.model.Params params = 3;
 inline bool TrackerDataCollection::has_params() const {
     return this != internal_default_instance() && params_ != NULL;
 }
@@ -6822,55 +6833,56 @@ inline void TrackerDataCollection::clear_params() {
     if (GetArenaNoVirtual() == NULL && params_ != NULL) delete params_;
     params_ = NULL;
 }
-inline const ::eicio::Params& TrackerDataCollection::params() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerDataCollection.params)
-    return params_ != NULL ? *params_ : *::eicio::Params::internal_default_instance();
+inline const ::eicio::model::Params& TrackerDataCollection::params() const {
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerDataCollection.params)
+    return params_ != NULL ? *params_ : *::eicio::model::Params::internal_default_instance();
 }
-inline ::eicio::Params* TrackerDataCollection::mutable_params() {
+inline ::eicio::model::Params* TrackerDataCollection::mutable_params() {
     if (params_ == NULL) {
-        params_ = new ::eicio::Params;
+        params_ = new ::eicio::model::Params;
     }
-    // @@protoc_insertion_point(field_mutable:eicio.TrackerDataCollection.params)
+    // @@protoc_insertion_point(field_mutable:eicio.model.TrackerDataCollection.params)
     return params_;
 }
-inline ::eicio::Params* TrackerDataCollection::release_params() {
-    // @@protoc_insertion_point(field_release:eicio.TrackerDataCollection.params)
+inline ::eicio::model::Params* TrackerDataCollection::release_params() {
+    // @@protoc_insertion_point(field_release:eicio.model.TrackerDataCollection.params)
 
-    ::eicio::Params* temp = params_;
+    ::eicio::model::Params* temp = params_;
     params_ = NULL;
     return temp;
 }
-inline void TrackerDataCollection::set_allocated_params(::eicio::Params* params) {
+inline void TrackerDataCollection::set_allocated_params(::eicio::model::Params* params) {
     delete params_;
     params_ = params;
     if (params) {
     } else {
     }
-    // @@protoc_insertion_point(field_set_allocated:eicio.TrackerDataCollection.params)
+    // @@protoc_insertion_point(field_set_allocated:eicio.model.TrackerDataCollection.params)
 }
 
-// repeated .eicio.TrackerData entries = 4;
+// repeated .eicio.model.TrackerData entries = 4;
 inline int TrackerDataCollection::entries_size() const { return entries_.size(); }
 inline void TrackerDataCollection::clear_entries() { entries_.Clear(); }
-inline const ::eicio::TrackerData& TrackerDataCollection::entries(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerDataCollection.entries)
+inline const ::eicio::model::TrackerData& TrackerDataCollection::entries(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerDataCollection.entries)
     return entries_.Get(index);
 }
-inline ::eicio::TrackerData* TrackerDataCollection::mutable_entries(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.TrackerDataCollection.entries)
+inline ::eicio::model::TrackerData* TrackerDataCollection::mutable_entries(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.TrackerDataCollection.entries)
     return entries_.Mutable(index);
 }
-inline ::eicio::TrackerData* TrackerDataCollection::add_entries() {
-    // @@protoc_insertion_point(field_add:eicio.TrackerDataCollection.entries)
+inline ::eicio::model::TrackerData* TrackerDataCollection::add_entries() {
+    // @@protoc_insertion_point(field_add:eicio.model.TrackerDataCollection.entries)
     return entries_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::TrackerData>* TrackerDataCollection::mutable_entries() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.TrackerDataCollection.entries)
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::TrackerData>*
+TrackerDataCollection::mutable_entries() {
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.TrackerDataCollection.entries)
     return &entries_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::TrackerData>& TrackerDataCollection::entries()
-    const {
-    // @@protoc_insertion_point(field_list:eicio.TrackerDataCollection.entries)
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::TrackerData>&
+TrackerDataCollection::entries() const {
+    // @@protoc_insertion_point(field_list:eicio.model.TrackerDataCollection.entries)
     return entries_;
 }
 
@@ -6881,68 +6893,68 @@ inline const ::google::protobuf::RepeatedPtrField< ::eicio::TrackerData>& Tracke
 // uint32 id = 1;
 inline void TrackerHit::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 TrackerHit::id() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHit.id)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHit.id)
     return id_;
 }
 inline void TrackerHit::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHit.id)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHit.id)
 }
 
 // int32 cellID0 = 2;
 inline void TrackerHit::clear_cellid0() { cellid0_ = 0; }
 inline ::google::protobuf::int32 TrackerHit::cellid0() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHit.cellID0)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHit.cellID0)
     return cellid0_;
 }
 inline void TrackerHit::set_cellid0(::google::protobuf::int32 value) {
     cellid0_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHit.cellID0)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHit.cellID0)
 }
 
 // int32 cellID1 = 3;
 inline void TrackerHit::clear_cellid1() { cellid1_ = 0; }
 inline ::google::protobuf::int32 TrackerHit::cellid1() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHit.cellID1)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHit.cellID1)
     return cellid1_;
 }
 inline void TrackerHit::set_cellid1(::google::protobuf::int32 value) {
     cellid1_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHit.cellID1)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHit.cellID1)
 }
 
 // int32 type = 4;
 inline void TrackerHit::clear_type() { type_ = 0; }
 inline ::google::protobuf::int32 TrackerHit::type() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHit.type)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHit.type)
     return type_;
 }
 inline void TrackerHit::set_type(::google::protobuf::int32 value) {
     type_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHit.type)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHit.type)
 }
 
 // repeated double pos = 5;
 inline int TrackerHit::pos_size() const { return pos_.size(); }
 inline void TrackerHit::clear_pos() { pos_.Clear(); }
 inline double TrackerHit::pos(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHit.pos)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHit.pos)
     return pos_.Get(index);
 }
 inline void TrackerHit::set_pos(int index, double value) {
     pos_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.TrackerHit.pos)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHit.pos)
 }
 inline void TrackerHit::add_pos(double value) {
     pos_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.TrackerHit.pos)
+    // @@protoc_insertion_point(field_add:eicio.model.TrackerHit.pos)
 }
 inline const ::google::protobuf::RepeatedField<double>& TrackerHit::pos() const {
-    // @@protoc_insertion_point(field_list:eicio.TrackerHit.pos)
+    // @@protoc_insertion_point(field_list:eicio.model.TrackerHit.pos)
     return pos_;
 }
 inline ::google::protobuf::RepeatedField<double>* TrackerHit::mutable_pos() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.TrackerHit.pos)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.TrackerHit.pos)
     return &pos_;
 }
 
@@ -6950,91 +6962,91 @@ inline ::google::protobuf::RepeatedField<double>* TrackerHit::mutable_pos() {
 inline int TrackerHit::cov_size() const { return cov_.size(); }
 inline void TrackerHit::clear_cov() { cov_.Clear(); }
 inline double TrackerHit::cov(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHit.cov)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHit.cov)
     return cov_.Get(index);
 }
 inline void TrackerHit::set_cov(int index, double value) {
     cov_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.TrackerHit.cov)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHit.cov)
 }
 inline void TrackerHit::add_cov(double value) {
     cov_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.TrackerHit.cov)
+    // @@protoc_insertion_point(field_add:eicio.model.TrackerHit.cov)
 }
 inline const ::google::protobuf::RepeatedField<double>& TrackerHit::cov() const {
-    // @@protoc_insertion_point(field_list:eicio.TrackerHit.cov)
+    // @@protoc_insertion_point(field_list:eicio.model.TrackerHit.cov)
     return cov_;
 }
 inline ::google::protobuf::RepeatedField<double>* TrackerHit::mutable_cov() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.TrackerHit.cov)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.TrackerHit.cov)
     return &cov_;
 }
 
 // float EDep = 7;
 inline void TrackerHit::clear_edep() { edep_ = 0; }
 inline float TrackerHit::edep() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHit.EDep)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHit.EDep)
     return edep_;
 }
 inline void TrackerHit::set_edep(float value) {
     edep_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHit.EDep)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHit.EDep)
 }
 
 // float EDepErr = 8;
 inline void TrackerHit::clear_edeperr() { edeperr_ = 0; }
 inline float TrackerHit::edeperr() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHit.EDepErr)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHit.EDepErr)
     return edeperr_;
 }
 inline void TrackerHit::set_edeperr(float value) {
     edeperr_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHit.EDepErr)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHit.EDepErr)
 }
 
 // float time = 9;
 inline void TrackerHit::clear_time() { time_ = 0; }
 inline float TrackerHit::time() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHit.time)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHit.time)
     return time_;
 }
 inline void TrackerHit::set_time(float value) {
     time_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHit.time)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHit.time)
 }
 
 // int32 quality = 10;
 inline void TrackerHit::clear_quality() { quality_ = 0; }
 inline ::google::protobuf::int32 TrackerHit::quality() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHit.quality)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHit.quality)
     return quality_;
 }
 inline void TrackerHit::set_quality(::google::protobuf::int32 value) {
     quality_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHit.quality)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHit.quality)
 }
 
-// repeated .eicio.Reference rawHits = 11;
+// repeated .eicio.model.Reference rawHits = 11;
 inline int TrackerHit::rawhits_size() const { return rawhits_.size(); }
 inline void TrackerHit::clear_rawhits() { rawhits_.Clear(); }
-inline const ::eicio::Reference& TrackerHit::rawhits(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHit.rawHits)
+inline const ::eicio::model::Reference& TrackerHit::rawhits(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHit.rawHits)
     return rawhits_.Get(index);
 }
-inline ::eicio::Reference* TrackerHit::mutable_rawhits(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.TrackerHit.rawHits)
+inline ::eicio::model::Reference* TrackerHit::mutable_rawhits(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.TrackerHit.rawHits)
     return rawhits_.Mutable(index);
 }
-inline ::eicio::Reference* TrackerHit::add_rawhits() {
-    // @@protoc_insertion_point(field_add:eicio.TrackerHit.rawHits)
+inline ::eicio::model::Reference* TrackerHit::add_rawhits() {
+    // @@protoc_insertion_point(field_add:eicio.model.TrackerHit.rawHits)
     return rawhits_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::Reference>* TrackerHit::mutable_rawhits() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.TrackerHit.rawHits)
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>* TrackerHit::mutable_rawhits() {
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.TrackerHit.rawHits)
     return &rawhits_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::Reference>& TrackerHit::rawhits() const {
-    // @@protoc_insertion_point(field_list:eicio.TrackerHit.rawHits)
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>& TrackerHit::rawhits() const {
+    // @@protoc_insertion_point(field_list:eicio.model.TrackerHit.rawHits)
     return rawhits_;
 }
 
@@ -7045,26 +7057,26 @@ inline const ::google::protobuf::RepeatedPtrField< ::eicio::Reference>& TrackerH
 // uint32 id = 1;
 inline void TrackerHitCollection::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 TrackerHitCollection::id() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitCollection.id)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitCollection.id)
     return id_;
 }
 inline void TrackerHitCollection::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHitCollection.id)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHitCollection.id)
 }
 
 // uint32 flags = 2;
 inline void TrackerHitCollection::clear_flags() { flags_ = 0u; }
 inline ::google::protobuf::uint32 TrackerHitCollection::flags() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitCollection.flags)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitCollection.flags)
     return flags_;
 }
 inline void TrackerHitCollection::set_flags(::google::protobuf::uint32 value) {
     flags_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHitCollection.flags)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHitCollection.flags)
 }
 
-// .eicio.Params params = 3;
+// .eicio.model.Params params = 3;
 inline bool TrackerHitCollection::has_params() const {
     return this != internal_default_instance() && params_ != NULL;
 }
@@ -7072,55 +7084,56 @@ inline void TrackerHitCollection::clear_params() {
     if (GetArenaNoVirtual() == NULL && params_ != NULL) delete params_;
     params_ = NULL;
 }
-inline const ::eicio::Params& TrackerHitCollection::params() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitCollection.params)
-    return params_ != NULL ? *params_ : *::eicio::Params::internal_default_instance();
+inline const ::eicio::model::Params& TrackerHitCollection::params() const {
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitCollection.params)
+    return params_ != NULL ? *params_ : *::eicio::model::Params::internal_default_instance();
 }
-inline ::eicio::Params* TrackerHitCollection::mutable_params() {
+inline ::eicio::model::Params* TrackerHitCollection::mutable_params() {
     if (params_ == NULL) {
-        params_ = new ::eicio::Params;
+        params_ = new ::eicio::model::Params;
     }
-    // @@protoc_insertion_point(field_mutable:eicio.TrackerHitCollection.params)
+    // @@protoc_insertion_point(field_mutable:eicio.model.TrackerHitCollection.params)
     return params_;
 }
-inline ::eicio::Params* TrackerHitCollection::release_params() {
-    // @@protoc_insertion_point(field_release:eicio.TrackerHitCollection.params)
+inline ::eicio::model::Params* TrackerHitCollection::release_params() {
+    // @@protoc_insertion_point(field_release:eicio.model.TrackerHitCollection.params)
 
-    ::eicio::Params* temp = params_;
+    ::eicio::model::Params* temp = params_;
     params_ = NULL;
     return temp;
 }
-inline void TrackerHitCollection::set_allocated_params(::eicio::Params* params) {
+inline void TrackerHitCollection::set_allocated_params(::eicio::model::Params* params) {
     delete params_;
     params_ = params;
     if (params) {
     } else {
     }
-    // @@protoc_insertion_point(field_set_allocated:eicio.TrackerHitCollection.params)
+    // @@protoc_insertion_point(field_set_allocated:eicio.model.TrackerHitCollection.params)
 }
 
-// repeated .eicio.TrackerHit entries = 4;
+// repeated .eicio.model.TrackerHit entries = 4;
 inline int TrackerHitCollection::entries_size() const { return entries_.size(); }
 inline void TrackerHitCollection::clear_entries() { entries_.Clear(); }
-inline const ::eicio::TrackerHit& TrackerHitCollection::entries(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitCollection.entries)
+inline const ::eicio::model::TrackerHit& TrackerHitCollection::entries(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitCollection.entries)
     return entries_.Get(index);
 }
-inline ::eicio::TrackerHit* TrackerHitCollection::mutable_entries(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.TrackerHitCollection.entries)
+inline ::eicio::model::TrackerHit* TrackerHitCollection::mutable_entries(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.TrackerHitCollection.entries)
     return entries_.Mutable(index);
 }
-inline ::eicio::TrackerHit* TrackerHitCollection::add_entries() {
-    // @@protoc_insertion_point(field_add:eicio.TrackerHitCollection.entries)
+inline ::eicio::model::TrackerHit* TrackerHitCollection::add_entries() {
+    // @@protoc_insertion_point(field_add:eicio.model.TrackerHitCollection.entries)
     return entries_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::TrackerHit>* TrackerHitCollection::mutable_entries() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.TrackerHitCollection.entries)
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::TrackerHit>*
+TrackerHitCollection::mutable_entries() {
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.TrackerHitCollection.entries)
     return &entries_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::TrackerHit>& TrackerHitCollection::entries()
-    const {
-    // @@protoc_insertion_point(field_list:eicio.TrackerHitCollection.entries)
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::TrackerHit>&
+TrackerHitCollection::entries() const {
+    // @@protoc_insertion_point(field_list:eicio.model.TrackerHitCollection.entries)
     return entries_;
 }
 
@@ -7131,124 +7144,124 @@ inline const ::google::protobuf::RepeatedPtrField< ::eicio::TrackerHit>& Tracker
 // uint32 id = 1;
 inline void TrackerPulse::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 TrackerPulse::id() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerPulse.id)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerPulse.id)
     return id_;
 }
 inline void TrackerPulse::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerPulse.id)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerPulse.id)
 }
 
 // int32 cellID0 = 2;
 inline void TrackerPulse::clear_cellid0() { cellid0_ = 0; }
 inline ::google::protobuf::int32 TrackerPulse::cellid0() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerPulse.cellID0)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerPulse.cellID0)
     return cellid0_;
 }
 inline void TrackerPulse::set_cellid0(::google::protobuf::int32 value) {
     cellid0_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerPulse.cellID0)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerPulse.cellID0)
 }
 
 // int32 cellID1 = 3;
 inline void TrackerPulse::clear_cellid1() { cellid1_ = 0; }
 inline ::google::protobuf::int32 TrackerPulse::cellid1() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerPulse.cellID1)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerPulse.cellID1)
     return cellid1_;
 }
 inline void TrackerPulse::set_cellid1(::google::protobuf::int32 value) {
     cellid1_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerPulse.cellID1)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerPulse.cellID1)
 }
 
 // float time = 4;
 inline void TrackerPulse::clear_time() { time_ = 0; }
 inline float TrackerPulse::time() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerPulse.time)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerPulse.time)
     return time_;
 }
 inline void TrackerPulse::set_time(float value) {
     time_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerPulse.time)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerPulse.time)
 }
 
 // float charge = 5;
 inline void TrackerPulse::clear_charge() { charge_ = 0; }
 inline float TrackerPulse::charge() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerPulse.charge)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerPulse.charge)
     return charge_;
 }
 inline void TrackerPulse::set_charge(float value) {
     charge_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerPulse.charge)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerPulse.charge)
 }
 
 // repeated float cov = 6;
 inline int TrackerPulse::cov_size() const { return cov_.size(); }
 inline void TrackerPulse::clear_cov() { cov_.Clear(); }
 inline float TrackerPulse::cov(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerPulse.cov)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerPulse.cov)
     return cov_.Get(index);
 }
 inline void TrackerPulse::set_cov(int index, float value) {
     cov_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.TrackerPulse.cov)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerPulse.cov)
 }
 inline void TrackerPulse::add_cov(float value) {
     cov_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.TrackerPulse.cov)
+    // @@protoc_insertion_point(field_add:eicio.model.TrackerPulse.cov)
 }
 inline const ::google::protobuf::RepeatedField<float>& TrackerPulse::cov() const {
-    // @@protoc_insertion_point(field_list:eicio.TrackerPulse.cov)
+    // @@protoc_insertion_point(field_list:eicio.model.TrackerPulse.cov)
     return cov_;
 }
 inline ::google::protobuf::RepeatedField<float>* TrackerPulse::mutable_cov() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.TrackerPulse.cov)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.TrackerPulse.cov)
     return &cov_;
 }
 
 // int32 quality = 7;
 inline void TrackerPulse::clear_quality() { quality_ = 0; }
 inline ::google::protobuf::int32 TrackerPulse::quality() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerPulse.quality)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerPulse.quality)
     return quality_;
 }
 inline void TrackerPulse::set_quality(::google::protobuf::int32 value) {
     quality_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerPulse.quality)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerPulse.quality)
 }
 
-// .eicio.Reference TPC = 8;
+// .eicio.model.Reference TPC = 8;
 inline bool TrackerPulse::has_tpc() const { return this != internal_default_instance() && tpc_ != NULL; }
 inline void TrackerPulse::clear_tpc() {
     if (GetArenaNoVirtual() == NULL && tpc_ != NULL) delete tpc_;
     tpc_ = NULL;
 }
-inline const ::eicio::Reference& TrackerPulse::tpc() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerPulse.TPC)
-    return tpc_ != NULL ? *tpc_ : *::eicio::Reference::internal_default_instance();
+inline const ::eicio::model::Reference& TrackerPulse::tpc() const {
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerPulse.TPC)
+    return tpc_ != NULL ? *tpc_ : *::eicio::model::Reference::internal_default_instance();
 }
-inline ::eicio::Reference* TrackerPulse::mutable_tpc() {
+inline ::eicio::model::Reference* TrackerPulse::mutable_tpc() {
     if (tpc_ == NULL) {
-        tpc_ = new ::eicio::Reference;
+        tpc_ = new ::eicio::model::Reference;
     }
-    // @@protoc_insertion_point(field_mutable:eicio.TrackerPulse.TPC)
+    // @@protoc_insertion_point(field_mutable:eicio.model.TrackerPulse.TPC)
     return tpc_;
 }
-inline ::eicio::Reference* TrackerPulse::release_tpc() {
-    // @@protoc_insertion_point(field_release:eicio.TrackerPulse.TPC)
+inline ::eicio::model::Reference* TrackerPulse::release_tpc() {
+    // @@protoc_insertion_point(field_release:eicio.model.TrackerPulse.TPC)
 
-    ::eicio::Reference* temp = tpc_;
+    ::eicio::model::Reference* temp = tpc_;
     tpc_ = NULL;
     return temp;
 }
-inline void TrackerPulse::set_allocated_tpc(::eicio::Reference* tpc) {
+inline void TrackerPulse::set_allocated_tpc(::eicio::model::Reference* tpc) {
     delete tpc_;
     tpc_ = tpc;
     if (tpc) {
     } else {
     }
-    // @@protoc_insertion_point(field_set_allocated:eicio.TrackerPulse.TPC)
+    // @@protoc_insertion_point(field_set_allocated:eicio.model.TrackerPulse.TPC)
 }
 
 // -------------------------------------------------------------------
@@ -7258,26 +7271,26 @@ inline void TrackerPulse::set_allocated_tpc(::eicio::Reference* tpc) {
 // uint32 id = 1;
 inline void TrackerPulseCollection::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 TrackerPulseCollection::id() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerPulseCollection.id)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerPulseCollection.id)
     return id_;
 }
 inline void TrackerPulseCollection::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerPulseCollection.id)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerPulseCollection.id)
 }
 
 // uint32 flags = 2;
 inline void TrackerPulseCollection::clear_flags() { flags_ = 0u; }
 inline ::google::protobuf::uint32 TrackerPulseCollection::flags() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerPulseCollection.flags)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerPulseCollection.flags)
     return flags_;
 }
 inline void TrackerPulseCollection::set_flags(::google::protobuf::uint32 value) {
     flags_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerPulseCollection.flags)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerPulseCollection.flags)
 }
 
-// .eicio.Params params = 3;
+// .eicio.model.Params params = 3;
 inline bool TrackerPulseCollection::has_params() const {
     return this != internal_default_instance() && params_ != NULL;
 }
@@ -7285,56 +7298,56 @@ inline void TrackerPulseCollection::clear_params() {
     if (GetArenaNoVirtual() == NULL && params_ != NULL) delete params_;
     params_ = NULL;
 }
-inline const ::eicio::Params& TrackerPulseCollection::params() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerPulseCollection.params)
-    return params_ != NULL ? *params_ : *::eicio::Params::internal_default_instance();
+inline const ::eicio::model::Params& TrackerPulseCollection::params() const {
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerPulseCollection.params)
+    return params_ != NULL ? *params_ : *::eicio::model::Params::internal_default_instance();
 }
-inline ::eicio::Params* TrackerPulseCollection::mutable_params() {
+inline ::eicio::model::Params* TrackerPulseCollection::mutable_params() {
     if (params_ == NULL) {
-        params_ = new ::eicio::Params;
+        params_ = new ::eicio::model::Params;
     }
-    // @@protoc_insertion_point(field_mutable:eicio.TrackerPulseCollection.params)
+    // @@protoc_insertion_point(field_mutable:eicio.model.TrackerPulseCollection.params)
     return params_;
 }
-inline ::eicio::Params* TrackerPulseCollection::release_params() {
-    // @@protoc_insertion_point(field_release:eicio.TrackerPulseCollection.params)
+inline ::eicio::model::Params* TrackerPulseCollection::release_params() {
+    // @@protoc_insertion_point(field_release:eicio.model.TrackerPulseCollection.params)
 
-    ::eicio::Params* temp = params_;
+    ::eicio::model::Params* temp = params_;
     params_ = NULL;
     return temp;
 }
-inline void TrackerPulseCollection::set_allocated_params(::eicio::Params* params) {
+inline void TrackerPulseCollection::set_allocated_params(::eicio::model::Params* params) {
     delete params_;
     params_ = params;
     if (params) {
     } else {
     }
-    // @@protoc_insertion_point(field_set_allocated:eicio.TrackerPulseCollection.params)
+    // @@protoc_insertion_point(field_set_allocated:eicio.model.TrackerPulseCollection.params)
 }
 
-// repeated .eicio.TrackerPulse entries = 4;
+// repeated .eicio.model.TrackerPulse entries = 4;
 inline int TrackerPulseCollection::entries_size() const { return entries_.size(); }
 inline void TrackerPulseCollection::clear_entries() { entries_.Clear(); }
-inline const ::eicio::TrackerPulse& TrackerPulseCollection::entries(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerPulseCollection.entries)
+inline const ::eicio::model::TrackerPulse& TrackerPulseCollection::entries(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerPulseCollection.entries)
     return entries_.Get(index);
 }
-inline ::eicio::TrackerPulse* TrackerPulseCollection::mutable_entries(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.TrackerPulseCollection.entries)
+inline ::eicio::model::TrackerPulse* TrackerPulseCollection::mutable_entries(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.TrackerPulseCollection.entries)
     return entries_.Mutable(index);
 }
-inline ::eicio::TrackerPulse* TrackerPulseCollection::add_entries() {
-    // @@protoc_insertion_point(field_add:eicio.TrackerPulseCollection.entries)
+inline ::eicio::model::TrackerPulse* TrackerPulseCollection::add_entries() {
+    // @@protoc_insertion_point(field_add:eicio.model.TrackerPulseCollection.entries)
     return entries_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::TrackerPulse>*
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::TrackerPulse>*
 TrackerPulseCollection::mutable_entries() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.TrackerPulseCollection.entries)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.TrackerPulseCollection.entries)
     return &entries_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::TrackerPulse>& TrackerPulseCollection::entries()
-    const {
-    // @@protoc_insertion_point(field_list:eicio.TrackerPulseCollection.entries)
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::TrackerPulse>&
+TrackerPulseCollection::entries() const {
+    // @@protoc_insertion_point(field_list:eicio.model.TrackerPulseCollection.entries)
     return entries_;
 }
 
@@ -7345,68 +7358,68 @@ inline const ::google::protobuf::RepeatedPtrField< ::eicio::TrackerPulse>& Track
 // uint32 id = 1;
 inline void TrackerHitPlane::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 TrackerHitPlane::id() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitPlane.id)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitPlane.id)
     return id_;
 }
 inline void TrackerHitPlane::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHitPlane.id)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHitPlane.id)
 }
 
 // int32 cellID0 = 2;
 inline void TrackerHitPlane::clear_cellid0() { cellid0_ = 0; }
 inline ::google::protobuf::int32 TrackerHitPlane::cellid0() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitPlane.cellID0)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitPlane.cellID0)
     return cellid0_;
 }
 inline void TrackerHitPlane::set_cellid0(::google::protobuf::int32 value) {
     cellid0_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHitPlane.cellID0)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHitPlane.cellID0)
 }
 
 // int32 cellID1 = 3;
 inline void TrackerHitPlane::clear_cellid1() { cellid1_ = 0; }
 inline ::google::protobuf::int32 TrackerHitPlane::cellid1() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitPlane.cellID1)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitPlane.cellID1)
     return cellid1_;
 }
 inline void TrackerHitPlane::set_cellid1(::google::protobuf::int32 value) {
     cellid1_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHitPlane.cellID1)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHitPlane.cellID1)
 }
 
 // int32 type = 4;
 inline void TrackerHitPlane::clear_type() { type_ = 0; }
 inline ::google::protobuf::int32 TrackerHitPlane::type() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitPlane.type)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitPlane.type)
     return type_;
 }
 inline void TrackerHitPlane::set_type(::google::protobuf::int32 value) {
     type_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHitPlane.type)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHitPlane.type)
 }
 
 // repeated double pos = 5;
 inline int TrackerHitPlane::pos_size() const { return pos_.size(); }
 inline void TrackerHitPlane::clear_pos() { pos_.Clear(); }
 inline double TrackerHitPlane::pos(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitPlane.pos)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitPlane.pos)
     return pos_.Get(index);
 }
 inline void TrackerHitPlane::set_pos(int index, double value) {
     pos_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.TrackerHitPlane.pos)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHitPlane.pos)
 }
 inline void TrackerHitPlane::add_pos(double value) {
     pos_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.TrackerHitPlane.pos)
+    // @@protoc_insertion_point(field_add:eicio.model.TrackerHitPlane.pos)
 }
 inline const ::google::protobuf::RepeatedField<double>& TrackerHitPlane::pos() const {
-    // @@protoc_insertion_point(field_list:eicio.TrackerHitPlane.pos)
+    // @@protoc_insertion_point(field_list:eicio.model.TrackerHitPlane.pos)
     return pos_;
 }
 inline ::google::protobuf::RepeatedField<double>* TrackerHitPlane::mutable_pos() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.TrackerHitPlane.pos)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.TrackerHitPlane.pos)
     return &pos_;
 }
 
@@ -7414,23 +7427,23 @@ inline ::google::protobuf::RepeatedField<double>* TrackerHitPlane::mutable_pos()
 inline int TrackerHitPlane::u_size() const { return u_.size(); }
 inline void TrackerHitPlane::clear_u() { u_.Clear(); }
 inline float TrackerHitPlane::u(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitPlane.U)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitPlane.U)
     return u_.Get(index);
 }
 inline void TrackerHitPlane::set_u(int index, float value) {
     u_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.TrackerHitPlane.U)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHitPlane.U)
 }
 inline void TrackerHitPlane::add_u(float value) {
     u_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.TrackerHitPlane.U)
+    // @@protoc_insertion_point(field_add:eicio.model.TrackerHitPlane.U)
 }
 inline const ::google::protobuf::RepeatedField<float>& TrackerHitPlane::u() const {
-    // @@protoc_insertion_point(field_list:eicio.TrackerHitPlane.U)
+    // @@protoc_insertion_point(field_list:eicio.model.TrackerHitPlane.U)
     return u_;
 }
 inline ::google::protobuf::RepeatedField<float>* TrackerHitPlane::mutable_u() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.TrackerHitPlane.U)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.TrackerHitPlane.U)
     return &u_;
 }
 
@@ -7438,113 +7451,114 @@ inline ::google::protobuf::RepeatedField<float>* TrackerHitPlane::mutable_u() {
 inline int TrackerHitPlane::v_size() const { return v_.size(); }
 inline void TrackerHitPlane::clear_v() { v_.Clear(); }
 inline float TrackerHitPlane::v(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitPlane.V)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitPlane.V)
     return v_.Get(index);
 }
 inline void TrackerHitPlane::set_v(int index, float value) {
     v_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.TrackerHitPlane.V)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHitPlane.V)
 }
 inline void TrackerHitPlane::add_v(float value) {
     v_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.TrackerHitPlane.V)
+    // @@protoc_insertion_point(field_add:eicio.model.TrackerHitPlane.V)
 }
 inline const ::google::protobuf::RepeatedField<float>& TrackerHitPlane::v() const {
-    // @@protoc_insertion_point(field_list:eicio.TrackerHitPlane.V)
+    // @@protoc_insertion_point(field_list:eicio.model.TrackerHitPlane.V)
     return v_;
 }
 inline ::google::protobuf::RepeatedField<float>* TrackerHitPlane::mutable_v() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.TrackerHitPlane.V)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.TrackerHitPlane.V)
     return &v_;
 }
 
 // float dU = 8;
 inline void TrackerHitPlane::clear_du() { du_ = 0; }
 inline float TrackerHitPlane::du() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitPlane.dU)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitPlane.dU)
     return du_;
 }
 inline void TrackerHitPlane::set_du(float value) {
     du_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHitPlane.dU)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHitPlane.dU)
 }
 
 // float dV = 9;
 inline void TrackerHitPlane::clear_dv() { dv_ = 0; }
 inline float TrackerHitPlane::dv() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitPlane.dV)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitPlane.dV)
     return dv_;
 }
 inline void TrackerHitPlane::set_dv(float value) {
     dv_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHitPlane.dV)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHitPlane.dV)
 }
 
 // float EDep = 10;
 inline void TrackerHitPlane::clear_edep() { edep_ = 0; }
 inline float TrackerHitPlane::edep() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitPlane.EDep)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitPlane.EDep)
     return edep_;
 }
 inline void TrackerHitPlane::set_edep(float value) {
     edep_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHitPlane.EDep)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHitPlane.EDep)
 }
 
 // float EDepErr = 11;
 inline void TrackerHitPlane::clear_edeperr() { edeperr_ = 0; }
 inline float TrackerHitPlane::edeperr() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitPlane.EDepErr)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitPlane.EDepErr)
     return edeperr_;
 }
 inline void TrackerHitPlane::set_edeperr(float value) {
     edeperr_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHitPlane.EDepErr)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHitPlane.EDepErr)
 }
 
 // float time = 12;
 inline void TrackerHitPlane::clear_time() { time_ = 0; }
 inline float TrackerHitPlane::time() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitPlane.time)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitPlane.time)
     return time_;
 }
 inline void TrackerHitPlane::set_time(float value) {
     time_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHitPlane.time)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHitPlane.time)
 }
 
 // int32 quality = 13;
 inline void TrackerHitPlane::clear_quality() { quality_ = 0; }
 inline ::google::protobuf::int32 TrackerHitPlane::quality() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitPlane.quality)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitPlane.quality)
     return quality_;
 }
 inline void TrackerHitPlane::set_quality(::google::protobuf::int32 value) {
     quality_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHitPlane.quality)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHitPlane.quality)
 }
 
-// repeated .eicio.Reference rawHits = 14;
+// repeated .eicio.model.Reference rawHits = 14;
 inline int TrackerHitPlane::rawhits_size() const { return rawhits_.size(); }
 inline void TrackerHitPlane::clear_rawhits() { rawhits_.Clear(); }
-inline const ::eicio::Reference& TrackerHitPlane::rawhits(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitPlane.rawHits)
+inline const ::eicio::model::Reference& TrackerHitPlane::rawhits(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitPlane.rawHits)
     return rawhits_.Get(index);
 }
-inline ::eicio::Reference* TrackerHitPlane::mutable_rawhits(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.TrackerHitPlane.rawHits)
+inline ::eicio::model::Reference* TrackerHitPlane::mutable_rawhits(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.TrackerHitPlane.rawHits)
     return rawhits_.Mutable(index);
 }
-inline ::eicio::Reference* TrackerHitPlane::add_rawhits() {
-    // @@protoc_insertion_point(field_add:eicio.TrackerHitPlane.rawHits)
+inline ::eicio::model::Reference* TrackerHitPlane::add_rawhits() {
+    // @@protoc_insertion_point(field_add:eicio.model.TrackerHitPlane.rawHits)
     return rawhits_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::Reference>* TrackerHitPlane::mutable_rawhits() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.TrackerHitPlane.rawHits)
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>* TrackerHitPlane::mutable_rawhits() {
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.TrackerHitPlane.rawHits)
     return &rawhits_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::Reference>& TrackerHitPlane::rawhits() const {
-    // @@protoc_insertion_point(field_list:eicio.TrackerHitPlane.rawHits)
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>& TrackerHitPlane::rawhits()
+    const {
+    // @@protoc_insertion_point(field_list:eicio.model.TrackerHitPlane.rawHits)
     return rawhits_;
 }
 
@@ -7555,26 +7569,26 @@ inline const ::google::protobuf::RepeatedPtrField< ::eicio::Reference>& TrackerH
 // uint32 id = 1;
 inline void TrackerHitPlaneCollection::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 TrackerHitPlaneCollection::id() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitPlaneCollection.id)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitPlaneCollection.id)
     return id_;
 }
 inline void TrackerHitPlaneCollection::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHitPlaneCollection.id)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHitPlaneCollection.id)
 }
 
 // uint32 flags = 2;
 inline void TrackerHitPlaneCollection::clear_flags() { flags_ = 0u; }
 inline ::google::protobuf::uint32 TrackerHitPlaneCollection::flags() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitPlaneCollection.flags)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitPlaneCollection.flags)
     return flags_;
 }
 inline void TrackerHitPlaneCollection::set_flags(::google::protobuf::uint32 value) {
     flags_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHitPlaneCollection.flags)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHitPlaneCollection.flags)
 }
 
-// .eicio.Params params = 3;
+// .eicio.model.Params params = 3;
 inline bool TrackerHitPlaneCollection::has_params() const {
     return this != internal_default_instance() && params_ != NULL;
 }
@@ -7582,56 +7596,56 @@ inline void TrackerHitPlaneCollection::clear_params() {
     if (GetArenaNoVirtual() == NULL && params_ != NULL) delete params_;
     params_ = NULL;
 }
-inline const ::eicio::Params& TrackerHitPlaneCollection::params() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitPlaneCollection.params)
-    return params_ != NULL ? *params_ : *::eicio::Params::internal_default_instance();
+inline const ::eicio::model::Params& TrackerHitPlaneCollection::params() const {
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitPlaneCollection.params)
+    return params_ != NULL ? *params_ : *::eicio::model::Params::internal_default_instance();
 }
-inline ::eicio::Params* TrackerHitPlaneCollection::mutable_params() {
+inline ::eicio::model::Params* TrackerHitPlaneCollection::mutable_params() {
     if (params_ == NULL) {
-        params_ = new ::eicio::Params;
+        params_ = new ::eicio::model::Params;
     }
-    // @@protoc_insertion_point(field_mutable:eicio.TrackerHitPlaneCollection.params)
+    // @@protoc_insertion_point(field_mutable:eicio.model.TrackerHitPlaneCollection.params)
     return params_;
 }
-inline ::eicio::Params* TrackerHitPlaneCollection::release_params() {
-    // @@protoc_insertion_point(field_release:eicio.TrackerHitPlaneCollection.params)
+inline ::eicio::model::Params* TrackerHitPlaneCollection::release_params() {
+    // @@protoc_insertion_point(field_release:eicio.model.TrackerHitPlaneCollection.params)
 
-    ::eicio::Params* temp = params_;
+    ::eicio::model::Params* temp = params_;
     params_ = NULL;
     return temp;
 }
-inline void TrackerHitPlaneCollection::set_allocated_params(::eicio::Params* params) {
+inline void TrackerHitPlaneCollection::set_allocated_params(::eicio::model::Params* params) {
     delete params_;
     params_ = params;
     if (params) {
     } else {
     }
-    // @@protoc_insertion_point(field_set_allocated:eicio.TrackerHitPlaneCollection.params)
+    // @@protoc_insertion_point(field_set_allocated:eicio.model.TrackerHitPlaneCollection.params)
 }
 
-// repeated .eicio.TrackerHitPlane entries = 4;
+// repeated .eicio.model.TrackerHitPlane entries = 4;
 inline int TrackerHitPlaneCollection::entries_size() const { return entries_.size(); }
 inline void TrackerHitPlaneCollection::clear_entries() { entries_.Clear(); }
-inline const ::eicio::TrackerHitPlane& TrackerHitPlaneCollection::entries(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitPlaneCollection.entries)
+inline const ::eicio::model::TrackerHitPlane& TrackerHitPlaneCollection::entries(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitPlaneCollection.entries)
     return entries_.Get(index);
 }
-inline ::eicio::TrackerHitPlane* TrackerHitPlaneCollection::mutable_entries(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.TrackerHitPlaneCollection.entries)
+inline ::eicio::model::TrackerHitPlane* TrackerHitPlaneCollection::mutable_entries(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.TrackerHitPlaneCollection.entries)
     return entries_.Mutable(index);
 }
-inline ::eicio::TrackerHitPlane* TrackerHitPlaneCollection::add_entries() {
-    // @@protoc_insertion_point(field_add:eicio.TrackerHitPlaneCollection.entries)
+inline ::eicio::model::TrackerHitPlane* TrackerHitPlaneCollection::add_entries() {
+    // @@protoc_insertion_point(field_add:eicio.model.TrackerHitPlaneCollection.entries)
     return entries_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::TrackerHitPlane>*
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::TrackerHitPlane>*
 TrackerHitPlaneCollection::mutable_entries() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.TrackerHitPlaneCollection.entries)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.TrackerHitPlaneCollection.entries)
     return &entries_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::TrackerHitPlane>&
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::TrackerHitPlane>&
 TrackerHitPlaneCollection::entries() const {
-    // @@protoc_insertion_point(field_list:eicio.TrackerHitPlaneCollection.entries)
+    // @@protoc_insertion_point(field_list:eicio.model.TrackerHitPlaneCollection.entries)
     return entries_;
 }
 
@@ -7642,68 +7656,68 @@ TrackerHitPlaneCollection::entries() const {
 // uint32 id = 1;
 inline void TrackerHitZCylinder::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 TrackerHitZCylinder::id() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitZCylinder.id)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitZCylinder.id)
     return id_;
 }
 inline void TrackerHitZCylinder::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHitZCylinder.id)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHitZCylinder.id)
 }
 
 // int32 cellID0 = 2;
 inline void TrackerHitZCylinder::clear_cellid0() { cellid0_ = 0; }
 inline ::google::protobuf::int32 TrackerHitZCylinder::cellid0() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitZCylinder.cellID0)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitZCylinder.cellID0)
     return cellid0_;
 }
 inline void TrackerHitZCylinder::set_cellid0(::google::protobuf::int32 value) {
     cellid0_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHitZCylinder.cellID0)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHitZCylinder.cellID0)
 }
 
 // int32 cellID1 = 3;
 inline void TrackerHitZCylinder::clear_cellid1() { cellid1_ = 0; }
 inline ::google::protobuf::int32 TrackerHitZCylinder::cellid1() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitZCylinder.cellID1)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitZCylinder.cellID1)
     return cellid1_;
 }
 inline void TrackerHitZCylinder::set_cellid1(::google::protobuf::int32 value) {
     cellid1_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHitZCylinder.cellID1)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHitZCylinder.cellID1)
 }
 
 // int32 type = 4;
 inline void TrackerHitZCylinder::clear_type() { type_ = 0; }
 inline ::google::protobuf::int32 TrackerHitZCylinder::type() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitZCylinder.type)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitZCylinder.type)
     return type_;
 }
 inline void TrackerHitZCylinder::set_type(::google::protobuf::int32 value) {
     type_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHitZCylinder.type)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHitZCylinder.type)
 }
 
 // repeated double pos = 5;
 inline int TrackerHitZCylinder::pos_size() const { return pos_.size(); }
 inline void TrackerHitZCylinder::clear_pos() { pos_.Clear(); }
 inline double TrackerHitZCylinder::pos(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitZCylinder.pos)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitZCylinder.pos)
     return pos_.Get(index);
 }
 inline void TrackerHitZCylinder::set_pos(int index, double value) {
     pos_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.TrackerHitZCylinder.pos)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHitZCylinder.pos)
 }
 inline void TrackerHitZCylinder::add_pos(double value) {
     pos_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.TrackerHitZCylinder.pos)
+    // @@protoc_insertion_point(field_add:eicio.model.TrackerHitZCylinder.pos)
 }
 inline const ::google::protobuf::RepeatedField<double>& TrackerHitZCylinder::pos() const {
-    // @@protoc_insertion_point(field_list:eicio.TrackerHitZCylinder.pos)
+    // @@protoc_insertion_point(field_list:eicio.model.TrackerHitZCylinder.pos)
     return pos_;
 }
 inline ::google::protobuf::RepeatedField<double>* TrackerHitZCylinder::mutable_pos() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.TrackerHitZCylinder.pos)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.TrackerHitZCylinder.pos)
     return &pos_;
 }
 
@@ -7711,113 +7725,115 @@ inline ::google::protobuf::RepeatedField<double>* TrackerHitZCylinder::mutable_p
 inline int TrackerHitZCylinder::center_size() const { return center_.size(); }
 inline void TrackerHitZCylinder::clear_center() { center_.Clear(); }
 inline float TrackerHitZCylinder::center(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitZCylinder.center)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitZCylinder.center)
     return center_.Get(index);
 }
 inline void TrackerHitZCylinder::set_center(int index, float value) {
     center_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.TrackerHitZCylinder.center)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHitZCylinder.center)
 }
 inline void TrackerHitZCylinder::add_center(float value) {
     center_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.TrackerHitZCylinder.center)
+    // @@protoc_insertion_point(field_add:eicio.model.TrackerHitZCylinder.center)
 }
 inline const ::google::protobuf::RepeatedField<float>& TrackerHitZCylinder::center() const {
-    // @@protoc_insertion_point(field_list:eicio.TrackerHitZCylinder.center)
+    // @@protoc_insertion_point(field_list:eicio.model.TrackerHitZCylinder.center)
     return center_;
 }
 inline ::google::protobuf::RepeatedField<float>* TrackerHitZCylinder::mutable_center() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.TrackerHitZCylinder.center)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.TrackerHitZCylinder.center)
     return &center_;
 }
 
 // float dRPhi = 7;
 inline void TrackerHitZCylinder::clear_drphi() { drphi_ = 0; }
 inline float TrackerHitZCylinder::drphi() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitZCylinder.dRPhi)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitZCylinder.dRPhi)
     return drphi_;
 }
 inline void TrackerHitZCylinder::set_drphi(float value) {
     drphi_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHitZCylinder.dRPhi)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHitZCylinder.dRPhi)
 }
 
 // float dZ = 8;
 inline void TrackerHitZCylinder::clear_dz() { dz_ = 0; }
 inline float TrackerHitZCylinder::dz() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitZCylinder.dZ)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitZCylinder.dZ)
     return dz_;
 }
 inline void TrackerHitZCylinder::set_dz(float value) {
     dz_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHitZCylinder.dZ)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHitZCylinder.dZ)
 }
 
 // float EDep = 9;
 inline void TrackerHitZCylinder::clear_edep() { edep_ = 0; }
 inline float TrackerHitZCylinder::edep() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitZCylinder.EDep)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitZCylinder.EDep)
     return edep_;
 }
 inline void TrackerHitZCylinder::set_edep(float value) {
     edep_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHitZCylinder.EDep)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHitZCylinder.EDep)
 }
 
 // float EDepErr = 10;
 inline void TrackerHitZCylinder::clear_edeperr() { edeperr_ = 0; }
 inline float TrackerHitZCylinder::edeperr() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitZCylinder.EDepErr)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitZCylinder.EDepErr)
     return edeperr_;
 }
 inline void TrackerHitZCylinder::set_edeperr(float value) {
     edeperr_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHitZCylinder.EDepErr)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHitZCylinder.EDepErr)
 }
 
 // float time = 11;
 inline void TrackerHitZCylinder::clear_time() { time_ = 0; }
 inline float TrackerHitZCylinder::time() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitZCylinder.time)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitZCylinder.time)
     return time_;
 }
 inline void TrackerHitZCylinder::set_time(float value) {
     time_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHitZCylinder.time)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHitZCylinder.time)
 }
 
 // int32 quality = 12;
 inline void TrackerHitZCylinder::clear_quality() { quality_ = 0; }
 inline ::google::protobuf::int32 TrackerHitZCylinder::quality() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitZCylinder.quality)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitZCylinder.quality)
     return quality_;
 }
 inline void TrackerHitZCylinder::set_quality(::google::protobuf::int32 value) {
     quality_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHitZCylinder.quality)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHitZCylinder.quality)
 }
 
-// repeated .eicio.Reference rawHits = 13;
+// repeated .eicio.model.Reference rawHits = 13;
 inline int TrackerHitZCylinder::rawhits_size() const { return rawhits_.size(); }
 inline void TrackerHitZCylinder::clear_rawhits() { rawhits_.Clear(); }
-inline const ::eicio::Reference& TrackerHitZCylinder::rawhits(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitZCylinder.rawHits)
+inline const ::eicio::model::Reference& TrackerHitZCylinder::rawhits(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitZCylinder.rawHits)
     return rawhits_.Get(index);
 }
-inline ::eicio::Reference* TrackerHitZCylinder::mutable_rawhits(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.TrackerHitZCylinder.rawHits)
+inline ::eicio::model::Reference* TrackerHitZCylinder::mutable_rawhits(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.TrackerHitZCylinder.rawHits)
     return rawhits_.Mutable(index);
 }
-inline ::eicio::Reference* TrackerHitZCylinder::add_rawhits() {
-    // @@protoc_insertion_point(field_add:eicio.TrackerHitZCylinder.rawHits)
+inline ::eicio::model::Reference* TrackerHitZCylinder::add_rawhits() {
+    // @@protoc_insertion_point(field_add:eicio.model.TrackerHitZCylinder.rawHits)
     return rawhits_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::Reference>* TrackerHitZCylinder::mutable_rawhits() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.TrackerHitZCylinder.rawHits)
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>*
+TrackerHitZCylinder::mutable_rawhits() {
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.TrackerHitZCylinder.rawHits)
     return &rawhits_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::Reference>& TrackerHitZCylinder::rawhits() const {
-    // @@protoc_insertion_point(field_list:eicio.TrackerHitZCylinder.rawHits)
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>& TrackerHitZCylinder::rawhits()
+    const {
+    // @@protoc_insertion_point(field_list:eicio.model.TrackerHitZCylinder.rawHits)
     return rawhits_;
 }
 
@@ -7828,26 +7844,26 @@ inline const ::google::protobuf::RepeatedPtrField< ::eicio::Reference>& TrackerH
 // uint32 id = 1;
 inline void TrackerHitZCylinderCollection::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 TrackerHitZCylinderCollection::id() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitZCylinderCollection.id)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitZCylinderCollection.id)
     return id_;
 }
 inline void TrackerHitZCylinderCollection::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHitZCylinderCollection.id)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHitZCylinderCollection.id)
 }
 
 // uint32 flags = 2;
 inline void TrackerHitZCylinderCollection::clear_flags() { flags_ = 0u; }
 inline ::google::protobuf::uint32 TrackerHitZCylinderCollection::flags() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitZCylinderCollection.flags)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitZCylinderCollection.flags)
     return flags_;
 }
 inline void TrackerHitZCylinderCollection::set_flags(::google::protobuf::uint32 value) {
     flags_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackerHitZCylinderCollection.flags)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackerHitZCylinderCollection.flags)
 }
 
-// .eicio.Params params = 3;
+// .eicio.model.Params params = 3;
 inline bool TrackerHitZCylinderCollection::has_params() const {
     return this != internal_default_instance() && params_ != NULL;
 }
@@ -7855,56 +7871,56 @@ inline void TrackerHitZCylinderCollection::clear_params() {
     if (GetArenaNoVirtual() == NULL && params_ != NULL) delete params_;
     params_ = NULL;
 }
-inline const ::eicio::Params& TrackerHitZCylinderCollection::params() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitZCylinderCollection.params)
-    return params_ != NULL ? *params_ : *::eicio::Params::internal_default_instance();
+inline const ::eicio::model::Params& TrackerHitZCylinderCollection::params() const {
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitZCylinderCollection.params)
+    return params_ != NULL ? *params_ : *::eicio::model::Params::internal_default_instance();
 }
-inline ::eicio::Params* TrackerHitZCylinderCollection::mutable_params() {
+inline ::eicio::model::Params* TrackerHitZCylinderCollection::mutable_params() {
     if (params_ == NULL) {
-        params_ = new ::eicio::Params;
+        params_ = new ::eicio::model::Params;
     }
-    // @@protoc_insertion_point(field_mutable:eicio.TrackerHitZCylinderCollection.params)
+    // @@protoc_insertion_point(field_mutable:eicio.model.TrackerHitZCylinderCollection.params)
     return params_;
 }
-inline ::eicio::Params* TrackerHitZCylinderCollection::release_params() {
-    // @@protoc_insertion_point(field_release:eicio.TrackerHitZCylinderCollection.params)
+inline ::eicio::model::Params* TrackerHitZCylinderCollection::release_params() {
+    // @@protoc_insertion_point(field_release:eicio.model.TrackerHitZCylinderCollection.params)
 
-    ::eicio::Params* temp = params_;
+    ::eicio::model::Params* temp = params_;
     params_ = NULL;
     return temp;
 }
-inline void TrackerHitZCylinderCollection::set_allocated_params(::eicio::Params* params) {
+inline void TrackerHitZCylinderCollection::set_allocated_params(::eicio::model::Params* params) {
     delete params_;
     params_ = params;
     if (params) {
     } else {
     }
-    // @@protoc_insertion_point(field_set_allocated:eicio.TrackerHitZCylinderCollection.params)
+    // @@protoc_insertion_point(field_set_allocated:eicio.model.TrackerHitZCylinderCollection.params)
 }
 
-// repeated .eicio.TrackerHitZCylinder entries = 4;
+// repeated .eicio.model.TrackerHitZCylinder entries = 4;
 inline int TrackerHitZCylinderCollection::entries_size() const { return entries_.size(); }
 inline void TrackerHitZCylinderCollection::clear_entries() { entries_.Clear(); }
-inline const ::eicio::TrackerHitZCylinder& TrackerHitZCylinderCollection::entries(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.TrackerHitZCylinderCollection.entries)
+inline const ::eicio::model::TrackerHitZCylinder& TrackerHitZCylinderCollection::entries(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.TrackerHitZCylinderCollection.entries)
     return entries_.Get(index);
 }
-inline ::eicio::TrackerHitZCylinder* TrackerHitZCylinderCollection::mutable_entries(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.TrackerHitZCylinderCollection.entries)
+inline ::eicio::model::TrackerHitZCylinder* TrackerHitZCylinderCollection::mutable_entries(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.TrackerHitZCylinderCollection.entries)
     return entries_.Mutable(index);
 }
-inline ::eicio::TrackerHitZCylinder* TrackerHitZCylinderCollection::add_entries() {
-    // @@protoc_insertion_point(field_add:eicio.TrackerHitZCylinderCollection.entries)
+inline ::eicio::model::TrackerHitZCylinder* TrackerHitZCylinderCollection::add_entries() {
+    // @@protoc_insertion_point(field_add:eicio.model.TrackerHitZCylinderCollection.entries)
     return entries_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::TrackerHitZCylinder>*
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::TrackerHitZCylinder>*
 TrackerHitZCylinderCollection::mutable_entries() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.TrackerHitZCylinderCollection.entries)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.TrackerHitZCylinderCollection.entries)
     return &entries_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::TrackerHitZCylinder>&
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::TrackerHitZCylinder>&
 TrackerHitZCylinderCollection::entries() const {
-    // @@protoc_insertion_point(field_list:eicio.TrackerHitZCylinderCollection.entries)
+    // @@protoc_insertion_point(field_list:eicio.model.TrackerHitZCylinderCollection.entries)
     return entries_;
 }
 
@@ -7915,90 +7931,90 @@ TrackerHitZCylinderCollection::entries() const {
 // int32 loc = 1;
 inline void Track_TrackState::clear_loc() { loc_ = 0; }
 inline ::google::protobuf::int32 Track_TrackState::loc() const {
-    // @@protoc_insertion_point(field_get:eicio.Track.TrackState.loc)
+    // @@protoc_insertion_point(field_get:eicio.model.Track.TrackState.loc)
     return loc_;
 }
 inline void Track_TrackState::set_loc(::google::protobuf::int32 value) {
     loc_ = value;
-    // @@protoc_insertion_point(field_set:eicio.Track.TrackState.loc)
+    // @@protoc_insertion_point(field_set:eicio.model.Track.TrackState.loc)
 }
 
 // float d0 = 2;
 inline void Track_TrackState::clear_d0() { d0_ = 0; }
 inline float Track_TrackState::d0() const {
-    // @@protoc_insertion_point(field_get:eicio.Track.TrackState.d0)
+    // @@protoc_insertion_point(field_get:eicio.model.Track.TrackState.d0)
     return d0_;
 }
 inline void Track_TrackState::set_d0(float value) {
     d0_ = value;
-    // @@protoc_insertion_point(field_set:eicio.Track.TrackState.d0)
+    // @@protoc_insertion_point(field_set:eicio.model.Track.TrackState.d0)
 }
 
 // float phi = 3;
 inline void Track_TrackState::clear_phi() { phi_ = 0; }
 inline float Track_TrackState::phi() const {
-    // @@protoc_insertion_point(field_get:eicio.Track.TrackState.phi)
+    // @@protoc_insertion_point(field_get:eicio.model.Track.TrackState.phi)
     return phi_;
 }
 inline void Track_TrackState::set_phi(float value) {
     phi_ = value;
-    // @@protoc_insertion_point(field_set:eicio.Track.TrackState.phi)
+    // @@protoc_insertion_point(field_set:eicio.model.Track.TrackState.phi)
 }
 
 // float omega = 4;
 inline void Track_TrackState::clear_omega() { omega_ = 0; }
 inline float Track_TrackState::omega() const {
-    // @@protoc_insertion_point(field_get:eicio.Track.TrackState.omega)
+    // @@protoc_insertion_point(field_get:eicio.model.Track.TrackState.omega)
     return omega_;
 }
 inline void Track_TrackState::set_omega(float value) {
     omega_ = value;
-    // @@protoc_insertion_point(field_set:eicio.Track.TrackState.omega)
+    // @@protoc_insertion_point(field_set:eicio.model.Track.TrackState.omega)
 }
 
 // float z0 = 5;
 inline void Track_TrackState::clear_z0() { z0_ = 0; }
 inline float Track_TrackState::z0() const {
-    // @@protoc_insertion_point(field_get:eicio.Track.TrackState.z0)
+    // @@protoc_insertion_point(field_get:eicio.model.Track.TrackState.z0)
     return z0_;
 }
 inline void Track_TrackState::set_z0(float value) {
     z0_ = value;
-    // @@protoc_insertion_point(field_set:eicio.Track.TrackState.z0)
+    // @@protoc_insertion_point(field_set:eicio.model.Track.TrackState.z0)
 }
 
 // float tanL = 6;
 inline void Track_TrackState::clear_tanl() { tanl_ = 0; }
 inline float Track_TrackState::tanl() const {
-    // @@protoc_insertion_point(field_get:eicio.Track.TrackState.tanL)
+    // @@protoc_insertion_point(field_get:eicio.model.Track.TrackState.tanL)
     return tanl_;
 }
 inline void Track_TrackState::set_tanl(float value) {
     tanl_ = value;
-    // @@protoc_insertion_point(field_set:eicio.Track.TrackState.tanL)
+    // @@protoc_insertion_point(field_set:eicio.model.Track.TrackState.tanL)
 }
 
 // repeated float cov = 7;
 inline int Track_TrackState::cov_size() const { return cov_.size(); }
 inline void Track_TrackState::clear_cov() { cov_.Clear(); }
 inline float Track_TrackState::cov(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.Track.TrackState.cov)
+    // @@protoc_insertion_point(field_get:eicio.model.Track.TrackState.cov)
     return cov_.Get(index);
 }
 inline void Track_TrackState::set_cov(int index, float value) {
     cov_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.Track.TrackState.cov)
+    // @@protoc_insertion_point(field_set:eicio.model.Track.TrackState.cov)
 }
 inline void Track_TrackState::add_cov(float value) {
     cov_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.Track.TrackState.cov)
+    // @@protoc_insertion_point(field_add:eicio.model.Track.TrackState.cov)
 }
 inline const ::google::protobuf::RepeatedField<float>& Track_TrackState::cov() const {
-    // @@protoc_insertion_point(field_list:eicio.Track.TrackState.cov)
+    // @@protoc_insertion_point(field_list:eicio.model.Track.TrackState.cov)
     return cov_;
 }
 inline ::google::protobuf::RepeatedField<float>* Track_TrackState::mutable_cov() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.Track.TrackState.cov)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.Track.TrackState.cov)
     return &cov_;
 }
 
@@ -8006,23 +8022,23 @@ inline ::google::protobuf::RepeatedField<float>* Track_TrackState::mutable_cov()
 inline int Track_TrackState::ref_size() const { return ref_.size(); }
 inline void Track_TrackState::clear_ref() { ref_.Clear(); }
 inline float Track_TrackState::ref(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.Track.TrackState.ref)
+    // @@protoc_insertion_point(field_get:eicio.model.Track.TrackState.ref)
     return ref_.Get(index);
 }
 inline void Track_TrackState::set_ref(int index, float value) {
     ref_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.Track.TrackState.ref)
+    // @@protoc_insertion_point(field_set:eicio.model.Track.TrackState.ref)
 }
 inline void Track_TrackState::add_ref(float value) {
     ref_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.Track.TrackState.ref)
+    // @@protoc_insertion_point(field_add:eicio.model.Track.TrackState.ref)
 }
 inline const ::google::protobuf::RepeatedField<float>& Track_TrackState::ref() const {
-    // @@protoc_insertion_point(field_list:eicio.Track.TrackState.ref)
+    // @@protoc_insertion_point(field_list:eicio.model.Track.TrackState.ref)
     return ref_;
 }
 inline ::google::protobuf::RepeatedField<float>* Track_TrackState::mutable_ref() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.Track.TrackState.ref)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.Track.TrackState.ref)
     return &ref_;
 }
 
@@ -8033,173 +8049,173 @@ inline ::google::protobuf::RepeatedField<float>* Track_TrackState::mutable_ref()
 // uint32 id = 1;
 inline void Track::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 Track::id() const {
-    // @@protoc_insertion_point(field_get:eicio.Track.id)
+    // @@protoc_insertion_point(field_get:eicio.model.Track.id)
     return id_;
 }
 inline void Track::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.Track.id)
+    // @@protoc_insertion_point(field_set:eicio.model.Track.id)
 }
 
 // int32 type = 2;
 inline void Track::clear_type() { type_ = 0; }
 inline ::google::protobuf::int32 Track::type() const {
-    // @@protoc_insertion_point(field_get:eicio.Track.type)
+    // @@protoc_insertion_point(field_get:eicio.model.Track.type)
     return type_;
 }
 inline void Track::set_type(::google::protobuf::int32 value) {
     type_ = value;
-    // @@protoc_insertion_point(field_set:eicio.Track.type)
+    // @@protoc_insertion_point(field_set:eicio.model.Track.type)
 }
 
 // float chi2 = 3;
 inline void Track::clear_chi2() { chi2_ = 0; }
 inline float Track::chi2() const {
-    // @@protoc_insertion_point(field_get:eicio.Track.chi2)
+    // @@protoc_insertion_point(field_get:eicio.model.Track.chi2)
     return chi2_;
 }
 inline void Track::set_chi2(float value) {
     chi2_ = value;
-    // @@protoc_insertion_point(field_set:eicio.Track.chi2)
+    // @@protoc_insertion_point(field_set:eicio.model.Track.chi2)
 }
 
 // int32 NDF = 4;
 inline void Track::clear_ndf() { ndf_ = 0; }
 inline ::google::protobuf::int32 Track::ndf() const {
-    // @@protoc_insertion_point(field_get:eicio.Track.NDF)
+    // @@protoc_insertion_point(field_get:eicio.model.Track.NDF)
     return ndf_;
 }
 inline void Track::set_ndf(::google::protobuf::int32 value) {
     ndf_ = value;
-    // @@protoc_insertion_point(field_set:eicio.Track.NDF)
+    // @@protoc_insertion_point(field_set:eicio.model.Track.NDF)
 }
 
 // float dEdx = 5;
 inline void Track::clear_dedx() { dedx_ = 0; }
 inline float Track::dedx() const {
-    // @@protoc_insertion_point(field_get:eicio.Track.dEdx)
+    // @@protoc_insertion_point(field_get:eicio.model.Track.dEdx)
     return dedx_;
 }
 inline void Track::set_dedx(float value) {
     dedx_ = value;
-    // @@protoc_insertion_point(field_set:eicio.Track.dEdx)
+    // @@protoc_insertion_point(field_set:eicio.model.Track.dEdx)
 }
 
 // float dEdxErr = 6;
 inline void Track::clear_dedxerr() { dedxerr_ = 0; }
 inline float Track::dedxerr() const {
-    // @@protoc_insertion_point(field_get:eicio.Track.dEdxErr)
+    // @@protoc_insertion_point(field_get:eicio.model.Track.dEdxErr)
     return dedxerr_;
 }
 inline void Track::set_dedxerr(float value) {
     dedxerr_ = value;
-    // @@protoc_insertion_point(field_set:eicio.Track.dEdxErr)
+    // @@protoc_insertion_point(field_set:eicio.model.Track.dEdxErr)
 }
 
 // float radius = 7;
 inline void Track::clear_radius() { radius_ = 0; }
 inline float Track::radius() const {
-    // @@protoc_insertion_point(field_get:eicio.Track.radius)
+    // @@protoc_insertion_point(field_get:eicio.model.Track.radius)
     return radius_;
 }
 inline void Track::set_radius(float value) {
     radius_ = value;
-    // @@protoc_insertion_point(field_set:eicio.Track.radius)
+    // @@protoc_insertion_point(field_set:eicio.model.Track.radius)
 }
 
 // repeated int32 subDetHits = 8;
 inline int Track::subdethits_size() const { return subdethits_.size(); }
 inline void Track::clear_subdethits() { subdethits_.Clear(); }
 inline ::google::protobuf::int32 Track::subdethits(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.Track.subDetHits)
+    // @@protoc_insertion_point(field_get:eicio.model.Track.subDetHits)
     return subdethits_.Get(index);
 }
 inline void Track::set_subdethits(int index, ::google::protobuf::int32 value) {
     subdethits_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.Track.subDetHits)
+    // @@protoc_insertion_point(field_set:eicio.model.Track.subDetHits)
 }
 inline void Track::add_subdethits(::google::protobuf::int32 value) {
     subdethits_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.Track.subDetHits)
+    // @@protoc_insertion_point(field_add:eicio.model.Track.subDetHits)
 }
 inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32>& Track::subdethits() const {
-    // @@protoc_insertion_point(field_list:eicio.Track.subDetHits)
+    // @@protoc_insertion_point(field_list:eicio.model.Track.subDetHits)
     return subdethits_;
 }
 inline ::google::protobuf::RepeatedField< ::google::protobuf::int32>* Track::mutable_subdethits() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.Track.subDetHits)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.Track.subDetHits)
     return &subdethits_;
 }
 
-// repeated .eicio.Track.TrackState states = 9;
+// repeated .eicio.model.Track.TrackState states = 9;
 inline int Track::states_size() const { return states_.size(); }
 inline void Track::clear_states() { states_.Clear(); }
-inline const ::eicio::Track_TrackState& Track::states(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.Track.states)
+inline const ::eicio::model::Track_TrackState& Track::states(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.Track.states)
     return states_.Get(index);
 }
-inline ::eicio::Track_TrackState* Track::mutable_states(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.Track.states)
+inline ::eicio::model::Track_TrackState* Track::mutable_states(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.Track.states)
     return states_.Mutable(index);
 }
-inline ::eicio::Track_TrackState* Track::add_states() {
-    // @@protoc_insertion_point(field_add:eicio.Track.states)
+inline ::eicio::model::Track_TrackState* Track::add_states() {
+    // @@protoc_insertion_point(field_add:eicio.model.Track.states)
     return states_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::Track_TrackState>* Track::mutable_states() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.Track.states)
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::Track_TrackState>* Track::mutable_states() {
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.Track.states)
     return &states_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::Track_TrackState>& Track::states() const {
-    // @@protoc_insertion_point(field_list:eicio.Track.states)
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::Track_TrackState>& Track::states() const {
+    // @@protoc_insertion_point(field_list:eicio.model.Track.states)
     return states_;
 }
 
-// repeated .eicio.Reference hits = 10;
+// repeated .eicio.model.Reference hits = 10;
 inline int Track::hits_size() const { return hits_.size(); }
 inline void Track::clear_hits() { hits_.Clear(); }
-inline const ::eicio::Reference& Track::hits(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.Track.hits)
+inline const ::eicio::model::Reference& Track::hits(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.Track.hits)
     return hits_.Get(index);
 }
-inline ::eicio::Reference* Track::mutable_hits(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.Track.hits)
+inline ::eicio::model::Reference* Track::mutable_hits(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.Track.hits)
     return hits_.Mutable(index);
 }
-inline ::eicio::Reference* Track::add_hits() {
-    // @@protoc_insertion_point(field_add:eicio.Track.hits)
+inline ::eicio::model::Reference* Track::add_hits() {
+    // @@protoc_insertion_point(field_add:eicio.model.Track.hits)
     return hits_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::Reference>* Track::mutable_hits() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.Track.hits)
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>* Track::mutable_hits() {
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.Track.hits)
     return &hits_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::Reference>& Track::hits() const {
-    // @@protoc_insertion_point(field_list:eicio.Track.hits)
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>& Track::hits() const {
+    // @@protoc_insertion_point(field_list:eicio.model.Track.hits)
     return hits_;
 }
 
-// repeated .eicio.Reference tracks = 11;
+// repeated .eicio.model.Reference tracks = 11;
 inline int Track::tracks_size() const { return tracks_.size(); }
 inline void Track::clear_tracks() { tracks_.Clear(); }
-inline const ::eicio::Reference& Track::tracks(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.Track.tracks)
+inline const ::eicio::model::Reference& Track::tracks(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.Track.tracks)
     return tracks_.Get(index);
 }
-inline ::eicio::Reference* Track::mutable_tracks(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.Track.tracks)
+inline ::eicio::model::Reference* Track::mutable_tracks(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.Track.tracks)
     return tracks_.Mutable(index);
 }
-inline ::eicio::Reference* Track::add_tracks() {
-    // @@protoc_insertion_point(field_add:eicio.Track.tracks)
+inline ::eicio::model::Reference* Track::add_tracks() {
+    // @@protoc_insertion_point(field_add:eicio.model.Track.tracks)
     return tracks_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::Reference>* Track::mutable_tracks() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.Track.tracks)
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>* Track::mutable_tracks() {
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.Track.tracks)
     return &tracks_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::Reference>& Track::tracks() const {
-    // @@protoc_insertion_point(field_list:eicio.Track.tracks)
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>& Track::tracks() const {
+    // @@protoc_insertion_point(field_list:eicio.model.Track.tracks)
     return tracks_;
 }
 
@@ -8210,26 +8226,26 @@ inline const ::google::protobuf::RepeatedPtrField< ::eicio::Reference>& Track::t
 // uint32 id = 1;
 inline void TrackCollection::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 TrackCollection::id() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackCollection.id)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackCollection.id)
     return id_;
 }
 inline void TrackCollection::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackCollection.id)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackCollection.id)
 }
 
 // uint32 flags = 2;
 inline void TrackCollection::clear_flags() { flags_ = 0u; }
 inline ::google::protobuf::uint32 TrackCollection::flags() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackCollection.flags)
+    // @@protoc_insertion_point(field_get:eicio.model.TrackCollection.flags)
     return flags_;
 }
 inline void TrackCollection::set_flags(::google::protobuf::uint32 value) {
     flags_ = value;
-    // @@protoc_insertion_point(field_set:eicio.TrackCollection.flags)
+    // @@protoc_insertion_point(field_set:eicio.model.TrackCollection.flags)
 }
 
-// .eicio.Params params = 3;
+// .eicio.model.Params params = 3;
 inline bool TrackCollection::has_params() const {
     return this != internal_default_instance() && params_ != NULL;
 }
@@ -8237,54 +8253,54 @@ inline void TrackCollection::clear_params() {
     if (GetArenaNoVirtual() == NULL && params_ != NULL) delete params_;
     params_ = NULL;
 }
-inline const ::eicio::Params& TrackCollection::params() const {
-    // @@protoc_insertion_point(field_get:eicio.TrackCollection.params)
-    return params_ != NULL ? *params_ : *::eicio::Params::internal_default_instance();
+inline const ::eicio::model::Params& TrackCollection::params() const {
+    // @@protoc_insertion_point(field_get:eicio.model.TrackCollection.params)
+    return params_ != NULL ? *params_ : *::eicio::model::Params::internal_default_instance();
 }
-inline ::eicio::Params* TrackCollection::mutable_params() {
+inline ::eicio::model::Params* TrackCollection::mutable_params() {
     if (params_ == NULL) {
-        params_ = new ::eicio::Params;
+        params_ = new ::eicio::model::Params;
     }
-    // @@protoc_insertion_point(field_mutable:eicio.TrackCollection.params)
+    // @@protoc_insertion_point(field_mutable:eicio.model.TrackCollection.params)
     return params_;
 }
-inline ::eicio::Params* TrackCollection::release_params() {
-    // @@protoc_insertion_point(field_release:eicio.TrackCollection.params)
+inline ::eicio::model::Params* TrackCollection::release_params() {
+    // @@protoc_insertion_point(field_release:eicio.model.TrackCollection.params)
 
-    ::eicio::Params* temp = params_;
+    ::eicio::model::Params* temp = params_;
     params_ = NULL;
     return temp;
 }
-inline void TrackCollection::set_allocated_params(::eicio::Params* params) {
+inline void TrackCollection::set_allocated_params(::eicio::model::Params* params) {
     delete params_;
     params_ = params;
     if (params) {
     } else {
     }
-    // @@protoc_insertion_point(field_set_allocated:eicio.TrackCollection.params)
+    // @@protoc_insertion_point(field_set_allocated:eicio.model.TrackCollection.params)
 }
 
-// repeated .eicio.Track entries = 4;
+// repeated .eicio.model.Track entries = 4;
 inline int TrackCollection::entries_size() const { return entries_.size(); }
 inline void TrackCollection::clear_entries() { entries_.Clear(); }
-inline const ::eicio::Track& TrackCollection::entries(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.TrackCollection.entries)
+inline const ::eicio::model::Track& TrackCollection::entries(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.TrackCollection.entries)
     return entries_.Get(index);
 }
-inline ::eicio::Track* TrackCollection::mutable_entries(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.TrackCollection.entries)
+inline ::eicio::model::Track* TrackCollection::mutable_entries(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.TrackCollection.entries)
     return entries_.Mutable(index);
 }
-inline ::eicio::Track* TrackCollection::add_entries() {
-    // @@protoc_insertion_point(field_add:eicio.TrackCollection.entries)
+inline ::eicio::model::Track* TrackCollection::add_entries() {
+    // @@protoc_insertion_point(field_add:eicio.model.TrackCollection.entries)
     return entries_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::Track>* TrackCollection::mutable_entries() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.TrackCollection.entries)
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::Track>* TrackCollection::mutable_entries() {
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.TrackCollection.entries)
     return &entries_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::Track>& TrackCollection::entries() const {
-    // @@protoc_insertion_point(field_list:eicio.TrackCollection.entries)
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::Track>& TrackCollection::entries() const {
+    // @@protoc_insertion_point(field_list:eicio.model.TrackCollection.entries)
     return entries_;
 }
 
@@ -8292,7 +8308,7 @@ inline const ::google::protobuf::RepeatedPtrField< ::eicio::Track>& TrackCollect
 
 // SimCalorimeterHit_Contrib
 
-// .eicio.Reference MCParticle = 1;
+// .eicio.model.Reference MCParticle = 1;
 inline bool SimCalorimeterHit_Contrib::has_mcparticle() const {
     return this != internal_default_instance() && mcparticle_ != NULL;
 }
@@ -8300,87 +8316,87 @@ inline void SimCalorimeterHit_Contrib::clear_mcparticle() {
     if (GetArenaNoVirtual() == NULL && mcparticle_ != NULL) delete mcparticle_;
     mcparticle_ = NULL;
 }
-inline const ::eicio::Reference& SimCalorimeterHit_Contrib::mcparticle() const {
-    // @@protoc_insertion_point(field_get:eicio.SimCalorimeterHit.Contrib.MCParticle)
-    return mcparticle_ != NULL ? *mcparticle_ : *::eicio::Reference::internal_default_instance();
+inline const ::eicio::model::Reference& SimCalorimeterHit_Contrib::mcparticle() const {
+    // @@protoc_insertion_point(field_get:eicio.model.SimCalorimeterHit.Contrib.MCParticle)
+    return mcparticle_ != NULL ? *mcparticle_ : *::eicio::model::Reference::internal_default_instance();
 }
-inline ::eicio::Reference* SimCalorimeterHit_Contrib::mutable_mcparticle() {
+inline ::eicio::model::Reference* SimCalorimeterHit_Contrib::mutable_mcparticle() {
     if (mcparticle_ == NULL) {
-        mcparticle_ = new ::eicio::Reference;
+        mcparticle_ = new ::eicio::model::Reference;
     }
-    // @@protoc_insertion_point(field_mutable:eicio.SimCalorimeterHit.Contrib.MCParticle)
+    // @@protoc_insertion_point(field_mutable:eicio.model.SimCalorimeterHit.Contrib.MCParticle)
     return mcparticle_;
 }
-inline ::eicio::Reference* SimCalorimeterHit_Contrib::release_mcparticle() {
-    // @@protoc_insertion_point(field_release:eicio.SimCalorimeterHit.Contrib.MCParticle)
+inline ::eicio::model::Reference* SimCalorimeterHit_Contrib::release_mcparticle() {
+    // @@protoc_insertion_point(field_release:eicio.model.SimCalorimeterHit.Contrib.MCParticle)
 
-    ::eicio::Reference* temp = mcparticle_;
+    ::eicio::model::Reference* temp = mcparticle_;
     mcparticle_ = NULL;
     return temp;
 }
-inline void SimCalorimeterHit_Contrib::set_allocated_mcparticle(::eicio::Reference* mcparticle) {
+inline void SimCalorimeterHit_Contrib::set_allocated_mcparticle(::eicio::model::Reference* mcparticle) {
     delete mcparticle_;
     mcparticle_ = mcparticle;
     if (mcparticle) {
     } else {
     }
-    // @@protoc_insertion_point(field_set_allocated:eicio.SimCalorimeterHit.Contrib.MCParticle)
+    // @@protoc_insertion_point(field_set_allocated:eicio.model.SimCalorimeterHit.Contrib.MCParticle)
 }
 
 // float energy = 2;
 inline void SimCalorimeterHit_Contrib::clear_energy() { energy_ = 0; }
 inline float SimCalorimeterHit_Contrib::energy() const {
-    // @@protoc_insertion_point(field_get:eicio.SimCalorimeterHit.Contrib.energy)
+    // @@protoc_insertion_point(field_get:eicio.model.SimCalorimeterHit.Contrib.energy)
     return energy_;
 }
 inline void SimCalorimeterHit_Contrib::set_energy(float value) {
     energy_ = value;
-    // @@protoc_insertion_point(field_set:eicio.SimCalorimeterHit.Contrib.energy)
+    // @@protoc_insertion_point(field_set:eicio.model.SimCalorimeterHit.Contrib.energy)
 }
 
 // float time = 3;
 inline void SimCalorimeterHit_Contrib::clear_time() { time_ = 0; }
 inline float SimCalorimeterHit_Contrib::time() const {
-    // @@protoc_insertion_point(field_get:eicio.SimCalorimeterHit.Contrib.time)
+    // @@protoc_insertion_point(field_get:eicio.model.SimCalorimeterHit.Contrib.time)
     return time_;
 }
 inline void SimCalorimeterHit_Contrib::set_time(float value) {
     time_ = value;
-    // @@protoc_insertion_point(field_set:eicio.SimCalorimeterHit.Contrib.time)
+    // @@protoc_insertion_point(field_set:eicio.model.SimCalorimeterHit.Contrib.time)
 }
 
 // int32 PDG = 4;
 inline void SimCalorimeterHit_Contrib::clear_pdg() { pdg_ = 0; }
 inline ::google::protobuf::int32 SimCalorimeterHit_Contrib::pdg() const {
-    // @@protoc_insertion_point(field_get:eicio.SimCalorimeterHit.Contrib.PDG)
+    // @@protoc_insertion_point(field_get:eicio.model.SimCalorimeterHit.Contrib.PDG)
     return pdg_;
 }
 inline void SimCalorimeterHit_Contrib::set_pdg(::google::protobuf::int32 value) {
     pdg_ = value;
-    // @@protoc_insertion_point(field_set:eicio.SimCalorimeterHit.Contrib.PDG)
+    // @@protoc_insertion_point(field_set:eicio.model.SimCalorimeterHit.Contrib.PDG)
 }
 
 // repeated float stepPos = 5;
 inline int SimCalorimeterHit_Contrib::steppos_size() const { return steppos_.size(); }
 inline void SimCalorimeterHit_Contrib::clear_steppos() { steppos_.Clear(); }
 inline float SimCalorimeterHit_Contrib::steppos(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.SimCalorimeterHit.Contrib.stepPos)
+    // @@protoc_insertion_point(field_get:eicio.model.SimCalorimeterHit.Contrib.stepPos)
     return steppos_.Get(index);
 }
 inline void SimCalorimeterHit_Contrib::set_steppos(int index, float value) {
     steppos_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.SimCalorimeterHit.Contrib.stepPos)
+    // @@protoc_insertion_point(field_set:eicio.model.SimCalorimeterHit.Contrib.stepPos)
 }
 inline void SimCalorimeterHit_Contrib::add_steppos(float value) {
     steppos_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.SimCalorimeterHit.Contrib.stepPos)
+    // @@protoc_insertion_point(field_add:eicio.model.SimCalorimeterHit.Contrib.stepPos)
 }
 inline const ::google::protobuf::RepeatedField<float>& SimCalorimeterHit_Contrib::steppos() const {
-    // @@protoc_insertion_point(field_list:eicio.SimCalorimeterHit.Contrib.stepPos)
+    // @@protoc_insertion_point(field_list:eicio.model.SimCalorimeterHit.Contrib.stepPos)
     return steppos_;
 }
 inline ::google::protobuf::RepeatedField<float>* SimCalorimeterHit_Contrib::mutable_steppos() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.SimCalorimeterHit.Contrib.stepPos)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.SimCalorimeterHit.Contrib.stepPos)
     return &steppos_;
 }
 
@@ -8391,15 +8407,15 @@ inline ::google::protobuf::RepeatedField<float>* SimCalorimeterHit_Contrib::muta
 // uint32 id = 1;
 inline void SimCalorimeterHit::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 SimCalorimeterHit::id() const {
-    // @@protoc_insertion_point(field_get:eicio.SimCalorimeterHit.id)
+    // @@protoc_insertion_point(field_get:eicio.model.SimCalorimeterHit.id)
     return id_;
 }
 inline void SimCalorimeterHit::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.SimCalorimeterHit.id)
+    // @@protoc_insertion_point(field_set:eicio.model.SimCalorimeterHit.id)
 }
 
-// .eicio.Params params = 2;
+// .eicio.model.Params params = 2;
 inline bool SimCalorimeterHit::has_params() const {
     return this != internal_default_instance() && params_ != NULL;
 }
@@ -8407,113 +8423,113 @@ inline void SimCalorimeterHit::clear_params() {
     if (GetArenaNoVirtual() == NULL && params_ != NULL) delete params_;
     params_ = NULL;
 }
-inline const ::eicio::Params& SimCalorimeterHit::params() const {
-    // @@protoc_insertion_point(field_get:eicio.SimCalorimeterHit.params)
-    return params_ != NULL ? *params_ : *::eicio::Params::internal_default_instance();
+inline const ::eicio::model::Params& SimCalorimeterHit::params() const {
+    // @@protoc_insertion_point(field_get:eicio.model.SimCalorimeterHit.params)
+    return params_ != NULL ? *params_ : *::eicio::model::Params::internal_default_instance();
 }
-inline ::eicio::Params* SimCalorimeterHit::mutable_params() {
+inline ::eicio::model::Params* SimCalorimeterHit::mutable_params() {
     if (params_ == NULL) {
-        params_ = new ::eicio::Params;
+        params_ = new ::eicio::model::Params;
     }
-    // @@protoc_insertion_point(field_mutable:eicio.SimCalorimeterHit.params)
+    // @@protoc_insertion_point(field_mutable:eicio.model.SimCalorimeterHit.params)
     return params_;
 }
-inline ::eicio::Params* SimCalorimeterHit::release_params() {
-    // @@protoc_insertion_point(field_release:eicio.SimCalorimeterHit.params)
+inline ::eicio::model::Params* SimCalorimeterHit::release_params() {
+    // @@protoc_insertion_point(field_release:eicio.model.SimCalorimeterHit.params)
 
-    ::eicio::Params* temp = params_;
+    ::eicio::model::Params* temp = params_;
     params_ = NULL;
     return temp;
 }
-inline void SimCalorimeterHit::set_allocated_params(::eicio::Params* params) {
+inline void SimCalorimeterHit::set_allocated_params(::eicio::model::Params* params) {
     delete params_;
     params_ = params;
     if (params) {
     } else {
     }
-    // @@protoc_insertion_point(field_set_allocated:eicio.SimCalorimeterHit.params)
+    // @@protoc_insertion_point(field_set_allocated:eicio.model.SimCalorimeterHit.params)
 }
 
 // int32 cellID0 = 3;
 inline void SimCalorimeterHit::clear_cellid0() { cellid0_ = 0; }
 inline ::google::protobuf::int32 SimCalorimeterHit::cellid0() const {
-    // @@protoc_insertion_point(field_get:eicio.SimCalorimeterHit.cellID0)
+    // @@protoc_insertion_point(field_get:eicio.model.SimCalorimeterHit.cellID0)
     return cellid0_;
 }
 inline void SimCalorimeterHit::set_cellid0(::google::protobuf::int32 value) {
     cellid0_ = value;
-    // @@protoc_insertion_point(field_set:eicio.SimCalorimeterHit.cellID0)
+    // @@protoc_insertion_point(field_set:eicio.model.SimCalorimeterHit.cellID0)
 }
 
 // int32 cellID1 = 4;
 inline void SimCalorimeterHit::clear_cellid1() { cellid1_ = 0; }
 inline ::google::protobuf::int32 SimCalorimeterHit::cellid1() const {
-    // @@protoc_insertion_point(field_get:eicio.SimCalorimeterHit.cellID1)
+    // @@protoc_insertion_point(field_get:eicio.model.SimCalorimeterHit.cellID1)
     return cellid1_;
 }
 inline void SimCalorimeterHit::set_cellid1(::google::protobuf::int32 value) {
     cellid1_ = value;
-    // @@protoc_insertion_point(field_set:eicio.SimCalorimeterHit.cellID1)
+    // @@protoc_insertion_point(field_set:eicio.model.SimCalorimeterHit.cellID1)
 }
 
 // float energy = 5;
 inline void SimCalorimeterHit::clear_energy() { energy_ = 0; }
 inline float SimCalorimeterHit::energy() const {
-    // @@protoc_insertion_point(field_get:eicio.SimCalorimeterHit.energy)
+    // @@protoc_insertion_point(field_get:eicio.model.SimCalorimeterHit.energy)
     return energy_;
 }
 inline void SimCalorimeterHit::set_energy(float value) {
     energy_ = value;
-    // @@protoc_insertion_point(field_set:eicio.SimCalorimeterHit.energy)
+    // @@protoc_insertion_point(field_set:eicio.model.SimCalorimeterHit.energy)
 }
 
 // repeated float pos = 6;
 inline int SimCalorimeterHit::pos_size() const { return pos_.size(); }
 inline void SimCalorimeterHit::clear_pos() { pos_.Clear(); }
 inline float SimCalorimeterHit::pos(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.SimCalorimeterHit.pos)
+    // @@protoc_insertion_point(field_get:eicio.model.SimCalorimeterHit.pos)
     return pos_.Get(index);
 }
 inline void SimCalorimeterHit::set_pos(int index, float value) {
     pos_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.SimCalorimeterHit.pos)
+    // @@protoc_insertion_point(field_set:eicio.model.SimCalorimeterHit.pos)
 }
 inline void SimCalorimeterHit::add_pos(float value) {
     pos_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.SimCalorimeterHit.pos)
+    // @@protoc_insertion_point(field_add:eicio.model.SimCalorimeterHit.pos)
 }
 inline const ::google::protobuf::RepeatedField<float>& SimCalorimeterHit::pos() const {
-    // @@protoc_insertion_point(field_list:eicio.SimCalorimeterHit.pos)
+    // @@protoc_insertion_point(field_list:eicio.model.SimCalorimeterHit.pos)
     return pos_;
 }
 inline ::google::protobuf::RepeatedField<float>* SimCalorimeterHit::mutable_pos() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.SimCalorimeterHit.pos)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.SimCalorimeterHit.pos)
     return &pos_;
 }
 
-// repeated .eicio.SimCalorimeterHit.Contrib contributions = 7;
+// repeated .eicio.model.SimCalorimeterHit.Contrib contributions = 7;
 inline int SimCalorimeterHit::contributions_size() const { return contributions_.size(); }
 inline void SimCalorimeterHit::clear_contributions() { contributions_.Clear(); }
-inline const ::eicio::SimCalorimeterHit_Contrib& SimCalorimeterHit::contributions(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.SimCalorimeterHit.contributions)
+inline const ::eicio::model::SimCalorimeterHit_Contrib& SimCalorimeterHit::contributions(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.SimCalorimeterHit.contributions)
     return contributions_.Get(index);
 }
-inline ::eicio::SimCalorimeterHit_Contrib* SimCalorimeterHit::mutable_contributions(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.SimCalorimeterHit.contributions)
+inline ::eicio::model::SimCalorimeterHit_Contrib* SimCalorimeterHit::mutable_contributions(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.SimCalorimeterHit.contributions)
     return contributions_.Mutable(index);
 }
-inline ::eicio::SimCalorimeterHit_Contrib* SimCalorimeterHit::add_contributions() {
-    // @@protoc_insertion_point(field_add:eicio.SimCalorimeterHit.contributions)
+inline ::eicio::model::SimCalorimeterHit_Contrib* SimCalorimeterHit::add_contributions() {
+    // @@protoc_insertion_point(field_add:eicio.model.SimCalorimeterHit.contributions)
     return contributions_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::SimCalorimeterHit_Contrib>*
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::SimCalorimeterHit_Contrib>*
 SimCalorimeterHit::mutable_contributions() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.SimCalorimeterHit.contributions)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.SimCalorimeterHit.contributions)
     return &contributions_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::SimCalorimeterHit_Contrib>&
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::SimCalorimeterHit_Contrib>&
 SimCalorimeterHit::contributions() const {
-    // @@protoc_insertion_point(field_list:eicio.SimCalorimeterHit.contributions)
+    // @@protoc_insertion_point(field_list:eicio.model.SimCalorimeterHit.contributions)
     return contributions_;
 }
 
@@ -8524,26 +8540,26 @@ SimCalorimeterHit::contributions() const {
 // uint32 id = 1;
 inline void SimCalorimeterHitCollection::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 SimCalorimeterHitCollection::id() const {
-    // @@protoc_insertion_point(field_get:eicio.SimCalorimeterHitCollection.id)
+    // @@protoc_insertion_point(field_get:eicio.model.SimCalorimeterHitCollection.id)
     return id_;
 }
 inline void SimCalorimeterHitCollection::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.SimCalorimeterHitCollection.id)
+    // @@protoc_insertion_point(field_set:eicio.model.SimCalorimeterHitCollection.id)
 }
 
 // uint32 flags = 2;
 inline void SimCalorimeterHitCollection::clear_flags() { flags_ = 0u; }
 inline ::google::protobuf::uint32 SimCalorimeterHitCollection::flags() const {
-    // @@protoc_insertion_point(field_get:eicio.SimCalorimeterHitCollection.flags)
+    // @@protoc_insertion_point(field_get:eicio.model.SimCalorimeterHitCollection.flags)
     return flags_;
 }
 inline void SimCalorimeterHitCollection::set_flags(::google::protobuf::uint32 value) {
     flags_ = value;
-    // @@protoc_insertion_point(field_set:eicio.SimCalorimeterHitCollection.flags)
+    // @@protoc_insertion_point(field_set:eicio.model.SimCalorimeterHitCollection.flags)
 }
 
-// .eicio.Params params = 3;
+// .eicio.model.Params params = 3;
 inline bool SimCalorimeterHitCollection::has_params() const {
     return this != internal_default_instance() && params_ != NULL;
 }
@@ -8551,56 +8567,56 @@ inline void SimCalorimeterHitCollection::clear_params() {
     if (GetArenaNoVirtual() == NULL && params_ != NULL) delete params_;
     params_ = NULL;
 }
-inline const ::eicio::Params& SimCalorimeterHitCollection::params() const {
-    // @@protoc_insertion_point(field_get:eicio.SimCalorimeterHitCollection.params)
-    return params_ != NULL ? *params_ : *::eicio::Params::internal_default_instance();
+inline const ::eicio::model::Params& SimCalorimeterHitCollection::params() const {
+    // @@protoc_insertion_point(field_get:eicio.model.SimCalorimeterHitCollection.params)
+    return params_ != NULL ? *params_ : *::eicio::model::Params::internal_default_instance();
 }
-inline ::eicio::Params* SimCalorimeterHitCollection::mutable_params() {
+inline ::eicio::model::Params* SimCalorimeterHitCollection::mutable_params() {
     if (params_ == NULL) {
-        params_ = new ::eicio::Params;
+        params_ = new ::eicio::model::Params;
     }
-    // @@protoc_insertion_point(field_mutable:eicio.SimCalorimeterHitCollection.params)
+    // @@protoc_insertion_point(field_mutable:eicio.model.SimCalorimeterHitCollection.params)
     return params_;
 }
-inline ::eicio::Params* SimCalorimeterHitCollection::release_params() {
-    // @@protoc_insertion_point(field_release:eicio.SimCalorimeterHitCollection.params)
+inline ::eicio::model::Params* SimCalorimeterHitCollection::release_params() {
+    // @@protoc_insertion_point(field_release:eicio.model.SimCalorimeterHitCollection.params)
 
-    ::eicio::Params* temp = params_;
+    ::eicio::model::Params* temp = params_;
     params_ = NULL;
     return temp;
 }
-inline void SimCalorimeterHitCollection::set_allocated_params(::eicio::Params* params) {
+inline void SimCalorimeterHitCollection::set_allocated_params(::eicio::model::Params* params) {
     delete params_;
     params_ = params;
     if (params) {
     } else {
     }
-    // @@protoc_insertion_point(field_set_allocated:eicio.SimCalorimeterHitCollection.params)
+    // @@protoc_insertion_point(field_set_allocated:eicio.model.SimCalorimeterHitCollection.params)
 }
 
-// repeated .eicio.SimCalorimeterHit entries = 4;
+// repeated .eicio.model.SimCalorimeterHit entries = 4;
 inline int SimCalorimeterHitCollection::entries_size() const { return entries_.size(); }
 inline void SimCalorimeterHitCollection::clear_entries() { entries_.Clear(); }
-inline const ::eicio::SimCalorimeterHit& SimCalorimeterHitCollection::entries(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.SimCalorimeterHitCollection.entries)
+inline const ::eicio::model::SimCalorimeterHit& SimCalorimeterHitCollection::entries(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.SimCalorimeterHitCollection.entries)
     return entries_.Get(index);
 }
-inline ::eicio::SimCalorimeterHit* SimCalorimeterHitCollection::mutable_entries(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.SimCalorimeterHitCollection.entries)
+inline ::eicio::model::SimCalorimeterHit* SimCalorimeterHitCollection::mutable_entries(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.SimCalorimeterHitCollection.entries)
     return entries_.Mutable(index);
 }
-inline ::eicio::SimCalorimeterHit* SimCalorimeterHitCollection::add_entries() {
-    // @@protoc_insertion_point(field_add:eicio.SimCalorimeterHitCollection.entries)
+inline ::eicio::model::SimCalorimeterHit* SimCalorimeterHitCollection::add_entries() {
+    // @@protoc_insertion_point(field_add:eicio.model.SimCalorimeterHitCollection.entries)
     return entries_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::SimCalorimeterHit>*
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::SimCalorimeterHit>*
 SimCalorimeterHitCollection::mutable_entries() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.SimCalorimeterHitCollection.entries)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.SimCalorimeterHitCollection.entries)
     return &entries_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::SimCalorimeterHit>&
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::SimCalorimeterHit>&
 SimCalorimeterHitCollection::entries() const {
-    // @@protoc_insertion_point(field_list:eicio.SimCalorimeterHitCollection.entries)
+    // @@protoc_insertion_point(field_list:eicio.model.SimCalorimeterHitCollection.entries)
     return entries_;
 }
 
@@ -8611,56 +8627,56 @@ SimCalorimeterHitCollection::entries() const {
 // uint32 id = 1;
 inline void RawCalorimeterHit::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 RawCalorimeterHit::id() const {
-    // @@protoc_insertion_point(field_get:eicio.RawCalorimeterHit.id)
+    // @@protoc_insertion_point(field_get:eicio.model.RawCalorimeterHit.id)
     return id_;
 }
 inline void RawCalorimeterHit::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.RawCalorimeterHit.id)
+    // @@protoc_insertion_point(field_set:eicio.model.RawCalorimeterHit.id)
 }
 
 // int32 cellID0 = 2;
 inline void RawCalorimeterHit::clear_cellid0() { cellid0_ = 0; }
 inline ::google::protobuf::int32 RawCalorimeterHit::cellid0() const {
-    // @@protoc_insertion_point(field_get:eicio.RawCalorimeterHit.cellID0)
+    // @@protoc_insertion_point(field_get:eicio.model.RawCalorimeterHit.cellID0)
     return cellid0_;
 }
 inline void RawCalorimeterHit::set_cellid0(::google::protobuf::int32 value) {
     cellid0_ = value;
-    // @@protoc_insertion_point(field_set:eicio.RawCalorimeterHit.cellID0)
+    // @@protoc_insertion_point(field_set:eicio.model.RawCalorimeterHit.cellID0)
 }
 
 // int32 cellID1 = 3;
 inline void RawCalorimeterHit::clear_cellid1() { cellid1_ = 0; }
 inline ::google::protobuf::int32 RawCalorimeterHit::cellid1() const {
-    // @@protoc_insertion_point(field_get:eicio.RawCalorimeterHit.cellID1)
+    // @@protoc_insertion_point(field_get:eicio.model.RawCalorimeterHit.cellID1)
     return cellid1_;
 }
 inline void RawCalorimeterHit::set_cellid1(::google::protobuf::int32 value) {
     cellid1_ = value;
-    // @@protoc_insertion_point(field_set:eicio.RawCalorimeterHit.cellID1)
+    // @@protoc_insertion_point(field_set:eicio.model.RawCalorimeterHit.cellID1)
 }
 
 // int32 amplitude = 4;
 inline void RawCalorimeterHit::clear_amplitude() { amplitude_ = 0; }
 inline ::google::protobuf::int32 RawCalorimeterHit::amplitude() const {
-    // @@protoc_insertion_point(field_get:eicio.RawCalorimeterHit.amplitude)
+    // @@protoc_insertion_point(field_get:eicio.model.RawCalorimeterHit.amplitude)
     return amplitude_;
 }
 inline void RawCalorimeterHit::set_amplitude(::google::protobuf::int32 value) {
     amplitude_ = value;
-    // @@protoc_insertion_point(field_set:eicio.RawCalorimeterHit.amplitude)
+    // @@protoc_insertion_point(field_set:eicio.model.RawCalorimeterHit.amplitude)
 }
 
 // int32 timeStamp = 5;
 inline void RawCalorimeterHit::clear_timestamp() { timestamp_ = 0; }
 inline ::google::protobuf::int32 RawCalorimeterHit::timestamp() const {
-    // @@protoc_insertion_point(field_get:eicio.RawCalorimeterHit.timeStamp)
+    // @@protoc_insertion_point(field_get:eicio.model.RawCalorimeterHit.timeStamp)
     return timestamp_;
 }
 inline void RawCalorimeterHit::set_timestamp(::google::protobuf::int32 value) {
     timestamp_ = value;
-    // @@protoc_insertion_point(field_set:eicio.RawCalorimeterHit.timeStamp)
+    // @@protoc_insertion_point(field_set:eicio.model.RawCalorimeterHit.timeStamp)
 }
 
 // -------------------------------------------------------------------
@@ -8670,26 +8686,26 @@ inline void RawCalorimeterHit::set_timestamp(::google::protobuf::int32 value) {
 // uint32 id = 1;
 inline void RawCalorimeterHitCollection::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 RawCalorimeterHitCollection::id() const {
-    // @@protoc_insertion_point(field_get:eicio.RawCalorimeterHitCollection.id)
+    // @@protoc_insertion_point(field_get:eicio.model.RawCalorimeterHitCollection.id)
     return id_;
 }
 inline void RawCalorimeterHitCollection::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.RawCalorimeterHitCollection.id)
+    // @@protoc_insertion_point(field_set:eicio.model.RawCalorimeterHitCollection.id)
 }
 
 // uint32 flags = 2;
 inline void RawCalorimeterHitCollection::clear_flags() { flags_ = 0u; }
 inline ::google::protobuf::uint32 RawCalorimeterHitCollection::flags() const {
-    // @@protoc_insertion_point(field_get:eicio.RawCalorimeterHitCollection.flags)
+    // @@protoc_insertion_point(field_get:eicio.model.RawCalorimeterHitCollection.flags)
     return flags_;
 }
 inline void RawCalorimeterHitCollection::set_flags(::google::protobuf::uint32 value) {
     flags_ = value;
-    // @@protoc_insertion_point(field_set:eicio.RawCalorimeterHitCollection.flags)
+    // @@protoc_insertion_point(field_set:eicio.model.RawCalorimeterHitCollection.flags)
 }
 
-// .eicio.Params params = 3;
+// .eicio.model.Params params = 3;
 inline bool RawCalorimeterHitCollection::has_params() const {
     return this != internal_default_instance() && params_ != NULL;
 }
@@ -8697,56 +8713,56 @@ inline void RawCalorimeterHitCollection::clear_params() {
     if (GetArenaNoVirtual() == NULL && params_ != NULL) delete params_;
     params_ = NULL;
 }
-inline const ::eicio::Params& RawCalorimeterHitCollection::params() const {
-    // @@protoc_insertion_point(field_get:eicio.RawCalorimeterHitCollection.params)
-    return params_ != NULL ? *params_ : *::eicio::Params::internal_default_instance();
+inline const ::eicio::model::Params& RawCalorimeterHitCollection::params() const {
+    // @@protoc_insertion_point(field_get:eicio.model.RawCalorimeterHitCollection.params)
+    return params_ != NULL ? *params_ : *::eicio::model::Params::internal_default_instance();
 }
-inline ::eicio::Params* RawCalorimeterHitCollection::mutable_params() {
+inline ::eicio::model::Params* RawCalorimeterHitCollection::mutable_params() {
     if (params_ == NULL) {
-        params_ = new ::eicio::Params;
+        params_ = new ::eicio::model::Params;
     }
-    // @@protoc_insertion_point(field_mutable:eicio.RawCalorimeterHitCollection.params)
+    // @@protoc_insertion_point(field_mutable:eicio.model.RawCalorimeterHitCollection.params)
     return params_;
 }
-inline ::eicio::Params* RawCalorimeterHitCollection::release_params() {
-    // @@protoc_insertion_point(field_release:eicio.RawCalorimeterHitCollection.params)
+inline ::eicio::model::Params* RawCalorimeterHitCollection::release_params() {
+    // @@protoc_insertion_point(field_release:eicio.model.RawCalorimeterHitCollection.params)
 
-    ::eicio::Params* temp = params_;
+    ::eicio::model::Params* temp = params_;
     params_ = NULL;
     return temp;
 }
-inline void RawCalorimeterHitCollection::set_allocated_params(::eicio::Params* params) {
+inline void RawCalorimeterHitCollection::set_allocated_params(::eicio::model::Params* params) {
     delete params_;
     params_ = params;
     if (params) {
     } else {
     }
-    // @@protoc_insertion_point(field_set_allocated:eicio.RawCalorimeterHitCollection.params)
+    // @@protoc_insertion_point(field_set_allocated:eicio.model.RawCalorimeterHitCollection.params)
 }
 
-// repeated .eicio.RawCalorimeterHit entries = 4;
+// repeated .eicio.model.RawCalorimeterHit entries = 4;
 inline int RawCalorimeterHitCollection::entries_size() const { return entries_.size(); }
 inline void RawCalorimeterHitCollection::clear_entries() { entries_.Clear(); }
-inline const ::eicio::RawCalorimeterHit& RawCalorimeterHitCollection::entries(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.RawCalorimeterHitCollection.entries)
+inline const ::eicio::model::RawCalorimeterHit& RawCalorimeterHitCollection::entries(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.RawCalorimeterHitCollection.entries)
     return entries_.Get(index);
 }
-inline ::eicio::RawCalorimeterHit* RawCalorimeterHitCollection::mutable_entries(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.RawCalorimeterHitCollection.entries)
+inline ::eicio::model::RawCalorimeterHit* RawCalorimeterHitCollection::mutable_entries(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.RawCalorimeterHitCollection.entries)
     return entries_.Mutable(index);
 }
-inline ::eicio::RawCalorimeterHit* RawCalorimeterHitCollection::add_entries() {
-    // @@protoc_insertion_point(field_add:eicio.RawCalorimeterHitCollection.entries)
+inline ::eicio::model::RawCalorimeterHit* RawCalorimeterHitCollection::add_entries() {
+    // @@protoc_insertion_point(field_add:eicio.model.RawCalorimeterHitCollection.entries)
     return entries_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::RawCalorimeterHit>*
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::RawCalorimeterHit>*
 RawCalorimeterHitCollection::mutable_entries() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.RawCalorimeterHitCollection.entries)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.RawCalorimeterHitCollection.entries)
     return &entries_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::RawCalorimeterHit>&
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::RawCalorimeterHit>&
 RawCalorimeterHitCollection::entries() const {
-    // @@protoc_insertion_point(field_list:eicio.RawCalorimeterHitCollection.entries)
+    // @@protoc_insertion_point(field_list:eicio.model.RawCalorimeterHitCollection.entries)
     return entries_;
 }
 
@@ -8757,135 +8773,135 @@ RawCalorimeterHitCollection::entries() const {
 // uint32 id = 1;
 inline void CalorimeterHit::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 CalorimeterHit::id() const {
-    // @@protoc_insertion_point(field_get:eicio.CalorimeterHit.id)
+    // @@protoc_insertion_point(field_get:eicio.model.CalorimeterHit.id)
     return id_;
 }
 inline void CalorimeterHit::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.CalorimeterHit.id)
+    // @@protoc_insertion_point(field_set:eicio.model.CalorimeterHit.id)
 }
 
 // int32 cellID0 = 2;
 inline void CalorimeterHit::clear_cellid0() { cellid0_ = 0; }
 inline ::google::protobuf::int32 CalorimeterHit::cellid0() const {
-    // @@protoc_insertion_point(field_get:eicio.CalorimeterHit.cellID0)
+    // @@protoc_insertion_point(field_get:eicio.model.CalorimeterHit.cellID0)
     return cellid0_;
 }
 inline void CalorimeterHit::set_cellid0(::google::protobuf::int32 value) {
     cellid0_ = value;
-    // @@protoc_insertion_point(field_set:eicio.CalorimeterHit.cellID0)
+    // @@protoc_insertion_point(field_set:eicio.model.CalorimeterHit.cellID0)
 }
 
 // int32 cellID1 = 3;
 inline void CalorimeterHit::clear_cellid1() { cellid1_ = 0; }
 inline ::google::protobuf::int32 CalorimeterHit::cellid1() const {
-    // @@protoc_insertion_point(field_get:eicio.CalorimeterHit.cellID1)
+    // @@protoc_insertion_point(field_get:eicio.model.CalorimeterHit.cellID1)
     return cellid1_;
 }
 inline void CalorimeterHit::set_cellid1(::google::protobuf::int32 value) {
     cellid1_ = value;
-    // @@protoc_insertion_point(field_set:eicio.CalorimeterHit.cellID1)
+    // @@protoc_insertion_point(field_set:eicio.model.CalorimeterHit.cellID1)
 }
 
 // float energy = 4;
 inline void CalorimeterHit::clear_energy() { energy_ = 0; }
 inline float CalorimeterHit::energy() const {
-    // @@protoc_insertion_point(field_get:eicio.CalorimeterHit.energy)
+    // @@protoc_insertion_point(field_get:eicio.model.CalorimeterHit.energy)
     return energy_;
 }
 inline void CalorimeterHit::set_energy(float value) {
     energy_ = value;
-    // @@protoc_insertion_point(field_set:eicio.CalorimeterHit.energy)
+    // @@protoc_insertion_point(field_set:eicio.model.CalorimeterHit.energy)
 }
 
 // float energyErr = 5;
 inline void CalorimeterHit::clear_energyerr() { energyerr_ = 0; }
 inline float CalorimeterHit::energyerr() const {
-    // @@protoc_insertion_point(field_get:eicio.CalorimeterHit.energyErr)
+    // @@protoc_insertion_point(field_get:eicio.model.CalorimeterHit.energyErr)
     return energyerr_;
 }
 inline void CalorimeterHit::set_energyerr(float value) {
     energyerr_ = value;
-    // @@protoc_insertion_point(field_set:eicio.CalorimeterHit.energyErr)
+    // @@protoc_insertion_point(field_set:eicio.model.CalorimeterHit.energyErr)
 }
 
 // float time = 6;
 inline void CalorimeterHit::clear_time() { time_ = 0; }
 inline float CalorimeterHit::time() const {
-    // @@protoc_insertion_point(field_get:eicio.CalorimeterHit.time)
+    // @@protoc_insertion_point(field_get:eicio.model.CalorimeterHit.time)
     return time_;
 }
 inline void CalorimeterHit::set_time(float value) {
     time_ = value;
-    // @@protoc_insertion_point(field_set:eicio.CalorimeterHit.time)
+    // @@protoc_insertion_point(field_set:eicio.model.CalorimeterHit.time)
 }
 
 // repeated float pos = 7;
 inline int CalorimeterHit::pos_size() const { return pos_.size(); }
 inline void CalorimeterHit::clear_pos() { pos_.Clear(); }
 inline float CalorimeterHit::pos(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.CalorimeterHit.pos)
+    // @@protoc_insertion_point(field_get:eicio.model.CalorimeterHit.pos)
     return pos_.Get(index);
 }
 inline void CalorimeterHit::set_pos(int index, float value) {
     pos_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.CalorimeterHit.pos)
+    // @@protoc_insertion_point(field_set:eicio.model.CalorimeterHit.pos)
 }
 inline void CalorimeterHit::add_pos(float value) {
     pos_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.CalorimeterHit.pos)
+    // @@protoc_insertion_point(field_add:eicio.model.CalorimeterHit.pos)
 }
 inline const ::google::protobuf::RepeatedField<float>& CalorimeterHit::pos() const {
-    // @@protoc_insertion_point(field_list:eicio.CalorimeterHit.pos)
+    // @@protoc_insertion_point(field_list:eicio.model.CalorimeterHit.pos)
     return pos_;
 }
 inline ::google::protobuf::RepeatedField<float>* CalorimeterHit::mutable_pos() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.CalorimeterHit.pos)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.CalorimeterHit.pos)
     return &pos_;
 }
 
 // int32 type = 8;
 inline void CalorimeterHit::clear_type() { type_ = 0; }
 inline ::google::protobuf::int32 CalorimeterHit::type() const {
-    // @@protoc_insertion_point(field_get:eicio.CalorimeterHit.type)
+    // @@protoc_insertion_point(field_get:eicio.model.CalorimeterHit.type)
     return type_;
 }
 inline void CalorimeterHit::set_type(::google::protobuf::int32 value) {
     type_ = value;
-    // @@protoc_insertion_point(field_set:eicio.CalorimeterHit.type)
+    // @@protoc_insertion_point(field_set:eicio.model.CalorimeterHit.type)
 }
 
-// .eicio.Reference raw = 9;
+// .eicio.model.Reference raw = 9;
 inline bool CalorimeterHit::has_raw() const { return this != internal_default_instance() && raw_ != NULL; }
 inline void CalorimeterHit::clear_raw() {
     if (GetArenaNoVirtual() == NULL && raw_ != NULL) delete raw_;
     raw_ = NULL;
 }
-inline const ::eicio::Reference& CalorimeterHit::raw() const {
-    // @@protoc_insertion_point(field_get:eicio.CalorimeterHit.raw)
-    return raw_ != NULL ? *raw_ : *::eicio::Reference::internal_default_instance();
+inline const ::eicio::model::Reference& CalorimeterHit::raw() const {
+    // @@protoc_insertion_point(field_get:eicio.model.CalorimeterHit.raw)
+    return raw_ != NULL ? *raw_ : *::eicio::model::Reference::internal_default_instance();
 }
-inline ::eicio::Reference* CalorimeterHit::mutable_raw() {
+inline ::eicio::model::Reference* CalorimeterHit::mutable_raw() {
     if (raw_ == NULL) {
-        raw_ = new ::eicio::Reference;
+        raw_ = new ::eicio::model::Reference;
     }
-    // @@protoc_insertion_point(field_mutable:eicio.CalorimeterHit.raw)
+    // @@protoc_insertion_point(field_mutable:eicio.model.CalorimeterHit.raw)
     return raw_;
 }
-inline ::eicio::Reference* CalorimeterHit::release_raw() {
-    // @@protoc_insertion_point(field_release:eicio.CalorimeterHit.raw)
+inline ::eicio::model::Reference* CalorimeterHit::release_raw() {
+    // @@protoc_insertion_point(field_release:eicio.model.CalorimeterHit.raw)
 
-    ::eicio::Reference* temp = raw_;
+    ::eicio::model::Reference* temp = raw_;
     raw_ = NULL;
     return temp;
 }
-inline void CalorimeterHit::set_allocated_raw(::eicio::Reference* raw) {
+inline void CalorimeterHit::set_allocated_raw(::eicio::model::Reference* raw) {
     delete raw_;
     raw_ = raw;
     if (raw) {
     } else {
     }
-    // @@protoc_insertion_point(field_set_allocated:eicio.CalorimeterHit.raw)
+    // @@protoc_insertion_point(field_set_allocated:eicio.model.CalorimeterHit.raw)
 }
 
 // -------------------------------------------------------------------
@@ -8895,26 +8911,26 @@ inline void CalorimeterHit::set_allocated_raw(::eicio::Reference* raw) {
 // uint32 id = 1;
 inline void CalorimeterHitCollection::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 CalorimeterHitCollection::id() const {
-    // @@protoc_insertion_point(field_get:eicio.CalorimeterHitCollection.id)
+    // @@protoc_insertion_point(field_get:eicio.model.CalorimeterHitCollection.id)
     return id_;
 }
 inline void CalorimeterHitCollection::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.CalorimeterHitCollection.id)
+    // @@protoc_insertion_point(field_set:eicio.model.CalorimeterHitCollection.id)
 }
 
 // uint32 flags = 2;
 inline void CalorimeterHitCollection::clear_flags() { flags_ = 0u; }
 inline ::google::protobuf::uint32 CalorimeterHitCollection::flags() const {
-    // @@protoc_insertion_point(field_get:eicio.CalorimeterHitCollection.flags)
+    // @@protoc_insertion_point(field_get:eicio.model.CalorimeterHitCollection.flags)
     return flags_;
 }
 inline void CalorimeterHitCollection::set_flags(::google::protobuf::uint32 value) {
     flags_ = value;
-    // @@protoc_insertion_point(field_set:eicio.CalorimeterHitCollection.flags)
+    // @@protoc_insertion_point(field_set:eicio.model.CalorimeterHitCollection.flags)
 }
 
-// .eicio.Params params = 3;
+// .eicio.model.Params params = 3;
 inline bool CalorimeterHitCollection::has_params() const {
     return this != internal_default_instance() && params_ != NULL;
 }
@@ -8922,56 +8938,56 @@ inline void CalorimeterHitCollection::clear_params() {
     if (GetArenaNoVirtual() == NULL && params_ != NULL) delete params_;
     params_ = NULL;
 }
-inline const ::eicio::Params& CalorimeterHitCollection::params() const {
-    // @@protoc_insertion_point(field_get:eicio.CalorimeterHitCollection.params)
-    return params_ != NULL ? *params_ : *::eicio::Params::internal_default_instance();
+inline const ::eicio::model::Params& CalorimeterHitCollection::params() const {
+    // @@protoc_insertion_point(field_get:eicio.model.CalorimeterHitCollection.params)
+    return params_ != NULL ? *params_ : *::eicio::model::Params::internal_default_instance();
 }
-inline ::eicio::Params* CalorimeterHitCollection::mutable_params() {
+inline ::eicio::model::Params* CalorimeterHitCollection::mutable_params() {
     if (params_ == NULL) {
-        params_ = new ::eicio::Params;
+        params_ = new ::eicio::model::Params;
     }
-    // @@protoc_insertion_point(field_mutable:eicio.CalorimeterHitCollection.params)
+    // @@protoc_insertion_point(field_mutable:eicio.model.CalorimeterHitCollection.params)
     return params_;
 }
-inline ::eicio::Params* CalorimeterHitCollection::release_params() {
-    // @@protoc_insertion_point(field_release:eicio.CalorimeterHitCollection.params)
+inline ::eicio::model::Params* CalorimeterHitCollection::release_params() {
+    // @@protoc_insertion_point(field_release:eicio.model.CalorimeterHitCollection.params)
 
-    ::eicio::Params* temp = params_;
+    ::eicio::model::Params* temp = params_;
     params_ = NULL;
     return temp;
 }
-inline void CalorimeterHitCollection::set_allocated_params(::eicio::Params* params) {
+inline void CalorimeterHitCollection::set_allocated_params(::eicio::model::Params* params) {
     delete params_;
     params_ = params;
     if (params) {
     } else {
     }
-    // @@protoc_insertion_point(field_set_allocated:eicio.CalorimeterHitCollection.params)
+    // @@protoc_insertion_point(field_set_allocated:eicio.model.CalorimeterHitCollection.params)
 }
 
-// repeated .eicio.CalorimeterHit entries = 4;
+// repeated .eicio.model.CalorimeterHit entries = 4;
 inline int CalorimeterHitCollection::entries_size() const { return entries_.size(); }
 inline void CalorimeterHitCollection::clear_entries() { entries_.Clear(); }
-inline const ::eicio::CalorimeterHit& CalorimeterHitCollection::entries(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.CalorimeterHitCollection.entries)
+inline const ::eicio::model::CalorimeterHit& CalorimeterHitCollection::entries(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.CalorimeterHitCollection.entries)
     return entries_.Get(index);
 }
-inline ::eicio::CalorimeterHit* CalorimeterHitCollection::mutable_entries(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.CalorimeterHitCollection.entries)
+inline ::eicio::model::CalorimeterHit* CalorimeterHitCollection::mutable_entries(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.CalorimeterHitCollection.entries)
     return entries_.Mutable(index);
 }
-inline ::eicio::CalorimeterHit* CalorimeterHitCollection::add_entries() {
-    // @@protoc_insertion_point(field_add:eicio.CalorimeterHitCollection.entries)
+inline ::eicio::model::CalorimeterHit* CalorimeterHitCollection::add_entries() {
+    // @@protoc_insertion_point(field_add:eicio.model.CalorimeterHitCollection.entries)
     return entries_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::CalorimeterHit>*
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::CalorimeterHit>*
 CalorimeterHitCollection::mutable_entries() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.CalorimeterHitCollection.entries)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.CalorimeterHitCollection.entries)
     return &entries_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::CalorimeterHit>&
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::CalorimeterHit>&
 CalorimeterHitCollection::entries() const {
-    // @@protoc_insertion_point(field_list:eicio.CalorimeterHitCollection.entries)
+    // @@protoc_insertion_point(field_list:eicio.model.CalorimeterHitCollection.entries)
     return entries_;
 }
 
@@ -8982,68 +8998,68 @@ CalorimeterHitCollection::entries() const {
 // uint32 id = 1;
 inline void Cluster::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 Cluster::id() const {
-    // @@protoc_insertion_point(field_get:eicio.Cluster.id)
+    // @@protoc_insertion_point(field_get:eicio.model.Cluster.id)
     return id_;
 }
 inline void Cluster::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.Cluster.id)
+    // @@protoc_insertion_point(field_set:eicio.model.Cluster.id)
 }
 
 // int32 type = 2;
 inline void Cluster::clear_type() { type_ = 0; }
 inline ::google::protobuf::int32 Cluster::type() const {
-    // @@protoc_insertion_point(field_get:eicio.Cluster.type)
+    // @@protoc_insertion_point(field_get:eicio.model.Cluster.type)
     return type_;
 }
 inline void Cluster::set_type(::google::protobuf::int32 value) {
     type_ = value;
-    // @@protoc_insertion_point(field_set:eicio.Cluster.type)
+    // @@protoc_insertion_point(field_set:eicio.model.Cluster.type)
 }
 
 // float energy = 3;
 inline void Cluster::clear_energy() { energy_ = 0; }
 inline float Cluster::energy() const {
-    // @@protoc_insertion_point(field_get:eicio.Cluster.energy)
+    // @@protoc_insertion_point(field_get:eicio.model.Cluster.energy)
     return energy_;
 }
 inline void Cluster::set_energy(float value) {
     energy_ = value;
-    // @@protoc_insertion_point(field_set:eicio.Cluster.energy)
+    // @@protoc_insertion_point(field_set:eicio.model.Cluster.energy)
 }
 
 // float energyErr = 4;
 inline void Cluster::clear_energyerr() { energyerr_ = 0; }
 inline float Cluster::energyerr() const {
-    // @@protoc_insertion_point(field_get:eicio.Cluster.energyErr)
+    // @@protoc_insertion_point(field_get:eicio.model.Cluster.energyErr)
     return energyerr_;
 }
 inline void Cluster::set_energyerr(float value) {
     energyerr_ = value;
-    // @@protoc_insertion_point(field_set:eicio.Cluster.energyErr)
+    // @@protoc_insertion_point(field_set:eicio.model.Cluster.energyErr)
 }
 
 // repeated float pos = 5;
 inline int Cluster::pos_size() const { return pos_.size(); }
 inline void Cluster::clear_pos() { pos_.Clear(); }
 inline float Cluster::pos(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.Cluster.pos)
+    // @@protoc_insertion_point(field_get:eicio.model.Cluster.pos)
     return pos_.Get(index);
 }
 inline void Cluster::set_pos(int index, float value) {
     pos_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.Cluster.pos)
+    // @@protoc_insertion_point(field_set:eicio.model.Cluster.pos)
 }
 inline void Cluster::add_pos(float value) {
     pos_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.Cluster.pos)
+    // @@protoc_insertion_point(field_add:eicio.model.Cluster.pos)
 }
 inline const ::google::protobuf::RepeatedField<float>& Cluster::pos() const {
-    // @@protoc_insertion_point(field_list:eicio.Cluster.pos)
+    // @@protoc_insertion_point(field_list:eicio.model.Cluster.pos)
     return pos_;
 }
 inline ::google::protobuf::RepeatedField<float>* Cluster::mutable_pos() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.Cluster.pos)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.Cluster.pos)
     return &pos_;
 }
 
@@ -9051,69 +9067,69 @@ inline ::google::protobuf::RepeatedField<float>* Cluster::mutable_pos() {
 inline int Cluster::poserr_size() const { return poserr_.size(); }
 inline void Cluster::clear_poserr() { poserr_.Clear(); }
 inline float Cluster::poserr(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.Cluster.posErr)
+    // @@protoc_insertion_point(field_get:eicio.model.Cluster.posErr)
     return poserr_.Get(index);
 }
 inline void Cluster::set_poserr(int index, float value) {
     poserr_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.Cluster.posErr)
+    // @@protoc_insertion_point(field_set:eicio.model.Cluster.posErr)
 }
 inline void Cluster::add_poserr(float value) {
     poserr_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.Cluster.posErr)
+    // @@protoc_insertion_point(field_add:eicio.model.Cluster.posErr)
 }
 inline const ::google::protobuf::RepeatedField<float>& Cluster::poserr() const {
-    // @@protoc_insertion_point(field_list:eicio.Cluster.posErr)
+    // @@protoc_insertion_point(field_list:eicio.model.Cluster.posErr)
     return poserr_;
 }
 inline ::google::protobuf::RepeatedField<float>* Cluster::mutable_poserr() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.Cluster.posErr)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.Cluster.posErr)
     return &poserr_;
 }
 
 // float theta = 7;
 inline void Cluster::clear_theta() { theta_ = 0; }
 inline float Cluster::theta() const {
-    // @@protoc_insertion_point(field_get:eicio.Cluster.theta)
+    // @@protoc_insertion_point(field_get:eicio.model.Cluster.theta)
     return theta_;
 }
 inline void Cluster::set_theta(float value) {
     theta_ = value;
-    // @@protoc_insertion_point(field_set:eicio.Cluster.theta)
+    // @@protoc_insertion_point(field_set:eicio.model.Cluster.theta)
 }
 
 // float phi = 8;
 inline void Cluster::clear_phi() { phi_ = 0; }
 inline float Cluster::phi() const {
-    // @@protoc_insertion_point(field_get:eicio.Cluster.phi)
+    // @@protoc_insertion_point(field_get:eicio.model.Cluster.phi)
     return phi_;
 }
 inline void Cluster::set_phi(float value) {
     phi_ = value;
-    // @@protoc_insertion_point(field_set:eicio.Cluster.phi)
+    // @@protoc_insertion_point(field_set:eicio.model.Cluster.phi)
 }
 
 // repeated float dirErr = 9;
 inline int Cluster::direrr_size() const { return direrr_.size(); }
 inline void Cluster::clear_direrr() { direrr_.Clear(); }
 inline float Cluster::direrr(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.Cluster.dirErr)
+    // @@protoc_insertion_point(field_get:eicio.model.Cluster.dirErr)
     return direrr_.Get(index);
 }
 inline void Cluster::set_direrr(int index, float value) {
     direrr_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.Cluster.dirErr)
+    // @@protoc_insertion_point(field_set:eicio.model.Cluster.dirErr)
 }
 inline void Cluster::add_direrr(float value) {
     direrr_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.Cluster.dirErr)
+    // @@protoc_insertion_point(field_add:eicio.model.Cluster.dirErr)
 }
 inline const ::google::protobuf::RepeatedField<float>& Cluster::direrr() const {
-    // @@protoc_insertion_point(field_list:eicio.Cluster.dirErr)
+    // @@protoc_insertion_point(field_list:eicio.model.Cluster.dirErr)
     return direrr_;
 }
 inline ::google::protobuf::RepeatedField<float>* Cluster::mutable_direrr() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.Cluster.dirErr)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.Cluster.dirErr)
     return &direrr_;
 }
 
@@ -9121,95 +9137,95 @@ inline ::google::protobuf::RepeatedField<float>* Cluster::mutable_direrr() {
 inline int Cluster::shape_size() const { return shape_.size(); }
 inline void Cluster::clear_shape() { shape_.Clear(); }
 inline float Cluster::shape(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.Cluster.shape)
+    // @@protoc_insertion_point(field_get:eicio.model.Cluster.shape)
     return shape_.Get(index);
 }
 inline void Cluster::set_shape(int index, float value) {
     shape_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.Cluster.shape)
+    // @@protoc_insertion_point(field_set:eicio.model.Cluster.shape)
 }
 inline void Cluster::add_shape(float value) {
     shape_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.Cluster.shape)
+    // @@protoc_insertion_point(field_add:eicio.model.Cluster.shape)
 }
 inline const ::google::protobuf::RepeatedField<float>& Cluster::shape() const {
-    // @@protoc_insertion_point(field_list:eicio.Cluster.shape)
+    // @@protoc_insertion_point(field_list:eicio.model.Cluster.shape)
     return shape_;
 }
 inline ::google::protobuf::RepeatedField<float>* Cluster::mutable_shape() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.Cluster.shape)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.Cluster.shape)
     return &shape_;
 }
 
-// repeated .eicio.ParticleID PIDs = 11;
+// repeated .eicio.model.ParticleID PIDs = 11;
 inline int Cluster::pids_size() const { return pids_.size(); }
 inline void Cluster::clear_pids() { pids_.Clear(); }
-inline const ::eicio::ParticleID& Cluster::pids(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.Cluster.PIDs)
+inline const ::eicio::model::ParticleID& Cluster::pids(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.Cluster.PIDs)
     return pids_.Get(index);
 }
-inline ::eicio::ParticleID* Cluster::mutable_pids(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.Cluster.PIDs)
+inline ::eicio::model::ParticleID* Cluster::mutable_pids(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.Cluster.PIDs)
     return pids_.Mutable(index);
 }
-inline ::eicio::ParticleID* Cluster::add_pids() {
-    // @@protoc_insertion_point(field_add:eicio.Cluster.PIDs)
+inline ::eicio::model::ParticleID* Cluster::add_pids() {
+    // @@protoc_insertion_point(field_add:eicio.model.Cluster.PIDs)
     return pids_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::ParticleID>* Cluster::mutable_pids() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.Cluster.PIDs)
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::ParticleID>* Cluster::mutable_pids() {
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.Cluster.PIDs)
     return &pids_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::ParticleID>& Cluster::pids() const {
-    // @@protoc_insertion_point(field_list:eicio.Cluster.PIDs)
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::ParticleID>& Cluster::pids() const {
+    // @@protoc_insertion_point(field_list:eicio.model.Cluster.PIDs)
     return pids_;
 }
 
-// repeated .eicio.Reference clusters = 12;
+// repeated .eicio.model.Reference clusters = 12;
 inline int Cluster::clusters_size() const { return clusters_.size(); }
 inline void Cluster::clear_clusters() { clusters_.Clear(); }
-inline const ::eicio::Reference& Cluster::clusters(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.Cluster.clusters)
+inline const ::eicio::model::Reference& Cluster::clusters(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.Cluster.clusters)
     return clusters_.Get(index);
 }
-inline ::eicio::Reference* Cluster::mutable_clusters(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.Cluster.clusters)
+inline ::eicio::model::Reference* Cluster::mutable_clusters(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.Cluster.clusters)
     return clusters_.Mutable(index);
 }
-inline ::eicio::Reference* Cluster::add_clusters() {
-    // @@protoc_insertion_point(field_add:eicio.Cluster.clusters)
+inline ::eicio::model::Reference* Cluster::add_clusters() {
+    // @@protoc_insertion_point(field_add:eicio.model.Cluster.clusters)
     return clusters_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::Reference>* Cluster::mutable_clusters() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.Cluster.clusters)
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>* Cluster::mutable_clusters() {
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.Cluster.clusters)
     return &clusters_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::Reference>& Cluster::clusters() const {
-    // @@protoc_insertion_point(field_list:eicio.Cluster.clusters)
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>& Cluster::clusters() const {
+    // @@protoc_insertion_point(field_list:eicio.model.Cluster.clusters)
     return clusters_;
 }
 
-// repeated .eicio.Reference hits = 13;
+// repeated .eicio.model.Reference hits = 13;
 inline int Cluster::hits_size() const { return hits_.size(); }
 inline void Cluster::clear_hits() { hits_.Clear(); }
-inline const ::eicio::Reference& Cluster::hits(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.Cluster.hits)
+inline const ::eicio::model::Reference& Cluster::hits(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.Cluster.hits)
     return hits_.Get(index);
 }
-inline ::eicio::Reference* Cluster::mutable_hits(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.Cluster.hits)
+inline ::eicio::model::Reference* Cluster::mutable_hits(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.Cluster.hits)
     return hits_.Mutable(index);
 }
-inline ::eicio::Reference* Cluster::add_hits() {
-    // @@protoc_insertion_point(field_add:eicio.Cluster.hits)
+inline ::eicio::model::Reference* Cluster::add_hits() {
+    // @@protoc_insertion_point(field_add:eicio.model.Cluster.hits)
     return hits_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::Reference>* Cluster::mutable_hits() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.Cluster.hits)
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>* Cluster::mutable_hits() {
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.Cluster.hits)
     return &hits_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::Reference>& Cluster::hits() const {
-    // @@protoc_insertion_point(field_list:eicio.Cluster.hits)
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>& Cluster::hits() const {
+    // @@protoc_insertion_point(field_list:eicio.model.Cluster.hits)
     return hits_;
 }
 
@@ -9217,23 +9233,23 @@ inline const ::google::protobuf::RepeatedPtrField< ::eicio::Reference>& Cluster:
 inline int Cluster::weights_size() const { return weights_.size(); }
 inline void Cluster::clear_weights() { weights_.Clear(); }
 inline float Cluster::weights(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.Cluster.weights)
+    // @@protoc_insertion_point(field_get:eicio.model.Cluster.weights)
     return weights_.Get(index);
 }
 inline void Cluster::set_weights(int index, float value) {
     weights_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.Cluster.weights)
+    // @@protoc_insertion_point(field_set:eicio.model.Cluster.weights)
 }
 inline void Cluster::add_weights(float value) {
     weights_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.Cluster.weights)
+    // @@protoc_insertion_point(field_add:eicio.model.Cluster.weights)
 }
 inline const ::google::protobuf::RepeatedField<float>& Cluster::weights() const {
-    // @@protoc_insertion_point(field_list:eicio.Cluster.weights)
+    // @@protoc_insertion_point(field_list:eicio.model.Cluster.weights)
     return weights_;
 }
 inline ::google::protobuf::RepeatedField<float>* Cluster::mutable_weights() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.Cluster.weights)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.Cluster.weights)
     return &weights_;
 }
 
@@ -9241,23 +9257,23 @@ inline ::google::protobuf::RepeatedField<float>* Cluster::mutable_weights() {
 inline int Cluster::subdetenes_size() const { return subdetenes_.size(); }
 inline void Cluster::clear_subdetenes() { subdetenes_.Clear(); }
 inline float Cluster::subdetenes(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.Cluster.subDetEnes)
+    // @@protoc_insertion_point(field_get:eicio.model.Cluster.subDetEnes)
     return subdetenes_.Get(index);
 }
 inline void Cluster::set_subdetenes(int index, float value) {
     subdetenes_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.Cluster.subDetEnes)
+    // @@protoc_insertion_point(field_set:eicio.model.Cluster.subDetEnes)
 }
 inline void Cluster::add_subdetenes(float value) {
     subdetenes_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.Cluster.subDetEnes)
+    // @@protoc_insertion_point(field_add:eicio.model.Cluster.subDetEnes)
 }
 inline const ::google::protobuf::RepeatedField<float>& Cluster::subdetenes() const {
-    // @@protoc_insertion_point(field_list:eicio.Cluster.subDetEnes)
+    // @@protoc_insertion_point(field_list:eicio.model.Cluster.subDetEnes)
     return subdetenes_;
 }
 inline ::google::protobuf::RepeatedField<float>* Cluster::mutable_subdetenes() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.Cluster.subDetEnes)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.Cluster.subDetEnes)
     return &subdetenes_;
 }
 
@@ -9268,26 +9284,26 @@ inline ::google::protobuf::RepeatedField<float>* Cluster::mutable_subdetenes() {
 // uint32 id = 1;
 inline void ClusterCollection::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 ClusterCollection::id() const {
-    // @@protoc_insertion_point(field_get:eicio.ClusterCollection.id)
+    // @@protoc_insertion_point(field_get:eicio.model.ClusterCollection.id)
     return id_;
 }
 inline void ClusterCollection::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.ClusterCollection.id)
+    // @@protoc_insertion_point(field_set:eicio.model.ClusterCollection.id)
 }
 
 // uint32 flags = 2;
 inline void ClusterCollection::clear_flags() { flags_ = 0u; }
 inline ::google::protobuf::uint32 ClusterCollection::flags() const {
-    // @@protoc_insertion_point(field_get:eicio.ClusterCollection.flags)
+    // @@protoc_insertion_point(field_get:eicio.model.ClusterCollection.flags)
     return flags_;
 }
 inline void ClusterCollection::set_flags(::google::protobuf::uint32 value) {
     flags_ = value;
-    // @@protoc_insertion_point(field_set:eicio.ClusterCollection.flags)
+    // @@protoc_insertion_point(field_set:eicio.model.ClusterCollection.flags)
 }
 
-// .eicio.Params params = 3;
+// .eicio.model.Params params = 3;
 inline bool ClusterCollection::has_params() const {
     return this != internal_default_instance() && params_ != NULL;
 }
@@ -9295,54 +9311,55 @@ inline void ClusterCollection::clear_params() {
     if (GetArenaNoVirtual() == NULL && params_ != NULL) delete params_;
     params_ = NULL;
 }
-inline const ::eicio::Params& ClusterCollection::params() const {
-    // @@protoc_insertion_point(field_get:eicio.ClusterCollection.params)
-    return params_ != NULL ? *params_ : *::eicio::Params::internal_default_instance();
+inline const ::eicio::model::Params& ClusterCollection::params() const {
+    // @@protoc_insertion_point(field_get:eicio.model.ClusterCollection.params)
+    return params_ != NULL ? *params_ : *::eicio::model::Params::internal_default_instance();
 }
-inline ::eicio::Params* ClusterCollection::mutable_params() {
+inline ::eicio::model::Params* ClusterCollection::mutable_params() {
     if (params_ == NULL) {
-        params_ = new ::eicio::Params;
+        params_ = new ::eicio::model::Params;
     }
-    // @@protoc_insertion_point(field_mutable:eicio.ClusterCollection.params)
+    // @@protoc_insertion_point(field_mutable:eicio.model.ClusterCollection.params)
     return params_;
 }
-inline ::eicio::Params* ClusterCollection::release_params() {
-    // @@protoc_insertion_point(field_release:eicio.ClusterCollection.params)
+inline ::eicio::model::Params* ClusterCollection::release_params() {
+    // @@protoc_insertion_point(field_release:eicio.model.ClusterCollection.params)
 
-    ::eicio::Params* temp = params_;
+    ::eicio::model::Params* temp = params_;
     params_ = NULL;
     return temp;
 }
-inline void ClusterCollection::set_allocated_params(::eicio::Params* params) {
+inline void ClusterCollection::set_allocated_params(::eicio::model::Params* params) {
     delete params_;
     params_ = params;
     if (params) {
     } else {
     }
-    // @@protoc_insertion_point(field_set_allocated:eicio.ClusterCollection.params)
+    // @@protoc_insertion_point(field_set_allocated:eicio.model.ClusterCollection.params)
 }
 
-// repeated .eicio.Cluster entries = 4;
+// repeated .eicio.model.Cluster entries = 4;
 inline int ClusterCollection::entries_size() const { return entries_.size(); }
 inline void ClusterCollection::clear_entries() { entries_.Clear(); }
-inline const ::eicio::Cluster& ClusterCollection::entries(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.ClusterCollection.entries)
+inline const ::eicio::model::Cluster& ClusterCollection::entries(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.ClusterCollection.entries)
     return entries_.Get(index);
 }
-inline ::eicio::Cluster* ClusterCollection::mutable_entries(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.ClusterCollection.entries)
+inline ::eicio::model::Cluster* ClusterCollection::mutable_entries(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.ClusterCollection.entries)
     return entries_.Mutable(index);
 }
-inline ::eicio::Cluster* ClusterCollection::add_entries() {
-    // @@protoc_insertion_point(field_add:eicio.ClusterCollection.entries)
+inline ::eicio::model::Cluster* ClusterCollection::add_entries() {
+    // @@protoc_insertion_point(field_add:eicio.model.ClusterCollection.entries)
     return entries_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::Cluster>* ClusterCollection::mutable_entries() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.ClusterCollection.entries)
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::Cluster>* ClusterCollection::mutable_entries() {
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.ClusterCollection.entries)
     return &entries_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::Cluster>& ClusterCollection::entries() const {
-    // @@protoc_insertion_point(field_list:eicio.ClusterCollection.entries)
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::Cluster>& ClusterCollection::entries()
+    const {
+    // @@protoc_insertion_point(field_list:eicio.model.ClusterCollection.entries)
     return entries_;
 }
 
@@ -9353,249 +9370,249 @@ inline const ::google::protobuf::RepeatedPtrField< ::eicio::Cluster>& ClusterCol
 // uint32 id = 1;
 inline void RecParticle::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 RecParticle::id() const {
-    // @@protoc_insertion_point(field_get:eicio.RecParticle.id)
+    // @@protoc_insertion_point(field_get:eicio.model.RecParticle.id)
     return id_;
 }
 inline void RecParticle::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.RecParticle.id)
+    // @@protoc_insertion_point(field_set:eicio.model.RecParticle.id)
 }
 
 // int32 type = 2;
 inline void RecParticle::clear_type() { type_ = 0; }
 inline ::google::protobuf::int32 RecParticle::type() const {
-    // @@protoc_insertion_point(field_get:eicio.RecParticle.type)
+    // @@protoc_insertion_point(field_get:eicio.model.RecParticle.type)
     return type_;
 }
 inline void RecParticle::set_type(::google::protobuf::int32 value) {
     type_ = value;
-    // @@protoc_insertion_point(field_set:eicio.RecParticle.type)
+    // @@protoc_insertion_point(field_set:eicio.model.RecParticle.type)
 }
 
 // repeated float p = 3;
 inline int RecParticle::p_size() const { return p_.size(); }
 inline void RecParticle::clear_p() { p_.Clear(); }
 inline float RecParticle::p(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.RecParticle.p)
+    // @@protoc_insertion_point(field_get:eicio.model.RecParticle.p)
     return p_.Get(index);
 }
 inline void RecParticle::set_p(int index, float value) {
     p_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.RecParticle.p)
+    // @@protoc_insertion_point(field_set:eicio.model.RecParticle.p)
 }
 inline void RecParticle::add_p(float value) {
     p_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.RecParticle.p)
+    // @@protoc_insertion_point(field_add:eicio.model.RecParticle.p)
 }
 inline const ::google::protobuf::RepeatedField<float>& RecParticle::p() const {
-    // @@protoc_insertion_point(field_list:eicio.RecParticle.p)
+    // @@protoc_insertion_point(field_list:eicio.model.RecParticle.p)
     return p_;
 }
 inline ::google::protobuf::RepeatedField<float>* RecParticle::mutable_p() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.RecParticle.p)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.RecParticle.p)
     return &p_;
 }
 
 // float energy = 4;
 inline void RecParticle::clear_energy() { energy_ = 0; }
 inline float RecParticle::energy() const {
-    // @@protoc_insertion_point(field_get:eicio.RecParticle.energy)
+    // @@protoc_insertion_point(field_get:eicio.model.RecParticle.energy)
     return energy_;
 }
 inline void RecParticle::set_energy(float value) {
     energy_ = value;
-    // @@protoc_insertion_point(field_set:eicio.RecParticle.energy)
+    // @@protoc_insertion_point(field_set:eicio.model.RecParticle.energy)
 }
 
 // repeated float cov = 5;
 inline int RecParticle::cov_size() const { return cov_.size(); }
 inline void RecParticle::clear_cov() { cov_.Clear(); }
 inline float RecParticle::cov(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.RecParticle.cov)
+    // @@protoc_insertion_point(field_get:eicio.model.RecParticle.cov)
     return cov_.Get(index);
 }
 inline void RecParticle::set_cov(int index, float value) {
     cov_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.RecParticle.cov)
+    // @@protoc_insertion_point(field_set:eicio.model.RecParticle.cov)
 }
 inline void RecParticle::add_cov(float value) {
     cov_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.RecParticle.cov)
+    // @@protoc_insertion_point(field_add:eicio.model.RecParticle.cov)
 }
 inline const ::google::protobuf::RepeatedField<float>& RecParticle::cov() const {
-    // @@protoc_insertion_point(field_list:eicio.RecParticle.cov)
+    // @@protoc_insertion_point(field_list:eicio.model.RecParticle.cov)
     return cov_;
 }
 inline ::google::protobuf::RepeatedField<float>* RecParticle::mutable_cov() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.RecParticle.cov)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.RecParticle.cov)
     return &cov_;
 }
 
 // float mass = 6;
 inline void RecParticle::clear_mass() { mass_ = 0; }
 inline float RecParticle::mass() const {
-    // @@protoc_insertion_point(field_get:eicio.RecParticle.mass)
+    // @@protoc_insertion_point(field_get:eicio.model.RecParticle.mass)
     return mass_;
 }
 inline void RecParticle::set_mass(float value) {
     mass_ = value;
-    // @@protoc_insertion_point(field_set:eicio.RecParticle.mass)
+    // @@protoc_insertion_point(field_set:eicio.model.RecParticle.mass)
 }
 
 // float charge = 7;
 inline void RecParticle::clear_charge() { charge_ = 0; }
 inline float RecParticle::charge() const {
-    // @@protoc_insertion_point(field_get:eicio.RecParticle.charge)
+    // @@protoc_insertion_point(field_get:eicio.model.RecParticle.charge)
     return charge_;
 }
 inline void RecParticle::set_charge(float value) {
     charge_ = value;
-    // @@protoc_insertion_point(field_set:eicio.RecParticle.charge)
+    // @@protoc_insertion_point(field_set:eicio.model.RecParticle.charge)
 }
 
 // repeated float ref = 8;
 inline int RecParticle::ref_size() const { return ref_.size(); }
 inline void RecParticle::clear_ref() { ref_.Clear(); }
 inline float RecParticle::ref(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.RecParticle.ref)
+    // @@protoc_insertion_point(field_get:eicio.model.RecParticle.ref)
     return ref_.Get(index);
 }
 inline void RecParticle::set_ref(int index, float value) {
     ref_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.RecParticle.ref)
+    // @@protoc_insertion_point(field_set:eicio.model.RecParticle.ref)
 }
 inline void RecParticle::add_ref(float value) {
     ref_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.RecParticle.ref)
+    // @@protoc_insertion_point(field_add:eicio.model.RecParticle.ref)
 }
 inline const ::google::protobuf::RepeatedField<float>& RecParticle::ref() const {
-    // @@protoc_insertion_point(field_list:eicio.RecParticle.ref)
+    // @@protoc_insertion_point(field_list:eicio.model.RecParticle.ref)
     return ref_;
 }
 inline ::google::protobuf::RepeatedField<float>* RecParticle::mutable_ref() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.RecParticle.ref)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.RecParticle.ref)
     return &ref_;
 }
 
-// repeated .eicio.ParticleID PIDs = 9;
+// repeated .eicio.model.ParticleID PIDs = 9;
 inline int RecParticle::pids_size() const { return pids_.size(); }
 inline void RecParticle::clear_pids() { pids_.Clear(); }
-inline const ::eicio::ParticleID& RecParticle::pids(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.RecParticle.PIDs)
+inline const ::eicio::model::ParticleID& RecParticle::pids(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.RecParticle.PIDs)
     return pids_.Get(index);
 }
-inline ::eicio::ParticleID* RecParticle::mutable_pids(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.RecParticle.PIDs)
+inline ::eicio::model::ParticleID* RecParticle::mutable_pids(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.RecParticle.PIDs)
     return pids_.Mutable(index);
 }
-inline ::eicio::ParticleID* RecParticle::add_pids() {
-    // @@protoc_insertion_point(field_add:eicio.RecParticle.PIDs)
+inline ::eicio::model::ParticleID* RecParticle::add_pids() {
+    // @@protoc_insertion_point(field_add:eicio.model.RecParticle.PIDs)
     return pids_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::ParticleID>* RecParticle::mutable_pids() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.RecParticle.PIDs)
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::ParticleID>* RecParticle::mutable_pids() {
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.RecParticle.PIDs)
     return &pids_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::ParticleID>& RecParticle::pids() const {
-    // @@protoc_insertion_point(field_list:eicio.RecParticle.PIDs)
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::ParticleID>& RecParticle::pids() const {
+    // @@protoc_insertion_point(field_list:eicio.model.RecParticle.PIDs)
     return pids_;
 }
 
 // int32 PIDUsed = 10;
 inline void RecParticle::clear_pidused() { pidused_ = 0; }
 inline ::google::protobuf::int32 RecParticle::pidused() const {
-    // @@protoc_insertion_point(field_get:eicio.RecParticle.PIDUsed)
+    // @@protoc_insertion_point(field_get:eicio.model.RecParticle.PIDUsed)
     return pidused_;
 }
 inline void RecParticle::set_pidused(::google::protobuf::int32 value) {
     pidused_ = value;
-    // @@protoc_insertion_point(field_set:eicio.RecParticle.PIDUsed)
+    // @@protoc_insertion_point(field_set:eicio.model.RecParticle.PIDUsed)
 }
 
 // float goodnessOfPID = 11;
 inline void RecParticle::clear_goodnessofpid() { goodnessofpid_ = 0; }
 inline float RecParticle::goodnessofpid() const {
-    // @@protoc_insertion_point(field_get:eicio.RecParticle.goodnessOfPID)
+    // @@protoc_insertion_point(field_get:eicio.model.RecParticle.goodnessOfPID)
     return goodnessofpid_;
 }
 inline void RecParticle::set_goodnessofpid(float value) {
     goodnessofpid_ = value;
-    // @@protoc_insertion_point(field_set:eicio.RecParticle.goodnessOfPID)
+    // @@protoc_insertion_point(field_set:eicio.model.RecParticle.goodnessOfPID)
 }
 
-// repeated .eicio.Reference recs = 12;
+// repeated .eicio.model.Reference recs = 12;
 inline int RecParticle::recs_size() const { return recs_.size(); }
 inline void RecParticle::clear_recs() { recs_.Clear(); }
-inline const ::eicio::Reference& RecParticle::recs(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.RecParticle.recs)
+inline const ::eicio::model::Reference& RecParticle::recs(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.RecParticle.recs)
     return recs_.Get(index);
 }
-inline ::eicio::Reference* RecParticle::mutable_recs(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.RecParticle.recs)
+inline ::eicio::model::Reference* RecParticle::mutable_recs(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.RecParticle.recs)
     return recs_.Mutable(index);
 }
-inline ::eicio::Reference* RecParticle::add_recs() {
-    // @@protoc_insertion_point(field_add:eicio.RecParticle.recs)
+inline ::eicio::model::Reference* RecParticle::add_recs() {
+    // @@protoc_insertion_point(field_add:eicio.model.RecParticle.recs)
     return recs_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::Reference>* RecParticle::mutable_recs() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.RecParticle.recs)
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>* RecParticle::mutable_recs() {
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.RecParticle.recs)
     return &recs_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::Reference>& RecParticle::recs() const {
-    // @@protoc_insertion_point(field_list:eicio.RecParticle.recs)
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>& RecParticle::recs() const {
+    // @@protoc_insertion_point(field_list:eicio.model.RecParticle.recs)
     return recs_;
 }
 
-// repeated .eicio.Reference tracks = 13;
+// repeated .eicio.model.Reference tracks = 13;
 inline int RecParticle::tracks_size() const { return tracks_.size(); }
 inline void RecParticle::clear_tracks() { tracks_.Clear(); }
-inline const ::eicio::Reference& RecParticle::tracks(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.RecParticle.tracks)
+inline const ::eicio::model::Reference& RecParticle::tracks(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.RecParticle.tracks)
     return tracks_.Get(index);
 }
-inline ::eicio::Reference* RecParticle::mutable_tracks(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.RecParticle.tracks)
+inline ::eicio::model::Reference* RecParticle::mutable_tracks(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.RecParticle.tracks)
     return tracks_.Mutable(index);
 }
-inline ::eicio::Reference* RecParticle::add_tracks() {
-    // @@protoc_insertion_point(field_add:eicio.RecParticle.tracks)
+inline ::eicio::model::Reference* RecParticle::add_tracks() {
+    // @@protoc_insertion_point(field_add:eicio.model.RecParticle.tracks)
     return tracks_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::Reference>* RecParticle::mutable_tracks() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.RecParticle.tracks)
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>* RecParticle::mutable_tracks() {
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.RecParticle.tracks)
     return &tracks_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::Reference>& RecParticle::tracks() const {
-    // @@protoc_insertion_point(field_list:eicio.RecParticle.tracks)
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>& RecParticle::tracks() const {
+    // @@protoc_insertion_point(field_list:eicio.model.RecParticle.tracks)
     return tracks_;
 }
 
-// repeated .eicio.Reference clusters = 14;
+// repeated .eicio.model.Reference clusters = 14;
 inline int RecParticle::clusters_size() const { return clusters_.size(); }
 inline void RecParticle::clear_clusters() { clusters_.Clear(); }
-inline const ::eicio::Reference& RecParticle::clusters(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.RecParticle.clusters)
+inline const ::eicio::model::Reference& RecParticle::clusters(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.RecParticle.clusters)
     return clusters_.Get(index);
 }
-inline ::eicio::Reference* RecParticle::mutable_clusters(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.RecParticle.clusters)
+inline ::eicio::model::Reference* RecParticle::mutable_clusters(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.RecParticle.clusters)
     return clusters_.Mutable(index);
 }
-inline ::eicio::Reference* RecParticle::add_clusters() {
-    // @@protoc_insertion_point(field_add:eicio.RecParticle.clusters)
+inline ::eicio::model::Reference* RecParticle::add_clusters() {
+    // @@protoc_insertion_point(field_add:eicio.model.RecParticle.clusters)
     return clusters_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::Reference>* RecParticle::mutable_clusters() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.RecParticle.clusters)
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>* RecParticle::mutable_clusters() {
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.RecParticle.clusters)
     return &clusters_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::Reference>& RecParticle::clusters() const {
-    // @@protoc_insertion_point(field_list:eicio.RecParticle.clusters)
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::Reference>& RecParticle::clusters() const {
+    // @@protoc_insertion_point(field_list:eicio.model.RecParticle.clusters)
     return clusters_;
 }
 
-// .eicio.Reference startVtx = 15;
+// .eicio.model.Reference startVtx = 15;
 inline bool RecParticle::has_startvtx() const {
     return this != internal_default_instance() && startvtx_ != NULL;
 }
@@ -9603,31 +9620,31 @@ inline void RecParticle::clear_startvtx() {
     if (GetArenaNoVirtual() == NULL && startvtx_ != NULL) delete startvtx_;
     startvtx_ = NULL;
 }
-inline const ::eicio::Reference& RecParticle::startvtx() const {
-    // @@protoc_insertion_point(field_get:eicio.RecParticle.startVtx)
-    return startvtx_ != NULL ? *startvtx_ : *::eicio::Reference::internal_default_instance();
+inline const ::eicio::model::Reference& RecParticle::startvtx() const {
+    // @@protoc_insertion_point(field_get:eicio.model.RecParticle.startVtx)
+    return startvtx_ != NULL ? *startvtx_ : *::eicio::model::Reference::internal_default_instance();
 }
-inline ::eicio::Reference* RecParticle::mutable_startvtx() {
+inline ::eicio::model::Reference* RecParticle::mutable_startvtx() {
     if (startvtx_ == NULL) {
-        startvtx_ = new ::eicio::Reference;
+        startvtx_ = new ::eicio::model::Reference;
     }
-    // @@protoc_insertion_point(field_mutable:eicio.RecParticle.startVtx)
+    // @@protoc_insertion_point(field_mutable:eicio.model.RecParticle.startVtx)
     return startvtx_;
 }
-inline ::eicio::Reference* RecParticle::release_startvtx() {
-    // @@protoc_insertion_point(field_release:eicio.RecParticle.startVtx)
+inline ::eicio::model::Reference* RecParticle::release_startvtx() {
+    // @@protoc_insertion_point(field_release:eicio.model.RecParticle.startVtx)
 
-    ::eicio::Reference* temp = startvtx_;
+    ::eicio::model::Reference* temp = startvtx_;
     startvtx_ = NULL;
     return temp;
 }
-inline void RecParticle::set_allocated_startvtx(::eicio::Reference* startvtx) {
+inline void RecParticle::set_allocated_startvtx(::eicio::model::Reference* startvtx) {
     delete startvtx_;
     startvtx_ = startvtx;
     if (startvtx) {
     } else {
     }
-    // @@protoc_insertion_point(field_set_allocated:eicio.RecParticle.startVtx)
+    // @@protoc_insertion_point(field_set_allocated:eicio.model.RecParticle.startVtx)
 }
 
 // -------------------------------------------------------------------
@@ -9637,26 +9654,26 @@ inline void RecParticle::set_allocated_startvtx(::eicio::Reference* startvtx) {
 // uint32 id = 1;
 inline void RecParticleCollection::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 RecParticleCollection::id() const {
-    // @@protoc_insertion_point(field_get:eicio.RecParticleCollection.id)
+    // @@protoc_insertion_point(field_get:eicio.model.RecParticleCollection.id)
     return id_;
 }
 inline void RecParticleCollection::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.RecParticleCollection.id)
+    // @@protoc_insertion_point(field_set:eicio.model.RecParticleCollection.id)
 }
 
 // uint32 flags = 2;
 inline void RecParticleCollection::clear_flags() { flags_ = 0u; }
 inline ::google::protobuf::uint32 RecParticleCollection::flags() const {
-    // @@protoc_insertion_point(field_get:eicio.RecParticleCollection.flags)
+    // @@protoc_insertion_point(field_get:eicio.model.RecParticleCollection.flags)
     return flags_;
 }
 inline void RecParticleCollection::set_flags(::google::protobuf::uint32 value) {
     flags_ = value;
-    // @@protoc_insertion_point(field_set:eicio.RecParticleCollection.flags)
+    // @@protoc_insertion_point(field_set:eicio.model.RecParticleCollection.flags)
 }
 
-// .eicio.Params params = 3;
+// .eicio.model.Params params = 3;
 inline bool RecParticleCollection::has_params() const {
     return this != internal_default_instance() && params_ != NULL;
 }
@@ -9664,55 +9681,56 @@ inline void RecParticleCollection::clear_params() {
     if (GetArenaNoVirtual() == NULL && params_ != NULL) delete params_;
     params_ = NULL;
 }
-inline const ::eicio::Params& RecParticleCollection::params() const {
-    // @@protoc_insertion_point(field_get:eicio.RecParticleCollection.params)
-    return params_ != NULL ? *params_ : *::eicio::Params::internal_default_instance();
+inline const ::eicio::model::Params& RecParticleCollection::params() const {
+    // @@protoc_insertion_point(field_get:eicio.model.RecParticleCollection.params)
+    return params_ != NULL ? *params_ : *::eicio::model::Params::internal_default_instance();
 }
-inline ::eicio::Params* RecParticleCollection::mutable_params() {
+inline ::eicio::model::Params* RecParticleCollection::mutable_params() {
     if (params_ == NULL) {
-        params_ = new ::eicio::Params;
+        params_ = new ::eicio::model::Params;
     }
-    // @@protoc_insertion_point(field_mutable:eicio.RecParticleCollection.params)
+    // @@protoc_insertion_point(field_mutable:eicio.model.RecParticleCollection.params)
     return params_;
 }
-inline ::eicio::Params* RecParticleCollection::release_params() {
-    // @@protoc_insertion_point(field_release:eicio.RecParticleCollection.params)
+inline ::eicio::model::Params* RecParticleCollection::release_params() {
+    // @@protoc_insertion_point(field_release:eicio.model.RecParticleCollection.params)
 
-    ::eicio::Params* temp = params_;
+    ::eicio::model::Params* temp = params_;
     params_ = NULL;
     return temp;
 }
-inline void RecParticleCollection::set_allocated_params(::eicio::Params* params) {
+inline void RecParticleCollection::set_allocated_params(::eicio::model::Params* params) {
     delete params_;
     params_ = params;
     if (params) {
     } else {
     }
-    // @@protoc_insertion_point(field_set_allocated:eicio.RecParticleCollection.params)
+    // @@protoc_insertion_point(field_set_allocated:eicio.model.RecParticleCollection.params)
 }
 
-// repeated .eicio.RecParticle entries = 4;
+// repeated .eicio.model.RecParticle entries = 4;
 inline int RecParticleCollection::entries_size() const { return entries_.size(); }
 inline void RecParticleCollection::clear_entries() { entries_.Clear(); }
-inline const ::eicio::RecParticle& RecParticleCollection::entries(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.RecParticleCollection.entries)
+inline const ::eicio::model::RecParticle& RecParticleCollection::entries(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.RecParticleCollection.entries)
     return entries_.Get(index);
 }
-inline ::eicio::RecParticle* RecParticleCollection::mutable_entries(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.RecParticleCollection.entries)
+inline ::eicio::model::RecParticle* RecParticleCollection::mutable_entries(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.RecParticleCollection.entries)
     return entries_.Mutable(index);
 }
-inline ::eicio::RecParticle* RecParticleCollection::add_entries() {
-    // @@protoc_insertion_point(field_add:eicio.RecParticleCollection.entries)
+inline ::eicio::model::RecParticle* RecParticleCollection::add_entries() {
+    // @@protoc_insertion_point(field_add:eicio.model.RecParticleCollection.entries)
     return entries_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::RecParticle>* RecParticleCollection::mutable_entries() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.RecParticleCollection.entries)
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::RecParticle>*
+RecParticleCollection::mutable_entries() {
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.RecParticleCollection.entries)
     return &entries_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::RecParticle>& RecParticleCollection::entries()
-    const {
-    // @@protoc_insertion_point(field_list:eicio.RecParticleCollection.entries)
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::RecParticle>&
+RecParticleCollection::entries() const {
+    // @@protoc_insertion_point(field_list:eicio.model.RecParticleCollection.entries)
     return entries_;
 }
 
@@ -9723,79 +9741,79 @@ inline const ::google::protobuf::RepeatedPtrField< ::eicio::RecParticle>& RecPar
 // uint32 id = 1;
 inline void Vertex::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 Vertex::id() const {
-    // @@protoc_insertion_point(field_get:eicio.Vertex.id)
+    // @@protoc_insertion_point(field_get:eicio.model.Vertex.id)
     return id_;
 }
 inline void Vertex::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.Vertex.id)
+    // @@protoc_insertion_point(field_set:eicio.model.Vertex.id)
 }
 
 // int32 primary = 2;
 inline void Vertex::clear_primary() { primary_ = 0; }
 inline ::google::protobuf::int32 Vertex::primary() const {
-    // @@protoc_insertion_point(field_get:eicio.Vertex.primary)
+    // @@protoc_insertion_point(field_get:eicio.model.Vertex.primary)
     return primary_;
 }
 inline void Vertex::set_primary(::google::protobuf::int32 value) {
     primary_ = value;
-    // @@protoc_insertion_point(field_set:eicio.Vertex.primary)
+    // @@protoc_insertion_point(field_set:eicio.model.Vertex.primary)
 }
 
 // int32 algType = 3;
 inline void Vertex::clear_algtype() { algtype_ = 0; }
 inline ::google::protobuf::int32 Vertex::algtype() const {
-    // @@protoc_insertion_point(field_get:eicio.Vertex.algType)
+    // @@protoc_insertion_point(field_get:eicio.model.Vertex.algType)
     return algtype_;
 }
 inline void Vertex::set_algtype(::google::protobuf::int32 value) {
     algtype_ = value;
-    // @@protoc_insertion_point(field_set:eicio.Vertex.algType)
+    // @@protoc_insertion_point(field_set:eicio.model.Vertex.algType)
 }
 
 // float chi2 = 4;
 inline void Vertex::clear_chi2() { chi2_ = 0; }
 inline float Vertex::chi2() const {
-    // @@protoc_insertion_point(field_get:eicio.Vertex.chi2)
+    // @@protoc_insertion_point(field_get:eicio.model.Vertex.chi2)
     return chi2_;
 }
 inline void Vertex::set_chi2(float value) {
     chi2_ = value;
-    // @@protoc_insertion_point(field_set:eicio.Vertex.chi2)
+    // @@protoc_insertion_point(field_set:eicio.model.Vertex.chi2)
 }
 
 // float prob = 5;
 inline void Vertex::clear_prob() { prob_ = 0; }
 inline float Vertex::prob() const {
-    // @@protoc_insertion_point(field_get:eicio.Vertex.prob)
+    // @@protoc_insertion_point(field_get:eicio.model.Vertex.prob)
     return prob_;
 }
 inline void Vertex::set_prob(float value) {
     prob_ = value;
-    // @@protoc_insertion_point(field_set:eicio.Vertex.prob)
+    // @@protoc_insertion_point(field_set:eicio.model.Vertex.prob)
 }
 
 // repeated float pos = 6;
 inline int Vertex::pos_size() const { return pos_.size(); }
 inline void Vertex::clear_pos() { pos_.Clear(); }
 inline float Vertex::pos(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.Vertex.pos)
+    // @@protoc_insertion_point(field_get:eicio.model.Vertex.pos)
     return pos_.Get(index);
 }
 inline void Vertex::set_pos(int index, float value) {
     pos_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.Vertex.pos)
+    // @@protoc_insertion_point(field_set:eicio.model.Vertex.pos)
 }
 inline void Vertex::add_pos(float value) {
     pos_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.Vertex.pos)
+    // @@protoc_insertion_point(field_add:eicio.model.Vertex.pos)
 }
 inline const ::google::protobuf::RepeatedField<float>& Vertex::pos() const {
-    // @@protoc_insertion_point(field_list:eicio.Vertex.pos)
+    // @@protoc_insertion_point(field_list:eicio.model.Vertex.pos)
     return pos_;
 }
 inline ::google::protobuf::RepeatedField<float>* Vertex::mutable_pos() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.Vertex.pos)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.Vertex.pos)
     return &pos_;
 }
 
@@ -9803,23 +9821,23 @@ inline ::google::protobuf::RepeatedField<float>* Vertex::mutable_pos() {
 inline int Vertex::cov_size() const { return cov_.size(); }
 inline void Vertex::clear_cov() { cov_.Clear(); }
 inline float Vertex::cov(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.Vertex.cov)
+    // @@protoc_insertion_point(field_get:eicio.model.Vertex.cov)
     return cov_.Get(index);
 }
 inline void Vertex::set_cov(int index, float value) {
     cov_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.Vertex.cov)
+    // @@protoc_insertion_point(field_set:eicio.model.Vertex.cov)
 }
 inline void Vertex::add_cov(float value) {
     cov_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.Vertex.cov)
+    // @@protoc_insertion_point(field_add:eicio.model.Vertex.cov)
 }
 inline const ::google::protobuf::RepeatedField<float>& Vertex::cov() const {
-    // @@protoc_insertion_point(field_list:eicio.Vertex.cov)
+    // @@protoc_insertion_point(field_list:eicio.model.Vertex.cov)
     return cov_;
 }
 inline ::google::protobuf::RepeatedField<float>* Vertex::mutable_cov() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.Vertex.cov)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.Vertex.cov)
     return &cov_;
 }
 
@@ -9827,57 +9845,57 @@ inline ::google::protobuf::RepeatedField<float>* Vertex::mutable_cov() {
 inline int Vertex::params_size() const { return params_.size(); }
 inline void Vertex::clear_params() { params_.Clear(); }
 inline float Vertex::params(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.Vertex.params)
+    // @@protoc_insertion_point(field_get:eicio.model.Vertex.params)
     return params_.Get(index);
 }
 inline void Vertex::set_params(int index, float value) {
     params_.Set(index, value);
-    // @@protoc_insertion_point(field_set:eicio.Vertex.params)
+    // @@protoc_insertion_point(field_set:eicio.model.Vertex.params)
 }
 inline void Vertex::add_params(float value) {
     params_.Add(value);
-    // @@protoc_insertion_point(field_add:eicio.Vertex.params)
+    // @@protoc_insertion_point(field_add:eicio.model.Vertex.params)
 }
 inline const ::google::protobuf::RepeatedField<float>& Vertex::params() const {
-    // @@protoc_insertion_point(field_list:eicio.Vertex.params)
+    // @@protoc_insertion_point(field_list:eicio.model.Vertex.params)
     return params_;
 }
 inline ::google::protobuf::RepeatedField<float>* Vertex::mutable_params() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.Vertex.params)
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.Vertex.params)
     return &params_;
 }
 
-// .eicio.Reference recPart = 9;
+// .eicio.model.Reference recPart = 9;
 inline bool Vertex::has_recpart() const { return this != internal_default_instance() && recpart_ != NULL; }
 inline void Vertex::clear_recpart() {
     if (GetArenaNoVirtual() == NULL && recpart_ != NULL) delete recpart_;
     recpart_ = NULL;
 }
-inline const ::eicio::Reference& Vertex::recpart() const {
-    // @@protoc_insertion_point(field_get:eicio.Vertex.recPart)
-    return recpart_ != NULL ? *recpart_ : *::eicio::Reference::internal_default_instance();
+inline const ::eicio::model::Reference& Vertex::recpart() const {
+    // @@protoc_insertion_point(field_get:eicio.model.Vertex.recPart)
+    return recpart_ != NULL ? *recpart_ : *::eicio::model::Reference::internal_default_instance();
 }
-inline ::eicio::Reference* Vertex::mutable_recpart() {
+inline ::eicio::model::Reference* Vertex::mutable_recpart() {
     if (recpart_ == NULL) {
-        recpart_ = new ::eicio::Reference;
+        recpart_ = new ::eicio::model::Reference;
     }
-    // @@protoc_insertion_point(field_mutable:eicio.Vertex.recPart)
+    // @@protoc_insertion_point(field_mutable:eicio.model.Vertex.recPart)
     return recpart_;
 }
-inline ::eicio::Reference* Vertex::release_recpart() {
-    // @@protoc_insertion_point(field_release:eicio.Vertex.recPart)
+inline ::eicio::model::Reference* Vertex::release_recpart() {
+    // @@protoc_insertion_point(field_release:eicio.model.Vertex.recPart)
 
-    ::eicio::Reference* temp = recpart_;
+    ::eicio::model::Reference* temp = recpart_;
     recpart_ = NULL;
     return temp;
 }
-inline void Vertex::set_allocated_recpart(::eicio::Reference* recpart) {
+inline void Vertex::set_allocated_recpart(::eicio::model::Reference* recpart) {
     delete recpart_;
     recpart_ = recpart;
     if (recpart) {
     } else {
     }
-    // @@protoc_insertion_point(field_set_allocated:eicio.Vertex.recPart)
+    // @@protoc_insertion_point(field_set_allocated:eicio.model.Vertex.recPart)
 }
 
 // -------------------------------------------------------------------
@@ -9887,26 +9905,26 @@ inline void Vertex::set_allocated_recpart(::eicio::Reference* recpart) {
 // uint32 id = 1;
 inline void VertexCollection::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 VertexCollection::id() const {
-    // @@protoc_insertion_point(field_get:eicio.VertexCollection.id)
+    // @@protoc_insertion_point(field_get:eicio.model.VertexCollection.id)
     return id_;
 }
 inline void VertexCollection::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.VertexCollection.id)
+    // @@protoc_insertion_point(field_set:eicio.model.VertexCollection.id)
 }
 
 // uint32 flags = 2;
 inline void VertexCollection::clear_flags() { flags_ = 0u; }
 inline ::google::protobuf::uint32 VertexCollection::flags() const {
-    // @@protoc_insertion_point(field_get:eicio.VertexCollection.flags)
+    // @@protoc_insertion_point(field_get:eicio.model.VertexCollection.flags)
     return flags_;
 }
 inline void VertexCollection::set_flags(::google::protobuf::uint32 value) {
     flags_ = value;
-    // @@protoc_insertion_point(field_set:eicio.VertexCollection.flags)
+    // @@protoc_insertion_point(field_set:eicio.model.VertexCollection.flags)
 }
 
-// .eicio.Params params = 3;
+// .eicio.model.Params params = 3;
 inline bool VertexCollection::has_params() const {
     return this != internal_default_instance() && params_ != NULL;
 }
@@ -9914,54 +9932,55 @@ inline void VertexCollection::clear_params() {
     if (GetArenaNoVirtual() == NULL && params_ != NULL) delete params_;
     params_ = NULL;
 }
-inline const ::eicio::Params& VertexCollection::params() const {
-    // @@protoc_insertion_point(field_get:eicio.VertexCollection.params)
-    return params_ != NULL ? *params_ : *::eicio::Params::internal_default_instance();
+inline const ::eicio::model::Params& VertexCollection::params() const {
+    // @@protoc_insertion_point(field_get:eicio.model.VertexCollection.params)
+    return params_ != NULL ? *params_ : *::eicio::model::Params::internal_default_instance();
 }
-inline ::eicio::Params* VertexCollection::mutable_params() {
+inline ::eicio::model::Params* VertexCollection::mutable_params() {
     if (params_ == NULL) {
-        params_ = new ::eicio::Params;
+        params_ = new ::eicio::model::Params;
     }
-    // @@protoc_insertion_point(field_mutable:eicio.VertexCollection.params)
+    // @@protoc_insertion_point(field_mutable:eicio.model.VertexCollection.params)
     return params_;
 }
-inline ::eicio::Params* VertexCollection::release_params() {
-    // @@protoc_insertion_point(field_release:eicio.VertexCollection.params)
+inline ::eicio::model::Params* VertexCollection::release_params() {
+    // @@protoc_insertion_point(field_release:eicio.model.VertexCollection.params)
 
-    ::eicio::Params* temp = params_;
+    ::eicio::model::Params* temp = params_;
     params_ = NULL;
     return temp;
 }
-inline void VertexCollection::set_allocated_params(::eicio::Params* params) {
+inline void VertexCollection::set_allocated_params(::eicio::model::Params* params) {
     delete params_;
     params_ = params;
     if (params) {
     } else {
     }
-    // @@protoc_insertion_point(field_set_allocated:eicio.VertexCollection.params)
+    // @@protoc_insertion_point(field_set_allocated:eicio.model.VertexCollection.params)
 }
 
-// repeated .eicio.Vertex entries = 4;
+// repeated .eicio.model.Vertex entries = 4;
 inline int VertexCollection::entries_size() const { return entries_.size(); }
 inline void VertexCollection::clear_entries() { entries_.Clear(); }
-inline const ::eicio::Vertex& VertexCollection::entries(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.VertexCollection.entries)
+inline const ::eicio::model::Vertex& VertexCollection::entries(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.VertexCollection.entries)
     return entries_.Get(index);
 }
-inline ::eicio::Vertex* VertexCollection::mutable_entries(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.VertexCollection.entries)
+inline ::eicio::model::Vertex* VertexCollection::mutable_entries(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.VertexCollection.entries)
     return entries_.Mutable(index);
 }
-inline ::eicio::Vertex* VertexCollection::add_entries() {
-    // @@protoc_insertion_point(field_add:eicio.VertexCollection.entries)
+inline ::eicio::model::Vertex* VertexCollection::add_entries() {
+    // @@protoc_insertion_point(field_add:eicio.model.VertexCollection.entries)
     return entries_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::Vertex>* VertexCollection::mutable_entries() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.VertexCollection.entries)
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::Vertex>* VertexCollection::mutable_entries() {
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.VertexCollection.entries)
     return &entries_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::Vertex>& VertexCollection::entries() const {
-    // @@protoc_insertion_point(field_list:eicio.VertexCollection.entries)
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::Vertex>& VertexCollection::entries()
+    const {
+    // @@protoc_insertion_point(field_list:eicio.model.VertexCollection.entries)
     return entries_;
 }
 
@@ -9972,89 +9991,89 @@ inline const ::google::protobuf::RepeatedPtrField< ::eicio::Vertex>& VertexColle
 // uint32 id = 1;
 inline void Relation::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 Relation::id() const {
-    // @@protoc_insertion_point(field_get:eicio.Relation.id)
+    // @@protoc_insertion_point(field_get:eicio.model.Relation.id)
     return id_;
 }
 inline void Relation::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.Relation.id)
+    // @@protoc_insertion_point(field_set:eicio.model.Relation.id)
 }
 
-// .eicio.Reference from = 2;
+// .eicio.model.Reference from = 2;
 inline bool Relation::has_from() const { return this != internal_default_instance() && from_ != NULL; }
 inline void Relation::clear_from() {
     if (GetArenaNoVirtual() == NULL && from_ != NULL) delete from_;
     from_ = NULL;
 }
-inline const ::eicio::Reference& Relation::from() const {
-    // @@protoc_insertion_point(field_get:eicio.Relation.from)
-    return from_ != NULL ? *from_ : *::eicio::Reference::internal_default_instance();
+inline const ::eicio::model::Reference& Relation::from() const {
+    // @@protoc_insertion_point(field_get:eicio.model.Relation.from)
+    return from_ != NULL ? *from_ : *::eicio::model::Reference::internal_default_instance();
 }
-inline ::eicio::Reference* Relation::mutable_from() {
+inline ::eicio::model::Reference* Relation::mutable_from() {
     if (from_ == NULL) {
-        from_ = new ::eicio::Reference;
+        from_ = new ::eicio::model::Reference;
     }
-    // @@protoc_insertion_point(field_mutable:eicio.Relation.from)
+    // @@protoc_insertion_point(field_mutable:eicio.model.Relation.from)
     return from_;
 }
-inline ::eicio::Reference* Relation::release_from() {
-    // @@protoc_insertion_point(field_release:eicio.Relation.from)
+inline ::eicio::model::Reference* Relation::release_from() {
+    // @@protoc_insertion_point(field_release:eicio.model.Relation.from)
 
-    ::eicio::Reference* temp = from_;
+    ::eicio::model::Reference* temp = from_;
     from_ = NULL;
     return temp;
 }
-inline void Relation::set_allocated_from(::eicio::Reference* from) {
+inline void Relation::set_allocated_from(::eicio::model::Reference* from) {
     delete from_;
     from_ = from;
     if (from) {
     } else {
     }
-    // @@protoc_insertion_point(field_set_allocated:eicio.Relation.from)
+    // @@protoc_insertion_point(field_set_allocated:eicio.model.Relation.from)
 }
 
-// .eicio.Reference to = 3;
+// .eicio.model.Reference to = 3;
 inline bool Relation::has_to() const { return this != internal_default_instance() && to_ != NULL; }
 inline void Relation::clear_to() {
     if (GetArenaNoVirtual() == NULL && to_ != NULL) delete to_;
     to_ = NULL;
 }
-inline const ::eicio::Reference& Relation::to() const {
-    // @@protoc_insertion_point(field_get:eicio.Relation.to)
-    return to_ != NULL ? *to_ : *::eicio::Reference::internal_default_instance();
+inline const ::eicio::model::Reference& Relation::to() const {
+    // @@protoc_insertion_point(field_get:eicio.model.Relation.to)
+    return to_ != NULL ? *to_ : *::eicio::model::Reference::internal_default_instance();
 }
-inline ::eicio::Reference* Relation::mutable_to() {
+inline ::eicio::model::Reference* Relation::mutable_to() {
     if (to_ == NULL) {
-        to_ = new ::eicio::Reference;
+        to_ = new ::eicio::model::Reference;
     }
-    // @@protoc_insertion_point(field_mutable:eicio.Relation.to)
+    // @@protoc_insertion_point(field_mutable:eicio.model.Relation.to)
     return to_;
 }
-inline ::eicio::Reference* Relation::release_to() {
-    // @@protoc_insertion_point(field_release:eicio.Relation.to)
+inline ::eicio::model::Reference* Relation::release_to() {
+    // @@protoc_insertion_point(field_release:eicio.model.Relation.to)
 
-    ::eicio::Reference* temp = to_;
+    ::eicio::model::Reference* temp = to_;
     to_ = NULL;
     return temp;
 }
-inline void Relation::set_allocated_to(::eicio::Reference* to) {
+inline void Relation::set_allocated_to(::eicio::model::Reference* to) {
     delete to_;
     to_ = to;
     if (to) {
     } else {
     }
-    // @@protoc_insertion_point(field_set_allocated:eicio.Relation.to)
+    // @@protoc_insertion_point(field_set_allocated:eicio.model.Relation.to)
 }
 
 // float weight = 4;
 inline void Relation::clear_weight() { weight_ = 0; }
 inline float Relation::weight() const {
-    // @@protoc_insertion_point(field_get:eicio.Relation.weight)
+    // @@protoc_insertion_point(field_get:eicio.model.Relation.weight)
     return weight_;
 }
 inline void Relation::set_weight(float value) {
     weight_ = value;
-    // @@protoc_insertion_point(field_set:eicio.Relation.weight)
+    // @@protoc_insertion_point(field_set:eicio.model.Relation.weight)
 }
 
 // -------------------------------------------------------------------
@@ -10064,26 +10083,26 @@ inline void Relation::set_weight(float value) {
 // uint32 id = 1;
 inline void RelationCollection::clear_id() { id_ = 0u; }
 inline ::google::protobuf::uint32 RelationCollection::id() const {
-    // @@protoc_insertion_point(field_get:eicio.RelationCollection.id)
+    // @@protoc_insertion_point(field_get:eicio.model.RelationCollection.id)
     return id_;
 }
 inline void RelationCollection::set_id(::google::protobuf::uint32 value) {
     id_ = value;
-    // @@protoc_insertion_point(field_set:eicio.RelationCollection.id)
+    // @@protoc_insertion_point(field_set:eicio.model.RelationCollection.id)
 }
 
 // uint32 flags = 2;
 inline void RelationCollection::clear_flags() { flags_ = 0u; }
 inline ::google::protobuf::uint32 RelationCollection::flags() const {
-    // @@protoc_insertion_point(field_get:eicio.RelationCollection.flags)
+    // @@protoc_insertion_point(field_get:eicio.model.RelationCollection.flags)
     return flags_;
 }
 inline void RelationCollection::set_flags(::google::protobuf::uint32 value) {
     flags_ = value;
-    // @@protoc_insertion_point(field_set:eicio.RelationCollection.flags)
+    // @@protoc_insertion_point(field_set:eicio.model.RelationCollection.flags)
 }
 
-// .eicio.Params params = 3;
+// .eicio.model.Params params = 3;
 inline bool RelationCollection::has_params() const {
     return this != internal_default_instance() && params_ != NULL;
 }
@@ -10091,54 +10110,56 @@ inline void RelationCollection::clear_params() {
     if (GetArenaNoVirtual() == NULL && params_ != NULL) delete params_;
     params_ = NULL;
 }
-inline const ::eicio::Params& RelationCollection::params() const {
-    // @@protoc_insertion_point(field_get:eicio.RelationCollection.params)
-    return params_ != NULL ? *params_ : *::eicio::Params::internal_default_instance();
+inline const ::eicio::model::Params& RelationCollection::params() const {
+    // @@protoc_insertion_point(field_get:eicio.model.RelationCollection.params)
+    return params_ != NULL ? *params_ : *::eicio::model::Params::internal_default_instance();
 }
-inline ::eicio::Params* RelationCollection::mutable_params() {
+inline ::eicio::model::Params* RelationCollection::mutable_params() {
     if (params_ == NULL) {
-        params_ = new ::eicio::Params;
+        params_ = new ::eicio::model::Params;
     }
-    // @@protoc_insertion_point(field_mutable:eicio.RelationCollection.params)
+    // @@protoc_insertion_point(field_mutable:eicio.model.RelationCollection.params)
     return params_;
 }
-inline ::eicio::Params* RelationCollection::release_params() {
-    // @@protoc_insertion_point(field_release:eicio.RelationCollection.params)
+inline ::eicio::model::Params* RelationCollection::release_params() {
+    // @@protoc_insertion_point(field_release:eicio.model.RelationCollection.params)
 
-    ::eicio::Params* temp = params_;
+    ::eicio::model::Params* temp = params_;
     params_ = NULL;
     return temp;
 }
-inline void RelationCollection::set_allocated_params(::eicio::Params* params) {
+inline void RelationCollection::set_allocated_params(::eicio::model::Params* params) {
     delete params_;
     params_ = params;
     if (params) {
     } else {
     }
-    // @@protoc_insertion_point(field_set_allocated:eicio.RelationCollection.params)
+    // @@protoc_insertion_point(field_set_allocated:eicio.model.RelationCollection.params)
 }
 
-// repeated .eicio.Relation entries = 4;
+// repeated .eicio.model.Relation entries = 4;
 inline int RelationCollection::entries_size() const { return entries_.size(); }
 inline void RelationCollection::clear_entries() { entries_.Clear(); }
-inline const ::eicio::Relation& RelationCollection::entries(int index) const {
-    // @@protoc_insertion_point(field_get:eicio.RelationCollection.entries)
+inline const ::eicio::model::Relation& RelationCollection::entries(int index) const {
+    // @@protoc_insertion_point(field_get:eicio.model.RelationCollection.entries)
     return entries_.Get(index);
 }
-inline ::eicio::Relation* RelationCollection::mutable_entries(int index) {
-    // @@protoc_insertion_point(field_mutable:eicio.RelationCollection.entries)
+inline ::eicio::model::Relation* RelationCollection::mutable_entries(int index) {
+    // @@protoc_insertion_point(field_mutable:eicio.model.RelationCollection.entries)
     return entries_.Mutable(index);
 }
-inline ::eicio::Relation* RelationCollection::add_entries() {
-    // @@protoc_insertion_point(field_add:eicio.RelationCollection.entries)
+inline ::eicio::model::Relation* RelationCollection::add_entries() {
+    // @@protoc_insertion_point(field_add:eicio.model.RelationCollection.entries)
     return entries_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::eicio::Relation>* RelationCollection::mutable_entries() {
-    // @@protoc_insertion_point(field_mutable_list:eicio.RelationCollection.entries)
+inline ::google::protobuf::RepeatedPtrField< ::eicio::model::Relation>*
+RelationCollection::mutable_entries() {
+    // @@protoc_insertion_point(field_mutable_list:eicio.model.RelationCollection.entries)
     return &entries_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::eicio::Relation>& RelationCollection::entries() const {
-    // @@protoc_insertion_point(field_list:eicio.RelationCollection.entries)
+inline const ::google::protobuf::RepeatedPtrField< ::eicio::model::Relation>& RelationCollection::entries()
+    const {
+    // @@protoc_insertion_point(field_list:eicio.model.RelationCollection.entries)
     return entries_;
 }
 
@@ -10233,6 +10254,7 @@ inline const ::google::protobuf::RepeatedPtrField< ::eicio::Relation>& RelationC
 
 // @@protoc_insertion_point(namespace_scope)
 
+}  // namespace model
 }  // namespace eicio
 
 // @@protoc_insertion_point(global_scope)

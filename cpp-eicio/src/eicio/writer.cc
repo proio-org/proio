@@ -10,7 +10,9 @@
 
 using namespace google::protobuf;
 
-eicio::Writer::Writer(int fd, bool gzip) {
+using namespace eicio;
+
+Writer::Writer(int fd, bool gzip) {
     outputStream = NULL;
     fileStream = NULL;
 
@@ -24,7 +26,7 @@ eicio::Writer::Writer(int fd, bool gzip) {
     }
 }
 
-eicio::Writer::Writer(std::string filename) {
+Writer::Writer(std::string filename) {
     outputStream = NULL;
     fileStream = NULL;
 
@@ -45,19 +47,19 @@ eicio::Writer::Writer(std::string filename) {
     }
 }
 
-eicio::Writer::~Writer() {
+Writer::~Writer() {
     if (outputStream) delete outputStream;
     if (fileStream) delete fileStream;
 }
 
-bool eicio::Writer::Push(eicio::Event *event) {
+bool Writer::Push(Event *event) {
     if (!outputStream) return false;
     auto stream = new io::CodedOutputStream(outputStream);
 
     event->FlushCollCache();
     unsigned int payloadSize = event->GetPayloadSize();
 
-    for (int i = 0; i < 4; i++) stream->WriteRaw(eicio::magicBytes + i, 1);
+    for (int i = 0; i < 4; i++) stream->WriteRaw(magicBytes + i, 1);
     stream->WriteLittleEndian32((unsigned int)(event->GetHeader()->ByteSizeLong()));
     stream->WriteLittleEndian32(payloadSize);
     if (!event->GetHeader()->SerializeToCodedStream(stream)) {

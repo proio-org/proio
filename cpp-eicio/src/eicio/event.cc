@@ -4,16 +4,18 @@
 
 using namespace google::protobuf;
 
-eicio::Event::Event() { header = new eicio::EventHeader(); }
+using namespace eicio;
 
-eicio::Event::~Event() {
+Event::Event() { header = new model::EventHeader(); }
+
+Event::~Event() {
     if (header) delete header;
     for (auto collEntry = collCache.begin(); collEntry != collCache.end(); collEntry++) {
         delete collEntry->second;
     }
 }
 
-bool eicio::Event::Add(Message *coll, std::string name) {
+bool Event::Add(Message *coll, std::string name) {
     const Descriptor *desc = coll->GetDescriptor();
     const Reflection *refl = coll->GetReflection();
     const FieldDescriptor *idFieldDesc = desc->FindFieldByName("id");
@@ -44,7 +46,7 @@ bool eicio::Event::Add(Message *coll, std::string name) {
     return true;
 }
 
-void eicio::Event::Remove(std::string collName) {
+void Event::Remove(std::string collName) {
     if (collCache.find(collName) != collCache.end()) {
         delete collCache[collName];
         collCache.erase(collName);
@@ -59,14 +61,14 @@ void eicio::Event::Remove(std::string collName) {
     }
 }
 
-Message *eicio::Event::Get(std::string collName) {
+Message *Event::Get(std::string collName) {
     Message *msg;
     if ((msg = collCache[collName]) != NULL) return msg;
 
     return getFromPayload(collName);
 }
 
-std::vector<std::string> eicio::Event::GetNames() {
+std::vector<std::string> Event::GetNames() {
     std::vector<std::string> names;
 
     for (int i = 0; i < header->payloadcollections_size(); i++) {
@@ -80,7 +82,7 @@ std::vector<std::string> eicio::Event::GetNames() {
     return names;
 }
 
-void eicio::Event::MakeReference(Message *msg, eicio::Reference *ref) {
+void Event::Reference(Message *msg, model::Reference *ref) {
     for (auto collPair : collCache) {
         auto coll = collPair.second;
 
@@ -133,7 +135,7 @@ void eicio::Event::MakeReference(Message *msg, eicio::Reference *ref) {
     return;
 }
 
-Message *eicio::Event::Dereference(const eicio::Reference &ref) {
+Message *Event::Dereference(const model::Reference &ref) {
     Message *refColl = NULL;
     for (auto collPair : collCache) {
         auto coll = collPair.second;
@@ -185,44 +187,44 @@ Message *eicio::Event::Dereference(const eicio::Reference &ref) {
     return NULL;
 }
 
-unsigned int eicio::Event::GetUniqueID() {
+unsigned int Event::GetUniqueID() {
     header->set_nuniqueids(header->nuniqueids() + 1);
     return header->nuniqueids();
 }
 
-void eicio::Event::SetHeader(eicio::EventHeader *newHeader) {
+void Event::SetHeader(model::EventHeader *newHeader) {
     if (header) delete header;
     header = newHeader;
 }
 
-eicio::EventHeader *eicio::Event::GetHeader() { return header; }
+model::EventHeader *Event::GetHeader() { return header; }
 
-unsigned int eicio::Event::GetPayloadSize() { return payload.size(); }
+unsigned int Event::GetPayloadSize() { return payload.size(); }
 
-void *eicio::Event::SetPayloadSize(uint32 size) {
+void *Event::SetPayloadSize(uint32 size) {
     payload.resize(size);
     return &payload[0];
 }
 
-unsigned char *eicio::Event::GetPayload() { return &payload[0]; }
+unsigned char *Event::GetPayload() { return &payload[0]; }
 
-std::string eicio::Event::GetType(Message *coll) {
-    static const std::string prefix = "eicio.";
+std::string Event::GetType(Message *coll) {
+    static const std::string prefix = "eicio.model.";
     return coll->GetTypeName().substr(prefix.length());
 }
 
-void eicio::Event::FlushCollCache() {
+void Event::FlushCollCache() {
     for (int i = 0; i < namesCached.size(); i++) {
         auto name = namesCached[i];
         auto coll = collCache[name];
         collToPayload(coll, name);
         collCache.erase(name);
         namesCached.erase(namesCached.begin() + i);
-		delete coll;
+        delete coll;
     }
 }
 
-Message *eicio::Event::getFromPayload(std::string name, bool parse) {
+Message *Event::getFromPayload(std::string name, bool parse) {
     uint32 offset = 0;
     uint32 size = 0;
     std::string collType = "";
@@ -242,7 +244,7 @@ Message *eicio::Event::getFromPayload(std::string name, bool parse) {
 
     Message *coll;
     if (parse) {
-        auto desc = DescriptorPool::generated_pool()->FindMessageTypeByName("eicio." + collType);
+        auto desc = DescriptorPool::generated_pool()->FindMessageTypeByName("eicio.model." + collType);
         if (desc == NULL) {
             return NULL;
         }
@@ -263,14 +265,14 @@ Message *eicio::Event::getFromPayload(std::string name, bool parse) {
     return coll;
 }
 
-void eicio::Event::collToPayload(Message *coll, std::string name) {
+void Event::collToPayload(Message *coll, std::string name) {
     const Descriptor *desc = coll->GetDescriptor();
     const Reflection *ref = coll->GetReflection();
 
     const FieldDescriptor *idFieldDesc = desc->FindFieldByName("id");
     if (!idFieldDesc) return;
 
-    eicio::EventHeader_CollectionHeader *collHdr = header->add_payloadcollections();
+    model::EventHeader_CollectionHeader *collHdr = header->add_payloadcollections();
     collHdr->set_name(name);
     collHdr->set_id(ref->GetUInt32(*coll, idFieldDesc));
     collHdr->set_type(GetType(coll));

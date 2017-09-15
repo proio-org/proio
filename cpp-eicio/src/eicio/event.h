@@ -17,12 +17,12 @@ class Event {
     google::protobuf::Message *Get(std::string collName);
     std::vector<std::string> GetNames();
 
-    void MakeReference(google::protobuf::Message *msg, eicio::Reference *ref);
-    google::protobuf::Message *Dereference(const eicio::Reference &ref);
+    void Reference(google::protobuf::Message *msg, model::Reference *ref);
+    google::protobuf::Message *Dereference(const model::Reference &ref);
 
     unsigned int GetUniqueID();
-    void SetHeader(EventHeader *newHeader);
-    EventHeader *GetHeader();
+    void SetHeader(model::EventHeader *newHeader);
+	model::EventHeader *GetHeader();
     unsigned int GetPayloadSize();
     void *SetPayloadSize(google::protobuf::uint32 size);
     unsigned char *GetPayload();
@@ -34,7 +34,7 @@ class Event {
 
     void collToPayload(google::protobuf::Message *coll, std::string name);
 
-    EventHeader *header;
+	model::EventHeader *header;
     std::vector<unsigned char> payload;
 
     std::map<std::string, google::protobuf::Message *> collCache;
