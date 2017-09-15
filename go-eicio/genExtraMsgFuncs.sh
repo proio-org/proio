@@ -17,7 +17,7 @@ for coll in $collections; do
 		return uint32(len(c.Entries))\n\
 	}\n\n" >> $outFile
 
-	printf "func (c *$coll) GetEntry(i uint32) Message {\n\
+	printf "func (c *$coll) GetEntry(i uint32) proto.Message {\n\
 		if i < uint32(len(c.Entries)) {\n\
 			return c.Entries[i]\n\
 		}

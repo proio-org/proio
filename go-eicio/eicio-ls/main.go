@@ -8,7 +8,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/decibelCooper/eicio/go-eicio"
+	"github.com/decibelcooper/eicio/go-eicio"
 )
 
 var (

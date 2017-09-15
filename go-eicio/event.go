@@ -8,12 +8,14 @@ import (
 	"strings"
 
 	"github.com/golang/protobuf/proto"
+
+	"github.com/decibelcooper/eicio/go-eicio/model"
 )
 
 // Struct representing an event either created with NewEvent() or retrieved
 // with (*Reader) Next()
 type Event struct {
-	Header  *EventHeader
+	Header  *model.EventHeader
 	payload []byte
 
 	collCache   map[string]Collection
@@ -23,7 +25,7 @@ type Event struct {
 // Returns a new event with minimal initialization
 func NewEvent() *Event {
 	return &Event{
-		Header:    &EventHeader{},
+		Header:    &model.EventHeader{},
 		collCache: make(map[string]Collection),
 	}
 }
@@ -44,7 +46,7 @@ func (evt *Event) GetNames() []string {
 
 // Get a string representing the collection type
 func GetType(coll Collection) string {
-	return strings.TrimPrefix(proto.MessageName(coll), "eicio.")
+	return strings.TrimPrefix(proto.MessageName(coll), "eicio.model.")
 }
 
 var (
@@ -119,7 +121,7 @@ func (evt *Event) GetUniqueID() uint32 {
 // collection or entry within a collection.  In both cases, the collection must
 // have been added to the event, or it must be a collection retrieved with
 // (*Event) Get().
-func (evt *Event) Reference(msg Message) *Reference {
+func (evt *Event) Reference(msg Message) *model.Reference {
 	for _, coll := range evt.collCache {
 		if coll == msg {
 			collID := coll.GetId()
@@ -127,14 +129,14 @@ func (evt *Event) Reference(msg Message) *Reference {
 				collID = evt.GetUniqueID()
 				coll.SetId(collID)
 			}
-			return &Reference{
+			return &model.Reference{
 				CollID:  collID,
 				EntryID: 0,
 			}
 		}
 
 		for i := uint32(0); i < coll.GetNEntries(); i++ {
-			entry := coll.GetEntry(i)
+			entry := coll.GetEntry(i).(Message)
 			if entry == msg {
 				collID := coll.GetId()
 				if collID == 0 {
@@ -146,7 +148,7 @@ func (evt *Event) Reference(msg Message) *Reference {
 					entryID = evt.GetUniqueID()
 					entry.SetId(entryID)
 				}
-				return &Reference{
+				return &model.Reference{
 					CollID:  collID,
 					EntryID: entryID,
 				}
@@ -160,7 +162,7 @@ func (evt *Event) Reference(msg Message) *Reference {
 // Dereference a message from the event.  This returns a message (either
 // collection or collection entry) referred to by a Reference.  The message
 // must exist in the event.
-func (evt *Event) Dereference(ref *Reference) Message {
+func (evt *Event) Dereference(ref *model.Reference) Message {
 	var refColl Collection
 	for _, coll := range evt.collCache {
 		if coll.GetId() == ref.CollID {
@@ -186,7 +188,7 @@ func (evt *Event) Dereference(ref *Reference) Message {
 	}
 
 	for i := uint32(0); i < refColl.GetNEntries(); i++ {
-		entry := refColl.GetEntry(i)
+		entry := refColl.GetEntry(i).(Message)
 		if entry.GetId() == ref.EntryID {
 			return entry
 		}
@@ -222,7 +224,7 @@ func (evt *Event) getFromPayload(name string, unmarshal bool) Collection {
 	size := uint32(0)
 	collType := ""
 	collIndex := 0
-	var collHdr *EventHeader_CollectionHeader
+	var collHdr *model.EventHeader_CollectionHeader
 	for collIndex, collHdr = range evt.Header.PayloadCollections {
 		if collHdr.Name == name {
 			collType = collHdr.Type
@@ -237,7 +239,7 @@ func (evt *Event) getFromPayload(name string, unmarshal bool) Collection {
 
 	var coll Collection
 	if unmarshal {
-		msgType := proto.MessageType("eicio." + collType).Elem()
+		msgType := proto.MessageType("eicio.model." + collType).Elem()
 		coll = reflect.New(msgType).Interface().(Collection)
 		if err := coll.Unmarshal(evt.payload[offset : offset+size]); err != nil {
 			return nil
@@ -265,7 +267,7 @@ func (evt *Event) flushCollCache() error {
 }
 
 func (evt *Event) collToPayload(coll Collection, name string) error {
-	collHdr := &EventHeader_CollectionHeader{}
+	collHdr := &model.EventHeader_CollectionHeader{}
 	collHdr.Name = name
 	collHdr.Id = coll.GetId()
 	collHdr.Type = GetType(coll)
@@ -277,7 +279,7 @@ func (evt *Event) collToPayload(coll Collection, name string) error {
 	collHdr.PayloadSize = uint32(len(collBuf))
 
 	if evt.Header == nil {
-		evt.Header = &EventHeader{}
+		evt.Header = &model.EventHeader{}
 	}
 	evt.Header.PayloadCollections = append(evt.Header.PayloadCollections, collHdr)
 	evt.payload = append(evt.payload, collBuf...)
@@ -307,5 +309,5 @@ type Collection interface {
 	Message
 
 	GetNEntries() uint32
-	GetEntry(uint32) Message
+	GetEntry(uint32) proto.Message
 }

@@ -1,5 +1,6 @@
 syntax = "proto3";
-package eicio;
+package eicio.model;
+option go_package = "model";
 
 // Warning: do not change EventHeader's fields without understanding how the
 // changes affect the EICIO libraries.  Any field may be added without affecting

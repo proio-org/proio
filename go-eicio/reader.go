@@ -7,6 +7,8 @@ import (
 	"io"
 	"os"
 	"strings"
+
+	"github.com/decibelcooper/eicio/go-eicio/model"
 )
 
 type Reader struct {
@@ -137,7 +139,7 @@ func (rdr *Reader) Get() (*Event, error) {
 	if err = readBytes(rdr.byteReader, headerBuf); err != nil {
 		return nil, ErrTruncated
 	}
-	header := &EventHeader{}
+	header := &model.EventHeader{}
 	if err = header.Unmarshal(headerBuf); err != nil {
 		return nil, ErrTruncated
 	}
@@ -161,7 +163,7 @@ func (rdr *Reader) Get() (*Event, error) {
 // Get the next Header only from the stream, and seek past the collection
 // payload if possible.  This is useful for parsing the metadata of a file or
 // stream.
-func (rdr *Reader) GetHeader() (*EventHeader, error) {
+func (rdr *Reader) GetHeader() (*model.EventHeader, error) {
 	n, err := rdr.syncToMagic()
 	if err != nil {
 		return nil, err
@@ -182,7 +184,7 @@ func (rdr *Reader) GetHeader() (*EventHeader, error) {
 	if err = readBytes(rdr.byteReader, headerBuf); err != nil {
 		return nil, ErrTruncated
 	}
-	header := &EventHeader{}
+	header := &model.EventHeader{}
 	if err = header.Unmarshal(headerBuf); err != nil {
 		return nil, ErrTruncated
 	}

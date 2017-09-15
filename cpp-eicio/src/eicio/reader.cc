@@ -11,7 +11,9 @@
 
 using namespace google::protobuf;
 
-eicio::Reader::Reader(int fd, bool gzip) {
+using namespace eicio;
+
+Reader::Reader(int fd, bool gzip) {
     inputStream = NULL;
     fileStream = NULL;
 
@@ -25,7 +27,7 @@ eicio::Reader::Reader(int fd, bool gzip) {
     }
 }
 
-eicio::Reader::Reader(std::string filename) {
+Reader::Reader(std::string filename) {
     inputStream = NULL;
     fileStream = NULL;
 
@@ -46,12 +48,12 @@ eicio::Reader::Reader(std::string filename) {
     }
 }
 
-eicio::Reader::~Reader() {
+Reader::~Reader() {
     if (inputStream) delete inputStream;
     if (fileStream) delete fileStream;
 }
 
-eicio::Event *eicio::Reader::Get() {  // TODO: figure out error handling for this
+Event *Reader::Get() {  // TODO: figure out error handling for this
     if (!inputStream) return NULL;
     io::CodedInputStream stream(inputStream);
 
@@ -64,7 +66,7 @@ eicio::Event *eicio::Reader::Get() {  // TODO: figure out error handling for thi
     if (!stream.ReadLittleEndian32(&payloadSize)) return NULL;
 
     auto headerLimit = stream.PushLimit(headerSize);
-    auto header = new eicio::EventHeader;
+    auto header = new model::EventHeader;
     if (!header->MergeFromCodedStream(&stream) || !stream.ConsumedEntireMessage()) {
         delete header;
         return Get();  // Indefinitely attempt to resync to magic numbers
@@ -82,7 +84,7 @@ eicio::Event *eicio::Reader::Get() {  // TODO: figure out error handling for thi
     return event;
 }
 
-eicio::EventHeader *eicio::Reader::GetHeader() {  // TODO: figure out error handling for this
+model::EventHeader *Reader::GetHeader() {  // TODO: figure out error handling for this
     if (!inputStream) return NULL;
     io::CodedInputStream stream(inputStream);
 
@@ -95,7 +97,7 @@ eicio::EventHeader *eicio::Reader::GetHeader() {  // TODO: figure out error hand
     if (!stream.ReadLittleEndian32(&payloadSize)) return NULL;
 
     auto headerLimit = stream.PushLimit(headerSize);
-    auto header = new eicio::EventHeader;
+    auto header = new model::EventHeader;
     if (!header->MergeFromCodedStream(&stream) || !stream.ConsumedEntireMessage()) {
         delete header;
         return GetHeader();  // Indefinitely attempt to resync to magic numbers
@@ -110,7 +112,7 @@ eicio::EventHeader *eicio::Reader::GetHeader() {  // TODO: figure out error hand
     return header;
 }
 
-int eicio::Reader::Skip(int nEvents) {
+int Reader::Skip(int nEvents) {
     if (!inputStream) return -1;
     io::CodedInputStream stream(inputStream);
 
@@ -132,7 +134,7 @@ int eicio::Reader::Skip(int nEvents) {
     return nSkipped;
 }
 
-uint32 eicio::Reader::syncToMagic(io::CodedInputStream *stream) {
+uint32 Reader::syncToMagic(io::CodedInputStream *stream) {
     unsigned char num;
     uint32 nRead = 0;
 

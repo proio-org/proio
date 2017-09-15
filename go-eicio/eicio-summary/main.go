@@ -9,7 +9,8 @@ import (
 	"os"
 	"sort"
 
-	"github.com/decibelCooper/eicio/go-eicio"
+	"github.com/decibelcooper/eicio/go-eicio"
+	"github.com/decibelcooper/eicio/go-eicio/model"
 	humanize "github.com/dustin/go-humanize"
 )
 
@@ -59,7 +60,7 @@ func main() {
 	collBytes := make(map[string]uint64)
 	runs := make(map[uint64]bool)
 
-	var header *eicio.EventHeader
+	var header *model.EventHeader
 	for header, err = reader.GetHeader(); header != nil; header, err = reader.GetHeader() {
 		if err != nil {
 			log.Print(err)

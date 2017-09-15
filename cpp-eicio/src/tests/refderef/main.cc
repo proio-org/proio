@@ -8,15 +8,15 @@ using namespace eicio;
 
 int main(int argc, char **argv) {
     auto event = new Event;
-    auto mcpColl = new MCParticleCollection;
+    auto mcpColl = new model::MCParticleCollection;
     event->Add(mcpColl, "MCParticles");
 
-    MCParticle *mcp0 = mcpColl->add_entries();
+    model::MCParticle *mcp0 = mcpColl->add_entries();
     mcp0->set_charge(1);
     mcp0->set_pdg(123456);
-    MCParticle *mcp1 = mcpColl->add_entries();
+    model::MCParticle *mcp1 = mcpColl->add_entries();
     mcp1->set_charge(1);
-    event->MakeReference(mcp0, mcp1->add_parents());
+    event->Reference(mcp0, mcp1->add_parents());
     std::string dbs0(event->Dereference(mcp1->parents(0))->DebugString());
 
     auto writer = new Writer(".test.eicio.tmp");
@@ -26,7 +26,7 @@ int main(int argc, char **argv) {
 
     auto reader = new Reader(".test.eicio.tmp");
     event = reader->Get();
-    mcpColl = (MCParticleCollection *)event->Get("MCParticles");
+    mcpColl = (model::MCParticleCollection *)event->Get("MCParticles");
     mcp1 = mcpColl->mutable_entries(1);
     std::string dbs1(event->Dereference(mcp1->parents(0))->DebugString());
     delete reader;
