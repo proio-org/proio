@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	eicio "github.com/decibelcooper/eicio/go-eicio"
+	"github.com/decibelcooper/eicio/go-eicio/model"
 )
 
 func Example_pushGetInspect() {
@@ -18,15 +19,15 @@ func Example_pushGetInspect() {
 	// These must be added to the event before they can be automatically
 	// referenced
 
-	MCParticles := &eicio.MCParticleCollection{}
+	MCParticles := &model.MCParticleCollection{}
 	eventOut.Add(MCParticles, "MCParticles")
-	part1 := &eicio.MCParticle{PDG: 11}
+	part1 := &model.MCParticle{PDG: 11}
 	MCParticles.Entries = append(MCParticles.Entries, part1)
 
-	SimParticles := &eicio.MCParticleCollection{}
+	SimParticles := &model.MCParticleCollection{}
 	eventOut.Add(SimParticles, "SimParticles")
-	part2 := &eicio.MCParticle{PDG: 11}
-	part3 := &eicio.MCParticle{PDG: 22}
+	part2 := &model.MCParticle{PDG: 11}
+	part3 := &model.MCParticle{PDG: 22}
 	SimParticles.Entries = append(SimParticles.Entries, part2, part3)
 
 	part1.Children = append(part1.Children, eventOut.Reference(part2), eventOut.Reference(part3))
@@ -40,13 +41,13 @@ func Example_pushGetInspect() {
 	reader := eicio.NewReader(buffer)
 	eventIn, _ := reader.Get()
 
-	mcColl, _ := eventIn.Get("MCParticles").(*eicio.MCParticleCollection)
+	mcColl, _ := eventIn.Get("MCParticles").(*model.MCParticleCollection)
 	fmt.Print(mcColl.GetNEntries(), " MCParticle(s)...\n")
 	for i, part := range mcColl.Entries {
 		fmt.Print(i, ". PDG: ", part.PDG, "\n")
 		fmt.Print("  ", len(part.Children), " Children...\n")
 		for j, ref := range part.Children {
-			fmt.Print("  ", j, ". PDG: ", eventIn.Dereference(ref).(*eicio.MCParticle).PDG, "\n")
+			fmt.Print("  ", j, ". PDG: ", eventIn.Dereference(ref).(*model.MCParticle).PDG, "\n")
 		}
 	}
 
