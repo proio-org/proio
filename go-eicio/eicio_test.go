@@ -308,7 +308,7 @@ func tracking(reader *Reader, b *testing.B) {
 			break
 		}
 
-		truthColl := event.Get("model.MCParticle").(*model.MCParticleCollection)
+		truthColl := event.Get("MCParticle").(*model.MCParticleCollection)
 		trackColl := event.Get("Tracks").(*model.TrackCollection)
 
 		// FIXME: boost back from crossing angle?
@@ -384,7 +384,7 @@ func trackingLCIO(reader *lcio.Reader, b *testing.B) {
 
 		event := reader.Event()
 
-		truthColl := event.Get("model.MCParticle").(*lcio.McParticleContainer)
+		truthColl := event.Get("MCParticle").(*lcio.McParticleContainer)
 		trackColl := event.Get("Tracks").(*lcio.TrackContainer)
 
 		// FIXME: boost back from crossing angle?
