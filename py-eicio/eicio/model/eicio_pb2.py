@@ -17,9 +17,9 @@ _sym_db = _symbol_database.Default()
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='eicio.proto',
-  package='eicio',
+  package='eicio.model',
   syntax='proto3',
-  serialized_pb=_b('\n\x0b\x65icio.proto\x12\x05\x65icio\"\xc5\x02\n\x0b\x45ventHeader\x12\x0f\n\x07version\x18\x01 \x01(\r\x12\x11\n\trunNumber\x18\x02 \x01(\x04\x12\x13\n\x0b\x65ventNumber\x18\x03 \x01(\x04\x12\x11\n\ttimeStamp\x18\x04 \x01(\x04\x12\x10\n\x08\x64\x65tector\x18\x05 \x01(\t\x12\x1d\n\x06params\x18\x06 \x01(\x0b\x32\r.eicio.Params\x12?\n\x12payloadCollections\x18\x07 \x03(\x0b\x32#.eicio.EventHeader.CollectionHeader\x12\x12\n\nnUniqueIDs\x18\x08 \x01(\r\x12\x13\n\x0b\x64\x65scription\x18\x10 \x01(\t\x1aO\n\x10\x43ollectionHeader\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\r\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x13\n\x0bpayloadSize\x18\x04 \x01(\r\"\x1a\n\tIntParams\x12\r\n\x05\x61rray\x18\x01 \x03(\x05\"\x1c\n\x0b\x46loatParams\x12\r\n\x05\x61rray\x18\x01 \x03(\x02\"\x1d\n\x0cStringParams\x12\r\n\x05\x61rray\x18\x01 \x03(\t\"\xce\x02\n\x06Params\x12%\n\x04ints\x18\x01 \x03(\x0b\x32\x17.eicio.Params.IntsEntry\x12)\n\x06\x66loats\x18\x02 \x03(\x0b\x32\x19.eicio.Params.FloatsEntry\x12+\n\x07strings\x18\x03 \x03(\x0b\x32\x1a.eicio.Params.StringsEntry\x1a=\n\tIntsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x1f\n\x05value\x18\x02 \x01(\x0b\x32\x10.eicio.IntParams:\x02\x38\x01\x1a\x41\n\x0b\x46loatsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12!\n\x05value\x18\x02 \x01(\x0b\x32\x12.eicio.FloatParams:\x02\x38\x01\x1a\x43\n\x0cStringsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\"\n\x05value\x18\x02 \x01(\x0b\x32\x13.eicio.StringParams:\x02\x38\x01\",\n\tReference\x12\x0e\n\x06\x63ollID\x18\x01 \x01(\r\x12\x0f\n\x07\x65ntryID\x18\x02 \x01(\r\"\\\n\nParticleID\x12\x12\n\nlikelihood\x18\x01 \x01(\x02\x12\x0c\n\x04type\x18\x02 \x01(\x05\x12\x0b\n\x03PDG\x18\x03 \x01(\x05\x12\x0f\n\x07\x61lgType\x18\x04 \x01(\x05\x12\x0e\n\x06params\x18\x05 \x03(\x02\"\x8d\x02\n\nMCParticle\x12\n\n\x02id\x18\x01 \x01(\r\x12!\n\x07parents\x18\x02 \x03(\x0b\x32\x10.eicio.Reference\x12\"\n\x08\x63hildren\x18\x03 \x03(\x0b\x32\x10.eicio.Reference\x12\x0b\n\x03PDG\x18\x04 \x01(\x05\x12\x0e\n\x06vertex\x18\x05 \x03(\x01\x12\x0c\n\x04time\x18\x06 \x01(\x02\x12\t\n\x01p\x18\x07 \x03(\x01\x12\x0c\n\x04mass\x18\x08 \x01(\x01\x12\x0e\n\x06\x63harge\x18\t \x01(\x02\x12\x11\n\tPEndPoint\x18\n \x03(\x01\x12\x0c\n\x04spin\x18\x0b \x03(\x02\x12\x11\n\tcolorFlow\x18\x0c \x03(\x05\x12\x11\n\tgenStatus\x18\r \x01(\x05\x12\x11\n\tsimStatus\x18\x0e \x01(\r\"t\n\x14MCParticleCollection\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12\x1d\n\x06params\x18\x03 \x01(\x0b\x32\r.eicio.Params\x12\"\n\x07\x65ntries\x18\x04 \x03(\x0b\x32\x11.eicio.MCParticle\"\xb4\x01\n\rSimTrackerHit\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0f\n\x07\x63\x65llID0\x18\x02 \x01(\x05\x12\x0f\n\x07\x63\x65llID1\x18\x03 \x01(\x05\x12\x0b\n\x03pos\x18\x04 \x03(\x01\x12\x0c\n\x04\x45\x44\x65p\x18\x05 \x01(\x02\x12\x0c\n\x04time\x18\x06 \x01(\x02\x12\x1c\n\x02mc\x18\x07 \x01(\x0b\x32\x10.eicio.Reference\x12\t\n\x01p\x18\x08 \x03(\x02\x12\x12\n\npathLength\x18\t \x01(\x02\x12\x0f\n\x07quality\x18\n \x01(\x05\"z\n\x17SimTrackerHitCollection\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12\x1d\n\x06params\x18\x03 \x01(\x0b\x32\r.eicio.Params\x12%\n\x07\x65ntries\x18\x04 \x03(\x0b\x32\x14.eicio.SimTrackerHit\"Z\n\x0eTrackerRawData\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0f\n\x07\x63\x65llID0\x18\x02 \x01(\x05\x12\x0f\n\x07\x63\x65llID1\x18\x03 \x01(\x05\x12\x0c\n\x04time\x18\x04 \x01(\x05\x12\x0c\n\x04\x41\x44\x43s\x18\x05 \x03(\r\"|\n\x18TrackerRawDataCollection\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12\x1d\n\x06params\x18\x03 \x01(\x0b\x32\r.eicio.Params\x12&\n\x07\x65ntries\x18\x04 \x03(\x0b\x32\x15.eicio.TrackerRawData\"Z\n\x0bTrackerData\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0f\n\x07\x63\x65llID0\x18\x02 \x01(\x05\x12\x0f\n\x07\x63\x65llID1\x18\x03 \x01(\x05\x12\x0c\n\x04time\x18\x04 \x01(\x02\x12\x0f\n\x07\x63harges\x18\x05 \x03(\x02\"v\n\x15TrackerDataCollection\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12\x1d\n\x06params\x18\x03 \x01(\x0b\x32\r.eicio.Params\x12#\n\x07\x65ntries\x18\x04 \x03(\x0b\x32\x12.eicio.TrackerData\"\xc3\x01\n\nTrackerHit\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0f\n\x07\x63\x65llID0\x18\x02 \x01(\x05\x12\x0f\n\x07\x63\x65llID1\x18\x03 \x01(\x05\x12\x0c\n\x04type\x18\x04 \x01(\x05\x12\x0b\n\x03pos\x18\x05 \x03(\x01\x12\x0b\n\x03\x63ov\x18\x06 \x03(\x01\x12\x0c\n\x04\x45\x44\x65p\x18\x07 \x01(\x02\x12\x0f\n\x07\x45\x44\x65pErr\x18\x08 \x01(\x02\x12\x0c\n\x04time\x18\t \x01(\x02\x12\x0f\n\x07quality\x18\n \x01(\x05\x12!\n\x07rawHits\x18\x0b \x03(\x0b\x32\x10.eicio.Reference\"t\n\x14TrackerHitCollection\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12\x1d\n\x06params\x18\x03 \x01(\x0b\x32\r.eicio.Params\x12\"\n\x07\x65ntries\x18\x04 \x03(\x0b\x32\x11.eicio.TrackerHit\"\x97\x01\n\x0cTrackerPulse\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0f\n\x07\x63\x65llID0\x18\x02 \x01(\x05\x12\x0f\n\x07\x63\x65llID1\x18\x03 \x01(\x05\x12\x0c\n\x04time\x18\x04 \x01(\x02\x12\x0e\n\x06\x63harge\x18\x05 \x01(\x02\x12\x0b\n\x03\x63ov\x18\x06 \x03(\x02\x12\x0f\n\x07quality\x18\x07 \x01(\x05\x12\x1d\n\x03TPC\x18\x08 \x01(\x0b\x32\x10.eicio.Reference\"x\n\x16TrackerPulseCollection\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12\x1d\n\x06params\x18\x03 \x01(\x0b\x32\r.eicio.Params\x12$\n\x07\x65ntries\x18\x04 \x03(\x0b\x32\x13.eicio.TrackerPulse\"\xe9\x01\n\x0fTrackerHitPlane\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0f\n\x07\x63\x65llID0\x18\x02 \x01(\x05\x12\x0f\n\x07\x63\x65llID1\x18\x03 \x01(\x05\x12\x0c\n\x04type\x18\x04 \x01(\x05\x12\x0b\n\x03pos\x18\x05 \x03(\x01\x12\t\n\x01U\x18\x06 \x03(\x02\x12\t\n\x01V\x18\x07 \x03(\x02\x12\n\n\x02\x64U\x18\x08 \x01(\x02\x12\n\n\x02\x64V\x18\t \x01(\x02\x12\x0c\n\x04\x45\x44\x65p\x18\n \x01(\x02\x12\x0f\n\x07\x45\x44\x65pErr\x18\x0b \x01(\x02\x12\x0c\n\x04time\x18\x0c \x01(\x02\x12\x0f\n\x07quality\x18\r \x01(\x05\x12!\n\x07rawHits\x18\x0e \x03(\x0b\x32\x10.eicio.Reference\"~\n\x19TrackerHitPlaneCollection\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12\x1d\n\x06params\x18\x03 \x01(\x0b\x32\r.eicio.Params\x12\'\n\x07\x65ntries\x18\x04 \x03(\x0b\x32\x16.eicio.TrackerHitPlane\"\xea\x01\n\x13TrackerHitZCylinder\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0f\n\x07\x63\x65llID0\x18\x02 \x01(\x05\x12\x0f\n\x07\x63\x65llID1\x18\x03 \x01(\x05\x12\x0c\n\x04type\x18\x04 \x01(\x05\x12\x0b\n\x03pos\x18\x05 \x03(\x01\x12\x0e\n\x06\x63\x65nter\x18\x06 \x03(\x02\x12\r\n\x05\x64RPhi\x18\x07 \x01(\x02\x12\n\n\x02\x64Z\x18\x08 \x01(\x02\x12\x0c\n\x04\x45\x44\x65p\x18\t \x01(\x02\x12\x0f\n\x07\x45\x44\x65pErr\x18\n \x01(\x02\x12\x0c\n\x04time\x18\x0b \x01(\x02\x12\x0f\n\x07quality\x18\x0c \x01(\x05\x12!\n\x07rawHits\x18\r \x03(\x0b\x32\x10.eicio.Reference\"\x86\x01\n\x1dTrackerHitZCylinderCollection\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12\x1d\n\x06params\x18\x03 \x01(\x0b\x32\r.eicio.Params\x12+\n\x07\x65ntries\x18\x04 \x03(\x0b\x32\x1a.eicio.TrackerHitZCylinder\"\xe1\x02\n\x05Track\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0c\n\x04type\x18\x02 \x01(\x05\x12\x0c\n\x04\x63hi2\x18\x03 \x01(\x02\x12\x0b\n\x03NDF\x18\x04 \x01(\x05\x12\x0c\n\x04\x64\x45\x64x\x18\x05 \x01(\x02\x12\x0f\n\x07\x64\x45\x64xErr\x18\x06 \x01(\x02\x12\x0e\n\x06radius\x18\x07 \x01(\x02\x12\x12\n\nsubDetHits\x18\x08 \x03(\x05\x12\'\n\x06states\x18\t \x03(\x0b\x32\x17.eicio.Track.TrackState\x12\x1e\n\x04hits\x18\n \x03(\x0b\x32\x10.eicio.Reference\x12 \n\x06tracks\x18\x0b \x03(\x0b\x32\x10.eicio.Reference\x1au\n\nTrackState\x12\x0b\n\x03loc\x18\x01 \x01(\x05\x12\n\n\x02\x64\x30\x18\x02 \x01(\x02\x12\x0b\n\x03phi\x18\x03 \x01(\x02\x12\r\n\x05omega\x18\x04 \x01(\x02\x12\n\n\x02z0\x18\x05 \x01(\x02\x12\x0c\n\x04tanL\x18\x06 \x01(\x02\x12\x0b\n\x03\x63ov\x18\x07 \x03(\x02\x12\x0b\n\x03ref\x18\x08 \x03(\x02\"j\n\x0fTrackCollection\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12\x1d\n\x06params\x18\x03 \x01(\x0b\x32\r.eicio.Params\x12\x1d\n\x07\x65ntries\x18\x04 \x03(\x0b\x32\x0c.eicio.Track\"\xa3\x02\n\x11SimCalorimeterHit\x12\n\n\x02id\x18\x01 \x01(\r\x12\x1d\n\x06params\x18\x02 \x01(\x0b\x32\r.eicio.Params\x12\x0f\n\x07\x63\x65llID0\x18\x03 \x01(\x05\x12\x0f\n\x07\x63\x65llID1\x18\x04 \x01(\x05\x12\x0e\n\x06\x65nergy\x18\x05 \x01(\x02\x12\x0b\n\x03pos\x18\x06 \x03(\x02\x12\x37\n\rcontributions\x18\x07 \x03(\x0b\x32 .eicio.SimCalorimeterHit.Contrib\x1ak\n\x07\x43ontrib\x12$\n\nMCParticle\x18\x01 \x01(\x0b\x32\x10.eicio.Reference\x12\x0e\n\x06\x65nergy\x18\x02 \x01(\x02\x12\x0c\n\x04time\x18\x03 \x01(\x02\x12\x0b\n\x03PDG\x18\x04 \x01(\x05\x12\x0f\n\x07stepPos\x18\x05 \x03(\x02\"\x82\x01\n\x1bSimCalorimeterHitCollection\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12\x1d\n\x06params\x18\x03 \x01(\x0b\x32\r.eicio.Params\x12)\n\x07\x65ntries\x18\x04 \x03(\x0b\x32\x18.eicio.SimCalorimeterHit\"g\n\x11RawCalorimeterHit\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0f\n\x07\x63\x65llID0\x18\x02 \x01(\x05\x12\x0f\n\x07\x63\x65llID1\x18\x03 \x01(\x05\x12\x11\n\tamplitude\x18\x04 \x01(\x05\x12\x11\n\ttimeStamp\x18\x05 \x01(\x05\"\x82\x01\n\x1bRawCalorimeterHitCollection\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12\x1d\n\x06params\x18\x03 \x01(\x0b\x32\r.eicio.Params\x12)\n\x07\x65ntries\x18\x04 \x03(\x0b\x32\x18.eicio.RawCalorimeterHit\"\xa9\x01\n\x0e\x43\x61lorimeterHit\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0f\n\x07\x63\x65llID0\x18\x02 \x01(\x05\x12\x0f\n\x07\x63\x65llID1\x18\x03 \x01(\x05\x12\x0e\n\x06\x65nergy\x18\x04 \x01(\x02\x12\x11\n\tenergyErr\x18\x05 \x01(\x02\x12\x0c\n\x04time\x18\x06 \x01(\x02\x12\x0b\n\x03pos\x18\x07 \x03(\x02\x12\x0c\n\x04type\x18\x08 \x01(\x05\x12\x1d\n\x03raw\x18\t \x01(\x0b\x32\x10.eicio.Reference\"|\n\x18\x43\x61lorimeterHitCollection\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12\x1d\n\x06params\x18\x03 \x01(\x0b\x32\r.eicio.Params\x12&\n\x07\x65ntries\x18\x04 \x03(\x0b\x32\x15.eicio.CalorimeterHit\"\xa8\x02\n\x07\x43luster\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0c\n\x04type\x18\x02 \x01(\x05\x12\x0e\n\x06\x65nergy\x18\x03 \x01(\x02\x12\x11\n\tenergyErr\x18\x04 \x01(\x02\x12\x0b\n\x03pos\x18\x05 \x03(\x02\x12\x0e\n\x06posErr\x18\x06 \x03(\x02\x12\r\n\x05theta\x18\x07 \x01(\x02\x12\x0b\n\x03phi\x18\x08 \x01(\x02\x12\x0e\n\x06\x64irErr\x18\t \x03(\x02\x12\r\n\x05shape\x18\n \x03(\x02\x12\x1f\n\x04PIDs\x18\x0b \x03(\x0b\x32\x11.eicio.ParticleID\x12\"\n\x08\x63lusters\x18\x0c \x03(\x0b\x32\x10.eicio.Reference\x12\x1e\n\x04hits\x18\r \x03(\x0b\x32\x10.eicio.Reference\x12\x0f\n\x07weights\x18\x0e \x03(\x02\x12\x12\n\nsubDetEnes\x18\x0f \x03(\x02\"n\n\x11\x43lusterCollection\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12\x1d\n\x06params\x18\x03 \x01(\x0b\x32\r.eicio.Params\x12\x1f\n\x07\x65ntries\x18\x04 \x03(\x0b\x32\x0e.eicio.Cluster\"\xcd\x02\n\x0bRecParticle\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0c\n\x04type\x18\x02 \x01(\x05\x12\t\n\x01p\x18\x03 \x03(\x02\x12\x0e\n\x06\x65nergy\x18\x04 \x01(\x02\x12\x0b\n\x03\x63ov\x18\x05 \x03(\x02\x12\x0c\n\x04mass\x18\x06 \x01(\x02\x12\x0e\n\x06\x63harge\x18\x07 \x01(\x02\x12\x0b\n\x03ref\x18\x08 \x03(\x02\x12\x1f\n\x04PIDs\x18\t \x03(\x0b\x32\x11.eicio.ParticleID\x12\x0f\n\x07PIDUsed\x18\n \x01(\x05\x12\x15\n\rgoodnessOfPID\x18\x0b \x01(\x02\x12\x1e\n\x04recs\x18\x0c \x03(\x0b\x32\x10.eicio.Reference\x12 \n\x06tracks\x18\r \x03(\x0b\x32\x10.eicio.Reference\x12\"\n\x08\x63lusters\x18\x0e \x03(\x0b\x32\x10.eicio.Reference\x12\"\n\x08startVtx\x18\x0f \x01(\x0b\x32\x10.eicio.Reference\"v\n\x15RecParticleCollection\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12\x1d\n\x06params\x18\x03 \x01(\x0b\x32\r.eicio.Params\x12#\n\x07\x65ntries\x18\x04 \x03(\x0b\x32\x12.eicio.RecParticle\"\x9f\x01\n\x06Vertex\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0f\n\x07primary\x18\x02 \x01(\x05\x12\x0f\n\x07\x61lgType\x18\x03 \x01(\x05\x12\x0c\n\x04\x63hi2\x18\x04 \x01(\x02\x12\x0c\n\x04prob\x18\x05 \x01(\x02\x12\x0b\n\x03pos\x18\x06 \x03(\x02\x12\x0b\n\x03\x63ov\x18\x07 \x03(\x02\x12\x0e\n\x06params\x18\x08 \x03(\x02\x12!\n\x07recPart\x18\t \x01(\x0b\x32\x10.eicio.Reference\"l\n\x10VertexCollection\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12\x1d\n\x06params\x18\x03 \x01(\x0b\x32\r.eicio.Params\x12\x1e\n\x07\x65ntries\x18\x04 \x03(\x0b\x32\r.eicio.Vertex\"d\n\x08Relation\x12\n\n\x02id\x18\x01 \x01(\r\x12\x1e\n\x04\x66rom\x18\x02 \x01(\x0b\x32\x10.eicio.Reference\x12\x1c\n\x02to\x18\x03 \x01(\x0b\x32\x10.eicio.Reference\x12\x0e\n\x06weight\x18\x04 \x01(\x02\"p\n\x12RelationCollection\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12\x1d\n\x06params\x18\x03 \x01(\x0b\x32\r.eicio.Params\x12 \n\x07\x65ntries\x18\x04 \x03(\x0b\x32\x0f.eicio.Relationb\x06proto3')
+  serialized_pb=_b('\n\x0b\x65icio.proto\x12\x0b\x65icio.model\"\xd1\x02\n\x0b\x45ventHeader\x12\x0f\n\x07version\x18\x01 \x01(\r\x12\x11\n\trunNumber\x18\x02 \x01(\x04\x12\x13\n\x0b\x65ventNumber\x18\x03 \x01(\x04\x12\x11\n\ttimeStamp\x18\x04 \x01(\x04\x12\x10\n\x08\x64\x65tector\x18\x05 \x01(\t\x12#\n\x06params\x18\x06 \x01(\x0b\x32\x13.eicio.model.Params\x12\x45\n\x12payloadCollections\x18\x07 \x03(\x0b\x32).eicio.model.EventHeader.CollectionHeader\x12\x12\n\nnUniqueIDs\x18\x08 \x01(\r\x12\x13\n\x0b\x64\x65scription\x18\x10 \x01(\t\x1aO\n\x10\x43ollectionHeader\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\r\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x13\n\x0bpayloadSize\x18\x04 \x01(\r\"\x1a\n\tIntParams\x12\r\n\x05\x61rray\x18\x01 \x03(\x05\"\x1c\n\x0b\x46loatParams\x12\r\n\x05\x61rray\x18\x01 \x03(\x02\"\x1d\n\x0cStringParams\x12\r\n\x05\x61rray\x18\x01 \x03(\t\"\xf2\x02\n\x06Params\x12+\n\x04ints\x18\x01 \x03(\x0b\x32\x1d.eicio.model.Params.IntsEntry\x12/\n\x06\x66loats\x18\x02 \x03(\x0b\x32\x1f.eicio.model.Params.FloatsEntry\x12\x31\n\x07strings\x18\x03 \x03(\x0b\x32 .eicio.model.Params.StringsEntry\x1a\x43\n\tIntsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12%\n\x05value\x18\x02 \x01(\x0b\x32\x16.eicio.model.IntParams:\x02\x38\x01\x1aG\n\x0b\x46loatsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\'\n\x05value\x18\x02 \x01(\x0b\x32\x18.eicio.model.FloatParams:\x02\x38\x01\x1aI\n\x0cStringsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12(\n\x05value\x18\x02 \x01(\x0b\x32\x19.eicio.model.StringParams:\x02\x38\x01\",\n\tReference\x12\x0e\n\x06\x63ollID\x18\x01 \x01(\r\x12\x0f\n\x07\x65ntryID\x18\x02 \x01(\r\"\\\n\nParticleID\x12\x12\n\nlikelihood\x18\x01 \x01(\x02\x12\x0c\n\x04type\x18\x02 \x01(\x05\x12\x0b\n\x03PDG\x18\x03 \x01(\x05\x12\x0f\n\x07\x61lgType\x18\x04 \x01(\x05\x12\x0e\n\x06params\x18\x05 \x03(\x02\"\x99\x02\n\nMCParticle\x12\n\n\x02id\x18\x01 \x01(\r\x12\'\n\x07parents\x18\x02 \x03(\x0b\x32\x16.eicio.model.Reference\x12(\n\x08\x63hildren\x18\x03 \x03(\x0b\x32\x16.eicio.model.Reference\x12\x0b\n\x03PDG\x18\x04 \x01(\x05\x12\x0e\n\x06vertex\x18\x05 \x03(\x01\x12\x0c\n\x04time\x18\x06 \x01(\x02\x12\t\n\x01p\x18\x07 \x03(\x01\x12\x0c\n\x04mass\x18\x08 \x01(\x01\x12\x0e\n\x06\x63harge\x18\t \x01(\x02\x12\x11\n\tPEndPoint\x18\n \x03(\x01\x12\x0c\n\x04spin\x18\x0b \x03(\x02\x12\x11\n\tcolorFlow\x18\x0c \x03(\x05\x12\x11\n\tgenStatus\x18\r \x01(\x05\x12\x11\n\tsimStatus\x18\x0e \x01(\r\"\x80\x01\n\x14MCParticleCollection\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12#\n\x06params\x18\x03 \x01(\x0b\x32\x13.eicio.model.Params\x12(\n\x07\x65ntries\x18\x04 \x03(\x0b\x32\x17.eicio.model.MCParticle\"\xba\x01\n\rSimTrackerHit\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0f\n\x07\x63\x65llID0\x18\x02 \x01(\x05\x12\x0f\n\x07\x63\x65llID1\x18\x03 \x01(\x05\x12\x0b\n\x03pos\x18\x04 \x03(\x01\x12\x0c\n\x04\x45\x44\x65p\x18\x05 \x01(\x02\x12\x0c\n\x04time\x18\x06 \x01(\x02\x12\"\n\x02mc\x18\x07 \x01(\x0b\x32\x16.eicio.model.Reference\x12\t\n\x01p\x18\x08 \x03(\x02\x12\x12\n\npathLength\x18\t \x01(\x02\x12\x0f\n\x07quality\x18\n \x01(\x05\"\x86\x01\n\x17SimTrackerHitCollection\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12#\n\x06params\x18\x03 \x01(\x0b\x32\x13.eicio.model.Params\x12+\n\x07\x65ntries\x18\x04 \x03(\x0b\x32\x1a.eicio.model.SimTrackerHit\"Z\n\x0eTrackerRawData\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0f\n\x07\x63\x65llID0\x18\x02 \x01(\x05\x12\x0f\n\x07\x63\x65llID1\x18\x03 \x01(\x05\x12\x0c\n\x04time\x18\x04 \x01(\x05\x12\x0c\n\x04\x41\x44\x43s\x18\x05 \x03(\r\"\x88\x01\n\x18TrackerRawDataCollection\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12#\n\x06params\x18\x03 \x01(\x0b\x32\x13.eicio.model.Params\x12,\n\x07\x65ntries\x18\x04 \x03(\x0b\x32\x1b.eicio.model.TrackerRawData\"Z\n\x0bTrackerData\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0f\n\x07\x63\x65llID0\x18\x02 \x01(\x05\x12\x0f\n\x07\x63\x65llID1\x18\x03 \x01(\x05\x12\x0c\n\x04time\x18\x04 \x01(\x02\x12\x0f\n\x07\x63harges\x18\x05 \x03(\x02\"\x82\x01\n\x15TrackerDataCollection\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12#\n\x06params\x18\x03 \x01(\x0b\x32\x13.eicio.model.Params\x12)\n\x07\x65ntries\x18\x04 \x03(\x0b\x32\x18.eicio.model.TrackerData\"\xc9\x01\n\nTrackerHit\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0f\n\x07\x63\x65llID0\x18\x02 \x01(\x05\x12\x0f\n\x07\x63\x65llID1\x18\x03 \x01(\x05\x12\x0c\n\x04type\x18\x04 \x01(\x05\x12\x0b\n\x03pos\x18\x05 \x03(\x01\x12\x0b\n\x03\x63ov\x18\x06 \x03(\x01\x12\x0c\n\x04\x45\x44\x65p\x18\x07 \x01(\x02\x12\x0f\n\x07\x45\x44\x65pErr\x18\x08 \x01(\x02\x12\x0c\n\x04time\x18\t \x01(\x02\x12\x0f\n\x07quality\x18\n \x01(\x05\x12\'\n\x07rawHits\x18\x0b \x03(\x0b\x32\x16.eicio.model.Reference\"\x80\x01\n\x14TrackerHitCollection\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12#\n\x06params\x18\x03 \x01(\x0b\x32\x13.eicio.model.Params\x12(\n\x07\x65ntries\x18\x04 \x03(\x0b\x32\x17.eicio.model.TrackerHit\"\x9d\x01\n\x0cTrackerPulse\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0f\n\x07\x63\x65llID0\x18\x02 \x01(\x05\x12\x0f\n\x07\x63\x65llID1\x18\x03 \x01(\x05\x12\x0c\n\x04time\x18\x04 \x01(\x02\x12\x0e\n\x06\x63harge\x18\x05 \x01(\x02\x12\x0b\n\x03\x63ov\x18\x06 \x03(\x02\x12\x0f\n\x07quality\x18\x07 \x01(\x05\x12#\n\x03TPC\x18\x08 \x01(\x0b\x32\x16.eicio.model.Reference\"\x84\x01\n\x16TrackerPulseCollection\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12#\n\x06params\x18\x03 \x01(\x0b\x32\x13.eicio.model.Params\x12*\n\x07\x65ntries\x18\x04 \x03(\x0b\x32\x19.eicio.model.TrackerPulse\"\xef\x01\n\x0fTrackerHitPlane\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0f\n\x07\x63\x65llID0\x18\x02 \x01(\x05\x12\x0f\n\x07\x63\x65llID1\x18\x03 \x01(\x05\x12\x0c\n\x04type\x18\x04 \x01(\x05\x12\x0b\n\x03pos\x18\x05 \x03(\x01\x12\t\n\x01U\x18\x06 \x03(\x02\x12\t\n\x01V\x18\x07 \x03(\x02\x12\n\n\x02\x64U\x18\x08 \x01(\x02\x12\n\n\x02\x64V\x18\t \x01(\x02\x12\x0c\n\x04\x45\x44\x65p\x18\n \x01(\x02\x12\x0f\n\x07\x45\x44\x65pErr\x18\x0b \x01(\x02\x12\x0c\n\x04time\x18\x0c \x01(\x02\x12\x0f\n\x07quality\x18\r \x01(\x05\x12\'\n\x07rawHits\x18\x0e \x03(\x0b\x32\x16.eicio.model.Reference\"\x8a\x01\n\x19TrackerHitPlaneCollection\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12#\n\x06params\x18\x03 \x01(\x0b\x32\x13.eicio.model.Params\x12-\n\x07\x65ntries\x18\x04 \x03(\x0b\x32\x1c.eicio.model.TrackerHitPlane\"\xf0\x01\n\x13TrackerHitZCylinder\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0f\n\x07\x63\x65llID0\x18\x02 \x01(\x05\x12\x0f\n\x07\x63\x65llID1\x18\x03 \x01(\x05\x12\x0c\n\x04type\x18\x04 \x01(\x05\x12\x0b\n\x03pos\x18\x05 \x03(\x01\x12\x0e\n\x06\x63\x65nter\x18\x06 \x03(\x02\x12\r\n\x05\x64RPhi\x18\x07 \x01(\x02\x12\n\n\x02\x64Z\x18\x08 \x01(\x02\x12\x0c\n\x04\x45\x44\x65p\x18\t \x01(\x02\x12\x0f\n\x07\x45\x44\x65pErr\x18\n \x01(\x02\x12\x0c\n\x04time\x18\x0b \x01(\x02\x12\x0f\n\x07quality\x18\x0c \x01(\x05\x12\'\n\x07rawHits\x18\r \x03(\x0b\x32\x16.eicio.model.Reference\"\x92\x01\n\x1dTrackerHitZCylinderCollection\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12#\n\x06params\x18\x03 \x01(\x0b\x32\x13.eicio.model.Params\x12\x31\n\x07\x65ntries\x18\x04 \x03(\x0b\x32 .eicio.model.TrackerHitZCylinder\"\xf3\x02\n\x05Track\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0c\n\x04type\x18\x02 \x01(\x05\x12\x0c\n\x04\x63hi2\x18\x03 \x01(\x02\x12\x0b\n\x03NDF\x18\x04 \x01(\x05\x12\x0c\n\x04\x64\x45\x64x\x18\x05 \x01(\x02\x12\x0f\n\x07\x64\x45\x64xErr\x18\x06 \x01(\x02\x12\x0e\n\x06radius\x18\x07 \x01(\x02\x12\x12\n\nsubDetHits\x18\x08 \x03(\x05\x12-\n\x06states\x18\t \x03(\x0b\x32\x1d.eicio.model.Track.TrackState\x12$\n\x04hits\x18\n \x03(\x0b\x32\x16.eicio.model.Reference\x12&\n\x06tracks\x18\x0b \x03(\x0b\x32\x16.eicio.model.Reference\x1au\n\nTrackState\x12\x0b\n\x03loc\x18\x01 \x01(\x05\x12\n\n\x02\x64\x30\x18\x02 \x01(\x02\x12\x0b\n\x03phi\x18\x03 \x01(\x02\x12\r\n\x05omega\x18\x04 \x01(\x02\x12\n\n\x02z0\x18\x05 \x01(\x02\x12\x0c\n\x04tanL\x18\x06 \x01(\x02\x12\x0b\n\x03\x63ov\x18\x07 \x03(\x02\x12\x0b\n\x03ref\x18\x08 \x03(\x02\"v\n\x0fTrackCollection\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12#\n\x06params\x18\x03 \x01(\x0b\x32\x13.eicio.model.Params\x12#\n\x07\x65ntries\x18\x04 \x03(\x0b\x32\x12.eicio.model.Track\"\xb5\x02\n\x11SimCalorimeterHit\x12\n\n\x02id\x18\x01 \x01(\r\x12#\n\x06params\x18\x02 \x01(\x0b\x32\x13.eicio.model.Params\x12\x0f\n\x07\x63\x65llID0\x18\x03 \x01(\x05\x12\x0f\n\x07\x63\x65llID1\x18\x04 \x01(\x05\x12\x0e\n\x06\x65nergy\x18\x05 \x01(\x02\x12\x0b\n\x03pos\x18\x06 \x03(\x02\x12=\n\rcontributions\x18\x07 \x03(\x0b\x32&.eicio.model.SimCalorimeterHit.Contrib\x1aq\n\x07\x43ontrib\x12*\n\nMCParticle\x18\x01 \x01(\x0b\x32\x16.eicio.model.Reference\x12\x0e\n\x06\x65nergy\x18\x02 \x01(\x02\x12\x0c\n\x04time\x18\x03 \x01(\x02\x12\x0b\n\x03PDG\x18\x04 \x01(\x05\x12\x0f\n\x07stepPos\x18\x05 \x03(\x02\"\x8e\x01\n\x1bSimCalorimeterHitCollection\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12#\n\x06params\x18\x03 \x01(\x0b\x32\x13.eicio.model.Params\x12/\n\x07\x65ntries\x18\x04 \x03(\x0b\x32\x1e.eicio.model.SimCalorimeterHit\"g\n\x11RawCalorimeterHit\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0f\n\x07\x63\x65llID0\x18\x02 \x01(\x05\x12\x0f\n\x07\x63\x65llID1\x18\x03 \x01(\x05\x12\x11\n\tamplitude\x18\x04 \x01(\x05\x12\x11\n\ttimeStamp\x18\x05 \x01(\x05\"\x8e\x01\n\x1bRawCalorimeterHitCollection\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12#\n\x06params\x18\x03 \x01(\x0b\x32\x13.eicio.model.Params\x12/\n\x07\x65ntries\x18\x04 \x03(\x0b\x32\x1e.eicio.model.RawCalorimeterHit\"\xaf\x01\n\x0e\x43\x61lorimeterHit\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0f\n\x07\x63\x65llID0\x18\x02 \x01(\x05\x12\x0f\n\x07\x63\x65llID1\x18\x03 \x01(\x05\x12\x0e\n\x06\x65nergy\x18\x04 \x01(\x02\x12\x11\n\tenergyErr\x18\x05 \x01(\x02\x12\x0c\n\x04time\x18\x06 \x01(\x02\x12\x0b\n\x03pos\x18\x07 \x03(\x02\x12\x0c\n\x04type\x18\x08 \x01(\x05\x12#\n\x03raw\x18\t \x01(\x0b\x32\x16.eicio.model.Reference\"\x88\x01\n\x18\x43\x61lorimeterHitCollection\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12#\n\x06params\x18\x03 \x01(\x0b\x32\x13.eicio.model.Params\x12,\n\x07\x65ntries\x18\x04 \x03(\x0b\x32\x1b.eicio.model.CalorimeterHit\"\xba\x02\n\x07\x43luster\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0c\n\x04type\x18\x02 \x01(\x05\x12\x0e\n\x06\x65nergy\x18\x03 \x01(\x02\x12\x11\n\tenergyErr\x18\x04 \x01(\x02\x12\x0b\n\x03pos\x18\x05 \x03(\x02\x12\x0e\n\x06posErr\x18\x06 \x03(\x02\x12\r\n\x05theta\x18\x07 \x01(\x02\x12\x0b\n\x03phi\x18\x08 \x01(\x02\x12\x0e\n\x06\x64irErr\x18\t \x03(\x02\x12\r\n\x05shape\x18\n \x03(\x02\x12%\n\x04PIDs\x18\x0b \x03(\x0b\x32\x17.eicio.model.ParticleID\x12(\n\x08\x63lusters\x18\x0c \x03(\x0b\x32\x16.eicio.model.Reference\x12$\n\x04hits\x18\r \x03(\x0b\x32\x16.eicio.model.Reference\x12\x0f\n\x07weights\x18\x0e \x03(\x02\x12\x12\n\nsubDetEnes\x18\x0f \x03(\x02\"z\n\x11\x43lusterCollection\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12#\n\x06params\x18\x03 \x01(\x0b\x32\x13.eicio.model.Params\x12%\n\x07\x65ntries\x18\x04 \x03(\x0b\x32\x14.eicio.model.Cluster\"\xeb\x02\n\x0bRecParticle\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0c\n\x04type\x18\x02 \x01(\x05\x12\t\n\x01p\x18\x03 \x03(\x02\x12\x0e\n\x06\x65nergy\x18\x04 \x01(\x02\x12\x0b\n\x03\x63ov\x18\x05 \x03(\x02\x12\x0c\n\x04mass\x18\x06 \x01(\x02\x12\x0e\n\x06\x63harge\x18\x07 \x01(\x02\x12\x0b\n\x03ref\x18\x08 \x03(\x02\x12%\n\x04PIDs\x18\t \x03(\x0b\x32\x17.eicio.model.ParticleID\x12\x0f\n\x07PIDUsed\x18\n \x01(\x05\x12\x15\n\rgoodnessOfPID\x18\x0b \x01(\x02\x12$\n\x04recs\x18\x0c \x03(\x0b\x32\x16.eicio.model.Reference\x12&\n\x06tracks\x18\r \x03(\x0b\x32\x16.eicio.model.Reference\x12(\n\x08\x63lusters\x18\x0e \x03(\x0b\x32\x16.eicio.model.Reference\x12(\n\x08startVtx\x18\x0f \x01(\x0b\x32\x16.eicio.model.Reference\"\x82\x01\n\x15RecParticleCollection\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12#\n\x06params\x18\x03 \x01(\x0b\x32\x13.eicio.model.Params\x12)\n\x07\x65ntries\x18\x04 \x03(\x0b\x32\x18.eicio.model.RecParticle\"\xa5\x01\n\x06Vertex\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0f\n\x07primary\x18\x02 \x01(\x05\x12\x0f\n\x07\x61lgType\x18\x03 \x01(\x05\x12\x0c\n\x04\x63hi2\x18\x04 \x01(\x02\x12\x0c\n\x04prob\x18\x05 \x01(\x02\x12\x0b\n\x03pos\x18\x06 \x03(\x02\x12\x0b\n\x03\x63ov\x18\x07 \x03(\x02\x12\x0e\n\x06params\x18\x08 \x03(\x02\x12\'\n\x07recPart\x18\t \x01(\x0b\x32\x16.eicio.model.Reference\"x\n\x10VertexCollection\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12#\n\x06params\x18\x03 \x01(\x0b\x32\x13.eicio.model.Params\x12$\n\x07\x65ntries\x18\x04 \x03(\x0b\x32\x13.eicio.model.Vertex\"p\n\x08Relation\x12\n\n\x02id\x18\x01 \x01(\r\x12$\n\x04\x66rom\x18\x02 \x01(\x0b\x32\x16.eicio.model.Reference\x12\"\n\x02to\x18\x03 \x01(\x0b\x32\x16.eicio.model.Reference\x12\x0e\n\x06weight\x18\x04 \x01(\x02\"|\n\x12RelationCollection\x12\n\n\x02id\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12#\n\x06params\x18\x03 \x01(\x0b\x32\x13.eicio.model.Params\x12&\n\x07\x65ntries\x18\x04 \x03(\x0b\x32\x15.eicio.model.RelationB\x07Z\x05modelb\x06proto3')
 )
 
 
@@ -27,34 +27,34 @@ DESCRIPTOR = _descriptor.FileDescriptor(
 
 _EVENTHEADER_COLLECTIONHEADER = _descriptor.Descriptor(
   name='CollectionHeader',
-  full_name='eicio.EventHeader.CollectionHeader',
+  full_name='eicio.model.EventHeader.CollectionHeader',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='name', full_name='eicio.EventHeader.CollectionHeader.name', index=0,
+      name='name', full_name='eicio.model.EventHeader.CollectionHeader.name', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.EventHeader.CollectionHeader.id', index=1,
+      name='id', full_name='eicio.model.EventHeader.CollectionHeader.id', index=1,
       number=2, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='type', full_name='eicio.EventHeader.CollectionHeader.type', index=2,
+      name='type', full_name='eicio.model.EventHeader.CollectionHeader.type', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='payloadSize', full_name='eicio.EventHeader.CollectionHeader.payloadSize', index=3,
+      name='payloadSize', full_name='eicio.model.EventHeader.CollectionHeader.payloadSize', index=3,
       number=4, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -72,75 +72,75 @@ _EVENTHEADER_COLLECTIONHEADER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=269,
-  serialized_end=348,
+  serialized_start=287,
+  serialized_end=366,
 )
 
 _EVENTHEADER = _descriptor.Descriptor(
   name='EventHeader',
-  full_name='eicio.EventHeader',
+  full_name='eicio.model.EventHeader',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='version', full_name='eicio.EventHeader.version', index=0,
+      name='version', full_name='eicio.model.EventHeader.version', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='runNumber', full_name='eicio.EventHeader.runNumber', index=1,
+      name='runNumber', full_name='eicio.model.EventHeader.runNumber', index=1,
       number=2, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='eventNumber', full_name='eicio.EventHeader.eventNumber', index=2,
+      name='eventNumber', full_name='eicio.model.EventHeader.eventNumber', index=2,
       number=3, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='timeStamp', full_name='eicio.EventHeader.timeStamp', index=3,
+      name='timeStamp', full_name='eicio.model.EventHeader.timeStamp', index=3,
       number=4, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='detector', full_name='eicio.EventHeader.detector', index=4,
+      name='detector', full_name='eicio.model.EventHeader.detector', index=4,
       number=5, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='params', full_name='eicio.EventHeader.params', index=5,
+      name='params', full_name='eicio.model.EventHeader.params', index=5,
       number=6, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='payloadCollections', full_name='eicio.EventHeader.payloadCollections', index=6,
+      name='payloadCollections', full_name='eicio.model.EventHeader.payloadCollections', index=6,
       number=7, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='nUniqueIDs', full_name='eicio.EventHeader.nUniqueIDs', index=7,
+      name='nUniqueIDs', full_name='eicio.model.EventHeader.nUniqueIDs', index=7,
       number=8, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='description', full_name='eicio.EventHeader.description', index=8,
+      name='description', full_name='eicio.model.EventHeader.description', index=8,
       number=16, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -158,20 +158,20 @@ _EVENTHEADER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=23,
-  serialized_end=348,
+  serialized_start=29,
+  serialized_end=366,
 )
 
 
 _INTPARAMS = _descriptor.Descriptor(
   name='IntParams',
-  full_name='eicio.IntParams',
+  full_name='eicio.model.IntParams',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='array', full_name='eicio.IntParams.array', index=0,
+      name='array', full_name='eicio.model.IntParams.array', index=0,
       number=1, type=5, cpp_type=1, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -189,20 +189,20 @@ _INTPARAMS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=350,
-  serialized_end=376,
+  serialized_start=368,
+  serialized_end=394,
 )
 
 
 _FLOATPARAMS = _descriptor.Descriptor(
   name='FloatParams',
-  full_name='eicio.FloatParams',
+  full_name='eicio.model.FloatParams',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='array', full_name='eicio.FloatParams.array', index=0,
+      name='array', full_name='eicio.model.FloatParams.array', index=0,
       number=1, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -220,20 +220,20 @@ _FLOATPARAMS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=378,
-  serialized_end=406,
+  serialized_start=396,
+  serialized_end=424,
 )
 
 
 _STRINGPARAMS = _descriptor.Descriptor(
   name='StringParams',
-  full_name='eicio.StringParams',
+  full_name='eicio.model.StringParams',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='array', full_name='eicio.StringParams.array', index=0,
+      name='array', full_name='eicio.model.StringParams.array', index=0,
       number=1, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -251,27 +251,27 @@ _STRINGPARAMS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=408,
-  serialized_end=437,
+  serialized_start=426,
+  serialized_end=455,
 )
 
 
 _PARAMS_INTSENTRY = _descriptor.Descriptor(
   name='IntsEntry',
-  full_name='eicio.Params.IntsEntry',
+  full_name='eicio.model.Params.IntsEntry',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='key', full_name='eicio.Params.IntsEntry.key', index=0,
+      name='key', full_name='eicio.model.Params.IntsEntry.key', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='value', full_name='eicio.Params.IntsEntry.value', index=1,
+      name='value', full_name='eicio.model.Params.IntsEntry.value', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -289,26 +289,26 @@ _PARAMS_INTSENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=577,
-  serialized_end=638,
+  serialized_start=613,
+  serialized_end=680,
 )
 
 _PARAMS_FLOATSENTRY = _descriptor.Descriptor(
   name='FloatsEntry',
-  full_name='eicio.Params.FloatsEntry',
+  full_name='eicio.model.Params.FloatsEntry',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='key', full_name='eicio.Params.FloatsEntry.key', index=0,
+      name='key', full_name='eicio.model.Params.FloatsEntry.key', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='value', full_name='eicio.Params.FloatsEntry.value', index=1,
+      name='value', full_name='eicio.model.Params.FloatsEntry.value', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -326,26 +326,26 @@ _PARAMS_FLOATSENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=640,
-  serialized_end=705,
+  serialized_start=682,
+  serialized_end=753,
 )
 
 _PARAMS_STRINGSENTRY = _descriptor.Descriptor(
   name='StringsEntry',
-  full_name='eicio.Params.StringsEntry',
+  full_name='eicio.model.Params.StringsEntry',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='key', full_name='eicio.Params.StringsEntry.key', index=0,
+      name='key', full_name='eicio.model.Params.StringsEntry.key', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='value', full_name='eicio.Params.StringsEntry.value', index=1,
+      name='value', full_name='eicio.model.Params.StringsEntry.value', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -363,33 +363,33 @@ _PARAMS_STRINGSENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=707,
-  serialized_end=774,
+  serialized_start=755,
+  serialized_end=828,
 )
 
 _PARAMS = _descriptor.Descriptor(
   name='Params',
-  full_name='eicio.Params',
+  full_name='eicio.model.Params',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='ints', full_name='eicio.Params.ints', index=0,
+      name='ints', full_name='eicio.model.Params.ints', index=0,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='floats', full_name='eicio.Params.floats', index=1,
+      name='floats', full_name='eicio.model.Params.floats', index=1,
       number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='strings', full_name='eicio.Params.strings', index=2,
+      name='strings', full_name='eicio.model.Params.strings', index=2,
       number=3, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -407,27 +407,27 @@ _PARAMS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=440,
-  serialized_end=774,
+  serialized_start=458,
+  serialized_end=828,
 )
 
 
 _REFERENCE = _descriptor.Descriptor(
   name='Reference',
-  full_name='eicio.Reference',
+  full_name='eicio.model.Reference',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='collID', full_name='eicio.Reference.collID', index=0,
+      name='collID', full_name='eicio.model.Reference.collID', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='entryID', full_name='eicio.Reference.entryID', index=1,
+      name='entryID', full_name='eicio.model.Reference.entryID', index=1,
       number=2, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -445,48 +445,48 @@ _REFERENCE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=776,
-  serialized_end=820,
+  serialized_start=830,
+  serialized_end=874,
 )
 
 
 _PARTICLEID = _descriptor.Descriptor(
   name='ParticleID',
-  full_name='eicio.ParticleID',
+  full_name='eicio.model.ParticleID',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='likelihood', full_name='eicio.ParticleID.likelihood', index=0,
+      name='likelihood', full_name='eicio.model.ParticleID.likelihood', index=0,
       number=1, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='type', full_name='eicio.ParticleID.type', index=1,
+      name='type', full_name='eicio.model.ParticleID.type', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='PDG', full_name='eicio.ParticleID.PDG', index=2,
+      name='PDG', full_name='eicio.model.ParticleID.PDG', index=2,
       number=3, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='algType', full_name='eicio.ParticleID.algType', index=3,
+      name='algType', full_name='eicio.model.ParticleID.algType', index=3,
       number=4, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='params', full_name='eicio.ParticleID.params', index=4,
+      name='params', full_name='eicio.model.ParticleID.params', index=4,
       number=5, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -504,111 +504,111 @@ _PARTICLEID = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=822,
-  serialized_end=914,
+  serialized_start=876,
+  serialized_end=968,
 )
 
 
 _MCPARTICLE = _descriptor.Descriptor(
   name='MCParticle',
-  full_name='eicio.MCParticle',
+  full_name='eicio.model.MCParticle',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.MCParticle.id', index=0,
+      name='id', full_name='eicio.model.MCParticle.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='parents', full_name='eicio.MCParticle.parents', index=1,
+      name='parents', full_name='eicio.model.MCParticle.parents', index=1,
       number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='children', full_name='eicio.MCParticle.children', index=2,
+      name='children', full_name='eicio.model.MCParticle.children', index=2,
       number=3, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='PDG', full_name='eicio.MCParticle.PDG', index=3,
+      name='PDG', full_name='eicio.model.MCParticle.PDG', index=3,
       number=4, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='vertex', full_name='eicio.MCParticle.vertex', index=4,
+      name='vertex', full_name='eicio.model.MCParticle.vertex', index=4,
       number=5, type=1, cpp_type=5, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='time', full_name='eicio.MCParticle.time', index=5,
+      name='time', full_name='eicio.model.MCParticle.time', index=5,
       number=6, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='p', full_name='eicio.MCParticle.p', index=6,
+      name='p', full_name='eicio.model.MCParticle.p', index=6,
       number=7, type=1, cpp_type=5, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='mass', full_name='eicio.MCParticle.mass', index=7,
+      name='mass', full_name='eicio.model.MCParticle.mass', index=7,
       number=8, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='charge', full_name='eicio.MCParticle.charge', index=8,
+      name='charge', full_name='eicio.model.MCParticle.charge', index=8,
       number=9, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='PEndPoint', full_name='eicio.MCParticle.PEndPoint', index=9,
+      name='PEndPoint', full_name='eicio.model.MCParticle.PEndPoint', index=9,
       number=10, type=1, cpp_type=5, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='spin', full_name='eicio.MCParticle.spin', index=10,
+      name='spin', full_name='eicio.model.MCParticle.spin', index=10,
       number=11, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='colorFlow', full_name='eicio.MCParticle.colorFlow', index=11,
+      name='colorFlow', full_name='eicio.model.MCParticle.colorFlow', index=11,
       number=12, type=5, cpp_type=1, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='genStatus', full_name='eicio.MCParticle.genStatus', index=12,
+      name='genStatus', full_name='eicio.model.MCParticle.genStatus', index=12,
       number=13, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='simStatus', full_name='eicio.MCParticle.simStatus', index=13,
+      name='simStatus', full_name='eicio.model.MCParticle.simStatus', index=13,
       number=14, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -626,41 +626,41 @@ _MCPARTICLE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=917,
-  serialized_end=1186,
+  serialized_start=971,
+  serialized_end=1252,
 )
 
 
 _MCPARTICLECOLLECTION = _descriptor.Descriptor(
   name='MCParticleCollection',
-  full_name='eicio.MCParticleCollection',
+  full_name='eicio.model.MCParticleCollection',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.MCParticleCollection.id', index=0,
+      name='id', full_name='eicio.model.MCParticleCollection.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='flags', full_name='eicio.MCParticleCollection.flags', index=1,
+      name='flags', full_name='eicio.model.MCParticleCollection.flags', index=1,
       number=2, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='params', full_name='eicio.MCParticleCollection.params', index=2,
+      name='params', full_name='eicio.model.MCParticleCollection.params', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='entries', full_name='eicio.MCParticleCollection.entries', index=3,
+      name='entries', full_name='eicio.model.MCParticleCollection.entries', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -678,83 +678,83 @@ _MCPARTICLECOLLECTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1188,
-  serialized_end=1304,
+  serialized_start=1255,
+  serialized_end=1383,
 )
 
 
 _SIMTRACKERHIT = _descriptor.Descriptor(
   name='SimTrackerHit',
-  full_name='eicio.SimTrackerHit',
+  full_name='eicio.model.SimTrackerHit',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.SimTrackerHit.id', index=0,
+      name='id', full_name='eicio.model.SimTrackerHit.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='cellID0', full_name='eicio.SimTrackerHit.cellID0', index=1,
+      name='cellID0', full_name='eicio.model.SimTrackerHit.cellID0', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='cellID1', full_name='eicio.SimTrackerHit.cellID1', index=2,
+      name='cellID1', full_name='eicio.model.SimTrackerHit.cellID1', index=2,
       number=3, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='pos', full_name='eicio.SimTrackerHit.pos', index=3,
+      name='pos', full_name='eicio.model.SimTrackerHit.pos', index=3,
       number=4, type=1, cpp_type=5, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='EDep', full_name='eicio.SimTrackerHit.EDep', index=4,
+      name='EDep', full_name='eicio.model.SimTrackerHit.EDep', index=4,
       number=5, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='time', full_name='eicio.SimTrackerHit.time', index=5,
+      name='time', full_name='eicio.model.SimTrackerHit.time', index=5,
       number=6, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='mc', full_name='eicio.SimTrackerHit.mc', index=6,
+      name='mc', full_name='eicio.model.SimTrackerHit.mc', index=6,
       number=7, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='p', full_name='eicio.SimTrackerHit.p', index=7,
+      name='p', full_name='eicio.model.SimTrackerHit.p', index=7,
       number=8, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='pathLength', full_name='eicio.SimTrackerHit.pathLength', index=8,
+      name='pathLength', full_name='eicio.model.SimTrackerHit.pathLength', index=8,
       number=9, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='quality', full_name='eicio.SimTrackerHit.quality', index=9,
+      name='quality', full_name='eicio.model.SimTrackerHit.quality', index=9,
       number=10, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -772,41 +772,41 @@ _SIMTRACKERHIT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1307,
-  serialized_end=1487,
+  serialized_start=1386,
+  serialized_end=1572,
 )
 
 
 _SIMTRACKERHITCOLLECTION = _descriptor.Descriptor(
   name='SimTrackerHitCollection',
-  full_name='eicio.SimTrackerHitCollection',
+  full_name='eicio.model.SimTrackerHitCollection',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.SimTrackerHitCollection.id', index=0,
+      name='id', full_name='eicio.model.SimTrackerHitCollection.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='flags', full_name='eicio.SimTrackerHitCollection.flags', index=1,
+      name='flags', full_name='eicio.model.SimTrackerHitCollection.flags', index=1,
       number=2, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='params', full_name='eicio.SimTrackerHitCollection.params', index=2,
+      name='params', full_name='eicio.model.SimTrackerHitCollection.params', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='entries', full_name='eicio.SimTrackerHitCollection.entries', index=3,
+      name='entries', full_name='eicio.model.SimTrackerHitCollection.entries', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -824,48 +824,48 @@ _SIMTRACKERHITCOLLECTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1489,
-  serialized_end=1611,
+  serialized_start=1575,
+  serialized_end=1709,
 )
 
 
 _TRACKERRAWDATA = _descriptor.Descriptor(
   name='TrackerRawData',
-  full_name='eicio.TrackerRawData',
+  full_name='eicio.model.TrackerRawData',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.TrackerRawData.id', index=0,
+      name='id', full_name='eicio.model.TrackerRawData.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='cellID0', full_name='eicio.TrackerRawData.cellID0', index=1,
+      name='cellID0', full_name='eicio.model.TrackerRawData.cellID0', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='cellID1', full_name='eicio.TrackerRawData.cellID1', index=2,
+      name='cellID1', full_name='eicio.model.TrackerRawData.cellID1', index=2,
       number=3, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='time', full_name='eicio.TrackerRawData.time', index=3,
+      name='time', full_name='eicio.model.TrackerRawData.time', index=3,
       number=4, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='ADCs', full_name='eicio.TrackerRawData.ADCs', index=4,
+      name='ADCs', full_name='eicio.model.TrackerRawData.ADCs', index=4,
       number=5, type=13, cpp_type=3, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -883,41 +883,41 @@ _TRACKERRAWDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1613,
-  serialized_end=1703,
+  serialized_start=1711,
+  serialized_end=1801,
 )
 
 
 _TRACKERRAWDATACOLLECTION = _descriptor.Descriptor(
   name='TrackerRawDataCollection',
-  full_name='eicio.TrackerRawDataCollection',
+  full_name='eicio.model.TrackerRawDataCollection',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.TrackerRawDataCollection.id', index=0,
+      name='id', full_name='eicio.model.TrackerRawDataCollection.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='flags', full_name='eicio.TrackerRawDataCollection.flags', index=1,
+      name='flags', full_name='eicio.model.TrackerRawDataCollection.flags', index=1,
       number=2, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='params', full_name='eicio.TrackerRawDataCollection.params', index=2,
+      name='params', full_name='eicio.model.TrackerRawDataCollection.params', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='entries', full_name='eicio.TrackerRawDataCollection.entries', index=3,
+      name='entries', full_name='eicio.model.TrackerRawDataCollection.entries', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -935,48 +935,48 @@ _TRACKERRAWDATACOLLECTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1705,
-  serialized_end=1829,
+  serialized_start=1804,
+  serialized_end=1940,
 )
 
 
 _TRACKERDATA = _descriptor.Descriptor(
   name='TrackerData',
-  full_name='eicio.TrackerData',
+  full_name='eicio.model.TrackerData',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.TrackerData.id', index=0,
+      name='id', full_name='eicio.model.TrackerData.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='cellID0', full_name='eicio.TrackerData.cellID0', index=1,
+      name='cellID0', full_name='eicio.model.TrackerData.cellID0', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='cellID1', full_name='eicio.TrackerData.cellID1', index=2,
+      name='cellID1', full_name='eicio.model.TrackerData.cellID1', index=2,
       number=3, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='time', full_name='eicio.TrackerData.time', index=3,
+      name='time', full_name='eicio.model.TrackerData.time', index=3,
       number=4, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='charges', full_name='eicio.TrackerData.charges', index=4,
+      name='charges', full_name='eicio.model.TrackerData.charges', index=4,
       number=5, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -994,41 +994,41 @@ _TRACKERDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1831,
-  serialized_end=1921,
+  serialized_start=1942,
+  serialized_end=2032,
 )
 
 
 _TRACKERDATACOLLECTION = _descriptor.Descriptor(
   name='TrackerDataCollection',
-  full_name='eicio.TrackerDataCollection',
+  full_name='eicio.model.TrackerDataCollection',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.TrackerDataCollection.id', index=0,
+      name='id', full_name='eicio.model.TrackerDataCollection.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='flags', full_name='eicio.TrackerDataCollection.flags', index=1,
+      name='flags', full_name='eicio.model.TrackerDataCollection.flags', index=1,
       number=2, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='params', full_name='eicio.TrackerDataCollection.params', index=2,
+      name='params', full_name='eicio.model.TrackerDataCollection.params', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='entries', full_name='eicio.TrackerDataCollection.entries', index=3,
+      name='entries', full_name='eicio.model.TrackerDataCollection.entries', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -1046,90 +1046,90 @@ _TRACKERDATACOLLECTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1923,
-  serialized_end=2041,
+  serialized_start=2035,
+  serialized_end=2165,
 )
 
 
 _TRACKERHIT = _descriptor.Descriptor(
   name='TrackerHit',
-  full_name='eicio.TrackerHit',
+  full_name='eicio.model.TrackerHit',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.TrackerHit.id', index=0,
+      name='id', full_name='eicio.model.TrackerHit.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='cellID0', full_name='eicio.TrackerHit.cellID0', index=1,
+      name='cellID0', full_name='eicio.model.TrackerHit.cellID0', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='cellID1', full_name='eicio.TrackerHit.cellID1', index=2,
+      name='cellID1', full_name='eicio.model.TrackerHit.cellID1', index=2,
       number=3, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='type', full_name='eicio.TrackerHit.type', index=3,
+      name='type', full_name='eicio.model.TrackerHit.type', index=3,
       number=4, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='pos', full_name='eicio.TrackerHit.pos', index=4,
+      name='pos', full_name='eicio.model.TrackerHit.pos', index=4,
       number=5, type=1, cpp_type=5, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='cov', full_name='eicio.TrackerHit.cov', index=5,
+      name='cov', full_name='eicio.model.TrackerHit.cov', index=5,
       number=6, type=1, cpp_type=5, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='EDep', full_name='eicio.TrackerHit.EDep', index=6,
+      name='EDep', full_name='eicio.model.TrackerHit.EDep', index=6,
       number=7, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='EDepErr', full_name='eicio.TrackerHit.EDepErr', index=7,
+      name='EDepErr', full_name='eicio.model.TrackerHit.EDepErr', index=7,
       number=8, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='time', full_name='eicio.TrackerHit.time', index=8,
+      name='time', full_name='eicio.model.TrackerHit.time', index=8,
       number=9, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='quality', full_name='eicio.TrackerHit.quality', index=9,
+      name='quality', full_name='eicio.model.TrackerHit.quality', index=9,
       number=10, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='rawHits', full_name='eicio.TrackerHit.rawHits', index=10,
+      name='rawHits', full_name='eicio.model.TrackerHit.rawHits', index=10,
       number=11, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -1147,41 +1147,41 @@ _TRACKERHIT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2044,
-  serialized_end=2239,
+  serialized_start=2168,
+  serialized_end=2369,
 )
 
 
 _TRACKERHITCOLLECTION = _descriptor.Descriptor(
   name='TrackerHitCollection',
-  full_name='eicio.TrackerHitCollection',
+  full_name='eicio.model.TrackerHitCollection',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.TrackerHitCollection.id', index=0,
+      name='id', full_name='eicio.model.TrackerHitCollection.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='flags', full_name='eicio.TrackerHitCollection.flags', index=1,
+      name='flags', full_name='eicio.model.TrackerHitCollection.flags', index=1,
       number=2, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='params', full_name='eicio.TrackerHitCollection.params', index=2,
+      name='params', full_name='eicio.model.TrackerHitCollection.params', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='entries', full_name='eicio.TrackerHitCollection.entries', index=3,
+      name='entries', full_name='eicio.model.TrackerHitCollection.entries', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -1199,69 +1199,69 @@ _TRACKERHITCOLLECTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2241,
-  serialized_end=2357,
+  serialized_start=2372,
+  serialized_end=2500,
 )
 
 
 _TRACKERPULSE = _descriptor.Descriptor(
   name='TrackerPulse',
-  full_name='eicio.TrackerPulse',
+  full_name='eicio.model.TrackerPulse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.TrackerPulse.id', index=0,
+      name='id', full_name='eicio.model.TrackerPulse.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='cellID0', full_name='eicio.TrackerPulse.cellID0', index=1,
+      name='cellID0', full_name='eicio.model.TrackerPulse.cellID0', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='cellID1', full_name='eicio.TrackerPulse.cellID1', index=2,
+      name='cellID1', full_name='eicio.model.TrackerPulse.cellID1', index=2,
       number=3, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='time', full_name='eicio.TrackerPulse.time', index=3,
+      name='time', full_name='eicio.model.TrackerPulse.time', index=3,
       number=4, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='charge', full_name='eicio.TrackerPulse.charge', index=4,
+      name='charge', full_name='eicio.model.TrackerPulse.charge', index=4,
       number=5, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='cov', full_name='eicio.TrackerPulse.cov', index=5,
+      name='cov', full_name='eicio.model.TrackerPulse.cov', index=5,
       number=6, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='quality', full_name='eicio.TrackerPulse.quality', index=6,
+      name='quality', full_name='eicio.model.TrackerPulse.quality', index=6,
       number=7, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='TPC', full_name='eicio.TrackerPulse.TPC', index=7,
+      name='TPC', full_name='eicio.model.TrackerPulse.TPC', index=7,
       number=8, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -1279,41 +1279,41 @@ _TRACKERPULSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2360,
-  serialized_end=2511,
+  serialized_start=2503,
+  serialized_end=2660,
 )
 
 
 _TRACKERPULSECOLLECTION = _descriptor.Descriptor(
   name='TrackerPulseCollection',
-  full_name='eicio.TrackerPulseCollection',
+  full_name='eicio.model.TrackerPulseCollection',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.TrackerPulseCollection.id', index=0,
+      name='id', full_name='eicio.model.TrackerPulseCollection.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='flags', full_name='eicio.TrackerPulseCollection.flags', index=1,
+      name='flags', full_name='eicio.model.TrackerPulseCollection.flags', index=1,
       number=2, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='params', full_name='eicio.TrackerPulseCollection.params', index=2,
+      name='params', full_name='eicio.model.TrackerPulseCollection.params', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='entries', full_name='eicio.TrackerPulseCollection.entries', index=3,
+      name='entries', full_name='eicio.model.TrackerPulseCollection.entries', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -1331,111 +1331,111 @@ _TRACKERPULSECOLLECTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2513,
-  serialized_end=2633,
+  serialized_start=2663,
+  serialized_end=2795,
 )
 
 
 _TRACKERHITPLANE = _descriptor.Descriptor(
   name='TrackerHitPlane',
-  full_name='eicio.TrackerHitPlane',
+  full_name='eicio.model.TrackerHitPlane',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.TrackerHitPlane.id', index=0,
+      name='id', full_name='eicio.model.TrackerHitPlane.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='cellID0', full_name='eicio.TrackerHitPlane.cellID0', index=1,
+      name='cellID0', full_name='eicio.model.TrackerHitPlane.cellID0', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='cellID1', full_name='eicio.TrackerHitPlane.cellID1', index=2,
+      name='cellID1', full_name='eicio.model.TrackerHitPlane.cellID1', index=2,
       number=3, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='type', full_name='eicio.TrackerHitPlane.type', index=3,
+      name='type', full_name='eicio.model.TrackerHitPlane.type', index=3,
       number=4, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='pos', full_name='eicio.TrackerHitPlane.pos', index=4,
+      name='pos', full_name='eicio.model.TrackerHitPlane.pos', index=4,
       number=5, type=1, cpp_type=5, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='U', full_name='eicio.TrackerHitPlane.U', index=5,
+      name='U', full_name='eicio.model.TrackerHitPlane.U', index=5,
       number=6, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='V', full_name='eicio.TrackerHitPlane.V', index=6,
+      name='V', full_name='eicio.model.TrackerHitPlane.V', index=6,
       number=7, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='dU', full_name='eicio.TrackerHitPlane.dU', index=7,
+      name='dU', full_name='eicio.model.TrackerHitPlane.dU', index=7,
       number=8, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='dV', full_name='eicio.TrackerHitPlane.dV', index=8,
+      name='dV', full_name='eicio.model.TrackerHitPlane.dV', index=8,
       number=9, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='EDep', full_name='eicio.TrackerHitPlane.EDep', index=9,
+      name='EDep', full_name='eicio.model.TrackerHitPlane.EDep', index=9,
       number=10, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='EDepErr', full_name='eicio.TrackerHitPlane.EDepErr', index=10,
+      name='EDepErr', full_name='eicio.model.TrackerHitPlane.EDepErr', index=10,
       number=11, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='time', full_name='eicio.TrackerHitPlane.time', index=11,
+      name='time', full_name='eicio.model.TrackerHitPlane.time', index=11,
       number=12, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='quality', full_name='eicio.TrackerHitPlane.quality', index=12,
+      name='quality', full_name='eicio.model.TrackerHitPlane.quality', index=12,
       number=13, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='rawHits', full_name='eicio.TrackerHitPlane.rawHits', index=13,
+      name='rawHits', full_name='eicio.model.TrackerHitPlane.rawHits', index=13,
       number=14, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -1453,41 +1453,41 @@ _TRACKERHITPLANE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2636,
-  serialized_end=2869,
+  serialized_start=2798,
+  serialized_end=3037,
 )
 
 
 _TRACKERHITPLANECOLLECTION = _descriptor.Descriptor(
   name='TrackerHitPlaneCollection',
-  full_name='eicio.TrackerHitPlaneCollection',
+  full_name='eicio.model.TrackerHitPlaneCollection',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.TrackerHitPlaneCollection.id', index=0,
+      name='id', full_name='eicio.model.TrackerHitPlaneCollection.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='flags', full_name='eicio.TrackerHitPlaneCollection.flags', index=1,
+      name='flags', full_name='eicio.model.TrackerHitPlaneCollection.flags', index=1,
       number=2, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='params', full_name='eicio.TrackerHitPlaneCollection.params', index=2,
+      name='params', full_name='eicio.model.TrackerHitPlaneCollection.params', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='entries', full_name='eicio.TrackerHitPlaneCollection.entries', index=3,
+      name='entries', full_name='eicio.model.TrackerHitPlaneCollection.entries', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -1505,104 +1505,104 @@ _TRACKERHITPLANECOLLECTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2871,
-  serialized_end=2997,
+  serialized_start=3040,
+  serialized_end=3178,
 )
 
 
 _TRACKERHITZCYLINDER = _descriptor.Descriptor(
   name='TrackerHitZCylinder',
-  full_name='eicio.TrackerHitZCylinder',
+  full_name='eicio.model.TrackerHitZCylinder',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.TrackerHitZCylinder.id', index=0,
+      name='id', full_name='eicio.model.TrackerHitZCylinder.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='cellID0', full_name='eicio.TrackerHitZCylinder.cellID0', index=1,
+      name='cellID0', full_name='eicio.model.TrackerHitZCylinder.cellID0', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='cellID1', full_name='eicio.TrackerHitZCylinder.cellID1', index=2,
+      name='cellID1', full_name='eicio.model.TrackerHitZCylinder.cellID1', index=2,
       number=3, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='type', full_name='eicio.TrackerHitZCylinder.type', index=3,
+      name='type', full_name='eicio.model.TrackerHitZCylinder.type', index=3,
       number=4, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='pos', full_name='eicio.TrackerHitZCylinder.pos', index=4,
+      name='pos', full_name='eicio.model.TrackerHitZCylinder.pos', index=4,
       number=5, type=1, cpp_type=5, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='center', full_name='eicio.TrackerHitZCylinder.center', index=5,
+      name='center', full_name='eicio.model.TrackerHitZCylinder.center', index=5,
       number=6, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='dRPhi', full_name='eicio.TrackerHitZCylinder.dRPhi', index=6,
+      name='dRPhi', full_name='eicio.model.TrackerHitZCylinder.dRPhi', index=6,
       number=7, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='dZ', full_name='eicio.TrackerHitZCylinder.dZ', index=7,
+      name='dZ', full_name='eicio.model.TrackerHitZCylinder.dZ', index=7,
       number=8, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='EDep', full_name='eicio.TrackerHitZCylinder.EDep', index=8,
+      name='EDep', full_name='eicio.model.TrackerHitZCylinder.EDep', index=8,
       number=9, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='EDepErr', full_name='eicio.TrackerHitZCylinder.EDepErr', index=9,
+      name='EDepErr', full_name='eicio.model.TrackerHitZCylinder.EDepErr', index=9,
       number=10, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='time', full_name='eicio.TrackerHitZCylinder.time', index=10,
+      name='time', full_name='eicio.model.TrackerHitZCylinder.time', index=10,
       number=11, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='quality', full_name='eicio.TrackerHitZCylinder.quality', index=11,
+      name='quality', full_name='eicio.model.TrackerHitZCylinder.quality', index=11,
       number=12, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='rawHits', full_name='eicio.TrackerHitZCylinder.rawHits', index=12,
+      name='rawHits', full_name='eicio.model.TrackerHitZCylinder.rawHits', index=12,
       number=13, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -1620,41 +1620,41 @@ _TRACKERHITZCYLINDER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3000,
-  serialized_end=3234,
+  serialized_start=3181,
+  serialized_end=3421,
 )
 
 
 _TRACKERHITZCYLINDERCOLLECTION = _descriptor.Descriptor(
   name='TrackerHitZCylinderCollection',
-  full_name='eicio.TrackerHitZCylinderCollection',
+  full_name='eicio.model.TrackerHitZCylinderCollection',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.TrackerHitZCylinderCollection.id', index=0,
+      name='id', full_name='eicio.model.TrackerHitZCylinderCollection.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='flags', full_name='eicio.TrackerHitZCylinderCollection.flags', index=1,
+      name='flags', full_name='eicio.model.TrackerHitZCylinderCollection.flags', index=1,
       number=2, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='params', full_name='eicio.TrackerHitZCylinderCollection.params', index=2,
+      name='params', full_name='eicio.model.TrackerHitZCylinderCollection.params', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='entries', full_name='eicio.TrackerHitZCylinderCollection.entries', index=3,
+      name='entries', full_name='eicio.model.TrackerHitZCylinderCollection.entries', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -1672,69 +1672,69 @@ _TRACKERHITZCYLINDERCOLLECTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3237,
-  serialized_end=3371,
+  serialized_start=3424,
+  serialized_end=3570,
 )
 
 
 _TRACK_TRACKSTATE = _descriptor.Descriptor(
   name='TrackState',
-  full_name='eicio.Track.TrackState',
+  full_name='eicio.model.Track.TrackState',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='loc', full_name='eicio.Track.TrackState.loc', index=0,
+      name='loc', full_name='eicio.model.Track.TrackState.loc', index=0,
       number=1, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='d0', full_name='eicio.Track.TrackState.d0', index=1,
+      name='d0', full_name='eicio.model.Track.TrackState.d0', index=1,
       number=2, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='phi', full_name='eicio.Track.TrackState.phi', index=2,
+      name='phi', full_name='eicio.model.Track.TrackState.phi', index=2,
       number=3, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='omega', full_name='eicio.Track.TrackState.omega', index=3,
+      name='omega', full_name='eicio.model.Track.TrackState.omega', index=3,
       number=4, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='z0', full_name='eicio.Track.TrackState.z0', index=4,
+      name='z0', full_name='eicio.model.Track.TrackState.z0', index=4,
       number=5, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='tanL', full_name='eicio.Track.TrackState.tanL', index=5,
+      name='tanL', full_name='eicio.model.Track.TrackState.tanL', index=5,
       number=6, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='cov', full_name='eicio.Track.TrackState.cov', index=6,
+      name='cov', full_name='eicio.model.Track.TrackState.cov', index=6,
       number=7, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='ref', full_name='eicio.Track.TrackState.ref', index=7,
+      name='ref', full_name='eicio.model.Track.TrackState.ref', index=7,
       number=8, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -1752,89 +1752,89 @@ _TRACK_TRACKSTATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3610,
-  serialized_end=3727,
+  serialized_start=3827,
+  serialized_end=3944,
 )
 
 _TRACK = _descriptor.Descriptor(
   name='Track',
-  full_name='eicio.Track',
+  full_name='eicio.model.Track',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.Track.id', index=0,
+      name='id', full_name='eicio.model.Track.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='type', full_name='eicio.Track.type', index=1,
+      name='type', full_name='eicio.model.Track.type', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='chi2', full_name='eicio.Track.chi2', index=2,
+      name='chi2', full_name='eicio.model.Track.chi2', index=2,
       number=3, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='NDF', full_name='eicio.Track.NDF', index=3,
+      name='NDF', full_name='eicio.model.Track.NDF', index=3,
       number=4, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='dEdx', full_name='eicio.Track.dEdx', index=4,
+      name='dEdx', full_name='eicio.model.Track.dEdx', index=4,
       number=5, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='dEdxErr', full_name='eicio.Track.dEdxErr', index=5,
+      name='dEdxErr', full_name='eicio.model.Track.dEdxErr', index=5,
       number=6, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='radius', full_name='eicio.Track.radius', index=6,
+      name='radius', full_name='eicio.model.Track.radius', index=6,
       number=7, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='subDetHits', full_name='eicio.Track.subDetHits', index=7,
+      name='subDetHits', full_name='eicio.model.Track.subDetHits', index=7,
       number=8, type=5, cpp_type=1, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='states', full_name='eicio.Track.states', index=8,
+      name='states', full_name='eicio.model.Track.states', index=8,
       number=9, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='hits', full_name='eicio.Track.hits', index=9,
+      name='hits', full_name='eicio.model.Track.hits', index=9,
       number=10, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='tracks', full_name='eicio.Track.tracks', index=10,
+      name='tracks', full_name='eicio.model.Track.tracks', index=10,
       number=11, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -1852,41 +1852,41 @@ _TRACK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3374,
-  serialized_end=3727,
+  serialized_start=3573,
+  serialized_end=3944,
 )
 
 
 _TRACKCOLLECTION = _descriptor.Descriptor(
   name='TrackCollection',
-  full_name='eicio.TrackCollection',
+  full_name='eicio.model.TrackCollection',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.TrackCollection.id', index=0,
+      name='id', full_name='eicio.model.TrackCollection.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='flags', full_name='eicio.TrackCollection.flags', index=1,
+      name='flags', full_name='eicio.model.TrackCollection.flags', index=1,
       number=2, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='params', full_name='eicio.TrackCollection.params', index=2,
+      name='params', full_name='eicio.model.TrackCollection.params', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='entries', full_name='eicio.TrackCollection.entries', index=3,
+      name='entries', full_name='eicio.model.TrackCollection.entries', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -1904,48 +1904,48 @@ _TRACKCOLLECTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3729,
-  serialized_end=3835,
+  serialized_start=3946,
+  serialized_end=4064,
 )
 
 
 _SIMCALORIMETERHIT_CONTRIB = _descriptor.Descriptor(
   name='Contrib',
-  full_name='eicio.SimCalorimeterHit.Contrib',
+  full_name='eicio.model.SimCalorimeterHit.Contrib',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='MCParticle', full_name='eicio.SimCalorimeterHit.Contrib.MCParticle', index=0,
+      name='MCParticle', full_name='eicio.model.SimCalorimeterHit.Contrib.MCParticle', index=0,
       number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='energy', full_name='eicio.SimCalorimeterHit.Contrib.energy', index=1,
+      name='energy', full_name='eicio.model.SimCalorimeterHit.Contrib.energy', index=1,
       number=2, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='time', full_name='eicio.SimCalorimeterHit.Contrib.time', index=2,
+      name='time', full_name='eicio.model.SimCalorimeterHit.Contrib.time', index=2,
       number=3, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='PDG', full_name='eicio.SimCalorimeterHit.Contrib.PDG', index=3,
+      name='PDG', full_name='eicio.model.SimCalorimeterHit.Contrib.PDG', index=3,
       number=4, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='stepPos', full_name='eicio.SimCalorimeterHit.Contrib.stepPos', index=4,
+      name='stepPos', full_name='eicio.model.SimCalorimeterHit.Contrib.stepPos', index=4,
       number=5, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -1963,61 +1963,61 @@ _SIMCALORIMETERHIT_CONTRIB = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4022,
-  serialized_end=4129,
+  serialized_start=4263,
+  serialized_end=4376,
 )
 
 _SIMCALORIMETERHIT = _descriptor.Descriptor(
   name='SimCalorimeterHit',
-  full_name='eicio.SimCalorimeterHit',
+  full_name='eicio.model.SimCalorimeterHit',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.SimCalorimeterHit.id', index=0,
+      name='id', full_name='eicio.model.SimCalorimeterHit.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='params', full_name='eicio.SimCalorimeterHit.params', index=1,
+      name='params', full_name='eicio.model.SimCalorimeterHit.params', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='cellID0', full_name='eicio.SimCalorimeterHit.cellID0', index=2,
+      name='cellID0', full_name='eicio.model.SimCalorimeterHit.cellID0', index=2,
       number=3, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='cellID1', full_name='eicio.SimCalorimeterHit.cellID1', index=3,
+      name='cellID1', full_name='eicio.model.SimCalorimeterHit.cellID1', index=3,
       number=4, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='energy', full_name='eicio.SimCalorimeterHit.energy', index=4,
+      name='energy', full_name='eicio.model.SimCalorimeterHit.energy', index=4,
       number=5, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='pos', full_name='eicio.SimCalorimeterHit.pos', index=5,
+      name='pos', full_name='eicio.model.SimCalorimeterHit.pos', index=5,
       number=6, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='contributions', full_name='eicio.SimCalorimeterHit.contributions', index=6,
+      name='contributions', full_name='eicio.model.SimCalorimeterHit.contributions', index=6,
       number=7, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -2035,41 +2035,41 @@ _SIMCALORIMETERHIT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3838,
-  serialized_end=4129,
+  serialized_start=4067,
+  serialized_end=4376,
 )
 
 
 _SIMCALORIMETERHITCOLLECTION = _descriptor.Descriptor(
   name='SimCalorimeterHitCollection',
-  full_name='eicio.SimCalorimeterHitCollection',
+  full_name='eicio.model.SimCalorimeterHitCollection',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.SimCalorimeterHitCollection.id', index=0,
+      name='id', full_name='eicio.model.SimCalorimeterHitCollection.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='flags', full_name='eicio.SimCalorimeterHitCollection.flags', index=1,
+      name='flags', full_name='eicio.model.SimCalorimeterHitCollection.flags', index=1,
       number=2, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='params', full_name='eicio.SimCalorimeterHitCollection.params', index=2,
+      name='params', full_name='eicio.model.SimCalorimeterHitCollection.params', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='entries', full_name='eicio.SimCalorimeterHitCollection.entries', index=3,
+      name='entries', full_name='eicio.model.SimCalorimeterHitCollection.entries', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -2087,48 +2087,48 @@ _SIMCALORIMETERHITCOLLECTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4132,
-  serialized_end=4262,
+  serialized_start=4379,
+  serialized_end=4521,
 )
 
 
 _RAWCALORIMETERHIT = _descriptor.Descriptor(
   name='RawCalorimeterHit',
-  full_name='eicio.RawCalorimeterHit',
+  full_name='eicio.model.RawCalorimeterHit',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.RawCalorimeterHit.id', index=0,
+      name='id', full_name='eicio.model.RawCalorimeterHit.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='cellID0', full_name='eicio.RawCalorimeterHit.cellID0', index=1,
+      name='cellID0', full_name='eicio.model.RawCalorimeterHit.cellID0', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='cellID1', full_name='eicio.RawCalorimeterHit.cellID1', index=2,
+      name='cellID1', full_name='eicio.model.RawCalorimeterHit.cellID1', index=2,
       number=3, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='amplitude', full_name='eicio.RawCalorimeterHit.amplitude', index=3,
+      name='amplitude', full_name='eicio.model.RawCalorimeterHit.amplitude', index=3,
       number=4, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='timeStamp', full_name='eicio.RawCalorimeterHit.timeStamp', index=4,
+      name='timeStamp', full_name='eicio.model.RawCalorimeterHit.timeStamp', index=4,
       number=5, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -2146,41 +2146,41 @@ _RAWCALORIMETERHIT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4264,
-  serialized_end=4367,
+  serialized_start=4523,
+  serialized_end=4626,
 )
 
 
 _RAWCALORIMETERHITCOLLECTION = _descriptor.Descriptor(
   name='RawCalorimeterHitCollection',
-  full_name='eicio.RawCalorimeterHitCollection',
+  full_name='eicio.model.RawCalorimeterHitCollection',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.RawCalorimeterHitCollection.id', index=0,
+      name='id', full_name='eicio.model.RawCalorimeterHitCollection.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='flags', full_name='eicio.RawCalorimeterHitCollection.flags', index=1,
+      name='flags', full_name='eicio.model.RawCalorimeterHitCollection.flags', index=1,
       number=2, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='params', full_name='eicio.RawCalorimeterHitCollection.params', index=2,
+      name='params', full_name='eicio.model.RawCalorimeterHitCollection.params', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='entries', full_name='eicio.RawCalorimeterHitCollection.entries', index=3,
+      name='entries', full_name='eicio.model.RawCalorimeterHitCollection.entries', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -2198,76 +2198,76 @@ _RAWCALORIMETERHITCOLLECTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4370,
-  serialized_end=4500,
+  serialized_start=4629,
+  serialized_end=4771,
 )
 
 
 _CALORIMETERHIT = _descriptor.Descriptor(
   name='CalorimeterHit',
-  full_name='eicio.CalorimeterHit',
+  full_name='eicio.model.CalorimeterHit',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.CalorimeterHit.id', index=0,
+      name='id', full_name='eicio.model.CalorimeterHit.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='cellID0', full_name='eicio.CalorimeterHit.cellID0', index=1,
+      name='cellID0', full_name='eicio.model.CalorimeterHit.cellID0', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='cellID1', full_name='eicio.CalorimeterHit.cellID1', index=2,
+      name='cellID1', full_name='eicio.model.CalorimeterHit.cellID1', index=2,
       number=3, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='energy', full_name='eicio.CalorimeterHit.energy', index=3,
+      name='energy', full_name='eicio.model.CalorimeterHit.energy', index=3,
       number=4, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='energyErr', full_name='eicio.CalorimeterHit.energyErr', index=4,
+      name='energyErr', full_name='eicio.model.CalorimeterHit.energyErr', index=4,
       number=5, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='time', full_name='eicio.CalorimeterHit.time', index=5,
+      name='time', full_name='eicio.model.CalorimeterHit.time', index=5,
       number=6, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='pos', full_name='eicio.CalorimeterHit.pos', index=6,
+      name='pos', full_name='eicio.model.CalorimeterHit.pos', index=6,
       number=7, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='type', full_name='eicio.CalorimeterHit.type', index=7,
+      name='type', full_name='eicio.model.CalorimeterHit.type', index=7,
       number=8, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='raw', full_name='eicio.CalorimeterHit.raw', index=8,
+      name='raw', full_name='eicio.model.CalorimeterHit.raw', index=8,
       number=9, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -2285,41 +2285,41 @@ _CALORIMETERHIT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4503,
-  serialized_end=4672,
+  serialized_start=4774,
+  serialized_end=4949,
 )
 
 
 _CALORIMETERHITCOLLECTION = _descriptor.Descriptor(
   name='CalorimeterHitCollection',
-  full_name='eicio.CalorimeterHitCollection',
+  full_name='eicio.model.CalorimeterHitCollection',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.CalorimeterHitCollection.id', index=0,
+      name='id', full_name='eicio.model.CalorimeterHitCollection.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='flags', full_name='eicio.CalorimeterHitCollection.flags', index=1,
+      name='flags', full_name='eicio.model.CalorimeterHitCollection.flags', index=1,
       number=2, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='params', full_name='eicio.CalorimeterHitCollection.params', index=2,
+      name='params', full_name='eicio.model.CalorimeterHitCollection.params', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='entries', full_name='eicio.CalorimeterHitCollection.entries', index=3,
+      name='entries', full_name='eicio.model.CalorimeterHitCollection.entries', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -2337,118 +2337,118 @@ _CALORIMETERHITCOLLECTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4674,
-  serialized_end=4798,
+  serialized_start=4952,
+  serialized_end=5088,
 )
 
 
 _CLUSTER = _descriptor.Descriptor(
   name='Cluster',
-  full_name='eicio.Cluster',
+  full_name='eicio.model.Cluster',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.Cluster.id', index=0,
+      name='id', full_name='eicio.model.Cluster.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='type', full_name='eicio.Cluster.type', index=1,
+      name='type', full_name='eicio.model.Cluster.type', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='energy', full_name='eicio.Cluster.energy', index=2,
+      name='energy', full_name='eicio.model.Cluster.energy', index=2,
       number=3, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='energyErr', full_name='eicio.Cluster.energyErr', index=3,
+      name='energyErr', full_name='eicio.model.Cluster.energyErr', index=3,
       number=4, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='pos', full_name='eicio.Cluster.pos', index=4,
+      name='pos', full_name='eicio.model.Cluster.pos', index=4,
       number=5, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='posErr', full_name='eicio.Cluster.posErr', index=5,
+      name='posErr', full_name='eicio.model.Cluster.posErr', index=5,
       number=6, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='theta', full_name='eicio.Cluster.theta', index=6,
+      name='theta', full_name='eicio.model.Cluster.theta', index=6,
       number=7, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='phi', full_name='eicio.Cluster.phi', index=7,
+      name='phi', full_name='eicio.model.Cluster.phi', index=7,
       number=8, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='dirErr', full_name='eicio.Cluster.dirErr', index=8,
+      name='dirErr', full_name='eicio.model.Cluster.dirErr', index=8,
       number=9, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='shape', full_name='eicio.Cluster.shape', index=9,
+      name='shape', full_name='eicio.model.Cluster.shape', index=9,
       number=10, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='PIDs', full_name='eicio.Cluster.PIDs', index=10,
+      name='PIDs', full_name='eicio.model.Cluster.PIDs', index=10,
       number=11, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='clusters', full_name='eicio.Cluster.clusters', index=11,
+      name='clusters', full_name='eicio.model.Cluster.clusters', index=11,
       number=12, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='hits', full_name='eicio.Cluster.hits', index=12,
+      name='hits', full_name='eicio.model.Cluster.hits', index=12,
       number=13, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='weights', full_name='eicio.Cluster.weights', index=13,
+      name='weights', full_name='eicio.model.Cluster.weights', index=13,
       number=14, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='subDetEnes', full_name='eicio.Cluster.subDetEnes', index=14,
+      name='subDetEnes', full_name='eicio.model.Cluster.subDetEnes', index=14,
       number=15, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -2466,41 +2466,41 @@ _CLUSTER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4801,
-  serialized_end=5097,
+  serialized_start=5091,
+  serialized_end=5405,
 )
 
 
 _CLUSTERCOLLECTION = _descriptor.Descriptor(
   name='ClusterCollection',
-  full_name='eicio.ClusterCollection',
+  full_name='eicio.model.ClusterCollection',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.ClusterCollection.id', index=0,
+      name='id', full_name='eicio.model.ClusterCollection.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='flags', full_name='eicio.ClusterCollection.flags', index=1,
+      name='flags', full_name='eicio.model.ClusterCollection.flags', index=1,
       number=2, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='params', full_name='eicio.ClusterCollection.params', index=2,
+      name='params', full_name='eicio.model.ClusterCollection.params', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='entries', full_name='eicio.ClusterCollection.entries', index=3,
+      name='entries', full_name='eicio.model.ClusterCollection.entries', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -2518,118 +2518,118 @@ _CLUSTERCOLLECTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5099,
-  serialized_end=5209,
+  serialized_start=5407,
+  serialized_end=5529,
 )
 
 
 _RECPARTICLE = _descriptor.Descriptor(
   name='RecParticle',
-  full_name='eicio.RecParticle',
+  full_name='eicio.model.RecParticle',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.RecParticle.id', index=0,
+      name='id', full_name='eicio.model.RecParticle.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='type', full_name='eicio.RecParticle.type', index=1,
+      name='type', full_name='eicio.model.RecParticle.type', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='p', full_name='eicio.RecParticle.p', index=2,
+      name='p', full_name='eicio.model.RecParticle.p', index=2,
       number=3, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='energy', full_name='eicio.RecParticle.energy', index=3,
+      name='energy', full_name='eicio.model.RecParticle.energy', index=3,
       number=4, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='cov', full_name='eicio.RecParticle.cov', index=4,
+      name='cov', full_name='eicio.model.RecParticle.cov', index=4,
       number=5, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='mass', full_name='eicio.RecParticle.mass', index=5,
+      name='mass', full_name='eicio.model.RecParticle.mass', index=5,
       number=6, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='charge', full_name='eicio.RecParticle.charge', index=6,
+      name='charge', full_name='eicio.model.RecParticle.charge', index=6,
       number=7, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='ref', full_name='eicio.RecParticle.ref', index=7,
+      name='ref', full_name='eicio.model.RecParticle.ref', index=7,
       number=8, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='PIDs', full_name='eicio.RecParticle.PIDs', index=8,
+      name='PIDs', full_name='eicio.model.RecParticle.PIDs', index=8,
       number=9, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='PIDUsed', full_name='eicio.RecParticle.PIDUsed', index=9,
+      name='PIDUsed', full_name='eicio.model.RecParticle.PIDUsed', index=9,
       number=10, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='goodnessOfPID', full_name='eicio.RecParticle.goodnessOfPID', index=10,
+      name='goodnessOfPID', full_name='eicio.model.RecParticle.goodnessOfPID', index=10,
       number=11, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='recs', full_name='eicio.RecParticle.recs', index=11,
+      name='recs', full_name='eicio.model.RecParticle.recs', index=11,
       number=12, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='tracks', full_name='eicio.RecParticle.tracks', index=12,
+      name='tracks', full_name='eicio.model.RecParticle.tracks', index=12,
       number=13, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='clusters', full_name='eicio.RecParticle.clusters', index=13,
+      name='clusters', full_name='eicio.model.RecParticle.clusters', index=13,
       number=14, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='startVtx', full_name='eicio.RecParticle.startVtx', index=14,
+      name='startVtx', full_name='eicio.model.RecParticle.startVtx', index=14,
       number=15, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -2647,41 +2647,41 @@ _RECPARTICLE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5212,
-  serialized_end=5545,
+  serialized_start=5532,
+  serialized_end=5895,
 )
 
 
 _RECPARTICLECOLLECTION = _descriptor.Descriptor(
   name='RecParticleCollection',
-  full_name='eicio.RecParticleCollection',
+  full_name='eicio.model.RecParticleCollection',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.RecParticleCollection.id', index=0,
+      name='id', full_name='eicio.model.RecParticleCollection.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='flags', full_name='eicio.RecParticleCollection.flags', index=1,
+      name='flags', full_name='eicio.model.RecParticleCollection.flags', index=1,
       number=2, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='params', full_name='eicio.RecParticleCollection.params', index=2,
+      name='params', full_name='eicio.model.RecParticleCollection.params', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='entries', full_name='eicio.RecParticleCollection.entries', index=3,
+      name='entries', full_name='eicio.model.RecParticleCollection.entries', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -2699,76 +2699,76 @@ _RECPARTICLECOLLECTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5547,
-  serialized_end=5665,
+  serialized_start=5898,
+  serialized_end=6028,
 )
 
 
 _VERTEX = _descriptor.Descriptor(
   name='Vertex',
-  full_name='eicio.Vertex',
+  full_name='eicio.model.Vertex',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.Vertex.id', index=0,
+      name='id', full_name='eicio.model.Vertex.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='primary', full_name='eicio.Vertex.primary', index=1,
+      name='primary', full_name='eicio.model.Vertex.primary', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='algType', full_name='eicio.Vertex.algType', index=2,
+      name='algType', full_name='eicio.model.Vertex.algType', index=2,
       number=3, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='chi2', full_name='eicio.Vertex.chi2', index=3,
+      name='chi2', full_name='eicio.model.Vertex.chi2', index=3,
       number=4, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='prob', full_name='eicio.Vertex.prob', index=4,
+      name='prob', full_name='eicio.model.Vertex.prob', index=4,
       number=5, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='pos', full_name='eicio.Vertex.pos', index=5,
+      name='pos', full_name='eicio.model.Vertex.pos', index=5,
       number=6, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='cov', full_name='eicio.Vertex.cov', index=6,
+      name='cov', full_name='eicio.model.Vertex.cov', index=6,
       number=7, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='params', full_name='eicio.Vertex.params', index=7,
+      name='params', full_name='eicio.model.Vertex.params', index=7,
       number=8, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='recPart', full_name='eicio.Vertex.recPart', index=8,
+      name='recPart', full_name='eicio.model.Vertex.recPart', index=8,
       number=9, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -2786,41 +2786,41 @@ _VERTEX = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5668,
-  serialized_end=5827,
+  serialized_start=6031,
+  serialized_end=6196,
 )
 
 
 _VERTEXCOLLECTION = _descriptor.Descriptor(
   name='VertexCollection',
-  full_name='eicio.VertexCollection',
+  full_name='eicio.model.VertexCollection',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.VertexCollection.id', index=0,
+      name='id', full_name='eicio.model.VertexCollection.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='flags', full_name='eicio.VertexCollection.flags', index=1,
+      name='flags', full_name='eicio.model.VertexCollection.flags', index=1,
       number=2, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='params', full_name='eicio.VertexCollection.params', index=2,
+      name='params', full_name='eicio.model.VertexCollection.params', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='entries', full_name='eicio.VertexCollection.entries', index=3,
+      name='entries', full_name='eicio.model.VertexCollection.entries', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -2838,41 +2838,41 @@ _VERTEXCOLLECTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5829,
-  serialized_end=5937,
+  serialized_start=6198,
+  serialized_end=6318,
 )
 
 
 _RELATION = _descriptor.Descriptor(
   name='Relation',
-  full_name='eicio.Relation',
+  full_name='eicio.model.Relation',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.Relation.id', index=0,
+      name='id', full_name='eicio.model.Relation.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='from', full_name='eicio.Relation.from', index=1,
+      name='from', full_name='eicio.model.Relation.from', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='to', full_name='eicio.Relation.to', index=2,
+      name='to', full_name='eicio.model.Relation.to', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='weight', full_name='eicio.Relation.weight', index=3,
+      name='weight', full_name='eicio.model.Relation.weight', index=3,
       number=4, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
@@ -2890,41 +2890,41 @@ _RELATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5939,
-  serialized_end=6039,
+  serialized_start=6320,
+  serialized_end=6432,
 )
 
 
 _RELATIONCOLLECTION = _descriptor.Descriptor(
   name='RelationCollection',
-  full_name='eicio.RelationCollection',
+  full_name='eicio.model.RelationCollection',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='eicio.RelationCollection.id', index=0,
+      name='id', full_name='eicio.model.RelationCollection.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='flags', full_name='eicio.RelationCollection.flags', index=1,
+      name='flags', full_name='eicio.model.RelationCollection.flags', index=1,
       number=2, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='params', full_name='eicio.RelationCollection.params', index=2,
+      name='params', full_name='eicio.model.RelationCollection.params', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='entries', full_name='eicio.RelationCollection.entries', index=3,
+      name='entries', full_name='eicio.model.RelationCollection.entries', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -2942,8 +2942,8 @@ _RELATIONCOLLECTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6041,
-  serialized_end=6153,
+  serialized_start=6434,
+  serialized_end=6558,
 )
 
 _EVENTHEADER_COLLECTIONHEADER.containing_type = _EVENTHEADER
@@ -3063,12 +3063,12 @@ EventHeader = _reflection.GeneratedProtocolMessageType('EventHeader', (_message.
   CollectionHeader = _reflection.GeneratedProtocolMessageType('CollectionHeader', (_message.Message,), dict(
     DESCRIPTOR = _EVENTHEADER_COLLECTIONHEADER,
     __module__ = 'eicio_pb2'
-    # @@protoc_insertion_point(class_scope:eicio.EventHeader.CollectionHeader)
+    # @@protoc_insertion_point(class_scope:eicio.model.EventHeader.CollectionHeader)
     ))
   ,
   DESCRIPTOR = _EVENTHEADER,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.EventHeader)
+  # @@protoc_insertion_point(class_scope:eicio.model.EventHeader)
   ))
 _sym_db.RegisterMessage(EventHeader)
 _sym_db.RegisterMessage(EventHeader.CollectionHeader)
@@ -3076,21 +3076,21 @@ _sym_db.RegisterMessage(EventHeader.CollectionHeader)
 IntParams = _reflection.GeneratedProtocolMessageType('IntParams', (_message.Message,), dict(
   DESCRIPTOR = _INTPARAMS,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.IntParams)
+  # @@protoc_insertion_point(class_scope:eicio.model.IntParams)
   ))
 _sym_db.RegisterMessage(IntParams)
 
 FloatParams = _reflection.GeneratedProtocolMessageType('FloatParams', (_message.Message,), dict(
   DESCRIPTOR = _FLOATPARAMS,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.FloatParams)
+  # @@protoc_insertion_point(class_scope:eicio.model.FloatParams)
   ))
 _sym_db.RegisterMessage(FloatParams)
 
 StringParams = _reflection.GeneratedProtocolMessageType('StringParams', (_message.Message,), dict(
   DESCRIPTOR = _STRINGPARAMS,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.StringParams)
+  # @@protoc_insertion_point(class_scope:eicio.model.StringParams)
   ))
 _sym_db.RegisterMessage(StringParams)
 
@@ -3099,26 +3099,26 @@ Params = _reflection.GeneratedProtocolMessageType('Params', (_message.Message,),
   IntsEntry = _reflection.GeneratedProtocolMessageType('IntsEntry', (_message.Message,), dict(
     DESCRIPTOR = _PARAMS_INTSENTRY,
     __module__ = 'eicio_pb2'
-    # @@protoc_insertion_point(class_scope:eicio.Params.IntsEntry)
+    # @@protoc_insertion_point(class_scope:eicio.model.Params.IntsEntry)
     ))
   ,
 
   FloatsEntry = _reflection.GeneratedProtocolMessageType('FloatsEntry', (_message.Message,), dict(
     DESCRIPTOR = _PARAMS_FLOATSENTRY,
     __module__ = 'eicio_pb2'
-    # @@protoc_insertion_point(class_scope:eicio.Params.FloatsEntry)
+    # @@protoc_insertion_point(class_scope:eicio.model.Params.FloatsEntry)
     ))
   ,
 
   StringsEntry = _reflection.GeneratedProtocolMessageType('StringsEntry', (_message.Message,), dict(
     DESCRIPTOR = _PARAMS_STRINGSENTRY,
     __module__ = 'eicio_pb2'
-    # @@protoc_insertion_point(class_scope:eicio.Params.StringsEntry)
+    # @@protoc_insertion_point(class_scope:eicio.model.Params.StringsEntry)
     ))
   ,
   DESCRIPTOR = _PARAMS,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.Params)
+  # @@protoc_insertion_point(class_scope:eicio.model.Params)
   ))
 _sym_db.RegisterMessage(Params)
 _sym_db.RegisterMessage(Params.IntsEntry)
@@ -3128,126 +3128,126 @@ _sym_db.RegisterMessage(Params.StringsEntry)
 Reference = _reflection.GeneratedProtocolMessageType('Reference', (_message.Message,), dict(
   DESCRIPTOR = _REFERENCE,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.Reference)
+  # @@protoc_insertion_point(class_scope:eicio.model.Reference)
   ))
 _sym_db.RegisterMessage(Reference)
 
 ParticleID = _reflection.GeneratedProtocolMessageType('ParticleID', (_message.Message,), dict(
   DESCRIPTOR = _PARTICLEID,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.ParticleID)
+  # @@protoc_insertion_point(class_scope:eicio.model.ParticleID)
   ))
 _sym_db.RegisterMessage(ParticleID)
 
 MCParticle = _reflection.GeneratedProtocolMessageType('MCParticle', (_message.Message,), dict(
   DESCRIPTOR = _MCPARTICLE,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.MCParticle)
+  # @@protoc_insertion_point(class_scope:eicio.model.MCParticle)
   ))
 _sym_db.RegisterMessage(MCParticle)
 
 MCParticleCollection = _reflection.GeneratedProtocolMessageType('MCParticleCollection', (_message.Message,), dict(
   DESCRIPTOR = _MCPARTICLECOLLECTION,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.MCParticleCollection)
+  # @@protoc_insertion_point(class_scope:eicio.model.MCParticleCollection)
   ))
 _sym_db.RegisterMessage(MCParticleCollection)
 
 SimTrackerHit = _reflection.GeneratedProtocolMessageType('SimTrackerHit', (_message.Message,), dict(
   DESCRIPTOR = _SIMTRACKERHIT,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.SimTrackerHit)
+  # @@protoc_insertion_point(class_scope:eicio.model.SimTrackerHit)
   ))
 _sym_db.RegisterMessage(SimTrackerHit)
 
 SimTrackerHitCollection = _reflection.GeneratedProtocolMessageType('SimTrackerHitCollection', (_message.Message,), dict(
   DESCRIPTOR = _SIMTRACKERHITCOLLECTION,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.SimTrackerHitCollection)
+  # @@protoc_insertion_point(class_scope:eicio.model.SimTrackerHitCollection)
   ))
 _sym_db.RegisterMessage(SimTrackerHitCollection)
 
 TrackerRawData = _reflection.GeneratedProtocolMessageType('TrackerRawData', (_message.Message,), dict(
   DESCRIPTOR = _TRACKERRAWDATA,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.TrackerRawData)
+  # @@protoc_insertion_point(class_scope:eicio.model.TrackerRawData)
   ))
 _sym_db.RegisterMessage(TrackerRawData)
 
 TrackerRawDataCollection = _reflection.GeneratedProtocolMessageType('TrackerRawDataCollection', (_message.Message,), dict(
   DESCRIPTOR = _TRACKERRAWDATACOLLECTION,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.TrackerRawDataCollection)
+  # @@protoc_insertion_point(class_scope:eicio.model.TrackerRawDataCollection)
   ))
 _sym_db.RegisterMessage(TrackerRawDataCollection)
 
 TrackerData = _reflection.GeneratedProtocolMessageType('TrackerData', (_message.Message,), dict(
   DESCRIPTOR = _TRACKERDATA,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.TrackerData)
+  # @@protoc_insertion_point(class_scope:eicio.model.TrackerData)
   ))
 _sym_db.RegisterMessage(TrackerData)
 
 TrackerDataCollection = _reflection.GeneratedProtocolMessageType('TrackerDataCollection', (_message.Message,), dict(
   DESCRIPTOR = _TRACKERDATACOLLECTION,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.TrackerDataCollection)
+  # @@protoc_insertion_point(class_scope:eicio.model.TrackerDataCollection)
   ))
 _sym_db.RegisterMessage(TrackerDataCollection)
 
 TrackerHit = _reflection.GeneratedProtocolMessageType('TrackerHit', (_message.Message,), dict(
   DESCRIPTOR = _TRACKERHIT,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.TrackerHit)
+  # @@protoc_insertion_point(class_scope:eicio.model.TrackerHit)
   ))
 _sym_db.RegisterMessage(TrackerHit)
 
 TrackerHitCollection = _reflection.GeneratedProtocolMessageType('TrackerHitCollection', (_message.Message,), dict(
   DESCRIPTOR = _TRACKERHITCOLLECTION,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.TrackerHitCollection)
+  # @@protoc_insertion_point(class_scope:eicio.model.TrackerHitCollection)
   ))
 _sym_db.RegisterMessage(TrackerHitCollection)
 
 TrackerPulse = _reflection.GeneratedProtocolMessageType('TrackerPulse', (_message.Message,), dict(
   DESCRIPTOR = _TRACKERPULSE,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.TrackerPulse)
+  # @@protoc_insertion_point(class_scope:eicio.model.TrackerPulse)
   ))
 _sym_db.RegisterMessage(TrackerPulse)
 
 TrackerPulseCollection = _reflection.GeneratedProtocolMessageType('TrackerPulseCollection', (_message.Message,), dict(
   DESCRIPTOR = _TRACKERPULSECOLLECTION,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.TrackerPulseCollection)
+  # @@protoc_insertion_point(class_scope:eicio.model.TrackerPulseCollection)
   ))
 _sym_db.RegisterMessage(TrackerPulseCollection)
 
 TrackerHitPlane = _reflection.GeneratedProtocolMessageType('TrackerHitPlane', (_message.Message,), dict(
   DESCRIPTOR = _TRACKERHITPLANE,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.TrackerHitPlane)
+  # @@protoc_insertion_point(class_scope:eicio.model.TrackerHitPlane)
   ))
 _sym_db.RegisterMessage(TrackerHitPlane)
 
 TrackerHitPlaneCollection = _reflection.GeneratedProtocolMessageType('TrackerHitPlaneCollection', (_message.Message,), dict(
   DESCRIPTOR = _TRACKERHITPLANECOLLECTION,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.TrackerHitPlaneCollection)
+  # @@protoc_insertion_point(class_scope:eicio.model.TrackerHitPlaneCollection)
   ))
 _sym_db.RegisterMessage(TrackerHitPlaneCollection)
 
 TrackerHitZCylinder = _reflection.GeneratedProtocolMessageType('TrackerHitZCylinder', (_message.Message,), dict(
   DESCRIPTOR = _TRACKERHITZCYLINDER,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.TrackerHitZCylinder)
+  # @@protoc_insertion_point(class_scope:eicio.model.TrackerHitZCylinder)
   ))
 _sym_db.RegisterMessage(TrackerHitZCylinder)
 
 TrackerHitZCylinderCollection = _reflection.GeneratedProtocolMessageType('TrackerHitZCylinderCollection', (_message.Message,), dict(
   DESCRIPTOR = _TRACKERHITZCYLINDERCOLLECTION,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.TrackerHitZCylinderCollection)
+  # @@protoc_insertion_point(class_scope:eicio.model.TrackerHitZCylinderCollection)
   ))
 _sym_db.RegisterMessage(TrackerHitZCylinderCollection)
 
@@ -3256,12 +3256,12 @@ Track = _reflection.GeneratedProtocolMessageType('Track', (_message.Message,), d
   TrackState = _reflection.GeneratedProtocolMessageType('TrackState', (_message.Message,), dict(
     DESCRIPTOR = _TRACK_TRACKSTATE,
     __module__ = 'eicio_pb2'
-    # @@protoc_insertion_point(class_scope:eicio.Track.TrackState)
+    # @@protoc_insertion_point(class_scope:eicio.model.Track.TrackState)
     ))
   ,
   DESCRIPTOR = _TRACK,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.Track)
+  # @@protoc_insertion_point(class_scope:eicio.model.Track)
   ))
 _sym_db.RegisterMessage(Track)
 _sym_db.RegisterMessage(Track.TrackState)
@@ -3269,7 +3269,7 @@ _sym_db.RegisterMessage(Track.TrackState)
 TrackCollection = _reflection.GeneratedProtocolMessageType('TrackCollection', (_message.Message,), dict(
   DESCRIPTOR = _TRACKCOLLECTION,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.TrackCollection)
+  # @@protoc_insertion_point(class_scope:eicio.model.TrackCollection)
   ))
 _sym_db.RegisterMessage(TrackCollection)
 
@@ -3278,12 +3278,12 @@ SimCalorimeterHit = _reflection.GeneratedProtocolMessageType('SimCalorimeterHit'
   Contrib = _reflection.GeneratedProtocolMessageType('Contrib', (_message.Message,), dict(
     DESCRIPTOR = _SIMCALORIMETERHIT_CONTRIB,
     __module__ = 'eicio_pb2'
-    # @@protoc_insertion_point(class_scope:eicio.SimCalorimeterHit.Contrib)
+    # @@protoc_insertion_point(class_scope:eicio.model.SimCalorimeterHit.Contrib)
     ))
   ,
   DESCRIPTOR = _SIMCALORIMETERHIT,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.SimCalorimeterHit)
+  # @@protoc_insertion_point(class_scope:eicio.model.SimCalorimeterHit)
   ))
 _sym_db.RegisterMessage(SimCalorimeterHit)
 _sym_db.RegisterMessage(SimCalorimeterHit.Contrib)
@@ -3291,95 +3291,97 @@ _sym_db.RegisterMessage(SimCalorimeterHit.Contrib)
 SimCalorimeterHitCollection = _reflection.GeneratedProtocolMessageType('SimCalorimeterHitCollection', (_message.Message,), dict(
   DESCRIPTOR = _SIMCALORIMETERHITCOLLECTION,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.SimCalorimeterHitCollection)
+  # @@protoc_insertion_point(class_scope:eicio.model.SimCalorimeterHitCollection)
   ))
 _sym_db.RegisterMessage(SimCalorimeterHitCollection)
 
 RawCalorimeterHit = _reflection.GeneratedProtocolMessageType('RawCalorimeterHit', (_message.Message,), dict(
   DESCRIPTOR = _RAWCALORIMETERHIT,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.RawCalorimeterHit)
+  # @@protoc_insertion_point(class_scope:eicio.model.RawCalorimeterHit)
   ))
 _sym_db.RegisterMessage(RawCalorimeterHit)
 
 RawCalorimeterHitCollection = _reflection.GeneratedProtocolMessageType('RawCalorimeterHitCollection', (_message.Message,), dict(
   DESCRIPTOR = _RAWCALORIMETERHITCOLLECTION,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.RawCalorimeterHitCollection)
+  # @@protoc_insertion_point(class_scope:eicio.model.RawCalorimeterHitCollection)
   ))
 _sym_db.RegisterMessage(RawCalorimeterHitCollection)
 
 CalorimeterHit = _reflection.GeneratedProtocolMessageType('CalorimeterHit', (_message.Message,), dict(
   DESCRIPTOR = _CALORIMETERHIT,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.CalorimeterHit)
+  # @@protoc_insertion_point(class_scope:eicio.model.CalorimeterHit)
   ))
 _sym_db.RegisterMessage(CalorimeterHit)
 
 CalorimeterHitCollection = _reflection.GeneratedProtocolMessageType('CalorimeterHitCollection', (_message.Message,), dict(
   DESCRIPTOR = _CALORIMETERHITCOLLECTION,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.CalorimeterHitCollection)
+  # @@protoc_insertion_point(class_scope:eicio.model.CalorimeterHitCollection)
   ))
 _sym_db.RegisterMessage(CalorimeterHitCollection)
 
 Cluster = _reflection.GeneratedProtocolMessageType('Cluster', (_message.Message,), dict(
   DESCRIPTOR = _CLUSTER,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.Cluster)
+  # @@protoc_insertion_point(class_scope:eicio.model.Cluster)
   ))
 _sym_db.RegisterMessage(Cluster)
 
 ClusterCollection = _reflection.GeneratedProtocolMessageType('ClusterCollection', (_message.Message,), dict(
   DESCRIPTOR = _CLUSTERCOLLECTION,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.ClusterCollection)
+  # @@protoc_insertion_point(class_scope:eicio.model.ClusterCollection)
   ))
 _sym_db.RegisterMessage(ClusterCollection)
 
 RecParticle = _reflection.GeneratedProtocolMessageType('RecParticle', (_message.Message,), dict(
   DESCRIPTOR = _RECPARTICLE,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.RecParticle)
+  # @@protoc_insertion_point(class_scope:eicio.model.RecParticle)
   ))
 _sym_db.RegisterMessage(RecParticle)
 
 RecParticleCollection = _reflection.GeneratedProtocolMessageType('RecParticleCollection', (_message.Message,), dict(
   DESCRIPTOR = _RECPARTICLECOLLECTION,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.RecParticleCollection)
+  # @@protoc_insertion_point(class_scope:eicio.model.RecParticleCollection)
   ))
 _sym_db.RegisterMessage(RecParticleCollection)
 
 Vertex = _reflection.GeneratedProtocolMessageType('Vertex', (_message.Message,), dict(
   DESCRIPTOR = _VERTEX,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.Vertex)
+  # @@protoc_insertion_point(class_scope:eicio.model.Vertex)
   ))
 _sym_db.RegisterMessage(Vertex)
 
 VertexCollection = _reflection.GeneratedProtocolMessageType('VertexCollection', (_message.Message,), dict(
   DESCRIPTOR = _VERTEXCOLLECTION,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.VertexCollection)
+  # @@protoc_insertion_point(class_scope:eicio.model.VertexCollection)
   ))
 _sym_db.RegisterMessage(VertexCollection)
 
 Relation = _reflection.GeneratedProtocolMessageType('Relation', (_message.Message,), dict(
   DESCRIPTOR = _RELATION,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.Relation)
+  # @@protoc_insertion_point(class_scope:eicio.model.Relation)
   ))
 _sym_db.RegisterMessage(Relation)
 
 RelationCollection = _reflection.GeneratedProtocolMessageType('RelationCollection', (_message.Message,), dict(
   DESCRIPTOR = _RELATIONCOLLECTION,
   __module__ = 'eicio_pb2'
-  # @@protoc_insertion_point(class_scope:eicio.RelationCollection)
+  # @@protoc_insertion_point(class_scope:eicio.model.RelationCollection)
   ))
 _sym_db.RegisterMessage(RelationCollection)
 
 
+DESCRIPTOR.has_options = True
+DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b('Z\005model'))
 _PARAMS_INTSENTRY.has_options = True
 _PARAMS_INTSENTRY._options = _descriptor._ParseOptions(descriptor_pb2.MessageOptions(), _b('8\001'))
 _PARAMS_FLOATSENTRY.has_options = True
