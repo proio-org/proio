@@ -1,2 +1,6 @@
 # vim swap files
 *.swp
+
+# Singularity build image
+*.img
+.bash_history
