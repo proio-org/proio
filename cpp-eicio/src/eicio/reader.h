@@ -17,7 +17,7 @@ class Reader {
     virtual ~Reader();
 
     Event *Get();
-	model::EventHeader *GetHeader();
+    model::EventHeader *GetHeader();
     int Skip(int nEvents);
 
    private:
