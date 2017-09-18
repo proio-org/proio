@@ -43,3 +43,32 @@ class Event:
         self._payload = self._payload[:offset] + self._payload[offset+size:]
 
         return message
+
+    def dereference(self, ref):
+        refColl = None
+        try:
+            for name, coll in self._collCache.items():
+                if coll.id == ref.collID:
+                    if ref.entryID == 0:
+                        return coll
+                    refColl = coll
+                    break
+        except AttributeError:
+            pass
+        
+        if refColl == None:
+            for collHdr in self.header.payloadCollections:
+                if collHdr.id == ref.collID:
+                    refColl = self.get(collHdr.name)
+                    if ref.entryID == 0:
+                        return refColl
+                    break
+
+        if refColl == None:
+            return
+
+        for entry in refColl.entries:
+            if entry.id == ref.entryID:
+                return entry
+
+        return

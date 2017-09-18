@@ -8,9 +8,9 @@ from .writer import magicBytes
 class Reader:
     """Reader for eicio files, either gzip compressed or not"""
 
-    def __init__(self, filename = "", fileobj = None, compress = False):
+    def __init__(self, filename = "", fileobj = None, decompress = False):
         if fileobj != None:
-            if compress:
+            if decompress:
                 self.fileobj = gzip.GzipFile(fileobj = fileobj, mode = "rb")
             else:
                 self.fileobj = fileobj
@@ -122,16 +122,17 @@ class Reader:
                 return
             
             sizes = struct.unpack("II", self.fileobj.read(8))
-            headerSize = sizes[0]
-            payloadSize = sizes[1]
+            size = sizes[0] + sizes[1]
 
-            headerString = self.fileobj.read(headerSize)
-            if len(headerString) != headerSize:
-                return nSkipped
-
-            payload = self.fileobj.read(payloadSize)
-            if len(payload) != payloadSize:
-                return nSkipped
+            if self.fileobj.seekable():
+                currPos = self.fileobj.seek(0, 1)
+                postPos = self.fileobj.seek(size, 1)
+                if postPos - currPos != size:
+                    return nSkipped
+            else:
+                string = self.fileobj.read(size)
+                if len(string) != size:
+                    return nSkipped
 
             nSkipped += 1
 
