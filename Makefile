@@ -29,5 +29,5 @@ $(CPP_TARGET): $(PROTO) $(BUILD_IMAGE)
 	$(COMMAND_PREFIX) protoc --cpp_out=$(@D) $<
 	$(COMMAND_PREFIX) bash -c "cd cpp-eicio/src && clang-format -i -style=file $(subst cpp-eicio/src/,,$(CPP_TARGET))"
 
-$(PYTHON_TARGET): $(PROTO)
+$(PYTHON_TARGET): $(PROTO) $(BUILD_IMAGE)
 	$(COMMAND_PREFIX) protoc --python_out=$(@D) $<
