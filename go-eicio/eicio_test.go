@@ -7,6 +7,8 @@ import (
 	"testing"
 
 	"go-hep.org/x/hep/lcio"
+
+	"github.com/decibelcooper/eicio/go-eicio/model"
 )
 
 func TestEventPushGet(t *testing.T) {
@@ -16,23 +18,23 @@ func TestEventPushGet(t *testing.T) {
 
 	event0Out := NewEvent()
 
-	MCParticles := &MCParticleCollection{}
-	MCParticles.Entries = append(MCParticles.Entries, &MCParticle{})
-	MCParticles.Entries = append(MCParticles.Entries, &MCParticle{})
+	MCParticles := &model.MCParticleCollection{}
+	MCParticles.Entries = append(MCParticles.Entries, &model.MCParticle{})
+	MCParticles.Entries = append(MCParticles.Entries, &model.MCParticle{})
 	event0Out.Add(MCParticles, "MCParticles")
 
-	simTrackHits := &SimTrackerHitCollection{}
-	simTrackHits.Entries = append(simTrackHits.Entries, &SimTrackerHit{})
-	simTrackHits.Entries = append(simTrackHits.Entries, &SimTrackerHit{})
+	simTrackHits := &model.SimTrackerHitCollection{}
+	simTrackHits.Entries = append(simTrackHits.Entries, &model.SimTrackerHit{})
+	simTrackHits.Entries = append(simTrackHits.Entries, &model.SimTrackerHit{})
 	event0Out.Add(simTrackHits, "TrackerHits")
 
 	writer.Push(event0Out)
 
 	event1Out := NewEvent()
 
-	simTrackHits = &SimTrackerHitCollection{}
-	simTrackHits.Entries = append(simTrackHits.Entries, &SimTrackerHit{})
-	simTrackHits.Entries = append(simTrackHits.Entries, &SimTrackerHit{})
+	simTrackHits = &model.SimTrackerHitCollection{}
+	simTrackHits.Entries = append(simTrackHits.Entries, &model.SimTrackerHit{})
+	simTrackHits.Entries = append(simTrackHits.Entries, &model.SimTrackerHit{})
 	event1Out.Add(simTrackHits, "TrackerHits")
 
 	writer.Push(event1Out)
@@ -68,14 +70,14 @@ func TestRefDeref(t *testing.T) {
 
 	eventOut := NewEvent()
 
-	MCParticles := &MCParticleCollection{}
+	MCParticles := &model.MCParticleCollection{}
 	if err := eventOut.Add(MCParticles, "MCParticles"); err != nil {
 		t.Error("Can't add MCParticles collection: ", err)
 	}
 
-	part1 := &MCParticle{PDG: 11}
-	part2 := &MCParticle{PDG: 11}
-	part3 := &MCParticle{PDG: 22}
+	part1 := &model.MCParticle{PDG: 11}
+	part2 := &model.MCParticle{PDG: 11}
+	part3 := &model.MCParticle{PDG: 22}
 	MCParticles.Entries = append(MCParticles.Entries, part1, part2, part3)
 
 	part1.Children = append(part1.Children, eventOut.Reference(part2), eventOut.Reference(part3))
@@ -96,23 +98,23 @@ func TestRefDeref(t *testing.T) {
 		t.Error("Failed to get MCParticles collection")
 	}
 
-	part1_ := MCParticles_.GetEntry(0).(*MCParticle)
+	part1_ := MCParticles_.GetEntry(0).(*model.MCParticle)
 	if part1_.String() != part1.String() {
-		t.Error("Failed to match first MCParticle")
+		t.Error("Failed to match first model.MCParticle")
 	}
-	part2_ := eventOut.Dereference(part1_.Children[0]).(*MCParticle)
+	part2_ := eventOut.Dereference(part1_.Children[0]).(*model.MCParticle)
 	if part2_.String() != part2.String() {
 		t.Error("Failed to match first daughter particle")
 	}
-	part3_ := eventOut.Dereference(part1_.Children[1]).(*MCParticle)
+	part3_ := eventOut.Dereference(part1_.Children[1]).(*model.MCParticle)
 	if part2_.String() != part2.String() {
 		t.Error("Failed to match second daughter particle")
 	}
-	part1_ = eventOut.Dereference(part2_.Parents[0]).(*MCParticle)
+	part1_ = eventOut.Dereference(part2_.Parents[0]).(*model.MCParticle)
 	if part1_.String() != part1.String() {
 		t.Error("Failed to match parent of first daughter particle")
 	}
-	part1_ = eventOut.Dereference(part3_.Parents[0]).(*MCParticle)
+	part1_ = eventOut.Dereference(part3_.Parents[0]).(*model.MCParticle)
 	if part1_.String() != part1.String() {
 		t.Error("Failed to match parent of second daughter particle")
 	}
@@ -121,14 +123,14 @@ func TestRefDeref(t *testing.T) {
 func TestRefDeref2(t *testing.T) {
 	event := NewEvent()
 
-	MCParticles := &MCParticleCollection{}
+	MCParticles := &model.MCParticleCollection{}
 	if err := event.Add(MCParticles, "MCParticles"); err != nil {
 		t.Error("Can't add MCParticles collection: ", err)
 	}
 
-	part1 := &MCParticle{PDG: 11}
-	part2 := &MCParticle{PDG: 11}
-	part3 := &MCParticle{PDG: 22}
+	part1 := &model.MCParticle{PDG: 11}
+	part2 := &model.MCParticle{PDG: 11}
+	part3 := &model.MCParticle{PDG: 22}
 	MCParticles.Entries = append(MCParticles.Entries, part1, part2, part3)
 
 	part1.Children = append(part1.Children, event.Reference(part2), event.Reference(part3))
@@ -140,23 +142,23 @@ func TestRefDeref2(t *testing.T) {
 		t.Error("Failed to get MCParticles collection")
 	}
 
-	part1_ := MCParticles_.GetEntry(0).(*MCParticle)
+	part1_ := MCParticles_.GetEntry(0).(*model.MCParticle)
 	if part1_ != part1 {
-		t.Error("Failed to match first MCParticle")
+		t.Error("Failed to match first model.MCParticle")
 	}
-	part2_ := event.Dereference(part1_.Children[0]).(*MCParticle)
+	part2_ := event.Dereference(part1_.Children[0]).(*model.MCParticle)
 	if part2_ != part2 {
 		t.Error("Failed to match first daughter particle")
 	}
-	part3_ := event.Dereference(part1_.Children[1]).(*MCParticle)
+	part3_ := event.Dereference(part1_.Children[1]).(*model.MCParticle)
 	if part2_ != part2 {
 		t.Error("Failed to match second daughter particle")
 	}
-	part1_ = event.Dereference(part2_.Parents[0]).(*MCParticle)
+	part1_ = event.Dereference(part2_.Parents[0]).(*model.MCParticle)
 	if part1_ != part1 {
 		t.Error("Failed to match parent of first daughter particle")
 	}
-	part1_ = event.Dereference(part3_.Parents[0]).(*MCParticle)
+	part1_ = event.Dereference(part3_.Parents[0]).(*model.MCParticle)
 	if part1_ != part1 {
 		t.Error("Failed to match parent of second daughter particle")
 	}
@@ -168,19 +170,19 @@ func TestRefDeref3(t *testing.T) {
 
 	eventOut := NewEvent()
 
-	MCParticles := &MCParticleCollection{}
+	MCParticles := &model.MCParticleCollection{}
 	if err := eventOut.Add(MCParticles, "MCParticles"); err != nil {
 		t.Error("Can't add MCParticles collection: ", err)
 	}
-	part1 := &MCParticle{PDG: 11}
+	part1 := &model.MCParticle{PDG: 11}
 	MCParticles.Entries = append(MCParticles.Entries, part1)
 
-	SimParticles := &MCParticleCollection{}
+	SimParticles := &model.MCParticleCollection{}
 	if err := eventOut.Add(SimParticles, "SimParticles"); err != nil {
 		t.Error("Can't add SimParticles collection: ", err)
 	}
-	part2 := &MCParticle{PDG: 11}
-	part3 := &MCParticle{PDG: 22}
+	part2 := &model.MCParticle{PDG: 11}
+	part3 := &model.MCParticle{PDG: 22}
 	SimParticles.Entries = append(SimParticles.Entries, part2, part3)
 
 	part1.Children = append(part1.Children, eventOut.Reference(part2), eventOut.Reference(part3))
@@ -201,23 +203,23 @@ func TestRefDeref3(t *testing.T) {
 		t.Error("Failed to get MCParticles collection")
 	}
 
-	part1_ := MCParticles_.GetEntry(0).(*MCParticle)
+	part1_ := MCParticles_.GetEntry(0).(*model.MCParticle)
 	if part1_.String() != part1.String() {
-		t.Error("Failed to match MCParticle")
+		t.Error("Failed to match model.MCParticle")
 	}
-	part2_ := eventOut.Dereference(part1_.Children[0]).(*MCParticle)
+	part2_ := eventOut.Dereference(part1_.Children[0]).(*model.MCParticle)
 	if part2_.String() != part2.String() {
 		t.Error("Failed to match first daughter particle")
 	}
-	part3_ := eventOut.Dereference(part1_.Children[1]).(*MCParticle)
+	part3_ := eventOut.Dereference(part1_.Children[1]).(*model.MCParticle)
 	if part2_.String() != part2.String() {
 		t.Error("Failed to match second daughter particle")
 	}
-	part1_ = eventOut.Dereference(part2_.Parents[0]).(*MCParticle)
+	part1_ = eventOut.Dereference(part2_.Parents[0]).(*model.MCParticle)
 	if part1_.String() != part1.String() {
 		t.Error("Failed to match parent of first daughter particle")
 	}
-	part1_ = eventOut.Dereference(part3_.Parents[0]).(*MCParticle)
+	part1_ = eventOut.Dereference(part3_.Parents[0]).(*model.MCParticle)
 	if part1_.String() != part1.String() {
 		t.Error("Failed to match parent of second daughter particle")
 	}
@@ -228,7 +230,7 @@ func TestRefDeref3(t *testing.T) {
 }
 
 type TruthRelation struct {
-	Truth *MCParticle
+	Truth *model.MCParticle
 	PNorm []float64
 	Eta   float64
 	P_T   float64
@@ -306,8 +308,8 @@ func tracking(reader *Reader, b *testing.B) {
 			break
 		}
 
-		truthColl := event.Get("MCParticle").(*MCParticleCollection)
-		trackColl := event.Get("Tracks").(*TrackCollection)
+		truthColl := event.Get("MCParticle").(*model.MCParticleCollection)
+		trackColl := event.Get("Tracks").(*model.TrackCollection)
 
 		// FIXME: boost back from crossing angle?
 

@@ -1,4 +1,4 @@
-package eicio
+package eicio // import "github.com/decibelcooper/eicio/go-eicio"
 
 import (
 	"bytes"
