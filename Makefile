@@ -5,7 +5,7 @@ COMMAND_PREFIX := singularity exec -C -H $(PWD) $(BUILD_IMAGE)
 
 GO_TARGET := go-eicio/model/eicio.pb.go
 CPP_TARGET := cpp-eicio/src/eicio/eicio.pb.h cpp-eicio/src/eicio/eicio.pb.cc
-PYTHON_TARGET := py-eicio/eicio/eicio_pb2.py
+PYTHON_TARGET := py-eicio/eicio/model/eicio_pb2.py
 
 TARGETS := $(GO_TARGET) $(CPP_TARGET) $(PYTHON_TARGET)
 
