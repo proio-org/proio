@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='eicio',
-      version='0.3',
+      version='0.4',
       description='Library for reading and writing EICIO files and streams',
       url='http://github.com/decibelcooper/eicio',
       author='David Blyth',
