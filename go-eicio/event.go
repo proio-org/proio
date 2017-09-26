@@ -246,9 +246,9 @@ func (evt *Event) getFromPayload(name string, unmarshal bool) Collection {
 		}
 
 		evt.collCache[name] = coll
+		evt.namesCached = append(evt.namesCached, name)
 	}
 
-	evt.namesCached = append(evt.namesCached, name)
 	evt.Header.PayloadCollections = append(evt.Header.PayloadCollections[:collIndex], evt.Header.PayloadCollections[collIndex+1:]...)
 	evt.payload = append(evt.payload[:offset], evt.payload[offset+size:]...)
 
