@@ -179,6 +179,9 @@ func (evt *Event) Dereference(ref *model.Reference) Message {
 				if refColl = evt.Get(collHdr.Name); refColl == nil {
 					return nil
 				}
+				if ref.EntryID == 0 {
+					return refColl
+				}
 				break
 			}
 		}
