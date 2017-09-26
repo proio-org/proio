@@ -6,8 +6,9 @@ COMMAND_PREFIX := singularity exec -C -H $(PWD) $(BUILD_IMAGE)
 GO_TARGET := go-eicio/model/eicio.pb.go
 CPP_TARGET := cpp-eicio/src/eicio/eicio.pb.h cpp-eicio/src/eicio/eicio.pb.cc
 PYTHON_TARGET := py-eicio/eicio/model/eicio_pb2.py
+JAVA_TARGET := java-eicio/src/main/java/eicio/Model.java
 
-TARGETS := $(GO_TARGET) $(CPP_TARGET) $(PYTHON_TARGET)
+TARGETS := $(GO_TARGET) $(CPP_TARGET) $(PYTHON_TARGET) $(JAVA_TARGET)
 
 .PHONY: all clean
 
@@ -31,3 +32,6 @@ $(CPP_TARGET): $(PROTO) $(BUILD_IMAGE)
 
 $(PYTHON_TARGET): $(PROTO) $(BUILD_IMAGE)
 	$(COMMAND_PREFIX) protoc --python_out=$(@D) $<
+
+$(JAVA_TARGET): $(PROTO) $(BUILD_IMAGE)
+	$(COMMAND_PREFIX) protoc --java_out=$(patsubst %/eicio/Model.java,%,$(JAVA_TARGET)) $<
