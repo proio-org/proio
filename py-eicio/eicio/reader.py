@@ -21,11 +21,11 @@ class Reader:
                 self.fileobj = open(filename, "rb")
 
     def close(self):
+        self.fileobj.close()
         try:
             self.fileobj.fileobj.close()
         except AttributeError:
             pass
-        self.fileobj.close()
 
     def __enter__(self):
         return self
