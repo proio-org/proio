@@ -3,7 +3,7 @@ import struct
 
 from .event import Event
 import eicio.model as model
-from .writer import magicBytes
+from .writer import magic_bytes
 
 class Reader:
     """Reader for eicio files, either gzip compressed or not"""
@@ -34,21 +34,21 @@ class Reader:
         self.close()
 
     def get(self):
-        n = self._syncToMagic()
+        n = self._sync_to_magic()
         if n < 4:
             return
         
         sizes = struct.unpack("II", self.fileobj.read(8))
-        headerSize = sizes[0]
-        payloadSize = sizes[1]
+        header_size = sizes[0]
+        payload_size = sizes[1]
 
-        headerString = self.fileobj.read(headerSize)
-        if len(headerString) != headerSize:
+        header_string = self.fileobj.read(header_size)
+        if len(header_string) != header_size:
             return
-        header = model.EventHeader.FromString(headerString)
+        header = model.EventHeader.FromString(header_string)
 
-        payload = self.fileobj.read(payloadSize)
-        if len(payload) != payloadSize:
+        payload = self.fileobj.read(payload_size)
+        if len(payload) != payload_size:
             return
 
         event = Event()
@@ -57,49 +57,49 @@ class Reader:
 
         return event
 
-    def getHeader(self):
-        n = self._syncToMagic()
+    def get_header(self):
+        n = self._sync_to_magic()
         if n < 4:
             return
         
         sizes = struct.unpack("II", self.fileobj.read(8))
-        headerSize = sizes[0]
-        payloadSize = sizes[1]
+        header_size = sizes[0]
+        payload_size = sizes[1]
 
-        headerString = self.fileobj.read(headerSize)
-        if len(headerString) != headerSize:
+        header_string = self.fileobj.read(header_size)
+        if len(header_string) != header_size:
             return
-        header = model.EventHeader.FromString(headerString)
+        header = model.EventHeader.FromString(header_string)
 
-        payload = self.fileobj.read(payloadSize)
-        if len(payload) != payloadSize:
+        payload = self.fileobj.read(payload_size)
+        if len(payload) != payload_size:
             return
 
         return header
 
-    def _syncToMagic(self):
-        nRead = 0
+    def _sync_to_magic(self):
+        n_read = 0
         while True:
-            magicByte = self.fileobj.read(1)
-            if len(magicByte) != 1:
+            magic_byte = self.fileobj.read(1)
+            if len(magic_byte) != 1:
                 return -1
-            nRead += 1
+            n_read += 1
 
-            if magicByte == magicBytes[0]:
+            if magic_byte == magic_bytes[0]:
                 goodSeq = True
                 for i in range(1, 4):
-                    magicByte = self.fileobj.read(1)
-                    if len(magicByte) != 1:
+                    magic_byte = self.fileobj.read(1)
+                    if len(magic_byte) != 1:
                         return -1
-                    nRead += 1
+                    n_read += 1
 
-                    if magicByte != magicBytes[i]:
+                    if magic_byte != magic_bytes[i]:
                         goodSeq = False
                         break
                 if goodSeq:
                     break
 
-        return nRead
+        return n_read
 
     def __iter__(self):
         return self
@@ -110,14 +110,14 @@ class Reader:
             raise StopIteration
         return event
 
-    def seekToStart(self):
+    def seek_to_start(self):
         if self.fileobj.seekable():
             self.fileobj.seek(0, 0)
 
-    def skip(self, nEvents):
-        nSkipped = 0
-        for i in range(0, nEvents):
-            n = self._syncToMagic()
+    def skip(self, n_events):
+        n_skipped = 0
+        for i in range(0, n_events):
+            n = self._sync_to_magic()
             if n < 4:
                 return
             
@@ -125,15 +125,15 @@ class Reader:
             size = sizes[0] + sizes[1]
 
             if self.fileobj.seekable():
-                currPos = self.fileobj.seek(0, 1)
-                postPos = self.fileobj.seek(size, 1)
-                if postPos - currPos != size:
-                    return nSkipped
+                curr_pos = self.fileobj.seek(0, 1)
+                post_pos = self.fileobj.seek(size, 1)
+                if post_pos - curr_pos != size:
+                    return n_skipped
             else:
                 string = self.fileobj.read(size)
                 if len(string) != size:
-                    return nSkipped
+                    return n_skipped
 
-            nSkipped += 1
+            n_skipped += 1
 
-        return nSkipped
+        return n_skipped
