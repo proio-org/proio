@@ -1,6 +1,6 @@
 package eicio;
 
-import java.io.IOException;
+import com.google.protobuf.Message;
 
 public class List
 {
@@ -11,24 +11,17 @@ public class List
 			return;
 		}
 
-		Reader reader = null;
 		try {
+			Reader reader = null;
 			reader = new Reader(args[0]);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 
-		if (reader != null) {
-			try {
-				reader.get();
-			} catch (IOException e) {
-				e.printStackTrace();
+			if (reader != null) {
+					Event event = reader.get();
+					event.get("MCParticle");
 			}
-		}
 
-		try {
 			reader.close();
-		} catch (IOException e) {
+		} catch (Throwable e) {
 			e.printStackTrace();
 		}
     }
