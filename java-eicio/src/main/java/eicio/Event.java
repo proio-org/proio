@@ -30,6 +30,17 @@ public class Event
 		this.payload = payload;
 	}
 
+	public List<String> getNames() {
+		List<String> names = new ArrayList<String>();
+
+		for (Model.EventHeader.CollectionHeader collHdr : header.getPayloadCollectionsList())
+			names.add(collHdr.getName());
+		for (String collName : collCache.keySet())
+			names.add(collName);
+
+		return names;
+	}
+
 	public Message get(String name)
 			throws ClassNotFoundException,
 			InstantiationException,
@@ -39,6 +50,55 @@ public class Event
 		if (coll != null) return coll;
 
 		return getFromPayload(name, true);
+	}
+
+	public Message dereference(Model.Reference ref)
+			throws ClassNotFoundException,
+			InstantiationException,
+			InvalidProtocolBufferException,
+			IllegalAccessException {
+		Message refColl = null;
+		for (Message coll : collCache.values()) {
+			Descriptors.Descriptor desc = coll.getDescriptorForType();
+			Descriptors.FieldDescriptor idFieldDesc = desc.findFieldByName("id");
+			if (idFieldDesc == null) continue;
+			int collID = (Integer)coll.getField(idFieldDesc);
+
+			if (collID == ref.getCollID()) {
+				refColl = coll;
+				if (ref.getEntryID() == 0) return refColl;
+				break;
+			}
+		}
+		if (refColl == null) {
+			for (Model.EventHeader.CollectionHeader collHdr : header.getPayloadCollectionsList()) {
+				if (collHdr.getId() == ref.getCollID()) {
+					refColl = get(collHdr.getName());
+					if (ref.getEntryID() == 0) return refColl;
+					break;
+				}
+			}
+		}
+		if (refColl == null) return null;
+
+		Descriptors.Descriptor desc = refColl.getDescriptorForType();
+		Descriptors.FieldDescriptor entriesFieldDesc = desc.findFieldByName("entries");
+		if (entriesFieldDesc == null) return null;
+
+		int entryCount = refColl.getRepeatedFieldCount(entriesFieldDesc);
+		for (int i = 0; i < entryCount; i++) {
+			Message entry = (Message)refColl.getRepeatedField(entriesFieldDesc, i);
+
+			Descriptors.Descriptor entryDesc = entry.getDescriptorForType();
+			Descriptors.FieldDescriptor entryIDFieldDesc = entryDesc.findFieldByName("id");
+			if (entryIDFieldDesc == null) continue;
+			int entryID = (Integer)entry.getField(entryIDFieldDesc);
+
+			if (entryID == ref.getEntryID())
+				return entry;
+		}
+
+		return null;
 	}
 
 	private Message getFromPayload(String name, boolean unmarshal)
