@@ -24,6 +24,13 @@ public class Ls
 			for (Event event : reader) {
 				for (String collName : event.getNames()) {
 					Message coll = event.get(collName);
+
+					// Begin recursive introspection.  This is complex because
+					// it is a general application.  For specific applications,
+					// type casting to known types can readily replace
+					// introspection.
+					
+					// Get collection descriptor and known collection field descriptors
 					Descriptors.Descriptor desc = coll.getDescriptorForType();
 
 					Descriptors.FieldDescriptor idFieldDesc = desc.findFieldByName("id");
@@ -31,19 +38,23 @@ public class Ls
 					Descriptors.FieldDescriptor paramsFieldDesc = desc.findFieldByName("params");
 					Descriptors.FieldDescriptor entriesFieldDesc = desc.findFieldByName("entries");
 
+					// Get known collection field values
 					int collID = (Integer)coll.getField(idFieldDesc);
 					int collFlags = (Integer)coll.getField(flagsFieldDesc);
 					Model.Params collParams = (Model.Params)coll.getField(paramsFieldDesc);
 
+					// Print known collection field values
 					System.out.println("collName: " + collName);
 					System.out.println("collID: " + Integer.toString(collID));
 					System.out.println("collFlags: " + Integer.toString(collFlags));
 					System.out.println("collParams:" + getMessageString(collParams).replaceAll("\n", "\n\t"));
 
+					// Loop over collection entries
 					int nEntries = coll.getRepeatedFieldCount(entriesFieldDesc);
 					System.out.print("entries (" + Integer.toString(nEntries) + "):");
 					for (int i = 0; i < nEntries; i++) {
 						Message entry = (Message)coll.getRepeatedField(entriesFieldDesc, i);
+						// Generate and print arbitrary entry message information
 						System.out.println(getMessageString(entry).replaceAll("\n", "\n\t"));
 					}
 				}
@@ -55,6 +66,7 @@ public class Ls
 		}
     }
 
+	// Performs heavy lifting for collection entry introspection
 	private static String getMessageString(Message msg) {
 		String returnString = "";
 
@@ -82,6 +94,7 @@ public class Ls
 		return returnString;
 	}
 
+	// Performs heavy lifting for collection entry introspection
 	private static String getFieldValueString(Descriptors.FieldDescriptor field, Object value) {
 		String returnString = "";
 
