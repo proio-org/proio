@@ -1154,9 +1154,9 @@ void AddDescriptorsImpl() {
         ".model.Reference\022\016\n\006weight\030\004 \001(\002\"|\n\022Rela"
         "tionCollection\022\n\n\002id\030\001 \001(\r\022\r\n\005flags\030\002 \001("
         "\r\022#\n\006params\030\003 \001(\0132\023.eicio.model.Params\022&"
-        "\n\007entries\030\004 \003(\0132\025.eicio.model.RelationB\007"
-        "Z\005modelb\006proto3"};
-    ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(descriptor, 6575);
+        "\n\007entries\030\004 \003(\0132\025.eicio.model.RelationB\025"
+        "\n\005eicioB\005ModelZ\005modelb\006proto3"};
+    ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(descriptor, 6589);
     ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile("eicio.proto", &protobuf_RegisterTypes);
     ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
 }

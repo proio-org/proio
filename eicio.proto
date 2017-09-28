@@ -1,6 +1,8 @@
 syntax = "proto3";
 package eicio.model;
 option go_package = "model";
+option java_package = "eicio";
+option java_outer_classname = "Model";
 
 // Warning: do not change EventHeader's fields without understanding how the
 // changes affect the EICIO libraries.  Any field may be added without affecting
