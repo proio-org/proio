@@ -66,10 +66,9 @@ func main() {
 
 	nEventsRead := 0
 
-	var event *eicio.Event
-	for event, err = reader.Get(); event != nil; event, err = reader.Get() {
-		if err != nil {
-			log.Print(err)
+	for event := range reader.Events() {
+		if reader.Err != nil {
+			log.Print(reader.Err)
 		}
 
 		fmt.Print(event)
@@ -80,7 +79,7 @@ func main() {
 		}
 	}
 
-	if (err != nil && err != io.EOF) || nEventsRead == 0 {
-		log.Print(err)
+	if (reader.Err != nil && reader.Err != io.EOF) || nEventsRead == 0 {
+		log.Print(reader.Err)
 	}
 }
