@@ -1,5 +1,7 @@
 # Installing
-Py-proio is maintained on [pipy](https://pypi.python.org/pypi/proio).  The package can be installed via `pip`:
+Py-proio is maintained on [pipy](https://pypi.python.org/pypi/proio).  The
+python `protobuf` package is a prerequisite.  The package can be installed via
+`pip`:
 ```shell
 pip install --user proio
 ```
