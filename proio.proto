@@ -64,9 +64,10 @@ message ParticleID {
 	repeated float params = 5;
 }
 
-// Data model messages.  Each message type must be accompanied by one with the
-// identical name suffixed with Collection.  Both message and it's colleciton
-// message must have the field "id"
+// DATA MODEL MESSAGES
+// Each message type must be accompanied by one with the identical name
+// suffixed with Collection with an "entries" field.  Both message and it's
+// colleciton message must have the field "id".
 
 message MCParticle {
 	uint32 id = 1;
