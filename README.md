@@ -329,7 +329,9 @@ Anything below this comment can be modified within a few simple rules:
 3. For collection type MsgCollection, there must be a `repeated Msg entries`
    field assigned any number.
 Other than the above rules, anything goes.  Any number of message and
-collection types may be defined.
+collection types may be defined.  Please see the [Protobuf Language
+Guide](https://developers.google.com/protocol-buffers/docs/proto3) for details
+on the syntax.
 
 ## Generating the code after modifying the model
 Any time [proio.proto](proio.proto) is modified, the language-specific code
@@ -347,3 +349,20 @@ place the layers into a single image file called `proio-gen.img` that is twice
 as large (i.e. over 2 GiB).  Please make sure you have the space before calling
 `make`.  Once the image is created, a container will automatically be run to
 generate each piece of data model code for the different languages.
+
+## Backwards and forwards compatibility
+It is important to understand a little bit about how Protobuf works to
+understand what changes can be made to the data model that maintain
+compatibility with other versions of the code.  Please see the Protobuf
+documentation for details, but here are some important things to note:
+* New fields can be added without breaking forwards or backwards compatibility
+  as long as new unique field numbers are used.  This is because Protobuf will
+  ignore unknown fields, and (staring with Protobuf 3) all fields are optional.
+* Fields can be removed from the data model for the same reason.  It is
+  important, however, to never reuse the field number or name of the removed
+  field.  In order to enforce this, the [reserved
+  tag](https://developers.google.com/protocol-buffers/docs/proto3#reserved)
+  should be use.
+* For the space-conscious, field numbers should be used wisely.  The reason is
+  that field numbers between 1 and 15 take one byte to identify, while larger
+  field numbers must be identified with at least two bytes.
