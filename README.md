@@ -316,3 +316,34 @@ int main(int argc, const char **argv) {
     return EXIT_SUCCESS;
 }
 ```
+
+# Modifying the data model
+The data model is described in the [proio.proto](proio.proto) files.  At the
+top of the file is the description of some messages that are needed for the
+thin libraries.  Scroll down until you see the comment `Data model messages`.
+Anything below this comment can be modified within a few simple rules:
+1. For message type Msg, there must be a corresponding collection type named
+   MsgCollection.
+2. Every message type and collection type must have a `uint32 id` field
+   assigned any number.
+3. For collection type MsgCollection, there must be a `repeated Msg entries`
+   field assigned any number.
+Other than the above rules, anything goes.  Any number of message and
+collection types may be defined.
+
+## Generating the code after modifying the model
+Any time [proio.proto](proio.proto) is modified, the language-specific code
+that describes the data model must be regenerated.  For consistency, and
+because there are four different languages to generate, the code generation is
+done inside a container.  In particular, we use a
+[Singularity](http://singularity.lbl.gov/) container.  In order to generate the
+code, Singularity 2.3+ must be installed on your computer.  Once it is
+installed, simply:
+```shell
+make
+```
+This will download over 1 GiB of container image layers from Docker Hub, and
+place the layers into a single image file called `proio-gen.img` that is twice
+as large (i.e. over 2 GiB).  Please make sure you have the space before calling
+`make`.  Once the image is created, a container will automatically be run to
+generate each piece of data model code for the different languages.
