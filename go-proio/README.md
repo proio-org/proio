@@ -11,5 +11,5 @@ go get install github.com/decibelcooper/proio/go-proto/...
 
 # Examples
 Please see [the main readme](../README.md) as well as
-[example_pushGetInspect_test.go](example_pushGetInspect_test.go) as well as the
-source code for the tools in the subdirectories.
+[example_pushGetInspect_test.go](example_pushGetInspect_test.go) and the source
+code for the tools in the subdirectories.
