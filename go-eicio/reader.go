@@ -12,6 +12,7 @@ import (
 )
 
 type Reader struct {
+	Err                error
 	byteReader         io.Reader
 	deferredUntilClose []func() error
 }
@@ -157,7 +158,22 @@ func (rdr *Reader) Get() (*Event, error) {
 		err = ErrResync
 	}
 
+	rdr.Err = err
 	return event, err
+}
+
+//Events returns a channel of type Event where all of the events in the stream
+//will be pushed.  For error checking in this iteration scheme, check
+//Reader.Err.
+func (rdr *Reader) Events() <-chan *Event {
+	events := make(chan *Event)
+	go func() {
+		for event, _ := rdr.Get(); event != nil; event, _ = rdr.Get() {
+			events <- event
+		}
+		close(events)
+	}()
+	return events
 }
 
 // Get the next Header only from the stream, and seek past the collection
