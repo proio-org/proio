@@ -334,7 +334,7 @@ int main(int argc, const char **argv) {
 ```
 
 # Modifying the data model
-The data model is described in the [proio.proto](proio.proto) files.  At the
+The data model is described in the [proio.proto](proio.proto) file.  At the
 top of the file is the description of some messages that are needed for the
 thin libraries.  Scroll down until you see the comment `DATA MODEL MESSAGES`.
 Anything below this comment can be modified within a few simple rules:
