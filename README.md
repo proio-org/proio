@@ -78,6 +78,20 @@ different type.  The thin language-specific libraries each provide a type
 called Event which provides methods for adding, removing, and retrieving
 collections from the payload.
 
+## Referencing
+Another key feature of proio is referencing.  This is a concept taken from
+[LCIO](https://github.com/iLCSoft/LCIO) where persistent references to any
+collection or collection entry can be stored in another.  This is implemented
+in the thin language-specific libraries with Reference() and Dereference()
+methods.  These methods are associated with the event, which keeps track of the
+number of unique identifiers.  The Reference() methods will take a collection
+or entry as an argument and return a Reference type object, which is a message
+described in [proio.proto](proio.proto).  Conversely, Dereference() will take a
+Reference type object and return the collection or entry that the Reference
+points to.  One example of this can be found at the top of the go-proio API
+documentation:
+[![GoDoc](https://godoc.org/github.com/decibelcooper/proio/go-proio?status.svg)](https://godoc.org/github.com/decibelcooper/proio/go-proio)
+
 # Getting started
 ## Command-line tools
 Tools are specific to each language implementation.  However, most tools will
