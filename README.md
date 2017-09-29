@@ -178,6 +178,8 @@ int main(int argc, const char **argv) {
 
         proio::model::MCParticle mcPart = mcColl->entries(0);
         std::cout << mcPart.DebugString() << std::endl;
+
+		delete event;
     }
 
     delete reader;
@@ -216,9 +218,101 @@ public class Read
 
 ## Write examples
 ### Go
+```go
+package main
 
+import (
+    "log"
+
+    "github.com/decibelcooper/proio/go-proio"
+    "github.com/decibelcooper/proio/go-proio/model"
+)
+
+func main() {
+    writer, err := proio.Create("test.proio.gz")
+    if err != nil {
+        log.Fatal(err)
+    }
+    defer writer.Close()
+
+    event := proio.NewEvent()
+    mcColl := &model.MCParticleCollection{}
+    event.Add(mcColl, "MCParticle")
+
+    parent := &model.MCParticle{}
+    parent.PDG = 443
+    mcColl.Entries = append(mcColl.Entries, parent)
+
+    child1 := &model.MCParticle{}
+    child1.PDG = 11
+    child2 := &model.MCParticle{}
+    child2.PDG = -11
+    mcColl.Entries = append(mcColl.Entries, child1, child2)
+
+    parent.Children = append(parent.Children, event.Reference(child1), event.Reference(child2))
+    child1.Parents = append(child1.Children, event.Reference(parent))
+    child2.Parents = append(child2.Children, event.Reference(parent))
+
+    writer.Push(event)
+}
+```
 ### Python
+```python
+import proio
+import proio.model as model
 
+with proio.Writer("test.proio.gz") as writer:
+    event = proio.Event()
+    mc_coll = model.MCParticleCollection()
+    event.add(mc_coll, "MCParticle")
+
+    parent = mc_coll.entries.add()
+    parent.PDG = 443
+
+    child1 = mc_coll.entries.add()
+    child1.PDG = 11
+    child2 = mc_coll.entries.add()
+    child2.PDG = -11
+
+    parent.children.extend([event.reference(child1), event.reference(child2)])
+    child1.parents.extend([event.reference(parent)])
+    child2.parents.extend([event.reference(parent)])
+
+    writer.push(event)
+```
 ### C++
+```cpp
+#include <iostream>
 
-### Java
+#include "proio/event.h"
+#include "proio/proio.pb.h"
+#include "proio/writer.h"
+
+int main(int argc, const char **argv) {
+    auto writer = new proio::Writer("test.proio.gz");
+
+    auto event = new proio::Event();
+    auto mcColl = new proio::model::MCParticleCollection();
+    event->Add(mcColl, "MCParticle");
+
+    proio::model::MCParticle *parent = mcColl->add_entries();
+    parent->set_pdg(443);
+
+    proio::model::MCParticle *child1 = mcColl->add_entries();
+    child1->set_pdg(11);
+    proio::model::MCParticle *child2 = mcColl->add_entries();
+    child2->set_pdg(-11);
+
+    event->Reference(child1, parent->add_children());
+    event->Reference(child2, parent->add_children());
+    event->Reference(parent, child1->add_parents());
+    event->Reference(parent, child2->add_parents());
+
+    writer->Push(event);
+
+    delete event;
+
+    delete writer;
+    return EXIT_SUCCESS;
+}
+```
