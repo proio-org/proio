@@ -115,12 +115,104 @@ proio-summary cleanCut.proio.gz
 
 ## Read examples
 ### Go
+```go
+package main
+  
+import (
+    "fmt"
+    "log"
 
+    "github.com/decibelcooper/proio/go-proio"
+    "github.com/decibelcooper/proio/go-proio/model"
+)
+
+func main() {
+    reader, err := proio.Open("samples/smallSample.proio.gz")
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    for event := range reader.Events() {
+        if reader.Err != nil {
+            log.Println(reader.Err)
+        }
+
+        mcColl := event.Get("MCParticle").(*model.MCParticleCollection)
+        if mcColl == nil || len(mcColl.Entries) < 1 {
+            continue
+        }
+
+        mcPart := mcColl.Entries[0]
+        fmt.Println(mcPart)
+    }
+}
+```
 ### Python
+```python
+import proio
+  
+with proio.Reader("samples/smallSample.proio.gz") as reader:
+    for event in reader:
+        mc_coll = event.get("MCParticle")
+        if mc_coll == None or len(mc_coll.entries) < 1:
+            continue
 
+        mc_part = mc_coll.entries[0]
+        print(mc_part)
+```
 ### C++
+```cpp
+#include <iostream>
 
+#include "proio/event.h"
+#include "proio/proio.pb.h"
+#include "proio/reader.h"
+
+int main(int argc, const char **argv) {
+    auto reader = new proio::Reader("samples/smallSample.proio.gz");
+
+    proio::Event *event;
+    while ((event = reader->Get()) != NULL) {
+        auto mcColl = (proio::model::MCParticleCollection *)event->Get("MCParticle");
+        if (mcColl == NULL || mcColl->entries_size() < 1) continue;
+
+        proio::model::MCParticle mcPart = mcColl->entries(0);
+        std::cout << mcPart.DebugString() << std::endl;
+    }
+
+    delete reader;
+    return EXIT_SUCCESS;
+}
+```
 ### Java
+```java
+import proio.Event;
+import proio.Model;
+import proio.Reader;
+
+public class Read
+{
+    public static void main( String[] args )
+    {
+        try {
+            Reader reader = new Reader("samples/smallSample.proio.gz");
+            if (reader == null) return;
+
+            for (Event event : reader) {
+                Model.MCParticleCollection mcColl = (Model.MCParticleCollection) event.get("MCParticle");
+                if (mcColl == null || mcColl.getEntriesCount() < 1) continue;
+
+                Model.MCParticle mcPart = mcColl.getEntries(0);
+                System.out.println(mcPart);
+            }
+
+            reader.close();
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
 
 ## Write examples
 ### Go
