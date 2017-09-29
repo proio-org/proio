@@ -195,7 +195,7 @@ int main(int argc, const char **argv) {
         proio::model::MCParticle mcPart = mcColl->entries(0);
         std::cout << mcPart.DebugString() << std::endl;
 
-		delete event;
+	delete event;
     }
 
     delete reader;
