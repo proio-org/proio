@@ -236,7 +236,7 @@ public class Read
 ### Go
 ```go
 package main
-
+  
 import (
     "log"
 
@@ -255,14 +255,11 @@ func main() {
     mcColl := &model.MCParticleCollection{}
     event.Add(mcColl, "MCParticle")
 
-    parent := &model.MCParticle{}
-    parent.PDG = 443
+    parent := &model.MCParticle{PDG: 443}
     mcColl.Entries = append(mcColl.Entries, parent)
 
-    child1 := &model.MCParticle{}
-    child1.PDG = 11
-    child2 := &model.MCParticle{}
-    child2.PDG = -11
+    child1 := &model.MCParticle{PDG: 11}
+    child2 := &model.MCParticle{PDG: -11}
     mcColl.Entries = append(mcColl.Entries, child1, child2)
 
     parent.Children = append(parent.Children, event.Reference(child1), event.Reference(child2))
