@@ -1,5 +1,4 @@
 # What is proio?
-
 Proio is a language-neutral IO scheme for medium- and high-energy physics.  In
 order to be language-neutral, proio leverages Google's Protobuf compiler and
 associated libraries in various languages.  The Protobuf compiler generates
@@ -19,7 +18,6 @@ data model from scratch.  The core data model is based on
 [LCIO](https://github.com/iLCSoft/LCIO).
 
 # Data structure
-
 Proio is a stream-oriented IO.  Data are organized into events, and a proio
 stream is simply one serialized event followed by another.  A proio file
 (`*.proio` or `*.proio.gz`) is no different than a proio stream, except that it
@@ -81,4 +79,54 @@ called Event which provides methods for adding, removing, and retrieving
 collections from the payload.
 
 # Getting started
-## 
+## Command-line tools
+Tools are specific to each language implementation.  However, most tools will
+continue to be written in go, and there are already a few useful ones.  Let's
+try out a few.  First, make sure you have the go compiler installed on your
+system, and make sure your GOPATH and PATH environment variables are set up
+appropriately to effectively use `go get`.  A typical configuration is to set
+`GOPATH=$HOME` and `PATH=$GOPATH/bin:$PATH`.  Then, let's grab and install the
+proio package:
+```shell
+go get github.com/decibelcooper/proio/go-proio/...
+```
+And then we can play around with manipulating the [sample files](samples/)...
+### Summarize and dump
+```shell
+proio-summary samples/smallSample.proio
+proio-ls samples/smallSample.proio | less
+```
+### Strip
+```shell
+proio-strip samples/smallSample.proio MCParticle BeamCalHits | proio-summary -
+proio-strip -k samples/smallSample.proio MCParticle BeamCalHits | proio-summary -
+```
+### Concat
+```shell
+cp samples/smallSample.proio.gz tmp.proio.gz
+cat samples/smallSample.proio.gz tmp.proio.gz | proio-summary -g -
+```
+### Cut
+```shell
+dd if=samples/smallSample.proio of=roughCut.proio bs=500K count=1
+proio-strip -o cleanCut.proio.gz roughCut.proio
+proio-summary cleanCut.proio.gz
+```
+
+## Read examples
+### Go
+
+### Python
+
+### C++
+
+### Java
+
+## Write examples
+### Go
+
+### Python
+
+### C++
+
+### Java
