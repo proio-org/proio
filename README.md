@@ -1,5 +1,7 @@
 # What is proio?
-Proio is a language-neutral IO scheme for medium- and high-energy physics.  In
+Proio is a language-neutral IO scheme for medium- and high-energy physics.  It was
+born from an exploratory project at Argonne National Laboratory called
+[eicio](https://github.com/decibelcooper/eicio).  In
 order to be language-neutral, proio leverages Google's Protobuf compiler and
 associated libraries in various languages.  The Protobuf compiler generates
 code in each language to be used that represents the data model described in
