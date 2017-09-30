@@ -6,7 +6,7 @@ API documentation is provided by godoc.org
 # Installing
 go-proio is `go get`-able.  Make sure you have go installed and `GOPATH` set up (described in [the main readme](../README.md)):
 ```shell
-go get install github.com/decibelcooper/proio/go-proto/...
+go get install github.com/decibelcooper/proio/go-proio/...
 ```
 
 # Examples
