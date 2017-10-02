@@ -66,7 +66,7 @@ func main() {
 
 	nEventsRead := 0
 
-	for event := range reader.Events() {
+	for event := range reader.ScanEvents() {
 		if reader.Err != nil {
 			log.Print(reader.Err)
 		}
@@ -75,6 +75,7 @@ func main() {
 
 		nEventsRead++
 		if singleEvent {
+			reader.StopScan()
 			break
 		}
 	}

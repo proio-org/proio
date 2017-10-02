@@ -148,7 +148,7 @@ func main() {
         log.Fatal(err)
     }
 
-    for event := range reader.Events() {
+    for event := range reader.ScanEvents() {
         if reader.Err != nil {
             log.Println(reader.Err)
         }
