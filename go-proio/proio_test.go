@@ -301,12 +301,9 @@ func BenchmarkTrackingLCIO(b *testing.B) {
 }
 
 func tracking(reader *Reader, b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		event, err := reader.Get()
-		if err != nil {
-			b.N = i
-			break
-		}
+	b.N = 0
+	for event := range reader.ScanEvents() {
+		b.N++
 
 		truthColl := event.Get("MCParticle").(*model.MCParticleCollection)
 		trackColl := event.Get("Tracks").(*model.TrackCollection)

@@ -7,14 +7,18 @@ import (
 	"io"
 	"os"
 	"strings"
+	"sync"
 
 	"github.com/decibelcooper/proio/go-proio/model"
 )
 
 type Reader struct {
-	Err                error
-	byteReader         io.Reader
-	deferredUntilClose []func() error
+	Err                   chan error
+	EventScanBufferSize   int
+	byteReader            io.Reader
+	deferredUntilClose    []func() error
+	deferredUntilStopScan []func()
+	getMutex              sync.Mutex
 }
 
 // Opens a file and adds the file as an io.Reader to a new Reader that is
@@ -44,11 +48,14 @@ func Open(filename string) (*Reader, error) {
 
 // Closes anything created by Open() or NewGzipReader()
 func (rdr *Reader) Close() error {
+	rdr.StopScan()
 	for _, thisFunc := range rdr.deferredUntilClose {
 		if err := thisFunc(); err != nil {
 			return err
 		}
 	}
+	close(rdr.Err)
+
 	return nil
 }
 
@@ -59,7 +66,9 @@ func (rdr *Reader) deferUntilClose(thisFunc func() error) {
 // Returns a new Reader for reading events from a stream
 func NewReader(byteReader io.Reader) *Reader {
 	return &Reader{
-		byteReader: byteReader,
+		byteReader:          byteReader,
+		Err:                 make(chan error, 100),
+		EventScanBufferSize: 100,
 	}
 }
 
@@ -116,10 +125,13 @@ var (
 	ErrTruncated = errors.New("data stream is truncated early")
 )
 
-// Returns the next even upon success.  If the data stream is not aligned with
-// the beginning of an event, the stream will be resynchronized to the next
-// event, and ErrResync will be returned along with the event.
+// Get() returns the next even upon success.  If the data stream is not aligned
+// with the beginning of an event, the stream will be resynchronized to the
+// next event, and ErrResync will be returned along with the event.
 func (rdr *Reader) Get() (*Event, error) {
+	rdr.getMutex.Lock()
+	defer rdr.getMutex.Unlock()
+
 	n, err := rdr.syncToMagic()
 	if err != nil {
 		return nil, err
@@ -158,28 +170,69 @@ func (rdr *Reader) Get() (*Event, error) {
 		err = ErrResync
 	}
 
-	rdr.Err = err
 	return event, err
 }
 
-//Events returns a channel of type Event where all of the events in the stream
-//will be pushed.  For error checking in this iteration scheme, check
-//Reader.Err.
-func (rdr *Reader) Events() <-chan *Event {
-	events := make(chan *Event)
+//ScanEvents returns a buffered channel of type Event where all of the events
+//in the stream will be pushed.  The channel buffer size is defined by
+//Reader.EventScanBufferSize which defaults to 100.  The goroutine responsible
+//for fetching events will not break until there are no more events,
+//Reader.StopScan() is called, or Reader.Close() is called.  In this scenario,
+//errors are pushed to the Reader.Err channel.
+func (rdr *Reader) ScanEvents() <-chan *Event {
+	events := make(chan *Event, rdr.EventScanBufferSize)
+	quit := make(chan int)
+
 	go func() {
-		for event, _ := rdr.Get(); event != nil; event, _ = rdr.Get() {
-			events <- event
+		defer close(events)
+		for {
+			event, err := rdr.Get()
+			if err != nil {
+				select {
+				case rdr.Err <- err:
+				default:
+				}
+			}
+			if event == nil {
+				return
+			}
+
+			select {
+			case events <- event:
+			case <-quit:
+				return
+			}
 		}
-		close(events)
 	}()
+
+	rdr.deferUntilStopScan(
+		func() {
+			close(quit)
+		},
+	)
+
 	return events
+}
+
+func (rdr *Reader) deferUntilStopScan(thisFunc func()) {
+	rdr.deferredUntilStopScan = append(rdr.deferredUntilStopScan, thisFunc)
+}
+
+// StopScan stops all scans initiated by Reader.ScanEvents()
+func (rdr *Reader) StopScan() {
+	for _, thisFunc := range rdr.deferredUntilStopScan {
+		thisFunc()
+	}
+	rdr.deferredUntilStopScan = make([]func(), 0)
 }
 
 // Get the next Header only from the stream, and seek past the collection
 // payload if possible.  This is useful for parsing the metadata of a file or
 // stream.
 func (rdr *Reader) GetHeader() (*model.EventHeader, error) {
+	rdr.getMutex.Lock()
+	defer rdr.getMutex.Unlock()
+
 	n, err := rdr.syncToMagic()
 	if err != nil {
 		return nil, err
@@ -223,11 +276,15 @@ func (rdr *Reader) GetHeader() (*model.EventHeader, error) {
 		err = nil
 	}
 
+	rdr.getMutex.Unlock()
 	return header, err
 }
 
 // Skip the next nEvents events
 func (rdr *Reader) Skip(nEvents int) (int, error) {
+	rdr.getMutex.Lock()
+	defer rdr.getMutex.Unlock()
+
 	seeker, isSeeker := rdr.byteReader.(io.Seeker)
 	wasResynced := false
 
@@ -280,6 +337,9 @@ var ErrNotSeekable = errors.New("data stream is not seekable")
 // If the stream implements io.Seeker (typically a file), reset back to the
 // beginning of the file.
 func (rdr *Reader) SeekToStart() error {
+	rdr.getMutex.Lock()
+	defer rdr.getMutex.Unlock()
+
 	seeker, ok := rdr.byteReader.(io.Seeker)
 	if !ok {
 		return ErrNotSeekable
@@ -294,6 +354,7 @@ func (rdr *Reader) SeekToStart() error {
 			break
 		}
 	}
+
 	return nil
 }
 
