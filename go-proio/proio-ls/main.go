@@ -67,10 +67,6 @@ func main() {
 	nEventsRead := 0
 
 	for event := range reader.ScanEvents() {
-		if reader.Err != nil {
-			log.Print(reader.Err)
-		}
-
 		fmt.Print(event)
 
 		nEventsRead++
@@ -80,7 +76,15 @@ func main() {
 		}
 	}
 
-	if (reader.Err != nil && reader.Err != io.EOF) || nEventsRead == 0 {
-		log.Print(reader.Err)
+errLoop:
+	for {
+		select {
+		case err := <-reader.Err:
+			if err != io.EOF || nEventsRead == 0 {
+				log.Print(err)
+			}
+		default:
+			break errLoop
+		}
 	}
 }

@@ -13,7 +13,7 @@ import (
 )
 
 type Reader struct {
-	Err                   error
+	Err                   chan error
 	EventScanBufferSize   int
 	byteReader            io.Reader
 	deferredUntilClose    []func() error
@@ -49,12 +49,13 @@ func Open(filename string) (*Reader, error) {
 // Closes anything created by Open() or NewGzipReader()
 func (rdr *Reader) Close() error {
 	rdr.StopScan()
-
 	for _, thisFunc := range rdr.deferredUntilClose {
 		if err := thisFunc(); err != nil {
 			return err
 		}
 	}
+	close(rdr.Err)
+
 	return nil
 }
 
@@ -66,6 +67,7 @@ func (rdr *Reader) deferUntilClose(thisFunc func() error) {
 func NewReader(byteReader io.Reader) *Reader {
 	return &Reader{
 		byteReader:          byteReader,
+		Err:                 make(chan error, 100),
 		EventScanBufferSize: 100,
 	}
 }
@@ -123,9 +125,9 @@ var (
 	ErrTruncated = errors.New("data stream is truncated early")
 )
 
-// Returns the next even upon success.  If the data stream is not aligned with
-// the beginning of an event, the stream will be resynchronized to the next
-// event, and ErrResync will be returned along with the event.
+// Get() returns the next even upon success.  If the data stream is not aligned
+// with the beginning of an event, the stream will be resynchronized to the
+// next event, and ErrResync will be returned along with the event.
 func (rdr *Reader) Get() (*Event, error) {
 	rdr.getMutex.Lock()
 	defer rdr.getMutex.Unlock()
@@ -168,8 +170,6 @@ func (rdr *Reader) Get() (*Event, error) {
 		err = ErrResync
 	}
 
-	rdr.Err = err
-
 	return event, err
 }
 
@@ -177,8 +177,8 @@ func (rdr *Reader) Get() (*Event, error) {
 //in the stream will be pushed.  The channel buffer size is defined by
 //Reader.EventScanBufferSize which defaults to 100.  The goroutine responsible
 //for fetching events will not break until there are no more events,
-//Reader.StopScan() is called, or Reader.Close() is called.  For error checking
-//in this iteration scheme, check Reader.Err.
+//Reader.StopScan() is called, or Reader.Close() is called.  In this scenario,
+//errors are pushed to the Reader.Err channel.
 func (rdr *Reader) ScanEvents() <-chan *Event {
 	events := make(chan *Event, rdr.EventScanBufferSize)
 	quit := make(chan int)
@@ -186,10 +186,17 @@ func (rdr *Reader) ScanEvents() <-chan *Event {
 	go func() {
 		defer close(events)
 		for {
-			event, _ := rdr.Get()
+			event, err := rdr.Get()
+			if err != nil {
+				select {
+				case rdr.Err <- err:
+				default:
+				}
+			}
 			if event == nil {
 				return
 			}
+
 			select {
 			case events <- event:
 			case <-quit:

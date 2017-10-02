@@ -149,10 +149,6 @@ func main() {
     }
 
     for event := range reader.ScanEvents() {
-        if reader.Err != nil {
-            log.Println(reader.Err)
-        }
-
         mcColl := event.Get("MCParticle").(*model.MCParticleCollection)
         if mcColl == nil || len(mcColl.Entries) < 1 {
             continue

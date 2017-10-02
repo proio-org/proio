@@ -12,10 +12,10 @@ import (
 )
 
 var (
-	outFile = flag.String("o", "", "file to save output to")
-	keep = flag.Bool("k", false, "keep only the specified collections, rather than stripping them away")
+	outFile    = flag.String("o", "", "file to save output to")
+	keep       = flag.Bool("k", false, "keep only the specified collections, rather than stripping them away")
 	decompress = flag.Bool("d", false, "decompress the stdin input with gzip")
-	compress = flag.Bool("c", false, "compress the stdout output with gzip")
+	compress   = flag.Bool("c", false, "compress the stdout output with gzip")
 )
 
 func printUsage() {
@@ -78,10 +78,6 @@ func main() {
 	nEventsRead := 0
 
 	for event := range reader.ScanEvents() {
-		if reader.Err != nil {
-			log.Print(reader.Err)
-		}
-
 		for _, collName := range event.GetNames() {
 			if *keep {
 				keepThis := false
@@ -110,7 +106,15 @@ func main() {
 		nEventsRead++
 	}
 
-	if (reader.Err != nil && reader.Err != io.EOF) || nEventsRead == 0 {
-		log.Print(reader.Err)
+errLoop:
+	for {
+		select {
+		case err := <-reader.Err:
+			if err != io.EOF || nEventsRead == 0 {
+				log.Print(err)
+			}
+		default:
+			break errLoop
+		}
 	}
 }
