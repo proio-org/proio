@@ -276,7 +276,6 @@ func (rdr *Reader) GetHeader() (*model.EventHeader, error) {
 		err = nil
 	}
 
-	rdr.getMutex.Unlock()
 	return header, err
 }
 
