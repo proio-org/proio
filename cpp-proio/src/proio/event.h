@@ -4,7 +4,7 @@
 #include <map>
 #include <vector>
 
-#include "proio.pb.h"
+#include "proio/model/proio.pb.h"
 
 namespace proio {
 class Event {

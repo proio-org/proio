@@ -1,0 +1,12 @@
+syntax = "proto3";
+package proio.model.promc;
+option go_package = "github.com/decibelcooper/proio/go-proio/model/promc";
+option java_package = "proio.model";
+option java_outer_classname = "Promc";
+//import "proio/model/proio.proto";
+
+// DATA MODEL MESSAGES
+// Each message type must be accompanied by one with the identical name
+// suffixed with Collection with an "entries" field.  Both message and it's
+// colleciton message must have the field "id".
+

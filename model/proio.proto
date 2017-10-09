@@ -1,0 +1,53 @@
+syntax = "proto3";
+package proio.model;
+option go_package = "github.com/decibelcooper/proio/go-proio/model";
+option java_package = "proio";
+option java_outer_classname = "Model";
+
+// Warning: do not change any fields without understanding how the changes
+// affect the proio libraries.  Any field may be added without affecting the
+// libraries.
+
+message EventHeader {
+	uint32 version = 1;
+
+	uint64 runNumber = 2;
+	uint64 eventNumber = 3;
+	uint64 timeStamp = 4;
+	string detector = 5;
+	Params params = 6;
+
+	message CollectionHeader {
+		string name = 1;
+		uint32 id = 2;
+		string type = 3;
+		uint32 payloadSize = 4;
+	}
+	repeated CollectionHeader payloadCollections = 7;
+
+	uint32 nUniqueIDs = 8;
+	string description = 16;
+}
+
+message IntParams {
+	repeated int32 array = 1;
+}
+
+message FloatParams {
+	repeated float array = 1;
+}
+
+message StringParams {
+	repeated string array = 1;
+}
+
+message Params {
+	map<string, IntParams> ints = 1;
+	map<string, FloatParams> floats = 2;
+	map<string, StringParams> strings = 3;
+}
+
+message Reference {
+	uint32 collID = 1;
+	uint32 entryID = 2;
+}

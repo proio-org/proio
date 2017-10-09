@@ -1,4 +1,5 @@
 import proio.model as model
+import importlib
 
 class Event:
     """Class representing a single event"""
@@ -71,7 +72,14 @@ class Event:
             return
 
         if unmarshal:
-            message_class = getattr(model, coll_type)
+            module_name = "proio.model"
+            class_name = coll_type
+            dot_i = coll_type.rfind(".")
+            if dot_i > 0:
+                module_name += "." + coll_type[:dot_i]
+                class_name = coll_type[dot_i + 1:]
+            message_module = importlib.import_module(module_name)
+            message_class = getattr(message_module, class_name)
             message = message_class.FromString(self._payload[offset : offset+size])
             self._coll_cache[coll_name] = message
 
@@ -125,7 +133,7 @@ class Event:
         coll_hdr = self.header.payloadCollections.add()
         coll_hdr.name = name
         coll_hdr.id = coll.id
-        coll_hdr.type = type(coll).__name__
+        coll_hdr.type = coll.DESCRIPTOR.full_name[12:]
 
         coll_buf = coll.SerializeToString()
         coll_hdr.payloadSize = len(coll_buf)

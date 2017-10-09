@@ -8,10 +8,10 @@ import (
 	"os"
 	"reflect"
 
-	"go-hep.org/x/hep/lcio"
-
-	proio "github.com/decibelcooper/proio/go-proio"
+	"github.com/decibelcooper/proio/go-proio"
 	"github.com/decibelcooper/proio/go-proio/model"
+	prolcio "github.com/decibelcooper/proio/go-proio/model/lcio"
+	"go-hep.org/x/hep/lcio"
 )
 
 var (
@@ -161,7 +161,7 @@ func makeRef(entry interface{}, event *lcio.Event) *model.Reference {
 		switch collGen.(type) {
 		case *lcio.McParticleContainer:
 			coll := collGen.(*lcio.McParticleContainer)
-			for j, _ = range coll.Particles {
+			for j = range coll.Particles {
 				if &coll.Particles[j] == entry {
 					found = true
 					break
@@ -169,7 +169,7 @@ func makeRef(entry interface{}, event *lcio.Event) *model.Reference {
 			}
 		case *lcio.TrackerRawDataContainer:
 			coll := collGen.(*lcio.TrackerRawDataContainer)
-			for j, _ = range coll.Data {
+			for j = range coll.Data {
 				if &coll.Data[j] == entry {
 					found = true
 					break
@@ -177,7 +177,7 @@ func makeRef(entry interface{}, event *lcio.Event) *model.Reference {
 			}
 		case *lcio.TrackerDataContainer:
 			coll := collGen.(*lcio.TrackerDataContainer)
-			for j, _ = range coll.Data {
+			for j = range coll.Data {
 				if &coll.Data[j] == entry {
 					found = true
 					break
@@ -185,7 +185,7 @@ func makeRef(entry interface{}, event *lcio.Event) *model.Reference {
 			}
 		case *lcio.RawCalorimeterHitContainer:
 			coll := collGen.(*lcio.RawCalorimeterHitContainer)
-			for j, _ = range coll.Hits {
+			for j = range coll.Hits {
 				if &coll.Hits[j] == entry {
 					found = true
 					break
@@ -193,7 +193,7 @@ func makeRef(entry interface{}, event *lcio.Event) *model.Reference {
 			}
 		case *lcio.TrackContainer:
 			coll := collGen.(*lcio.TrackContainer)
-			for j, _ = range coll.Tracks {
+			for j = range coll.Tracks {
 				if &coll.Tracks[j] == entry {
 					found = true
 					break
@@ -201,7 +201,7 @@ func makeRef(entry interface{}, event *lcio.Event) *model.Reference {
 			}
 		case *lcio.TrackerHitContainer:
 			coll := collGen.(*lcio.TrackerHitContainer)
-			for j, _ = range coll.Hits {
+			for j = range coll.Hits {
 				if &coll.Hits[j] == entry {
 					found = true
 					break
@@ -209,7 +209,7 @@ func makeRef(entry interface{}, event *lcio.Event) *model.Reference {
 			}
 		case *lcio.ClusterContainer:
 			coll := collGen.(*lcio.ClusterContainer)
-			for j, _ = range coll.Clusters {
+			for j = range coll.Clusters {
 				if &coll.Clusters[j] == entry {
 					found = true
 					break
@@ -217,7 +217,7 @@ func makeRef(entry interface{}, event *lcio.Event) *model.Reference {
 			}
 		case *lcio.CalorimeterHitContainer:
 			coll := collGen.(*lcio.CalorimeterHitContainer)
-			for j, _ = range coll.Hits {
+			for j = range coll.Hits {
 				if &coll.Hits[j] == entry {
 					found = true
 					break
@@ -225,7 +225,7 @@ func makeRef(entry interface{}, event *lcio.Event) *model.Reference {
 			}
 		case *lcio.RecParticleContainer:
 			coll := collGen.(*lcio.RecParticleContainer)
-			for j, _ = range coll.Parts {
+			for j = range coll.Parts {
 				if &coll.Parts[j] == entry {
 					found = true
 					break
@@ -233,7 +233,7 @@ func makeRef(entry interface{}, event *lcio.Event) *model.Reference {
 			}
 		case *lcio.VertexContainer:
 			coll := collGen.(*lcio.VertexContainer)
-			for j, _ = range coll.Vtxs {
+			for j = range coll.Vtxs {
 				if &coll.Vtxs[j] == entry {
 					found = true
 					break
@@ -263,15 +263,15 @@ func makeRefs(entries interface{}, event *lcio.Event) []*model.Reference {
 	return refs
 }
 
-func convertMCParticleCollection(lcioColl *lcio.McParticleContainer, lcioEvent *lcio.Event, collID uint32) *model.MCParticleCollection {
-	proioColl := &model.MCParticleCollection{
+func convertMCParticleCollection(lcioColl *lcio.McParticleContainer, lcioEvent *lcio.Event, collID uint32) *prolcio.MCParticleCollection {
+	proioColl := &prolcio.MCParticleCollection{
 		Id:     collID,
 		Flags:  uint32(lcioColl.Flags),
 		Params: convertParams(lcioColl.Params),
 	}
 
 	for i, lcioEntry := range lcioColl.Particles {
-		proioEntry := &model.MCParticle{
+		proioEntry := &prolcio.MCParticle{
 			Id:        uint32(i + 1),
 			Parents:   makeRefs(lcioEntry.Parents, lcioEvent),
 			Children:  makeRefs(lcioEntry.Children, lcioEvent),
@@ -294,15 +294,15 @@ func convertMCParticleCollection(lcioColl *lcio.McParticleContainer, lcioEvent *
 	return proioColl
 }
 
-func convertSimTrackerHitCollection(lcioColl *lcio.SimTrackerHitContainer, lcioEvent *lcio.Event, collID uint32) *model.SimTrackerHitCollection {
-	proioColl := &model.SimTrackerHitCollection{
+func convertSimTrackerHitCollection(lcioColl *lcio.SimTrackerHitContainer, lcioEvent *lcio.Event, collID uint32) *prolcio.SimTrackerHitCollection {
+	proioColl := &prolcio.SimTrackerHitCollection{
 		Id:     collID,
 		Flags:  uint32(lcioColl.Flags),
 		Params: convertParams(lcioColl.Params),
 	}
 
 	for i, lcioEntry := range lcioColl.Hits {
-		proioEntry := &model.SimTrackerHit{
+		proioEntry := &prolcio.SimTrackerHit{
 			Id:         uint32(i + 1),
 			CellID0:    lcioEntry.CellID0,
 			CellID1:    lcioEntry.CellID1,
@@ -329,15 +329,15 @@ func copyUint16SliceToUint32(origSlice []uint16) []uint32 {
 	return slice
 }
 
-func convertTrackerRawDataCollection(lcioColl *lcio.TrackerRawDataContainer, lcioEvent *lcio.Event, collID uint32) *model.TrackerRawDataCollection {
-	proioColl := &model.TrackerRawDataCollection{
+func convertTrackerRawDataCollection(lcioColl *lcio.TrackerRawDataContainer, lcioEvent *lcio.Event, collID uint32) *prolcio.TrackerRawDataCollection {
+	proioColl := &prolcio.TrackerRawDataCollection{
 		Id:     collID,
 		Flags:  uint32(lcioColl.Flags),
 		Params: convertParams(lcioColl.Params),
 	}
 
 	for i, lcioEntry := range lcioColl.Data {
-		proioEntry := &model.TrackerRawData{
+		proioEntry := &prolcio.TrackerRawData{
 			Id:      uint32(i + 1),
 			CellID0: lcioEntry.CellID0,
 			CellID1: lcioEntry.CellID1,
@@ -351,15 +351,15 @@ func convertTrackerRawDataCollection(lcioColl *lcio.TrackerRawDataContainer, lci
 	return proioColl
 }
 
-func convertTrackerDataCollection(lcioColl *lcio.TrackerDataContainer, lcioEvent *lcio.Event, collID uint32) *model.TrackerDataCollection {
-	proioColl := &model.TrackerDataCollection{
+func convertTrackerDataCollection(lcioColl *lcio.TrackerDataContainer, lcioEvent *lcio.Event, collID uint32) *prolcio.TrackerDataCollection {
+	proioColl := &prolcio.TrackerDataCollection{
 		Id:     collID,
 		Flags:  uint32(lcioColl.Flags),
 		Params: convertParams(lcioColl.Params),
 	}
 
 	for i, lcioEntry := range lcioColl.Data {
-		proioEntry := &model.TrackerData{
+		proioEntry := &prolcio.TrackerData{
 			Id:      uint32(i + 1),
 			CellID0: lcioEntry.CellID0,
 			CellID1: lcioEntry.CellID1,
@@ -373,15 +373,15 @@ func convertTrackerDataCollection(lcioColl *lcio.TrackerDataContainer, lcioEvent
 	return proioColl
 }
 
-func convertTrackerHitCollection(lcioColl *lcio.TrackerHitContainer, lcioEvent *lcio.Event, collID uint32) *model.TrackerHitCollection {
-	proioColl := &model.TrackerHitCollection{
+func convertTrackerHitCollection(lcioColl *lcio.TrackerHitContainer, lcioEvent *lcio.Event, collID uint32) *prolcio.TrackerHitCollection {
+	proioColl := &prolcio.TrackerHitCollection{
 		Id:     collID,
 		Flags:  uint32(lcioColl.Flags),
 		Params: convertParams(lcioColl.Params),
 	}
 
 	for i, lcioEntry := range lcioColl.Hits {
-		proioEntry := &model.TrackerHit{
+		proioEntry := &prolcio.TrackerHit{
 			Id:      uint32(i + 1),
 			CellID0: lcioEntry.CellID0,
 			CellID1: lcioEntry.CellID1,
@@ -401,15 +401,15 @@ func convertTrackerHitCollection(lcioColl *lcio.TrackerHitContainer, lcioEvent *
 	return proioColl
 }
 
-func convertTrackerPulseCollection(lcioColl *lcio.TrackerPulseContainer, lcioEvent *lcio.Event, collID uint32) *model.TrackerPulseCollection {
-	proioColl := &model.TrackerPulseCollection{
+func convertTrackerPulseCollection(lcioColl *lcio.TrackerPulseContainer, lcioEvent *lcio.Event, collID uint32) *prolcio.TrackerPulseCollection {
+	proioColl := &prolcio.TrackerPulseCollection{
 		Id:     collID,
 		Flags:  uint32(lcioColl.Flags),
 		Params: convertParams(lcioColl.Params),
 	}
 
 	for i, lcioEntry := range lcioColl.Pulses {
-		proioEntry := &model.TrackerPulse{
+		proioEntry := &prolcio.TrackerPulse{
 			Id:      uint32(i + 1),
 			CellID0: lcioEntry.CellID0,
 			CellID1: lcioEntry.CellID1,
@@ -426,15 +426,15 @@ func convertTrackerPulseCollection(lcioColl *lcio.TrackerPulseContainer, lcioEve
 	return proioColl
 }
 
-func convertTrackerHitPlaneCollection(lcioColl *lcio.TrackerHitPlaneContainer, lcioEvent *lcio.Event, collID uint32) *model.TrackerHitPlaneCollection {
-	proioColl := &model.TrackerHitPlaneCollection{
+func convertTrackerHitPlaneCollection(lcioColl *lcio.TrackerHitPlaneContainer, lcioEvent *lcio.Event, collID uint32) *prolcio.TrackerHitPlaneCollection {
+	proioColl := &prolcio.TrackerHitPlaneCollection{
 		Id:     collID,
 		Flags:  uint32(lcioColl.Flags),
 		Params: convertParams(lcioColl.Params),
 	}
 
 	for i, lcioEntry := range lcioColl.Hits {
-		proioEntry := &model.TrackerHitPlane{
+		proioEntry := &prolcio.TrackerHitPlane{
 			Id:      uint32(i + 1),
 			CellID0: lcioEntry.CellID0,
 			CellID1: lcioEntry.CellID1,
@@ -457,15 +457,15 @@ func convertTrackerHitPlaneCollection(lcioColl *lcio.TrackerHitPlaneContainer, l
 	return proioColl
 }
 
-func convertTrackerHitZCylinderCollection(lcioColl *lcio.TrackerHitZCylinderContainer, lcioEvent *lcio.Event, collID uint32) *model.TrackerHitZCylinderCollection {
-	proioColl := &model.TrackerHitZCylinderCollection{
+func convertTrackerHitZCylinderCollection(lcioColl *lcio.TrackerHitZCylinderContainer, lcioEvent *lcio.Event, collID uint32) *prolcio.TrackerHitZCylinderCollection {
+	proioColl := &prolcio.TrackerHitZCylinderCollection{
 		Id:     collID,
 		Flags:  uint32(lcioColl.Flags),
 		Params: convertParams(lcioColl.Params),
 	}
 
 	for i, lcioEntry := range lcioColl.Hits {
-		proioEntry := &model.TrackerHitZCylinder{
+		proioEntry := &prolcio.TrackerHitZCylinder{
 			Id:      uint32(i + 1),
 			CellID0: lcioEntry.CellID0,
 			CellID1: lcioEntry.CellID1,
@@ -487,10 +487,10 @@ func convertTrackerHitZCylinderCollection(lcioColl *lcio.TrackerHitZCylinderCont
 	return proioColl
 }
 
-func convertTrackStates(lcioStates []lcio.TrackState) []*model.Track_TrackState {
-	slice := make([]*model.Track_TrackState, 0)
+func convertTrackStates(lcioStates []lcio.TrackState) []*prolcio.Track_TrackState {
+	slice := make([]*prolcio.Track_TrackState, 0)
 	for _, state := range lcioStates {
-		slice = append(slice, &model.Track_TrackState{
+		slice = append(slice, &prolcio.Track_TrackState{
 			Loc:   state.Loc,
 			D0:    state.D0,
 			Phi:   state.Phi,
@@ -504,15 +504,15 @@ func convertTrackStates(lcioStates []lcio.TrackState) []*model.Track_TrackState 
 	return slice
 }
 
-func convertTrackCollection(lcioColl *lcio.TrackContainer, lcioEvent *lcio.Event, collID uint32) *model.TrackCollection {
-	proioColl := &model.TrackCollection{
+func convertTrackCollection(lcioColl *lcio.TrackContainer, lcioEvent *lcio.Event, collID uint32) *prolcio.TrackCollection {
+	proioColl := &prolcio.TrackCollection{
 		Id:     collID,
 		Flags:  uint32(lcioColl.Flags),
 		Params: convertParams(lcioColl.Params),
 	}
 
 	for i, lcioEntry := range lcioColl.Tracks {
-		proioEntry := &model.Track{
+		proioEntry := &prolcio.Track{
 			Id:         uint32(i + 1),
 			Type:       lcioEntry.Type,
 			Chi2:       lcioEntry.Chi2,
@@ -532,10 +532,10 @@ func convertTrackCollection(lcioColl *lcio.TrackContainer, lcioEvent *lcio.Event
 	return proioColl
 }
 
-func convertContribs(lcioContribs []lcio.Contrib, lcioEvent *lcio.Event) []*model.SimCalorimeterHit_Contrib {
-	slice := make([]*model.SimCalorimeterHit_Contrib, 0)
+func convertContribs(lcioContribs []lcio.Contrib, lcioEvent *lcio.Event) []*prolcio.SimCalorimeterHit_Contrib {
+	slice := make([]*prolcio.SimCalorimeterHit_Contrib, 0)
 	for _, contrib := range lcioContribs {
-		slice = append(slice, &model.SimCalorimeterHit_Contrib{
+		slice = append(slice, &prolcio.SimCalorimeterHit_Contrib{
 			MCParticle: makeRef(contrib.Mc, lcioEvent),
 			Energy:     contrib.Energy,
 			Time:       contrib.Time,
@@ -546,15 +546,15 @@ func convertContribs(lcioContribs []lcio.Contrib, lcioEvent *lcio.Event) []*mode
 	return slice
 }
 
-func convertSimCalorimeterHitCollection(lcioColl *lcio.SimCalorimeterHitContainer, lcioEvent *lcio.Event, collID uint32) *model.SimCalorimeterHitCollection {
-	proioColl := &model.SimCalorimeterHitCollection{
+func convertSimCalorimeterHitCollection(lcioColl *lcio.SimCalorimeterHitContainer, lcioEvent *lcio.Event, collID uint32) *prolcio.SimCalorimeterHitCollection {
+	proioColl := &prolcio.SimCalorimeterHitCollection{
 		Id:     collID,
 		Flags:  uint32(lcioColl.Flags),
 		Params: convertParams(lcioColl.Params),
 	}
 
 	for i, lcioEntry := range lcioColl.Hits {
-		proioEntry := &model.SimCalorimeterHit{
+		proioEntry := &prolcio.SimCalorimeterHit{
 			Id:            uint32(i + 1),
 			CellID0:       lcioEntry.CellID0,
 			CellID1:       lcioEntry.CellID1,
@@ -569,15 +569,15 @@ func convertSimCalorimeterHitCollection(lcioColl *lcio.SimCalorimeterHitContaine
 	return proioColl
 }
 
-func convertRawCalorimeterHitCollection(lcioColl *lcio.RawCalorimeterHitContainer, lcioEvent *lcio.Event, collID uint32) *model.RawCalorimeterHitCollection {
-	proioColl := &model.RawCalorimeterHitCollection{
+func convertRawCalorimeterHitCollection(lcioColl *lcio.RawCalorimeterHitContainer, lcioEvent *lcio.Event, collID uint32) *prolcio.RawCalorimeterHitCollection {
+	proioColl := &prolcio.RawCalorimeterHitCollection{
 		Id:     collID,
 		Flags:  uint32(lcioColl.Flags),
 		Params: convertParams(lcioColl.Params),
 	}
 
 	for i, lcioEntry := range lcioColl.Hits {
-		proioEntry := &model.RawCalorimeterHit{
+		proioEntry := &prolcio.RawCalorimeterHit{
 			Id:        uint32(i + 1),
 			CellID0:   lcioEntry.CellID0,
 			CellID1:   lcioEntry.CellID1,
@@ -591,8 +591,8 @@ func convertRawCalorimeterHitCollection(lcioColl *lcio.RawCalorimeterHitContaine
 	return proioColl
 }
 
-func convertCalorimeterHitCollection(lcioColl *lcio.CalorimeterHitContainer, lcioEvent *lcio.Event, collID uint32) *model.CalorimeterHitCollection {
-	proioColl := &model.CalorimeterHitCollection{
+func convertCalorimeterHitCollection(lcioColl *lcio.CalorimeterHitContainer, lcioEvent *lcio.Event, collID uint32) *prolcio.CalorimeterHitCollection {
+	proioColl := &prolcio.CalorimeterHitCollection{
 		Id:     collID,
 		Flags:  uint32(lcioColl.Flags),
 		Params: convertParams(lcioColl.Params),
@@ -605,7 +605,7 @@ func convertCalorimeterHitCollection(lcioColl *lcio.CalorimeterHitContainer, lci
 			rawHit = makeRef(lcioEntry.Raw.(*lcio.RawCalorimeterHit), lcioEvent)
 		}
 
-		proioEntry := &model.CalorimeterHit{
+		proioEntry := &prolcio.CalorimeterHit{
 			Id:        uint32(i + 1),
 			CellID0:   lcioEntry.CellID0,
 			CellID1:   lcioEntry.CellID1,
@@ -623,8 +623,8 @@ func convertCalorimeterHitCollection(lcioColl *lcio.CalorimeterHitContainer, lci
 	return proioColl
 }
 
-func convertParticleID(pid *lcio.ParticleID) *model.ParticleID {
-	return &model.ParticleID{
+func convertParticleID(pid *lcio.ParticleID) *prolcio.ParticleID {
+	return &prolcio.ParticleID{
 		Likelihood: pid.Likelihood,
 		Type:       pid.Type,
 		PDG:        pid.PDG,
@@ -633,23 +633,23 @@ func convertParticleID(pid *lcio.ParticleID) *model.ParticleID {
 	}
 }
 
-func convertParticleIDs(lcioParticleIDs []lcio.ParticleID) []*model.ParticleID {
-	slice := make([]*model.ParticleID, 0)
+func convertParticleIDs(lcioParticleIDs []lcio.ParticleID) []*prolcio.ParticleID {
+	slice := make([]*prolcio.ParticleID, 0)
 	for _, pid := range lcioParticleIDs {
 		slice = append(slice, convertParticleID(&pid))
 	}
 	return slice
 }
 
-func convertClusterCollection(lcioColl *lcio.ClusterContainer, lcioEvent *lcio.Event, collID uint32) *model.ClusterCollection {
-	proioColl := &model.ClusterCollection{
+func convertClusterCollection(lcioColl *lcio.ClusterContainer, lcioEvent *lcio.Event, collID uint32) *prolcio.ClusterCollection {
+	proioColl := &prolcio.ClusterCollection{
 		Id:     collID,
 		Flags:  uint32(lcioColl.Flags),
 		Params: convertParams(lcioColl.Params),
 	}
 
 	for i, lcioEntry := range lcioColl.Clusters {
-		proioEntry := &model.Cluster{
+		proioEntry := &prolcio.Cluster{
 			Id:         uint32(i + 1),
 			Type:       lcioEntry.Type,
 			Energy:     lcioEntry.Energy,
@@ -674,7 +674,7 @@ func convertClusterCollection(lcioColl *lcio.ClusterContainer, lcioEvent *lcio.E
 }
 
 func findParticleID(pids []lcio.ParticleID, pid *lcio.ParticleID) int32 {
-	for i, _ := range pids {
+	for i := range pids {
 		if &pids[i] == pid {
 			return int32(i)
 		}
@@ -682,15 +682,15 @@ func findParticleID(pids []lcio.ParticleID, pid *lcio.ParticleID) int32 {
 	return -1
 }
 
-func convertRecParticleCollection(lcioColl *lcio.RecParticleContainer, lcioEvent *lcio.Event, collID uint32) *model.RecParticleCollection {
-	proioColl := &model.RecParticleCollection{
+func convertRecParticleCollection(lcioColl *lcio.RecParticleContainer, lcioEvent *lcio.Event, collID uint32) *prolcio.RecParticleCollection {
+	proioColl := &prolcio.RecParticleCollection{
 		Id:     collID,
 		Flags:  uint32(lcioColl.Flags),
 		Params: convertParams(lcioColl.Params),
 	}
 
 	for i, lcioEntry := range lcioColl.Parts {
-		proioEntry := &model.RecParticle{
+		proioEntry := &prolcio.RecParticle{
 			Id:            uint32(i + 1),
 			Type:          lcioEntry.Type,
 			P:             lcioColl.Parts[i].P[:],
@@ -714,15 +714,15 @@ func convertRecParticleCollection(lcioColl *lcio.RecParticleContainer, lcioEvent
 	return proioColl
 }
 
-func convertVertexCollection(lcioColl *lcio.VertexContainer, lcioEvent *lcio.Event, collID uint32) *model.VertexCollection {
-	proioColl := &model.VertexCollection{
+func convertVertexCollection(lcioColl *lcio.VertexContainer, lcioEvent *lcio.Event, collID uint32) *prolcio.VertexCollection {
+	proioColl := &prolcio.VertexCollection{
 		Id:     collID,
 		Flags:  uint32(lcioColl.Flags),
 		Params: convertParams(lcioColl.Params),
 	}
 
 	for i, lcioEntry := range lcioColl.Vtxs {
-		proioEntry := &model.Vertex{
+		proioEntry := &prolcio.Vertex{
 			Id:      uint32(i + 1),
 			Primary: lcioEntry.Primary,
 			AlgType: lcioEntry.AlgType,
@@ -740,15 +740,15 @@ func convertVertexCollection(lcioColl *lcio.VertexContainer, lcioEvent *lcio.Eve
 	return proioColl
 }
 
-func convertRelationCollection(lcioColl *lcio.RelationContainer, lcioEvent *lcio.Event, collID uint32) *model.RelationCollection {
-	proioColl := &model.RelationCollection{
+func convertRelationCollection(lcioColl *lcio.RelationContainer, lcioEvent *lcio.Event, collID uint32) *prolcio.RelationCollection {
+	proioColl := &prolcio.RelationCollection{
 		Id:     collID,
 		Flags:  uint32(lcioColl.Flags),
 		Params: convertParams(lcioColl.Params),
 	}
 
 	for i, lcioEntry := range lcioColl.Rels {
-		proioEntry := &model.Relation{
+		proioEntry := &prolcio.Relation{
 			Id:     uint32(i + 1),
 			From:   makeRef(lcioEntry.From, lcioEvent),
 			To:     makeRef(lcioEntry.To, lcioEvent),

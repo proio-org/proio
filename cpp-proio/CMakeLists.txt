@@ -1,28 +1,23 @@
 cmake_minimum_required(VERSION 2.8)
 project(proio)
 
-set(libproiofiles
-	src/proio/proio.pb.cc
-	src/proio/event.cc
-	src/proio/reader.cc
-	src/proio/writer.cc
-)
+set(CMAKE_CXX_STANDARD 14)
 
-set(libproioheaders
-	src/proio/proio.pb.h
-	src/proio/event.h
-	src/proio/reader.h
-	src/proio/writer.h
-)
-include_directories(src)
+file(GLOB_RECURSE libproiofiles ${PROJECT_SOURCE_DIR}/src/proio/*.cc)
+file(GLOB_RECURSE libproioheaders_rel RELATIVE ${PROJECT_SOURCE_DIR}/src ${PROJECT_SOURCE_DIR}/src/proio/*.h)
+file(GLOB_RECURSE libproioheaders ${PROJECT_SOURCE_DIR}/src/proio/*.h)
+include_directories(src src/proio/model)
 
-find_package(Protobuf REQUIRED)
+find_package(Protobuf 3.4 REQUIRED)
 include_directories(${Protobuf_INCLUDE_DIRS})
 
 add_library(proio SHARED ${libproiofiles} ${libproioheaders})
 target_link_libraries(proio PUBLIC protobuf)
 install(TARGETS proio DESTINATION lib)
-install(FILES ${libproioheaders} DESTINATION include/proio)
+foreach(header ${libproioheaders_rel})
+    string(REGEX MATCH "(.*)[/\\]" dir ${header})
+    install(FILES ${PROJECT_SOURCE_DIR}/src/${header} DESTINATION include/${dir})
+endforeach()
 
 add_executable(proio-ls src/tools/proio-ls/main.cc)
 target_link_libraries(proio-ls PUBLIC proio protobuf)
