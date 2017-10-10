@@ -10,3 +10,5 @@ if ! [ -f $importfile ]; then
 fi
 
 sed -i "s/)/\t_ \"$importstring\"\n)/" $importfile
+
+gofmt -s -w $importfile
