@@ -1,5 +1,6 @@
 package proio;
 
+import java.lang.Character;
 import java.lang.ClassNotFoundException;
 import java.lang.IllegalAccessException;
 import java.lang.InstantiationException;
@@ -126,7 +127,13 @@ public class Event
 
 		Message coll = null;
 		if (unmarshal) {
-			Class collClass = Class.forName("proio.Model$" + collType);
+			String collMessageId = "proio.model." + collType;
+			int dotI = collMessageId.lastIndexOf('.');
+			String collClassLookup = collMessageId.substring(0,dotI) + '$' + collMessageId.substring(dotI + 1);
+			int charI = collClassLookup.lastIndexOf('.') + 1;
+			collClassLookup = collClassLookup.substring(0,charI) + Character.toUpperCase(collClassLookup.charAt(charI)) + collClassLookup.substring(charI + 1);
+
+			Class collClass = Class.forName(collClassLookup);
 			try {
 				Method newBuilder = collClass.getMethod("newBuilder");
 				Message.Builder builder = (Message.Builder)newBuilder.invoke(null);

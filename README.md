@@ -1,23 +1,21 @@
 # What is proio?
-Proio is a language-neutral IO scheme for medium- and high-energy physics.  It was
-born from an exploratory project at Argonne National Laboratory called
-[eicio](https://github.com/decibelcooper/eicio).  In
-order to be language-neutral, proio leverages Google's Protobuf compiler and
-associated libraries in various languages.  The Protobuf compiler generates
-code in each language to be used that represents the data model described in
-`proio.proto`.  In addition, thin libraries have been written in each language
-that are independent of the data model.  Therefore, the data model can evolve
-in a language-independent way.
+Proio is a language-neutral IO scheme for medium- and high-energy physics.  It
+was born from an exploratory project at Argonne National Laboratory called
+[eicio](https://github.com/decibelcooper/eicio), and inspired by ProMC and
+EicMC.  In order to be language-neutral, proio leverages Google's Protobuf
+compiler and associated libraries in various languages.  The Protobuf compiler
+generates code in each language to be used that represents the data model
+described in `proio.proto`.  In addition, thin libraries have been written in
+each language that are independent of the data model.  Therefore, the data
+model can evolve in a language-independent way.
 
 The name "proio" comes from the fact that it leverages Google's Protobuf, as
 well as from the prefix "proto" itself.  A proto language is a common language
 that others evolve from.  Similarly, proio can be the commonality between
 multiple experiments with slightly different data model needs.  Each experiment
-can fork proio and create necessary extensions to the core data model, and
-still maintain the ability to share data through the core model.
-Alternatively, experiments with particular needs can fork proio and start the
-data model from scratch.  The core data model is based on
-[LCIO](https://github.com/iLCSoft/LCIO).
+can create necessary extensions to a core data model, and still maintain the
+ability to share data.  Alternatively, experiments with particular needs can
+start the data model from scratch.
 
 # Data structure
 Proio is a stream-oriented IO.  Data are organized into events, and a proio
@@ -43,10 +41,10 @@ event payload, and within this payload is a set of collections.  Each
 collection has a name and a type, and the type determines what kind of entries
 can be stored in the collection.  The number of entries is arbitrary.  The
 collections and entries are serialized by Protobuf, and all are described in
-[proio.proto](proio.proto).  (Since the data structures are serialized by
+[the model directory](model).  (Since the data structures are serialized by
 Protobuf, integer fields gain additional compressed by Google's "varints")  As
 an example of a collection type, let's look at the `MCParticle` defined in
-[proio.proto](proio.proto):
+[model/lcio/lcio.proto](model/lcio/lcio.proto):
 ```protobuf
 message MCParticle {
 	uint32 id = 1;
@@ -73,12 +71,12 @@ message MCParticleCollection {
 	repeated MCParticle entries = 4;
 }
 ```
-`MCParticle` represents generator-level particles, and these are stored in
-collections of type `MCParticleCollection`.  A collection of this type may be
-placed into the event payload alongside other collections with the same or
-different type.  The thin language-specific libraries each provide a type
-called Event which provides methods for adding, removing, and retrieving
-collections from the payload.
+`MCParticle` represents generator-level particles in the LCIO data model, and
+these are stored in collections of type `MCParticleCollection`.  A collection
+of this type may be placed into the event payload alongside other collections
+with the same or different type.  The thin language-specific libraries each
+provide a type called Event which provides methods for adding, removing, and
+retrieving collections from the payload.
 
 ## Referencing
 Another key feature of proio is referencing.  This is a concept taken from
@@ -88,10 +86,10 @@ in the thin language-specific libraries with Reference() and Dereference()
 methods.  These methods are associated with the event, which keeps track of the
 number of unique identifiers.  The Reference() methods will take a collection
 or entry as an argument and return a Reference type object, which is a message
-described in [proio.proto](proio.proto).  Conversely, Dereference() will take a
-Reference type object and return the collection or entry that the Reference
-points to.  One example of this can be found at the top of the go-proio API
-documentation:
+described in [model/proio.proto](model/proio.proto).  Conversely, Dereference()
+will take a Reference type object and return the collection or entry that the
+Reference points to.  One example of this can be found at the top of the
+go-proio API documentation:
 [![GoDoc](https://godoc.org/github.com/decibelcooper/proio/go-proio?status.svg)](https://godoc.org/github.com/decibelcooper/proio/go-proio)
 
 # Getting started
@@ -133,13 +131,13 @@ proio-summary cleanCut.proio.gz
 ### Go
 ```go
 package main
-  
+
 import (
     "fmt"
     "log"
 
     "github.com/decibelcooper/proio/go-proio"
-    "github.com/decibelcooper/proio/go-proio/model"
+    "github.com/decibelcooper/proio/go-proio/model/lcio"
 )
 
 func main() {
@@ -149,7 +147,7 @@ func main() {
     }
 
     for event := range reader.ScanEvents() {
-        mcColl := event.Get("MCParticle").(*model.MCParticleCollection)
+        mcColl := event.Get("MCParticle").(*lcio.MCParticleCollection)
         if mcColl == nil || len(mcColl.Entries) < 1 {
             continue
         }
@@ -177,21 +175,23 @@ with proio.Reader("samples/smallSample.proio.gz") as reader:
 #include <iostream>
 
 #include "proio/event.h"
-#include "proio/proio.pb.h"
+#include "proio/model/lcio/lcio.pb.h"
 #include "proio/reader.h"
+
+using namespace proio::model;
 
 int main(int argc, const char **argv) {
     auto reader = new proio::Reader("samples/smallSample.proio.gz");
 
     proio::Event *event;
     while ((event = reader->Get()) != NULL) {
-        auto mcColl = (proio::model::MCParticleCollection *)event->Get("MCParticle");
+        auto mcColl = (lcio::MCParticleCollection *)event->Get("MCParticle");
         if (mcColl == NULL || mcColl->entries_size() < 1) continue;
 
-        proio::model::MCParticle mcPart = mcColl->entries(0);
+        lcio::MCParticle mcPart = mcColl->entries(0);
         std::cout << mcPart.DebugString() << std::endl;
 
-	delete event;
+        delete event;
     }
 
     delete reader;
@@ -201,8 +201,8 @@ int main(int argc, const char **argv) {
 ### Java
 ```java
 import proio.Event;
-import proio.Model;
 import proio.Reader;
+import proio.model.Lcio;
 
 public class Read
 {
@@ -213,10 +213,10 @@ public class Read
             if (reader == null) return;
 
             for (Event event : reader) {
-                Model.MCParticleCollection mcColl = (Model.MCParticleCollection) event.get("MCParticle");
+                Lcio.MCParticleCollection mcColl = (Lcio.MCParticleCollection) event.get("MCParticle");
                 if (mcColl == null || mcColl.getEntriesCount() < 1) continue;
 
-                Model.MCParticle mcPart = mcColl.getEntries(0);
+                Lcio.MCParticle mcPart = mcColl.getEntries(0);
                 System.out.println(mcPart);
             }
 
@@ -232,47 +232,47 @@ public class Read
 ### Go
 ```go
 package main
-  
-import (
-    "log"
 
-    "github.com/decibelcooper/proio/go-proio"
-    "github.com/decibelcooper/proio/go-proio/model"
+import (
+	"log"
+
+	"github.com/decibelcooper/proio/go-proio"
+	"github.com/decibelcooper/proio/go-proio/model/lcio"
 )
 
 func main() {
-    writer, err := proio.Create("test.proio.gz")
-    if err != nil {
-        log.Fatal(err)
-    }
-    defer writer.Close()
+	writer, err := proio.Create("test.proio.gz")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer writer.Close()
 
-    event := proio.NewEvent()
-    mcColl := &model.MCParticleCollection{}
-    event.Add(mcColl, "MCParticle")
+	event := proio.NewEvent()
+	mcColl := &lcio.MCParticleCollection{}
+	event.Add(mcColl, "MCParticle")
 
-    parent := &model.MCParticle{PDG: 443}
-    mcColl.Entries = append(mcColl.Entries, parent)
+	parent := &lcio.MCParticle{PDG: 443}
+	mcColl.Entries = append(mcColl.Entries, parent)
 
-    child1 := &model.MCParticle{PDG: 11}
-    child2 := &model.MCParticle{PDG: -11}
-    mcColl.Entries = append(mcColl.Entries, child1, child2)
+	child1 := &lcio.MCParticle{PDG: 11}
+	child2 := &lcio.MCParticle{PDG: -11}
+	mcColl.Entries = append(mcColl.Entries, child1, child2)
 
-    parent.Children = append(parent.Children, event.Reference(child1), event.Reference(child2))
-    child1.Parents = append(child1.Children, event.Reference(parent))
-    child2.Parents = append(child2.Children, event.Reference(parent))
+	parent.Children = append(parent.Children, event.Reference(child1), event.Reference(child2))
+	child1.Parents = append(child1.Children, event.Reference(parent))
+	child2.Parents = append(child2.Children, event.Reference(parent))
 
-    writer.Push(event)
+	writer.Push(event)
 }
 ```
 ### Python
 ```python
 import proio
-import proio.model as model
+import proio.model.lcio as lcio
 
 with proio.Writer("test.proio.gz") as writer:
     event = proio.Event()
-    mc_coll = model.MCParticleCollection()
+    mc_coll = lcio.MCParticleCollection()
     event.add(mc_coll, "MCParticle")
 
     parent = mc_coll.entries.add()
@@ -294,22 +294,24 @@ with proio.Writer("test.proio.gz") as writer:
 #include <iostream>
 
 #include "proio/event.h"
-#include "proio/proio.pb.h"
+#include "proio/model/lcio/lcio.pb.h"
 #include "proio/writer.h"
+
+using namespace proio::model;
 
 int main(int argc, const char **argv) {
     auto writer = new proio::Writer("test.proio.gz");
 
     auto event = new proio::Event();
-    auto mcColl = new proio::model::MCParticleCollection();
+    auto mcColl = new lcio::MCParticleCollection();
     event->Add(mcColl, "MCParticle");
 
-    proio::model::MCParticle *parent = mcColl->add_entries();
+    lcio::MCParticle *parent = mcColl->add_entries();
     parent->set_pdg(443);
 
-    proio::model::MCParticle *child1 = mcColl->add_entries();
+    lcio::MCParticle *child1 = mcColl->add_entries();
     child1->set_pdg(11);
-    proio::model::MCParticle *child2 = mcColl->add_entries();
+    lcio::MCParticle *child2 = mcColl->add_entries();
     child2->set_pdg(-11);
 
     event->Reference(child1, parent->add_children());
@@ -326,24 +328,24 @@ int main(int argc, const char **argv) {
 }
 ```
 
-# Modifying the data model
-The data model is described in the [proio.proto](proio.proto) file.  At the
-top of the file is the description of some messages that are needed for the
-thin libraries.  Scroll down until you see the comment `DATA MODEL MESSAGES`.
-Anything below this comment can be modified within a few simple rules:
+# Adding to the data models
+The data models are described in [the model directory](model).  For protobuf
+messages that define part of a data model, the following rules must be
+followed:
 1. For message type Msg, there must be a corresponding collection type named
    MsgCollection.
 2. Every message type and collection type must have a `uint32 id` field
    assigned any number.
 3. For collection type MsgCollection, there must be a `repeated Msg entries`
    field assigned any number.
-Other than the above rules, anything goes.  Any number of message and
-collection types may be defined.  Please see the [Protobuf Language
+Any number of message and collection types may be defined.  Other than the
+above rules, please see existing proto files as a guide for package naming
+conventions (at the top of the files).  Please see the [Protobuf Language
 Guide](https://developers.google.com/protocol-buffers/docs/proto3) for details
 on the syntax.
 
 ## Generating the code after modifying the model
-Any time [proio.proto](proio.proto) is modified, the language-specific code
+Any time the data model protobuf files are modified, the language-specific code
 that describes the data model must be regenerated.  For consistency, and
 because there are four different languages to generate, the code generation is
 done inside a container.  In particular, we use a

@@ -3,7 +3,7 @@
 
 #include <string.h>
 
-#include "proio.pb.h"
+#include "proio/model/proio.pb.h"
 #include "proio/event.h"
 
 #include <google/protobuf/io/zero_copy_stream.h>

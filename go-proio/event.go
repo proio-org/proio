@@ -7,9 +7,8 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/golang/protobuf/proto"
-
 	"github.com/decibelcooper/proio/go-proio/model"
+	"github.com/golang/protobuf/proto"
 )
 
 // Struct representing an event either created with NewEvent() or retrieved
@@ -37,7 +36,7 @@ func (evt *Event) GetNames() []string {
 	for _, collHdr := range evt.Header.PayloadCollections {
 		names = append(names, collHdr.Name)
 	}
-	for name, _ := range evt.collCache {
+	for name := range evt.collCache {
 		names = append(names, name)
 	}
 
@@ -84,7 +83,7 @@ func (evt *Event) Add(coll Collection, name string) error {
 
 // Remove a collection from the event by name
 func (evt *Event) Remove(name string) {
-	for key, _ := range evt.collCache {
+	for key := range evt.collCache {
 		if key == name {
 			delete(evt.collCache, key)
 			return
@@ -242,9 +241,16 @@ func (evt *Event) getFromPayload(name string, unmarshal bool) Collection {
 
 	var coll Collection
 	if unmarshal {
-		msgType := proto.MessageType("proio.model." + collType).Elem()
+		typeName := "proio.model." + collType
+		ptrType := proto.MessageType(typeName)
+		if ptrType == nil {
+			fmt.Println("failed to get type for", typeName)
+			return nil
+		}
+		msgType := ptrType.Elem()
 		coll = reflect.New(msgType).Interface().(Collection)
 		if err := coll.Unmarshal(evt.payload[offset : offset+size]); err != nil {
+			fmt.Println("failed to unmarshal")
 			return nil
 		}
 
