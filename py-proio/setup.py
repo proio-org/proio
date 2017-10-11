@@ -8,4 +8,5 @@ setup(name='proio',
       author_email='dblyth@anl.gov',
       license='None',
       packages=['proio','proio.model','proio.model.lcio','proio.model.promc'],
+      install_requires=['protobuf'],
       zip_safe=True)
