@@ -10,6 +10,7 @@ include_directories(src src/proio/model)
 
 find_package(Protobuf 3.4 REQUIRED)
 include_directories(${Protobuf_INCLUDE_DIRS})
+link_directories(${Protobuf_LIBRARY})
 
 add_library(proio SHARED ${libproiofiles} ${libproioheaders})
 target_link_libraries(proio PUBLIC protobuf)
