@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='proio',
-      version='0.2',
+      version='0.2.1',
       description='Library for reading and writing proio files and streams',
       url='http://github.com/decibelcooper/proio',
       author='David Blyth',
