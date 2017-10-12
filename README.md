@@ -5,7 +5,7 @@ was born from an exploratory project at Argonne National Laboratory called
 EicMC.  In order to be language-neutral, proio leverages Google's Protobuf
 compiler and associated libraries in various languages.  The Protobuf compiler
 generates code in each language to be used that represents the data model
-described in `proio.proto`.  In addition, thin libraries have been written in
+described in [the model directory](model).  In addition, thin libraries have been written in
 each language that are independent of the data model.  Therefore, the data
 model can evolve in a language-independent way.
 
@@ -15,7 +15,7 @@ that others evolve from.  Similarly, proio can be the commonality between
 multiple experiments with slightly different data model needs.  Each experiment
 can create necessary extensions to a core data model, and still maintain the
 ability to share data.  Alternatively, experiments with particular needs can
-start the data model from scratch.
+start a data model from scratch to exist in parallel.
 
 # Data structure
 Proio is a stream-oriented IO.  Data are organized into events, and a proio
@@ -42,7 +42,7 @@ collection has a name and a type, and the type determines what kind of entries
 can be stored in the collection.  The number of entries is arbitrary.  The
 collections and entries are serialized by Protobuf, and all are described in
 [the model directory](model).  (Since the data structures are serialized by
-Protobuf, integer fields gain additional compressed by Google's "varints")  As
+Protobuf, integer fields gain additional compression by Google's "varints")  As
 an example of a collection type, let's look at the `MCParticle` defined in
 [model/lcio/lcio.proto](model/lcio/lcio.proto):
 ```protobuf
@@ -368,7 +368,7 @@ compatibility with other versions of the code.  Please see the Protobuf
 documentation for details, but here are some important things to note:
 * New fields can be added without breaking forwards or backwards compatibility
   as long as new unique field numbers are used.  This is because Protobuf will
-  ignore unknown fields, and (staring with Protobuf 3) all fields are optional.
+  ignore unknown fields, and (starting with Protobuf 3) all fields are optional.
 * Fields can be removed from the data model for the same reason.  It is
   important, however, to never reuse the field number or name of the removed
   field.  In order to enforce this, the [reserved
