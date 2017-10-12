@@ -12,7 +12,7 @@ import (
 )
 
 // Struct representing an event either created with NewEvent() or retrieved
-// with (*Reader) Next()
+// with (*Reader) Get() or (*Reader) ScanEvents()
 type Event struct {
 	Header  *model.EventHeader
 	payload []byte
