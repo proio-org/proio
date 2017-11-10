@@ -13,6 +13,7 @@ import (
 
 var (
 	doGzip = flag.Bool("g", false, "decompress the stdin input with gzip")
+	doLZ4  = flag.Bool("l", false, "decompress the stdin input with LZ4")
 	event  = flag.Int("e", -1, "list specified event, numbered consecutively from the start of the file or stream")
 )
 
@@ -42,6 +43,8 @@ func main() {
 		stdin := bufio.NewReader(os.Stdin)
 		if *doGzip {
 			reader, err = proio.NewGzipReader(stdin)
+		} else if *doLZ4 {
+			reader = proio.NewLZ4Reader(stdin)
 		} else {
 			reader = proio.NewReader(stdin)
 		}

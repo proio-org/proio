@@ -12,10 +12,12 @@ import (
 )
 
 var (
-	outFile    = flag.String("o", "", "file to save output to")
-	keep       = flag.Bool("k", false, "keep only the specified collections, rather than stripping them away")
-	decompress = flag.Bool("d", false, "decompress the stdin input with gzip")
-	compress   = flag.Bool("c", false, "compress the stdout output with gzip")
+	outFile        = flag.String("o", "", "file to save output to")
+	keep           = flag.Bool("k", false, "keep only the specified collections, rather than stripping them away")
+	decompressGzip = flag.Bool("g", false, "decompress the stdin input with gzip")
+	compressGzip   = flag.Bool("gcomp", false, "compress the stdout output with gzip")
+	decompressLZ4  = flag.Bool("l", false, "decompress the stdin input with LZ4")
+	compressLZ4    = flag.Bool("lcomp", false, "compress the stdout output with LZ4")
 )
 
 func printUsage() {
@@ -42,8 +44,10 @@ func main() {
 	filename := flag.Arg(0)
 	if filename == "-" {
 		stdin := bufio.NewReader(os.Stdin)
-		if *decompress {
+		if *decompressGzip {
 			reader, err = proio.NewGzipReader(stdin)
+		} else if *decompressLZ4 {
+			reader = proio.NewLZ4Reader(stdin)
 		} else {
 			reader = proio.NewReader(stdin)
 		}
@@ -57,8 +61,10 @@ func main() {
 
 	var writer *proio.Writer
 	if *outFile == "" {
-		if *compress {
+		if *compressGzip {
 			writer = proio.NewGzipWriter(os.Stdout)
+		} else if *compressLZ4 {
+			writer = proio.NewLZ4Writer(os.Stdout)
 		} else {
 			writer = proio.NewWriter(os.Stdout)
 		}

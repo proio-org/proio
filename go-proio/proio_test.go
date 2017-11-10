@@ -2,6 +2,7 @@ package proio // import "github.com/decibelcooper/proio/go-proio"
 
 import (
 	"bytes"
+	"io"
 	"math"
 	"reflect"
 	"testing"
@@ -18,24 +19,33 @@ func TestEventPushGet(t *testing.T) {
 
 	event0Out := NewEvent()
 
-	MCParticles := &prolcio.MCParticleCollection{}
-	MCParticles.Entries = append(MCParticles.Entries, &prolcio.MCParticle{})
-	MCParticles.Entries = append(MCParticles.Entries, &prolcio.MCParticle{})
-	event0Out.Add(MCParticles, "MCParticles")
+	MCParticles, err := event0Out.NewCollection("MCParticles", "lcio.MCParticle")
+	if err != nil {
+		t.Error(err)
+	}
+	if _, err := MCParticles.AddEntries(&prolcio.MCParticle{}, &prolcio.MCParticle{}); err != nil {
+		t.Error(err)
+	}
 
-	simTrackHits := &prolcio.SimTrackerHitCollection{}
-	simTrackHits.Entries = append(simTrackHits.Entries, &prolcio.SimTrackerHit{})
-	simTrackHits.Entries = append(simTrackHits.Entries, &prolcio.SimTrackerHit{})
-	event0Out.Add(simTrackHits, "TrackerHits")
+	simTrackHits, err := event0Out.NewCollection("TrackerHits", "lcio.SimTrackerHit")
+	if err != nil {
+		t.Error(err)
+	}
+	if _, err := simTrackHits.AddEntries(&prolcio.SimTrackerHit{}, &prolcio.SimTrackerHit{}); err != nil {
+		t.Error(err)
+	}
 
 	writer.Push(event0Out)
 
 	event1Out := NewEvent()
 
-	simTrackHits = &prolcio.SimTrackerHitCollection{}
-	simTrackHits.Entries = append(simTrackHits.Entries, &prolcio.SimTrackerHit{})
-	simTrackHits.Entries = append(simTrackHits.Entries, &prolcio.SimTrackerHit{})
-	event1Out.Add(simTrackHits, "TrackerHits")
+	simTrackHits, err = event1Out.NewCollection("TrackerHits", "lcio.SimTrackerHit")
+	if err != nil {
+		t.Error(err)
+	}
+	if _, err := simTrackHits.AddEntries(&prolcio.SimTrackerHit{}, &prolcio.SimTrackerHit{}); err != nil {
+		t.Error(err)
+	}
 
 	writer.Push(event1Out)
 
@@ -70,19 +80,26 @@ func TestRefDeref(t *testing.T) {
 
 	eventOut := NewEvent()
 
-	MCParticles := &prolcio.MCParticleCollection{}
-	if err := eventOut.Add(MCParticles, "MCParticles"); err != nil {
-		t.Error("Can't add MCParticles collection: ", err)
+	MCParticles, err := eventOut.NewCollection("MCParticles", "lcio.MCParticle")
+	if err != nil {
+		t.Error(err)
 	}
 
-	part1 := &prolcio.MCParticle{PDG: 11}
-	part2 := &prolcio.MCParticle{PDG: 11}
-	part3 := &prolcio.MCParticle{PDG: 22}
-	MCParticles.Entries = append(MCParticles.Entries, part1, part2, part3)
+	parent := &prolcio.MCParticle{PDG: 11}
+	parentID, err := MCParticles.AddEntry(parent)
+	if err != nil {
+		t.Error(err)
+	}
+	child1 := &prolcio.MCParticle{PDG: 11}
+	child2 := &prolcio.MCParticle{PDG: 22}
+	childIDs, err := MCParticles.AddEntries(child1, child2)
+	if err != nil {
+		t.Error(err)
+	}
 
-	part1.Children = append(part1.Children, eventOut.Reference(part2), eventOut.Reference(part3))
-	part2.Parents = append(part2.Parents, eventOut.Reference(part1))
-	part3.Parents = append(part3.Parents, eventOut.Reference(part1))
+	parent.Children = append(parent.Children, childIDs...)
+	child1.Parents = append(child1.Parents, parentID)
+	child2.Parents = append(child2.Parents, parentID)
 
 	writer.Push(eventOut)
 
@@ -90,32 +107,32 @@ func TestRefDeref(t *testing.T) {
 
 	eventIn, err := reader.Get()
 	if err != nil {
-		t.Error("Error reading back event")
+		t.Error("Error reading back event: ", err)
 	}
 
-	MCParticles_ := eventIn.Get("MCParticles")
-	if MCParticles_ == nil {
+	MCParticles_, err := eventIn.Get("MCParticles")
+	if err != nil {
 		t.Error("Failed to get MCParticles collection")
 	}
 
-	part1_ := MCParticles_.GetEntry(0).(*prolcio.MCParticle)
-	if part1_.String() != part1.String() {
+	parent_ := MCParticles_.GetEntry(MCParticles_.EntryIDs(true)[0]).(*prolcio.MCParticle)
+	if parent_.String() != parent.String() {
 		t.Error("Failed to match first prolcio.MCParticle")
 	}
-	part2_ := eventOut.Dereference(part1_.Children[0]).(*prolcio.MCParticle)
-	if part2_.String() != part2.String() {
+	child1_ := eventOut.GetEntry(parent_.Children[0]).(*prolcio.MCParticle)
+	if child1_.String() != child1.String() {
 		t.Error("Failed to match first daughter particle")
 	}
-	part3_ := eventOut.Dereference(part1_.Children[1]).(*prolcio.MCParticle)
-	if part2_.String() != part2.String() {
+	child2_ := eventOut.GetEntry(parent_.Children[1]).(*prolcio.MCParticle)
+	if child1_.String() != child1.String() {
 		t.Error("Failed to match second daughter particle")
 	}
-	part1_ = eventOut.Dereference(part2_.Parents[0]).(*prolcio.MCParticle)
-	if part1_.String() != part1.String() {
+	parent_ = eventOut.GetEntry(child1_.Parents[0]).(*prolcio.MCParticle)
+	if parent_.String() != parent.String() {
 		t.Error("Failed to match parent of first daughter particle")
 	}
-	part1_ = eventOut.Dereference(part3_.Parents[0]).(*prolcio.MCParticle)
-	if part1_.String() != part1.String() {
+	parent_ = eventOut.GetEntry(child2_.Parents[0]).(*prolcio.MCParticle)
+	if parent_.String() != parent.String() {
 		t.Error("Failed to match parent of second daughter particle")
 	}
 }
@@ -123,43 +140,50 @@ func TestRefDeref(t *testing.T) {
 func TestRefDeref2(t *testing.T) {
 	event := NewEvent()
 
-	MCParticles := &prolcio.MCParticleCollection{}
-	if err := event.Add(MCParticles, "MCParticles"); err != nil {
-		t.Error("Can't add MCParticles collection: ", err)
+	MCParticles, err := event.NewCollection("MCParticles", "lcio.MCParticle")
+	if err != nil {
+		t.Error(err)
 	}
 
-	part1 := &prolcio.MCParticle{PDG: 11}
-	part2 := &prolcio.MCParticle{PDG: 11}
-	part3 := &prolcio.MCParticle{PDG: 22}
-	MCParticles.Entries = append(MCParticles.Entries, part1, part2, part3)
+	parent := &prolcio.MCParticle{PDG: 11}
+	parentID, err := MCParticles.AddEntry(parent)
+	if err != nil {
+		t.Error(err)
+	}
+	child1 := &prolcio.MCParticle{PDG: 11}
+	child2 := &prolcio.MCParticle{PDG: 22}
+	childIDs, err := MCParticles.AddEntries(child1, child2)
+	if err != nil {
+		t.Error(err)
+	}
 
-	part1.Children = append(part1.Children, event.Reference(part2), event.Reference(part3))
-	part2.Parents = append(part2.Parents, event.Reference(part1))
-	part3.Parents = append(part3.Parents, event.Reference(part1))
+	parent.Children = append(parent.Children, childIDs...)
+	child1.Parents = append(child1.Parents, parentID)
+	child2.Parents = append(child2.Parents, parentID)
 
-	MCParticles_ := event.Get("MCParticles")
-	if MCParticles_ == nil {
+	MCParticles_, err := event.Get("MCParticles")
+	if err != nil {
 		t.Error("Failed to get MCParticles collection")
 	}
 
-	part1_ := MCParticles_.GetEntry(0).(*prolcio.MCParticle)
-	if part1_ != part1 {
+	parent_ := MCParticles_.GetEntry(MCParticles_.EntryIDs(true)[0]).(*prolcio.MCParticle)
+	if parent_ != parent {
 		t.Error("Failed to match first prolcio.MCParticle")
 	}
-	part2_ := event.Dereference(part1_.Children[0]).(*prolcio.MCParticle)
-	if part2_ != part2 {
+	child1_ := event.GetEntry(parent_.Children[0]).(*prolcio.MCParticle)
+	if child1_ != child1 {
 		t.Error("Failed to match first daughter particle")
 	}
-	part3_ := event.Dereference(part1_.Children[1]).(*prolcio.MCParticle)
-	if part2_ != part2 {
+	child2_ := event.GetEntry(parent_.Children[1]).(*prolcio.MCParticle)
+	if child1_ != child1 {
 		t.Error("Failed to match second daughter particle")
 	}
-	part1_ = event.Dereference(part2_.Parents[0]).(*prolcio.MCParticle)
-	if part1_ != part1 {
+	parent_ = event.GetEntry(child1_.Parents[0]).(*prolcio.MCParticle)
+	if parent_ != parent {
 		t.Error("Failed to match parent of first daughter particle")
 	}
-	part1_ = event.Dereference(part3_.Parents[0]).(*prolcio.MCParticle)
-	if part1_ != part1 {
+	parent_ = event.GetEntry(child2_.Parents[0]).(*prolcio.MCParticle)
+	if parent_ != parent {
 		t.Error("Failed to match parent of second daughter particle")
 	}
 }
@@ -170,24 +194,30 @@ func TestRefDeref3(t *testing.T) {
 
 	eventOut := NewEvent()
 
-	MCParticles := &prolcio.MCParticleCollection{}
-	if err := eventOut.Add(MCParticles, "MCParticles"); err != nil {
-		t.Error("Can't add MCParticles collection: ", err)
+	MCParticles, err := eventOut.NewCollection("MCParticles", "lcio.MCParticle")
+	if err != nil {
+		t.Error(err)
 	}
-	part1 := &prolcio.MCParticle{PDG: 11}
-	MCParticles.Entries = append(MCParticles.Entries, part1)
-
-	SimParticles := &prolcio.MCParticleCollection{}
-	if err := eventOut.Add(SimParticles, "SimParticles"); err != nil {
-		t.Error("Can't add SimParticles collection: ", err)
+	parent := &prolcio.MCParticle{PDG: 11}
+	parentID, err := MCParticles.AddEntry(parent)
+	if err != nil {
+		t.Error(err)
 	}
-	part2 := &prolcio.MCParticle{PDG: 11}
-	part3 := &prolcio.MCParticle{PDG: 22}
-	SimParticles.Entries = append(SimParticles.Entries, part2, part3)
 
-	part1.Children = append(part1.Children, eventOut.Reference(part2), eventOut.Reference(part3))
-	part2.Parents = append(part2.Parents, eventOut.Reference(part1))
-	part3.Parents = append(part3.Parents, eventOut.Reference(part1))
+	simParticles, err := eventOut.NewCollection("SimParticles", "lcio.MCParticle")
+	if err != nil {
+		t.Error(err)
+	}
+	child1 := &prolcio.MCParticle{PDG: 11}
+	child2 := &prolcio.MCParticle{PDG: 22}
+	childIDs, err := simParticles.AddEntries(child1, child2)
+	if err != nil {
+		t.Error(err)
+	}
+
+	parent.Children = append(parent.Children, childIDs...)
+	child1.Parents = append(child1.Parents, parentID)
+	child2.Parents = append(child2.Parents, parentID)
 
 	writer.Push(eventOut)
 
@@ -195,37 +225,33 @@ func TestRefDeref3(t *testing.T) {
 
 	eventIn, err := reader.Get()
 	if err != nil {
-		t.Error("Error reading back event")
+		t.Error("Error reading back event: ", err)
 	}
 
-	MCParticles_ := eventIn.Get("MCParticles")
-	if MCParticles_ == nil {
+	MCParticles_, err := eventIn.Get("MCParticles")
+	if err != nil {
 		t.Error("Failed to get MCParticles collection")
 	}
 
-	part1_ := MCParticles_.GetEntry(0).(*prolcio.MCParticle)
-	if part1_.String() != part1.String() {
-		t.Error("Failed to match prolcio.MCParticle")
+	parent_ := MCParticles_.GetEntry(MCParticles_.EntryIDs(true)[0]).(*prolcio.MCParticle)
+	if parent_.String() != parent.String() {
+		t.Error("Failed to match first prolcio.MCParticle")
 	}
-	part2_ := eventOut.Dereference(part1_.Children[0]).(*prolcio.MCParticle)
-	if part2_.String() != part2.String() {
+	child1_ := eventOut.GetEntry(parent_.Children[0]).(*prolcio.MCParticle)
+	if child1_.String() != child1.String() {
 		t.Error("Failed to match first daughter particle")
 	}
-	part3_ := eventOut.Dereference(part1_.Children[1]).(*prolcio.MCParticle)
-	if part2_.String() != part2.String() {
+	child2_ := eventOut.GetEntry(parent_.Children[1]).(*prolcio.MCParticle)
+	if child1_.String() != child1.String() {
 		t.Error("Failed to match second daughter particle")
 	}
-	part1_ = eventOut.Dereference(part2_.Parents[0]).(*prolcio.MCParticle)
-	if part1_.String() != part1.String() {
+	parent_ = eventOut.GetEntry(child1_.Parents[0]).(*prolcio.MCParticle)
+	if parent_.String() != parent.String() {
 		t.Error("Failed to match parent of first daughter particle")
 	}
-	part1_ = eventOut.Dereference(part3_.Parents[0]).(*prolcio.MCParticle)
-	if part1_.String() != part1.String() {
+	parent_ = eventOut.GetEntry(child2_.Parents[0]).(*prolcio.MCParticle)
+	if parent_.String() != parent.String() {
 		t.Error("Failed to match parent of second daughter particle")
-	}
-
-	if eventIn.Header.NUniqueIDs != eventOut.Header.NUniqueIDs {
-		t.Error("Unique ID count was not carried over in push/get")
 	}
 }
 
@@ -250,6 +276,17 @@ func dotProduct(vector1 []float64, vector2 []float64) float64 {
 
 func BenchmarkTracking(b *testing.B) {
 	filename := "../samples/largeSample.proio"
+	reader, err := Open(filename)
+	if err != nil {
+		b.Skip("Skipping tracking benchmark: missing input file ", filename)
+	}
+
+	b.ResetTimer()
+	tracking(reader, b)
+}
+
+func BenchmarkTrackingLZ4(b *testing.B) {
+	filename := "../samples/largeSample.proio.lz4"
 	reader, err := Open(filename)
 	if err != nil {
 		b.Skip("Skipping tracking benchmark: missing input file ", filename)
@@ -305,13 +342,20 @@ func tracking(reader *Reader, b *testing.B) {
 	for event := range reader.ScanEvents() {
 		b.N++
 
-		truthColl := event.Get("MCParticle").(*prolcio.MCParticleCollection)
-		trackColl := event.Get("Tracks").(*prolcio.TrackCollection)
+		truthColl, err := event.Get("MCParticle")
+		if err != nil {
+			b.Error(err)
+		}
+		trackColl, err := event.Get("Tracks")
+		if err != nil {
+			b.Error(err)
+		}
 
 		// FIXME: boost back from crossing angle?
 
 		var truthRelations []TruthRelation
-		for i, truth := range truthColl.Entries {
+		for _, truthID := range truthColl.EntryIDs(false) {
+			truth := truthColl.GetEntry(truthID).(*prolcio.MCParticle)
 			if truth.GenStatus != 1 || truth.Charge == float32(0) {
 				continue
 			}
@@ -322,7 +366,7 @@ func tracking(reader *Reader, b *testing.B) {
 
 			if pT > 0.5 {
 				truthRelations = append(truthRelations, TruthRelation{
-					Truth: truthColl.Entries[i],
+					Truth: truth,
 					PNorm: pNorm,
 					Eta:   eta,
 					P_T:   pT,
@@ -337,7 +381,8 @@ func tracking(reader *Reader, b *testing.B) {
 			}
 		}
 
-		for _, track := range trackColl.Entries {
+		for _, trackID := range trackColl.EntryIDs(false) {
+			track := trackColl.GetEntry(trackID).(*prolcio.Track)
 			tanLambda := float64(track.States[0].TanL)
 
 			lambda := math.Atan(tanLambda)
@@ -368,6 +413,18 @@ func tracking(reader *Reader, b *testing.B) {
 
 				truthRelations = append(truthRelations[:minIndex], truthRelations[minIndex+1:]...)
 			}
+		}
+	}
+
+errLoop:
+	for {
+		select {
+		case err := <-reader.Err:
+			if err != io.EOF {
+				b.Error(err)
+			}
+		default:
+			break errLoop
 		}
 	}
 }

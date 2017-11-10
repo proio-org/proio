@@ -6,6 +6,8 @@ import (
 	"io"
 	"os"
 	"strings"
+
+	"github.com/pierrec/lz4"
 )
 
 type Writer struct {
@@ -27,6 +29,8 @@ func Create(filename string) (*Writer, error) {
 	var writer *Writer
 	if strings.HasSuffix(filename, ".gz") {
 		writer = NewGzipWriter(file)
+	} else if strings.HasSuffix(filename, ".lz4") {
+		writer = NewLZ4Writer(file)
 	} else {
 		writer = NewWriter(file)
 	}
@@ -66,6 +70,14 @@ func NewGzipWriter(byteWriter io.Writer) *Writer {
 	return writer
 }
 
+func NewLZ4Writer(byteWriter io.Writer) *Writer {
+	lz4Writer := lz4.NewWriter(byteWriter)
+	writer := NewWriter(lz4Writer)
+	writer.deferUntilClose(lz4Writer.Close)
+
+	return writer
+}
+
 var magicBytes = [...]byte{
 	byte(0xe1),
 	byte(0xc1),
@@ -80,7 +92,7 @@ func (wrt *Writer) Push(event *Event) (err error) {
 		return err
 	}
 
-	headerBuf, err := event.Header.Marshal()
+	headerBuf, err := event.header.Marshal()
 	if err != nil {
 		return
 	}
@@ -88,7 +100,7 @@ func (wrt *Writer) Push(event *Event) (err error) {
 	headerSizeBuf := make([]byte, 4)
 	binary.LittleEndian.PutUint32(headerSizeBuf, uint32(len(headerBuf)))
 
-	payload := event.getPayload()
+	payload := event.payload
 	payloadSizeBuf := make([]byte, 4)
 	binary.LittleEndian.PutUint32(payloadSizeBuf, uint32(len(payload)))
 

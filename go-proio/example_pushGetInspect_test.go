@@ -13,26 +13,24 @@ func Example_pushGetInspect() {
 	writer := proio.NewWriter(buffer)
 
 	eventOut := proio.NewEvent()
-	eventOut.Header.EventNumber = 1
+	eventOut.SetEventNumber(1)
 
 	// Build MCParticle collections
 	// These must be added to the event before they can be automatically
 	// referenced
 
-	MCParticles := &lcio.MCParticleCollection{}
-	eventOut.Add(MCParticles, "MCParticles")
-	part1 := &lcio.MCParticle{PDG: 11}
-	MCParticles.Entries = append(MCParticles.Entries, part1)
+	MCParticles, _ := eventOut.NewCollection("MCParticles", "lcio.MCParticle")
+	parent := &lcio.MCParticle{PDG: 11}
+	parentID, _ := MCParticles.AddEntry(parent)
 
-	SimParticles := &lcio.MCParticleCollection{}
-	eventOut.Add(SimParticles, "SimParticles")
-	part2 := &lcio.MCParticle{PDG: 11}
-	part3 := &lcio.MCParticle{PDG: 22}
-	SimParticles.Entries = append(SimParticles.Entries, part2, part3)
+	simParticles, _ := eventOut.NewCollection("SimParticles", "lcio.MCParticle")
+	child1 := &lcio.MCParticle{PDG: 11}
+	child2 := &lcio.MCParticle{PDG: 22}
+	childIDs, _ := simParticles.AddEntries(child1, child2)
 
-	part1.Children = append(part1.Children, eventOut.Reference(part2), eventOut.Reference(part3))
-	part2.Parents = append(part2.Parents, eventOut.Reference(part1))
-	part3.Parents = append(part3.Parents, eventOut.Reference(part1))
+	parent.Children = append(parent.Children, childIDs...)
+	child1.Parents = append(child1.Parents, parentID)
+	child2.Parents = append(child2.Parents, parentID)
 
 	writer.Push(eventOut)
 
@@ -41,13 +39,14 @@ func Example_pushGetInspect() {
 	reader := proio.NewReader(buffer)
 	eventIn, _ := reader.Get()
 
-	mcColl, _ := eventIn.Get("MCParticles").(*lcio.MCParticleCollection)
-	fmt.Print(mcColl.GetNEntries(), " MCParticle(s)...\n")
-	for i, part := range mcColl.Entries {
+	mcColl, _ := eventIn.Get("MCParticles")
+	fmt.Print(mcColl.NEntries(), " MCParticle(s)...\n")
+	for i, parentID := range mcColl.EntryIDs(true) {
+		part := mcColl.GetEntry(parentID).(*lcio.MCParticle)
 		fmt.Print(i, ". PDG: ", part.PDG, "\n")
 		fmt.Print("  ", len(part.Children), " Children...\n")
-		for j, ref := range part.Children {
-			fmt.Print("  ", j, ". PDG: ", eventIn.Dereference(ref).(*lcio.MCParticle).PDG, "\n")
+		for j, childID := range part.Children {
+			fmt.Print("  ", j, ". PDG: ", eventIn.GetEntry(childID).(*lcio.MCParticle).PDG, "\n")
 		}
 	}
 

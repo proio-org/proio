@@ -10,12 +10,13 @@ import (
 	"sort"
 
 	"github.com/decibelcooper/proio/go-proio"
-	"github.com/decibelcooper/proio/go-proio/model"
+	"github.com/decibelcooper/proio/go-proio/proto"
 	humanize "github.com/dustin/go-humanize"
 )
 
 var (
 	doGzip = flag.Bool("g", false, "decompress the stdin input with gzip")
+	doLZ4  = flag.Bool("l", false, "decompress the stdin input with LZ4")
 )
 
 func printUsage() {
@@ -44,6 +45,8 @@ func main() {
 		stdin := bufio.NewReader(os.Stdin)
 		if *doGzip {
 			reader, err = proio.NewGzipReader(stdin)
+		} else if *doLZ4 {
+			reader = proio.NewLZ4Reader(stdin)
 		} else {
 			reader = proio.NewReader(stdin)
 		}
@@ -60,7 +63,7 @@ func main() {
 	collBytes := make(map[string]uint64)
 	runs := make(map[uint64]bool)
 
-	var header *model.EventHeader
+	var header *proto.EventHeader
 	for header, err = reader.GetHeader(); header != nil; header, err = reader.GetHeader() {
 		if err != nil {
 			log.Print(err)
@@ -70,11 +73,11 @@ func main() {
 		nEvents++
 
 		for _, collHdr := range header.PayloadCollections {
-			if _, ok := collBytes[collHdr.Type]; !ok {
-				colls = append(colls, collHdr.Type)
+			if _, ok := collBytes[collHdr.EntryType]; !ok {
+				colls = append(colls, collHdr.EntryType)
 				sort.Strings(colls)
 			}
-			collBytes[collHdr.Type] += uint64(collHdr.PayloadSize)
+			collBytes[collHdr.EntryType] += uint64(collHdr.PayloadSize)
 		}
 	}
 

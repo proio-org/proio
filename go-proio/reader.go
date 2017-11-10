@@ -1,6 +1,7 @@
 package proio
 
 import (
+	"bufio"
 	"compress/gzip"
 	"encoding/binary"
 	"errors"
@@ -9,7 +10,8 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/decibelcooper/proio/go-proio/model"
+	"github.com/decibelcooper/proio/go-proio/proto"
+	"github.com/pierrec/lz4"
 )
 
 type Reader struct {
@@ -38,6 +40,8 @@ func Open(filename string) (*Reader, error) {
 			file.Close()
 			return nil, err
 		}
+	} else if strings.HasSuffix(filename, ".lz4") {
+		reader = NewLZ4Reader(file)
 	} else {
 		reader = NewReader(file)
 	}
@@ -84,6 +88,14 @@ func NewGzipReader(byteReader io.Reader) (*Reader, error) {
 	reader.deferUntilClose(gzReader.Close)
 
 	return reader, nil
+}
+
+func NewLZ4Reader(byteReader io.Reader) *Reader {
+	lz4Reader := lz4.NewReader(byteReader)
+	buffReader := bufio.NewReaderSize(lz4Reader, 0x1000000)
+	reader := NewReader(buffReader)
+
+	return reader
 }
 
 func (rdr *Reader) syncToMagic() (int, error) {
@@ -152,7 +164,7 @@ func (rdr *Reader) Get() (*Event, error) {
 	if err = readBytes(rdr.byteReader, headerBuf); err != nil {
 		return nil, ErrTruncated
 	}
-	header := &model.EventHeader{}
+	header := &proto.EventHeader{}
 	if err = header.Unmarshal(headerBuf); err != nil {
 		return nil, ErrTruncated
 	}
@@ -163,8 +175,8 @@ func (rdr *Reader) Get() (*Event, error) {
 	}
 
 	event := NewEvent()
-	event.Header = header
-	event.setPayload(payload)
+	event.header = header
+	event.payload = payload
 
 	if n != 4 {
 		err = ErrResync
@@ -229,7 +241,7 @@ func (rdr *Reader) StopScan() {
 // Get the next Header only from the stream, and seek past the collection
 // payload if possible.  This is useful for parsing the metadata of a file or
 // stream.
-func (rdr *Reader) GetHeader() (*model.EventHeader, error) {
+func (rdr *Reader) GetHeader() (*proto.EventHeader, error) {
 	rdr.getMutex.Lock()
 	defer rdr.getMutex.Unlock()
 
@@ -253,7 +265,7 @@ func (rdr *Reader) GetHeader() (*model.EventHeader, error) {
 	if err = readBytes(rdr.byteReader, headerBuf); err != nil {
 		return nil, ErrTruncated
 	}
-	header := &model.EventHeader{}
+	header := &proto.EventHeader{}
 	if err = header.Unmarshal(headerBuf); err != nil {
 		return nil, ErrTruncated
 	}
