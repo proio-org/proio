@@ -9,18 +9,18 @@ option java_outer_classname = "Proto";
 // libraries.
 
 message EventHeader {
-	uint64 runNumber = 1;
-	uint64 eventNumber = 2;
-	uint64 timeStamp = 3;
+    uint64 runNumber = 1;
+    uint64 eventNumber = 2;
+    uint64 timeStamp = 3;
 
-	uint32 nUniqueCollIDs = 4;
+    uint32 nUniqueCollIDs = 4;
     message CollectionHeader {
         string name = 1;
         string entryType = 2;
         uint32 id = 3;
         uint32 payloadSize = 4;
     }
-	repeated CollectionHeader payloadCollections = 5;
+    repeated CollectionHeader payloadCollections = 5;
 
     map<string, bytes> auxData = 6;
 }
