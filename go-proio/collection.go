@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"reflect"
 	"sort"
-	"strings"
 
 	"github.com/decibelcooper/proio/go-proio/proto"
 	protobuf "github.com/golang/protobuf/proto"
@@ -38,11 +37,11 @@ var (
 
 // Get a string representing the entry type
 func GetType(entry Entry) string {
-	return strings.TrimPrefix(protobuf.MessageName(entry), "proio.model.")
+	return protobuf.MessageName(entry)
 }
 
 func newCollection(name, entryType string, id uint32) (*Collection, error) {
-	typeName := "proio.model." + entryType
+	typeName := entryType
 	ptrType := protobuf.MessageType(typeName)
 	if ptrType == nil {
 		fmt.Println(name, typeName, id)

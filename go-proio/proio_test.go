@@ -19,7 +19,7 @@ func TestEventPushGet(t *testing.T) {
 
 	event0Out := NewEvent()
 
-	MCParticles, err := event0Out.NewCollection("MCParticles", "lcio.MCParticle")
+	MCParticles, err := event0Out.NewCollection("MCParticles", "proio.model.lcio.MCParticle")
 	if err != nil {
 		t.Error(err)
 	}
@@ -27,7 +27,7 @@ func TestEventPushGet(t *testing.T) {
 		t.Error(err)
 	}
 
-	simTrackHits, err := event0Out.NewCollection("TrackerHits", "lcio.SimTrackerHit")
+	simTrackHits, err := event0Out.NewCollection("TrackerHits", "proio.model.lcio.SimTrackerHit")
 	if err != nil {
 		t.Error(err)
 	}
@@ -39,7 +39,7 @@ func TestEventPushGet(t *testing.T) {
 
 	event1Out := NewEvent()
 
-	simTrackHits, err = event1Out.NewCollection("TrackerHits", "lcio.SimTrackerHit")
+	simTrackHits, err = event1Out.NewCollection("TrackerHits", "proio.model.lcio.SimTrackerHit")
 	if err != nil {
 		t.Error(err)
 	}
@@ -80,7 +80,7 @@ func TestRefDeref(t *testing.T) {
 
 	eventOut := NewEvent()
 
-	MCParticles, err := eventOut.NewCollection("MCParticles", "lcio.MCParticle")
+	MCParticles, err := eventOut.NewCollection("MCParticles", "proio.model.lcio.MCParticle")
 	if err != nil {
 		t.Error(err)
 	}
@@ -140,7 +140,7 @@ func TestRefDeref(t *testing.T) {
 func TestRefDeref2(t *testing.T) {
 	event := NewEvent()
 
-	MCParticles, err := event.NewCollection("MCParticles", "lcio.MCParticle")
+	MCParticles, err := event.NewCollection("MCParticles", "proio.model.lcio.MCParticle")
 	if err != nil {
 		t.Error(err)
 	}
@@ -194,7 +194,7 @@ func TestRefDeref3(t *testing.T) {
 
 	eventOut := NewEvent()
 
-	MCParticles, err := eventOut.NewCollection("MCParticles", "lcio.MCParticle")
+	MCParticles, err := eventOut.NewCollection("MCParticles", "proio.model.lcio.MCParticle")
 	if err != nil {
 		t.Error(err)
 	}
@@ -204,7 +204,7 @@ func TestRefDeref3(t *testing.T) {
 		t.Error(err)
 	}
 
-	simParticles, err := eventOut.NewCollection("SimParticles", "lcio.MCParticle")
+	simParticles, err := eventOut.NewCollection("SimParticles", "proio.model.lcio.MCParticle")
 	if err != nil {
 		t.Error(err)
 	}

@@ -82,37 +82,37 @@ func main() {
 			var err error
 			switch lcioColl.(type) {
 			case *lcio.McParticleContainer:
-				proioColl, err = proioEvent.NewCollection(collName, "lcio.MCParticle")
+				proioColl, err = proioEvent.NewCollection(collName, "proio.model.lcio.MCParticle")
 			case *lcio.SimTrackerHitContainer:
-				proioColl, err = proioEvent.NewCollection(collName, "lcio.SimTrackerHit")
+				proioColl, err = proioEvent.NewCollection(collName, "proio.model.lcio.SimTrackerHit")
 			case *lcio.TrackerRawDataContainer:
-				proioColl, err = proioEvent.NewCollection(collName, "lcio.TrackerRawData")
+				proioColl, err = proioEvent.NewCollection(collName, "proio.model.lcio.TrackerRawData")
 			case *lcio.TrackerDataContainer:
-				proioColl, err = proioEvent.NewCollection(collName, "lcio.TrackerData")
+				proioColl, err = proioEvent.NewCollection(collName, "proio.model.lcio.TrackerData")
 			case *lcio.TrackerHitContainer:
-				proioColl, err = proioEvent.NewCollection(collName, "lcio.TrackerHit")
+				proioColl, err = proioEvent.NewCollection(collName, "proio.model.lcio.TrackerHit")
 			case *lcio.TrackerPulseContainer:
-				proioColl, err = proioEvent.NewCollection(collName, "lcio.TrackerPulse")
+				proioColl, err = proioEvent.NewCollection(collName, "proio.model.lcio.TrackerPulse")
 			case *lcio.TrackerHitPlaneContainer:
-				proioColl, err = proioEvent.NewCollection(collName, "lcio.TrackerHitPlane")
+				proioColl, err = proioEvent.NewCollection(collName, "proio.model.lcio.TrackerHitPlane")
 			case *lcio.TrackerHitZCylinderContainer:
-				proioColl, err = proioEvent.NewCollection(collName, "lcio.TrackerHitZCylinder")
+				proioColl, err = proioEvent.NewCollection(collName, "proio.model.lcio.TrackerHitZCylinder")
 			case *lcio.TrackContainer:
-				proioColl, err = proioEvent.NewCollection(collName, "lcio.Track")
+				proioColl, err = proioEvent.NewCollection(collName, "proio.model.lcio.Track")
 			case *lcio.SimCalorimeterHitContainer:
-				proioColl, err = proioEvent.NewCollection(collName, "lcio.SimCalorimeterHit")
+				proioColl, err = proioEvent.NewCollection(collName, "proio.model.lcio.SimCalorimeterHit")
 			case *lcio.RawCalorimeterHitContainer:
-				proioColl, err = proioEvent.NewCollection(collName, "lcio.RawCalorimeterHit")
+				proioColl, err = proioEvent.NewCollection(collName, "proio.model.lcio.RawCalorimeterHit")
 			case *lcio.CalorimeterHitContainer:
-				proioColl, err = proioEvent.NewCollection(collName, "lcio.CalorimeterHit")
+				proioColl, err = proioEvent.NewCollection(collName, "proio.model.lcio.CalorimeterHit")
 			case *lcio.ClusterContainer:
-				proioColl, err = proioEvent.NewCollection(collName, "lcio.Cluster")
+				proioColl, err = proioEvent.NewCollection(collName, "proio.model.lcio.Cluster")
 			case *lcio.RecParticleContainer:
-				proioColl, err = proioEvent.NewCollection(collName, "lcio.RecParticle")
+				proioColl, err = proioEvent.NewCollection(collName, "proio.model.lcio.RecParticle")
 			case *lcio.VertexContainer:
-				proioColl, err = proioEvent.NewCollection(collName, "lcio.Vertex")
+				proioColl, err = proioEvent.NewCollection(collName, "proio.model.lcio.Vertex")
 			case *lcio.RelationContainer:
-				proioColl, err = proioEvent.NewCollection(collName, "lcio.Relation")
+				proioColl, err = proioEvent.NewCollection(collName, "proio.model.lcio.Relation")
 			}
 			if err != nil {
 				log.Fatal(err)

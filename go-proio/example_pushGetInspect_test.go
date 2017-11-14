@@ -19,11 +19,11 @@ func Example_pushGetInspect() {
 	// These must be added to the event before they can be automatically
 	// referenced
 
-	MCParticles, _ := eventOut.NewCollection("MCParticles", "lcio.MCParticle")
+	MCParticles, _ := eventOut.NewCollection("MCParticles", "proio.model.lcio.MCParticle")
 	parent := &lcio.MCParticle{PDG: 11}
 	parentID, _ := MCParticles.AddEntry(parent)
 
-	simParticles, _ := eventOut.NewCollection("SimParticles", "lcio.MCParticle")
+	simParticles, _ := eventOut.NewCollection("SimParticles", "proio.model.lcio.MCParticle")
 	child1 := &lcio.MCParticle{PDG: 11}
 	child2 := &lcio.MCParticle{PDG: 22}
 	childIDs, _ := simParticles.AddEntries(child1, child2)
