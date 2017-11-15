@@ -17,8 +17,6 @@ type Entry interface {
 	Unmarshal([]byte) error
 }
 
-type idSlice []uint64
-
 type Collection struct {
 	Name string
 
@@ -63,7 +61,7 @@ func (coll *Collection) NEntries() int {
 }
 
 func (coll *Collection) EntryIDs(sorted bool) []uint64 {
-	var ids idSlice
+	var ids []uint64
 	for id, _ := range coll.entryCache {
 		ids = append(ids, uint64(id)<<32+uint64(coll.id))
 	}
@@ -71,7 +69,7 @@ func (coll *Collection) EntryIDs(sorted bool) []uint64 {
 		ids = append(ids, uint64(id)<<32+uint64(coll.id))
 	}
 	if sorted {
-		sort.Sort(ids)
+		sort.Slice(ids, func(i, j int) bool { return ids[i] < ids[j] })
 	}
 	return ids
 }
@@ -160,16 +158,4 @@ func (coll *Collection) marshal() ([]byte, error) {
 func (coll *Collection) newID() uint32 {
 	coll.proto.NUniqueEntryIDs++
 	return coll.proto.NUniqueEntryIDs
-}
-
-func (ids idSlice) Len() int {
-	return len(ids)
-}
-
-func (ids idSlice) Swap(i, j int) {
-	ids[i], ids[j] = ids[j], ids[i]
-}
-
-func (ids idSlice) Less(i, j int) bool {
-	return ids[i] < ids[j]
 }
