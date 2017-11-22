@@ -27,7 +27,7 @@ $(BUILD_IMAGE):
 	SINGULARITY_CACHEDIR=/tmp/singularity-cache singularity build $@ docker://dbcooper/proio-gen
 
 .SECONDEXPANSION:
-go-proio/%.pb.go: $(SOURCE) go-proio/genExtraMsgFuncs.sh $(BUILD_IMAGE)
+go-proio/%.pb.go: $(SOURCE) $(BUILD_IMAGE)
 	$(COMMAND_PREFIX) bash -c "if [ ! -d $(GO_TMP_DIR)/proio ]; then mkdir -p $(GO_TMP_DIR); ln -s $(PWD) $(GO_TMP_DIR); fi"
 	$(COMMAND_PREFIX) protoc --gofast_out=$(GO_TMP_BASE) $(patsubst go-proio/%,%,$(basename $(basename $@))).proto
 	$(COMMAND_PREFIX) bash -c ". go-proio/addModelImport.sh go-proio/model_imports.go $(patsubst go-proio/%,%,$(basename $(basename $@))).proto"
