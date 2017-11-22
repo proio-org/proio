@@ -14,6 +14,8 @@ import (
 	"github.com/pierrec/lz4"
 )
 
+// A Reader enables the input of Events from a stream or file.  Readers should
+// be created with Open, NewReader, NewGZipReader, or NewLZ4Reader.
 type Reader struct {
 	Err                   chan error
 	EventScanBufferSize   int
@@ -23,10 +25,11 @@ type Reader struct {
 	getMutex              sync.Mutex
 }
 
-// Opens a file and adds the file as an io.Reader to a new Reader that is
+// Open opens a file and adds the file as an io.Reader to a new Reader that is
 // returned.  If the file name ends with ".gz", the file is wrapped with
-// gzip.NewReader().  If the function returns successful (err == nil), the
-// Close() function should be called when finished.
+// NewGzipReader.  If the file name ends with ".lz4", the file is wrapped with
+// NewLZ4Reader.  If the function returns successful (err == nil), Close should
+// be called when finished.
 func Open(filename string) (*Reader, error) {
 	file, err := os.Open(filename)
 	if err != nil {
@@ -50,7 +53,7 @@ func Open(filename string) (*Reader, error) {
 	return reader, nil
 }
 
-// Closes anything created by Open() or NewGzipReader()
+// Close closes anything created by Open, NewGzipReader, or NewLZ4Writer.
 func (rdr *Reader) Close() error {
 	rdr.StopScan()
 	for _, thisFunc := range rdr.deferredUntilClose {
@@ -67,7 +70,7 @@ func (rdr *Reader) deferUntilClose(thisFunc func() error) {
 	rdr.deferredUntilClose = append(rdr.deferredUntilClose, thisFunc)
 }
 
-// Returns a new Reader for reading events from a stream
+// NewReader returns a new Reader for reading events from a stream.
 func NewReader(byteReader io.Reader) *Reader {
 	return &Reader{
 		byteReader:          byteReader,
@@ -76,8 +79,9 @@ func NewReader(byteReader io.Reader) *Reader {
 	}
 }
 
-// Opens a gzip stream and adds it as an io.Reader to a new Reader that is
-// returned.  The Close() function should be called before closing the stream.
+// NewGzipReader opens a gzip stream and adds it as an io.Reader to a new
+// Reader that is returned.  Close should be called before closing the
+// underlying io.Reader.
 func NewGzipReader(byteReader io.Reader) (*Reader, error) {
 	gzReader, err := gzip.NewReader(byteReader)
 	if err != nil {
@@ -90,6 +94,8 @@ func NewGzipReader(byteReader io.Reader) (*Reader, error) {
 	return reader, nil
 }
 
+// NewLZ4Reader opens an lz4 stream and adds it as an io.Reader to a new Reader
+// that is returned.
 func NewLZ4Reader(byteReader io.Reader) *Reader {
 	lz4Reader := lz4.NewReader(byteReader)
 	buffReader := bufio.NewReaderSize(lz4Reader, 0x1000000)
@@ -137,7 +143,7 @@ var (
 	ErrTruncated = errors.New("data stream is truncated early")
 )
 
-// Get() returns the next even upon success.  If the data stream is not aligned
+// Get returns the next even upon success.  If the data stream is not aligned
 // with the beginning of an event, the stream will be resynchronized to the
 // next event, and ErrResync will be returned along with the event.
 func (rdr *Reader) Get() (*Event, error) {
@@ -185,12 +191,12 @@ func (rdr *Reader) Get() (*Event, error) {
 	return event, err
 }
 
-//ScanEvents returns a buffered channel of type Event where all of the events
-//in the stream will be pushed.  The channel buffer size is defined by
-//Reader.EventScanBufferSize which defaults to 100.  The goroutine responsible
-//for fetching events will not break until there are no more events,
-//Reader.StopScan() is called, or Reader.Close() is called.  In this scenario,
-//errors are pushed to the Reader.Err channel.
+// ScanEvents returns a buffered channel of type Event where all of the events
+// in the stream will be pushed.  The channel buffer size is defined by
+// EventScanBufferSize which defaults to 100.  The goroutine responsible for
+// fetching events will not break until there are no more events, StopScan or
+// Close is called.  In this scenario, errors are pushed to the Reader.Err
+// channel.
 func (rdr *Reader) ScanEvents() <-chan *Event {
 	events := make(chan *Event, rdr.EventScanBufferSize)
 	quit := make(chan int)
@@ -230,7 +236,7 @@ func (rdr *Reader) deferUntilStopScan(thisFunc func()) {
 	rdr.deferredUntilStopScan = append(rdr.deferredUntilStopScan, thisFunc)
 }
 
-// StopScan stops all scans initiated by Reader.ScanEvents()
+// StopScan stops all scans initiated by ScanEvents.
 func (rdr *Reader) StopScan() {
 	for _, thisFunc := range rdr.deferredUntilStopScan {
 		thisFunc()
@@ -238,9 +244,10 @@ func (rdr *Reader) StopScan() {
 	rdr.deferredUntilStopScan = make([]func(), 0)
 }
 
-// Get the next Header only from the stream, and seek past the collection
-// payload if possible.  This is useful for parsing the metadata of a file or
-// stream.
+// GetHeader gets only the next event protobuf header message from the stream,
+// and seeks past the event payload if possible (otherwise the payload bytes
+// will just be discarded).  This is useful for parsing the metadata of a file
+// or stream.
 func (rdr *Reader) GetHeader() (*proto.EventHeader, error) {
 	rdr.getMutex.Lock()
 	defer rdr.getMutex.Unlock()
@@ -291,7 +298,8 @@ func (rdr *Reader) GetHeader() (*proto.EventHeader, error) {
 	return header, err
 }
 
-// Skip the next nEvents events
+// Skip skips the next nEvents events by seeking if possible, and discarding
+// bytes otherwise.
 func (rdr *Reader) Skip(nEvents int) (int, error) {
 	rdr.getMutex.Lock()
 	defer rdr.getMutex.Unlock()
@@ -345,8 +353,8 @@ func (rdr *Reader) Skip(nEvents int) (int, error) {
 
 var ErrNotSeekable = errors.New("data stream is not seekable")
 
-// If the stream implements io.Seeker (typically a file), reset back to the
-// beginning of the file.
+// SeekToStart resets the stream back to the beginning if it implements
+// io.Seeker (typically a file).
 func (rdr *Reader) SeekToStart() error {
 	rdr.getMutex.Lock()
 	defer rdr.getMutex.Unlock()

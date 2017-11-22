@@ -5,10 +5,11 @@ import (
 	"fmt"
 
 	"github.com/decibelcooper/proio/go-proio/proto"
+	protobuf "github.com/golang/protobuf/proto"
 )
 
-// Struct representing an event either created with NewEvent() or retrieved
-// with (*Reader) Get() or (*Reader) ScanEvents()
+// An Event is either created with NewEvent() or retrieved with (*Reader) Get()
+// or (*Reader) ScanEvents().
 type Event struct {
 	header  *proto.EventHeader
 	payload []byte
@@ -17,7 +18,7 @@ type Event struct {
 	namesCached []string
 }
 
-// Returns a new event with minimal initialization
+// NewEvent returns a new event with minimal initialization.
 func NewEvent() *Event {
 	return &Event{
 		header:    &proto.EventHeader{},
@@ -25,7 +26,7 @@ func NewEvent() *Event {
 	}
 }
 
-// Get a list of collection names in the event
+// GetNames gets a slice of collection names in the event.
 func (evt *Event) GetNames() []string {
 	names := make([]string, 0)
 
@@ -44,22 +45,29 @@ var (
 	ErrCollNotFound  = errors.New("collection not found, or zero-length type name")
 )
 
+// SetRunNumber optionally assigns a run number to associate the event with.
 func (evt *Event) SetRunNumber(num uint64) {
 	evt.header.RunNumber = num
 }
 
+// SetRunNumber optionally assigns an event number to the event.
 func (evt *Event) SetEventNumber(num uint64) {
 	evt.header.EventNumber = num
 }
 
+// GetRunNumber gets the optionally-assigned run number for the event.
 func (evt *Event) GetRunNumber() uint64 {
 	return evt.header.RunNumber
 }
 
+// GetEventNumber gets the optionally-assigned event number for the event.
 func (evt *Event) GetEventNumber() uint64 {
 	return evt.header.EventNumber
 }
 
+// NewCollection creates a new collection with a specified name and entry type.
+// The name must be unique to the event, and the entry type must match the name
+// of an imported protobuf message.
 func (evt *Event) NewCollection(name, entryType string) (*Collection, error) {
 	for key, _ := range evt.collCache {
 		if key == name {
@@ -81,7 +89,7 @@ func (evt *Event) NewCollection(name, entryType string) (*Collection, error) {
 	return coll, nil
 }
 
-// Remove a collection from the event by name
+// Remove removes a collection from the event by name.
 func (evt *Event) Remove(name string) {
 	for key := range evt.collCache {
 		if key == name {
@@ -97,10 +105,8 @@ func (evt *Event) Remove(name string) {
 	}
 }
 
-// Gets a collection from the event.  The collection is deserialized upon the
-// first time calling this function.  Once deserialized, the collection is
-// removed from header.PayloadCollection, and placed back into a queue for
-// reserialization.  The event may be safely modified before reserializing.
+// Get gets a collection from the event by name.  The collection may be safely
+// modified before reserializing the event.
 func (evt *Event) Get(name string) (*Collection, error) {
 	if msg := evt.collCache[name]; msg != nil {
 		return msg, nil
@@ -109,13 +115,30 @@ func (evt *Event) Get(name string) (*Collection, error) {
 	return evt.getFromPayload(0, name, true)
 }
 
-func (evt *Event) GetEntry(id uint64) Entry {
+// GetEntry returns an entry by its reference id.  The referenced entry may be
+// in any collection.
+func (evt *Event) GetEntry(id uint64) protobuf.Message {
 	collID := uint32(id & 0xffffffff)
 	coll, err := evt.getByID(collID)
 	if err != nil {
 		return nil
 	}
 	return coll.GetEntry(id)
+}
+
+// GetHeader returns the protobuf message that contains the event header
+// information.  Use this with caution, and only if necessary.
+func (evt *Event) GetHeader() *proto.EventHeader {
+	return evt.header
+}
+
+// AuxData returns a mutable map of auxiliary data that is serialized with the
+// event.  This can be used to store things like log files, GDML, etc.
+func (evt *Event) AuxData() map[string][]byte {
+	if evt.header.AuxData == nil {
+		evt.header.AuxData = make(map[string][]byte)
+	}
+	return evt.header.AuxData
 }
 
 func (evt *Event) String() string {
@@ -125,10 +148,6 @@ func (evt *Event) String() string {
 		output += coll.String()
 	}
 	return output
-}
-
-func (evt *Event) GetHeader() *proto.EventHeader {
-	return evt.header
 }
 
 func (evt *Event) newID() uint32 {
