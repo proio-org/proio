@@ -1,4 +1,4 @@
-package proio // import "github.com/decibelcooper/proio/go-proio"
+package proio
 
 import (
 	"errors"
