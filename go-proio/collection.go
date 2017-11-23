@@ -170,30 +170,6 @@ func (coll *Collection) NEntries() int {
 	return len(coll.entryCache) + len(coll.proto.Entries)
 }
 
-func (coll *Collection) unmarshal(bytes []byte) error {
-	return coll.proto.Unmarshal(bytes)
-}
-
-func (coll *Collection) marshal() ([]byte, error) {
-	for id, entry := range coll.entryCache {
-		var err error
-
-		selfSerializingEntry, ok := entry.(selfSerializingEntry)
-		if ok {
-			coll.proto.Entries[id], err = selfSerializingEntry.Marshal()
-		} else {
-			coll.proto.Entries[id], err = protobuf.Marshal(entry)
-		}
-
-		if err != nil {
-			return nil, err
-		}
-	}
-	coll.entryCache = make(map[uint32]protobuf.Message)
-
-	return coll.proto.Marshal()
-}
-
 func (coll *Collection) newID() uint32 {
 	coll.proto.NUniqueEntryIDs++
 	return coll.proto.NUniqueEntryIDs
