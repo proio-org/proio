@@ -8,19 +8,42 @@ option java_outer_classname = "Proto";
 // affect the proio libraries.  Any field may be added without affecting the
 // libraries.
 
-message Collection {
-    string entryType = 1;
+message Meta {
+    string name = 1;
+    bytes data = 2;
+}
 
-    uint32 nUniqueEntryIDs = 2;
-    map<uint32, bytes> entries = 3;
+message BucketHeader {
+    uint64 nEvents = 1;
+    uint64 bucketSize = 2;
+
+    enum CompType {
+        NONE = 0;
+        GZIP = 1;
+        LZ4 = 2;
+    }
+    CompType compression = 3;    
+
+    repeated bytes fileDescriptors = 4;
+    repeated Meta metaData = 5;
+}
+
+message Tag {
+    repeated uint64 entries = 1;
+}
+
+message Entry {
+    uint64 type = 1;
+    bytes payload = 2;
 }
 
 message Event {
-    uint64 runNumber = 1;
-    uint64 eventNumber = 2;
-    uint64 timeStamp = 3;
+    map<string, Tag> tags = 1;
+    uint64 nEntries = 2;
+    map<uint64, Entry> entries = 3;
+    uint64 nTypes = 4;
+    map<uint64, string> types = 5;
 
-    uint32 nUniqueCollIDs = 4;
-    map<uint32, CollectionProto> collections = 5;
-    map<string, uint32> collectionIDs = 6;
+    uint64 timestamp = 6;
 }
+

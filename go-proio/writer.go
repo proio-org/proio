@@ -1,120 +1,180 @@
 package proio
 
 import (
+	"bytes"
 	"compress/gzip"
 	"encoding/binary"
 	"io"
 	"os"
-	"strings"
 
+	"github.com/decibelcooper/proio/go-proio/proto"
 	"github.com/pierrec/lz4"
 )
 
-// A Writer enables output of Events into an output stream or file.  Writers
-// should be created with Create, NewWriter, NewGzipWriter, or NewLZ4Writer.
+type Compression int
+
+const (
+	NONE Compression = iota
+	GZIP
+	LZ4
+)
+
 type Writer struct {
-	byteWriter         io.Writer
-	deferredUntilClose []func() error
+	streamWriter io.Writer
+	bucket       *bytes.Buffer
+	bucketWriter io.Writer
+	bucketEvents uint64
+	bucketComp   proto.BucketHeader_CompType
 }
 
-// Create creates a new file (overwriting existing file) and adds the file as
-// an io.Writer to a new Writer that is returned.  If the file name ends with
-// ".gz", the file is wrapped with NewGzipWriter.  If the file name ends with
-// ".lz4", the file is wrapped with NewLZ4Writer. If the function returns
-// successful (err == nil), Close should be called when finished.
-func Create(filename string) (*Writer, error) {
+func Create(filename string, comp Compression) (*Writer, error) {
 	file, err := os.Create(filename)
 	if err != nil {
 		return nil, err
 	}
 
-	var writer *Writer
-	if strings.HasSuffix(filename, ".gz") {
-		writer = NewGzipWriter(file)
-	} else if strings.HasSuffix(filename, ".lz4") {
-		writer = NewLZ4Writer(file)
-	} else {
-		writer = NewWriter(file)
-	}
-	writer.deferUntilClose(file.Close)
-
-	return writer, nil
+	return NewWriter(file, comp), nil
 }
 
-// Close closes anything created by Create, NewGzipWriter, or NewLZ4Writer.
-func (wrt *Writer) Close() error {
-	for _, thisFunc := range wrt.deferredUntilClose {
-		if err := thisFunc(); err != nil {
+func (wrt *Writer) Flush() error {
+	if wrt.bucket.Len() > 0 {
+		err := wrt.writeBucket()
+		if err != nil {
 			return err
 		}
 	}
 	return nil
 }
 
-func (wrt *Writer) deferUntilClose(thisFunc func() error) {
-	wrt.deferredUntilClose = append(wrt.deferredUntilClose, thisFunc)
-}
-
-// NewWriter returns a new Writer for pushing event to a stream.
-func NewWriter(byteWriter io.Writer) *Writer {
-	return &Writer{
-		byteWriter: byteWriter,
+func (wrt *Writer) Close() error {
+	err := wrt.Flush()
+	if err != nil {
+		return err
 	}
+	closer, ok := wrt.streamWriter.(io.Closer)
+	if ok {
+		closer.Close()
+	}
+	return nil
 }
 
-// NewGzipWriter creates a gzip stream and adds it as an io.Writer to a new
-// Writer that is returned.  The Close function should be called before closing
-// the underlying io.Writer.
-func NewGzipWriter(byteWriter io.Writer) *Writer {
-	gzWriter := gzip.NewWriter(byteWriter)
-	writer := NewWriter(gzWriter)
-	writer.deferUntilClose(gzWriter.Close)
+func NewWriter(streamWriter io.Writer, comp Compression) *Writer {
+	writer := &Writer{
+		streamWriter: streamWriter,
+		bucket:       &bytes.Buffer{},
+	}
+
+	switch comp {
+	case GZIP:
+		writer.bucketWriter = gzip.NewWriter(writer.bucket)
+		writer.bucketComp = proto.BucketHeader_GZIP
+	case LZ4:
+		writer.bucketWriter = lz4.NewWriter(writer.bucket)
+		writer.bucketComp = proto.BucketHeader_LZ4
+	default:
+		writer.bucketWriter = writer.bucket
+		writer.bucketComp = proto.BucketHeader_NONE
+	}
 
 	return writer
 }
 
-// NewLZ4Writer creates an lz4 stream and adds it as an io.Writer to a new
-// Writer that is returned.  The Close function should be called after closing
-// the underlying io.Writer.
-func NewLZ4Writer(byteWriter io.Writer) *Writer {
-	lz4Writer := lz4.NewWriter(byteWriter)
-	writer := NewWriter(lz4Writer)
-	writer.deferUntilClose(lz4Writer.Close)
+func (wrt *Writer) Push(event *Event) error {
+    event.flushCache()
+	protoBuf, err := event.proto.Marshal()
+	if err != nil {
+		return err
+	}
 
-	return writer
+	protoSizeBuf := make([]byte, 4)
+	binary.LittleEndian.PutUint32(protoSizeBuf, uint32(len(protoBuf)))
+
+	if err := writeBytes(wrt.bucketWriter, protoSizeBuf); err != nil {
+		return err
+	}
+	if err := writeBytes(wrt.bucketWriter, protoBuf); err != nil {
+		return err
+	}
+
+	wrt.bucketEvents++
+
+	if wrt.bucket.Len() > bucketDumpSize {
+		if err := wrt.writeBucket(); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
+
+const bucketDumpSize = 0x400000
 
 var magicBytes = [...]byte{
 	byte(0xe1),
 	byte(0xc1),
 	byte(0x00),
 	byte(0x00),
+	byte(0x00),
+	byte(0x00),
+	byte(0x00),
+	byte(0x00),
+	byte(0x00),
+	byte(0x00),
+	byte(0x00),
+	byte(0x00),
+	byte(0x00),
+	byte(0x00),
+	byte(0x00),
+	byte(0x00),
 }
 
-// Push pushes an event into the Writer's stream.  Any unserialized collections
-// are serialized first.
-func (wrt *Writer) Push(event *Event) (err error) {
-	if err := event.flushCollCache(); err != nil {
-		return err
+func (wrt *Writer) writeBucket() error {
+	closer, ok := wrt.bucketWriter.(io.Closer)
+	if ok {
+		closer.Close()
 	}
 
-	headerBuf, err := event.header.Marshal()
+	bucketBytes := wrt.bucket.Bytes()
+	header := &proto.BucketHeader{
+		NEvents:     wrt.bucketEvents,
+		BucketSize:  uint64(len(bucketBytes)),
+		Compression: wrt.bucketComp,
+	}
+	headerBuf, err := header.Marshal()
 	if err != nil {
-		return
+		return err
 	}
 
 	headerSizeBuf := make([]byte, 4)
 	binary.LittleEndian.PutUint32(headerSizeBuf, uint32(len(headerBuf)))
 
-	payload := event.payload
-	payloadSizeBuf := make([]byte, 4)
-	binary.LittleEndian.PutUint32(payloadSizeBuf, uint32(len(payload)))
+	if err := writeBytes(wrt.streamWriter, magicBytes[:]); err != nil {
+		return err
+	}
+	if err := writeBytes(wrt.streamWriter, headerSizeBuf); err != nil {
+		return err
+	}
+	if err := writeBytes(wrt.streamWriter, headerBuf); err != nil {
+		return err
+	}
+	if err := writeBytes(wrt.streamWriter, bucketBytes); err != nil {
+		return err
+	}
 
-	wrt.byteWriter.Write(magicBytes[:])
-	wrt.byteWriter.Write(headerSizeBuf)
-	wrt.byteWriter.Write(payloadSizeBuf)
-	wrt.byteWriter.Write(headerBuf)
-	wrt.byteWriter.Write(payload)
+	wrt.bucketEvents = 0
+	wrt.bucket.Reset()
 
-	return
+	return nil
+}
+
+func writeBytes(wrt io.Writer, buf []byte) error {
+	tot := 0
+	for tot < len(buf) {
+		n, err := wrt.Write(buf[tot:])
+		tot += n
+		if err != nil && tot != len(buf) {
+			return err
+		}
+	}
+	return nil
 }

@@ -32,6 +32,8 @@ options:
 
 var refCache map[interface{}]uint64
 
+var collNames map[uint32]string
+
 func main() {
 	flag.Usage = printUsage
 	flag.Parse()
@@ -50,14 +52,20 @@ func main() {
 	var proioWriter *proio.Writer
 	if *outFile == "" {
 		if *doGzip {
-			proioWriter = proio.NewGzipWriter(os.Stdout)
+			proioWriter = proio.NewWriter(os.Stdout, proio.GZIP)
 		} else if *doLZ4 {
-			proioWriter = proio.NewLZ4Writer(os.Stdout)
+			proioWriter = proio.NewWriter(os.Stdout, proio.LZ4)
 		} else {
-			proioWriter = proio.NewWriter(os.Stdout)
+			proioWriter = proio.NewWriter(os.Stdout, proio.NONE)
 		}
 	} else {
-		proioWriter, err = proio.Create(*outFile)
+		if *doGzip {
+			proioWriter, err = proio.Create(*outFile, proio.GZIP)
+		} else if *doLZ4 {
+			proioWriter, err = proio.Create(*outFile, proio.LZ4)
+		} else {
+			proioWriter, err = proio.Create(*outFile, proio.NONE)
+		}
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -70,87 +78,45 @@ func main() {
 		lcioEvent := lcioReader.Event()
 		proioEvent := proio.NewEvent()
 		refCache = make(map[interface{}]uint64)
-
-		proioEvent.SetRunNumber(uint64(lcioEvent.RunNumber))
-		proioEvent.SetEventNumber(uint64(lcioEvent.EventNumber))
+		collNames = make(map[uint32]string)
 
 		for i, collName := range lcioEvent.Names() {
 			lcioColl := lcioEvent.Get(collName)
-
-			proioEvent.GetHeader().NUniqueCollIDs = uint32(i)
-			var proioColl *proio.Collection
-			var err error
-			switch lcioColl.(type) {
-			case *lcio.McParticleContainer:
-				proioColl, err = proioEvent.NewCollection(collName, "proio.model.lcio.MCParticle")
-			case *lcio.SimTrackerHitContainer:
-				proioColl, err = proioEvent.NewCollection(collName, "proio.model.lcio.SimTrackerHit")
-			case *lcio.TrackerRawDataContainer:
-				proioColl, err = proioEvent.NewCollection(collName, "proio.model.lcio.TrackerRawData")
-			case *lcio.TrackerDataContainer:
-				proioColl, err = proioEvent.NewCollection(collName, "proio.model.lcio.TrackerData")
-			case *lcio.TrackerHitContainer:
-				proioColl, err = proioEvent.NewCollection(collName, "proio.model.lcio.TrackerHit")
-			case *lcio.TrackerPulseContainer:
-				proioColl, err = proioEvent.NewCollection(collName, "proio.model.lcio.TrackerPulse")
-			case *lcio.TrackerHitPlaneContainer:
-				proioColl, err = proioEvent.NewCollection(collName, "proio.model.lcio.TrackerHitPlane")
-			case *lcio.TrackerHitZCylinderContainer:
-				proioColl, err = proioEvent.NewCollection(collName, "proio.model.lcio.TrackerHitZCylinder")
-			case *lcio.TrackContainer:
-				proioColl, err = proioEvent.NewCollection(collName, "proio.model.lcio.Track")
-			case *lcio.SimCalorimeterHitContainer:
-				proioColl, err = proioEvent.NewCollection(collName, "proio.model.lcio.SimCalorimeterHit")
-			case *lcio.RawCalorimeterHitContainer:
-				proioColl, err = proioEvent.NewCollection(collName, "proio.model.lcio.RawCalorimeterHit")
-			case *lcio.CalorimeterHitContainer:
-				proioColl, err = proioEvent.NewCollection(collName, "proio.model.lcio.CalorimeterHit")
-			case *lcio.ClusterContainer:
-				proioColl, err = proioEvent.NewCollection(collName, "proio.model.lcio.Cluster")
-			case *lcio.RecParticleContainer:
-				proioColl, err = proioEvent.NewCollection(collName, "proio.model.lcio.RecParticle")
-			case *lcio.VertexContainer:
-				proioColl, err = proioEvent.NewCollection(collName, "proio.model.lcio.Vertex")
-			case *lcio.RelationContainer:
-				proioColl, err = proioEvent.NewCollection(collName, "proio.model.lcio.Relation")
-			}
-			if err != nil {
-				log.Fatal(err)
-			}
+			collNames[uint32(i+1)] = collName
 
 			switch lcioColl.(type) {
 			case *lcio.McParticleContainer:
-				convertMCParticleCollection(lcioColl.(*lcio.McParticleContainer), &lcioEvent, proioColl)
+				convertMCParticleCollection(lcioColl.(*lcio.McParticleContainer), &lcioEvent, proioEvent, collName)
 			case *lcio.SimTrackerHitContainer:
-				convertSimTrackerHitCollection(lcioColl.(*lcio.SimTrackerHitContainer), &lcioEvent, proioColl)
+				convertSimTrackerHitCollection(lcioColl.(*lcio.SimTrackerHitContainer), &lcioEvent, proioEvent, collName)
 			case *lcio.TrackerRawDataContainer:
-				convertTrackerRawDataCollection(lcioColl.(*lcio.TrackerRawDataContainer), &lcioEvent, proioColl)
+				convertTrackerRawDataCollection(lcioColl.(*lcio.TrackerRawDataContainer), &lcioEvent, proioEvent, collName)
 			case *lcio.TrackerDataContainer:
-				convertTrackerDataCollection(lcioColl.(*lcio.TrackerDataContainer), &lcioEvent, proioColl)
+				convertTrackerDataCollection(lcioColl.(*lcio.TrackerDataContainer), &lcioEvent, proioEvent, collName)
 			case *lcio.TrackerHitContainer:
-				convertTrackerHitCollection(lcioColl.(*lcio.TrackerHitContainer), &lcioEvent, proioColl)
+				convertTrackerHitCollection(lcioColl.(*lcio.TrackerHitContainer), &lcioEvent, proioEvent, collName)
 			case *lcio.TrackerPulseContainer:
-				convertTrackerPulseCollection(lcioColl.(*lcio.TrackerPulseContainer), &lcioEvent, proioColl)
+				convertTrackerPulseCollection(lcioColl.(*lcio.TrackerPulseContainer), &lcioEvent, proioEvent, collName)
 			case *lcio.TrackerHitPlaneContainer:
-				convertTrackerHitPlaneCollection(lcioColl.(*lcio.TrackerHitPlaneContainer), &lcioEvent, proioColl)
+				convertTrackerHitPlaneCollection(lcioColl.(*lcio.TrackerHitPlaneContainer), &lcioEvent, proioEvent, collName)
 			case *lcio.TrackerHitZCylinderContainer:
-				convertTrackerHitZCylinderCollection(lcioColl.(*lcio.TrackerHitZCylinderContainer), &lcioEvent, proioColl)
+				convertTrackerHitZCylinderCollection(lcioColl.(*lcio.TrackerHitZCylinderContainer), &lcioEvent, proioEvent, collName)
 			case *lcio.TrackContainer:
-				convertTrackCollection(lcioColl.(*lcio.TrackContainer), &lcioEvent, proioColl)
+				convertTrackCollection(lcioColl.(*lcio.TrackContainer), &lcioEvent, proioEvent, collName)
 			case *lcio.SimCalorimeterHitContainer:
-				convertSimCalorimeterHitCollection(lcioColl.(*lcio.SimCalorimeterHitContainer), &lcioEvent, proioColl)
+				convertSimCalorimeterHitCollection(lcioColl.(*lcio.SimCalorimeterHitContainer), &lcioEvent, proioEvent, collName)
 			case *lcio.RawCalorimeterHitContainer:
-				convertRawCalorimeterHitCollection(lcioColl.(*lcio.RawCalorimeterHitContainer), &lcioEvent, proioColl)
+				convertRawCalorimeterHitCollection(lcioColl.(*lcio.RawCalorimeterHitContainer), &lcioEvent, proioEvent, collName)
 			case *lcio.CalorimeterHitContainer:
-				convertCalorimeterHitCollection(lcioColl.(*lcio.CalorimeterHitContainer), &lcioEvent, proioColl)
+				convertCalorimeterHitCollection(lcioColl.(*lcio.CalorimeterHitContainer), &lcioEvent, proioEvent, collName)
 			case *lcio.ClusterContainer:
-				convertClusterCollection(lcioColl.(*lcio.ClusterContainer), &lcioEvent, proioColl)
+				convertClusterCollection(lcioColl.(*lcio.ClusterContainer), &lcioEvent, proioEvent, collName)
 			case *lcio.RecParticleContainer:
-				convertRecParticleCollection(lcioColl.(*lcio.RecParticleContainer), &lcioEvent, proioColl)
+				convertRecParticleCollection(lcioColl.(*lcio.RecParticleContainer), &lcioEvent, proioEvent, collName)
 			case *lcio.VertexContainer:
-				convertVertexCollection(lcioColl.(*lcio.VertexContainer), &lcioEvent, proioColl)
+				convertVertexCollection(lcioColl.(*lcio.VertexContainer), &lcioEvent, proioEvent, collName)
 			case *lcio.RelationContainer:
-				convertRelationCollection(lcioColl.(*lcio.RelationContainer), &lcioEvent, proioColl)
+				convertRelationCollection(lcioColl.(*lcio.RelationContainer), &lcioEvent, proioEvent, collName)
 			}
 		}
 
@@ -284,7 +250,7 @@ func makeRefs(entries interface{}, event *lcio.Event) []uint64 {
 	return refs
 }
 
-func convertMCParticleCollection(lcioColl *lcio.McParticleContainer, lcioEvent *lcio.Event, proioColl *proio.Collection) {
+func convertMCParticleCollection(lcioColl *lcio.McParticleContainer, lcioEvent *lcio.Event, proioEvent *proio.Event, collName string) {
 	for i, lcioEntry := range lcioColl.Particles {
 		proioEntry := &prolcio.MCParticle{
 			Parents:   makeRefs(lcioEntry.Parents, lcioEvent),
@@ -302,11 +268,11 @@ func convertMCParticleCollection(lcioColl *lcio.McParticleContainer, lcioEvent *
 			ColorFlow: lcioColl.Particles[i].ColorFlow[:],
 		}
 
-		proioColl.AddEntry(proioEntry)
+		proioEvent.AddEntry(proioEntry, collName)
 	}
 }
 
-func convertSimTrackerHitCollection(lcioColl *lcio.SimTrackerHitContainer, lcioEvent *lcio.Event, proioColl *proio.Collection) {
+func convertSimTrackerHitCollection(lcioColl *lcio.SimTrackerHitContainer, lcioEvent *lcio.Event, proioEvent *proio.Event, collName string) {
 	for i, lcioEntry := range lcioColl.Hits {
 		proioEntry := &prolcio.SimTrackerHit{
 			CellID0:    lcioEntry.CellID0,
@@ -320,7 +286,7 @@ func convertSimTrackerHitCollection(lcioColl *lcio.SimTrackerHitContainer, lcioE
 			Quality:    lcioEntry.Quality,
 		}
 
-		proioColl.AddEntry(proioEntry)
+		proioEvent.AddEntry(proioEntry, collName)
 	}
 }
 
@@ -332,7 +298,7 @@ func copyUint16SliceToUint32(origSlice []uint16) []uint32 {
 	return slice
 }
 
-func convertTrackerRawDataCollection(lcioColl *lcio.TrackerRawDataContainer, lcioEvent *lcio.Event, proioColl *proio.Collection) {
+func convertTrackerRawDataCollection(lcioColl *lcio.TrackerRawDataContainer, lcioEvent *lcio.Event, proioEvent *proio.Event, collName string) {
 	for _, lcioEntry := range lcioColl.Data {
 		proioEntry := &prolcio.TrackerRawData{
 			CellID0: lcioEntry.CellID0,
@@ -341,11 +307,11 @@ func convertTrackerRawDataCollection(lcioColl *lcio.TrackerRawDataContainer, lci
 			ADCs:    copyUint16SliceToUint32(lcioEntry.ADCs),
 		}
 
-		proioColl.AddEntry(proioEntry)
+		proioEvent.AddEntry(proioEntry, collName)
 	}
 }
 
-func convertTrackerDataCollection(lcioColl *lcio.TrackerDataContainer, lcioEvent *lcio.Event, proioColl *proio.Collection) {
+func convertTrackerDataCollection(lcioColl *lcio.TrackerDataContainer, lcioEvent *lcio.Event, proioEvent *proio.Event, collName string) {
 	for _, lcioEntry := range lcioColl.Data {
 		proioEntry := &prolcio.TrackerData{
 			CellID0: lcioEntry.CellID0,
@@ -354,11 +320,11 @@ func convertTrackerDataCollection(lcioColl *lcio.TrackerDataContainer, lcioEvent
 			Charges: lcioEntry.Charges,
 		}
 
-		proioColl.AddEntry(proioEntry)
+		proioEvent.AddEntry(proioEntry, collName)
 	}
 }
 
-func convertTrackerHitCollection(lcioColl *lcio.TrackerHitContainer, lcioEvent *lcio.Event, proioColl *proio.Collection) {
+func convertTrackerHitCollection(lcioColl *lcio.TrackerHitContainer, lcioEvent *lcio.Event, proioEvent *proio.Event, collName string) {
 	for i, lcioEntry := range lcioColl.Hits {
 		proioEntry := &prolcio.TrackerHit{
 			CellID0: lcioEntry.CellID0,
@@ -373,11 +339,11 @@ func convertTrackerHitCollection(lcioColl *lcio.TrackerHitContainer, lcioEvent *
 			RawHits: makeRefs(lcioEntry.RawHits, lcioEvent),
 		}
 
-		proioColl.AddEntry(proioEntry)
+		proioEvent.AddEntry(proioEntry, collName)
 	}
 }
 
-func convertTrackerPulseCollection(lcioColl *lcio.TrackerPulseContainer, lcioEvent *lcio.Event, proioColl *proio.Collection) {
+func convertTrackerPulseCollection(lcioColl *lcio.TrackerPulseContainer, lcioEvent *lcio.Event, proioEvent *proio.Event, collName string) {
 	for i, lcioEntry := range lcioColl.Pulses {
 		proioEntry := &prolcio.TrackerPulse{
 			CellID0: lcioEntry.CellID0,
@@ -389,11 +355,11 @@ func convertTrackerPulseCollection(lcioColl *lcio.TrackerPulseContainer, lcioEve
 			TPC:     makeRef(lcioEntry.TPC, lcioEvent),
 		}
 
-		proioColl.AddEntry(proioEntry)
+		proioEvent.AddEntry(proioEntry, collName)
 	}
 }
 
-func convertTrackerHitPlaneCollection(lcioColl *lcio.TrackerHitPlaneContainer, lcioEvent *lcio.Event, proioColl *proio.Collection) {
+func convertTrackerHitPlaneCollection(lcioColl *lcio.TrackerHitPlaneContainer, lcioEvent *lcio.Event, proioEvent *proio.Event, collName string) {
 	for i, lcioEntry := range lcioColl.Hits {
 		proioEntry := &prolcio.TrackerHitPlane{
 			CellID0: lcioEntry.CellID0,
@@ -411,11 +377,11 @@ func convertTrackerHitPlaneCollection(lcioColl *lcio.TrackerHitPlaneContainer, l
 			RawHits: makeRefs(lcioEntry.RawHits, lcioEvent),
 		}
 
-		proioColl.AddEntry(proioEntry)
+		proioEvent.AddEntry(proioEntry, collName)
 	}
 }
 
-func convertTrackerHitZCylinderCollection(lcioColl *lcio.TrackerHitZCylinderContainer, lcioEvent *lcio.Event, proioColl *proio.Collection) {
+func convertTrackerHitZCylinderCollection(lcioColl *lcio.TrackerHitZCylinderContainer, lcioEvent *lcio.Event, proioEvent *proio.Event, collName string) {
 	for i, lcioEntry := range lcioColl.Hits {
 		proioEntry := &prolcio.TrackerHitZCylinder{
 			CellID0: lcioEntry.CellID0,
@@ -432,7 +398,7 @@ func convertTrackerHitZCylinderCollection(lcioColl *lcio.TrackerHitZCylinderCont
 			RawHits: makeRefs(lcioEntry.RawHits, lcioEvent),
 		}
 
-		proioColl.AddEntry(proioEntry)
+		proioEvent.AddEntry(proioEntry, collName)
 	}
 }
 
@@ -453,7 +419,7 @@ func convertTrackStates(lcioStates []lcio.TrackState) []*prolcio.Track_TrackStat
 	return slice
 }
 
-func convertTrackCollection(lcioColl *lcio.TrackContainer, lcioEvent *lcio.Event, proioColl *proio.Collection) {
+func convertTrackCollection(lcioColl *lcio.TrackContainer, lcioEvent *lcio.Event, proioEvent *proio.Event, collName string) {
 	for _, lcioEntry := range lcioColl.Tracks {
 		proioEntry := &prolcio.Track{
 			Type:       lcioEntry.Type,
@@ -468,7 +434,7 @@ func convertTrackCollection(lcioColl *lcio.TrackContainer, lcioEvent *lcio.Event
 			Hits:       makeRefs(lcioEntry.Hits, lcioEvent),
 		}
 
-		proioColl.AddEntry(proioEntry)
+		proioEvent.AddEntry(proioEntry, collName)
 	}
 }
 
@@ -486,7 +452,7 @@ func convertContribs(lcioContribs []lcio.Contrib, lcioEvent *lcio.Event) []*prol
 	return slice
 }
 
-func convertSimCalorimeterHitCollection(lcioColl *lcio.SimCalorimeterHitContainer, lcioEvent *lcio.Event, proioColl *proio.Collection) {
+func convertSimCalorimeterHitCollection(lcioColl *lcio.SimCalorimeterHitContainer, lcioEvent *lcio.Event, proioEvent *proio.Event, collName string) {
 	for i, lcioEntry := range lcioColl.Hits {
 		proioEntry := &prolcio.SimCalorimeterHit{
 			CellID0:       lcioEntry.CellID0,
@@ -496,11 +462,11 @@ func convertSimCalorimeterHitCollection(lcioColl *lcio.SimCalorimeterHitContaine
 			Contributions: convertContribs(lcioEntry.Contributions, lcioEvent),
 		}
 
-		proioColl.AddEntry(proioEntry)
+		proioEvent.AddEntry(proioEntry, collName)
 	}
 }
 
-func convertRawCalorimeterHitCollection(lcioColl *lcio.RawCalorimeterHitContainer, lcioEvent *lcio.Event, proioColl *proio.Collection) {
+func convertRawCalorimeterHitCollection(lcioColl *lcio.RawCalorimeterHitContainer, lcioEvent *lcio.Event, proioEvent *proio.Event, collName string) {
 	for _, lcioEntry := range lcioColl.Hits {
 		proioEntry := &prolcio.RawCalorimeterHit{
 			CellID0:   lcioEntry.CellID0,
@@ -509,11 +475,11 @@ func convertRawCalorimeterHitCollection(lcioColl *lcio.RawCalorimeterHitContaine
 			TimeStamp: lcioEntry.TimeStamp,
 		}
 
-		proioColl.AddEntry(proioEntry)
+		proioEvent.AddEntry(proioEntry, collName)
 	}
 }
 
-func convertCalorimeterHitCollection(lcioColl *lcio.CalorimeterHitContainer, lcioEvent *lcio.Event, proioColl *proio.Collection) {
+func convertCalorimeterHitCollection(lcioColl *lcio.CalorimeterHitContainer, lcioEvent *lcio.Event, proioEvent *proio.Event, collName string) {
 	for i, lcioEntry := range lcioColl.Hits {
 		lcioRawHit := lcioEntry.Raw
 		var rawHit uint64
@@ -532,7 +498,7 @@ func convertCalorimeterHitCollection(lcioColl *lcio.CalorimeterHitContainer, lci
 			Raw:       rawHit,
 		}
 
-		proioColl.AddEntry(proioEntry)
+		proioEvent.AddEntry(proioEntry, collName)
 	}
 }
 
@@ -554,7 +520,7 @@ func convertParticleIDs(lcioParticleIDs []lcio.ParticleID) []*prolcio.ParticleID
 	return slice
 }
 
-func convertClusterCollection(lcioColl *lcio.ClusterContainer, lcioEvent *lcio.Event, proioColl *proio.Collection) {
+func convertClusterCollection(lcioColl *lcio.ClusterContainer, lcioEvent *lcio.Event, proioEvent *proio.Event, collName string) {
 	for i, lcioEntry := range lcioColl.Clusters {
 		proioEntry := &prolcio.Cluster{
 			Type:       lcioEntry.Type,
@@ -573,7 +539,7 @@ func convertClusterCollection(lcioColl *lcio.ClusterContainer, lcioEvent *lcio.E
 			SubDetEnes: lcioColl.Clusters[i].SubDetEnes[:],
 		}
 
-		proioColl.AddEntry(proioEntry)
+		proioEvent.AddEntry(proioEntry, collName)
 	}
 }
 
@@ -586,7 +552,7 @@ func findParticleID(pids []lcio.ParticleID, pid *lcio.ParticleID) int32 {
 	return -1
 }
 
-func convertRecParticleCollection(lcioColl *lcio.RecParticleContainer, lcioEvent *lcio.Event, proioColl *proio.Collection) {
+func convertRecParticleCollection(lcioColl *lcio.RecParticleContainer, lcioEvent *lcio.Event, proioEvent *proio.Event, collName string) {
 	for i, lcioEntry := range lcioColl.Parts {
 		proioEntry := &prolcio.RecParticle{
 			Type:          lcioEntry.Type,
@@ -605,11 +571,11 @@ func convertRecParticleCollection(lcioColl *lcio.RecParticleContainer, lcioEvent
 			StartVtx:      makeRef(lcioEntry.StartVtx, lcioEvent),
 		}
 
-		proioColl.AddEntry(proioEntry)
+		proioEvent.AddEntry(proioEntry, collName)
 	}
 }
 
-func convertVertexCollection(lcioColl *lcio.VertexContainer, lcioEvent *lcio.Event, proioColl *proio.Collection) {
+func convertVertexCollection(lcioColl *lcio.VertexContainer, lcioEvent *lcio.Event, proioEvent *proio.Event, collName string) {
 	for i, lcioEntry := range lcioColl.Vtxs {
 		proioEntry := &prolcio.Vertex{
 			Primary: lcioEntry.Primary,
@@ -622,11 +588,11 @@ func convertVertexCollection(lcioColl *lcio.VertexContainer, lcioEvent *lcio.Eve
 			RecPart: makeRef(lcioEntry.RecPart, lcioEvent),
 		}
 
-		proioColl.AddEntry(proioEntry)
+		proioEvent.AddEntry(proioEntry, collName)
 	}
 }
 
-func convertRelationCollection(lcioColl *lcio.RelationContainer, lcioEvent *lcio.Event, proioColl *proio.Collection) {
+func convertRelationCollection(lcioColl *lcio.RelationContainer, lcioEvent *lcio.Event, proioEvent *proio.Event, collName string) {
 	for _, lcioEntry := range lcioColl.Rels {
 		proioEntry := &prolcio.Relation{
 			From:   makeRef(lcioEntry.From, lcioEvent),
@@ -634,6 +600,6 @@ func convertRelationCollection(lcioColl *lcio.RelationContainer, lcioEvent *lcio
 			Weight: lcioEntry.Weight,
 		}
 
-		proioColl.AddEntry(proioEntry)
+		proioEvent.AddEntry(proioEntry, collName)
 	}
 }

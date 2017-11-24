@@ -2,39 +2,227 @@ package proio // import "github.com/decibelcooper/proio/go-proio"
 
 import (
 	"errors"
-	"fmt"
+	"reflect"
+	"strconv"
 
 	"github.com/decibelcooper/proio/go-proio/proto"
 	protobuf "github.com/golang/protobuf/proto"
 )
 
-// An Event is either created with NewEvent() or retrieved with (*Reader) Get()
-// or (*Reader) ScanEvents().
 type Event struct {
-	proto *proto.EventProto
+	proto *proto.Event
+
+	revTypeLookup  map[string]uint64
+	revTagLookup   map[uint64][]string
+	entryTypeCache map[uint64]reflect.Type
+	entryCache     map[uint64]protobuf.Message
 }
 
-// NewEvent returns a new event with minimal initialization.
 func NewEvent() *Event {
 	return &Event{
-		proto: &proto.EventProto{
-			collections: make(map[uint32]*proto.CollectionProto),
+		proto: &proto.Event{
+			Entries: make(map[uint64]*proto.Entry),
+			Types:   make(map[uint64]string),
+			Tags:    make(map[string]*proto.Tag),
 		},
+		revTypeLookup:  make(map[string]uint64),
+		revTagLookup:   make(map[uint64][]string),
+		entryTypeCache: make(map[uint64]reflect.Type),
+		entryCache:     make(map[uint64]protobuf.Message),
 	}
 }
 
-//func (evt *Event) NewCollection(name, entryType string)
-//
-//func (evt *Event) CollIDs(sorted bool) []uint64 {
-//	var ids []uint64
-//	for id, _ := range coll.entryCache {
-//		ids = append(ids, uint64(id)<<32+uint64(coll.id))
-//	}
-//	for id, _ := range coll.proto.Entries {
-//		ids = append(ids, uint64(id)<<32+uint64(coll.id))
-//	}
-//	if sorted {
-//		sort.Slice(ids, func(i, j int) bool { return ids[i] < ids[j] })
-//	}
-//	return ids
-//}
+func (evt *Event) AddEntry(entry protobuf.Message, tags ...string) uint64 {
+	typeID := evt.getTypeID(entry)
+	entryProto := &proto.Entry{
+		Type: typeID,
+	}
+
+	evt.proto.NEntries++
+	id := evt.proto.NEntries
+	evt.proto.Entries[id] = entryProto
+
+	evt.entryCache[id] = entry
+
+	for _, tag := range tags {
+		evt.tagEntry(id, tag)
+	}
+
+	return id
+}
+
+func (evt *Event) AddEntries(tag string, entries ...protobuf.Message) []uint64 {
+	var ids []uint64
+	for _, entry := range entries {
+		ids = append(ids, evt.AddEntry(entry, tag))
+	}
+	return ids
+}
+
+func (evt *Event) GetEntry(id uint64) (protobuf.Message, error) {
+	entry, ok := evt.entryCache[uint64(id)]
+	if ok {
+		return entry, nil
+	}
+
+	entryProto, ok := evt.proto.Entries[uint64(id)]
+	if !ok {
+		return nil, errors.New("no such entry: " + strconv.FormatUint(id, 10))
+	}
+
+	entry = evt.getPrototype(entryProto.Type)
+	if entry == nil {
+		return nil, errors.New("unknown type: " + evt.proto.Types[entryProto.Type])
+	}
+	selfSerializingEntry, ok := entry.(selfSerializingEntry)
+	if ok {
+		if err := selfSerializingEntry.Unmarshal(entryProto.Payload); err != nil {
+			return nil, errors.New(
+				"failure to unmarshal entry " +
+					strconv.FormatUint(id, 10) +
+					" with type " +
+					evt.proto.Types[entryProto.Type],
+			)
+		}
+	} else {
+		if err := protobuf.Unmarshal(entryProto.Payload, entry); err != nil {
+			return nil, errors.New(
+				"failure to unmarshal entry " +
+					strconv.FormatUint(id, 10) +
+					" with type " +
+					evt.proto.Types[entryProto.Type],
+			)
+		}
+	}
+
+	evt.entryCache[id] = entry
+
+	return entry, nil
+}
+
+func (evt *Event) RemoveEntry(id uint64) {
+	tags := evt.EntryTags(id)
+	for _, tag := range tags {
+		tagProto := evt.proto.Tags[tag]
+		for i, thisID := range tagProto.Entries {
+			if thisID == id {
+				tagProto.Entries = append(tagProto.Entries[:i], tagProto.Entries[i+1:]...)
+			}
+		}
+	}
+
+	delete(evt.revTagLookup, id)
+	delete(evt.entryCache, id)
+	delete(evt.proto.Entries, id)
+}
+
+func (evt *Event) TaggedEntries(tag string) []uint64 {
+	tagProto, ok := evt.proto.Tags[tag]
+	if ok {
+		return tagProto.Entries[:]
+	}
+	return nil
+}
+
+func (evt *Event) EntryTags(id uint64) []string {
+	tags, ok := evt.revTagLookup[id]
+	if ok {
+		return tags
+	}
+
+	tags = make([]string, 0)
+	for name, tagProto := range evt.proto.Tags {
+		for _, thisID := range tagProto.Entries {
+			if thisID == id {
+				tags = append(tags, name)
+				break
+			}
+		}
+	}
+
+	evt.revTagLookup[id] = tags
+
+	return tags
+}
+
+type selfSerializingEntry interface {
+	protobuf.Message
+
+	Marshal() ([]byte, error)
+	Unmarshal([]byte) error
+}
+
+func (evt *Event) getPrototype(id uint64) protobuf.Message {
+	entryType, ok := evt.entryTypeCache[id]
+	if !ok {
+		ptrType := protobuf.MessageType(evt.proto.Types[id])
+		if ptrType == nil {
+			return nil
+		}
+		entryType = ptrType.Elem()
+		evt.entryTypeCache[id] = entryType
+	}
+
+	return reflect.New(entryType).Interface().(protobuf.Message)
+}
+
+func (evt *Event) getTypeID(entry protobuf.Message) uint64 {
+	typeName := protobuf.MessageName(entry)
+	typeID, ok := evt.revTypeLookup[typeName]
+	if !ok {
+		for id, name := range evt.proto.Types {
+			if name == typeName {
+				evt.revTypeLookup[typeName] = id
+				return id
+			}
+		}
+	}
+
+	evt.proto.NTypes++
+	typeID = evt.proto.NTypes
+	evt.proto.Types[typeID] = typeName
+	evt.revTypeLookup[typeName] = typeID
+
+	return typeID
+}
+
+func (evt *Event) tagEntry(id uint64, tag string) {
+	var tagProto *proto.Tag
+	for name, thisTagProto := range evt.proto.Tags {
+		if name == tag {
+			tagProto = thisTagProto
+		}
+	}
+
+	if tagProto == nil {
+		tagProto = &proto.Tag{}
+		evt.proto.Tags[tag] = tagProto
+	}
+
+	tagProto.Entries = append(tagProto.Entries, id)
+}
+
+func (evt *Event) flushCache() {
+	for id, entry := range evt.entryCache {
+		selfSerializingEntry, ok := entry.(selfSerializingEntry)
+		var bytes []byte
+		if ok {
+			bytes, _ = selfSerializingEntry.Marshal()
+		} else {
+			bytes, _ = protobuf.Marshal(entry)
+		}
+		evt.proto.Entries[id].Payload = bytes
+	}
+	evt.entryCache = make(map[uint64]protobuf.Message)
+}
+
+func fromProto(bytes []byte) *Event {
+	eventProto := &proto.Event{}
+	err := eventProto.Unmarshal(bytes)
+	if err != nil {
+		return nil
+	}
+	return &Event{
+		proto: eventProto,
+	}
+}
