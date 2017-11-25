@@ -10,6 +10,8 @@ import (
 )
 
 type Event struct {
+	Err error
+
 	proto *proto.Event
 
 	revTypeLookup  map[string]uint64
@@ -59,45 +61,51 @@ func (evt *Event) AddEntries(tag string, entries ...protobuf.Message) []uint64 {
 	return ids
 }
 
-func (evt *Event) GetEntry(id uint64) (protobuf.Message, error) {
+func (evt *Event) GetEntry(id uint64) protobuf.Message {
 	entry, ok := evt.entryCache[uint64(id)]
 	if ok {
-		return entry, nil
+		evt.Err = nil
+		return entry
 	}
 
 	entryProto, ok := evt.proto.Entries[uint64(id)]
 	if !ok {
-		return nil, errors.New("no such entry: " + strconv.FormatUint(id, 10))
+		evt.Err = errors.New("no such entry: " + strconv.FormatUint(id, 10))
+		return nil
 	}
 
 	entry = evt.getPrototype(entryProto.Type)
 	if entry == nil {
-		return nil, errors.New("unknown type: " + evt.proto.Types[entryProto.Type])
+		evt.Err = errors.New("unknown type: " + evt.proto.Types[entryProto.Type])
+		return nil
 	}
 	selfSerializingEntry, ok := entry.(selfSerializingEntry)
 	if ok {
 		if err := selfSerializingEntry.Unmarshal(entryProto.Payload); err != nil {
-			return nil, errors.New(
+			evt.Err = errors.New(
 				"failure to unmarshal entry " +
 					strconv.FormatUint(id, 10) +
 					" with type " +
 					evt.proto.Types[entryProto.Type],
 			)
+			return nil
 		}
 	} else {
 		if err := protobuf.Unmarshal(entryProto.Payload, entry); err != nil {
-			return nil, errors.New(
+			evt.Err = errors.New(
 				"failure to unmarshal entry " +
 					strconv.FormatUint(id, 10) +
 					" with type " +
 					evt.proto.Types[entryProto.Type],
 			)
+			return nil
 		}
 	}
 
 	evt.entryCache[id] = entry
 
-	return entry, nil
+	evt.Err = nil
+	return entry
 }
 
 func (evt *Event) RemoveEntry(id uint64) {
@@ -152,6 +160,25 @@ type selfSerializingEntry interface {
 	Unmarshal([]byte) error
 }
 
+func newEventFromProto(eventProto *proto.Event) *Event {
+	if eventProto.Entries == nil {
+		eventProto.Entries = make(map[uint64]*proto.Entry)
+	}
+	if eventProto.Types == nil {
+		eventProto.Types = make(map[uint64]string)
+	}
+	if eventProto.Tags == nil {
+		eventProto.Tags = make(map[string]*proto.Tag)
+	}
+	return &Event{
+		proto:          eventProto,
+		revTypeLookup:  make(map[string]uint64),
+		revTagLookup:   make(map[uint64][]string),
+		entryTypeCache: make(map[uint64]reflect.Type),
+		entryCache:     make(map[uint64]protobuf.Message),
+	}
+}
+
 func (evt *Event) getPrototype(id uint64) protobuf.Message {
 	entryType, ok := evt.entryTypeCache[id]
 	if !ok {
@@ -176,12 +203,12 @@ func (evt *Event) getTypeID(entry protobuf.Message) uint64 {
 				return id
 			}
 		}
-	}
 
-	evt.proto.NTypes++
-	typeID = evt.proto.NTypes
-	evt.proto.Types[typeID] = typeName
-	evt.revTypeLookup[typeName] = typeID
+		evt.proto.NTypes++
+		typeID = evt.proto.NTypes
+		evt.proto.Types[typeID] = typeName
+		evt.revTypeLookup[typeName] = typeID
+	}
 
 	return typeID
 }

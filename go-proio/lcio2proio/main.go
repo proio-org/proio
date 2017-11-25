@@ -31,6 +31,8 @@ options:
 }
 
 var refCache map[interface{}]uint64
+var refsToFix []*uint64
+var refSlicesToFix [][]uint64
 
 var collNames map[uint32]string
 
@@ -120,6 +122,8 @@ func main() {
 			}
 		}
 
+		fixRefs(proioEvent)
+
 		proioWriter.Push(proioEvent)
 		nEvents++
 
@@ -136,6 +140,30 @@ func main() {
 	if err != nil && err != io.EOF {
 		log.Fatal(err)
 	}
+}
+
+func fixRefs(event *proio.Event) {
+	for _, slice := range refSlicesToFix {
+		for i, _ := range slice {
+			slice[i] = fixRef(event, slice[i])
+		}
+	}
+
+	for _, refPtr := range refsToFix {
+		*refPtr = fixRef(event, *refPtr)
+	}
+	refsToFix = make([]*uint64, 0)
+	refSlicesToFix = make([][]uint64, 0)
+}
+
+func fixRef(event *proio.Event, value uint64) uint64 {
+    if value == 0 {
+        return 0
+    }
+	collName := collNames[uint32(value&0xffffffff)]
+	collEntry := (value >> 32) - 1
+    //log.Println(uint32(value&0xffffffff), collName, collEntry)
+	return event.TaggedEntries(collName)[collEntry]
 }
 
 func makeRef(entry interface{}, event *lcio.Event) uint64 {
@@ -250,6 +278,33 @@ func makeRefs(entries interface{}, event *lcio.Event) []uint64 {
 	return refs
 }
 
+func nilZeroFloat64Slice(slice []float64) []float64 {
+    for _, value := range slice {
+        if value != 0. {
+            return slice
+        }
+    }
+    return nil
+}
+
+func nilZeroFloat32Slice(slice []float32) []float32 {
+    for _, value := range slice {
+        if value != 0. {
+            return slice
+        }
+    }
+    return nil
+}
+
+func nilZeroInt32Slice(slice []int32) []int32 {
+    for _, value := range slice {
+        if value != 0 {
+            return slice
+        }
+    }
+    return nil
+}
+
 func convertMCParticleCollection(lcioColl *lcio.McParticleContainer, lcioEvent *lcio.Event, proioEvent *proio.Event, collName string) {
 	for i, lcioEntry := range lcioColl.Particles {
 		proioEntry := &prolcio.MCParticle{
@@ -258,17 +313,19 @@ func convertMCParticleCollection(lcioColl *lcio.McParticleContainer, lcioEvent *
 			PDG:       lcioEntry.PDG,
 			GenStatus: lcioEntry.GenStatus,
 			SimStatus: lcioEntry.SimStatus,
-			Vertex:    lcioColl.Particles[i].Vertex[:],
+			Vertex:    nilZeroFloat64Slice(lcioColl.Particles[i].Vertex[:]),
 			Time:      lcioEntry.Time,
-			P:         lcioColl.Particles[i].P[:],
+			P:         nilZeroFloat64Slice(lcioColl.Particles[i].P[:]),
 			Mass:      lcioEntry.Mass,
 			Charge:    lcioEntry.Charge,
-			PEndPoint: lcioColl.Particles[i].PEndPoint[:],
-			Spin:      lcioColl.Particles[i].Spin[:],
-			ColorFlow: lcioColl.Particles[i].ColorFlow[:],
+			PEndPoint: nilZeroFloat64Slice(lcioColl.Particles[i].PEndPoint[:]),
+			Spin:      nilZeroFloat32Slice(lcioColl.Particles[i].Spin[:]),
+			ColorFlow: nilZeroInt32Slice(lcioColl.Particles[i].ColorFlow[:]),
 		}
 
 		proioEvent.AddEntry(proioEntry, collName)
+		refSlicesToFix = append(refSlicesToFix, proioEntry.Parents)
+		refSlicesToFix = append(refSlicesToFix, proioEntry.Children)
 	}
 }
 
@@ -287,6 +344,7 @@ func convertSimTrackerHitCollection(lcioColl *lcio.SimTrackerHitContainer, lcioE
 		}
 
 		proioEvent.AddEntry(proioEntry, collName)
+		refsToFix = append(refsToFix, &proioEntry.Mc)
 	}
 }
 
@@ -340,6 +398,7 @@ func convertTrackerHitCollection(lcioColl *lcio.TrackerHitContainer, lcioEvent *
 		}
 
 		proioEvent.AddEntry(proioEntry, collName)
+		refSlicesToFix = append(refSlicesToFix, proioEntry.RawHits)
 	}
 }
 
@@ -356,6 +415,7 @@ func convertTrackerPulseCollection(lcioColl *lcio.TrackerPulseContainer, lcioEve
 		}
 
 		proioEvent.AddEntry(proioEntry, collName)
+		refsToFix = append(refsToFix, &proioEntry.TPC)
 	}
 }
 
@@ -378,6 +438,7 @@ func convertTrackerHitPlaneCollection(lcioColl *lcio.TrackerHitPlaneContainer, l
 		}
 
 		proioEvent.AddEntry(proioEntry, collName)
+		refSlicesToFix = append(refSlicesToFix, proioEntry.RawHits)
 	}
 }
 
@@ -399,6 +460,7 @@ func convertTrackerHitZCylinderCollection(lcioColl *lcio.TrackerHitZCylinderCont
 		}
 
 		proioEvent.AddEntry(proioEntry, collName)
+		refSlicesToFix = append(refSlicesToFix, proioEntry.RawHits)
 	}
 }
 
@@ -435,19 +497,23 @@ func convertTrackCollection(lcioColl *lcio.TrackContainer, lcioEvent *lcio.Event
 		}
 
 		proioEvent.AddEntry(proioEntry, collName)
+		refSlicesToFix = append(refSlicesToFix, proioEntry.Tracks)
+		refSlicesToFix = append(refSlicesToFix, proioEntry.Hits)
 	}
 }
 
 func convertContribs(lcioContribs []lcio.Contrib, lcioEvent *lcio.Event) []*prolcio.SimCalorimeterHit_Contrib {
 	slice := make([]*prolcio.SimCalorimeterHit_Contrib, 0)
 	for _, contrib := range lcioContribs {
-		slice = append(slice, &prolcio.SimCalorimeterHit_Contrib{
+		proioContrib := &prolcio.SimCalorimeterHit_Contrib{
 			MCParticle: makeRef(contrib.Mc, lcioEvent),
 			Energy:     contrib.Energy,
 			Time:       contrib.Time,
 			PDG:        contrib.PDG,
-			StepPos:    contrib.StepPos[:],
-		})
+			StepPos:    nilZeroFloat32Slice(contrib.StepPos[:]),
+		}
+		slice = append(slice, proioContrib)
+		refsToFix = append(refsToFix, &proioContrib.MCParticle)
 	}
 	return slice
 }
@@ -458,7 +524,7 @@ func convertSimCalorimeterHitCollection(lcioColl *lcio.SimCalorimeterHitContaine
 			CellID0:       lcioEntry.CellID0,
 			CellID1:       lcioEntry.CellID1,
 			Energy:        lcioEntry.Energy,
-			Pos:           lcioColl.Hits[i].Pos[:],
+			Pos:           nilZeroFloat32Slice(lcioColl.Hits[i].Pos[:]),
 			Contributions: convertContribs(lcioEntry.Contributions, lcioEvent),
 		}
 
@@ -499,6 +565,7 @@ func convertCalorimeterHitCollection(lcioColl *lcio.CalorimeterHitContainer, lci
 		}
 
 		proioEvent.AddEntry(proioEntry, collName)
+		refsToFix = append(refsToFix, &proioEntry.Raw)
 	}
 }
 
@@ -540,6 +607,8 @@ func convertClusterCollection(lcioColl *lcio.ClusterContainer, lcioEvent *lcio.E
 		}
 
 		proioEvent.AddEntry(proioEntry, collName)
+		refSlicesToFix = append(refSlicesToFix, proioEntry.Clusters)
+		refSlicesToFix = append(refSlicesToFix, proioEntry.Hits)
 	}
 }
 
@@ -572,6 +641,10 @@ func convertRecParticleCollection(lcioColl *lcio.RecParticleContainer, lcioEvent
 		}
 
 		proioEvent.AddEntry(proioEntry, collName)
+		refSlicesToFix = append(refSlicesToFix, proioEntry.Recs)
+		refSlicesToFix = append(refSlicesToFix, proioEntry.Tracks)
+		refSlicesToFix = append(refSlicesToFix, proioEntry.Clusters)
+		refsToFix = append(refsToFix, &proioEntry.StartVtx)
 	}
 }
 
@@ -589,6 +662,7 @@ func convertVertexCollection(lcioColl *lcio.VertexContainer, lcioEvent *lcio.Eve
 		}
 
 		proioEvent.AddEntry(proioEntry, collName)
+		refsToFix = append(refsToFix, &proioEntry.RecPart)
 	}
 }
 
@@ -601,5 +675,7 @@ func convertRelationCollection(lcioColl *lcio.RelationContainer, lcioEvent *lcio
 		}
 
 		proioEvent.AddEntry(proioEntry, collName)
+		//refsToFix = append(refsToFix, &proioEntry.From)
+		//refsToFix = append(refsToFix, &proioEntry.To)
 	}
 }

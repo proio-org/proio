@@ -14,7 +14,7 @@ import (
 type Compression int
 
 const (
-	NONE Compression = iota
+	UNCOMPRESSED Compression = iota
 	GZIP
 	LZ4
 )
@@ -80,7 +80,7 @@ func NewWriter(streamWriter io.Writer, comp Compression) *Writer {
 }
 
 func (wrt *Writer) Push(event *Event) error {
-    event.flushCache()
+	event.flushCache()
 	protoBuf, err := event.proto.Marshal()
 	if err != nil {
 		return err
@@ -107,7 +107,7 @@ func (wrt *Writer) Push(event *Event) error {
 	return nil
 }
 
-const bucketDumpSize = 0x400000
+const bucketDumpSize = 0x100000
 
 var magicBytes = [...]byte{
 	byte(0xe1),

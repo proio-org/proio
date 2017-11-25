@@ -10,23 +10,20 @@ import (
 
 func Example_pushGetInspect() {
 	buffer := &bytes.Buffer{}
-	writer := proio.NewWriter(buffer)
+	writer := proio.NewWriter(buffer, proio.LZ4)
 
 	eventOut := proio.NewEvent()
-	eventOut.SetEventNumber(1)
 
 	// Build MCParticle collections
 	// These must be added to the event before they can be automatically
 	// referenced
 
-	MCParticles, _ := eventOut.NewCollection("MCParticles", "proio.model.lcio.MCParticle")
 	parent := &lcio.MCParticle{PDG: 11}
-	parentID, _ := MCParticles.AddEntry(parent)
+	parentID := eventOut.AddEntry(parent, "MCParticles")
 
-	simParticles, _ := eventOut.NewCollection("SimParticles", "proio.model.lcio.MCParticle")
 	child1 := &lcio.MCParticle{PDG: 11}
 	child2 := &lcio.MCParticle{PDG: 22}
-	childIDs, _ := simParticles.AddEntries(child1, child2)
+	childIDs := eventOut.AddEntries("SimParticles", child1, child2)
 
 	parent.Children = append(parent.Children, childIDs...)
 	child1.Parents = append(child1.Parents, parentID)
@@ -34,15 +31,17 @@ func Example_pushGetInspect() {
 
 	writer.Push(eventOut)
 
+    writer.Flush()
+
 	// Event created and serialized, now to deserialize and inspect
 
 	reader := proio.NewReader(buffer)
-	eventIn, _ := reader.Get()
+	eventIn, _ := reader.Next()
 
-	mcColl, _ := eventIn.Get("MCParticles")
-	fmt.Print(mcColl.NEntries(), " MCParticle(s)...\n")
-	for i, parentID := range mcColl.EntryIDs(true) {
-		part := mcColl.GetEntry(parentID).(*lcio.MCParticle)
+	mcParts := eventIn.TaggedEntries("MCParticles")
+	fmt.Print(len(mcParts), " MCParticle(s)...\n")
+	for i, parentID := range mcParts {
+		part := eventIn.GetEntry(parentID).(*lcio.MCParticle)
 		fmt.Print(i, ". PDG: ", part.PDG, "\n")
 		fmt.Print("  ", len(part.Children), " Children...\n")
 		for j, childID := range part.Children {
