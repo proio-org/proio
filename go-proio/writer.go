@@ -128,6 +128,10 @@ var magicBytes = [...]byte{
 	byte(0x00),
 }
 
+type writerResettable interface {
+    Reset(io.Writer)
+}
+
 func (wrt *Writer) writeBucket() error {
 	closer, ok := wrt.bucketWriter.(io.Closer)
 	if ok {
@@ -163,6 +167,10 @@ func (wrt *Writer) writeBucket() error {
 
 	wrt.bucketEvents = 0
 	wrt.bucket.Reset()
+    wrtReset, ok := wrt.bucketWriter.(writerResettable)
+    if ok {
+        wrtReset.Reset(wrt.bucket)
+    }
 
 	return nil
 }

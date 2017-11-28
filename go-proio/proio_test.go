@@ -2,6 +2,7 @@ package proio // import "github.com/decibelcooper/proio/go-proio"
 
 import (
 	"bytes"
+	"io"
 	"math"
 	//"reflect"
 	"testing"
@@ -42,7 +43,7 @@ func TestEventPushGet(t *testing.T) {
 
 	writer.Push(event1Out)
 
-    writer.Flush()
+	writer.Flush()
 
 	reader := NewReader(buffer)
 
@@ -87,7 +88,7 @@ func TestRefDeref(t *testing.T) {
 
 	writer.Push(eventOut)
 
-    writer.Flush()
+	writer.Flush()
 
 	reader := NewReader(buffer)
 
@@ -182,7 +183,7 @@ func TestRefDeref3(t *testing.T) {
 
 	writer.Push(eventOut)
 
-    writer.Flush()
+	writer.Flush()
 
 	reader := NewReader(buffer)
 
@@ -302,7 +303,9 @@ func BenchmarkTrackingLCIO(b *testing.B) {
 
 func tracking(reader *Reader, b *testing.B) {
 	b.N = 0
-	for event, _ := reader.Next(); event != nil; event, _ = reader.Next() {
+	var event *Event
+	var err error
+	for event, err = reader.Next(); event != nil; event, err = reader.Next() {
 		b.N++
 
 		truthParts := event.TaggedEntries("MCParticle")
@@ -371,6 +374,10 @@ func tracking(reader *Reader, b *testing.B) {
 				truthRelations = append(truthRelations[:minIndex], truthRelations[minIndex+1:]...)
 			}
 		}
+	}
+
+	if err != io.EOF {
+		b.Error(err)
 	}
 }
 

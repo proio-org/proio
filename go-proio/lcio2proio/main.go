@@ -58,7 +58,7 @@ func main() {
 		} else if *doLZ4 {
 			proioWriter = proio.NewWriter(os.Stdout, proio.LZ4)
 		} else {
-			proioWriter = proio.NewWriter(os.Stdout, proio.NONE)
+			proioWriter = proio.NewWriter(os.Stdout, proio.UNCOMPRESSED)
 		}
 	} else {
 		if *doGzip {
@@ -66,7 +66,7 @@ func main() {
 		} else if *doLZ4 {
 			proioWriter, err = proio.Create(*outFile, proio.LZ4)
 		} else {
-			proioWriter, err = proio.Create(*outFile, proio.NONE)
+			proioWriter, err = proio.Create(*outFile, proio.UNCOMPRESSED)
 		}
 		if err != nil {
 			log.Fatal(err)

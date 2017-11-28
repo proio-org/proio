@@ -13,7 +13,7 @@ import (
 
 type Reader struct {
 	streamReader     io.Reader
-	bucket           *bytes.Buffer
+	bucket           *bytes.Reader
 	bucketReader     io.Reader
 	bucketHeader     *proto.BucketHeader
 	bucketEventsRead uint64
@@ -31,7 +31,7 @@ func Open(filename string) (*Reader, error) {
 func NewReader(streamReader io.Reader) *Reader {
 	rdr := &Reader{
 		streamReader: streamReader,
-		bucket:       &bytes.Buffer{},
+		bucket:       &bytes.Reader{},
 	}
 	rdr.bucketReader = rdr.bucket
 
@@ -64,16 +64,16 @@ func (rdr *Reader) Next() (*Event, error) {
 
 	protoSize := binary.LittleEndian.Uint32(protoSizeBuf)
 
-    protoBuf := make([]byte, protoSize)
-    if err := readBytes(rdr.bucketReader, protoBuf); err != nil {
-        return nil, err
-    }
-    eventProto := &proto.Event{}
-    if err := eventProto.Unmarshal(protoBuf); err != nil {
-        return nil, err
-    }
+	protoBuf := make([]byte, protoSize)
+	if err := readBytes(rdr.bucketReader, protoBuf); err != nil {
+		return nil, err
+	}
+	eventProto := &proto.Event{}
+	if err := eventProto.Unmarshal(protoBuf); err != nil {
+		return nil, err
+	}
 
-    event := newEventFromProto(eventProto)
+	event := newEventFromProto(eventProto)
 
 	return event, nil
 }
@@ -105,7 +105,7 @@ func (rdr *Reader) readBucket() error {
 	if err := readBytes(rdr.streamReader, bucketBytes); err != nil {
 		return err
 	}
-	rdr.bucket = bytes.NewBuffer(bucketBytes)
+	rdr.bucket.Reset(bucketBytes)
 
 	err = nil
 	switch rdr.bucketHeader.Compression {
