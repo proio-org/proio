@@ -107,7 +107,7 @@ func (wrt *Writer) Push(event *Event) error {
 	return nil
 }
 
-const bucketDumpSize = 0x100000
+const bucketDumpSize = 0x1000000
 
 var magicBytes = [...]byte{
 	byte(0xe1),
