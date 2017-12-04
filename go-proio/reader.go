@@ -12,11 +12,12 @@ import (
 )
 
 type Reader struct {
-	streamReader     io.Reader
-	bucket           *bytes.Reader
-	bucketReader     io.Reader
-	bucketHeader     *proto.BucketHeader
-	bucketEventsRead uint64
+	streamReader       io.Reader
+	bucket             *bytes.Reader
+	bucketDecompressor io.Reader
+	bucketReader       io.Reader
+	bucketHeader       *proto.BucketHeader
+	bucketEventsRead   uint64
 }
 
 func Open(filename string) (*Reader, error) {
@@ -107,17 +108,47 @@ func (rdr *Reader) readBucket() error {
 	}
 	rdr.bucket.Reset(bucketBytes)
 
-	err = nil
 	switch rdr.bucketHeader.Compression {
 	case proto.BucketHeader_GZIP:
-		rdr.bucketReader, err = gzip.NewReader(rdr.bucket)
+		gzipRdr, ok := rdr.bucketDecompressor.(*gzip.Reader)
+		if ok {
+			gzipRdr.Reset(rdr.bucket)
+		} else {
+			gzipRdr, err = gzip.NewReader(rdr.bucket)
+			if err != nil {
+				return err
+			}
+			rdr.bucketDecompressor = gzipRdr
+		}
+		bucketRdr, ok := rdr.bucketReader.(*bytes.Buffer)
+		if ok {
+			bucketRdr.Reset()
+		} else {
+			bucketRdr = &bytes.Buffer{}
+		}
+		bucketRdr.ReadFrom(gzipRdr)
+		rdr.bucketReader = bucketRdr
 	case proto.BucketHeader_LZ4:
-		rdr.bucketReader = lz4.NewReader(rdr.bucket)
+		lz4Rdr, ok := rdr.bucketDecompressor.(*lz4.Reader)
+		if ok {
+			lz4Rdr.Reset(rdr.bucket)
+		} else {
+			lz4Rdr = lz4.NewReader(rdr.bucket)
+			rdr.bucketDecompressor = lz4Rdr
+		}
+		bucketRdr, ok := rdr.bucketReader.(*bytes.Buffer)
+		if ok {
+			bucketRdr.Reset()
+		} else {
+			bucketRdr = &bytes.Buffer{}
+		}
+		bucketRdr.ReadFrom(lz4Rdr)
+		rdr.bucketReader = bucketRdr
 	default:
 		rdr.bucketReader = rdr.bucket
 	}
 
-	return err
+	return nil
 }
 
 func (rdr *Reader) syncToMagic() (int, error) {
