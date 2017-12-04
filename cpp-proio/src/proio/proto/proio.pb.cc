@@ -57,7 +57,7 @@ namespace protobuf_proto_2fproio_2eproto {
 namespace {
 
 ::google::protobuf::Metadata file_level_metadata[8];
-const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors[1];
+const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors[2];
 
 }  // namespace
 
@@ -94,6 +94,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_ATTRIBUTE_SECTION
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BucketHeader, nevents_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BucketHeader, bucketsize_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BucketHeader, compression_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BucketHeader, type_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BucketHeader, filedescriptors_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BucketHeader, metadata_),
     ~0u,  // no _has_bits_
@@ -123,8 +124,8 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_ATTRIBUTE_SECTION
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_ATTRIBUTE_SECTION_VARIABLE(
     protodesc_cold) = {
-    {0, -1, sizeof(Meta)},   {7, -1, sizeof(BucketHeader)}, {17, -1, sizeof(Tag)},
-    {23, -1, sizeof(Entry)}, {30, -1, sizeof(Event)},
+    {0, -1, sizeof(Meta)},   {7, -1, sizeof(BucketHeader)}, {18, -1, sizeof(Tag)},
+    {24, -1, sizeof(Entry)}, {31, -1, sizeof(Event)},
 };
 
 static ::google::protobuf::Message const* const file_default_instances[] = {
@@ -205,26 +206,29 @@ void AddDescriptorsImpl() {
     InitDefaults();
     static const char descriptor[] GOOGLE_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
         "\n\021proto/proio.proto\022\013proio.proto\"\"\n\004Meta"
-        "\022\014\n\004name\030\001 \001(\t\022\014\n\004data\030\002 \001(\014\"\323\001\n\014BucketH"
+        "\022\014\n\004name\030\001 \001(\t\022\014\n\004data\030\002 \001(\014\"\257\002\n\014BucketH"
         "eader\022\017\n\007nEvents\030\001 \001(\004\022\022\n\nbucketSize\030\002 \001"
         "(\004\0227\n\013compression\030\003 \001(\0162\".proio.proto.Bu"
-        "cketHeader.CompType\022\027\n\017fileDescriptors\030\004"
-        " \003(\014\022#\n\010metaData\030\005 \003(\0132\021.proio.proto.Met"
-        "a\"\'\n\010CompType\022\010\n\004NONE\020\000\022\010\n\004GZIP\020\001\022\007\n\003LZ4"
-        "\020\002\"\026\n\003Tag\022\017\n\007entries\030\001 \003(\004\"&\n\005Entry\022\014\n\004t"
-        "ype\030\001 \001(\004\022\017\n\007payload\030\002 \001(\014\"\371\002\n\005Event\022*\n\004"
-        "tags\030\001 \003(\0132\034.proio.proto.Event.TagsEntry"
-        "\022\020\n\010nEntries\030\002 \001(\004\0220\n\007entries\030\003 \003(\0132\037.pr"
-        "oio.proto.Event.EntriesEntry\022\016\n\006nTypes\030\004"
-        " \001(\004\022,\n\005types\030\005 \003(\0132\035.proio.proto.Event."
-        "TypesEntry\022\021\n\ttimestamp\030\006 \001(\004\032=\n\tTagsEnt"
-        "ry\022\013\n\003key\030\001 \001(\t\022\037\n\005value\030\002 \001(\0132\020.proio.p"
-        "roto.Tag:\0028\001\032B\n\014EntriesEntry\022\013\n\003key\030\001 \001("
-        "\004\022!\n\005value\030\002 \001(\0132\022.proio.proto.Entry:\0028\001"
-        "\032,\n\nTypesEntry\022\013\n\003key\030\001 \001(\004\022\r\n\005value\030\002 \001"
-        "(\t:\0028\001B=\n\005proioB\005ProtoZ-github.com/decib"
-        "elcooper/proio/go-proio/protob\006proto3"};
-    ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(descriptor, 797);
+        "cketHeader.CompType\0223\n\004type\030\004 \001(\0162%.proi"
+        "o.proto.BucketHeader.PayloadType\022\027\n\017file"
+        "Descriptors\030\005 \003(\014\022#\n\010metaData\030\006 \003(\0132\021.pr"
+        "oio.proto.Meta\"\'\n\010CompType\022\010\n\004NONE\020\000\022\010\n\004"
+        "GZIP\020\001\022\007\n\003LZ4\020\002\"%\n\013PayloadType\022\n\n\006EVENTS"
+        "\020\000\022\n\n\006FOOTER\020\001\"\026\n\003Tag\022\017\n\007entries\030\001 \003(\004\"&"
+        "\n\005Entry\022\014\n\004type\030\001 \001(\004\022\017\n\007payload\030\002 \001(\014\"\371"
+        "\002\n\005Event\022*\n\004tags\030\001 \003(\0132\034.proio.proto.Eve"
+        "nt.TagsEntry\022\020\n\010nEntries\030\002 \001(\004\0220\n\007entrie"
+        "s\030\003 \003(\0132\037.proio.proto.Event.EntriesEntry"
+        "\022\016\n\006nTypes\030\004 \001(\004\022,\n\005types\030\005 \003(\0132\035.proio."
+        "proto.Event.TypesEntry\022\021\n\ttimestamp\030\006 \001("
+        "\004\032=\n\tTagsEntry\022\013\n\003key\030\001 \001(\t\022\037\n\005value\030\002 \001"
+        "(\0132\020.proio.proto.Tag:\0028\001\032B\n\014EntriesEntry"
+        "\022\013\n\003key\030\001 \001(\004\022!\n\005value\030\002 \001(\0132\022.proio.pro"
+        "to.Entry:\0028\001\032,\n\nTypesEntry\022\013\n\003key\030\001 \001(\004\022"
+        "\r\n\005value\030\002 \001(\t:\0028\001B=\n\005proioB\005ProtoZ-gith"
+        "ub.com/decibelcooper/proio/go-proio/prot"
+        "ob\006proto3"};
+    ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(descriptor, 889);
     ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile("proto/proio.proto",
                                                                       &protobuf_RegisterTypes);
 }
@@ -263,6 +267,27 @@ const BucketHeader_CompType BucketHeader::LZ4;
 const BucketHeader_CompType BucketHeader::CompType_MIN;
 const BucketHeader_CompType BucketHeader::CompType_MAX;
 const int BucketHeader::CompType_ARRAYSIZE;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+const ::google::protobuf::EnumDescriptor* BucketHeader_PayloadType_descriptor() {
+    protobuf_proto_2fproio_2eproto::protobuf_AssignDescriptorsOnce();
+    return protobuf_proto_2fproio_2eproto::file_level_enum_descriptors[1];
+}
+bool BucketHeader_PayloadType_IsValid(int value) {
+    switch (value) {
+        case 0:
+        case 1:
+            return true;
+        default:
+            return false;
+    }
+}
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const BucketHeader_PayloadType BucketHeader::EVENTS;
+const BucketHeader_PayloadType BucketHeader::FOOTER;
+const BucketHeader_PayloadType BucketHeader::PayloadType_MIN;
+const BucketHeader_PayloadType BucketHeader::PayloadType_MAX;
+const int BucketHeader::PayloadType_ARRAYSIZE;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 // ===================================================================
@@ -651,6 +676,7 @@ void Meta::set_allocated_data(::std::string* data) {
 const int BucketHeader::kNEventsFieldNumber;
 const int BucketHeader::kBucketSizeFieldNumber;
 const int BucketHeader::kCompressionFieldNumber;
+const int BucketHeader::kTypeFieldNumber;
 const int BucketHeader::kFileDescriptorsFieldNumber;
 const int BucketHeader::kMetaDataFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
@@ -669,18 +695,16 @@ BucketHeader::BucketHeader(const BucketHeader& from)
       metadata_(from.metadata_),
       _cached_size_(0) {
     _internal_metadata_.MergeFrom(from._internal_metadata_);
-    ::memcpy(
-        &nevents_, &from.nevents_,
-        static_cast<size_t>(reinterpret_cast<char*>(&compression_) - reinterpret_cast<char*>(&nevents_)) +
-            sizeof(compression_));
+    ::memcpy(&nevents_, &from.nevents_,
+             static_cast<size_t>(reinterpret_cast<char*>(&type_) - reinterpret_cast<char*>(&nevents_)) +
+                 sizeof(type_));
     // @@protoc_insertion_point(copy_constructor:proio.proto.BucketHeader)
 }
 
 void BucketHeader::SharedCtor() {
-    ::memset(
-        &nevents_, 0,
-        static_cast<size_t>(reinterpret_cast<char*>(&compression_) - reinterpret_cast<char*>(&nevents_)) +
-            sizeof(compression_));
+    ::memset(&nevents_, 0,
+             static_cast<size_t>(reinterpret_cast<char*>(&type_) - reinterpret_cast<char*>(&nevents_)) +
+                 sizeof(type_));
     _cached_size_ = 0;
 }
 
@@ -722,10 +746,9 @@ void BucketHeader::Clear() {
 
     filedescriptors_.Clear();
     metadata_.Clear();
-    ::memset(
-        &nevents_, 0,
-        static_cast<size_t>(reinterpret_cast<char*>(&compression_) - reinterpret_cast<char*>(&nevents_)) +
-            sizeof(compression_));
+    ::memset(&nevents_, 0,
+             static_cast<size_t>(reinterpret_cast<char*>(&type_) - reinterpret_cast<char*>(&nevents_)) +
+                 sizeof(type_));
     _internal_metadata_.Clear();
 }
 
@@ -779,10 +802,24 @@ bool BucketHeader::MergePartialFromCodedStream(::google::protobuf::io::CodedInpu
                 break;
             }
 
-            // repeated bytes fileDescriptors = 4;
+            // .proio.proto.BucketHeader.PayloadType type = 4;
             case 4: {
                 if (static_cast< ::google::protobuf::uint8>(tag) ==
-                    static_cast< ::google::protobuf::uint8>(34u /* 34 & 0xFF */)) {
+                    static_cast< ::google::protobuf::uint8>(32u /* 32 & 0xFF */)) {
+                    int value;
+                    DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                         int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(input, &value)));
+                    set_type(static_cast< ::proio::proto::BucketHeader_PayloadType>(value));
+                } else {
+                    goto handle_unusual;
+                }
+                break;
+            }
+
+            // repeated bytes fileDescriptors = 5;
+            case 5: {
+                if (static_cast< ::google::protobuf::uint8>(tag) ==
+                    static_cast< ::google::protobuf::uint8>(42u /* 42 & 0xFF */)) {
                     DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(input,
                                                                                 this->add_filedescriptors()));
                 } else {
@@ -791,10 +828,10 @@ bool BucketHeader::MergePartialFromCodedStream(::google::protobuf::io::CodedInpu
                 break;
             }
 
-            // repeated .proio.proto.Meta metaData = 5;
-            case 5: {
+            // repeated .proio.proto.Meta metaData = 6;
+            case 6: {
                 if (static_cast< ::google::protobuf::uint8>(tag) ==
-                    static_cast< ::google::protobuf::uint8>(42u /* 42 & 0xFF */)) {
+                    static_cast< ::google::protobuf::uint8>(50u /* 50 & 0xFF */)) {
                     DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(input,
                                                                                            add_metadata()));
                 } else {
@@ -843,15 +880,20 @@ void BucketHeader::SerializeWithCachedSizes(::google::protobuf::io::CodedOutputS
         ::google::protobuf::internal::WireFormatLite::WriteEnum(3, this->compression(), output);
     }
 
-    // repeated bytes fileDescriptors = 4;
-    for (int i = 0, n = this->filedescriptors_size(); i < n; i++) {
-        ::google::protobuf::internal::WireFormatLite::WriteBytes(4, this->filedescriptors(i), output);
+    // .proio.proto.BucketHeader.PayloadType type = 4;
+    if (this->type() != 0) {
+        ::google::protobuf::internal::WireFormatLite::WriteEnum(4, this->type(), output);
     }
 
-    // repeated .proio.proto.Meta metaData = 5;
+    // repeated bytes fileDescriptors = 5;
+    for (int i = 0, n = this->filedescriptors_size(); i < n; i++) {
+        ::google::protobuf::internal::WireFormatLite::WriteBytes(5, this->filedescriptors(i), output);
+    }
+
+    // repeated .proio.proto.Meta metaData = 6;
     for (unsigned int i = 0, n = static_cast<unsigned int>(this->metadata_size()); i < n; i++) {
         ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-            5, this->metadata(static_cast<int>(i)), output);
+            6, this->metadata(static_cast<int>(i)), output);
     }
 
     if ((_internal_metadata_.have_unknown_fields() &&
@@ -889,16 +931,21 @@ void BucketHeader::SerializeWithCachedSizes(::google::protobuf::io::CodedOutputS
             ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(3, this->compression(), target);
     }
 
-    // repeated bytes fileDescriptors = 4;
+    // .proio.proto.BucketHeader.PayloadType type = 4;
+    if (this->type() != 0) {
+        target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(4, this->type(), target);
+    }
+
+    // repeated bytes fileDescriptors = 5;
     for (int i = 0, n = this->filedescriptors_size(); i < n; i++) {
-        target = ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(4, this->filedescriptors(i),
+        target = ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(5, this->filedescriptors(i),
                                                                                  target);
     }
 
-    // repeated .proio.proto.Meta metaData = 5;
+    // repeated .proio.proto.Meta metaData = 6;
     for (unsigned int i = 0, n = static_cast<unsigned int>(this->metadata_size()); i < n; i++) {
         target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessageNoVirtualToArray(
-            5, this->metadata(static_cast<int>(i)), deterministic, target);
+            6, this->metadata(static_cast<int>(i)), deterministic, target);
     }
 
     if ((_internal_metadata_.have_unknown_fields() &&
@@ -924,13 +971,13 @@ size_t BucketHeader::ByteSizeLong() const {
                  ? _internal_metadata_.unknown_fields()
                  : _internal_metadata_.default_instance()));
     }
-    // repeated bytes fileDescriptors = 4;
+    // repeated bytes fileDescriptors = 5;
     total_size += 1 * ::google::protobuf::internal::FromIntSize(this->filedescriptors_size());
     for (int i = 0, n = this->filedescriptors_size(); i < n; i++) {
         total_size += ::google::protobuf::internal::WireFormatLite::BytesSize(this->filedescriptors(i));
     }
 
-    // repeated .proio.proto.Meta metaData = 5;
+    // repeated .proio.proto.Meta metaData = 6;
     {
         unsigned int count = static_cast<unsigned int>(this->metadata_size());
         total_size += 1UL * count;
@@ -953,6 +1000,11 @@ size_t BucketHeader::ByteSizeLong() const {
     // .proio.proto.BucketHeader.CompType compression = 3;
     if (this->compression() != 0) {
         total_size += 1 + ::google::protobuf::internal::WireFormatLite::EnumSize(this->compression());
+    }
+
+    // .proio.proto.BucketHeader.PayloadType type = 4;
+    if (this->type() != 0) {
+        total_size += 1 + ::google::protobuf::internal::WireFormatLite::EnumSize(this->type());
     }
 
     int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -994,6 +1046,9 @@ void BucketHeader::MergeFrom(const BucketHeader& from) {
     if (from.compression() != 0) {
         set_compression(from.compression());
     }
+    if (from.type() != 0) {
+        set_type(from.type());
+    }
 }
 
 void BucketHeader::CopyFrom(const ::google::protobuf::Message& from) {
@@ -1023,6 +1078,7 @@ void BucketHeader::InternalSwap(BucketHeader* other) {
     swap(nevents_, other->nevents_);
     swap(bucketsize_, other->bucketsize_);
     swap(compression_, other->compression_);
+    swap(type_, other->type_);
     _internal_metadata_.Swap(&other->_internal_metadata_);
     swap(_cached_size_, other->_cached_size_);
 }
@@ -1068,7 +1124,18 @@ void BucketHeader::set_compression(::proio::proto::BucketHeader_CompType value) 
     // @@protoc_insertion_point(field_set:proio.proto.BucketHeader.compression)
 }
 
-// repeated bytes fileDescriptors = 4;
+// .proio.proto.BucketHeader.PayloadType type = 4;
+void BucketHeader::clear_type() { type_ = 0; }
+::proio::proto::BucketHeader_PayloadType BucketHeader::type() const {
+    // @@protoc_insertion_point(field_get:proio.proto.BucketHeader.type)
+    return static_cast< ::proio::proto::BucketHeader_PayloadType>(type_);
+}
+void BucketHeader::set_type(::proio::proto::BucketHeader_PayloadType value) {
+    type_ = value;
+    // @@protoc_insertion_point(field_set:proio.proto.BucketHeader.type)
+}
+
+// repeated bytes fileDescriptors = 5;
 int BucketHeader::filedescriptors_size() const { return filedescriptors_.size(); }
 void BucketHeader::clear_filedescriptors() { filedescriptors_.Clear(); }
 const ::std::string& BucketHeader::filedescriptors(int index) const {
@@ -1130,7 +1197,7 @@ const ::google::protobuf::RepeatedPtrField< ::std::string>& BucketHeader::filede
     return &filedescriptors_;
 }
 
-// repeated .proio.proto.Meta metaData = 5;
+// repeated .proio.proto.Meta metaData = 6;
 int BucketHeader::metadata_size() const { return metadata_.size(); }
 void BucketHeader::clear_metadata() { metadata_.Clear(); }
 const ::proio::proto::Meta& BucketHeader::metadata(int index) const {

@@ -1,3 +1,9 @@
+# proio files
+*.proio
+
+# lcio files
+*.slcio
+
 # vim swap files
 *.swp
 

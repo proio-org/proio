@@ -24,8 +24,14 @@ message BucketHeader {
     }
     CompType compression = 3;    
 
-    repeated bytes fileDescriptors = 4;
-    repeated Meta metaData = 5;
+    enum PayloadType {
+        EVENTS = 0;
+        FOOTER = 1;
+    }
+    PayloadType type = 4;
+
+    repeated bytes fileDescriptors = 5;
+    repeated Meta metaData = 6;
 }
 
 message Tag {

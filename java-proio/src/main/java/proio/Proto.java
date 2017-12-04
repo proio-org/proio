@@ -626,38 +626,47 @@ public final class Proto {
     proio.Proto.BucketHeader.CompType getCompression();
 
     /**
-     * <code>repeated bytes fileDescriptors = 4;</code>
+     * <code>.proio.proto.BucketHeader.PayloadType type = 4;</code>
+     */
+    int getTypeValue();
+    /**
+     * <code>.proio.proto.BucketHeader.PayloadType type = 4;</code>
+     */
+    proio.Proto.BucketHeader.PayloadType getType();
+
+    /**
+     * <code>repeated bytes fileDescriptors = 5;</code>
      */
     java.util.List<com.google.protobuf.ByteString> getFileDescriptorsList();
     /**
-     * <code>repeated bytes fileDescriptors = 4;</code>
+     * <code>repeated bytes fileDescriptors = 5;</code>
      */
     int getFileDescriptorsCount();
     /**
-     * <code>repeated bytes fileDescriptors = 4;</code>
+     * <code>repeated bytes fileDescriptors = 5;</code>
      */
     com.google.protobuf.ByteString getFileDescriptors(int index);
 
     /**
-     * <code>repeated .proio.proto.Meta metaData = 5;</code>
+     * <code>repeated .proio.proto.Meta metaData = 6;</code>
      */
     java.util.List<proio.Proto.Meta> 
         getMetaDataList();
     /**
-     * <code>repeated .proio.proto.Meta metaData = 5;</code>
+     * <code>repeated .proio.proto.Meta metaData = 6;</code>
      */
     proio.Proto.Meta getMetaData(int index);
     /**
-     * <code>repeated .proio.proto.Meta metaData = 5;</code>
+     * <code>repeated .proio.proto.Meta metaData = 6;</code>
      */
     int getMetaDataCount();
     /**
-     * <code>repeated .proio.proto.Meta metaData = 5;</code>
+     * <code>repeated .proio.proto.Meta metaData = 6;</code>
      */
     java.util.List<? extends proio.Proto.MetaOrBuilder> 
         getMetaDataOrBuilderList();
     /**
-     * <code>repeated .proio.proto.Meta metaData = 5;</code>
+     * <code>repeated .proio.proto.Meta metaData = 6;</code>
      */
     proio.Proto.MetaOrBuilder getMetaDataOrBuilder(
         int index);
@@ -678,6 +687,7 @@ public final class Proto {
       nEvents_ = 0L;
       bucketSize_ = 0L;
       compression_ = 0;
+      type_ = 0;
       fileDescriptors_ = java.util.Collections.emptyList();
       metaData_ = java.util.Collections.emptyList();
     }
@@ -726,18 +736,24 @@ public final class Proto {
               compression_ = rawValue;
               break;
             }
-            case 34: {
-              if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
-                fileDescriptors_ = new java.util.ArrayList<com.google.protobuf.ByteString>();
-                mutable_bitField0_ |= 0x00000008;
-              }
-              fileDescriptors_.add(input.readBytes());
+            case 32: {
+              int rawValue = input.readEnum();
+
+              type_ = rawValue;
               break;
             }
             case 42: {
               if (!((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
-                metaData_ = new java.util.ArrayList<proio.Proto.Meta>();
+                fileDescriptors_ = new java.util.ArrayList<com.google.protobuf.ByteString>();
                 mutable_bitField0_ |= 0x00000010;
+              }
+              fileDescriptors_.add(input.readBytes());
+              break;
+            }
+            case 50: {
+              if (!((mutable_bitField0_ & 0x00000020) == 0x00000020)) {
+                metaData_ = new java.util.ArrayList<proio.Proto.Meta>();
+                mutable_bitField0_ |= 0x00000020;
               }
               metaData_.add(
                   input.readMessage(proio.Proto.Meta.parser(), extensionRegistry));
@@ -751,10 +767,10 @@ public final class Proto {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+        if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
           fileDescriptors_ = java.util.Collections.unmodifiableList(fileDescriptors_);
         }
-        if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+        if (((mutable_bitField0_ & 0x00000020) == 0x00000020)) {
           metaData_ = java.util.Collections.unmodifiableList(metaData_);
         }
         this.unknownFields = unknownFields.build();
@@ -880,6 +896,104 @@ public final class Proto {
       // @@protoc_insertion_point(enum_scope:proio.proto.BucketHeader.CompType)
     }
 
+    /**
+     * Protobuf enum {@code proio.proto.BucketHeader.PayloadType}
+     */
+    public enum PayloadType
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>EVENTS = 0;</code>
+       */
+      EVENTS(0),
+      /**
+       * <code>FOOTER = 1;</code>
+       */
+      FOOTER(1),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>EVENTS = 0;</code>
+       */
+      public static final int EVENTS_VALUE = 0;
+      /**
+       * <code>FOOTER = 1;</code>
+       */
+      public static final int FOOTER_VALUE = 1;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static PayloadType valueOf(int value) {
+        return forNumber(value);
+      }
+
+      public static PayloadType forNumber(int value) {
+        switch (value) {
+          case 0: return EVENTS;
+          case 1: return FOOTER;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<PayloadType>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          PayloadType> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<PayloadType>() {
+              public PayloadType findValueByNumber(int number) {
+                return PayloadType.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return proio.Proto.BucketHeader.getDescriptor().getEnumTypes().get(1);
+      }
+
+      private static final PayloadType[] VALUES = values();
+
+      public static PayloadType valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private PayloadType(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:proio.proto.BucketHeader.PayloadType)
+    }
+
     private int bitField0_;
     public static final int NEVENTS_FIELD_NUMBER = 1;
     private long nEvents_;
@@ -915,57 +1029,73 @@ public final class Proto {
       return result == null ? proio.Proto.BucketHeader.CompType.UNRECOGNIZED : result;
     }
 
-    public static final int FILEDESCRIPTORS_FIELD_NUMBER = 4;
+    public static final int TYPE_FIELD_NUMBER = 4;
+    private int type_;
+    /**
+     * <code>.proio.proto.BucketHeader.PayloadType type = 4;</code>
+     */
+    public int getTypeValue() {
+      return type_;
+    }
+    /**
+     * <code>.proio.proto.BucketHeader.PayloadType type = 4;</code>
+     */
+    public proio.Proto.BucketHeader.PayloadType getType() {
+      proio.Proto.BucketHeader.PayloadType result = proio.Proto.BucketHeader.PayloadType.valueOf(type_);
+      return result == null ? proio.Proto.BucketHeader.PayloadType.UNRECOGNIZED : result;
+    }
+
+    public static final int FILEDESCRIPTORS_FIELD_NUMBER = 5;
     private java.util.List<com.google.protobuf.ByteString> fileDescriptors_;
     /**
-     * <code>repeated bytes fileDescriptors = 4;</code>
+     * <code>repeated bytes fileDescriptors = 5;</code>
      */
     public java.util.List<com.google.protobuf.ByteString>
         getFileDescriptorsList() {
       return fileDescriptors_;
     }
     /**
-     * <code>repeated bytes fileDescriptors = 4;</code>
+     * <code>repeated bytes fileDescriptors = 5;</code>
      */
     public int getFileDescriptorsCount() {
       return fileDescriptors_.size();
     }
     /**
-     * <code>repeated bytes fileDescriptors = 4;</code>
+     * <code>repeated bytes fileDescriptors = 5;</code>
      */
     public com.google.protobuf.ByteString getFileDescriptors(int index) {
       return fileDescriptors_.get(index);
     }
 
-    public static final int METADATA_FIELD_NUMBER = 5;
+    public static final int METADATA_FIELD_NUMBER = 6;
     private java.util.List<proio.Proto.Meta> metaData_;
     /**
-     * <code>repeated .proio.proto.Meta metaData = 5;</code>
+     * <code>repeated .proio.proto.Meta metaData = 6;</code>
      */
     public java.util.List<proio.Proto.Meta> getMetaDataList() {
       return metaData_;
     }
     /**
-     * <code>repeated .proio.proto.Meta metaData = 5;</code>
+     * <code>repeated .proio.proto.Meta metaData = 6;</code>
      */
     public java.util.List<? extends proio.Proto.MetaOrBuilder> 
         getMetaDataOrBuilderList() {
       return metaData_;
     }
     /**
-     * <code>repeated .proio.proto.Meta metaData = 5;</code>
+     * <code>repeated .proio.proto.Meta metaData = 6;</code>
      */
     public int getMetaDataCount() {
       return metaData_.size();
     }
     /**
-     * <code>repeated .proio.proto.Meta metaData = 5;</code>
+     * <code>repeated .proio.proto.Meta metaData = 6;</code>
      */
     public proio.Proto.Meta getMetaData(int index) {
       return metaData_.get(index);
     }
     /**
-     * <code>repeated .proio.proto.Meta metaData = 5;</code>
+     * <code>repeated .proio.proto.Meta metaData = 6;</code>
      */
     public proio.Proto.MetaOrBuilder getMetaDataOrBuilder(
         int index) {
@@ -993,11 +1123,14 @@ public final class Proto {
       if (compression_ != proio.Proto.BucketHeader.CompType.NONE.getNumber()) {
         output.writeEnum(3, compression_);
       }
+      if (type_ != proio.Proto.BucketHeader.PayloadType.EVENTS.getNumber()) {
+        output.writeEnum(4, type_);
+      }
       for (int i = 0; i < fileDescriptors_.size(); i++) {
-        output.writeBytes(4, fileDescriptors_.get(i));
+        output.writeBytes(5, fileDescriptors_.get(i));
       }
       for (int i = 0; i < metaData_.size(); i++) {
-        output.writeMessage(5, metaData_.get(i));
+        output.writeMessage(6, metaData_.get(i));
       }
       unknownFields.writeTo(output);
     }
@@ -1019,6 +1152,10 @@ public final class Proto {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(3, compression_);
       }
+      if (type_ != proio.Proto.BucketHeader.PayloadType.EVENTS.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(4, type_);
+      }
       {
         int dataSize = 0;
         for (int i = 0; i < fileDescriptors_.size(); i++) {
@@ -1030,7 +1167,7 @@ public final class Proto {
       }
       for (int i = 0; i < metaData_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(5, metaData_.get(i));
+          .computeMessageSize(6, metaData_.get(i));
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1053,6 +1190,7 @@ public final class Proto {
       result = result && (getBucketSize()
           == other.getBucketSize());
       result = result && compression_ == other.compression_;
+      result = result && type_ == other.type_;
       result = result && getFileDescriptorsList()
           .equals(other.getFileDescriptorsList());
       result = result && getMetaDataList()
@@ -1076,6 +1214,8 @@ public final class Proto {
           getBucketSize());
       hash = (37 * hash) + COMPRESSION_FIELD_NUMBER;
       hash = (53 * hash) + compression_;
+      hash = (37 * hash) + TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + type_;
       if (getFileDescriptorsCount() > 0) {
         hash = (37 * hash) + FILEDESCRIPTORS_FIELD_NUMBER;
         hash = (53 * hash) + getFileDescriptorsList().hashCode();
@@ -1220,11 +1360,13 @@ public final class Proto {
 
         compression_ = 0;
 
+        type_ = 0;
+
         fileDescriptors_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000010);
         if (metaDataBuilder_ == null) {
           metaData_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000010);
+          bitField0_ = (bitField0_ & ~0x00000020);
         } else {
           metaDataBuilder_.clear();
         }
@@ -1255,15 +1397,16 @@ public final class Proto {
         result.nEvents_ = nEvents_;
         result.bucketSize_ = bucketSize_;
         result.compression_ = compression_;
-        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        result.type_ = type_;
+        if (((bitField0_ & 0x00000010) == 0x00000010)) {
           fileDescriptors_ = java.util.Collections.unmodifiableList(fileDescriptors_);
-          bitField0_ = (bitField0_ & ~0x00000008);
+          bitField0_ = (bitField0_ & ~0x00000010);
         }
         result.fileDescriptors_ = fileDescriptors_;
         if (metaDataBuilder_ == null) {
-          if (((bitField0_ & 0x00000010) == 0x00000010)) {
+          if (((bitField0_ & 0x00000020) == 0x00000020)) {
             metaData_ = java.util.Collections.unmodifiableList(metaData_);
-            bitField0_ = (bitField0_ & ~0x00000010);
+            bitField0_ = (bitField0_ & ~0x00000020);
           }
           result.metaData_ = metaData_;
         } else {
@@ -1320,10 +1463,13 @@ public final class Proto {
         if (other.compression_ != 0) {
           setCompressionValue(other.getCompressionValue());
         }
+        if (other.type_ != 0) {
+          setTypeValue(other.getTypeValue());
+        }
         if (!other.fileDescriptors_.isEmpty()) {
           if (fileDescriptors_.isEmpty()) {
             fileDescriptors_ = other.fileDescriptors_;
-            bitField0_ = (bitField0_ & ~0x00000008);
+            bitField0_ = (bitField0_ & ~0x00000010);
           } else {
             ensureFileDescriptorsIsMutable();
             fileDescriptors_.addAll(other.fileDescriptors_);
@@ -1334,7 +1480,7 @@ public final class Proto {
           if (!other.metaData_.isEmpty()) {
             if (metaData_.isEmpty()) {
               metaData_ = other.metaData_;
-              bitField0_ = (bitField0_ & ~0x00000010);
+              bitField0_ = (bitField0_ & ~0x00000020);
             } else {
               ensureMetaDataIsMutable();
               metaData_.addAll(other.metaData_);
@@ -1347,7 +1493,7 @@ public final class Proto {
               metaDataBuilder_.dispose();
               metaDataBuilder_ = null;
               metaData_ = other.metaData_;
-              bitField0_ = (bitField0_ & ~0x00000010);
+              bitField0_ = (bitField0_ & ~0x00000020);
               metaDataBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getMetaDataFieldBuilder() : null;
@@ -1480,34 +1626,78 @@ public final class Proto {
         return this;
       }
 
+      private int type_ = 0;
+      /**
+       * <code>.proio.proto.BucketHeader.PayloadType type = 4;</code>
+       */
+      public int getTypeValue() {
+        return type_;
+      }
+      /**
+       * <code>.proio.proto.BucketHeader.PayloadType type = 4;</code>
+       */
+      public Builder setTypeValue(int value) {
+        type_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.proio.proto.BucketHeader.PayloadType type = 4;</code>
+       */
+      public proio.Proto.BucketHeader.PayloadType getType() {
+        proio.Proto.BucketHeader.PayloadType result = proio.Proto.BucketHeader.PayloadType.valueOf(type_);
+        return result == null ? proio.Proto.BucketHeader.PayloadType.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.proio.proto.BucketHeader.PayloadType type = 4;</code>
+       */
+      public Builder setType(proio.Proto.BucketHeader.PayloadType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        type_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.proio.proto.BucketHeader.PayloadType type = 4;</code>
+       */
+      public Builder clearType() {
+        
+        type_ = 0;
+        onChanged();
+        return this;
+      }
+
       private java.util.List<com.google.protobuf.ByteString> fileDescriptors_ = java.util.Collections.emptyList();
       private void ensureFileDescriptorsIsMutable() {
-        if (!((bitField0_ & 0x00000008) == 0x00000008)) {
+        if (!((bitField0_ & 0x00000010) == 0x00000010)) {
           fileDescriptors_ = new java.util.ArrayList<com.google.protobuf.ByteString>(fileDescriptors_);
-          bitField0_ |= 0x00000008;
+          bitField0_ |= 0x00000010;
          }
       }
       /**
-       * <code>repeated bytes fileDescriptors = 4;</code>
+       * <code>repeated bytes fileDescriptors = 5;</code>
        */
       public java.util.List<com.google.protobuf.ByteString>
           getFileDescriptorsList() {
         return java.util.Collections.unmodifiableList(fileDescriptors_);
       }
       /**
-       * <code>repeated bytes fileDescriptors = 4;</code>
+       * <code>repeated bytes fileDescriptors = 5;</code>
        */
       public int getFileDescriptorsCount() {
         return fileDescriptors_.size();
       }
       /**
-       * <code>repeated bytes fileDescriptors = 4;</code>
+       * <code>repeated bytes fileDescriptors = 5;</code>
        */
       public com.google.protobuf.ByteString getFileDescriptors(int index) {
         return fileDescriptors_.get(index);
       }
       /**
-       * <code>repeated bytes fileDescriptors = 4;</code>
+       * <code>repeated bytes fileDescriptors = 5;</code>
        */
       public Builder setFileDescriptors(
           int index, com.google.protobuf.ByteString value) {
@@ -1520,7 +1710,7 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>repeated bytes fileDescriptors = 4;</code>
+       * <code>repeated bytes fileDescriptors = 5;</code>
        */
       public Builder addFileDescriptors(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -1532,7 +1722,7 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>repeated bytes fileDescriptors = 4;</code>
+       * <code>repeated bytes fileDescriptors = 5;</code>
        */
       public Builder addAllFileDescriptors(
           java.lang.Iterable<? extends com.google.protobuf.ByteString> values) {
@@ -1543,11 +1733,11 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>repeated bytes fileDescriptors = 4;</code>
+       * <code>repeated bytes fileDescriptors = 5;</code>
        */
       public Builder clearFileDescriptors() {
         fileDescriptors_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000010);
         onChanged();
         return this;
       }
@@ -1555,9 +1745,9 @@ public final class Proto {
       private java.util.List<proio.Proto.Meta> metaData_ =
         java.util.Collections.emptyList();
       private void ensureMetaDataIsMutable() {
-        if (!((bitField0_ & 0x00000010) == 0x00000010)) {
+        if (!((bitField0_ & 0x00000020) == 0x00000020)) {
           metaData_ = new java.util.ArrayList<proio.Proto.Meta>(metaData_);
-          bitField0_ |= 0x00000010;
+          bitField0_ |= 0x00000020;
          }
       }
 
@@ -1565,7 +1755,7 @@ public final class Proto {
           proio.Proto.Meta, proio.Proto.Meta.Builder, proio.Proto.MetaOrBuilder> metaDataBuilder_;
 
       /**
-       * <code>repeated .proio.proto.Meta metaData = 5;</code>
+       * <code>repeated .proio.proto.Meta metaData = 6;</code>
        */
       public java.util.List<proio.Proto.Meta> getMetaDataList() {
         if (metaDataBuilder_ == null) {
@@ -1575,7 +1765,7 @@ public final class Proto {
         }
       }
       /**
-       * <code>repeated .proio.proto.Meta metaData = 5;</code>
+       * <code>repeated .proio.proto.Meta metaData = 6;</code>
        */
       public int getMetaDataCount() {
         if (metaDataBuilder_ == null) {
@@ -1585,7 +1775,7 @@ public final class Proto {
         }
       }
       /**
-       * <code>repeated .proio.proto.Meta metaData = 5;</code>
+       * <code>repeated .proio.proto.Meta metaData = 6;</code>
        */
       public proio.Proto.Meta getMetaData(int index) {
         if (metaDataBuilder_ == null) {
@@ -1595,7 +1785,7 @@ public final class Proto {
         }
       }
       /**
-       * <code>repeated .proio.proto.Meta metaData = 5;</code>
+       * <code>repeated .proio.proto.Meta metaData = 6;</code>
        */
       public Builder setMetaData(
           int index, proio.Proto.Meta value) {
@@ -1612,7 +1802,7 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>repeated .proio.proto.Meta metaData = 5;</code>
+       * <code>repeated .proio.proto.Meta metaData = 6;</code>
        */
       public Builder setMetaData(
           int index, proio.Proto.Meta.Builder builderForValue) {
@@ -1626,7 +1816,7 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>repeated .proio.proto.Meta metaData = 5;</code>
+       * <code>repeated .proio.proto.Meta metaData = 6;</code>
        */
       public Builder addMetaData(proio.Proto.Meta value) {
         if (metaDataBuilder_ == null) {
@@ -1642,7 +1832,7 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>repeated .proio.proto.Meta metaData = 5;</code>
+       * <code>repeated .proio.proto.Meta metaData = 6;</code>
        */
       public Builder addMetaData(
           int index, proio.Proto.Meta value) {
@@ -1659,7 +1849,7 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>repeated .proio.proto.Meta metaData = 5;</code>
+       * <code>repeated .proio.proto.Meta metaData = 6;</code>
        */
       public Builder addMetaData(
           proio.Proto.Meta.Builder builderForValue) {
@@ -1673,7 +1863,7 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>repeated .proio.proto.Meta metaData = 5;</code>
+       * <code>repeated .proio.proto.Meta metaData = 6;</code>
        */
       public Builder addMetaData(
           int index, proio.Proto.Meta.Builder builderForValue) {
@@ -1687,7 +1877,7 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>repeated .proio.proto.Meta metaData = 5;</code>
+       * <code>repeated .proio.proto.Meta metaData = 6;</code>
        */
       public Builder addAllMetaData(
           java.lang.Iterable<? extends proio.Proto.Meta> values) {
@@ -1702,12 +1892,12 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>repeated .proio.proto.Meta metaData = 5;</code>
+       * <code>repeated .proio.proto.Meta metaData = 6;</code>
        */
       public Builder clearMetaData() {
         if (metaDataBuilder_ == null) {
           metaData_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000010);
+          bitField0_ = (bitField0_ & ~0x00000020);
           onChanged();
         } else {
           metaDataBuilder_.clear();
@@ -1715,7 +1905,7 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>repeated .proio.proto.Meta metaData = 5;</code>
+       * <code>repeated .proio.proto.Meta metaData = 6;</code>
        */
       public Builder removeMetaData(int index) {
         if (metaDataBuilder_ == null) {
@@ -1728,14 +1918,14 @@ public final class Proto {
         return this;
       }
       /**
-       * <code>repeated .proio.proto.Meta metaData = 5;</code>
+       * <code>repeated .proio.proto.Meta metaData = 6;</code>
        */
       public proio.Proto.Meta.Builder getMetaDataBuilder(
           int index) {
         return getMetaDataFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .proio.proto.Meta metaData = 5;</code>
+       * <code>repeated .proio.proto.Meta metaData = 6;</code>
        */
       public proio.Proto.MetaOrBuilder getMetaDataOrBuilder(
           int index) {
@@ -1745,7 +1935,7 @@ public final class Proto {
         }
       }
       /**
-       * <code>repeated .proio.proto.Meta metaData = 5;</code>
+       * <code>repeated .proio.proto.Meta metaData = 6;</code>
        */
       public java.util.List<? extends proio.Proto.MetaOrBuilder> 
            getMetaDataOrBuilderList() {
@@ -1756,14 +1946,14 @@ public final class Proto {
         }
       }
       /**
-       * <code>repeated .proio.proto.Meta metaData = 5;</code>
+       * <code>repeated .proio.proto.Meta metaData = 6;</code>
        */
       public proio.Proto.Meta.Builder addMetaDataBuilder() {
         return getMetaDataFieldBuilder().addBuilder(
             proio.Proto.Meta.getDefaultInstance());
       }
       /**
-       * <code>repeated .proio.proto.Meta metaData = 5;</code>
+       * <code>repeated .proio.proto.Meta metaData = 6;</code>
        */
       public proio.Proto.Meta.Builder addMetaDataBuilder(
           int index) {
@@ -1771,7 +1961,7 @@ public final class Proto {
             index, proio.Proto.Meta.getDefaultInstance());
       }
       /**
-       * <code>repeated .proio.proto.Meta metaData = 5;</code>
+       * <code>repeated .proio.proto.Meta metaData = 6;</code>
        */
       public java.util.List<proio.Proto.Meta.Builder> 
            getMetaDataBuilderList() {
@@ -1784,7 +1974,7 @@ public final class Proto {
           metaDataBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               proio.Proto.Meta, proio.Proto.Meta.Builder, proio.Proto.MetaOrBuilder>(
                   metaData_,
-                  ((bitField0_ & 0x00000010) == 0x00000010),
+                  ((bitField0_ & 0x00000020) == 0x00000020),
                   getParentForChildren(),
                   isClean());
           metaData_ = null;
@@ -4410,25 +4600,28 @@ public final class Proto {
   static {
     java.lang.String[] descriptorData = {
       "\n\021proto/proio.proto\022\013proio.proto\"\"\n\004Meta" +
-      "\022\014\n\004name\030\001 \001(\t\022\014\n\004data\030\002 \001(\014\"\323\001\n\014BucketH" +
+      "\022\014\n\004name\030\001 \001(\t\022\014\n\004data\030\002 \001(\014\"\257\002\n\014BucketH" +
       "eader\022\017\n\007nEvents\030\001 \001(\004\022\022\n\nbucketSize\030\002 \001" +
       "(\004\0227\n\013compression\030\003 \001(\0162\".proio.proto.Bu" +
-      "cketHeader.CompType\022\027\n\017fileDescriptors\030\004" +
-      " \003(\014\022#\n\010metaData\030\005 \003(\0132\021.proio.proto.Met" +
-      "a\"\'\n\010CompType\022\010\n\004NONE\020\000\022\010\n\004GZIP\020\001\022\007\n\003LZ4" +
-      "\020\002\"\026\n\003Tag\022\017\n\007entries\030\001 \003(\004\"&\n\005Entry\022\014\n\004t" +
-      "ype\030\001 \001(\004\022\017\n\007payload\030\002 \001(\014\"\371\002\n\005Event\022*\n\004" +
-      "tags\030\001 \003(\0132\034.proio.proto.Event.TagsEntry",
-      "\022\020\n\010nEntries\030\002 \001(\004\0220\n\007entries\030\003 \003(\0132\037.pr" +
-      "oio.proto.Event.EntriesEntry\022\016\n\006nTypes\030\004" +
-      " \001(\004\022,\n\005types\030\005 \003(\0132\035.proio.proto.Event." +
-      "TypesEntry\022\021\n\ttimestamp\030\006 \001(\004\032=\n\tTagsEnt" +
-      "ry\022\013\n\003key\030\001 \001(\t\022\037\n\005value\030\002 \001(\0132\020.proio.p" +
-      "roto.Tag:\0028\001\032B\n\014EntriesEntry\022\013\n\003key\030\001 \001(" +
-      "\004\022!\n\005value\030\002 \001(\0132\022.proio.proto.Entry:\0028\001" +
-      "\032,\n\nTypesEntry\022\013\n\003key\030\001 \001(\004\022\r\n\005value\030\002 \001" +
-      "(\t:\0028\001B=\n\005proioB\005ProtoZ-github.com/decib" +
-      "elcooper/proio/go-proio/protob\006proto3"
+      "cketHeader.CompType\0223\n\004type\030\004 \001(\0162%.proi" +
+      "o.proto.BucketHeader.PayloadType\022\027\n\017file" +
+      "Descriptors\030\005 \003(\014\022#\n\010metaData\030\006 \003(\0132\021.pr" +
+      "oio.proto.Meta\"\'\n\010CompType\022\010\n\004NONE\020\000\022\010\n\004" +
+      "GZIP\020\001\022\007\n\003LZ4\020\002\"%\n\013PayloadType\022\n\n\006EVENTS" +
+      "\020\000\022\n\n\006FOOTER\020\001\"\026\n\003Tag\022\017\n\007entries\030\001 \003(\004\"&",
+      "\n\005Entry\022\014\n\004type\030\001 \001(\004\022\017\n\007payload\030\002 \001(\014\"\371" +
+      "\002\n\005Event\022*\n\004tags\030\001 \003(\0132\034.proio.proto.Eve" +
+      "nt.TagsEntry\022\020\n\010nEntries\030\002 \001(\004\0220\n\007entrie" +
+      "s\030\003 \003(\0132\037.proio.proto.Event.EntriesEntry" +
+      "\022\016\n\006nTypes\030\004 \001(\004\022,\n\005types\030\005 \003(\0132\035.proio." +
+      "proto.Event.TypesEntry\022\021\n\ttimestamp\030\006 \001(" +
+      "\004\032=\n\tTagsEntry\022\013\n\003key\030\001 \001(\t\022\037\n\005value\030\002 \001" +
+      "(\0132\020.proio.proto.Tag:\0028\001\032B\n\014EntriesEntry" +
+      "\022\013\n\003key\030\001 \001(\004\022!\n\005value\030\002 \001(\0132\022.proio.pro" +
+      "to.Entry:\0028\001\032,\n\nTypesEntry\022\013\n\003key\030\001 \001(\004\022",
+      "\r\n\005value\030\002 \001(\t:\0028\001B=\n\005proioB\005ProtoZ-gith" +
+      "ub.com/decibelcooper/proio/go-proio/prot" +
+      "ob\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -4453,7 +4646,7 @@ public final class Proto {
     internal_static_proio_proto_BucketHeader_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proio_proto_BucketHeader_descriptor,
-        new java.lang.String[] { "NEvents", "BucketSize", "Compression", "FileDescriptors", "MetaData", });
+        new java.lang.String[] { "NEvents", "BucketSize", "Compression", "Type", "FileDescriptors", "MetaData", });
     internal_static_proio_proto_Tag_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_proio_proto_Tag_fieldAccessorTable = new

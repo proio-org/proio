@@ -103,6 +103,27 @@ inline bool BucketHeader_CompType_Parse(
   return ::google::protobuf::internal::ParseNamedEnum<BucketHeader_CompType>(
     BucketHeader_CompType_descriptor(), name, value);
 }
+enum BucketHeader_PayloadType {
+  BucketHeader_PayloadType_EVENTS = 0,
+  BucketHeader_PayloadType_FOOTER = 1,
+  BucketHeader_PayloadType_BucketHeader_PayloadType_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
+  BucketHeader_PayloadType_BucketHeader_PayloadType_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
+};
+bool BucketHeader_PayloadType_IsValid(int value);
+const BucketHeader_PayloadType BucketHeader_PayloadType_PayloadType_MIN = BucketHeader_PayloadType_EVENTS;
+const BucketHeader_PayloadType BucketHeader_PayloadType_PayloadType_MAX = BucketHeader_PayloadType_FOOTER;
+const int BucketHeader_PayloadType_PayloadType_ARRAYSIZE = BucketHeader_PayloadType_PayloadType_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* BucketHeader_PayloadType_descriptor();
+inline const ::std::string& BucketHeader_PayloadType_Name(BucketHeader_PayloadType value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    BucketHeader_PayloadType_descriptor(), value);
+}
+inline bool BucketHeader_PayloadType_Parse(
+    const ::std::string& name, BucketHeader_PayloadType* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<BucketHeader_PayloadType>(
+    BucketHeader_PayloadType_descriptor(), name, value);
+}
 // ===================================================================
 
 class Meta : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:proio.proto.Meta) */ {
@@ -332,12 +353,38 @@ class BucketHeader : public ::google::protobuf::Message /* @@protoc_insertion_po
     return BucketHeader_CompType_Parse(name, value);
   }
 
+  typedef BucketHeader_PayloadType PayloadType;
+  static const PayloadType EVENTS =
+    BucketHeader_PayloadType_EVENTS;
+  static const PayloadType FOOTER =
+    BucketHeader_PayloadType_FOOTER;
+  static inline bool PayloadType_IsValid(int value) {
+    return BucketHeader_PayloadType_IsValid(value);
+  }
+  static const PayloadType PayloadType_MIN =
+    BucketHeader_PayloadType_PayloadType_MIN;
+  static const PayloadType PayloadType_MAX =
+    BucketHeader_PayloadType_PayloadType_MAX;
+  static const int PayloadType_ARRAYSIZE =
+    BucketHeader_PayloadType_PayloadType_ARRAYSIZE;
+  static inline const ::google::protobuf::EnumDescriptor*
+  PayloadType_descriptor() {
+    return BucketHeader_PayloadType_descriptor();
+  }
+  static inline const ::std::string& PayloadType_Name(PayloadType value) {
+    return BucketHeader_PayloadType_Name(value);
+  }
+  static inline bool PayloadType_Parse(const ::std::string& name,
+      PayloadType* value) {
+    return BucketHeader_PayloadType_Parse(name, value);
+  }
+
   // accessors -------------------------------------------------------
 
-  // repeated bytes fileDescriptors = 4;
+  // repeated bytes fileDescriptors = 5;
   int filedescriptors_size() const;
   void clear_filedescriptors();
-  static const int kFileDescriptorsFieldNumber = 4;
+  static const int kFileDescriptorsFieldNumber = 5;
   const ::std::string& filedescriptors(int index) const;
   ::std::string* mutable_filedescriptors(int index);
   void set_filedescriptors(int index, const ::std::string& value);
@@ -356,10 +403,10 @@ class BucketHeader : public ::google::protobuf::Message /* @@protoc_insertion_po
   const ::google::protobuf::RepeatedPtrField< ::std::string>& filedescriptors() const;
   ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_filedescriptors();
 
-  // repeated .proio.proto.Meta metaData = 5;
+  // repeated .proio.proto.Meta metaData = 6;
   int metadata_size() const;
   void clear_metadata();
-  static const int kMetaDataFieldNumber = 5;
+  static const int kMetaDataFieldNumber = 6;
   const ::proio::proto::Meta& metadata(int index) const;
   ::proio::proto::Meta* mutable_metadata(int index);
   ::proio::proto::Meta* add_metadata();
@@ -386,6 +433,12 @@ class BucketHeader : public ::google::protobuf::Message /* @@protoc_insertion_po
   ::proio::proto::BucketHeader_CompType compression() const;
   void set_compression(::proio::proto::BucketHeader_CompType value);
 
+  // .proio.proto.BucketHeader.PayloadType type = 4;
+  void clear_type();
+  static const int kTypeFieldNumber = 4;
+  ::proio::proto::BucketHeader_PayloadType type() const;
+  void set_type(::proio::proto::BucketHeader_PayloadType value);
+
   // @@protoc_insertion_point(class_scope:proio.proto.BucketHeader)
  private:
 
@@ -395,6 +448,7 @@ class BucketHeader : public ::google::protobuf::Message /* @@protoc_insertion_po
   ::google::protobuf::uint64 nevents_;
   ::google::protobuf::uint64 bucketsize_;
   int compression_;
+  int type_;
   mutable int _cached_size_;
   friend struct protobuf_proto_2fproio_2eproto::TableStruct;
 };
@@ -1007,7 +1061,21 @@ inline void BucketHeader::set_compression(::proio::proto::BucketHeader_CompType 
   // @@protoc_insertion_point(field_set:proio.proto.BucketHeader.compression)
 }
 
-// repeated bytes fileDescriptors = 4;
+// .proio.proto.BucketHeader.PayloadType type = 4;
+inline void BucketHeader::clear_type() {
+  type_ = 0;
+}
+inline ::proio::proto::BucketHeader_PayloadType BucketHeader::type() const {
+  // @@protoc_insertion_point(field_get:proio.proto.BucketHeader.type)
+  return static_cast< ::proio::proto::BucketHeader_PayloadType >(type_);
+}
+inline void BucketHeader::set_type(::proio::proto::BucketHeader_PayloadType value) {
+  
+  type_ = value;
+  // @@protoc_insertion_point(field_set:proio.proto.BucketHeader.type)
+}
+
+// repeated bytes fileDescriptors = 5;
 inline int BucketHeader::filedescriptors_size() const {
   return filedescriptors_.size();
 }
@@ -1076,7 +1144,7 @@ BucketHeader::mutable_filedescriptors() {
   return &filedescriptors_;
 }
 
-// repeated .proio.proto.Meta metaData = 5;
+// repeated .proio.proto.Meta metaData = 6;
 inline int BucketHeader::metadata_size() const {
   return metadata_.size();
 }
@@ -1349,6 +1417,11 @@ template <> struct is_proto_enum< ::proio::proto::BucketHeader_CompType> : ::goo
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::proio::proto::BucketHeader_CompType>() {
   return ::proio::proto::BucketHeader_CompType_descriptor();
+}
+template <> struct is_proto_enum< ::proio::proto::BucketHeader_PayloadType> : ::google::protobuf::internal::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::proio::proto::BucketHeader_PayloadType>() {
+  return ::proio::proto::BucketHeader_PayloadType_descriptor();
 }
 
 }  // namespace protobuf
