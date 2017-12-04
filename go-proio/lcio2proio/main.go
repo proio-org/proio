@@ -16,8 +16,7 @@ import (
 
 var (
 	outFile        = flag.String("o", "", "create file to save output to")
-	doGzip         = flag.Bool("gcomp", false, "compress the stdout output with gzip")
-	doLZ4          = flag.Bool("lcomp", false, "compress the stdout output with LZ4")
+	compLevel      = flag.Int("c", 1, "compression level: 0 for uncompressed, 1 for LZ4 compression, 2 for GZIP compression")
 	updateInterval = flag.Int("u", 5, "update interval in seconds (set to 0 to disable)")
 )
 
@@ -53,19 +52,21 @@ func main() {
 
 	var proioWriter *proio.Writer
 	if *outFile == "" {
-		if *doGzip {
+		switch *compLevel {
+		case 2:
 			proioWriter = proio.NewWriter(os.Stdout, proio.GZIP)
-		} else if *doLZ4 {
+		case 1:
 			proioWriter = proio.NewWriter(os.Stdout, proio.LZ4)
-		} else {
+		default:
 			proioWriter = proio.NewWriter(os.Stdout, proio.UNCOMPRESSED)
 		}
 	} else {
-		if *doGzip {
+		switch *compLevel {
+		case 2:
 			proioWriter, err = proio.Create(*outFile, proio.GZIP)
-		} else if *doLZ4 {
+		case 1:
 			proioWriter, err = proio.Create(*outFile, proio.LZ4)
-		} else {
+		default:
 			proioWriter, err = proio.Create(*outFile, proio.UNCOMPRESSED)
 		}
 		if err != nil {
@@ -157,12 +158,11 @@ func fixRefs(event *proio.Event) {
 }
 
 func fixRef(event *proio.Event, value uint64) uint64 {
-    if value == 0 {
-        return 0
-    }
+	if value == 0 {
+		return 0
+	}
 	collName := collNames[uint32(value&0xffffffff)]
 	collEntry := (value >> 32) - 1
-    //log.Println(uint32(value&0xffffffff), collName, collEntry)
 	return event.TaggedEntries(collName)[collEntry]
 }
 
@@ -279,30 +279,30 @@ func makeRefs(entries interface{}, event *lcio.Event) []uint64 {
 }
 
 func nilZeroFloat64Slice(slice []float64) []float64 {
-    for _, value := range slice {
-        if value != 0. {
-            return slice
-        }
-    }
-    return nil
+	for _, value := range slice {
+		if value != 0. {
+			return slice
+		}
+	}
+	return nil
 }
 
 func nilZeroFloat32Slice(slice []float32) []float32 {
-    for _, value := range slice {
-        if value != 0. {
-            return slice
-        }
-    }
-    return nil
+	for _, value := range slice {
+		if value != 0. {
+			return slice
+		}
+	}
+	return nil
 }
 
 func nilZeroInt32Slice(slice []int32) []int32 {
-    for _, value := range slice {
-        if value != 0 {
-            return slice
-        }
-    }
-    return nil
+	for _, value := range slice {
+		if value != 0 {
+			return slice
+		}
+	}
+	return nil
 }
 
 func convertMCParticleCollection(lcioColl *lcio.McParticleContainer, lcioEvent *lcio.Event, proioEvent *proio.Event, collName string) {
