@@ -4,6 +4,9 @@
 # lcio files
 *.slcio
 
+# promc files
+*.promc
+
 # vim swap files
 *.swp
 
