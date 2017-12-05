@@ -7,17 +7,12 @@ import (
 	"io"
 	"log"
 	"os"
-	"sort"
 
 	"github.com/decibelcooper/proio/go-proio"
 	"github.com/decibelcooper/proio/go-proio/proto"
-	humanize "github.com/dustin/go-humanize"
 )
 
-var (
-	doGzip = flag.Bool("g", false, "decompress the stdin input with gzip")
-	doLZ4  = flag.Bool("l", false, "decompress the stdin input with LZ4")
-)
+var ()
 
 func printUsage() {
 	fmt.Fprintf(os.Stderr,
@@ -43,13 +38,7 @@ func main() {
 	filename := flag.Arg(0)
 	if filename == "-" {
 		stdin := bufio.NewReader(os.Stdin)
-		if *doGzip {
-			reader, err = proio.NewGzipReader(stdin)
-		} else if *doLZ4 {
-			reader = proio.NewLZ4Reader(stdin)
-		} else {
-			reader = proio.NewReader(stdin)
-		}
+		reader = proio.NewReader(stdin)
 	} else {
 		reader, err = proio.Open(filename)
 	}
@@ -59,36 +48,19 @@ func main() {
 	defer reader.Close()
 
 	nEvents := 0
-	colls := make([]string, 0)
-	collBytes := make(map[string]uint64)
-	runs := make(map[uint64]bool)
 
-	var header *proto.EventHeader
-	for header, err = reader.GetHeader(); header != nil; header, err = reader.GetHeader() {
+	var header *proto.BucketHeader
+	for header, err = reader.NextHeader(); header != nil; header, err = reader.NextHeader() {
 		if err != nil {
 			log.Print(err)
 		}
 
-		runs[header.RunNumber] = true
-		nEvents++
-
-		for _, collHdr := range header.PayloadCollections {
-			if _, ok := collBytes[collHdr.EntryType]; !ok {
-				colls = append(colls, collHdr.EntryType)
-				sort.Strings(colls)
-			}
-			collBytes[collHdr.EntryType] += uint64(collHdr.PayloadSize)
-		}
+		nEvents += int(header.NEvents)
 	}
 
 	if err != nil && err != io.EOF {
 		log.Print(err)
 	}
 
-	fmt.Println("Number of runs:", len(runs))
 	fmt.Println("Number of events:", nEvents)
-	fmt.Println("Total bytes for...")
-	for _, key := range colls {
-		fmt.Print("\t", key, ": ", humanize.Bytes(collBytes[key]), "\n")
-	}
 }

@@ -2,7 +2,9 @@ package proio // import "github.com/decibelcooper/proio/go-proio"
 
 import (
 	"errors"
+	"fmt"
 	"reflect"
+	"sort"
 	"strconv"
 
 	"github.com/decibelcooper/proio/go-proio/proto"
@@ -124,12 +126,29 @@ func (evt *Event) RemoveEntry(id uint64) {
 	delete(evt.proto.Entries, id)
 }
 
+func (evt *Event) AllEntries() []uint64 {
+	var IDs []uint64
+	for ID, _ := range evt.proto.Entries {
+		IDs = append(IDs, ID)
+	}
+	return IDs
+}
+
 func (evt *Event) TaggedEntries(tag string) []uint64 {
 	tagProto, ok := evt.proto.Tags[tag]
 	if ok {
 		return tagProto.Entries[:]
 	}
 	return nil
+}
+
+func (evt *Event) Tags() []string {
+	var tags []string
+	for key, _ := range evt.proto.Tags {
+		tags = append(tags, key)
+	}
+	sort.Strings(tags)
+	return tags
 }
 
 func (evt *Event) EntryTags(id uint64) []string {
@@ -151,6 +170,30 @@ func (evt *Event) EntryTags(id uint64) []string {
 	evt.revTagLookup[id] = tags
 
 	return tags
+}
+
+func (evt *Event) RemoveTag(tag string) {
+	delete(evt.proto.Tags, tag)
+}
+
+func (evt *Event) String() string {
+	var printString string
+
+	tags := evt.Tags()
+
+	for _, tag := range tags {
+		printString += "Tag: " + tag + "\n"
+		entries := evt.TaggedEntries(tag)
+		for _, entryID := range entries {
+			printString += fmt.Sprintf("ID:%v ", entryID)
+			entry := evt.GetEntry(entryID)
+			if entry != nil {
+				printString += fmt.Sprintln(entry)
+			}
+		}
+	}
+
+	return printString
 }
 
 type selfSerializingEntry interface {

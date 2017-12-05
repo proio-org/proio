@@ -2,7 +2,6 @@ package proio // import "github.com/decibelcooper/proio/go-proio"
 
 import (
 	"bytes"
-	"io"
 	"math"
 	//"reflect"
 	"testing"
@@ -239,7 +238,7 @@ func dotProduct(vector1 []float64, vector2 []float64) float64 {
 }
 
 func BenchmarkTracking(b *testing.B) {
-	filename := "largeSample.proio"
+	filename := "repeatedSampleUncomp.proio"
 	reader, err := Open(filename)
 	if err != nil {
 		b.Skip("Skipping tracking benchmark: missing input file ", filename)
@@ -250,7 +249,7 @@ func BenchmarkTracking(b *testing.B) {
 }
 
 func BenchmarkTrackingLZ4(b *testing.B) {
-	filename := "largeSampleLZ4.proio"
+	filename := "repeatedSample.proio"
 	reader, err := Open(filename)
 	if err != nil {
 		b.Skip("Skipping tracking benchmark: missing input file ", filename)
@@ -261,7 +260,7 @@ func BenchmarkTrackingLZ4(b *testing.B) {
 }
 
 func BenchmarkTrackingGzip(b *testing.B) {
-	filename := "largeSampleGZIP.proio"
+	filename := "repeatedSampleGZIP.proio"
 	reader, err := Open(filename)
 	if err != nil {
 		b.Skip("Skipping tracking benchmark: missing input file ", filename)
@@ -303,9 +302,7 @@ func BenchmarkTrackingLCIO(b *testing.B) {
 
 func tracking(reader *Reader, b *testing.B) {
 	b.N = 0
-	var event *Event
-	var err error
-	for event, err = reader.Next(); event != nil; event, err = reader.Next() {
+	for event := range reader.ScanEvents() {
 		b.N++
 
 		truthParts := event.TaggedEntries("MCParticle")
@@ -374,10 +371,6 @@ func tracking(reader *Reader, b *testing.B) {
 				truthRelations = append(truthRelations[:minIndex], truthRelations[minIndex+1:]...)
 			}
 		}
-	}
-
-	if err != io.EOF {
-		b.Error(err)
 	}
 }
 

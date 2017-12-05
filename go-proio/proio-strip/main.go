@@ -12,17 +12,14 @@ import (
 )
 
 var (
-	outFile        = flag.String("o", "", "file to save output to")
-	keep           = flag.Bool("k", false, "keep only the specified collections, rather than stripping them away")
-	decompressGzip = flag.Bool("g", false, "decompress the stdin input with gzip")
-	compressGzip   = flag.Bool("gcomp", false, "compress the stdout output with gzip")
-	decompressLZ4  = flag.Bool("l", false, "decompress the stdin input with LZ4")
-	compressLZ4    = flag.Bool("lcomp", false, "compress the stdout output with LZ4")
+	outFile   = flag.String("o", "", "file to save output to")
+	keep      = flag.Bool("k", false, "keep only entries with the specified tags, rather than stripping them away")
+	compLevel = flag.Int("c", 1, "compression level: 0 for uncompressed, 1 for LZ4 compression, 2 for GZIP compression")
 )
 
 func printUsage() {
 	fmt.Fprintf(os.Stderr,
-		`Usage: proio-strip [options] <proio-input-file> <collections>...
+		`Usage: proio-strip [options] <proio-input-file> <tags>...
 options:
 `,
 	)
@@ -44,13 +41,7 @@ func main() {
 	filename := flag.Arg(0)
 	if filename == "-" {
 		stdin := bufio.NewReader(os.Stdin)
-		if *decompressGzip {
-			reader, err = proio.NewGzipReader(stdin)
-		} else if *decompressLZ4 {
-			reader = proio.NewLZ4Reader(stdin)
-		} else {
-			reader = proio.NewReader(stdin)
-		}
+		reader = proio.NewReader(stdin)
 	} else {
 		reader, err = proio.Open(filename)
 	}
@@ -61,47 +52,62 @@ func main() {
 
 	var writer *proio.Writer
 	if *outFile == "" {
-		if *compressGzip {
-			writer = proio.NewGzipWriter(os.Stdout)
-		} else if *compressLZ4 {
-			writer = proio.NewLZ4Writer(os.Stdout)
-		} else {
-			writer = proio.NewWriter(os.Stdout)
+		switch *compLevel {
+		case 2:
+			writer = proio.NewWriter(os.Stdout, proio.GZIP)
+		case 1:
+			writer = proio.NewWriter(os.Stdout, proio.LZ4)
+		default:
+			writer = proio.NewWriter(os.Stdout, proio.UNCOMPRESSED)
 		}
 	} else {
-		writer, err = proio.Create(*outFile)
+		switch *compLevel {
+		case 2:
+			writer, err = proio.Create(*outFile, proio.GZIP)
+		case 1:
+			writer, err = proio.Create(*outFile, proio.LZ4)
+		default:
+			writer, err = proio.Create(*outFile, proio.UNCOMPRESSED)
+		}
 		if err != nil {
 			log.Fatal(err)
 		}
 	}
 	defer writer.Close()
 
-	var colls []string
+	var argTags []string
 	for i := 1; i < flag.NArg(); i++ {
-		colls = append(colls, flag.Arg(i))
+		argTags = append(argTags, flag.Arg(i))
 	}
 
 	nEventsRead := 0
 
 	for event := range reader.ScanEvents() {
-		for _, collName := range event.GetNames() {
-			if *keep {
-				keepThis := false
-				for _, keepName := range colls {
-					if collName == keepName {
-						keepThis = true
-						break
-					}
+		if *keep {
+			keepTagIDs := make(map[uint64]bool)
+			keepTags := make(map[string]bool)
+			for _, keepTag := range argTags {
+				keepTags[keepTag] = true
+				for _, entryID := range event.TaggedEntries(keepTag) {
+					keepTagIDs[entryID] = true
 				}
-				if !keepThis {
-					event.Remove(collName)
+			}
+			for _, entryID := range event.AllEntries() {
+				if !keepTagIDs[entryID] {
+					event.RemoveEntry(entryID)
 				}
-			} else {
-				for _, removeName := range colls {
-					if collName == removeName {
-						event.Remove(collName)
-					}
+			}
+			for _, tag := range event.Tags() {
+				if !keepTags[tag] {
+					event.RemoveTag(tag)
 				}
+			}
+		} else {
+			for _, removeTag := range argTags {
+				for _, entryID := range event.TaggedEntries(removeTag) {
+					event.RemoveEntry(entryID)
+				}
+				event.RemoveTag(removeTag)
 			}
 		}
 

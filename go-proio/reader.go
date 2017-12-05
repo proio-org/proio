@@ -6,6 +6,7 @@ import (
 	"encoding/binary"
 	"io"
 	"os"
+	"sync"
 
 	"github.com/decibelcooper/proio/go-proio/proto"
 	"github.com/pierrec/lz4"
@@ -17,7 +18,12 @@ type Reader struct {
 	bucketDecompressor io.Reader
 	bucketReader       io.Reader
 	bucketHeader       *proto.BucketHeader
-	bucketEventsRead   uint64
+	bucketEventsRead   int
+
+	Err                   chan error
+	EventScanBufferSize   int
+	deferredUntilStopScan []func()
+	getMutex              sync.Mutex
 }
 
 func Open(filename string) (*Reader, error) {
@@ -31,8 +37,10 @@ func Open(filename string) (*Reader, error) {
 
 func NewReader(streamReader io.Reader) *Reader {
 	rdr := &Reader{
-		streamReader: streamReader,
-		bucket:       &bytes.Reader{},
+		streamReader:        streamReader,
+		bucket:              &bytes.Reader{},
+		Err:                 make(chan error, 100),
+		EventScanBufferSize: 100,
 	}
 	rdr.bucketReader = rdr.bucket
 
@@ -47,10 +55,101 @@ func (rdr *Reader) Close() {
 }
 
 func (rdr *Reader) Next() (*Event, error) {
+	return rdr.next(true)
+}
+
+func (rdr *Reader) NextHeader() (*proto.BucketHeader, error) {
+	if _, err := rdr.readBucket(1 << 62); err != nil {
+		return nil, err
+	}
+	return rdr.bucketHeader, nil
+}
+
+func (rdr *Reader) Skip(nEvents int) (nSkipped int, err error) {
+	bucketEventsLeft := 0
+	if rdr.bucketHeader != nil {
+		bucketEventsLeft = int(rdr.bucketHeader.NEvents) - rdr.bucketEventsRead
+	}
+	if nEvents > bucketEventsLeft {
+		var n int
+		for n != 0 && err == nil {
+			n, err = rdr.readBucket(nEvents - bucketEventsLeft - nSkipped)
+			if err != nil {
+				return
+			}
+			nSkipped += n
+		}
+	}
+
+	for nSkipped < nEvents {
+		_, err = rdr.next(false)
+		if err != nil {
+			return
+		}
+		nSkipped++
+	}
+
+	return
+}
+
+//ScanEvents returns a buffered channel of type Event where all of the events
+//in the stream will be pushed.  The channel buffer size is defined by
+//Reader.EventScanBufferSize which defaults to 100.  The goroutine responsible
+//for fetching events will not break until there are no more events,
+//Reader.StopScan() is called, or Reader.Close() is called.  In this scenario,
+//errors are pushed to the Reader.Err channel.
+func (rdr *Reader) ScanEvents() <-chan *Event {
+	events := make(chan *Event, rdr.EventScanBufferSize)
+	quit := make(chan int)
+
+	go func() {
+		defer close(events)
+		for {
+			event, err := rdr.Next()
+			if err != nil {
+				select {
+				case rdr.Err <- err:
+				default:
+				}
+			}
+			if event == nil {
+				return
+			}
+
+			select {
+			case events <- event:
+			case <-quit:
+				return
+			}
+		}
+	}()
+
+	rdr.deferUntilStopScan(
+		func() {
+			close(quit)
+		},
+	)
+
+	return events
+}
+
+// StopScan stops all scans initiated by Reader.ScanEvents()
+func (rdr *Reader) StopScan() {
+	for _, thisFunc := range rdr.deferredUntilStopScan {
+		thisFunc()
+	}
+	rdr.deferredUntilStopScan = make([]func(), 0)
+}
+
+func (rdr *Reader) deferUntilStopScan(thisFunc func()) {
+	rdr.deferredUntilStopScan = append(rdr.deferredUntilStopScan, thisFunc)
+}
+
+func (rdr *Reader) next(doUnmarshal bool) (*Event, error) {
 	protoSizeBuf := make([]byte, 4)
 	if err := readBytes(rdr.bucketReader, protoSizeBuf); err != nil {
 		if err == io.EOF {
-			err = rdr.readBucket()
+			_, err = rdr.readBucket(0)
 			if err != nil {
 				return nil, err
 			}
@@ -69,44 +168,62 @@ func (rdr *Reader) Next() (*Event, error) {
 	if err := readBytes(rdr.bucketReader, protoBuf); err != nil {
 		return nil, err
 	}
-	eventProto := &proto.Event{}
-	if err := eventProto.Unmarshal(protoBuf); err != nil {
-		return nil, err
-	}
+	rdr.bucketEventsRead++
 
-	event := newEventFromProto(eventProto)
+	var event *Event
+	if doUnmarshal {
+		eventProto := &proto.Event{}
+		if err := eventProto.Unmarshal(protoBuf); err != nil {
+			return nil, err
+		}
+
+		event = newEventFromProto(eventProto)
+	}
 
 	return event, nil
 }
 
-func (rdr *Reader) readBucket() error {
+func (rdr *Reader) readBucket(maxSkipEvents int) (eventsSkipped int, err error) {
 	rdr.bucketEventsRead = 0
 
-	_, err := rdr.syncToMagic()
+	_, err = rdr.syncToMagic()
 	if err != nil {
-		return err
+		return
 	}
 
 	headerSizeBuf := make([]byte, 4)
-	if err := readBytes(rdr.streamReader, headerSizeBuf); err != nil {
-		return err
+	if err = readBytes(rdr.streamReader, headerSizeBuf); err != nil {
+		return
 	}
 	headerSize := binary.LittleEndian.Uint32(headerSizeBuf)
 
 	headerBuf := make([]byte, headerSize)
-	if err := readBytes(rdr.streamReader, headerBuf); err != nil {
-		return err
+	if err = readBytes(rdr.streamReader, headerBuf); err != nil {
+		return
 	}
 	rdr.bucketHeader = &proto.BucketHeader{}
-	if err := rdr.bucketHeader.Unmarshal(headerBuf); err != nil {
-		return err
+	if err = rdr.bucketHeader.Unmarshal(headerBuf); err != nil {
+		return
 	}
 
-	bucketBytes := make([]byte, rdr.bucketHeader.BucketSize)
-	if err := readBytes(rdr.streamReader, bucketBytes); err != nil {
-		return err
+	if int(rdr.bucketHeader.NEvents) > maxSkipEvents {
+		bucketBytes := make([]byte, rdr.bucketHeader.BucketSize)
+		if err = readBytes(rdr.streamReader, bucketBytes); err != nil {
+			return
+		}
+		rdr.bucket.Reset(bucketBytes)
+	} else {
+		rdr.bucketReader = nil
+		eventsSkipped = int(rdr.bucketHeader.NEvents)
+		seeker, ok := rdr.streamReader.(io.Seeker)
+		if ok {
+			seekBytes(seeker, int64(rdr.bucketHeader.BucketSize))
+		} else {
+			bucketBytes := make([]byte, rdr.bucketHeader.BucketSize)
+			err = readBytes(rdr.streamReader, bucketBytes)
+		}
+		return
 	}
-	rdr.bucket.Reset(bucketBytes)
 
 	switch rdr.bucketHeader.Compression {
 	case proto.BucketHeader_GZIP:
@@ -116,7 +233,7 @@ func (rdr *Reader) readBucket() error {
 		} else {
 			gzipRdr, err = gzip.NewReader(rdr.bucket)
 			if err != nil {
-				return err
+				return
 			}
 			rdr.bucketDecompressor = gzipRdr
 		}
@@ -148,7 +265,7 @@ func (rdr *Reader) readBucket() error {
 		rdr.bucketReader = rdr.bucket
 	}
 
-	return nil
+	return
 }
 
 func (rdr *Reader) syncToMagic() (int, error) {
@@ -191,6 +308,23 @@ func readBytes(rdr io.Reader, buf []byte) error {
 		n, err := rdr.Read(buf[tot:])
 		tot += n
 		if err != nil && tot != len(buf) {
+			return err
+		}
+	}
+	return nil
+}
+
+func seekBytes(seeker io.Seeker, nBytes int64) error {
+	start, err := seeker.Seek(0, 1 /*io.SeekCurrent*/)
+	if err != nil {
+		return err
+	}
+
+	tot := int64(0)
+	for tot < nBytes {
+		n, err := seeker.Seek(int64(nBytes-tot), 1 /*io.SeekCurrent*/)
+		tot += n - start
+		if err != nil && tot != nBytes {
 			return err
 		}
 	}
