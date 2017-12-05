@@ -21,9 +21,9 @@ type Reader struct {
 	bucketEventsRead   int
 
 	Err                   chan error
-	EventScanBufferSize   int
+	EvtScanBufSize        int
 	deferredUntilStopScan []func()
-	getMutex              sync.Mutex
+	readMutex             sync.Mutex
 }
 
 func Open(filename string) (*Reader, error) {
@@ -37,10 +37,10 @@ func Open(filename string) (*Reader, error) {
 
 func NewReader(streamReader io.Reader) *Reader {
 	rdr := &Reader{
-		streamReader:        streamReader,
-		bucket:              &bytes.Reader{},
-		Err:                 make(chan error, 100),
-		EventScanBufferSize: 100,
+		streamReader:   streamReader,
+		bucket:         &bytes.Reader{},
+		Err:            make(chan error, 100),
+		EvtScanBufSize: 100,
 	}
 	rdr.bucketReader = rdr.bucket
 
@@ -55,10 +55,16 @@ func (rdr *Reader) Close() {
 }
 
 func (rdr *Reader) Next() (*Event, error) {
-	return rdr.next(true)
+	rdr.readMutex.Lock()
+	defer rdr.readMutex.Unlock()
+
+	return rdr.readFromBucket(true)
 }
 
 func (rdr *Reader) NextHeader() (*proto.BucketHeader, error) {
+	rdr.readMutex.Lock()
+	defer rdr.readMutex.Unlock()
+
 	if _, err := rdr.readBucket(1 << 62); err != nil {
 		return nil, err
 	}
@@ -66,6 +72,9 @@ func (rdr *Reader) NextHeader() (*proto.BucketHeader, error) {
 }
 
 func (rdr *Reader) Skip(nEvents int) (nSkipped int, err error) {
+	rdr.readMutex.Lock()
+	defer rdr.readMutex.Unlock()
+
 	bucketEventsLeft := 0
 	if rdr.bucketHeader != nil {
 		bucketEventsLeft = int(rdr.bucketHeader.NEvents) - rdr.bucketEventsRead
@@ -82,7 +91,7 @@ func (rdr *Reader) Skip(nEvents int) (nSkipped int, err error) {
 	}
 
 	for nSkipped < nEvents {
-		_, err = rdr.next(false)
+		_, err = rdr.readFromBucket(false)
 		if err != nil {
 			return
 		}
@@ -94,12 +103,12 @@ func (rdr *Reader) Skip(nEvents int) (nSkipped int, err error) {
 
 //ScanEvents returns a buffered channel of type Event where all of the events
 //in the stream will be pushed.  The channel buffer size is defined by
-//Reader.EventScanBufferSize which defaults to 100.  The goroutine responsible
+//Reader.EvtScanBufSize which defaults to 100.  The goroutine responsible
 //for fetching events will not break until there are no more events,
 //Reader.StopScan() is called, or Reader.Close() is called.  In this scenario,
 //errors are pushed to the Reader.Err channel.
 func (rdr *Reader) ScanEvents() <-chan *Event {
-	events := make(chan *Event, rdr.EventScanBufferSize)
+	events := make(chan *Event, rdr.EvtScanBufSize)
 	quit := make(chan int)
 
 	go func() {
@@ -145,7 +154,7 @@ func (rdr *Reader) deferUntilStopScan(thisFunc func()) {
 	rdr.deferredUntilStopScan = append(rdr.deferredUntilStopScan, thisFunc)
 }
 
-func (rdr *Reader) next(doUnmarshal bool) (*Event, error) {
+func (rdr *Reader) readFromBucket(doUnmarshal bool) (*Event, error) {
 	protoSizeBuf := make([]byte, 4)
 	if err := readBytes(rdr.bucketReader, protoSizeBuf); err != nil {
 		if err == io.EOF {
@@ -213,7 +222,7 @@ func (rdr *Reader) readBucket(maxSkipEvents int) (eventsSkipped int, err error) 
 		}
 		rdr.bucket.Reset(bucketBytes)
 	} else {
-		rdr.bucketReader = nil
+		rdr.bucketReader = &bytes.Buffer{}
 		eventsSkipped = int(rdr.bucketHeader.NEvents)
 		seeker, ok := rdr.streamReader.(io.Seeker)
 		if ok {
