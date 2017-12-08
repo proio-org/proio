@@ -1,5 +1,8 @@
 package proio // import "github.com/decibelcooper/proio/go-proio"
 
+// Generate protobuf messages
+//go:generate bash gen.sh
+
 import (
 	"errors"
 	"fmt"
