@@ -13,12 +13,12 @@ import (
 )
 
 type Reader struct {
-	streamReader       io.Reader
-	bucket             *bytes.Reader
-	bucketDecompressor io.Reader
-	bucketReader       io.Reader
-	bucketHeader       *proto.BucketHeader
-	bucketEventsRead   int
+	streamReader     io.Reader
+	bucket           *bytes.Reader
+	bucketReader     io.Reader
+	bucketHeader     *proto.BucketHeader
+	bucketEventsRead int
+	decompressor     io.Reader
 
 	Err                   chan error
 	EvtScanBufSize        int
@@ -39,10 +39,10 @@ func NewReader(streamReader io.Reader) *Reader {
 	rdr := &Reader{
 		streamReader:   streamReader,
 		bucket:         &bytes.Reader{},
+		bucketReader:   &bytes.Buffer{},
 		Err:            make(chan error, 100),
 		EvtScanBufSize: 100,
 	}
-	rdr.bucketReader = rdr.bucket
 
 	return rdr
 }
@@ -236,7 +236,7 @@ func (rdr *Reader) readBucket(maxSkipEvents int) (eventsSkipped int, err error) 
 
 	switch rdr.bucketHeader.Compression {
 	case proto.BucketHeader_GZIP:
-		gzipRdr, ok := rdr.bucketDecompressor.(*gzip.Reader)
+		gzipRdr, ok := rdr.decompressor.(*gzip.Reader)
 		if ok {
 			gzipRdr.Reset(rdr.bucket)
 		} else {
@@ -244,7 +244,7 @@ func (rdr *Reader) readBucket(maxSkipEvents int) (eventsSkipped int, err error) 
 			if err != nil {
 				return
 			}
-			rdr.bucketDecompressor = gzipRdr
+			rdr.decompressor = gzipRdr
 		}
 		bucketRdr, ok := rdr.bucketReader.(*bytes.Buffer)
 		if ok {
@@ -255,12 +255,12 @@ func (rdr *Reader) readBucket(maxSkipEvents int) (eventsSkipped int, err error) 
 		bucketRdr.ReadFrom(gzipRdr)
 		rdr.bucketReader = bucketRdr
 	case proto.BucketHeader_LZ4:
-		lz4Rdr, ok := rdr.bucketDecompressor.(*lz4.Reader)
+		lz4Rdr, ok := rdr.decompressor.(*lz4.Reader)
 		if ok {
 			lz4Rdr.Reset(rdr.bucket)
 		} else {
 			lz4Rdr = lz4.NewReader(rdr.bucket)
-			rdr.bucketDecompressor = lz4Rdr
+			rdr.decompressor = lz4Rdr
 		}
 		bucketRdr, ok := rdr.bucketReader.(*bytes.Buffer)
 		if ok {
