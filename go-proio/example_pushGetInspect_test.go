@@ -10,7 +10,7 @@ import (
 
 func Example_pushGetInspect() {
 	buffer := &bytes.Buffer{}
-	writer := proio.NewWriter(buffer, proio.LZ4)
+	writer := proio.NewWriter(buffer)
 
 	eventOut := proio.NewEvent()
 

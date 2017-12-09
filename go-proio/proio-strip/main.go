@@ -52,26 +52,20 @@ func main() {
 
 	var writer *proio.Writer
 	if *outFile == "" {
-		switch *compLevel {
-		case 2:
-			writer = proio.NewWriter(os.Stdout, proio.GZIP)
-		case 1:
-			writer = proio.NewWriter(os.Stdout, proio.LZ4)
-		default:
-			writer = proio.NewWriter(os.Stdout, proio.UNCOMPRESSED)
-		}
+		writer = proio.NewWriter(os.Stdout)
 	} else {
-		switch *compLevel {
-		case 2:
-			writer, err = proio.Create(*outFile, proio.GZIP)
-		case 1:
-			writer, err = proio.Create(*outFile, proio.LZ4)
-		default:
-			writer, err = proio.Create(*outFile, proio.UNCOMPRESSED)
-		}
+		writer, err = proio.Create(*outFile)
 		if err != nil {
 			log.Fatal(err)
 		}
+	}
+	switch *compLevel {
+	case 2:
+		writer.SetCompression(proio.GZIP)
+	case 1:
+		writer.SetCompression(proio.LZ4)
+	default:
+		writer.SetCompression(proio.UNCOMPRESSED)
 	}
 	defer writer.Close()
 

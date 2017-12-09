@@ -3,7 +3,6 @@ package proio // import "github.com/decibelcooper/proio/go-proio"
 import (
 	"bytes"
 	"math"
-	//"reflect"
 	"testing"
 
 	"go-hep.org/x/hep/lcio"
@@ -11,37 +10,44 @@ import (
 	prolcio "github.com/decibelcooper/proio/go-proio/model/lcio"
 )
 
-func TestEventPushGet(t *testing.T) {
-	buffer := &bytes.Buffer{}
+func TestUncompPushGet(t *testing.T) {
+	eventPushGet(UNCOMPRESSED, t)
+}
 
-	writer := NewWriter(buffer, UNCOMPRESSED)
+func TestLZ4PushGet(t *testing.T) {
+	eventPushGet(LZ4, t)
+}
+
+func TestGZIPPushGet(t *testing.T) {
+	eventPushGet(GZIP, t)
+}
+
+func eventPushGet(comp Compression, t *testing.T) {
+	buffer := &bytes.Buffer{}
+	writer := NewWriter(buffer)
+	writer.SetCompression(comp)
 
 	event0Out := NewEvent()
-
 	event0Out.AddEntries(
 		"MCParticles",
 		&prolcio.MCParticle{},
 		&prolcio.MCParticle{},
 	)
-
 	event0Out.AddEntries(
 		"TrackerHits",
 		&prolcio.SimTrackerHit{},
 		&prolcio.SimTrackerHit{},
 	)
-
 	writer.Push(event0Out)
+	writer.Flush()
 
 	event1Out := NewEvent()
-
 	event1Out.AddEntries(
 		"TrackerHits",
 		&prolcio.SimTrackerHit{},
 		&prolcio.SimTrackerHit{},
 	)
-
 	writer.Push(event1Out)
-
 	writer.Flush()
 
 	reader := NewReader(buffer)
@@ -53,9 +59,9 @@ func TestEventPushGet(t *testing.T) {
 	if event0In == nil {
 		t.Error("Event 0 failed to Get")
 	}
-	//if !reflect.DeepEqual(event0Out, event0In) {
-	//	t.Error("Event 0 corrupted")
-	//}
+	if event0Out.String() != event0In.String() {
+		t.Error("Event 0 corrupted")
+	}
 
 	event1In, err := reader.Next()
 	if err != nil {
@@ -64,29 +70,26 @@ func TestEventPushGet(t *testing.T) {
 	if event1In == nil {
 		t.Error("Event 1 failed to Get")
 	}
-	//if !reflect.DeepEqual(event1Out, event1In) {
-	//	t.Error("Event 1 corrupted")
-	//}
+	if event1Out.String() != event1In.String() {
+		t.Error("Event 1 corrupted")
+	}
 }
 
-func TestRefDeref(t *testing.T) {
+func TestRefDeref1(t *testing.T) {
 	buffer := &bytes.Buffer{}
-	writer := NewWriter(buffer, UNCOMPRESSED)
+	writer := NewWriter(buffer)
 
 	eventOut := NewEvent()
-
 	parent := &prolcio.MCParticle{PDG: 11}
 	parentID := eventOut.AddEntry(parent, "MCParticles")
 	child1 := &prolcio.MCParticle{PDG: 11}
 	child2 := &prolcio.MCParticle{PDG: 22}
 	childIDs := eventOut.AddEntries("MCParticles", child1, child2)
-
 	parent.Children = append(parent.Children, childIDs...)
 	child1.Parents = append(child1.Parents, parentID)
 	child2.Parents = append(child2.Parents, parentID)
 
 	writer.Push(eventOut)
-
 	writer.Flush()
 
 	reader := NewReader(buffer)
@@ -125,13 +128,11 @@ func TestRefDeref(t *testing.T) {
 
 func TestRefDeref2(t *testing.T) {
 	event := NewEvent()
-
 	parent := &prolcio.MCParticle{PDG: 11}
 	parentID := event.AddEntry(parent, "MCParticles")
 	child1 := &prolcio.MCParticle{PDG: 11}
 	child2 := &prolcio.MCParticle{PDG: 22}
 	childIDs := event.AddEntries("MCParticles", child1, child2)
-
 	parent.Children = append(parent.Children, childIDs...)
 	child1.Parents = append(child1.Parents, parentID)
 	child2.Parents = append(child2.Parents, parentID)
@@ -165,23 +166,19 @@ func TestRefDeref2(t *testing.T) {
 
 func TestRefDeref3(t *testing.T) {
 	buffer := &bytes.Buffer{}
-	writer := NewWriter(buffer, UNCOMPRESSED)
+	writer := NewWriter(buffer)
 
 	eventOut := NewEvent()
-
 	parent := &prolcio.MCParticle{PDG: 11}
 	parentID := eventOut.AddEntry(parent, "MCParticles")
-
 	child1 := &prolcio.MCParticle{PDG: 11}
 	child2 := &prolcio.MCParticle{PDG: 22}
 	childIDs := eventOut.AddEntries("SimParticles", child1, child2)
-
 	parent.Children = append(parent.Children, childIDs...)
 	child1.Parents = append(child1.Parents, parentID)
 	child2.Parents = append(child2.Parents, parentID)
 
 	writer.Push(eventOut)
-
 	writer.Flush()
 
 	reader := NewReader(buffer)

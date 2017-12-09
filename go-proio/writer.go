@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"compress/gzip"
 	"encoding/binary"
+	"errors"
 	"io"
 	"os"
 
@@ -27,13 +28,13 @@ type Writer struct {
 	bucketComp   proto.BucketHeader_CompType
 }
 
-func Create(filename string, comp Compression) (*Writer, error) {
+func Create(filename string) (*Writer, error) {
 	file, err := os.Create(filename)
 	if err != nil {
 		return nil, err
 	}
 
-	return NewWriter(file, comp), nil
+	return NewWriter(file), nil
 }
 
 func (wrt *Writer) Flush() error {
@@ -58,25 +59,35 @@ func (wrt *Writer) Close() error {
 	return nil
 }
 
-func NewWriter(streamWriter io.Writer, comp Compression) *Writer {
+func NewWriter(streamWriter io.Writer) *Writer {
 	writer := &Writer{
 		streamWriter: streamWriter,
 		bucket:       &bytes.Buffer{},
 	}
 
-	switch comp {
-	case GZIP:
-		writer.bucketWriter = gzip.NewWriter(writer.bucket)
-		writer.bucketComp = proto.BucketHeader_GZIP
-	case LZ4:
-		writer.bucketWriter = lz4.NewWriter(writer.bucket)
-		writer.bucketComp = proto.BucketHeader_LZ4
-	default:
-		writer.bucketWriter = writer.bucket
-		writer.bucketComp = proto.BucketHeader_NONE
-	}
+	writer.SetCompression(LZ4)
 
 	return writer
+}
+
+func (wrt *Writer) SetCompression(comp Compression) error {
+	wrt.Flush()
+
+	switch comp {
+	case GZIP:
+		wrt.bucketWriter = gzip.NewWriter(wrt.bucket)
+		wrt.bucketComp = proto.BucketHeader_GZIP
+	case LZ4:
+		wrt.bucketWriter = lz4.NewWriter(wrt.bucket)
+		wrt.bucketComp = proto.BucketHeader_LZ4
+	case UNCOMPRESSED:
+		wrt.bucketWriter = wrt.bucket
+		wrt.bucketComp = proto.BucketHeader_NONE
+	default:
+		return errors.New("invalid compression type")
+	}
+
+	return nil
 }
 
 func (wrt *Writer) Push(event *Event) error {
