@@ -13,3 +13,6 @@
 # Singularity build image
 *.img
 .bash_history
+
+# pytest cache
+.cache
