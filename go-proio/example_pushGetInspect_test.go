@@ -31,7 +31,7 @@ func Example_pushGetInspect() {
 
 	writer.Push(eventOut)
 
-    writer.Flush()
+	writer.Flush()
 
 	// Event created and serialized, now to deserialize and inspect
 
