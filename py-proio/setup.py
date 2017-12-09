@@ -1,4 +1,9 @@
+from glob import glob
+from os.path import basename
+from os.path import splitext
 from setuptools import setup
+
+modules = ['proio.model.' + splitext(basename(i))[0] for i in glob("proio/model/*.py")]
 
 setup(name='proio',
       version='0.3.0',
@@ -8,6 +13,6 @@ setup(name='proio',
       author_email='dblyth@anl.gov',
       license='None',
       packages=['proio', 'proio.proto'],
-      py_modules=['proio.model.lcio', 'proio.model.promc'],
+      py_modules=modules,
       install_requires=['protobuf', 'lz4'],
       zip_safe=True)
