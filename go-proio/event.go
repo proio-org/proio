@@ -260,14 +260,8 @@ func (evt *Event) getTypeID(entry protobuf.Message) uint64 {
 }
 
 func (evt *Event) tagEntry(id uint64, tag string) {
-	var tagProto *proto.Tag
-	for name, thisTagProto := range evt.proto.Tags {
-		if name == tag {
-			tagProto = thisTagProto
-		}
-	}
-
-	if tagProto == nil {
+	tagProto, ok := evt.proto.Tags[tag]
+	if !ok {
 		tagProto = &proto.Tag{}
 		evt.proto.Tags[tag] = tagProto
 	}

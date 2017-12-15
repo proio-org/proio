@@ -47,6 +47,7 @@ func main() {
 	}
 	defer reader.Close()
 
+	nBuckets := 0
 	nEvents := 0
 
 	var header *proto.BucketHeader
@@ -55,6 +56,7 @@ func main() {
 			log.Print(err)
 		}
 
+		nBuckets++
 		nEvents += int(header.NEvents)
 	}
 
@@ -62,5 +64,6 @@ func main() {
 		log.Print(err)
 	}
 
+	fmt.Println("Number of buckets:", nBuckets)
 	fmt.Println("Number of events:", nEvents)
 }
