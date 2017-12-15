@@ -8,13 +8,13 @@ import proio.proto as proto
 from .writer import magic_bytes
 
 class Reader:
-    """Reader for proio files, either gzip compressed or not"""
+    """Reader for proio files"""
 
     def __init__(self, filename = "", fileobj = None):
         if fileobj != None:
             self._stream_reader = fileobj
         else:
-            self._stream_reader = open(filename, "rb")
+            self._stream_reader = open(filename, 'rb')
         self._bucket_reader = io.BytesIO(b'')
 
     def __enter__(self):
