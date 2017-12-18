@@ -76,7 +76,7 @@ class Event:
         try:
             return self._rev_type_lookup[type_name]
         except KeyError:
-            for ID, name in self._proto.types:
+            for ID, name in self._proto.types.items():
                 if name == type_name:
                     self._rev_type_lookup[name] = ID
                     return ID
@@ -104,6 +104,8 @@ class Event:
                 print_string += 'ID:%i ' % entry_id
                 entry = self.get_entry(entry_id)
                 if entry != None:
-                    print_string += '%s' % entry
+                    print_string += '%s\n' % entry
+                else:
+                    print_string += 'not found'
 
         return print_string

@@ -26,11 +26,15 @@ magic_bytes = [b'\xe1',
 class Writer:
     """Writer for proio files"""
 
-    def __init__(self, filename = "", fileobj = None):
-        if fileobj != None:
-            self._stream_writer = fileobj
+    def __init__(self, filename = None, fileobj = None):
+        if filename == None:
+            if fileobj != None:
+                self._stream_writer = fileobj
+            else:
+                self._stream_writer = io.BytesIO(b'')
         else:
             self._stream_writer = open(filename, 'wb')
+            self._close_file = True
 
         self.bucket_dump_size = 0x1000000
 
@@ -47,7 +51,11 @@ class Writer:
 
     def close(self):
         self.flush()
-        self._stream_writer.close()
+        try:
+            if self._close_file:
+                self._stream_writer.close()
+        except:
+            pass
 
     def flush(self):
         if self._bucket_events == 0:
@@ -55,7 +63,7 @@ class Writer:
 
         self._bucket_writer.flush()
         if self._comp == proto.BucketHeader.LZ4:
-            self._bucket.write(lz4.frame.compress(self._bucket_writer.read()))
+            self._bucket.write(lz4.frame.compress(self._bucket_writer.getvalue()))
         self._bucket.seek(0, 0)
 
         bucket_bytes = self._bucket.read()

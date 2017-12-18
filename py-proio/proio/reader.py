@@ -10,11 +10,16 @@ from .writer import magic_bytes
 class Reader:
     """Reader for proio files"""
 
-    def __init__(self, filename = "", fileobj = None):
-        if fileobj != None:
-            self._stream_reader = fileobj
+    def __init__(self, filename = None, fileobj = None):
+        if filename == None:
+            if fileobj != None:
+                self._stream_reader = fileobj
+            else:
+                self._stream_reader = io.BytesIO(b'')
         else:
             self._stream_reader = open(filename, 'rb')
+            self._close_file = True
+
         self._bucket_reader = io.BytesIO(b'')
 
     def __enter__(self):
@@ -24,7 +29,11 @@ class Reader:
         self.close()
 
     def close(self):
-        self._stream_reader.close()
+        try:
+            if self._close_file:
+                self._stream_reader.close()
+        except:
+            pass
 
     def next(self):
         return self._read_from_bucket(True)
@@ -73,7 +82,7 @@ class Reader:
 
         if do_unmarshal:
             event_proto = proto.Event.FromString(proto_buf)
-            return Event(proto = event_proto)
+            return Event(proto_obj = event_proto)
 
         return True
 
