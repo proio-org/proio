@@ -62,8 +62,10 @@ class Event:
         tag_proto.entries.append(ID)
 
     def tags(self):
-        tags = self._proto.tags.keys()
-        tags.sort()
+        tags = []
+        for tag in self._proto.tags.keys():
+            tags.append(tag)
+        tags.sort
         return tags
 
     def tagged_entries(self, tag):
@@ -90,3 +92,18 @@ class Event:
         for ID, entry in self._entry_cache.items():
             self._proto.entries[ID].payload = entry.SerializeToString()
         self._entry_cache = {}
+
+    def __str__(self):
+        print_string = ''
+
+        tags = self.tags()
+        for tag in tags:
+            print_string += 'Tag: ' + tag + '\n'
+            entries = self.tagged_entries(tag)
+            for entry_id in entries:
+                print_string += 'ID:%i ' % entry_id
+                entry = self.get_entry(entry_id)
+                if entry != None:
+                    print_string += '%s' % entry
+
+        return print_string
