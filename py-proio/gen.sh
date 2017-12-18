@@ -7,5 +7,9 @@ for proto in $(find ../model -iname "*.proto"); do
 done
 
 for gen_file in $(find proio/model -iname "*_pb2.py"); do
-    mv $gen_file ${gen_file%_pb2.py}.py
+    mkdir ${gen_file%_pb2.py}
+    gen_dir=${gen_file%_pb2.py}
+    mv $gen_file $gen_dir/
+    gen_file=${gen_file##*/}
+    echo "from .${gen_file%.py} import *" > $gen_dir/__init__.py
 done
