@@ -65,7 +65,7 @@ class Event:
         tags = []
         for tag in self._proto.tags.keys():
             tags.append(tag)
-        tags.sort
+        tags.sort()
         return tags
 
     def tagged_entries(self, tag):
