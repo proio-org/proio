@@ -11,15 +11,15 @@ matrix:
 
         - language: python
           python: 2.7
-          install: pip install ./py-proio
+          install: pip install --upgrade ./py-proio
           script: pytest ./py-proio
         - language: python
           python: 3.6
-          install: pip install ./py-proio
+          install: pip install --upgrade ./py-proio
           script: pytest ./py-proio
         - language: python
           python: nightly
-          install: pip install ./py-proio
+          install: pip install --upgrade ./py-proio
           script: pytest ./py-proio
 
     fast_finish: true
