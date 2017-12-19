@@ -79,3 +79,19 @@ The best way to get started with proio is to look at examples.  First, pick a
 language of your choice, and navigate to that subdirectory in this repository.
 Follow the installation instructions given in the corresponding README.md, and
 then follow some examples that are described there as well.
+
+## Command-line tools
+Most proio tools are written in go.  To fetch and build them, first make sure
+you have the go compiler installed on your system, and make sure your GOPATH
+and PATH environment variables are set up appropriately to effectively use `go
+get`.  A typical configuration is to set `GOPATH=$HOME` and
+`PATH=$GOPATH/bin:$PATH`.  Then, let's grab and install the proio package and
+tools:
+```shell
+go get github.com/decibelcooper/proio/go-proio/...
+```
+### tools
+* proio-ls
+* proio-summary
+* proio-strip
+* lcio2proio
