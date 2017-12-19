@@ -99,10 +99,10 @@ func TestCompSwitch(t *testing.T) {
 			t.Error(err)
 		}
 		if event == nil {
-			t.Error("Event %v failed to Get", i)
+			t.Errorf("Event %v failed to Get", i)
 		}
 		if event.String() != eventsOut[i].String() {
-			t.Error("Event %v corrupted", i)
+			t.Errorf("Event %v corrupted", i)
 		}
 	}
 }

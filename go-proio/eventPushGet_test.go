@@ -142,10 +142,10 @@ func eventPushGet2(comp Compression, t *testing.T) {
 			t.Error(err)
 		}
 		if event == nil {
-			t.Error("Event %v failed to Get", i)
+			t.Errorf("Event %v failed to Get", i)
 		}
 		if event.String() != eventsOut[i].String() {
-			t.Error("Event %v corrupted", i)
+			t.Errorf("Event %v corrupted", i)
 		}
 	}
 }
@@ -189,10 +189,10 @@ func eventPushSkipGet1(comp Compression, t *testing.T) {
 		t.Error(err)
 	}
 	if event == nil {
-		t.Error("Event %v failed to Get", 1)
+		t.Errorf("Event %v failed to Get", 1)
 	}
 	if event.String() != eventsOut[1].String() {
-		t.Error("Event %v corrupted", 1)
+		t.Errorf("Event %v corrupted", 1)
 	}
 }
 
@@ -236,9 +236,9 @@ func eventPushSkipGet2(comp Compression, t *testing.T) {
 		t.Error(err)
 	}
 	if event == nil {
-		t.Error("Event %v failed to Get", 1)
+		t.Errorf("Event %v failed to Get", 1)
 	}
 	if event.String() != eventsOut[1].String() {
-		t.Error("Event %v corrupted", 1)
+		t.Errorf("Event %v corrupted", 1)
 	}
 }
