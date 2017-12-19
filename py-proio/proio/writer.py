@@ -40,7 +40,6 @@ class Writer:
 
         self._bucket_events = 0
         self._bucket = io.BytesIO(b'')
-        self._bucket_writer = self._bucket
         self.set_compression(proto.BucketHeader.LZ4)
 
     def __enter__(self):
@@ -61,12 +60,18 @@ class Writer:
         if self._bucket_events == 0:
             return
 
-        self._bucket_writer.flush()
         if self._comp == proto.BucketHeader.LZ4:
-            self._bucket.write(lz4.frame.compress(self._bucket_writer.getvalue()))
-        self._bucket.seek(0, 0)
+            bucket_bytes = lz4.frame.compress(self._bucket.getvalue())
+        elif self._comp == proto.BucketHeader.GZIP:
+            bucket_compressed = io.BytesIO(b'')
+            with gzip.GzipFile(fileobj = bucket_compressed, mode = 'wb') as writer:
+                writer.write(self._bucket.getvalue())
+            bucket_bytes = bucket_compressed.getvalue()
+        else:
+            bucket_bytes = self._bucket.getvalue()
 
-        bucket_bytes = self._bucket.read()
+        self._bucket.seek(0, 0)
+        self._bucket.truncate(0)
 
         header = proto.BucketHeader()
         header.nEvents = self._bucket_events
@@ -85,18 +90,7 @@ class Writer:
         self._bucket_events = 0
 
     def set_compression(self, comp):
-        try:
-            self.flush()
-        except AttributeError:
-            pass
         self._comp = comp
-
-        if comp == proto.BucketHeader.GZIP:
-            self._bucket_writer = gzip.GzipFile(fileobj = self._bucket, mode = 'wb')
-        elif comp == proto.BucketHeader.LZ4:
-            self._bucket_writer = io.BytesIO(b'')
-        else:
-            self._bucket_writer = self._bucket
 
     def push(self, event):
         event._flush_cache()
@@ -104,14 +98,11 @@ class Writer:
 
         proto_size = struct.pack("I", len(proto_buf))
 
-        self._bucket_writer.write(proto_size)
-        self._bucket_writer.write(proto_buf)
+        self._bucket.write(proto_size)
+        self._bucket.write(proto_buf)
 
         self._bucket_events += 1
 
         bucket_length = len(self._bucket.getvalue())
-        if self._comp == proto.BucketHeader.LZ4:
-            bucket_length += len(self._bucket_writer.getvalue())
-
         if bucket_length > self.bucket_dump_size:
             self.flush()
