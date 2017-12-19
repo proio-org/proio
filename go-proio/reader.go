@@ -13,6 +13,7 @@ import (
 	"github.com/pierrec/lz4"
 )
 
+// Reader serves to read Events from a stream in the proio format.
 type Reader struct {
 	streamReader     io.Reader
 	bucket           *bytes.Reader
@@ -30,6 +31,10 @@ type Reader struct {
 	sync.Mutex
 }
 
+// Open opens the given existing file (in read-only mode), returning an error
+// where appropriate.  Upon success, a new Reader is created to wrap the file,
+// and returned.  Either Open or NewReader should be called to construct a new
+// Reader.
 func Open(filename string) (*Reader, error) {
 	file, err := os.Open(filename)
 	if err != nil {
@@ -39,6 +44,8 @@ func Open(filename string) (*Reader, error) {
 	return NewReader(file), nil
 }
 
+// NewReader wraps an existing io.Reader for reading proio Events.  Either Open
+// or NewReader should be called to construct a new Reader.
 func NewReader(streamReader io.Reader) *Reader {
 	rdr := &Reader{
 		streamReader:   streamReader,
@@ -51,16 +58,21 @@ func NewReader(streamReader io.Reader) *Reader {
 	return rdr
 }
 
+// Close closes any file that was opened by the library, and stops any
+// unfinished scans.  Close does not close io.Readers passed directly to
+// NewReader.
 func (rdr *Reader) Close() {
 	rdr.Lock()
 	defer rdr.Unlock()
 
+    rdr.StopScan()
 	closer, ok := rdr.streamReader.(io.Closer)
 	if ok {
 		closer.Close()
 	}
 }
 
+// Next retrieves the next event from the stream.
 func (rdr *Reader) Next() (*Event, error) {
 	rdr.Lock()
 	defer rdr.Unlock()
@@ -68,6 +80,8 @@ func (rdr *Reader) Next() (*Event, error) {
 	return rdr.readFromBucket(true)
 }
 
+// NextHeader returns the next bucket header from the stream, and discards the
+// bucket payload.
 func (rdr *Reader) NextHeader() (*proto.BucketHeader, error) {
 	rdr.Lock()
 	defer rdr.Unlock()
@@ -78,6 +92,8 @@ func (rdr *Reader) NextHeader() (*proto.BucketHeader, error) {
 	return rdr.bucketHeader, nil
 }
 
+// Skip skips nEvents events.  If the return error is nil, nEvents have been
+// skipped.
 func (rdr *Reader) Skip(nEvents int) (nSkipped int, err error) {
 	rdr.Lock()
 	defer rdr.Unlock()
@@ -109,6 +125,8 @@ func (rdr *Reader) Skip(nEvents int) (nSkipped int, err error) {
 	return
 }
 
+// SeekToStart seeks seekable streams to the beginning, and prepares the stream
+// to read from there.
 func (rdr *Reader) SeekToStart() error {
 	rdr.Lock()
 	defer rdr.Unlock()

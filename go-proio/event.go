@@ -15,6 +15,8 @@ import (
 	protobuf "github.com/golang/protobuf/proto"
 )
 
+// Event contains all data for an event, and provides methods for adding and
+// retrieving data.
 type Event struct {
 	Err error
 
@@ -26,6 +28,7 @@ type Event struct {
 	entryCache     map[uint64]protobuf.Message
 }
 
+// NewEvent is required for constructing an Event.
 func NewEvent() *Event {
 	return &Event{
 		proto: &proto.Event{
@@ -40,6 +43,10 @@ func NewEvent() *Event {
 	}
 }
 
+// AddEntry takes a single primary tag for an entry and an entry protobuf
+// message, and returns a new ID number for the entry.  This ID number can be
+// used to persistently reference the entry.  For example, pass the ID TagEntry
+// to add additional tags to the entry.
 func (evt *Event) AddEntry(tag string, entry protobuf.Message) uint64 {
 	typeID := evt.getTypeID(entry)
 	entryProto := &proto.Entry{
@@ -57,6 +64,9 @@ func (evt *Event) AddEntry(tag string, entry protobuf.Message) uint64 {
 	return id
 }
 
+// AddEntries is like AddEntry, except that it is variadic, taking an arbitrary
+// number of entries separated by commas.  Additionally, the return value is a
+// slice of IDs.
 func (evt *Event) AddEntries(tag string, entries ...protobuf.Message) []uint64 {
 	var ids []uint64
 	for _, entry := range entries {
@@ -65,6 +75,10 @@ func (evt *Event) AddEntries(tag string, entries ...protobuf.Message) []uint64 {
 	return ids
 }
 
+// GetEntry retrieves and deserializes an entry corresponding to the given ID
+// number.  The deserialized entry is returned.  The entry type must be one
+// that has been linked (and therefore initialized) with the current
+// executable, otherwise it is an unknown type and nil is returned.
 func (evt *Event) GetEntry(id uint64) protobuf.Message {
 	entry, ok := evt.entryCache[uint64(id)]
 	if ok {
@@ -136,6 +150,7 @@ func (evt *Event) AllEntries() []uint64 {
 	return IDs
 }
 
+// TagEntry adds additional tags to an entry ID returned by AddEntry.
 func (evt *Event) TagEntry(id uint64, tags ...string) {
 	for _, tag := range tags {
 		tagProto, ok := evt.proto.Tags[tag]
@@ -148,6 +163,7 @@ func (evt *Event) TagEntry(id uint64, tags ...string) {
 	}
 }
 
+// UntagEntry removes the association between a tag and an entry.
 func (evt *Event) UntagEntry(id uint64, tag string) {
 	tagProto, ok := evt.proto.Tags[tag]
 	if !ok {
@@ -162,6 +178,8 @@ func (evt *Event) UntagEntry(id uint64, tag string) {
 	}
 }
 
+// TaggedEntries returns a slice of ID numbers that are referenced by the given
+// tag.
 func (evt *Event) TaggedEntries(tag string) []uint64 {
 	tagProto, ok := evt.proto.Tags[tag]
 	if ok {
@@ -170,6 +188,7 @@ func (evt *Event) TaggedEntries(tag string) []uint64 {
 	return nil
 }
 
+// Tags returns a list of all tags in the Event.
 func (evt *Event) Tags() []string {
 	var tags []string
 	for key, _ := range evt.proto.Tags {
@@ -179,6 +198,7 @@ func (evt *Event) Tags() []string {
 	return tags
 }
 
+// EntryTags does a reverse lookup of tags that point to a given entry ID.
 func (evt *Event) EntryTags(id uint64) []string {
 	tags, ok := evt.revTagLookup[id]
 	if ok {
