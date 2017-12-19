@@ -93,7 +93,7 @@ func main() {
 			}
 			for _, tag := range event.Tags() {
 				if !keepTags[tag] {
-					event.RemoveTag(tag)
+					event.DeleteTag(tag)
 				}
 			}
 		} else {
@@ -101,7 +101,7 @@ func main() {
 				for _, entryID := range event.TaggedEntries(removeTag) {
 					event.RemoveEntry(entryID)
 				}
-				event.RemoveTag(removeTag)
+				event.DeleteTag(removeTag)
 			}
 		}
 
