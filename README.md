@@ -1,4 +1,4 @@
-# Status [![Travis CI Build Status](https://travis-ci.org/decibelcooper/proio.svg?branch=master)](https://travis-ci.org/decibelcooper/proio)
+# Status [![Travis CI Build Status](https://travis-ci.org/decibelcooper/proio.svg?branch=master)](https://travis-ci.org/decibelcooper/proio/branches)
 * [Go](go-proio)
   * Mostly complete
   * Still needs to write file descriptor protos to bucket headers
@@ -26,7 +26,8 @@ IO.  This work was inspired and influenced by
 [LCIO](https://github.com/iLCSoft/LCIO), ProMC (Sergei Chekanov), and EicMC
 (Alexander Kiselev).  Another primary goal of proio is to be language-neutral,
 in the sense that users can be free to use Go, Python, C++, or Java without any
-significant drawback to any particular choice.  Each language implementation is
+significant drawback to any particular choice (proio is under active
+developement, please see above for status).  Each language implementation is
 written natively, and protobuf compilers generate code in each language from a
 single source.  The protobuf messages described in the generated code are used
 by the proio libraries to produce serialized event structures for IO.
@@ -45,15 +46,16 @@ structure, and any number of tags may point to the same entry.
 ![proio event](proto/figures/proio_event.png)
 
 Events also carry a list of protobuf message types entered into the event by
-the user.  This is a string identifier used by the protobuf libraries and
-specified by the writer of the original protobuf file.  Proio is distributed
-with common messages that are organized into data models.  For example,
+the user.  These are string identifiers used by the protobuf libraries and
+specified by the writers of the protobuf files.  Proio is distributed with
+common messages that are organized into data models.  For example,
 `proio.model.lcio.MCParticle` is one available type that is distributed with
-proio.  Users can create and use their own types.  The libraries automatically
-determine the types of the entries and store them.  When reading a file, the
-proio libraries use these type identifiers to look up message descriptors in
-memory, and create objects of the appropriate type in memory to then fill with
-the stored data.
+proio.  Users can create and use their own types, but most users do not need to
+do this, or even worry about protobuf messages at all.  The libraries
+automatically determine the types of the entries and store them.  When reading
+a file, the proio libraries use these type identifiers to look up message
+descriptors in memory, and create objects of the appropriate type in memory to
+then fill with the stored data.
 
 # Buckets
 Proio writes events into what are called buckets.  A bucket is a collection of
@@ -71,3 +73,9 @@ event data, even without having access to the particular protobuf message code
 used by the user.
 
 ![proio buckets](proto/figures/proio_buckets.png)
+
+# Getting started
+The best way to get started with proio is to look at examples.  First, pick a
+language of your choice, and navigate to that subdirectory in this repository.
+Follow the installation instructions given in the corresponding README.md, and
+then follow some examples that are described there as well.
