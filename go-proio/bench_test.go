@@ -1,4 +1,4 @@
-package proio // import "github.com/decibelcooper/proio/go-proio"
+package proio
 
 import (
 	"bytes"
@@ -6,7 +6,6 @@ import (
 	"testing"
 
 	prolcio "github.com/decibelcooper/proio/go-proio/model/lcio"
-	//"go-hep.org/x/hep/lcio"
 )
 
 func doWrite(writer *Writer, b *testing.B) {
