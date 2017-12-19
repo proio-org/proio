@@ -21,6 +21,7 @@ const (
 	LZ4
 )
 
+// Writer serves to write Events into the proio format.
 type Writer struct {
 	streamWriter io.Writer
 	bucket       *bytes.Buffer
@@ -33,6 +34,9 @@ type Writer struct {
 	sync.Mutex
 }
 
+// Create makes a new file specified by filename, overwriting any existing
+// file, and returns a Writer for the file.  Either NewWriter or Create must be
+// used to construct a Writer.
 func Create(filename string) (*Writer, error) {
 	file, err := os.Create(filename)
 	if err != nil {
@@ -45,6 +49,7 @@ func Create(filename string) (*Writer, error) {
 	return writer, nil
 }
 
+// Flush flushes any of the Writer's bucket contents.
 func (wrt *Writer) Flush() error {
 	if wrt.bucket.Len() > 0 {
 		err := wrt.writeBucket()
@@ -55,6 +60,8 @@ func (wrt *Writer) Flush() error {
 	return nil
 }
 
+// Close calls Flush and closes any file that was created by the library.
+// Close does not close io.Writers passed directly to NewWriter.
 func (wrt *Writer) Close() error {
 	for _, thisFunc := range wrt.deferredUntilClose {
 		if err := thisFunc(); err != nil {
@@ -64,6 +71,8 @@ func (wrt *Writer) Close() error {
 	return nil
 }
 
+// NewWriter takes an io.Writer and wraps it in a new proio Writer.  Either
+// NewWriter or Create must be used to construct a Writer.
 func NewWriter(streamWriter io.Writer) *Writer {
 	writer := &Writer{
 		streamWriter: streamWriter,
@@ -76,6 +85,10 @@ func NewWriter(streamWriter io.Writer) *Writer {
 	return writer
 }
 
+// Set compression type, for example to GZIP or UNCOMPRESSED.  This can be
+// called even after writing some events.  If there are events in the Writer's
+// bucket, the bucket is first flushed, and the following buckets will be
+// compressed with the new type.
 func (wrt *Writer) SetCompression(comp Compression) error {
 	wrt.Flush()
 
@@ -96,6 +109,8 @@ func (wrt *Writer) SetCompression(comp Compression) error {
 	return nil
 }
 
+// Serialize the given Event.  Once this is performed, changes to the Event in
+// memory are not reflected in the output stream.
 func (wrt *Writer) Push(event *Event) error {
 	wrt.Lock()
 	defer wrt.Unlock()
