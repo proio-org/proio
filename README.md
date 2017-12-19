@@ -10,11 +10,11 @@
   * Needs comprehensive recovery tests
   * Need to add back in examples
 * [C++](cpp-proio)
-  * Has been cleared with recent rewrite of Go and Python libraries
+  * Code has been cleared out with recent rewrite of Go and Python libraries
   * Needs to be rewritten based on new scheme developed in Go and Python
   * High priority
 * [Java](java-proio)
-  * Has been cleared with recent rewrite of Go and Python libraries
+  * Code has been cleared with recent rewrite of Go and Python libraries
   * Needs to be rewritten based on new scheme developed in Go and Python
   * Lower priority
   
@@ -31,7 +31,7 @@ written natively, and protobuf compilers generate code in each language from a
 single source.  The protobuf messages described in the generated code are used
 by the proio libraries to produce serialized event structures for IO.
 
-# proio event
+# Events
 The proio event structures can contain any protobuf messages that the user
 wishes to write to the stream or file.  Each event contains a list of entries
 which are the user data structures (required to be protobuf message
@@ -54,3 +54,20 @@ determine the types of the entries and store them.  When reading a file, the
 proio libraries use these type identifiers to look up message descriptors in
 memory, and create objects of the appropriate type in memory to then fill with
 the stored data.
+
+# Buckets
+Proio writes events into what are called buckets.  A bucket is a collection of
+sequential events that are compressed together, and has a header describing the
+contents of the bucket (e.g. compression type and number of events contained).
+The proio library adds events to a bucket until the bucket starts to overflow
+based on a specified target bucket size in bytes, at which point the bucket is
+written out to the stream or file.  The proio reader can use the lightweight
+bucket headers to efficiently scan the contents of a file.  The bucket headers
+are implemented as protobuf messages, so additional metadata can be added to
+the headers without breaking compatibility.  Additionally, bucket headers can
+store protobuf file descriptor protos.  These can be added to the stream by the
+writer so that the reader has all of the information needed to read the user's
+event data, even without having access to the particular protobuf message code
+used by the user.
+
+![proio buckets](proto/figures/proio_buckets.png)
