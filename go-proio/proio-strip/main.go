@@ -12,15 +12,14 @@ import (
 )
 
 var (
-	outFile    = flag.String("o", "", "file to save output to")
-	keep       = flag.Bool("k", false, "keep only the specified collections, rather than stripping them away")
-	decompress = flag.Bool("d", false, "decompress the stdin input with gzip")
-	compress   = flag.Bool("c", false, "compress the stdout output with gzip")
+	outFile   = flag.String("o", "", "file to save output to")
+	keep      = flag.Bool("k", false, "keep only entries with the specified tags, rather than stripping them away")
+	compLevel = flag.Int("c", 1, "compression level: 0 for uncompressed, 1 for LZ4 compression, 2 for GZIP compression")
 )
 
 func printUsage() {
 	fmt.Fprintf(os.Stderr,
-		`Usage: proio-strip [options] <proio-input-file> <collections>...
+		`Usage: proio-strip [options] <proio-input-file> <tags>...
 options:
 `,
 	)
@@ -42,11 +41,7 @@ func main() {
 	filename := flag.Arg(0)
 	if filename == "-" {
 		stdin := bufio.NewReader(os.Stdin)
-		if *decompress {
-			reader, err = proio.NewGzipReader(stdin)
-		} else {
-			reader = proio.NewReader(stdin)
-		}
+		reader = proio.NewReader(stdin)
 	} else {
 		reader, err = proio.Open(filename)
 	}
@@ -57,45 +52,56 @@ func main() {
 
 	var writer *proio.Writer
 	if *outFile == "" {
-		if *compress {
-			writer = proio.NewGzipWriter(os.Stdout)
-		} else {
-			writer = proio.NewWriter(os.Stdout)
-		}
+		writer = proio.NewWriter(os.Stdout)
 	} else {
 		writer, err = proio.Create(*outFile)
 		if err != nil {
 			log.Fatal(err)
 		}
 	}
+	switch *compLevel {
+	case 2:
+		writer.SetCompression(proio.GZIP)
+	case 1:
+		writer.SetCompression(proio.LZ4)
+	default:
+		writer.SetCompression(proio.UNCOMPRESSED)
+	}
 	defer writer.Close()
 
-	var colls []string
+	var argTags []string
 	for i := 1; i < flag.NArg(); i++ {
-		colls = append(colls, flag.Arg(i))
+		argTags = append(argTags, flag.Arg(i))
 	}
 
 	nEventsRead := 0
 
 	for event := range reader.ScanEvents() {
-		for _, collName := range event.GetNames() {
-			if *keep {
-				keepThis := false
-				for _, keepName := range colls {
-					if collName == keepName {
-						keepThis = true
-						break
-					}
+		if *keep {
+			keepTagIDs := make(map[uint64]bool)
+			keepTags := make(map[string]bool)
+			for _, keepTag := range argTags {
+				keepTags[keepTag] = true
+				for _, entryID := range event.TaggedEntries(keepTag) {
+					keepTagIDs[entryID] = true
 				}
-				if !keepThis {
-					event.Remove(collName)
+			}
+			for _, entryID := range event.AllEntries() {
+				if !keepTagIDs[entryID] {
+					event.RemoveEntry(entryID)
 				}
-			} else {
-				for _, removeName := range colls {
-					if collName == removeName {
-						event.Remove(collName)
-					}
+			}
+			for _, tag := range event.Tags() {
+				if !keepTags[tag] {
+					event.DeleteTag(tag)
 				}
+			}
+		} else {
+			for _, removeTag := range argTags {
+				for _, entryID := range event.TaggedEntries(removeTag) {
+					event.RemoveEntry(entryID)
+				}
+				event.DeleteTag(removeTag)
 			}
 		}
 

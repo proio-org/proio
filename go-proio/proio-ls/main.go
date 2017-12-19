@@ -9,11 +9,12 @@ import (
 	"os"
 
 	"github.com/decibelcooper/proio/go-proio"
+	_ "github.com/decibelcooper/proio/go-proio/model/lcio"
+	_ "github.com/decibelcooper/proio/go-proio/model/promc"
 )
 
 var (
-	doGzip = flag.Bool("g", false, "decompress the stdin input with gzip")
-	event  = flag.Int("e", -1, "list specified event, numbered consecutively from the start of the file or stream")
+	event = flag.Int("e", -1, "list specified event, numbered consecutively from the start of the file or stream")
 )
 
 func printUsage() {
@@ -40,11 +41,7 @@ func main() {
 	filename := flag.Arg(0)
 	if filename == "-" {
 		stdin := bufio.NewReader(os.Stdin)
-		if *doGzip {
-			reader, err = proio.NewGzipReader(stdin)
-		} else {
-			reader = proio.NewReader(stdin)
-		}
+		reader = proio.NewReader(stdin)
 	} else {
 		reader, err = proio.Open(filename)
 	}
@@ -56,10 +53,7 @@ func main() {
 	singleEvent := false
 	if *event >= 0 {
 		singleEvent = true
-		_, err = reader.Skip(*event)
-		if err == proio.ErrResync {
-			log.Print(err)
-		} else if err != nil {
+		if _, err = reader.Skip(*event); err != nil {
 			log.Fatal(err)
 		}
 	}

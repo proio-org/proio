@@ -1,175 +1,109 @@
-import proio.model as model
-import importlib
+import proio.proto as proto
+
+import google.protobuf.descriptor_pool as descriptor_pool
+import google.protobuf.message_factory as message_factory
 
 class Event:
     """Class representing a single event"""
 
-    def __init__(self):
-        self.header = model.EventHeader()
-        self._payload = b''
+    def __init__(self, proto_obj = None):
+        self._proto = proto_obj or proto.Event()
+        self._entry_cache = {}
+        self._factory = message_factory.MessageFactory()
+        self._rev_type_lookup = {}
 
-    def get(self, coll_name):
+    def add_entry(self, tag, entry):
+        type_id = self._get_type_id(entry)
+
+        self._proto.nEntries += 1
+        ID = self._proto.nEntries
+        self._proto.entries[ID].type = type_id
+
+        self._entry_cache[ID] = entry
+
+        self.tag_entry(ID, tag)
+
+        return ID
+
+    def add_entries(self, tag, *entries):
+        ids = []
+        for entry in entries:
+            ids.append(self.add_entry(tag, entry))
+        return ids
+
+    def get_entry(self, ID):
         try:
-            return self._coll_cache[coll_name]
-        except AttributeError:
-            self._coll_cache = {}
+            return self._entry_cache[ID]
         except KeyError:
             pass
 
-        return self._get_from_payload(coll_name)
-
-    def get_names(self):
-        names = []
-        for coll_hdr in self.header.payloadCollections:
-            names.append(coll_hdr.name)
-
-        return names
-
-    def add(self, coll, name):
         try:
-            for key, coll_ in self._coll_cache.items():
-                if key == name:
-                    return
-                if coll_.id != 0 and coll_.id == coll.id:
-                    return
-        except AttributeError:
-            self._coll_cache = {}
-
-        for coll_hdr in self.header.payloadCollections:
-            if coll_hdr.name == name:
-                return
-            if coll_hdr.id != 0 and coll_hdr.id == coll.id:
-                return
-
-        self._coll_cache[name] = coll
-
-    def remove(self, name):
-        try:
-            for key, _ in self._coll_cache.items():
-                if key == name:
-                    del self._coll_cache[name]
-                    return
-        except AttributeError:
-            self._coll_cache = {}
-
-        for coll_hdr in self.header.payloadCollections:
-            if coll_hdr.name == name:
-                self._get_from_payload(name, False)
-                return
-
-    def _get_from_payload(self, coll_name, unmarshal = True):
-        offset = 0
-        size = 0
-        coll_type = ""
-        for collIndex in range(0, len(self.header.payloadCollections)):
-            coll_hdr = self.header.payloadCollections[collIndex]
-            if coll_hdr.name == coll_name:
-                coll_type = coll_hdr.type
-                size = coll_hdr.payloadSize
-                break
-            offset += coll_hdr.payloadSize
-        if coll_type == "":
+            entry_proto = self._proto.entries[ID]
+        except KeyError:
             return
 
-        if unmarshal:
-            module_name = "proio.model"
-            class_name = coll_type
-            dot_i = coll_type.rfind(".")
-            if dot_i > 0:
-                module_name += "." + coll_type[:dot_i]
-                class_name = coll_type[dot_i + 1:]
-            message_module = importlib.import_module(module_name)
-            message_class = getattr(message_module, class_name)
-            message = message_class.FromString(self._payload[offset : offset+size])
-            self._coll_cache[coll_name] = message
+        type_string = self._proto.types[entry_proto.type]
+        type_desc = descriptor_pool.Default().FindMessageTypeByName(type_string)
+        msg_class = self._factory.GetPrototype(type_desc)
+        entry = msg_class.FromString(entry_proto.payload)
+        self._entry_cache[ID] = entry
 
-        self.header.payloadCollections.remove(coll_hdr)
-        self._payload = self._payload[:offset] + self._payload[offset+size:]
+        return entry
 
-        if unmarshal:
-            return message
-
-    def dereference(self, ref):
-        refColl = None
+    def tag_entry(self, ID, tag):
         try:
-            for name, coll in self._coll_cache.items():
-                if coll.id == ref.collID:
-                    if ref.entryID == 0:
-                        return coll
-                    refColl = coll
-                    break
-        except AttributeError:
-            pass
-        
-        if refColl == None:
-            for coll_hdr in self.header.payloadCollections:
-                if coll_hdr.id == ref.collID:
-                    refColl = self.get(coll_hdr.name)
-                    if ref.entryID == 0:
-                        return refColl
-                    break
+            tag_proto = self._proto.tags[tag]
+        except KeyError:
+            tag_proto = proto.Tag()
+            self._proto.tags[tag] = tag_proto
 
-        if refColl == None:
-            return
+        tag_proto.entries.append(ID)
 
-        for entry in refColl.entries:
-            if entry.id == ref.entryID:
-                return entry
+    def tags(self):
+        tags = []
+        for tag in self._proto.tags.keys():
+            tags.append(tag)
+        tags.sort()
+        return tags
 
-        return
+    def tagged_entries(self, tag):
+        return self._proto.tags[tag].entries
 
-    def _flush_coll_cache(self):
+    def _get_type_id(self, entry):
+        type_name = entry.DESCRIPTOR.full_name
         try:
-            for name, coll in self._coll_cache.items():
-                self._coll_to_payload(coll, name)
-            self._coll_cache = {}
-        except AttributeError:
-            self._coll_cache = {}
+            return self._rev_type_lookup[type_name]
+        except KeyError:
+            for ID, name in self._proto.types.items():
+                if name == type_name:
+                    self._rev_type_lookup[name] = ID
+                    return ID
 
-    def _coll_to_payload(self, coll, name):
-        if self.header == None:
-            self.header = model.EventHeader()
+            self._proto.nTypes += 1
+            type_id = self._proto.nTypes
+            self._proto.types[type_id] = type_name
+            self._rev_type_lookup[type_name] = type_id
 
-        coll_hdr = self.header.payloadCollections.add()
-        coll_hdr.name = name
-        coll_hdr.id = coll.id
-        coll_hdr.type = coll.DESCRIPTOR.full_name[12:]
+            return type_id
 
-        coll_buf = coll.SerializeToString()
-        coll_hdr.payloadSize = len(coll_buf)
+    def _flush_cache(self):
+        for ID, entry in self._entry_cache.items():
+            self._proto.entries[ID].payload = entry.SerializeToString()
+        self._entry_cache = {}
 
-        self._payload = self._payload + coll_buf
+    def __str__(self):
+        print_string = ''
 
-    def get_unique_id(self):
-        self.header.nUniqueIDs += 1
-        return self.header.nUniqueIDs
+        tags = self.tags()
+        for tag in tags:
+            print_string += 'Tag: ' + tag + '\n'
+            entries = self.tagged_entries(tag)
+            for entry_id in entries:
+                print_string += 'ID:%i ' % entry_id
+                entry = self.get_entry(entry_id)
+                if entry != None:
+                    print_string += '%s\n' % entry
+                else:
+                    print_string += 'not found'
 
-    def reference(self, msg):
-        try:
-            for name, coll in self._coll_cache.items():
-                if coll is msg:
-                    coll_id = coll.id
-                    if coll_id == 0:
-                        coll_id = self.get_unique_id()
-                        coll.id = coll_id
-                    ref = model.Reference()
-                    ref.collID = coll_id
-                    ref.entryID = 0
-                    return ref
-
-                for entry in coll.entries:
-                    if entry is msg:
-                        coll_id = coll.id
-                        if coll_id == 0:
-                            coll_id = self.get_unique_id()
-                            coll.id = coll_id
-                        entry_id = entry.id
-                        if entry_id == 0:
-                            entry_id = self.get_unique_id()
-                            entry.id = entry_id
-                        ref = model.Reference()
-                        ref.collID = coll_id
-                        ref.entryID = entry_id
-                        return ref
-        except AttributeError:
-            self._coll_cache = {}
+        return print_string

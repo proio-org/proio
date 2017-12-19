@@ -1,5 +1,8 @@
 from .event import Event
 from .reader import Reader
 from .writer import Writer
+from .proto import BucketHeader
 
-__all__ = ['reader','writer','event']
+GZIP = BucketHeader.GZIP
+LZ4 = BucketHeader.LZ4
+UNCOMPRESSED = BucketHeader.NONE

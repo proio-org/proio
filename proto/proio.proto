@@ -1,0 +1,55 @@
+syntax = "proto3";
+package proio.proto;
+option go_package = "github.com/decibelcooper/proio/go-proio/proto";
+option java_package = "proio";
+option java_outer_classname = "Proto";
+
+// Warning: do not change any fields without understanding how the changes
+// affect the proio libraries.  Any field may be added without affecting the
+// libraries.
+
+message Meta {
+    string name = 1;
+    bytes data = 2;
+}
+
+message BucketHeader {
+    uint64 nEvents = 1;
+    uint64 bucketSize = 2;
+
+    enum CompType {
+        NONE = 0;
+        GZIP = 1;
+        LZ4 = 2;
+    }
+    CompType compression = 3;    
+
+    enum PayloadType {
+        EVENTS = 0;
+        FOOTER = 1;
+    }
+    PayloadType type = 4;
+
+    repeated bytes fileDescriptors = 5;
+    repeated Meta metaData = 6;
+}
+
+message Tag {
+    repeated uint64 entries = 1;
+}
+
+message Entry {
+    uint64 type = 1;
+    bytes payload = 2;
+}
+
+message Event {
+    map<string, Tag> tags = 1;
+    uint64 nEntries = 2;
+    map<uint64, Entry> entries = 3;
+    uint64 nTypes = 4;
+    map<uint64, string> types = 5;
+
+    uint64 timestamp = 6;
+}
+

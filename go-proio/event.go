@@ -1,322 +1,310 @@
 package proio // import "github.com/decibelcooper/proio/go-proio"
 
+// Generate protobuf messages
+//go:generate bash gen.sh
+
 import (
-	"bytes"
 	"errors"
 	"fmt"
 	"reflect"
-	"strings"
+	"sort"
+	"strconv"
 
-	"github.com/decibelcooper/proio/go-proio/model"
-	"github.com/golang/protobuf/proto"
+	"github.com/decibelcooper/proio/go-proio/proto"
+	protobuf "github.com/golang/protobuf/proto"
 )
 
-// Struct representing an event either created with NewEvent() or retrieved
-// with (*Reader) Get() or (*Reader) ScanEvents()
 type Event struct {
-	Header  *model.EventHeader
-	payload []byte
+	Err error
 
-	collCache   map[string]Collection
-	namesCached []string
+	proto *proto.Event
+
+	revTypeLookup  map[string]uint64
+	revTagLookup   map[uint64][]string
+	entryTypeCache map[uint64]reflect.Type
+	entryCache     map[uint64]protobuf.Message
 }
 
-// Returns a new event with minimal initialization
 func NewEvent() *Event {
 	return &Event{
-		Header:    &model.EventHeader{},
-		collCache: make(map[string]Collection),
+		proto: &proto.Event{
+			Entries: make(map[uint64]*proto.Entry),
+			Types:   make(map[uint64]string),
+			Tags:    make(map[string]*proto.Tag),
+		},
+		revTypeLookup:  make(map[string]uint64),
+		revTagLookup:   make(map[uint64][]string),
+		entryTypeCache: make(map[uint64]reflect.Type),
+		entryCache:     make(map[uint64]protobuf.Message),
 	}
 }
 
-// Get a list of collection names in the event
-func (evt *Event) GetNames() []string {
-	names := make([]string, 0)
-
-	for _, collHdr := range evt.Header.PayloadCollections {
-		names = append(names, collHdr.Name)
-	}
-	for name := range evt.collCache {
-		names = append(names, name)
+func (evt *Event) AddEntry(tag string, entry protobuf.Message) uint64 {
+	typeID := evt.getTypeID(entry)
+	entryProto := &proto.Entry{
+		Type: typeID,
 	}
 
-	return names
+	evt.proto.NEntries++
+	id := evt.proto.NEntries
+	evt.proto.Entries[id] = entryProto
+
+	evt.entryCache[id] = entry
+
+	evt.TagEntry(id, tag)
+
+	return id
 }
 
-// Get a string representing the collection type
-func GetType(coll Collection) string {
-	return strings.TrimPrefix(proto.MessageName(coll), "proio.model.")
+func (evt *Event) AddEntries(tag string, entries ...protobuf.Message) []uint64 {
+	var ids []uint64
+	for _, entry := range entries {
+		ids = append(ids, evt.AddEntry(tag, entry))
+	}
+	return ids
 }
 
-var (
-	ErrDupCollection = errors.New("duplicate collection name")
-	ErrDupID         = errors.New("duplicate collection id")
-)
+func (evt *Event) GetEntry(id uint64) protobuf.Message {
+	entry, ok := evt.entryCache[uint64(id)]
+	if ok {
+		evt.Err = nil
+		return entry
+	}
 
-// Add a collection to the event.  This allows automatic referencing with
-// (*Event) Reference(), and queues the collection for serialization once
-// (*Writer) Push() is called.  The collection may be modified further after
-// adding.
-func (evt *Event) Add(coll Collection, name string) error {
-	for key, coll_ := range evt.collCache {
-		if key == name {
-			return ErrDupCollection
+	entryProto, ok := evt.proto.Entries[uint64(id)]
+	if !ok {
+		evt.Err = errors.New("no such entry: " + strconv.FormatUint(id, 10))
+		return nil
+	}
+
+	entry = evt.getPrototype(entryProto.Type)
+	if entry == nil {
+		evt.Err = errors.New("unknown type: " + evt.proto.Types[entryProto.Type])
+		return nil
+	}
+	selfSerializingEntry, ok := entry.(selfSerializingEntry)
+	if ok {
+		if err := selfSerializingEntry.Unmarshal(entryProto.Payload); err != nil {
+			evt.Err = errors.New(
+				"failure to unmarshal entry " +
+					strconv.FormatUint(id, 10) +
+					" with type " +
+					evt.proto.Types[entryProto.Type],
+			)
+			return nil
 		}
-		if coll_.GetId() != 0 && coll_.GetId() == coll.GetId() {
-			return ErrDupID
+	} else {
+		if err := protobuf.Unmarshal(entryProto.Payload, entry); err != nil {
+			evt.Err = errors.New(
+				"failure to unmarshal entry " +
+					strconv.FormatUint(id, 10) +
+					" with type " +
+					evt.proto.Types[entryProto.Type],
+			)
+			return nil
 		}
 	}
 
-	for _, collHdr := range evt.Header.PayloadCollections {
-		if collHdr.Name == name {
-			return ErrDupCollection
-		}
-		if collHdr.Id != 0 && collHdr.Id == coll.GetId() {
-			return ErrDupID
+	evt.entryCache[id] = entry
+
+	evt.Err = nil
+	return entry
+}
+
+func (evt *Event) RemoveEntry(id uint64) {
+	tags := evt.EntryTags(id)
+	for _, tag := range tags {
+		tagProto := evt.proto.Tags[tag]
+		for i, thisID := range tagProto.Entries {
+			if thisID == id {
+				tagProto.Entries = append(tagProto.Entries[:i], tagProto.Entries[i+1:]...)
+			}
 		}
 	}
 
-	evt.collCache[name] = coll
-	evt.namesCached = append(evt.namesCached, name)
-	return nil
+	delete(evt.revTagLookup, id)
+	delete(evt.entryCache, id)
+	delete(evt.proto.Entries, id)
 }
 
-// Remove a collection from the event by name
-func (evt *Event) Remove(name string) {
-	for key := range evt.collCache {
-		if key == name {
-			delete(evt.collCache, key)
+func (evt *Event) AllEntries() []uint64 {
+	var IDs []uint64
+	for ID, _ := range evt.proto.Entries {
+		IDs = append(IDs, ID)
+	}
+	return IDs
+}
+
+func (evt *Event) TagEntry(id uint64, tags ...string) {
+	for _, tag := range tags {
+		tagProto, ok := evt.proto.Tags[tag]
+		if !ok {
+			tagProto = &proto.Tag{}
+			evt.proto.Tags[tag] = tagProto
+		}
+
+		tagProto.Entries = append(tagProto.Entries, id)
+	}
+}
+
+func (evt *Event) UntagEntry(id uint64, tag string) {
+	tagProto, ok := evt.proto.Tags[tag]
+	if !ok {
+		return
+	}
+
+	for i, entryID := range tagProto.Entries {
+		if entryID == id {
+			tagProto.Entries = append(tagProto.Entries[:i], tagProto.Entries[i+1:]...)
 			return
 		}
 	}
-	for _, collHdr := range evt.Header.PayloadCollections {
-		if collHdr.Name == name {
-			evt.getFromPayload(name, false)
-			return
-		}
-	}
 }
 
-// Gets a collection from the event.  The collection is deserialized upon the
-// first time calling this function.  Once deserialized, the collection is
-// removed from Header.PayloadCollection, and placed back into a queue for
-// reserialization.  The event may be safely modified before reserializing.
-func (evt *Event) Get(name string) Collection {
-	if msg := evt.collCache[name]; msg != nil {
-		return msg
+func (evt *Event) TaggedEntries(tag string) []uint64 {
+	tagProto, ok := evt.proto.Tags[tag]
+	if ok {
+		return tagProto.Entries[:]
 	}
-
-	return evt.getFromPayload(name, true)
-}
-
-// Get a unique ID for referencing collections or entries.  This is typically
-// not needed, and instead (*Event) Reference() should be called.
-func (evt *Event) GetUniqueID() uint32 {
-	evt.Header.NUniqueIDs++
-	return evt.Header.NUniqueIDs
-}
-
-// Reference a message that exists in the event.  The message may be a
-// collection or entry within a collection.  In both cases, the collection must
-// have been added to the event, or it must be a collection retrieved with
-// (*Event) Get().
-func (evt *Event) Reference(msg Message) *model.Reference {
-	for _, coll := range evt.collCache {
-		if coll == msg {
-			collID := coll.GetId()
-			if collID == 0 {
-				collID = evt.GetUniqueID()
-				coll.SetId(collID)
-			}
-			return &model.Reference{
-				CollID:  collID,
-				EntryID: 0,
-			}
-		}
-
-		for i := uint32(0); i < coll.GetNEntries(); i++ {
-			entry := coll.GetEntry(i).(Message)
-			if entry == msg {
-				collID := coll.GetId()
-				if collID == 0 {
-					collID = evt.GetUniqueID()
-					coll.SetId(collID)
-				}
-				entryID := entry.GetId()
-				if entryID == 0 {
-					entryID = evt.GetUniqueID()
-					entry.SetId(entryID)
-				}
-				return &model.Reference{
-					CollID:  collID,
-					EntryID: entryID,
-				}
-			}
-		}
-	}
-
 	return nil
 }
 
-// Dereference a message from the event.  This returns a message (either
-// collection or collection entry) referred to by a Reference.  The message
-// must exist in the event.
-func (evt *Event) Dereference(ref *model.Reference) Message {
-	var refColl Collection
-	for _, coll := range evt.collCache {
-		if coll.GetId() == ref.CollID {
-			if ref.EntryID == 0 {
-				return coll
-			}
-			refColl = coll
-			break
-		}
+func (evt *Event) Tags() []string {
+	var tags []string
+	for key, _ := range evt.proto.Tags {
+		tags = append(tags, key)
 	}
-	if refColl == nil {
-		for _, collHdr := range evt.Header.PayloadCollections {
-			if collHdr.Id == ref.CollID {
-				if refColl = evt.Get(collHdr.Name); refColl == nil {
-					return nil
-				}
-				if ref.EntryID == 0 {
-					return refColl
-				}
+	sort.Strings(tags)
+	return tags
+}
+
+func (evt *Event) EntryTags(id uint64) []string {
+	tags, ok := evt.revTagLookup[id]
+	if ok {
+		return tags
+	}
+
+	tags = make([]string, 0)
+	for name, tagProto := range evt.proto.Tags {
+		for _, thisID := range tagProto.Entries {
+			if thisID == id {
+				tags = append(tags, name)
 				break
 			}
 		}
 	}
-	if refColl == nil {
-		return nil
-	}
+	sort.Strings(tags)
 
-	for i := uint32(0); i < refColl.GetNEntries(); i++ {
-		entry := refColl.GetEntry(i).(Message)
-		if entry.GetId() == ref.EntryID {
-			return entry
-		}
-	}
-	return nil
+	evt.revTagLookup[id] = tags
+
+	return tags
+}
+
+func (evt *Event) DeleteTag(tag string) {
+	delete(evt.proto.Tags, tag)
 }
 
 func (evt *Event) String() string {
-	buffer := &bytes.Buffer{}
+	var printString string
 
-	stringBuf := fmt.Sprint(evt.Header, "\n")
-	stringBuf = strings.Replace(stringBuf, " payloadCollections:", "\n    payloadCollections:", -1)
-	stringBuf = strings.Replace(stringBuf, " >", ">", -1)
-	fmt.Fprint(buffer, stringBuf, "\n")
+	tags := evt.Tags()
 
-	for _, name := range evt.GetNames() {
-		coll := evt.Get(name)
-		if coll != nil {
-			fmt.Fprint(buffer, "    name:", name, " type:", GetType(coll), "\n")
-
-			stringBuf = fmt.Sprint("        ", coll, "\n")
-			stringBuf = strings.Replace(stringBuf, " entries:", "\n        entries:", -1)
-			stringBuf = strings.Replace(stringBuf, " >", ">", -1)
-			fmt.Fprint(buffer, stringBuf)
+	for _, tag := range tags {
+		printString += "Tag: " + tag + "\n"
+		entries := evt.TaggedEntries(tag)
+		for _, entryID := range entries {
+			printString += fmt.Sprintf("ID:%v ", entryID)
+			entry := evt.GetEntry(entryID)
+			if entry != nil {
+				printString += fmt.Sprintln(entry)
+			}
 		}
 	}
 
-	return string(buffer.Bytes())
+	return printString
 }
 
-func (evt *Event) getFromPayload(name string, unmarshal bool) Collection {
-	offset := uint32(0)
-	size := uint32(0)
-	collType := ""
-	collIndex := 0
-	var collHdr *model.EventHeader_CollectionHeader
-	for collIndex, collHdr = range evt.Header.PayloadCollections {
-		if collHdr.Name == name {
-			collType = collHdr.Type
-			size = collHdr.PayloadSize
-			break
-		}
-		offset += collHdr.PayloadSize
-	}
-	if collType == "" {
-		return nil
-	}
-
-	var coll Collection
-	if unmarshal {
-		typeName := "proio.model." + collType
-		ptrType := proto.MessageType(typeName)
-		if ptrType == nil {
-			fmt.Println("failed to get type for", typeName)
-			return nil
-		}
-		msgType := ptrType.Elem()
-		coll = reflect.New(msgType).Interface().(Collection)
-		if err := coll.Unmarshal(evt.payload[offset : offset+size]); err != nil {
-			fmt.Println("failed to unmarshal")
-			return nil
-		}
-
-		evt.collCache[name] = coll
-		evt.namesCached = append(evt.namesCached, name)
-	}
-
-	evt.Header.PayloadCollections = append(evt.Header.PayloadCollections[:collIndex], evt.Header.PayloadCollections[collIndex+1:]...)
-	evt.payload = append(evt.payload[:offset], evt.payload[offset+size:]...)
-
-	return coll
-}
-func (evt *Event) flushCollCache() error {
-	for _, name := range evt.namesCached {
-		coll := evt.collCache[name]
-		if err := evt.collToPayload(coll, name); err != nil {
-			return err
-		}
-		delete(evt.collCache, name)
-	}
-	evt.namesCached = nil
-	return nil
-}
-
-func (evt *Event) collToPayload(coll Collection, name string) error {
-	collHdr := &model.EventHeader_CollectionHeader{}
-	collHdr.Name = name
-	collHdr.Id = coll.GetId()
-	collHdr.Type = GetType(coll)
-
-	collBuf, err := coll.Marshal()
-	if err != nil {
-		return err
-	}
-	collHdr.PayloadSize = uint32(len(collBuf))
-
-	if evt.Header == nil {
-		evt.Header = &model.EventHeader{}
-	}
-	evt.Header.PayloadCollections = append(evt.Header.PayloadCollections, collHdr)
-	evt.payload = append(evt.payload, collBuf...)
-
-	return nil
-}
-
-func (evt *Event) getPayload() []byte {
-	return evt.payload
-}
-
-func (evt *Event) setPayload(payload []byte) {
-	evt.payload = payload
-}
-
-type Message interface {
-	proto.Message
+type selfSerializingEntry interface {
+	protobuf.Message
 
 	Marshal() ([]byte, error)
 	Unmarshal([]byte) error
-
-	GetId() uint32
-	SetId(uint32)
 }
 
-type Collection interface {
-	Message
+func newEventFromProto(eventProto *proto.Event) *Event {
+	if eventProto.Entries == nil {
+		eventProto.Entries = make(map[uint64]*proto.Entry)
+	}
+	if eventProto.Types == nil {
+		eventProto.Types = make(map[uint64]string)
+	}
+	if eventProto.Tags == nil {
+		eventProto.Tags = make(map[string]*proto.Tag)
+	}
+	return &Event{
+		proto:          eventProto,
+		revTypeLookup:  make(map[string]uint64),
+		revTagLookup:   make(map[uint64][]string),
+		entryTypeCache: make(map[uint64]reflect.Type),
+		entryCache:     make(map[uint64]protobuf.Message),
+	}
+}
 
-	GetNEntries() uint32
-	GetEntry(uint32) proto.Message
+func (evt *Event) getPrototype(id uint64) protobuf.Message {
+	entryType, ok := evt.entryTypeCache[id]
+	if !ok {
+		ptrType := protobuf.MessageType(evt.proto.Types[id])
+		if ptrType == nil {
+			return nil
+		}
+		entryType = ptrType.Elem()
+		evt.entryTypeCache[id] = entryType
+	}
+
+	return reflect.New(entryType).Interface().(protobuf.Message)
+}
+
+func (evt *Event) getTypeID(entry protobuf.Message) uint64 {
+	typeName := protobuf.MessageName(entry)
+	typeID, ok := evt.revTypeLookup[typeName]
+	if !ok {
+		for id, name := range evt.proto.Types {
+			if name == typeName {
+				evt.revTypeLookup[typeName] = id
+				return id
+			}
+		}
+
+		evt.proto.NTypes++
+		typeID = evt.proto.NTypes
+		evt.proto.Types[typeID] = typeName
+		evt.revTypeLookup[typeName] = typeID
+	}
+
+	return typeID
+}
+
+func (evt *Event) flushCache() {
+	for id, entry := range evt.entryCache {
+		selfSerializingEntry, ok := entry.(selfSerializingEntry)
+		var bytes []byte
+		if ok {
+			bytes, _ = selfSerializingEntry.Marshal()
+		} else {
+			bytes, _ = protobuf.Marshal(entry)
+		}
+		evt.proto.Entries[id].Payload = bytes
+	}
+	evt.entryCache = make(map[uint64]protobuf.Message)
+}
+
+func fromProto(bytes []byte) *Event {
+	eventProto := &proto.Event{}
+	err := eventProto.Unmarshal(bytes)
+	if err != nil {
+		return nil
+	}
+	return &Event{
+		proto: eventProto,
+	}
 }
