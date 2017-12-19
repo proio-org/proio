@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"compress/gzip"
 	"encoding/binary"
+	"errors"
 	"io"
 	"os"
 	"sync"
@@ -106,6 +107,30 @@ func (rdr *Reader) Skip(nEvents int) (nSkipped int, err error) {
 	}
 
 	return
+}
+
+func (rdr *Reader) SeekToStart() error {
+	rdr.Lock()
+	defer rdr.Unlock()
+
+	seeker, ok := rdr.streamReader.(io.Seeker)
+	if !ok {
+		return errors.New("stream not seekable")
+	}
+
+	for {
+		n, err := seeker.Seek(0, 0 /*io.SeekStart*/)
+		if err != nil {
+			return err
+		}
+		if n == 0 {
+			break
+		}
+	}
+
+	rdr.readBucket(0)
+
+	return nil
 }
 
 //ScanEvents returns a buffered channel of type Event where all of the events

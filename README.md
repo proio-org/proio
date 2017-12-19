@@ -72,6 +72,9 @@ writer so that the reader has all of the information needed to read the user's
 event data, even without having access to the particular protobuf message code
 used by the user.
 
+Compression type is set per-bucket, and can be LZ4 (default), GZIP, or
+uncompressed.
+
 ![proio buckets](proto/figures/proio_buckets.png)
 
 # Getting started

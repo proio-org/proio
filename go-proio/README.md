@@ -10,9 +10,10 @@ go get github.com/decibelcooper/proio/go-proio/...
 ```
 
 # Examples
-Please see [the main readme](../README.md) as well as
-[example_pushGetInspect_test.go](example_pushGetInspect_test.go) and the source
-code for the tools in the subdirectories.
+* [Print](example_print_test.go)
+* [Scan](example_scan_test.go)
+* [Skip](example_skip_test.go)
+* [Push, get, inspect](example_pushGetInspect_test.go)
 
 # Benchmarks
 With files:

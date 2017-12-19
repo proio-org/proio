@@ -9,6 +9,7 @@ import (
 	"reflect"
 	"sort"
 	"strconv"
+	"strings"
 
 	"github.com/decibelcooper/proio/go-proio/proto"
 	protobuf "github.com/golang/protobuf/proto"
@@ -216,7 +217,7 @@ func (evt *Event) String() string {
 			printString += fmt.Sprintf("ID:%v ", entryID)
 			entry := evt.GetEntry(entryID)
 			if entry != nil {
-				printString += fmt.Sprintln(entry)
+				printString += strings.TrimSpace(fmt.Sprintln(entry)) + "\n"
 			}
 		}
 	}
