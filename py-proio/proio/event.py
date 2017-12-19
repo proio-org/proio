@@ -12,26 +12,24 @@ class Event:
         self._factory = message_factory.MessageFactory()
         self._rev_type_lookup = {}
 
-    def add_entry(self, entry, tags = ('')):
+    def add_entry(self, tag, entry):
         type_id = self._get_type_id(entry)
-        #entry_proto = proto.Entry()
-        #entry_proto.type = type_id
 
         self._proto.nEntries += 1
         ID = self._proto.nEntries
-        #self._proto.entries[ID] = entry_proto
         self._proto.entries[ID].type = type_id
 
         self._entry_cache[ID] = entry
 
-        for tag in tags:
-            self.tag_entry(ID, tag)
+        self.tag_entry(ID, tag)
 
         return ID
 
-    def add_entries(self, entries, tags = ('')):
+    def add_entries(self, tag, *entries):
+        ids = []
         for entry in entries:
-            self.add_entry(entry, tags)
+            ids.append(self.add_entry(tag, entry))
+        return ids
 
     def get_entry(self, ID):
         try:
