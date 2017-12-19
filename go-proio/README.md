@@ -9,6 +9,8 @@ go-proio is `go get`-able.  Make sure you have go installed and `GOPATH` set up 
 go get github.com/decibelcooper/proio/go-proio/...
 ```
 
+For information on what versions of Go are supported, please see the [Travis CI page](https://travis-ci.org/decibelcooper/proio).
+
 # Examples
 * [Print](example_print_test.go)
 * [Scan](example_scan_test.go)
