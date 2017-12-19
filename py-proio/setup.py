@@ -3,7 +3,8 @@ from os.path import basename
 from os.path import splitext
 from setuptools import setup
 
-modules = ['proio.model.' + splitext(basename(i))[0] for i in glob("proio/model/*.py")]
+models = ['proio.model.' + splitext(basename(model))[0] for model in glob('proio/model/*')]
+models.remove('proio.model.__init__')
 
 setup(name='proio',
       version='0.3.0',
@@ -12,7 +13,6 @@ setup(name='proio',
       author='David Blyth',
       author_email='dblyth@anl.gov',
       license='None',
-      packages=['proio', 'proio.proto'],
-      py_modules=modules,
+      packages=['proio', 'proio.proto', 'proio.model'] + models,
       install_requires=['protobuf', 'lz4'],
       zip_safe=True)
