@@ -28,3 +28,7 @@ matrix:
         - python: nightly
 
 sudo: false
+
+branches:
+    only:
+        - master
