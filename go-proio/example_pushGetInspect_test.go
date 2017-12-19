@@ -14,16 +14,18 @@ func Example_pushGetInspect() {
 
 	eventOut := proio.NewEvent()
 
-	// Build MCParticle collections
-	// These must be added to the event before they can be automatically
-	// referenced
+	// Create entries and hold onto their IDs for referencing
 
-	parent := &lcio.MCParticle{PDG: 11}
-	parentID := eventOut.AddEntry(parent, "MCParticles")
+	parent := &lcio.MCParticle{PDG: 443}
+	parentID := eventOut.AddEntry("Particles", parent)
+	eventOut.TagEntry(parentID, "MC", "Primary")
 
 	child1 := &lcio.MCParticle{PDG: 11}
-	child2 := &lcio.MCParticle{PDG: 22}
-	childIDs := eventOut.AddEntries("SimParticles", child1, child2)
+	child2 := &lcio.MCParticle{PDG: -11}
+	childIDs := eventOut.AddEntries("Particles", child1, child2)
+	for _, id := range childIDs {
+		eventOut.TagEntry(id, "MC", "Simulated")
+	}
 
 	parent.Children = append(parent.Children, childIDs...)
 	child1.Parents = append(child1.Parents, parentID)
@@ -38,21 +40,21 @@ func Example_pushGetInspect() {
 	reader := proio.NewReader(buffer)
 	eventIn, _ := reader.Next()
 
-	mcParts := eventIn.TaggedEntries("MCParticles")
-	fmt.Print(len(mcParts), " MCParticle(s)...\n")
+	mcParts := eventIn.TaggedEntries("Primary")
+	fmt.Print(len(mcParts), " Primary particle(s)...\n")
 	for i, parentID := range mcParts {
 		part := eventIn.GetEntry(parentID).(*lcio.MCParticle)
 		fmt.Print(i, ". PDG: ", part.PDG, "\n")
-		fmt.Print("  ", len(part.Children), " Children...\n")
+		fmt.Print("  ", len(part.Children), " children...\n")
 		for j, childID := range part.Children {
 			fmt.Print("  ", j, ". PDG: ", eventIn.GetEntry(childID).(*lcio.MCParticle).PDG, "\n")
 		}
 	}
 
 	// Output:
-	// 1 MCParticle(s)...
-	// 0. PDG: 11
-	//   2 Children...
+	// 1 Primary particle(s)...
+	// 0. PDG: 443
+	//   2 children...
 	//   0. PDG: 11
-	//   1. PDG: 22
+	//   1. PDG: -11
 }

@@ -39,7 +39,7 @@ func NewEvent() *Event {
 	}
 }
 
-func (evt *Event) AddEntry(entry protobuf.Message, tags ...string) uint64 {
+func (evt *Event) AddEntry(tag string, entry protobuf.Message) uint64 {
 	typeID := evt.getTypeID(entry)
 	entryProto := &proto.Entry{
 		Type: typeID,
@@ -51,9 +51,7 @@ func (evt *Event) AddEntry(entry protobuf.Message, tags ...string) uint64 {
 
 	evt.entryCache[id] = entry
 
-	for _, tag := range tags {
-		evt.tagEntry(id, tag)
-	}
+	evt.TagEntry(id, tag)
 
 	return id
 }
@@ -61,7 +59,7 @@ func (evt *Event) AddEntry(entry protobuf.Message, tags ...string) uint64 {
 func (evt *Event) AddEntries(tag string, entries ...protobuf.Message) []uint64 {
 	var ids []uint64
 	for _, entry := range entries {
-		ids = append(ids, evt.AddEntry(entry, tag))
+		ids = append(ids, evt.AddEntry(tag, entry))
 	}
 	return ids
 }
@@ -137,6 +135,32 @@ func (evt *Event) AllEntries() []uint64 {
 	return IDs
 }
 
+func (evt *Event) TagEntry(id uint64, tags ...string) {
+	for _, tag := range tags {
+		tagProto, ok := evt.proto.Tags[tag]
+		if !ok {
+			tagProto = &proto.Tag{}
+			evt.proto.Tags[tag] = tagProto
+		}
+
+		tagProto.Entries = append(tagProto.Entries, id)
+	}
+}
+
+func (evt *Event) UntagEntry(id uint64, tag string) {
+	tagProto, ok := evt.proto.Tags[tag]
+	if !ok {
+		return
+	}
+
+	for i, entryID := range tagProto.Entries {
+		if entryID == id {
+			tagProto.Entries = append(tagProto.Entries[:i], tagProto.Entries[i+1:]...)
+			return
+		}
+	}
+}
+
 func (evt *Event) TaggedEntries(tag string) []uint64 {
 	tagProto, ok := evt.proto.Tags[tag]
 	if ok {
@@ -169,13 +193,14 @@ func (evt *Event) EntryTags(id uint64) []string {
 			}
 		}
 	}
+	sort.Strings(tags)
 
 	evt.revTagLookup[id] = tags
 
 	return tags
 }
 
-func (evt *Event) RemoveTag(tag string) {
+func (evt *Event) DeleteTag(tag string) {
 	delete(evt.proto.Tags, tag)
 }
 
@@ -257,16 +282,6 @@ func (evt *Event) getTypeID(entry protobuf.Message) uint64 {
 	}
 
 	return typeID
-}
-
-func (evt *Event) tagEntry(id uint64, tag string) {
-	tagProto, ok := evt.proto.Tags[tag]
-	if !ok {
-		tagProto = &proto.Tag{}
-		evt.proto.Tags[tag] = tagProto
-	}
-
-	tagProto.Entries = append(tagProto.Entries, id)
 }
 
 func (evt *Event) flushCache() {

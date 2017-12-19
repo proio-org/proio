@@ -23,7 +23,10 @@ type Reader struct {
 	Err                   chan error
 	EvtScanBufSize        int
 	deferredUntilStopScan []func()
-	readMutex             sync.Mutex
+
+	deferredUntilClose []func() error
+
+	sync.Mutex
 }
 
 func Open(filename string) (*Reader, error) {
@@ -40,14 +43,17 @@ func NewReader(streamReader io.Reader) *Reader {
 		streamReader:   streamReader,
 		bucket:         &bytes.Reader{},
 		bucketReader:   &bytes.Buffer{},
-		Err:            make(chan error, 100),
-		EvtScanBufSize: 100,
+		Err:            make(chan error, evtScanBufferSize),
+		EvtScanBufSize: evtScanBufferSize,
 	}
 
 	return rdr
 }
 
 func (rdr *Reader) Close() {
+	rdr.Lock()
+	defer rdr.Unlock()
+
 	closer, ok := rdr.streamReader.(io.Closer)
 	if ok {
 		closer.Close()
@@ -55,15 +61,15 @@ func (rdr *Reader) Close() {
 }
 
 func (rdr *Reader) Next() (*Event, error) {
-	rdr.readMutex.Lock()
-	defer rdr.readMutex.Unlock()
+	rdr.Lock()
+	defer rdr.Unlock()
 
 	return rdr.readFromBucket(true)
 }
 
 func (rdr *Reader) NextHeader() (*proto.BucketHeader, error) {
-	rdr.readMutex.Lock()
-	defer rdr.readMutex.Unlock()
+	rdr.Lock()
+	defer rdr.Unlock()
 
 	if _, err := rdr.readBucket(1 << 62); err != nil {
 		return nil, err
@@ -72,8 +78,8 @@ func (rdr *Reader) NextHeader() (*proto.BucketHeader, error) {
 }
 
 func (rdr *Reader) Skip(nEvents int) (nSkipped int, err error) {
-	rdr.readMutex.Lock()
-	defer rdr.readMutex.Unlock()
+	rdr.Lock()
+	defer rdr.Unlock()
 
 	bucketEventsLeft := 0
 	if rdr.bucketHeader != nil {
@@ -109,6 +115,9 @@ func (rdr *Reader) Skip(nEvents int) (nSkipped int, err error) {
 //Reader.StopScan() is called, or Reader.Close() is called.  In this scenario,
 //errors are pushed to the Reader.Err channel.
 func (rdr *Reader) ScanEvents() <-chan *Event {
+	rdr.Lock()
+	defer rdr.Unlock()
+
 	events := make(chan *Event, rdr.EvtScanBufSize)
 	quit := make(chan int)
 
@@ -145,11 +154,16 @@ func (rdr *Reader) ScanEvents() <-chan *Event {
 
 // StopScan stops all scans initiated by Reader.ScanEvents()
 func (rdr *Reader) StopScan() {
+	rdr.Lock()
+	defer rdr.Unlock()
+
 	for _, thisFunc := range rdr.deferredUntilStopScan {
 		thisFunc()
 	}
 	rdr.deferredUntilStopScan = make([]func(), 0)
 }
+
+var evtScanBufferSize int = 100
 
 func (rdr *Reader) deferUntilStopScan(thisFunc func()) {
 	rdr.deferredUntilStopScan = append(rdr.deferredUntilStopScan, thisFunc)
@@ -339,4 +353,8 @@ func seekBytes(seeker io.Seeker, nBytes int64) error {
 		}
 	}
 	return nil
+}
+
+func (rdr *Reader) deferUntilClose(thisFunc func() error) {
+	rdr.deferredUntilClose = append(rdr.deferredUntilClose, thisFunc)
 }

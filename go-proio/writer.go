@@ -7,6 +7,7 @@ import (
 	"errors"
 	"io"
 	"os"
+	"sync"
 
 	"github.com/decibelcooper/proio/go-proio/proto"
 	"github.com/pierrec/lz4"
@@ -26,6 +27,10 @@ type Writer struct {
 	bucketWriter io.Writer
 	bucketEvents uint64
 	bucketComp   proto.BucketHeader_CompType
+
+	deferredUntilClose []func() error
+
+	sync.Mutex
 }
 
 func Create(filename string) (*Writer, error) {
@@ -34,7 +39,10 @@ func Create(filename string) (*Writer, error) {
 		return nil, err
 	}
 
-	return NewWriter(file), nil
+	writer := NewWriter(file)
+	writer.deferUntilClose(file.Close)
+
+	return writer, nil
 }
 
 func (wrt *Writer) Flush() error {
@@ -48,13 +56,10 @@ func (wrt *Writer) Flush() error {
 }
 
 func (wrt *Writer) Close() error {
-	err := wrt.Flush()
-	if err != nil {
-		return err
-	}
-	closer, ok := wrt.streamWriter.(io.Closer)
-	if ok {
-		closer.Close()
+	for _, thisFunc := range wrt.deferredUntilClose {
+		if err := thisFunc(); err != nil {
+			return err
+		}
 	}
 	return nil
 }
@@ -66,6 +71,7 @@ func NewWriter(streamWriter io.Writer) *Writer {
 	}
 
 	writer.SetCompression(LZ4)
+	writer.deferUntilClose(writer.Flush)
 
 	return writer
 }
@@ -91,6 +97,9 @@ func (wrt *Writer) SetCompression(comp Compression) error {
 }
 
 func (wrt *Writer) Push(event *Event) error {
+	wrt.Lock()
+	defer wrt.Unlock()
+
 	event.flushCache()
 	protoBuf, err := event.proto.Marshal()
 	if err != nil {
@@ -196,4 +205,8 @@ func writeBytes(wrt io.Writer, buf []byte) error {
 		}
 	}
 	return nil
+}
+
+func (wrt *Writer) deferUntilClose(thisFunc func() error) {
+	wrt.deferredUntilClose = append(wrt.deferredUntilClose, thisFunc)
 }
