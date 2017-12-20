@@ -1,4 +1,7 @@
-# Languages and status [![Travis CI Build Status](https://travis-ci.org/decibelcooper/proio.svg?branch=master)](https://travis-ci.org/decibelcooper/proio)
+# proio
+Github: https://github.com/decibelcooper/proio
+
+## Languages and status [![Travis CI Build Status](https://travis-ci.org/decibelcooper/proio.svg?branch=master)](https://travis-ci.org/decibelcooper/proio)
 * [Go](go-proio)
   * Mostly complete
   * Still needs to write file descriptor protos to bucket headers
@@ -18,7 +21,7 @@
   * Needs to be rewritten based on new scheme developed in Go and Python
   * Lower priority
   
-# What is proio?
+## What is proio?
 Proio is a library and set of tools that provide a simple but powerful and
 performant IO for physics events.  Proio uses Google's protocol buffer
 libraries and aims simply to add the concept of an event to a protocol buffer
@@ -32,7 +35,7 @@ written natively, and protobuf compilers generate code in each language from a
 single source.  The protobuf messages described in the generated code are used
 by the proio libraries to produce serialized event structures for IO.
 
-## Events
+### Events
 The proio event structures can contain any protobuf messages that the user
 wishes to write to the stream or file.  Each event contains a list of entries
 which are the user data structures (required to be protobuf message
@@ -40,14 +43,14 @@ implementations).  This list of entries is organized with the use of tags.
 
 ![proio event](proto/figures/proio_event.png)
 
-### Tags
+#### Tags
 A tag is a mapping from a human-readable string to a set of event entries.
 Each event carries a list of tags that point to unique entry IDs.  The concept
 of tags replaces the concept of collections in LCIO.  The difference between
 collections and tags is that a given tag can point to any type of data
 structure, and any number of tags may point to the same entry.
 
-### Types
+#### Types
 Events also carry a list of protobuf message types entered into the event by
 the user.  These are string identifiers used by the protobuf libraries and
 specified by the writers of the protobuf files.  Proio is distributed with
@@ -60,7 +63,7 @@ a file, the proio libraries use these type identifiers to look up message
 descriptors in memory, and create objects of the appropriate type in memory to
 then fill with the stored data.
 
-### Referencing
+#### Referencing
 Following the example of LCIO, the concept of persistently referencing entries
 from other entries to establish relationships is supported in proio.  For each
 entry added to the event by the user, a unique ID is returned which can be
@@ -69,7 +72,7 @@ desired entry from the event object.  For example, the ID of a corresponding MC
 particle entry can be stored in a tracker hit entry to facilitate evaluation of
 tracking software.
 
-## Buckets
+### Buckets
 Proio writes events into what are called buckets.  A bucket is a collection of
 sequential events that are compressed together, and has a header describing the
 contents of the bucket (e.g. compression type and number of events contained).
@@ -89,13 +92,13 @@ uncompressed.
 
 ![proio buckets](proto/figures/proio_buckets.png)
 
-# Getting started
+## Getting started
 The best way to get started with proio is to look at examples.  First, pick a
 language of your choice, and navigate to that subdirectory in this repository.
 Follow the installation instructions given in the corresponding README.md, and
 then follow some examples that are described there as well.
 
-## Command-line tools
+### Command-line tools
 Most proio tools are written in go.  To fetch and build them, first make sure
 you have the go compiler installed on your system, and make sure your GOPATH
 and PATH environment variables are set up appropriately to effectively use `go
@@ -105,7 +108,7 @@ tools:
 ```shell
 go get github.com/decibelcooper/proio/go-proio/...
 ```
-### tools
+#### tools
 * proio-ls
 * proio-summary
 * proio-strip
