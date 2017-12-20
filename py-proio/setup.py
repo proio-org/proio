@@ -7,7 +7,7 @@ models = ['proio.model.' + splitext(basename(model))[0] for model in glob('proio
 models.remove('proio.model.__init__')
 
 setup(name='proio',
-      version='0.3.0',
+      version='0.3.2',
       description='Library for reading and writing proio files and streams',
       url='http://github.com/decibelcooper/proio',
       author='David Blyth',

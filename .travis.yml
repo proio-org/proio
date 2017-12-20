@@ -1,3 +1,16 @@
+branches:
+    only:
+        - master
+
+env:
+    global:
+        - PY_DOCS_REPO_REF: github.com/decibelcooper/py-proio-docs.git
+
+stages:
+    - test
+    - name: doc
+      if: type = push
+
 matrix:
     include:
         - language: go
@@ -22,13 +35,17 @@ matrix:
           install: pip install --upgrade pytest ./py-proio
           script: pytest ./py-proio
 
-    fast_finish: true
+        - language: python
+          stage: doc
+          python: 3.6
+          install: pip install --upgrade sphinx protobuf lz4
+          script:
+              - cd py-proio/docs
+              - bash genAndDeploy.sh
+
     allow_failures:
         - go: master
         - python: nightly
 
-sudo: false
-
-branches:
-    only:
-        - master
+    fast_finish: true
+    sudo: false

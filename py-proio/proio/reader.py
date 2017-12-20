@@ -8,7 +8,25 @@ import proio.proto as proto
 from .writer import magic_bytes
 
 class Reader:
-    """Reader for proio files"""
+    """
+    Reader for proio files
+    
+    This class can be used with the `with` statement, and it also may be used
+    as an iterator that sequentially iterates all events.  A filename may be
+    omitted in favor of specifying `fileobj`.
+
+    :param string filename: name of input file to read
+    :param fileobj: file object to read from
+
+    :example:
+    
+    .. code-block:: python
+
+        with proio.Reader('input.proio') as reader:
+            for event in reader:
+                ...
+
+    """
 
     def __init__(self, filename = None, fileobj = None):
         if filename == None:
@@ -29,6 +47,9 @@ class Reader:
         self.close()
 
     def close(self):
+        """
+        closes the underlying input file object.
+        """
         try:
             if self._close_file:
                 self._stream_reader.close()
@@ -36,9 +57,20 @@ class Reader:
             pass
 
     def next(self):
+        """
+        :return: the next event
+        :rtype: Event
+        """
         return self._read_from_bucket(True)
 
     def skip(self, n_events):
+        """
+        skips the next `n_events` events.
+
+        :param int n_events: number of events to skip
+        :return: number of events skipped
+        :rtype: int
+        """
         try:
             bucket_evts_left = self._bucket_header.nEvents - self._bucket_evts_read
         except AttributeError:
@@ -62,6 +94,10 @@ class Reader:
         return n_skipped
 
     def seek_to_start(self):
+        """
+        seeks, if possible, to the start of the input file object.  This can be
+        used along with :func:`skip` to directly access events.
+        """
         if self._stream_reader.seekable():
             self._stream_reader.seek(0, 0)
             self._bucket_reader = io.BytesIO(b'')
@@ -117,7 +153,11 @@ class Reader:
         if self._bucket_header.compression == proto.BucketHeader.GZIP:
             self._bucket_reader = gzip.GzipFile(fileobj = io.BytesIO(bucket), mode = 'rb')
         elif self._bucket_header.compression == proto.BucketHeader.LZ4:
-            self._bucket_reader = io.BytesIO(lz4.frame.decompress(bucket))
+            try:
+                uncomp_bytes, _ = lz4.frame.decompress(bucket)
+            except ValueError:
+                uncomp_bytes = lz4.frame.decompress(bucket)
+            self._bucket_reader = io.BytesIO(uncomp_bytes)
         else:
             self._bucket_reader = io.BytesIO(bucket)
 
