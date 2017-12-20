@@ -9,3 +9,6 @@ proio package can be installed via
 ```shell
 pip install --user --upgrade proio
 ```
+
+For information on what versions of Python are supported, please see the
+[Travis CI page](https://travis-ci.org/decibelcooper/proio).
