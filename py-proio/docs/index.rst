@@ -13,10 +13,6 @@ proio
 .. automodule:: proio
     :members: Event, Reader, Writer
 
-.. automodule:: proio.proto
-.. automodule:: proio.model.lcio
-.. automodule:: proio.model.promc
-
 Indices and tables
 ==================
 

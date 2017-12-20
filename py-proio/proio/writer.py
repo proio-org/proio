@@ -24,7 +24,23 @@ magic_bytes = [b'\xe1',
         b'\x00']
 
 class Writer:
-    """Writer for proio files"""
+    """
+    Writer for proio files
+    
+    This class can be used with the `with` statement.  A filename may be
+    omitted in favor of specifying `fileobj`.
+
+    :param string filename: name of output file to create or overwrite
+    :param fileobj: file object to write to
+
+    :example:
+    
+    .. code-block:: python
+
+        with proio.Writer('output.proio') as writer:
+            ...
+
+    """
 
     def __init__(self, filename = None, fileobj = None):
         if filename == None:
@@ -49,6 +65,10 @@ class Writer:
         self.close()
 
     def close(self):
+        """
+        closes the file object assigned to the Writer.  This is automatically
+        called at the end of a `with` statement.
+        """
         self.flush()
         try:
             if self._close_file:
@@ -57,6 +77,10 @@ class Writer:
             pass
 
     def flush(self):
+        """
+        flushes all buffered data to the output file object.  This is
+        automatically called at the end of a `with` statement.
+        """
         if self._bucket_events == 0:
             return
 
@@ -90,9 +114,20 @@ class Writer:
         self._bucket_events = 0
 
     def set_compression(self, comp):
+        """
+        sets the compression type to use for future output buckets.
+
+        :param comp: can be one of :attr:`proio.LZ4`, :attr:`proio.GZIP`, or
+            :attr:`proio.UNCOMPRESSED`
+        """
         self._comp = comp
 
     def push(self, event):
+        """
+        takes an event and serializes it into the output bucket.
+
+        :param Event event: event to serialize to output
+        """
         event._flush_cache()
         proto_buf = event._proto.SerializeToString()
 
