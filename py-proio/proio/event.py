@@ -13,6 +13,11 @@ class Event:
         self._rev_type_lookup = {}
 
     def add_entry(self, tag, entry):
+        """
+        add_entry takes a tag and protobuf message entry and adds it to the
+        Event.  The return value is an integer ID number used to reference the
+        added entry.
+        """
         type_id = self._get_type_id(entry)
 
         self._proto.nEntries += 1
