@@ -117,7 +117,11 @@ class Reader:
         if self._bucket_header.compression == proto.BucketHeader.GZIP:
             self._bucket_reader = gzip.GzipFile(fileobj = io.BytesIO(bucket), mode = 'rb')
         elif self._bucket_header.compression == proto.BucketHeader.LZ4:
-            self._bucket_reader = io.BytesIO(lz4.frame.decompress(bucket))
+            try:
+                uncomp_bytes, _ = lz4.frame.decompress(bucket)
+            except ValueError:
+                uncomp_bytes = lz4.frame.decompress(bucket)
+            self._bucket_reader = io.BytesIO(uncomp_bytes)
         else:
             self._bucket_reader = io.BytesIO(bucket)
 
