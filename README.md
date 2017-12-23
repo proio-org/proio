@@ -6,12 +6,10 @@ Github: https://github.com/decibelcooper/proio
   * Mostly complete
   * Still needs to write file descriptor protos to bucket headers
   * Needs comprehensive recovery tests
-  * Need to add back in examples.
 * [Python](py-proio)
   * Mostly complete
   * Still needs to write file descriptor protos to bucket headers
   * Needs comprehensive recovery tests
-  * Need to add back in examples
 * [C++](cpp-proio)
   * Code has been cleared out with recent rewrite of Go and Python libraries
   * Needs to be rewritten based on new scheme developed in Go and Python
