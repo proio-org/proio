@@ -47,7 +47,7 @@ func main() {
 	}
 	defer reader.Close()
 
-	nBuckets := 0
+	nBuckets := make(map[proto.BucketHeader_CompType]int)
 	nEvents := 0
 
 	var header *proto.BucketHeader
@@ -56,7 +56,7 @@ func main() {
 			log.Print(err)
 		}
 
-		nBuckets++
+		nBuckets[header.Compression]++
 		nEvents += int(header.NEvents)
 	}
 
@@ -64,6 +64,8 @@ func main() {
 		log.Print(err)
 	}
 
-	fmt.Println("Number of buckets:", nBuckets)
+	fmt.Println("Number of LZ4 buckets:", nBuckets[proto.BucketHeader_LZ4])
+	fmt.Println("Number of GZIP buckets:", nBuckets[proto.BucketHeader_GZIP])
+	fmt.Println("Number of uncompressed buckets:", nBuckets[proto.BucketHeader_NONE])
 	fmt.Println("Number of events:", nEvents)
 }
