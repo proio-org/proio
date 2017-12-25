@@ -87,6 +87,7 @@ func eventPushGet1(comp Compression, t *testing.T) {
 	writer.Close()
 
 	reader := NewReader(buffer)
+    defer reader.Close()
 
 	for i := 0; i < 2; i++ {
 		event, err := reader.Next()
@@ -135,6 +136,7 @@ func eventPushGet2(comp Compression, t *testing.T) {
 	writer.Close()
 
 	reader := NewReader(buffer)
+    defer reader.Close()
 
 	for i := 0; i < 2; i++ {
 		event, err := reader.Next()
@@ -182,6 +184,7 @@ func eventPushSkipGet1(comp Compression, t *testing.T) {
 	writer.Close()
 
 	reader := NewReader(buffer)
+    defer reader.Close()
 	reader.Skip(1)
 
 	event, err := reader.Next()
@@ -229,6 +232,7 @@ func eventPushSkipGet2(comp Compression, t *testing.T) {
 	writer.Close()
 
 	reader := NewReader(buffer)
+    defer reader.Close()
 	reader.Skip(1)
 
 	event, err := reader.Next()
