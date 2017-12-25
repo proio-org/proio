@@ -197,8 +197,8 @@ func (rdr *Reader) ScanEvents() <-chan *Event {
 
 // StopScan stops all scans initiated by Reader.ScanEvents()
 func (rdr *Reader) StopScan() {
-	rdr.Lock()
-	defer rdr.Unlock()
+	//rdr.Lock()
+	//defer rdr.Unlock()
 
 	for _, thisFunc := range rdr.deferredUntilStopScan {
 		thisFunc()
