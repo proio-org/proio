@@ -77,20 +77,21 @@ class Event:
 
         return entry
 
-    def tag_entry(self, ID, tag):
+    def tag_entry(self, ID, *tags):
         """
-        adds a tag to an entry identified by ID.
+        adds tags to an entry identified by ID.
 
         :param int ID: identifier for entry
-        :param string tag: tag
+        :param string \*tags: tags
         """
-        try:
-            tag_proto = self._proto.tags[tag]
-        except KeyError:
-            tag_proto = proto.Tag()
-            self._proto.tags[tag] = tag_proto
+        for tag in tags:
+            try:
+                tag_proto = self._proto.tags[tag]
+            except KeyError:
+                tag_proto = proto.Tag()
+                self._proto.tags[tag] = tag_proto
 
-        tag_proto.entries.append(ID)
+            tag_proto.entries.append(ID)
 
     def tags(self):
         """
