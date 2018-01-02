@@ -8,7 +8,6 @@ proio
 
 .. toctree::
     :maxdepth: 2
-    :caption: Contents:
 
 .. automodule:: proio
     :members: Event, Reader, Writer
