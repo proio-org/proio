@@ -32,7 +32,7 @@ type Event struct {
 func NewEvent() *Event {
 	return &Event{
 		proto: &proto.Event{
-			Entries: make(map[uint64]*proto.Entry),
+			Entries: make(map[uint64]*proto.Any),
 			Types:   make(map[uint64]string),
 			Tags:    make(map[string]*proto.Tag),
 		},
@@ -49,7 +49,7 @@ func NewEvent() *Event {
 // to add additional tags to the entry.
 func (evt *Event) AddEntry(tag string, entry protobuf.Message) uint64 {
 	typeID := evt.getTypeID(entry)
-	entryProto := &proto.Entry{
+	entryProto := &proto.Any{
 		Type: typeID,
 	}
 
@@ -254,7 +254,7 @@ type selfSerializingEntry interface {
 
 func newEventFromProto(eventProto *proto.Event) *Event {
 	if eventProto.Entries == nil {
-		eventProto.Entries = make(map[uint64]*proto.Entry)
+		eventProto.Entries = make(map[uint64]*proto.Any)
 	}
 	if eventProto.Types == nil {
 		eventProto.Types = make(map[uint64]string)

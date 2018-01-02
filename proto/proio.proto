@@ -8,7 +8,7 @@ option java_outer_classname = "Proto";
 // affect the proio libraries.  Any field may be added without affecting the
 // libraries.
 
-message Meta {
+message NamedBytes {
     string name = 1;
     bytes data = 2;
 }
@@ -24,21 +24,21 @@ message BucketHeader {
     }
     CompType compression = 3;    
 
-    enum PayloadType {
+    enum BucketType {
         EVENTS = 0;
         FOOTER = 1;
     }
-    PayloadType type = 4;
+    BucketType type = 4;
 
     repeated bytes fileDescriptors = 5;
-    repeated Meta metaData = 6;
+    repeated NamedBytes metaData = 6;
 }
 
 message Tag {
     repeated uint64 entries = 1;
 }
 
-message Entry {
+message Any {
     uint64 type = 1;
     bytes payload = 2;
 }
@@ -46,7 +46,7 @@ message Entry {
 message Event {
     map<string, Tag> tags = 1;
     uint64 nEntries = 2;
-    map<uint64, Entry> entries = 3;
+    map<uint64, Any> entries = 3;
     uint64 nTypes = 4;
     map<uint64, string> types = 5;
 

@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='proio/proto/proio.proto',
   package='proio.proto',
   syntax='proto3',
-  serialized_pb=_b('\n\x17proio/proto/proio.proto\x12\x0bproio.proto\"\"\n\x04Meta\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\x0c\"\xaf\x02\n\x0c\x42ucketHeader\x12\x0f\n\x07nEvents\x18\x01 \x01(\x04\x12\x12\n\nbucketSize\x18\x02 \x01(\x04\x12\x37\n\x0b\x63ompression\x18\x03 \x01(\x0e\x32\".proio.proto.BucketHeader.CompType\x12\x33\n\x04type\x18\x04 \x01(\x0e\x32%.proio.proto.BucketHeader.PayloadType\x12\x17\n\x0f\x66ileDescriptors\x18\x05 \x03(\x0c\x12#\n\x08metaData\x18\x06 \x03(\x0b\x32\x11.proio.proto.Meta\"\'\n\x08\x43ompType\x12\x08\n\x04NONE\x10\x00\x12\x08\n\x04GZIP\x10\x01\x12\x07\n\x03LZ4\x10\x02\"%\n\x0bPayloadType\x12\n\n\x06\x45VENTS\x10\x00\x12\n\n\x06\x46OOTER\x10\x01\"\x16\n\x03Tag\x12\x0f\n\x07\x65ntries\x18\x01 \x03(\x04\"&\n\x05\x45ntry\x12\x0c\n\x04type\x18\x01 \x01(\x04\x12\x0f\n\x07payload\x18\x02 \x01(\x0c\"\xf9\x02\n\x05\x45vent\x12*\n\x04tags\x18\x01 \x03(\x0b\x32\x1c.proio.proto.Event.TagsEntry\x12\x10\n\x08nEntries\x18\x02 \x01(\x04\x12\x30\n\x07\x65ntries\x18\x03 \x03(\x0b\x32\x1f.proio.proto.Event.EntriesEntry\x12\x0e\n\x06nTypes\x18\x04 \x01(\x04\x12,\n\x05types\x18\x05 \x03(\x0b\x32\x1d.proio.proto.Event.TypesEntry\x12\x11\n\ttimestamp\x18\x06 \x01(\x04\x1a=\n\tTagsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x1f\n\x05value\x18\x02 \x01(\x0b\x32\x10.proio.proto.Tag:\x02\x38\x01\x1a\x42\n\x0c\x45ntriesEntry\x12\x0b\n\x03key\x18\x01 \x01(\x04\x12!\n\x05value\x18\x02 \x01(\x0b\x32\x12.proio.proto.Entry:\x02\x38\x01\x1a,\n\nTypesEntry\x12\x0b\n\x03key\x18\x01 \x01(\x04\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x42=\n\x05proioB\x05ProtoZ-github.com/decibelcooper/proio/go-proio/protob\x06proto3')
+  serialized_pb=_b('\n\x17proio/proto/proio.proto\x12\x0bproio.proto\"(\n\nNamedBytes\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\x0c\"\xb3\x02\n\x0c\x42ucketHeader\x12\x0f\n\x07nEvents\x18\x01 \x01(\x04\x12\x12\n\nbucketSize\x18\x02 \x01(\x04\x12\x37\n\x0b\x63ompression\x18\x03 \x01(\x0e\x32\".proio.proto.BucketHeader.CompType\x12\x32\n\x04type\x18\x04 \x01(\x0e\x32$.proio.proto.BucketHeader.BucketType\x12\x17\n\x0f\x66ileDescriptors\x18\x05 \x03(\x0c\x12)\n\x08metaData\x18\x06 \x03(\x0b\x32\x17.proio.proto.NamedBytes\"\'\n\x08\x43ompType\x12\x08\n\x04NONE\x10\x00\x12\x08\n\x04GZIP\x10\x01\x12\x07\n\x03LZ4\x10\x02\"$\n\nBucketType\x12\n\n\x06\x45VENTS\x10\x00\x12\n\n\x06\x46OOTER\x10\x01\"\x16\n\x03Tag\x12\x0f\n\x07\x65ntries\x18\x01 \x03(\x04\"$\n\x03\x41ny\x12\x0c\n\x04type\x18\x01 \x01(\x04\x12\x0f\n\x07payload\x18\x02 \x01(\x0c\"\xf7\x02\n\x05\x45vent\x12*\n\x04tags\x18\x01 \x03(\x0b\x32\x1c.proio.proto.Event.TagsEntry\x12\x10\n\x08nEntries\x18\x02 \x01(\x04\x12\x30\n\x07\x65ntries\x18\x03 \x03(\x0b\x32\x1f.proio.proto.Event.EntriesEntry\x12\x0e\n\x06nTypes\x18\x04 \x01(\x04\x12,\n\x05types\x18\x05 \x03(\x0b\x32\x1d.proio.proto.Event.TypesEntry\x12\x11\n\ttimestamp\x18\x06 \x01(\x04\x1a=\n\tTagsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x1f\n\x05value\x18\x02 \x01(\x0b\x32\x10.proio.proto.Tag:\x02\x38\x01\x1a@\n\x0c\x45ntriesEntry\x12\x0b\n\x03key\x18\x01 \x01(\x04\x12\x1f\n\x05value\x18\x02 \x01(\x0b\x32\x10.proio.proto.Any:\x02\x38\x01\x1a,\n\nTypesEntry\x12\x0b\n\x03key\x18\x01 \x01(\x04\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x42=\n\x05proioB\x05ProtoZ-github.com/decibelcooper/proio/go-proio/protob\x06proto3')
 )
 
 
@@ -45,14 +45,14 @@ _BUCKETHEADER_COMPTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=302,
-  serialized_end=341,
+  serialized_start=313,
+  serialized_end=352,
 )
 _sym_db.RegisterEnumDescriptor(_BUCKETHEADER_COMPTYPE)
 
-_BUCKETHEADER_PAYLOADTYPE = _descriptor.EnumDescriptor(
-  name='PayloadType',
-  full_name='proio.proto.BucketHeader.PayloadType',
+_BUCKETHEADER_BUCKETTYPE = _descriptor.EnumDescriptor(
+  name='BucketType',
+  full_name='proio.proto.BucketHeader.BucketType',
   filename=None,
   file=DESCRIPTOR,
   values=[
@@ -67,28 +67,28 @@ _BUCKETHEADER_PAYLOADTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=343,
-  serialized_end=380,
+  serialized_start=354,
+  serialized_end=390,
 )
-_sym_db.RegisterEnumDescriptor(_BUCKETHEADER_PAYLOADTYPE)
+_sym_db.RegisterEnumDescriptor(_BUCKETHEADER_BUCKETTYPE)
 
 
-_META = _descriptor.Descriptor(
-  name='Meta',
-  full_name='proio.proto.Meta',
+_NAMEDBYTES = _descriptor.Descriptor(
+  name='NamedBytes',
+  full_name='proio.proto.NamedBytes',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='name', full_name='proio.proto.Meta.name', index=0,
+      name='name', full_name='proio.proto.NamedBytes.name', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='data', full_name='proio.proto.Meta.data', index=1,
+      name='data', full_name='proio.proto.NamedBytes.data', index=1,
       number=2, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=_b(""),
       message_type=None, enum_type=None, containing_type=None,
@@ -107,7 +107,7 @@ _META = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=40,
-  serialized_end=74,
+  serialized_end=80,
 )
 
 
@@ -166,7 +166,7 @@ _BUCKETHEADER = _descriptor.Descriptor(
   nested_types=[],
   enum_types=[
     _BUCKETHEADER_COMPTYPE,
-    _BUCKETHEADER_PAYLOADTYPE,
+    _BUCKETHEADER_BUCKETTYPE,
   ],
   options=None,
   is_extendable=False,
@@ -174,8 +174,8 @@ _BUCKETHEADER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=77,
-  serialized_end=380,
+  serialized_start=83,
+  serialized_end=390,
 )
 
 
@@ -205,27 +205,27 @@ _TAG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=382,
-  serialized_end=404,
+  serialized_start=392,
+  serialized_end=414,
 )
 
 
-_ENTRY = _descriptor.Descriptor(
-  name='Entry',
-  full_name='proio.proto.Entry',
+_ANY = _descriptor.Descriptor(
+  name='Any',
+  full_name='proio.proto.Any',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='type', full_name='proio.proto.Entry.type', index=0,
+      name='type', full_name='proio.proto.Any.type', index=0,
       number=1, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='payload', full_name='proio.proto.Entry.payload', index=1,
+      name='payload', full_name='proio.proto.Any.payload', index=1,
       number=2, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=_b(""),
       message_type=None, enum_type=None, containing_type=None,
@@ -243,8 +243,8 @@ _ENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=406,
-  serialized_end=444,
+  serialized_start=416,
+  serialized_end=452,
 )
 
 
@@ -281,8 +281,8 @@ _EVENT_TAGSENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=649,
-  serialized_end=710,
+  serialized_start=657,
+  serialized_end=718,
 )
 
 _EVENT_ENTRIESENTRY = _descriptor.Descriptor(
@@ -318,8 +318,8 @@ _EVENT_ENTRIESENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=712,
-  serialized_end=778,
+  serialized_start=720,
+  serialized_end=784,
 )
 
 _EVENT_TYPESENTRY = _descriptor.Descriptor(
@@ -355,8 +355,8 @@ _EVENT_TYPESENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=780,
-  serialized_end=824,
+  serialized_start=786,
+  serialized_end=830,
 )
 
 _EVENT = _descriptor.Descriptor(
@@ -420,36 +420,36 @@ _EVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=447,
-  serialized_end=824,
+  serialized_start=455,
+  serialized_end=830,
 )
 
 _BUCKETHEADER.fields_by_name['compression'].enum_type = _BUCKETHEADER_COMPTYPE
-_BUCKETHEADER.fields_by_name['type'].enum_type = _BUCKETHEADER_PAYLOADTYPE
-_BUCKETHEADER.fields_by_name['metaData'].message_type = _META
+_BUCKETHEADER.fields_by_name['type'].enum_type = _BUCKETHEADER_BUCKETTYPE
+_BUCKETHEADER.fields_by_name['metaData'].message_type = _NAMEDBYTES
 _BUCKETHEADER_COMPTYPE.containing_type = _BUCKETHEADER
-_BUCKETHEADER_PAYLOADTYPE.containing_type = _BUCKETHEADER
+_BUCKETHEADER_BUCKETTYPE.containing_type = _BUCKETHEADER
 _EVENT_TAGSENTRY.fields_by_name['value'].message_type = _TAG
 _EVENT_TAGSENTRY.containing_type = _EVENT
-_EVENT_ENTRIESENTRY.fields_by_name['value'].message_type = _ENTRY
+_EVENT_ENTRIESENTRY.fields_by_name['value'].message_type = _ANY
 _EVENT_ENTRIESENTRY.containing_type = _EVENT
 _EVENT_TYPESENTRY.containing_type = _EVENT
 _EVENT.fields_by_name['tags'].message_type = _EVENT_TAGSENTRY
 _EVENT.fields_by_name['entries'].message_type = _EVENT_ENTRIESENTRY
 _EVENT.fields_by_name['types'].message_type = _EVENT_TYPESENTRY
-DESCRIPTOR.message_types_by_name['Meta'] = _META
+DESCRIPTOR.message_types_by_name['NamedBytes'] = _NAMEDBYTES
 DESCRIPTOR.message_types_by_name['BucketHeader'] = _BUCKETHEADER
 DESCRIPTOR.message_types_by_name['Tag'] = _TAG
-DESCRIPTOR.message_types_by_name['Entry'] = _ENTRY
+DESCRIPTOR.message_types_by_name['Any'] = _ANY
 DESCRIPTOR.message_types_by_name['Event'] = _EVENT
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-Meta = _reflection.GeneratedProtocolMessageType('Meta', (_message.Message,), dict(
-  DESCRIPTOR = _META,
+NamedBytes = _reflection.GeneratedProtocolMessageType('NamedBytes', (_message.Message,), dict(
+  DESCRIPTOR = _NAMEDBYTES,
   __module__ = 'proio.proto.proio_pb2'
-  # @@protoc_insertion_point(class_scope:proio.proto.Meta)
+  # @@protoc_insertion_point(class_scope:proio.proto.NamedBytes)
   ))
-_sym_db.RegisterMessage(Meta)
+_sym_db.RegisterMessage(NamedBytes)
 
 BucketHeader = _reflection.GeneratedProtocolMessageType('BucketHeader', (_message.Message,), dict(
   DESCRIPTOR = _BUCKETHEADER,
@@ -465,12 +465,12 @@ Tag = _reflection.GeneratedProtocolMessageType('Tag', (_message.Message,), dict(
   ))
 _sym_db.RegisterMessage(Tag)
 
-Entry = _reflection.GeneratedProtocolMessageType('Entry', (_message.Message,), dict(
-  DESCRIPTOR = _ENTRY,
+Any = _reflection.GeneratedProtocolMessageType('Any', (_message.Message,), dict(
+  DESCRIPTOR = _ANY,
   __module__ = 'proio.proto.proio_pb2'
-  # @@protoc_insertion_point(class_scope:proio.proto.Entry)
+  # @@protoc_insertion_point(class_scope:proio.proto.Any)
   ))
-_sym_db.RegisterMessage(Entry)
+_sym_db.RegisterMessage(Any)
 
 Event = _reflection.GeneratedProtocolMessageType('Event', (_message.Message,), dict(
 
