@@ -38,7 +38,7 @@ matrix:
         - language: python
           stage: doc
           python: 3.6
-          install: pip install --upgrade sphinx protobuf lz4
+          install: pip install --upgrade sphinx ./py-proio
           script:
               - cd py-proio/docs
               - bash genAndDeploy.sh
