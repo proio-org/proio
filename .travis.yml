@@ -38,7 +38,7 @@ matrix:
         - language: python
           stage: doc
           python: 3.6
-          install: pip install --upgrade sphinx pkginfo ./py-proio
+          install: pip install --upgrade sphinx pkginfo
           script:
               - cd py-proio
               - python setup.py sdist
