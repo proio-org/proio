@@ -3,13 +3,11 @@ Github: https://github.com/decibelcooper/proio
 
 ## Languages and status [![Travis CI Build Status](https://travis-ci.org/decibelcooper/proio.svg?branch=master)](https://travis-ci.org/decibelcooper/proio)
 * [Go](go-proio)
-  * Mostly complete
-  * Still needs to write file descriptor protos to bucket headers
-  * Needs comprehensive recovery tests
+  * Mostly feature-complete
+  * See docs and issues for more information
 * [Python](py-proio)
-  * Mostly complete
-  * Still needs to write file descriptor protos to bucket headers
-  * Needs comprehensive recovery tests
+  * Mostly feature-complete
+  * See docs and issues for more information
 * [C++](cpp-proio)
   * Code has been cleared out with recent rewrite of Go and Python libraries
   * Needs to be rewritten based on new scheme developed in Go and Python
