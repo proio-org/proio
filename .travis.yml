@@ -42,6 +42,7 @@ matrix:
           script:
               - cd py-proio
               - python setup.py sdist
+              - pip install --upgrade .
               - cd docs
               - bash genAndDeploy.sh
 
