@@ -56,3 +56,24 @@ with proio.Reader(test_filename) as reader:
         for j in range(0, len(part.children)):
             print('  %i. PDG: %i' % (j, event.get_entry(part.children[j]).PDG))
 ```
+
+### Iterate
+```python
+import proio
+
+n_events = 50
+test_filename = 'test_file.proio'
+
+with proio.Writer(test_filename) as writer:
+    event = proio.Event()
+    for i in range(0, n_events):
+        writer.push(event)
+
+n_events = 0
+
+with proio.Reader(test_filename) as reader:
+    for event in reader:
+        n_events += 1
+
+print(n_events)
+```
