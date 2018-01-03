@@ -2,10 +2,6 @@ branches:
     only:
         - master
 
-env:
-    global:
-        - PY_DOCS_REPO_REF: github.com/decibelcooper/py-proio-docs.git
-
 stages:
     - test
     - name: doc
@@ -35,7 +31,28 @@ matrix:
           install: pip install --upgrade pytest ./py-proio
           script: pytest ./py-proio
 
+        - language: cpp
+          env:
+              - PROTOBUF_VERSION: v3.0.2
+          install:
+              - git clone https://github.com/google/protobuf.git
+              - cd protobuf
+              - git checkout tags/$PROTOBUF_VERSION
+              - bash autogen.sh
+              - ./configure --prefix=$HOME
+              - make -j2
+              - make install
+              - cd ../
+          script:
+              - mkdir cpp-proio/build
+              - cd cpp-proio/build
+              - cmake -DProtobuf_INCLUDE_DIR=$HOME/include -DProtobuf_LIBRARY=$HOME/lib ../
+              - make -j2
+              - make test
+
         - language: python
+          env:
+              - PY_DOCS_REPO_REF: github.com/decibelcooper/py-proio-docs.git
           stage: doc
           python: 3.6
           install: pip install --upgrade sphinx pkginfo
@@ -49,6 +66,5 @@ matrix:
     allow_failures:
         - go: master
         - python: nightly
-
     fast_finish: true
     sudo: false
