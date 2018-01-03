@@ -40,7 +40,9 @@ matrix:
           python: 3.6
           install: pip install --upgrade sphinx pkginfo ./py-proio
           script:
-              - cd py-proio/docs
+              - cd py-proio
+              - python setup.py sdist
+              - cd docs
               - bash genAndDeploy.sh
 
     allow_failures:
