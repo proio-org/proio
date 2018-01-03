@@ -5,11 +5,12 @@ git clone https://git@${PY_DOCS_REPO_REF} html
 rm -rf html/*
 
 make html
-touch html/.nojekyll
 
 if [ $? -ne 0 ]; then
     exit $?
 fi
+
+touch html/.nojekyll
 
 cd html
 
