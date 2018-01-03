@@ -47,7 +47,7 @@ with proio.Reader(test_filename) as reader:
     event = reader.next()
     
     mc_parts = event.tagged_entries('Primary')
-    print(len(mc_parts), 'Primary particle(s)...')
+    print('%i Primary particle(s)...' % len(mc_parts))
     for i in range(0, len(mc_parts)):
         part = event.get_entry(mc_parts[i])
         print('%i. PDG: %i' % (i, part.PDG))
