@@ -97,7 +97,7 @@ func (wrt *Writer) SetCompression(comp Compression) error {
 		wrt.bucketWriter = gzip.NewWriter(wrt.bucket)
 		wrt.bucketComp = proto.BucketHeader_GZIP
 	case LZ4:
-		wrt.bucketWriter = lz4.NewWriter(wrt.bucket)
+		wrt.bucketWriter = wrt.bucket
 		wrt.bucketComp = proto.BucketHeader_LZ4
 	case UNCOMPRESSED:
 		wrt.bucketWriter = wrt.bucket
@@ -174,6 +174,13 @@ func (wrt *Writer) writeBucket() error {
 	}
 
 	bucketBytes := wrt.bucket.Bytes()
+	if wrt.bucketComp == proto.BucketHeader_LZ4 {
+		buffer := &bytes.Buffer{}
+		lz4Writer := lz4.NewWriter(buffer)
+		lz4Writer.Write(bucketBytes)
+		lz4Writer.Close()
+		bucketBytes = buffer.Bytes()
+	}
 	header := &proto.BucketHeader{
 		NEvents:     wrt.bucketEvents,
 		BucketSize:  uint64(len(bucketBytes)),
