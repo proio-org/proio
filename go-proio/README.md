@@ -20,25 +20,25 @@ For information on what versions of Go are supported, please see the [Travis CI 
 
 ## Benchmarking
 ```shell
-go test -bench=. -count 2
+go test -v -run=^$ -bench=. -count=2
 ```
-results in the following (on my little chromebook):
+results in the following (on my Core i5 desktop):
 ```
 goos: linux
 goarch: amd64
 pkg: github.com/decibelcooper/proio/go-proio
-BenchmarkWriteUncomp-4              5000            234663 ns/op
-BenchmarkWriteUncomp-4              5000            212814 ns/op
-BenchmarkWriteLZ4-4                 5000            512412 ns/op
-BenchmarkWriteLZ4-4                 5000            482119 ns/op
-BenchmarkWriteGZIP-4                5000           2172472 ns/op
-BenchmarkWriteGZIP-4                5000           2121632 ns/op
-BenchmarkReadUncomp-4               5000            441690 ns/op
-BenchmarkReadUncomp-4               5000            444382 ns/op
-BenchmarkReadLZ4-4                  5000            728634 ns/op
-BenchmarkReadLZ4-4                  5000            714224 ns/op
-BenchmarkReadGZIP-4                 5000            736085 ns/op
-BenchmarkReadGZIP-4                 5000            740221 ns/op
+BenchmarkWriteUncomp-4             10000            131552 ns/op
+BenchmarkWriteUncomp-4             10000            125353 ns/op
+BenchmarkWriteLZ4-4                 5000            201523 ns/op
+BenchmarkWriteLZ4-4                10000            194178 ns/op
+BenchmarkWriteGZIP-4                5000           1357492 ns/op
+BenchmarkWriteGZIP-4                5000           1369524 ns/op
+BenchmarkReadUncomp-4               5000            275899 ns/op
+BenchmarkReadUncomp-4               5000            276390 ns/op
+BenchmarkReadLZ4-4                  5000            288780 ns/op
+BenchmarkReadLZ4-4                  5000            295727 ns/op
+BenchmarkReadGZIP-4                 5000            469517 ns/op
+BenchmarkReadGZIP-4                 5000            465547 ns/op
 PASS
-ok      github.com/decibelcooper/proio/go-proio 79.248s
+ok      github.com/decibelcooper/proio/go-proio 50.934s
 ```
