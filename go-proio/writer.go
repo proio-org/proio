@@ -25,7 +25,6 @@ const (
 type Writer struct {
 	streamWriter io.Writer
 	bucket       *bytes.Buffer
-	bucketWriter io.Writer
 	bucketEvents uint64
 	bucketComp   proto.BucketHeader_CompType
 
@@ -86,21 +85,14 @@ func NewWriter(streamWriter io.Writer) *Writer {
 }
 
 // Set compression type, for example to GZIP or UNCOMPRESSED.  This can be
-// called even after writing some events.  If there are events in the Writer's
-// bucket, the bucket is first flushed, and the following buckets will be
-// compressed with the new type.
+// called even after writing some events.
 func (wrt *Writer) SetCompression(comp Compression) error {
-	wrt.Flush()
-
 	switch comp {
 	case GZIP:
-		wrt.bucketWriter = gzip.NewWriter(wrt.bucket)
 		wrt.bucketComp = proto.BucketHeader_GZIP
 	case LZ4:
-		wrt.bucketWriter = wrt.bucket
 		wrt.bucketComp = proto.BucketHeader_LZ4
 	case UNCOMPRESSED:
-		wrt.bucketWriter = wrt.bucket
 		wrt.bucketComp = proto.BucketHeader_NONE
 	default:
 		return errors.New("invalid compression type")
@@ -124,10 +116,10 @@ func (wrt *Writer) Push(event *Event) error {
 	protoSizeBuf := make([]byte, 4)
 	binary.LittleEndian.PutUint32(protoSizeBuf, uint32(len(protoBuf)))
 
-	if err := writeBytes(wrt.bucketWriter, protoSizeBuf); err != nil {
+	if err := writeBytes(wrt.bucket, protoSizeBuf); err != nil {
 		return err
 	}
-	if err := writeBytes(wrt.bucketWriter, protoBuf); err != nil {
+	if err := writeBytes(wrt.bucket, protoBuf); err != nil {
 		return err
 	}
 
@@ -163,18 +155,16 @@ var magicBytes = [...]byte{
 	byte(0x00),
 }
 
-type writerResettable interface {
-	Reset(io.Writer)
-}
-
 func (wrt *Writer) writeBucket() error {
-	closer, ok := wrt.bucketWriter.(io.Closer)
-	if ok {
-		closer.Close()
-	}
-
 	bucketBytes := wrt.bucket.Bytes()
-	if wrt.bucketComp == proto.BucketHeader_LZ4 {
+	switch wrt.bucketComp {
+	case proto.BucketHeader_GZIP:
+		buffer := &bytes.Buffer{}
+		gzipWriter := gzip.NewWriter(buffer)
+		gzipWriter.Write(bucketBytes)
+		gzipWriter.Close()
+		bucketBytes = buffer.Bytes()
+	case proto.BucketHeader_LZ4:
 		buffer := &bytes.Buffer{}
 		lz4Writer := lz4.NewWriter(buffer)
 		lz4Writer.Write(bucketBytes)
@@ -209,10 +199,6 @@ func (wrt *Writer) writeBucket() error {
 
 	wrt.bucketEvents = 0
 	wrt.bucket.Reset()
-	wrtReset, ok := wrt.bucketWriter.(writerResettable)
-	if ok {
-		wrtReset.Reset(wrt.bucket)
-	}
 
 	return nil
 }

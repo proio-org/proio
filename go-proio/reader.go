@@ -65,7 +65,7 @@ func (rdr *Reader) Close() {
 	rdr.Lock()
 	defer rdr.Unlock()
 
-    rdr.StopScan()
+	rdr.StopScan()
 	closer, ok := rdr.streamReader.(io.Closer)
 	if ok {
 		closer.Close()
