@@ -54,7 +54,6 @@ matrix:
           env:
               - PY_DOCS_REPO_REF: github.com/decibelcooper/py-proio-docs.git
           stage: doc
-          python: 3.6
           install: pip install --upgrade sphinx pkginfo
           script:
               - cd py-proio
