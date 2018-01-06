@@ -1,10 +1,9 @@
-#ifndef WRITER_H
-#define WRITER_H
+#ifndef PROIO_WRITER_H
+#define PROIO_WRITER_H
 
 #include <string>
 
 #include <google/protobuf/io/zero_copy_stream_impl.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
 
 #include "event.h"
 #include "proio.pb.h"
@@ -19,7 +18,7 @@ const std::size_t minBucketWriteWindow = 0x100000;
 
 class BucketOutputStream : public google::protobuf::io::ZeroCopyOutputStream {
    public:
-    BucketOutputStream() { offset = 0; };
+    BucketOutputStream() { offset = 0; }
     virtual ~BucketOutputStream() { ; }
 
     bool Next(void **data, int *size) {
@@ -36,12 +35,12 @@ class BucketOutputStream : public google::protobuf::io::ZeroCopyOutputStream {
     google::protobuf::int64 ByteCount() const { return offset; }
     bool AllowsAliasing() { return false; }
 
-    google::protobuf::uint8 *Bytes() { return &bytes[0]; }
+    uint8_t *Bytes() { return &bytes[0]; }
     void Reset() { offset = 0; }
 
    private:
-    std::vector<google::protobuf::uint8> bytes;
-    google::protobuf::uint64 offset;
+    std::vector<uint8_t> bytes;
+    uint64_t offset;
 };
 
 class Writer {
@@ -60,22 +59,22 @@ class Writer {
     BucketOutputStream *bucket;
     google::protobuf::io::FileOutputStream *fileStream;
 
-    google::protobuf::uint64 bucketEvents;
+    uint64_t bucketEvents;
     Compression compression;
 };
 
-const google::protobuf::uint8 magicBytes[] = {0xe1, 0xc1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                              0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+const uint64_t bucketDumpSize = 0x1000000;
 
-const google::protobuf::uint64 bucketDumpSize = 0x1000000;
+const uint8_t magicBytes[] = {0xe1, 0xc1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                              0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
-class SerializationError : public std::exception {
+const class SerializationError : public std::exception {
     virtual const char *what() const throw() { return "Failed to serialize message"; }
 } serializationError;
 
-class FileCreationError : public std::exception {
+const class FileCreationError : public std::exception {
     virtual const char *what() const throw() { return "Failed to creating file for writing"; }
 } fileCreationError;
 }  // namespace proio
 
-#endif  // WRITER_H
+#endif  // PROIO_WRITER_H

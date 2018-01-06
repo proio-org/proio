@@ -1,6 +1,7 @@
 #include <stdarg.h>
 
 #include "event.h"
+#include "reader.h"
 
 using namespace proio;
 using namespace google::protobuf;
@@ -15,7 +16,7 @@ Event::Event(proto::Event *eventProto) {
 Event::~Event() { delete eventProto; }
 
 uint64_t Event::AddEntry(std::string tag, Message *entry) {
-    uint64 typeID = getTypeID(entry);
+    uint64_t typeID = getTypeID(entry);
     proto::Any entryProto;
     entryProto.set_type(typeID);
 
@@ -30,9 +31,29 @@ uint64_t Event::AddEntry(std::string tag, Message *entry) {
     return id;
 }
 
-void Event::TagEntry(uint64_t id, std::string tag) {
-    if (eventProto->tags().count(tag) == 0) (*eventProto->mutable_tags())[tag] = proto::Tag();
-    (*eventProto->mutable_tags())[tag].add_entries(id);
+Message *Event::GetEntry(uint64_t id) {
+    if (entryCache.count(id)) return entryCache[id];
+
+    if (!eventProto->entries().count(id)) return NULL;
+    const proto::Any entryProto = eventProto->entries().at(id);
+
+    const std::string typeName = eventProto->types().at(entryProto.type());
+    const Descriptor *desc = DescriptorPool::generated_pool()->FindMessageTypeByName(typeName);
+    if (!desc) throw unknownMessageTypeError;
+    Message *entry = MessageFactory::generated_factory()->GetPrototype(desc)->New();
+    if (!entry->ParseFromString(entryProto.payload())) {
+        delete entry;
+        throw deserializationError;
+    }
+    entryCache[id] = entry;
+
+    return entry;
+}
+
+void Event::TagEntry(uint64_t id, std::string tag) { (*eventProto->mutable_tags())[tag].add_entries(id); }
+
+RepeatedField<uint64_t> Event::TaggedEntries(std::string tag) {
+    if (eventProto->tags().count(tag)) return eventProto->tags().at(tag).entries();
 }
 
 void Event::flushCollCache() {
@@ -45,7 +66,7 @@ void Event::flushCollCache() {
 #else
         size_t byteSize = entry->ByteSize();
 #endif
-        uint8 *buffer = new uint8[byteSize];
+        uint8_t *buffer = new uint8_t[byteSize];
         entry->SerializeToArray(buffer, byteSize);
         delete entry;
 
@@ -56,7 +77,7 @@ void Event::flushCollCache() {
 
 proto::Event *Event::getProto() { return eventProto; }
 
-uint64 Event::getTypeID(Message *entry) {
+uint64_t Event::getTypeID(Message *entry) {
     std::string typeName = entry->GetTypeName();
     if (revTypeLookup.count(typeName)) {
         return revTypeLookup[typeName];
@@ -70,7 +91,7 @@ uint64 Event::getTypeID(Message *entry) {
     }
 
     eventProto->set_ntypes(eventProto->ntypes() + 1);
-    uint64 typeID = eventProto->ntypes();
+    uint64_t typeID = eventProto->ntypes();
     (*eventProto->mutable_types())[typeID] = typeName;
     revTypeLookup[typeName] = typeID;
     return typeID;

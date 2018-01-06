@@ -3,6 +3,10 @@ project(proio)
 
 set(CMAKE_CXX_STANDARD 11)
 
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING "..." FORCE)
+endif()
+
 # Find Protobuf
 find_package(Protobuf REQUIRED)
 include_directories(${Protobuf_INCLUDE_DIRS})

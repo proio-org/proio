@@ -30,51 +30,42 @@ Writer::~Writer() {
 
 void Writer::Flush() {
     if (bucketEvents == 0) return;
-    auto stream = new io::CodedOutputStream(fileStream);
+    io::CodedOutputStream stream(fileStream);
 
-    uint8 *bytes = bucket->Bytes();
-    uint64 nBytes = bucket->ByteCount();
+    uint8_t *bytes = bucket->Bytes();
+    uint64_t nBytes = bucket->ByteCount();
 
     auto header = new proto::BucketHeader();
     header->set_nevents(bucketEvents);
     header->set_bucketsize(nBytes);
     header->set_compression(UNCOMPRESSED);
 
-    stream->WriteRaw(magicBytes, 16);
+    stream.WriteRaw(magicBytes, 16);
 #if GOOGLE_PROTOBUF_VERSION >= 3004000
-    stream->WriteLittleEndian32((uint32)header->ByteSizeLong());
+    stream.WriteLittleEndian32((uint32_t)header->ByteSizeLong());
 #else
-    stream->WriteLittleEndian32((uint32)header->ByteSize());
+    stream.WriteLittleEndian32((uint32_t)header->ByteSize());
 #endif
-    if (!header->SerializeToCodedStream(stream)) {
-        delete stream;
-        throw serializationError;
-    }
-    stream->WriteRaw(bytes, nBytes);
+    if (!header->SerializeToCodedStream(&stream)) throw serializationError;
+    stream.WriteRaw(bytes, nBytes);
 
     bucket->Reset();
     bucketEvents = 0;
-
-    delete stream;
 }
 
 void Writer::Push(Event *event) {
-    auto stream = new io::CodedOutputStream(bucket);
+    io::CodedOutputStream stream(bucket);
 
     event->flushCollCache();
     proto::Event *proto = event->getProto();
 #if GOOGLE_PROTOBUF_VERSION >= 3004000
-    stream->WriteLittleEndian32((uint32)proto->ByteSizeLong());
+    stream.WriteLittleEndian32((uint32_t)proto->ByteSizeLong());
 #else
-    stream->WriteLittleEndian32((uint32)proto->ByteSize());
+    stream.WriteLittleEndian32((uint32_t)proto->ByteSize());
 #endif
-    if (!proto->SerializeToCodedStream(stream)) {
-        delete stream;
-        throw serializationError;
-    }
+    if (!proto->SerializeToCodedStream(&stream)) throw serializationError;
 
     bucketEvents++;
-    delete stream;
 
     if (bucket->ByteCount() > bucketDumpSize) {
         Flush();
