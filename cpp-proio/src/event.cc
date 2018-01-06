@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <stdarg.h>
 #include <sstream>
 
