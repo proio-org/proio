@@ -1,5 +1,5 @@
-#ifndef READER_H
-#define READER_H
+#ifndef PROIO_READER_H
+#define PROIO_READER_H
 
 #include <string>
 
@@ -85,4 +85,4 @@ const class CorruptBucketError : public std::exception {
 } corruptBucketError;
 }  // namespace proio
 
-#endif  // READER_H
+#endif  // PROIO_READER_H

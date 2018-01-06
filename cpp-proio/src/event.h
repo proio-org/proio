@@ -1,5 +1,5 @@
-#ifndef EVENT_H
-#define EVENT_H
+#ifndef PROIO_EVENT_H
+#define PROIO_EVENT_H
 
 #include "proio.pb.h"
 
@@ -30,4 +30,4 @@ const class UnknownMessageTypeError : public std::exception {
 } unknownMessageTypeError;
 }  // namespace proio
 
-#endif  // EVENT_H
+#endif  // PROIO_EVENT_H
