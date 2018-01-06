@@ -21,7 +21,8 @@ class BucketInputStream : public google::protobuf::io::ZeroCopyInputStream {
         *data = &bytes[offset];
         *size = this->size - offset;
         offset = this->size;
-        return false;
+        if (*size == 0) return false;
+        return true;
     }
     void BackUp(int count) {
         offset -= count;

@@ -1,4 +1,5 @@
 #include <stdarg.h>
+#include <sstream>
 
 #include "event.h"
 #include "reader.h"
@@ -52,8 +53,36 @@ Message *Event::GetEntry(uint64_t id) {
 
 void Event::TagEntry(uint64_t id, std::string tag) { (*eventProto->mutable_tags())[tag].add_entries(id); }
 
+std::vector<std::string> Event::Tags() {
+    std::vector<std::string> tags;
+    for (auto stringTagPair : eventProto->tags()) {
+        tags.push_back(stringTagPair.first);
+    }
+    std::sort(tags.begin(), tags.end());
+    return tags;
+}
+
 RepeatedField<uint64_t> Event::TaggedEntries(std::string tag) {
     if (eventProto->tags().count(tag)) return eventProto->tags().at(tag).entries();
+}
+
+std::string Event::String() {
+    std::string printString;
+    for (auto tag : Tags()){
+        printString += "Tag: " + tag + "\n";
+        auto entries = TaggedEntries(tag);
+        for (uint64_t entryID : entries) {
+            std::stringstream ss;
+            ss << "ID:" << entryID << " ";
+            Message *entry = GetEntry(entryID);
+            if (entry)
+                ss << entry->DebugString() << "\n";
+            else
+                ss << "not found\n";
+            printString += ss.str();
+        }
+    }
+    return printString;
 }
 
 void Event::flushCollCache() {

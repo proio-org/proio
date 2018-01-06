@@ -1,3 +1,6 @@
+#undef NDEBUG
+
+#include <assert.h>
 #include <stdio.h>
 #include <iostream>
 
@@ -6,31 +9,37 @@
 #include "reader.h"
 #include "writer.h"
 
+using namespace proio::model;
+
 void pushGetInspect1(proio::Compression comp) {
-    char filename[] = "pushgetinspectXXXXXX";
+    char filename[] = "pushgetinspect1XXXXXX";
     auto writer = new proio::Writer(mkstemp(filename));
     writer->SetCompression(comp);
 
+    std::vector<proio::Event *> eventsOut;
+
     auto event = new proio::Event();
-    auto part = new proio::model::lcio::MCParticle();
-    part->set_pdg(11);
-    event->AddEntry("MCParticles", part);
-    part = new proio::model::lcio::MCParticle();
-    part->set_pdg(-11);
-    event->AddEntry("MCParticles", part);
+    event->AddEntry("MCParticles", new lcio::MCParticle());
+    event->AddEntry("MCParticles", new lcio::MCParticle());
+    event->AddEntry("TrackerHits", new lcio::SimTrackerHit());
+    event->AddEntry("TrackerHits", new lcio::SimTrackerHit());
     writer->Push(event);
+    eventsOut.push_back(event);
+
+    event = new proio::Event();
+    event->AddEntry("TrackerHits", new lcio::SimTrackerHit());
+    event->AddEntry("TrackerHits", new lcio::SimTrackerHit());
     writer->Push(event);
-    delete event;
+    eventsOut.push_back(event);
 
     delete writer;
 
     auto reader = new proio::Reader(filename);
 
-    while ((event = reader->Next())) {
-        auto ids = event->TaggedEntries("MCParticles");
-        for (auto id : ids) {
-            std::cout << event->GetEntry(id)->DebugString() << std::flush;
-        }
+    for (int i = 0; i < eventsOut.size(); i++) {
+        event = reader->Next();
+        assert(event->String().compare(eventsOut[i]->String()) == 0);
+        delete eventsOut[i];
         delete event;
     }
 

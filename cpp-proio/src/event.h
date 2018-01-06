@@ -1,6 +1,8 @@
 #ifndef PROIO_EVENT_H
 #define PROIO_EVENT_H
 
+#include <string>
+
 #include "proio.pb.h"
 
 namespace proio {
@@ -12,7 +14,10 @@ class Event {
     uint64_t AddEntry(std::string tag, google::protobuf::Message *entry);
     google::protobuf::Message *GetEntry(uint64_t id);
     void TagEntry(uint64_t id, std::string tag);
+    std::vector<std::string> Tags();
     google::protobuf::RepeatedField<uint64_t> TaggedEntries(std::string tag);
+
+    std::string String();
 
     void flushCollCache();
     proto::Event *getProto();
