@@ -1,6 +1,7 @@
 #include <fcntl.h>
 
 #include <google/protobuf/io/gzip_stream.h>
+#include <lz4.h>
 
 #include "reader.h"
 #include "writer.h"
@@ -100,7 +101,12 @@ uint64_t Reader::readBucket(uint64_t maxSkipEvents) {
             uint8_t *srcPtr = compBucket->Bytes() + nBytes;
             nBytes = compBucket->BytesRemaining() - nBytes;
             if (LZ4F_decompress(dctxPtr, bucket->Bytes(), &dstSize, srcPtr, &nBytes, NULL) != 0) {
+#if LZ4_VERSION_NUMBER >= 10800
                 LZ4F_resetDecompressionContext(dctxPtr);
+#else
+                LZ4F_freeDecompressionContext(dctxPtr);
+                LZ4F_createDecompressionContext(&dctxPtr, LZ4F_VERSION);
+#endif
                 throw badLZ4FrameError;
             }
             break;
