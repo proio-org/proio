@@ -8,16 +8,23 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 # Find Protobuf
-find_package(Protobuf REQUIRED)
+find_package(Protobuf 3 REQUIRED)
 include_directories(${Protobuf_INCLUDE_DIRS})
+get_filename_component(Protobuf_LIBRARY_DIR ${Protobuf_LIBRARY} DIRECTORY)
+link_directories(${Protobuf_LIBRARY_DIR})
 
 # Find lz4
 find_path(LZ4_INCLUDE_DIR NAMES lz4frame.h)
-find_library(LZ4_LIBRARY NAMES lz4)
+if(NOT LZ4_INCLUDE_DIR)
+    message(FATAL_ERROR "lz4frame.h not found!")
+endif()
 include_directories(${LZ4_INCLUDE_DIR})
+find_library(LZ4_LIBRARY NAMES lz4)
 if(NOT LZ4_LIBRARY)
     message(FATAL_ERROR "lz4 was not found!")
 endif()
+get_filename_component(LZ4_LIBRARY_DIR ${LZ4_LIBRARY} DIRECTORY)
+link_directories(${LZ4_LIBRARY_DIR})
 
 # Generate Protobuf code
 set(proioprotos
