@@ -1,5 +1,8 @@
 #include <fcntl.h>
 
+#include <google/protobuf/io/gzip_stream.h>
+#include <lz4frame.h>
+
 #include "writer.h"
 
 using namespace proio;
@@ -26,19 +29,42 @@ Writer::~Writer() {
 
     delete bucket;
     delete fileStream;
+    delete compBucket;
 }
 
 void Writer::Flush() {
     if (bucketEvents == 0) return;
     io::CodedOutputStream stream(fileStream);
 
-    uint8_t *bytes = bucket->Bytes();
-    uint64_t nBytes = bucket->ByteCount();
+    compBucket->Reset();
+    switch (compression) {
+        case LZ4: {
+            LZ4F_frameInfo_t info;
+            info.contentSize = bucket->ByteCount();
+            LZ4F_preferences_t prefs;
+            prefs.frameInfo = info;
+            size_t compBound = LZ4F_compressFrameBound(bucket->ByteCount(), &prefs);
+            compBucket->Reset(compBound);
+            compBucket->SetOffset(LZ4F_compressFrame(compBucket->Bytes(), compBound, bucket->Bytes(),
+                                                     bucket->ByteCount(), &prefs));
+            break;
+        }
+        case GZIP: {
+            io::GzipOutputStream *gzipStream = new io::GzipOutputStream(compBucket);
+            bucket->WriteTo(gzipStream);
+            delete gzipStream;
+            break;
+        }
+        default:
+            BucketOutputStream *tmpBucket = bucket;
+            bucket = compBucket;
+            compBucket = tmpBucket;
+    }
 
     auto header = new proto::BucketHeader();
     header->set_nevents(bucketEvents);
-    header->set_bucketsize(nBytes);
-    header->set_compression(UNCOMPRESSED);
+    header->set_bucketsize(compBucket->ByteCount());
+    header->set_compression(compression);
 
     stream.WriteRaw(magicBytes, 16);
 #if GOOGLE_PROTOBUF_VERSION >= 3004000
@@ -47,7 +73,7 @@ void Writer::Flush() {
     stream.WriteLittleEndian32((uint32_t)header->ByteSize());
 #endif
     if (!header->SerializeToCodedStream(&stream)) throw serializationError;
-    stream.WriteRaw(bytes, nBytes);
+    stream.WriteRaw(compBucket->Bytes(), compBucket->ByteCount());
 
     bucket->Reset();
     bucketEvents = 0;
@@ -78,5 +104,6 @@ void Writer::initBucket() {
     bucket = new BucketOutputStream();
     bucketEvents = 0;
 
-    compression = UNCOMPRESSED;
+    compression = LZ4;
+    compBucket = new BucketOutputStream();
 }

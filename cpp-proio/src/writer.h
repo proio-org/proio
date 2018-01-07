@@ -1,6 +1,7 @@
 #ifndef PROIO_WRITER_H
 #define PROIO_WRITER_H
 
+#include <cstring>
 #include <string>
 
 #include <google/protobuf/io/zero_copy_stream_impl.h>
@@ -37,6 +38,25 @@ class BucketOutputStream : public google::protobuf::io::ZeroCopyOutputStream {
 
     uint8_t *Bytes() { return &bytes[0]; }
     void Reset() { offset = 0; }
+    void Reset(uint64_t size) {
+        offset = 0;
+        if (bytes.size() < size) bytes.resize(size);
+    }
+    void WriteTo(google::protobuf::io::ZeroCopyOutputStream *stream) {
+        uint8_t *data;
+        int size;
+        uint64_t bytesWritten = 0;
+        while (stream->Next((void **)&data, &size)) {
+            uint64_t bytesLeft = offset - bytesWritten;
+            uint64_t bytesToCopy = (bytesLeft < size) ? bytesLeft : size;
+            std::memcpy(data, Bytes() + bytesWritten, bytesToCopy);
+            bytesLeft -= bytesToCopy;
+            bytesWritten += bytesToCopy;
+            if (bytesToCopy < size) stream->BackUp(size - bytesToCopy);
+            if (bytesLeft == 0) break;
+        }
+    }
+    void SetOffset(uint64_t offset) { this->offset = offset; }
 
    private:
     std::vector<uint8_t> bytes;
@@ -61,6 +81,7 @@ class Writer {
 
     uint64_t bucketEvents;
     Compression compression;
+    BucketOutputStream *compBucket;
 };
 
 const uint64_t bucketDumpSize = 0x1000000;

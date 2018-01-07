@@ -1,9 +1,11 @@
 #ifndef PROIO_READER_H
 #define PROIO_READER_H
 
+#include <cstring>
 #include <string>
 
 #include <google/protobuf/io/zero_copy_stream_impl.h>
+#include <lz4frame.h>
 
 #include "event.h"
 
@@ -40,10 +42,23 @@ class BucketInputStream : public google::protobuf::io::ZeroCopyInputStream {
 
     uint8_t *Bytes() { return &bytes[0]; }
     uint64_t BytesRemaining() { return size - offset; }
-    uint8_t *Reset(uint64_t size) {
+    void Reset(uint64_t size) {
         offset = 0;
         if (bytes.size() < size) bytes.resize(size);
         this->size = size;
+    }
+    uint64_t Reset(google::protobuf::io::ZeroCopyInputStream &stream) {
+        Reset(0);
+        uint8_t *data;
+        int size;
+        while (stream.Next((const void **)&data, &size)) {
+            offset = this->size;
+            this->size += size;
+            if (this->size > bytes.size()) bytes.resize(size);
+            std::memcpy(&bytes[offset], data, size);
+        }
+        offset = 0;
+        return this->size;
     }
 
    private:
@@ -66,11 +81,14 @@ class Reader {
     uint64_t readBucket(uint64_t maxSkipEvents = 0);
     uint64_t syncToMagic(google::protobuf::io::CodedInputStream &);
 
-    BucketInputStream *bucket;
+    BucketInputStream *compBucket;
     google::protobuf::io::FileInputStream *fileStream;
 
     uint64_t bucketEventsRead;
     proto::BucketHeader *bucketHeader;
+
+    LZ4F_dctx *dctxPtr;
+    BucketInputStream *bucket;
 };
 
 const class FileOpenError : public std::exception {
@@ -84,6 +102,10 @@ const class DeserializationError : public std::exception {
 const class CorruptBucketError : public std::exception {
     virtual const char *what() const throw() { return "Bucket is corrupt"; }
 } corruptBucketError;
+
+const class BadLZ4FrameError : public std::exception {
+    virtual const char *what() const throw() { return "Bad LZ4 frame"; }
+} badLZ4FrameError;
 }  // namespace proio
 
 #endif  // PROIO_READER_H

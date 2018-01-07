@@ -10,7 +10,14 @@ endif()
 # Find Protobuf
 find_package(Protobuf REQUIRED)
 include_directories(${Protobuf_INCLUDE_DIRS})
-link_directories(${Protobuf_LIBRARY})
+
+# Find lz4
+find_path(LZ4_INCLUDE_DIR NAMES lz4frame.h)
+find_library(LZ4_LIBRARY NAMES lz4)
+include_directories(${LZ4_INCLUDE_DIR})
+if(NOT LZ4_LIBRARY)
+    message(FATAL_ERROR "lz4 was not found!")
+endif()
 
 # Generate Protobuf code
 set(proioprotos
@@ -40,7 +47,7 @@ add_library(proio SHARED
     ${modelsources} ${modelheaders}
     ${librarysources} ${libraryheaders}
     )
-target_link_libraries(proio PUBLIC protobuf)
+target_link_libraries(proio PUBLIC protobuf lz4)
 
 # Install library and headers
 install(TARGETS proio DESTINATION lib)

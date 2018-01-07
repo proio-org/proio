@@ -47,4 +47,8 @@ void pushGetInspect1(proio::Compression comp) {
     remove(filename);
 }
 
-int main() { pushGetInspect1(proio::UNCOMPRESSED); }
+int main() {
+    pushGetInspect1(proio::LZ4);
+    pushGetInspect1(proio::UNCOMPRESSED);
+    pushGetInspect1(proio::GZIP);
+}

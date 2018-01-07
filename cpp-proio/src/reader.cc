@@ -1,5 +1,7 @@
 #include <fcntl.h>
 
+#include <google/protobuf/io/gzip_stream.h>
+
 #include "reader.h"
 #include "writer.h"
 
@@ -24,16 +26,20 @@ Reader::Reader(std::string filename) {
 
 Reader::~Reader() {
     if (bucketHeader) delete bucketHeader;
-    delete bucket;
+    delete compBucket;
     delete fileStream;
+    LZ4F_freeDecompressionContext(dctxPtr);
+    delete bucket;
 }
 
 Event *Reader::Next() { return readFromBucket(); }
 
 void Reader::initBucket() {
-    bucket = new BucketInputStream(0);
+    compBucket = new BucketInputStream(0);
     bucketEventsRead = 0;
     bucketHeader = NULL;
+    LZ4F_createDecompressionContext(&dctxPtr, LZ4F_VERSION);
+    bucket = new BucketInputStream(0);
 }
 
 Event *Reader::readFromBucket(bool doMerge) {
@@ -61,6 +67,7 @@ uint64_t Reader::readBucket(uint64_t maxSkipEvents) {
     syncToMagic(stream);
 
     bucketEventsRead = 0;
+    compBucket->Reset(0);
     bucket->Reset(0);
 
     uint32_t headerSize;
@@ -75,11 +82,39 @@ uint64_t Reader::readBucket(uint64_t maxSkipEvents) {
 
     uint64_t bucketSize = bucketHeader->bucketsize();
     if (bucketHeader->nevents() > maxSkipEvents) {
-        bucket->Reset(bucketSize);
-        if (!stream.ReadRaw(bucket->Bytes(), bucketSize)) throw corruptBucketError;
+        compBucket->Reset(bucketSize);
+        if (!stream.ReadRaw(compBucket->Bytes(), bucketSize)) throw corruptBucketError;
     } else {
         if (!stream.Skip(bucketSize)) throw corruptBucketError;
         return bucketHeader->nevents();
+    }
+
+    switch (bucketHeader->compression()) {
+        case LZ4: {
+            LZ4F_frameInfo_t info;
+            size_t nBytes = compBucket->BytesRemaining();
+            LZ4F_getFrameInfo(dctxPtr, &info, compBucket->Bytes(), &nBytes);
+            if (info.contentSize == 0) throw badLZ4FrameError;
+            bucket->Reset(info.contentSize);
+            size_t dstSize = info.contentSize;
+            uint8_t *srcPtr = compBucket->Bytes() + nBytes;
+            nBytes = compBucket->BytesRemaining() - nBytes;
+            if (LZ4F_decompress(dctxPtr, bucket->Bytes(), &dstSize, srcPtr, &nBytes, NULL) != 0) {
+                LZ4F_resetDecompressionContext(dctxPtr);
+                throw badLZ4FrameError;
+            }
+            break;
+        }
+        case GZIP: {
+            io::GzipInputStream *gzipStream = new io::GzipInputStream(compBucket);
+            bucket->Reset(*gzipStream);
+            delete gzipStream;
+            break;
+        }
+        default:
+            BucketInputStream *tmpBucket = bucket;
+            bucket = compBucket;
+            compBucket = tmpBucket;
     }
 }
 
