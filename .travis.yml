@@ -34,7 +34,14 @@ matrix:
         - language: cpp
           env:
               - PROTOBUF_VERSION: v3.0.2
+              - LZ4_VERSION: v1.7.3
           install:
+              - git clone https://github.com/lz4/lz4.git
+              - cd lz4
+              - git checkout tags/$LZ4_VERSION
+              - make -j2
+              - make PREFIX=$HOME install
+              - cd ../
               - git clone https://github.com/google/protobuf.git
               - cd protobuf
               - git checkout tags/$PROTOBUF_VERSION
@@ -46,7 +53,7 @@ matrix:
           script:
               - mkdir cpp-proio/build
               - cd cpp-proio/build
-              - cmake -DProtobuf_INCLUDE_DIR=$HOME/include -DProtobuf_LIBRARY=$HOME/lib ../
+              - cmake -DCMAKE_PREFIX_PATH=$HOME ../
               - make -j2
               - make test
 
