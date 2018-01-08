@@ -38,14 +38,29 @@ class BucketOutputStream : public google::protobuf::io::ZeroCopyOutputStream {
     uint64_t offset;
 };
 
+/** Writer for proio files
+ */
 class Writer {
    public:
+    /** Constructor for providing a file descriptor
+     */
     Writer(int fd);
+    /** Constructor that creates a file descriptor from a file path,
+     * overwriting any existing file
+     */
     Writer(std::string filename);
     virtual ~Writer();
 
+    /** Flush flushes all buffered data to the output stream.  This is
+     * automatically called upon destruction of the Writer object.
+     */
     void Flush();
+    /** Push takes an Event and serializes it into the output bucket.
+     */
     void Push(Event *event);
+    /** SetCompression sets the compression type to use for future output
+     * buckets.
+     */
     void SetCompression(Compression comp);
 
    private:

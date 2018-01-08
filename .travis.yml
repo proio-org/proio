@@ -58,9 +58,9 @@ matrix:
               - CTEST_OUTPUT_ON_FAILURE=True make test
 
         - language: python
+          stage: doc
           env:
               - PY_DOCS_REPO_REF: github.com/decibelcooper/py-proio-docs.git
-          stage: doc
           install: pip install --upgrade sphinx pkginfo
           script:
               - cd py-proio
@@ -68,6 +68,17 @@ matrix:
               - pip install --upgrade .
               - cd docs
               - bash genAndDeploy.sh
+        - language: cpp
+          env:
+              - CPP_DOCS_REPO_REF: github.com/decibelcooper/cpp-proio-docs.git
+          addons:
+              apt:
+                  packages:
+                      doxygen
+          script:
+              - cd cpp-proio/docs
+              - bash genAndDeploy.sh
+
 
     allow_failures:
         - go: master

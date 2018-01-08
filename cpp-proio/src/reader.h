@@ -31,14 +31,28 @@ class BucketInputStream : public google::protobuf::io::ZeroCopyInputStream {
     uint64_t size;
 };
 
+/** Reader for proio files
+ */
 class Reader {
    public:
+    /** Constructor for providing a file descriptor
+     */
     Reader(int fd);
+    /** Constructor that creates a file descriptor from the path of an existing
+     * file.
+     */
     Reader(std::string filename);
     virtual ~Reader();
 
+    /** Next returns the next available Event.
+     */
     Event *Next();
+    /** Skip skips the next nEvents events.
+     */
     uint64_t Skip(uint64_t nEvents);
+    /** SeekToStart sends the reader to the beginning of the stream if it is
+     * seekable.
+     */
     void SeekToStart();
 
    private:
