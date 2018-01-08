@@ -148,3 +148,59 @@ uint64_t Reader::syncToMagic(io::CodedInputStream &stream) {
     }
     return nRead;
 }
+
+BucketInputStream::BucketInputStream(uint64_t size) {
+    offset = 0;
+    bytes.resize(size);
+    this->size = size;
+}
+
+BucketInputStream::~BucketInputStream() { ; }
+
+inline bool BucketInputStream::Next(const void **data, int *size) {
+    *data = &bytes[offset];
+    *size = this->size - offset;
+    offset = this->size;
+    if (*size == 0) return false;
+    return true;
+}
+
+void BucketInputStream::BackUp(int count) {
+    offset -= count;
+    if (offset < 0) offset = 0;
+}
+
+bool BucketInputStream::Skip(int count) {
+    offset += count;
+    if (offset > size) {
+        offset = size;
+        return false;
+    }
+    return true;
+}
+
+int64 BucketInputStream::ByteCount() const { return offset; }
+
+uint8_t *BucketInputStream::Bytes() { return &bytes[0]; }
+
+uint64_t BucketInputStream::BytesRemaining() { return size - offset; }
+
+void BucketInputStream::Reset(uint64_t size) {
+    offset = 0;
+    if (bytes.size() < size) bytes.resize(size);
+    this->size = size;
+}
+
+uint64_t BucketInputStream::Reset(io::ZeroCopyInputStream &stream) {
+    Reset(0);
+    uint8_t *data;
+    int size;
+    while (stream.Next((const void **)&data, &size)) {
+        offset = this->size;
+        this->size += size;
+        if (this->size > bytes.size()) bytes.resize(size);
+        std::memcpy(&bytes[offset], data, size);
+    }
+    offset = 0;
+    return this->size;
+}

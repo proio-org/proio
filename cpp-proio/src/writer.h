@@ -19,44 +19,19 @@ const std::size_t minBucketWriteWindow = 0x100000;
 
 class BucketOutputStream : public google::protobuf::io::ZeroCopyOutputStream {
    public:
-    BucketOutputStream() { offset = 0; }
-    virtual ~BucketOutputStream() { ; }
+    BucketOutputStream();
+    virtual ~BucketOutputStream();
 
-    bool Next(void **data, int *size) {
-        if (bytes.size() - offset < minBucketWriteWindow) bytes.resize(offset + minBucketWriteWindow);
-        *data = &bytes[offset];
-        *size = bytes.size() - offset;
-        offset = bytes.size();
-        return true;
-    }
-    void BackUp(int count) {
-        offset -= count;
-        if (offset < 0) offset = 0;
-    }
-    google::protobuf::int64 ByteCount() const { return offset; }
-    bool AllowsAliasing() { return false; }
+    bool Next(void **data, int *size);
+    void BackUp(int count);
+    google::protobuf::int64 ByteCount() const;
+    bool AllowsAliasing();
 
-    uint8_t *Bytes() { return &bytes[0]; }
-    void Reset() { offset = 0; }
-    void Reset(uint64_t size) {
-        offset = 0;
-        if (bytes.size() < size) bytes.resize(size);
-    }
-    void WriteTo(google::protobuf::io::ZeroCopyOutputStream *stream) {
-        uint8_t *data;
-        int size;
-        uint64_t bytesWritten = 0;
-        while (stream->Next((void **)&data, &size)) {
-            uint64_t bytesLeft = offset - bytesWritten;
-            uint64_t bytesToCopy = (bytesLeft < size) ? bytesLeft : size;
-            std::memcpy(data, Bytes() + bytesWritten, bytesToCopy);
-            bytesLeft -= bytesToCopy;
-            bytesWritten += bytesToCopy;
-            if (bytesToCopy < size) stream->BackUp(size - bytesToCopy);
-            if (bytesLeft == 0) break;
-        }
-    }
-    void SetOffset(uint64_t offset) { this->offset = offset; }
+    uint8_t *Bytes();
+    void Reset();
+    void Reset(uint64_t size);
+    void WriteTo(google::protobuf::io::ZeroCopyOutputStream *stream);
+    void SetOffset(uint64_t offset);
 
    private:
     std::vector<uint8_t> bytes;

@@ -107,3 +107,50 @@ void Writer::initBucket() {
     compression = LZ4;
     compBucket = new BucketOutputStream();
 }
+
+BucketOutputStream::BucketOutputStream() { offset = 0; }
+
+BucketOutputStream::~BucketOutputStream() { ; }
+
+inline bool BucketOutputStream::Next(void **data, int *size) {
+    if (bytes.size() - offset < minBucketWriteWindow) bytes.resize(offset + minBucketWriteWindow);
+    *data = &bytes[offset];
+    *size = bytes.size() - offset;
+    offset = bytes.size();
+    return true;
+}
+
+void BucketOutputStream::BackUp(int count) {
+    offset -= count;
+    if (offset < 0) offset = 0;
+}
+
+int64 BucketOutputStream::ByteCount() const { return offset; }
+
+bool BucketOutputStream::AllowsAliasing() { return false; }
+
+uint8_t *BucketOutputStream::Bytes() { return &bytes[0]; }
+
+void BucketOutputStream::Reset() { offset = 0; }
+
+void BucketOutputStream::Reset(uint64_t size) {
+    offset = 0;
+    if (bytes.size() < size) bytes.resize(size);
+}
+
+void BucketOutputStream::WriteTo(io::ZeroCopyOutputStream *stream) {
+    uint8_t *data;
+    int size;
+    uint64_t bytesWritten = 0;
+    while (stream->Next((void **)&data, &size)) {
+        uint64_t bytesLeft = offset - bytesWritten;
+        uint64_t bytesToCopy = (bytesLeft < size) ? bytesLeft : size;
+        std::memcpy(data, Bytes() + bytesWritten, bytesToCopy);
+        bytesLeft -= bytesToCopy;
+        bytesWritten += bytesToCopy;
+        if (bytesToCopy < size) stream->BackUp(size - bytesToCopy);
+        if (bytesLeft == 0) break;
+    }
+}
+
+void BucketOutputStream::SetOffset(uint64_t offset) { this->offset = offset; }
