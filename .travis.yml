@@ -55,7 +55,7 @@ matrix:
               - cd cpp-proio/build
               - cmake -DCMAKE_PREFIX_PATH=$HOME ../
               - make -j2
-              - make test
+              - CTEST_OUTPUT_ON_FAILURE=True make test
 
         - language: python
           env:
