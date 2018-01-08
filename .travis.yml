@@ -33,7 +33,7 @@ matrix:
 
         - language: cpp
           env:
-              - PROTOBUF_VERSION: v3.0.2
+              - PROTOBUF_VERSION: v3.1.0
               - LZ4_VERSION: v1.8.0
           install:
               - git clone https://github.com/lz4/lz4.git

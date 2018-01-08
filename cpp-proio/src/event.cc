@@ -1,5 +1,5 @@
-#include <algorithm>
 #include <stdarg.h>
+#include <algorithm>
 #include <sstream>
 
 #include "event.h"
@@ -15,7 +15,13 @@ Event::Event(proto::Event *eventProto) {
         this->eventProto = eventProto;
 }
 
-Event::~Event() { delete eventProto; }
+Event::~Event() {
+    delete eventProto;
+    for (auto idEntryPair : entryCache) {
+        int64 id = idEntryPair.first;
+        delete idEntryPair.second;
+    }
+}
 
 uint64_t Event::AddEntry(std::string tag, Message *entry) {
     uint64_t typeID = getTypeID(entry);
@@ -63,13 +69,13 @@ std::vector<std::string> Event::Tags() {
     return tags;
 }
 
-RepeatedField<uint64_t> Event::TaggedEntries(std::string tag) {
+const RepeatedField<uint64_t> &Event::TaggedEntries(std::string tag) {
     if (eventProto->tags().count(tag)) return eventProto->tags().at(tag).entries();
 }
 
 std::string Event::String() {
     std::string printString;
-    for (auto tag : Tags()){
+    for (auto tag : Tags()) {
         printString += "Tag: " + tag + "\n";
         auto entries = TaggedEntries(tag);
         for (uint64_t entryID : entries) {

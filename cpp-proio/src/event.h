@@ -15,7 +15,7 @@ class Event {
     google::protobuf::Message *GetEntry(uint64_t id);
     void TagEntry(uint64_t id, std::string tag);
     std::vector<std::string> Tags();
-    google::protobuf::RepeatedField<uint64_t> TaggedEntries(std::string tag);
+    const google::protobuf::RepeatedField<uint64_t> &TaggedEntries(std::string tag);
 
     std::string String();
 

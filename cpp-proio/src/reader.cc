@@ -1,4 +1,5 @@
 #include <fcntl.h>
+#include <sys/types.h>
 
 #include <google/protobuf/io/gzip_stream.h>
 #include <lz4.h>
@@ -10,17 +11,18 @@ using namespace proio;
 using namespace google::protobuf;
 
 Reader::Reader(int fd) {
+    this->fd = fd;
     fileStream = new io::FileInputStream(fd);
-    fileStream->SetCloseOnDelete(false);
+    closeFDOnDelete = false;
 
     initBucket();
 }
 
 Reader::Reader(std::string filename) {
-    int fd = open(filename.c_str(), O_RDONLY);
+    fd = open(filename.c_str(), O_RDONLY);
     if (fd == -1) throw fileOpenError;
     fileStream = new io::FileInputStream(fd);
-    fileStream->SetCloseOnDelete(true);
+    closeFDOnDelete = true;
 
     initBucket();
 }
@@ -28,12 +30,41 @@ Reader::Reader(std::string filename) {
 Reader::~Reader() {
     if (bucketHeader) delete bucketHeader;
     delete compBucket;
-    delete fileStream;
     LZ4F_freeDecompressionContext(dctxPtr);
     delete bucket;
+    delete fileStream;
+    if (closeFDOnDelete) close(fd);
 }
 
 Event *Reader::Next() { return readFromBucket(); }
+
+uint64_t Reader::Skip(uint64_t nEvents) {
+    uint64_t bucketEventsLeft = 0;
+    if (bucketHeader) {
+        bucketEventsLeft = bucketHeader->nevents() - bucketEventsRead;
+    }
+    uint64_t nSkipped = 0;
+    if (nEvents > bucketEventsLeft) {
+        nSkipped += bucketEventsLeft;
+        uint64_t n;
+        while ((n = readBucket(nEvents - nSkipped)) > 0) nSkipped += n;
+    }
+
+    while (nSkipped < nEvents) {
+        readFromBucket(false);
+        nSkipped++;
+    }
+
+    return nSkipped;
+}
+
+void Reader::SeekToStart() {
+    delete fileStream;
+    if (lseek(fd, 0, SEEK_SET) == -1) throw seekError;
+    fileStream = new io::FileInputStream(fd);
+
+    readBucket();
+}
 
 void Reader::initBucket() {
     compBucket = new BucketInputStream(0);
@@ -122,6 +153,8 @@ uint64_t Reader::readBucket(uint64_t maxSkipEvents) {
             bucket = compBucket;
             compBucket = tmpBucket;
     }
+
+    return 0;
 }
 
 uint64_t Reader::syncToMagic(io::CodedInputStream &stream) {
@@ -165,12 +198,12 @@ inline bool BucketInputStream::Next(const void **data, int *size) {
     return true;
 }
 
-void BucketInputStream::BackUp(int count) {
+inline void BucketInputStream::BackUp(int count) {
     offset -= count;
     if (offset < 0) offset = 0;
 }
 
-bool BucketInputStream::Skip(int count) {
+inline bool BucketInputStream::Skip(int count) {
     offset += count;
     if (offset > size) {
         offset = size;
@@ -179,7 +212,7 @@ bool BucketInputStream::Skip(int count) {
     return true;
 }
 
-int64 BucketInputStream::ByteCount() const { return offset; }
+inline int64 BucketInputStream::ByteCount() const { return offset; }
 
 uint8_t *BucketInputStream::Bytes() { return &bytes[0]; }
 

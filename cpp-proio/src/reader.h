@@ -38,6 +38,8 @@ class Reader {
     virtual ~Reader();
 
     Event *Next();
+    uint64_t Skip(uint64_t nEvents);
+    void SeekToStart();
 
    private:
     void initBucket();
@@ -47,6 +49,8 @@ class Reader {
 
     BucketInputStream *compBucket;
     google::protobuf::io::FileInputStream *fileStream;
+    int fd;
+    bool closeFDOnDelete;
 
     uint64_t bucketEventsRead;
     proto::BucketHeader *bucketHeader;
@@ -70,6 +74,10 @@ const class CorruptBucketError : public std::exception {
 const class BadLZ4FrameError : public std::exception {
     virtual const char *what() const throw() { return "Bad LZ4 frame"; }
 } badLZ4FrameError;
+
+const class SeekError : public std::exception {
+    virtual const char *what() const throw() { return "Failed to seek file"; }
+} seekError;
 }  // namespace proio
 
 #endif  // PROIO_READER_H

@@ -71,3 +71,7 @@ enable_testing()
 add_executable(pushgetinspect src/tests/pushgetinspect/main.cc)
 target_link_libraries(pushgetinspect PUBLIC proio protobuf)
 add_test(PushGetInspect pushgetinspect)
+
+add_executable(refderef src/tests/refderef/main.cc)
+target_link_libraries(refderef PUBLIC proio protobuf)
+add_test(RefDeref refderef)

@@ -120,14 +120,14 @@ inline bool BucketOutputStream::Next(void **data, int *size) {
     return true;
 }
 
-void BucketOutputStream::BackUp(int count) {
+inline void BucketOutputStream::BackUp(int count) {
     offset -= count;
     if (offset < 0) offset = 0;
 }
 
-int64 BucketOutputStream::ByteCount() const { return offset; }
+inline int64 BucketOutputStream::ByteCount() const { return offset; }
 
-bool BucketOutputStream::AllowsAliasing() { return false; }
+inline bool BucketOutputStream::AllowsAliasing() { return false; }
 
 uint8_t *BucketOutputStream::Bytes() { return &bytes[0]; }
 
