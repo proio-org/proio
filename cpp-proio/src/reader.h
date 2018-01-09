@@ -24,6 +24,7 @@ class BucketInputStream : public google::protobuf::io::ZeroCopyInputStream {
     uint64_t BytesRemaining();
     void Reset(uint64_t size);
     uint64_t Reset(google::protobuf::io::ZeroCopyInputStream &stream);
+    uint64_t Reset(LZ4F_dctx *dctxPtr, BucketInputStream *compBucket);
 
    private:
     uint64_t offset;

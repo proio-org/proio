@@ -59,10 +59,13 @@ target_link_libraries(proio PUBLIC protobuf lz4)
 # Install library and headers
 install(TARGETS proio DESTINATION lib)
 foreach(header ${protoheaders})
-    install(FILES ${header} DESTINATION include/proio/proto/)
+    install(FILES ${header} DESTINATION include/proio/)
 endforeach()
 foreach(header ${modelheaders})
     install(FILES ${header} DESTINATION include/proio/model/)
+endforeach()
+foreach(header ${libraryheaders})
+    install(FILES ${header} DESTINATION include/proio/)
 endforeach()
 
 # Code tests

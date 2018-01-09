@@ -123,23 +123,7 @@ uint64_t Reader::readBucket(uint64_t maxSkipEvents) {
 
     switch (bucketHeader->compression()) {
         case LZ4: {
-            LZ4F_frameInfo_t info;
-            size_t nBytes = compBucket->BytesRemaining();
-            LZ4F_getFrameInfo(dctxPtr, &info, compBucket->Bytes(), &nBytes);
-            if (info.contentSize == 0) throw badLZ4FrameError;
-            bucket->Reset(info.contentSize);
-            size_t dstSize = info.contentSize;
-            uint8_t *srcPtr = compBucket->Bytes() + nBytes;
-            nBytes = compBucket->BytesRemaining() - nBytes;
-            if (LZ4F_decompress(dctxPtr, bucket->Bytes(), &dstSize, srcPtr, &nBytes, NULL) != 0) {
-#if LZ4_VERSION_NUMBER >= 10800
-                LZ4F_resetDecompressionContext(dctxPtr);
-#else
-                LZ4F_freeDecompressionContext(dctxPtr);
-                LZ4F_createDecompressionContext(&dctxPtr, LZ4F_VERSION);
-#endif
-                throw badLZ4FrameError;
-            }
+            bucket->Reset(dctxPtr, compBucket);
             break;
         }
         case GZIP: {
@@ -231,9 +215,44 @@ uint64_t BucketInputStream::Reset(io::ZeroCopyInputStream &stream) {
     while (stream.Next((const void **)&data, &size)) {
         offset = this->size;
         this->size += size;
-        if (this->size > bytes.size()) bytes.resize(size);
+        if (this->size > bytes.size()) bytes.resize(this->size);
         std::memcpy(&bytes[offset], data, size);
     }
     offset = 0;
     return this->size;
+}
+
+uint64_t BucketInputStream::Reset(LZ4F_dctx *dctxPtr, BucketInputStream *compBucket) {
+    offset = 0;
+    size = bytes.size();
+    if (size == 0) Reset(minBucketWriteWindow);
+    int srcSize;
+    uint8_t *srcBuffer;
+    compBucket->Next((const void **)&srcBuffer, &srcSize);
+    int srcBytesRemaining = srcSize;
+    int dstSize;
+    uint8_t *dstBuffer;
+    size_t hint;
+    while (srcBytesRemaining > 0) {
+        Next((const void **)&dstBuffer, &dstSize);
+        size_t srcSizeTmp = srcSize;
+        size_t dstSizeTmp = dstSize;
+        hint = LZ4F_decompress(dctxPtr, dstBuffer, &dstSizeTmp, srcBuffer, &srcSizeTmp, NULL);
+        if (LZ4F_isError(hint)) throw badLZ4FrameError;
+        srcBytesRemaining -= srcSizeTmp;
+        BackUp(dstSize - dstSizeTmp);
+        if (offset == size) {
+            size += minBucketWriteWindow;
+            bytes.resize(size);
+        }
+        compBucket->BackUp(srcBytesRemaining);
+        compBucket->Next((const void **)&srcBuffer, &srcSize);
+    }
+    size = offset;
+    offset = 0;
+    if (hint != 0) {
+        LZ4F_resetDecompressionContext(dctxPtr);
+        throw badLZ4FrameError;
+    }
+    return size;
 }
