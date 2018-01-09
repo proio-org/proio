@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(proio)
+project(proio VERSION 0.1.0)
 
 set(CMAKE_CXX_STANDARD 11)
 
@@ -57,16 +57,54 @@ add_library(proio SHARED
 target_link_libraries(proio PUBLIC protobuf lz4)
 
 # Install library and headers
-install(TARGETS proio DESTINATION lib)
+set(proio_INCLUDE_DIR include)
+install(TARGETS proio
+    EXPORT proioTargets
+    DESTINATION lib
+    )
 foreach(header ${protoheaders})
-    install(FILES ${header} DESTINATION include/proio/)
+    install(FILES ${header}
+        DESTINATION ${proio_INCLUDE_DIR}/proio/
+        )
 endforeach()
 foreach(header ${modelheaders})
-    install(FILES ${header} DESTINATION include/proio/model/)
+    install(FILES ${header}
+        DESTINATION ${proio_INCLUDE_DIR}/proio/model/
+        )
 endforeach()
 foreach(header ${libraryheaders})
-    install(FILES ${header} DESTINATION include/proio/)
+    install(FILES ${header}
+        DESTINATION ${proio_INCLUDE_DIR}/proio/
+        )
 endforeach()
+
+# Install and export targets
+install(EXPORT proioTargets
+    FILE proioTargets.cmake
+    DESTINATION lib/proio
+    )
+
+include(CMakePackageConfigHelpers)
+
+set(TARGETS_INSTALL_PATH lib/proio/proioTargets.cmake)
+set(proio_LIBRARY lib/libproio.so)
+CONFIGURE_PACKAGE_CONFIG_FILE(
+    cmake/proioConfig.cmake.in
+    ${CMAKE_CURRENT_BINARY_DIR}/proioConfig.cmake
+    INSTALL_DESTINATION lib/proio
+    PATH_VARS TARGETS_INSTALL_PATH proio_INCLUDE_DIR proio_LIBRARY
+    )
+
+write_basic_package_version_file("proioConfigVersion.cmake"
+    VERSION ${proio_VERSION}
+    COMPATIBILITY SameMajorVersion
+    )
+
+install(FILES
+    ${CMAKE_CURRENT_BINARY_DIR}/proioConfig.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/proioConfigVersion.cmake
+    DESTINATION lib/proio
+    )
 
 # Code tests
 enable_testing()
