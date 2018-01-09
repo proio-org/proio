@@ -9,13 +9,11 @@ Github: https://github.com/decibelcooper/proio
   * Mostly feature-complete
   * See docs and issues for more information
 * [C++](cpp-proio)
-  * Code has been cleared out with recent rewrite of Go and Python libraries
-  * Needs to be rewritten based on new scheme developed in Go and Python
-  * High priority
+  * Mostly feature-complete
+  * See docs and issues for more information
 * [Java](java-proio)
-  * Code has been cleared with recent rewrite of Go and Python libraries
-  * Needs to be rewritten based on new scheme developed in Go and Python
-  * Lower priority
+  * Code has been cleared with recent rewrite
+  * Needs to be rewritten based on new scheme
   
 ## What is proio?
 Proio is a library and set of tools that provide a simple but powerful and
