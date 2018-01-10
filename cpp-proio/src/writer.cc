@@ -35,7 +35,6 @@ Writer::~Writer() {
 
 void Writer::Flush() {
     if (bucketEvents == 0) return;
-    io::CodedOutputStream stream(fileStream);
 
     compBucket->Reset();
     switch (compression) {
@@ -68,30 +67,34 @@ void Writer::Flush() {
     header->set_bucketsize(compBucket->ByteCount());
     header->set_compression(compression);
 
-    stream.WriteRaw(magicBytes, 16);
+    io::CodedOutputStream *stream = new io::CodedOutputStream(fileStream);
+    stream->WriteRaw(magicBytes, 16);
 #if GOOGLE_PROTOBUF_VERSION >= 3004000
-    stream.WriteLittleEndian32((uint32_t)header->ByteSizeLong());
+    stream->WriteLittleEndian32((uint32_t)header->ByteSizeLong());
 #else
-    stream.WriteLittleEndian32((uint32_t)header->ByteSize());
+    stream->WriteLittleEndian32((uint32_t)header->ByteSize());
 #endif
-    if (!header->SerializeToCodedStream(&stream)) throw serializationError;
-    stream.WriteRaw(compBucket->Bytes(), compBucket->ByteCount());
+    if (!header->SerializeToCodedStream(stream)) throw serializationError;
+    stream->WriteRaw(compBucket->Bytes(), compBucket->ByteCount());
+    delete stream;
 
     bucket->Reset();
     bucketEvents = 0;
+    delete header;
 }
 
 void Writer::Push(Event *event) {
-    io::CodedOutputStream stream(bucket);
-
     event->flushCollCache();
     proto::Event *proto = event->getProto();
+
+    io::CodedOutputStream *stream = new io::CodedOutputStream(bucket);
 #if GOOGLE_PROTOBUF_VERSION >= 3004000
-    stream.WriteLittleEndian32((uint32_t)proto->ByteSizeLong());
+    stream->WriteLittleEndian32((uint32_t)proto->ByteSizeLong());
 #else
-    stream.WriteLittleEndian32((uint32_t)proto->ByteSize());
+    stream->WriteLittleEndian32((uint32_t)proto->ByteSize());
 #endif
-    if (!proto->SerializeToCodedStream(&stream)) throw serializationError;
+    if (!proto->SerializeToCodedStream(stream)) throw serializationError;
+    delete stream;
 
     bucketEvents++;
 
