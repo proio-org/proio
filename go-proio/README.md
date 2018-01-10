@@ -27,18 +27,18 @@ results in the following (on my Core i5 desktop):
 goos: linux
 goarch: amd64
 pkg: github.com/decibelcooper/proio/go-proio
-BenchmarkWriteUncomp-4             10000            131552 ns/op
-BenchmarkWriteUncomp-4             10000            125353 ns/op
-BenchmarkWriteLZ4-4                 5000            201523 ns/op
-BenchmarkWriteLZ4-4                10000            194178 ns/op
-BenchmarkWriteGZIP-4                5000           1357492 ns/op
-BenchmarkWriteGZIP-4                5000           1369524 ns/op
-BenchmarkReadUncomp-4               5000            275899 ns/op
-BenchmarkReadUncomp-4               5000            276390 ns/op
-BenchmarkReadLZ4-4                  5000            288780 ns/op
-BenchmarkReadLZ4-4                  5000            295727 ns/op
-BenchmarkReadGZIP-4                 5000            469517 ns/op
-BenchmarkReadGZIP-4                 5000            465547 ns/op
+BenchmarkWriteUncomp-4             10000            134603 ns/op
+BenchmarkWriteUncomp-4             10000            130964 ns/op
+BenchmarkWriteLZ4-4                 5000            273886 ns/op
+BenchmarkWriteLZ4-4                 5000            272471 ns/op
+BenchmarkWriteGZIP-4                5000           1360375 ns/op
+BenchmarkWriteGZIP-4                5000           1365100 ns/op
+BenchmarkReadUncomp-4               5000            279615 ns/op
+BenchmarkReadUncomp-4               5000            279104 ns/op
+BenchmarkReadLZ4-4                  5000            285193 ns/op
+BenchmarkReadLZ4-4                  5000            285822 ns/op
+BenchmarkReadGZIP-4                 5000            471545 ns/op
+BenchmarkReadGZIP-4                 5000            474458 ns/op
 PASS
-ok      github.com/decibelcooper/proio/go-proio 50.934s
+ok      github.com/decibelcooper/proio/go-proio 50.009s
 ```
