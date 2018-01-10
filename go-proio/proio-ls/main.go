@@ -51,8 +51,10 @@ func main() {
 	defer reader.Close()
 
 	singleEvent := false
+	startingEvent := 0
 	if *event >= 0 {
 		singleEvent = true
+		startingEvent = *event
 		if _, err = reader.Skip(*event); err != nil {
 			log.Fatal(err)
 		}
@@ -61,6 +63,7 @@ func main() {
 	nEventsRead := 0
 
 	for event := range reader.ScanEvents() {
+		fmt.Println("========== EVENT", nEventsRead+startingEvent, "==========")
 		fmt.Print(event)
 
 		nEventsRead++

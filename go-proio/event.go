@@ -237,7 +237,11 @@ func (evt *Event) String() string {
 			printString += fmt.Sprintf("ID:%v ", entryID)
 			entry := evt.GetEntry(entryID)
 			if entry != nil {
+				typeName := protobuf.MessageName(entry)
+				printString += "Type:" + typeName + " "
 				printString += strings.TrimSpace(fmt.Sprintln(entry)) + "\n"
+			} else {
+				printString += evt.Err.Error() + "\n"
 			}
 		}
 	}
