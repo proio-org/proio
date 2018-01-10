@@ -28,17 +28,55 @@ func Example_print() {
 	fmt.Print(event)
 
 	// Output:
-    // Tag: MC
-    // ID:1 Type:proio.model.lcio.MCParticle children:2 children:3 PDG:443
-    // ID:2 Type:proio.model.lcio.MCParticle parents:1 PDG:11
-    // ID:3 Type:proio.model.lcio.MCParticle parents:1 PDG:-11
-    // Tag: Particles
-    // ID:1 Type:proio.model.lcio.MCParticle children:2 children:3 PDG:443
-    // ID:2 Type:proio.model.lcio.MCParticle parents:1 PDG:11
-    // ID:3 Type:proio.model.lcio.MCParticle parents:1 PDG:-11
-    // Tag: Primary
-    // ID:1 Type:proio.model.lcio.MCParticle children:2 children:3 PDG:443
-    // Tag: Simulated
-    // ID:2 Type:proio.model.lcio.MCParticle parents:1 PDG:11
-    // ID:3 Type:proio.model.lcio.MCParticle parents:1 PDG:-11
+	// ---------- TAG: MC ----------
+	// ID: 1
+	// Entry type: proio.model.lcio.MCParticle
+	// children: 2
+	// children: 3
+	// PDG: 443
+	//
+	// ID: 2
+	// Entry type: proio.model.lcio.MCParticle
+	// parents: 1
+	// PDG: 11
+	//
+	// ID: 3
+	// Entry type: proio.model.lcio.MCParticle
+	// parents: 1
+	// PDG: -11
+	//
+	// ---------- TAG: Particles ----------
+	// ID: 1
+	// Entry type: proio.model.lcio.MCParticle
+	// children: 2
+	// children: 3
+	// PDG: 443
+	//
+	// ID: 2
+	// Entry type: proio.model.lcio.MCParticle
+	// parents: 1
+	// PDG: 11
+	//
+	// ID: 3
+	// Entry type: proio.model.lcio.MCParticle
+	// parents: 1
+	// PDG: -11
+	//
+	// ---------- TAG: Primary ----------
+	// ID: 1
+	// Entry type: proio.model.lcio.MCParticle
+	// children: 2
+	// children: 3
+	// PDG: 443
+	//
+	// ---------- TAG: Simulated ----------
+	// ID: 2
+	// Entry type: proio.model.lcio.MCParticle
+	// parents: 1
+	// PDG: 11
+	//
+	// ID: 3
+	// Entry type: proio.model.lcio.MCParticle
+	// parents: 1
+	// PDG: -11
 }

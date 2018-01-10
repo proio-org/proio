@@ -9,7 +9,6 @@ import (
 	"reflect"
 	"sort"
 	"strconv"
-	"strings"
 
 	"github.com/decibelcooper/proio/go-proio/proto"
 	protobuf "github.com/golang/protobuf/proto"
@@ -231,15 +230,15 @@ func (evt *Event) String() string {
 	tags := evt.Tags()
 
 	for _, tag := range tags {
-		printString += "Tag: " + tag + "\n"
+		printString += "---------- TAG: " + tag + " ----------\n"
 		entries := evt.TaggedEntries(tag)
 		for _, entryID := range entries {
-			printString += fmt.Sprintf("ID:%v ", entryID)
+			printString += fmt.Sprintf("ID: %v\n", entryID)
 			entry := evt.GetEntry(entryID)
 			if entry != nil {
 				typeName := protobuf.MessageName(entry)
-				printString += "Type:" + typeName + " "
-				printString += strings.TrimSpace(fmt.Sprintln(entry)) + "\n"
+				printString += "Entry type: " + typeName + "\n"
+				printString += protobuf.MarshalTextString(entry) + "\n"
 			} else {
 				printString += evt.Err.Error() + "\n"
 			}

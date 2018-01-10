@@ -28,15 +28,21 @@ func Example_skip() {
 
 	reader.Skip(3)
 	event, _ := reader.Next()
-	fmt.Println(event)
+	fmt.Print(event)
 	reader.SeekToStart()
 	event, _ = reader.Next()
-	fmt.Println(event)
+	fmt.Print(event)
 
 	// Output:
-    // Tag: Particles
-    // ID:1 Type:proio.model.lcio.MCParticle PDG:443 charge:4
-
-    // Tag: Particles
-    // ID:1 Type:proio.model.lcio.MCParticle PDG:443 charge:1
+	// ---------- TAG: Particles ----------
+	// ID: 1
+	// Entry type: proio.model.lcio.MCParticle
+	// PDG: 443
+	// charge: 4
+	//
+	// ---------- TAG: Particles ----------
+	// ID: 1
+	// Entry type: proio.model.lcio.MCParticle
+	// PDG: 443
+	// charge: 1
 }

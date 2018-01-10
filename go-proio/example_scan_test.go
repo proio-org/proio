@@ -26,22 +26,37 @@ func Example_scan() {
 	reader := proio.NewReader(buffer)
 
 	for event := range reader.ScanEvents() {
-		fmt.Println(event)
+		fmt.Print(event)
 	}
 
 	// Output:
-    // Tag: Particles
-    // ID:1 Type:proio.model.lcio.MCParticle PDG:443 charge:1
-
-    // Tag: Particles
-    // ID:1 Type:proio.model.lcio.MCParticle PDG:443 charge:2
-
-    // Tag: Particles
-    // ID:1 Type:proio.model.lcio.MCParticle PDG:443 charge:3
-
-    // Tag: Particles
-    // ID:1 Type:proio.model.lcio.MCParticle PDG:443 charge:4
-
-    // Tag: Particles
-    // ID:1 Type:proio.model.lcio.MCParticle PDG:443 charge:5
+	// ---------- TAG: Particles ----------
+	// ID: 1
+	// Entry type: proio.model.lcio.MCParticle
+	// PDG: 443
+	// charge: 1
+	//
+	// ---------- TAG: Particles ----------
+	// ID: 1
+	// Entry type: proio.model.lcio.MCParticle
+	// PDG: 443
+	// charge: 2
+	//
+	// ---------- TAG: Particles ----------
+	// ID: 1
+	// Entry type: proio.model.lcio.MCParticle
+	// PDG: 443
+	// charge: 3
+	//
+	// ---------- TAG: Particles ----------
+	// ID: 1
+	// Entry type: proio.model.lcio.MCParticle
+	// PDG: 443
+	// charge: 4
+	//
+	// ---------- TAG: Particles ----------
+	// ID: 1
+	// Entry type: proio.model.lcio.MCParticle
+	// PDG: 443
+	// charge: 5
 }
