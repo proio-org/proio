@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='proio/model/eic.proto',
   package='proio.model.eic',
   syntax='proto3',
-  serialized_pb=_b('\n\x15proio/model/eic.proto\x12\x0fproio.model.eic\"5\n\x07XYZTInt\x12\t\n\x01x\x18\x01 \x01(\x12\x12\t\n\x01y\x18\x02 \x01(\x12\x12\t\n\x01z\x18\x03 \x01(\x12\x12\t\n\x01t\x18\x04 \x01(\x12\"8\n\nXYZTDouble\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\x12\t\n\x01t\x18\x04 \x01(\x01\"7\n\tXYZTFloat\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x12\t\n\x01t\x18\x04 \x01(\x02\")\n\x06XYZInt\x12\t\n\x01x\x18\x01 \x01(\x12\x12\t\n\x01y\x18\x02 \x01(\x12\x12\t\n\x01z\x18\x03 \x01(\x12\",\n\tXYZDouble\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\"+\n\x08XYZFloat\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\"\xd1\x01\n\x08Particle\x12\x0e\n\x06parent\x18\x01 \x03(\x04\x12\r\n\x05\x63hild\x18\x02 \x03(\x04\x12\x0b\n\x03pdg\x18\x03 \x01(\x11\x12+\n\x06vertex\x18\x04 \x01(\x0b\x32\x1b.proio.model.eic.XYZTDouble\x12%\n\x01p\x18\x05 \x01(\x0b\x32\x1a.proio.model.eic.XYZDouble\x12\x0c\n\x04mass\x18\x06 \x01(\x01\x12\x0e\n\x06\x63harge\x18\x07 \x01(\x02\x12\'\n\x04spin\x18\x08 \x01(\x0b\x32\x19.proio.model.eic.XYZFloatBE\n\x0bproio.modelB\x03\x45icZ1github.com/decibelcooper/proio/go-proio/model/eicb\x06proto3')
+  serialized_pb=_b('\n\x15proio/model/eic.proto\x12\x0fproio.model.eic\"5\n\x07XYZTInt\x12\t\n\x01x\x18\x01 \x01(\x12\x12\t\n\x01y\x18\x02 \x01(\x12\x12\t\n\x01z\x18\x03 \x01(\x12\x12\t\n\x01t\x18\x04 \x01(\x12\"8\n\nXYZTDouble\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\x12\t\n\x01t\x18\x04 \x01(\x01\"7\n\tXYZTFloat\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x12\t\n\x01t\x18\x04 \x01(\x02\")\n\x06XYZInt\x12\t\n\x01x\x18\x01 \x01(\x12\x12\t\n\x01y\x18\x02 \x01(\x12\x12\t\n\x01z\x18\x03 \x01(\x12\",\n\tXYZDouble\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\"+\n\x08XYZFloat\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\"\xd1\x01\n\x08Particle\x12\x0e\n\x06parent\x18\x01 \x03(\x04\x12\r\n\x05\x63hild\x18\x02 \x03(\x04\x12\x0b\n\x03pdg\x18\x03 \x01(\x11\x12+\n\x06vertex\x18\x04 \x01(\x0b\x32\x1b.proio.model.eic.XYZTDouble\x12%\n\x01p\x18\x05 \x01(\x0b\x32\x1a.proio.model.eic.XYZDouble\x12\x0c\n\x04mass\x18\x06 \x01(\x01\x12\x0e\n\x06\x63harge\x18\x07 \x01(\x02\x12\'\n\x04spin\x18\x08 \x01(\x0b\x32\x19.proio.model.eic.XYZFloat\"\xa6\x01\n\rSimTrackerHit\x12\x0e\n\x06\x63\x65llid\x18\x01 \x01(\x04\x12\x30\n\x0blocalprepos\x18\x02 \x01(\x0b\x32\x1b.proio.model.eic.XYZTDouble\x12\x31\n\x0clocalpostpos\x18\x03 \x01(\x0b\x32\x1b.proio.model.eic.XYZTDouble\x12\x0c\n\x04\x65\x64\x65p\x18\x04 \x01(\x02\x12\x12\n\nparticleid\x18\x05 \x01(\x04\x42\x45\n\x0bproio.modelB\x03\x45icZ1github.com/decibelcooper/proio/go-proio/model/eicb\x06proto3')
 )
 
 
@@ -395,9 +395,70 @@ _PARTICLE = _descriptor.Descriptor(
   serialized_end=556,
 )
 
+
+_SIMTRACKERHIT = _descriptor.Descriptor(
+  name='SimTrackerHit',
+  full_name='proio.model.eic.SimTrackerHit',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='cellid', full_name='proio.model.eic.SimTrackerHit.cellid', index=0,
+      number=1, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='localprepos', full_name='proio.model.eic.SimTrackerHit.localprepos', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='localpostpos', full_name='proio.model.eic.SimTrackerHit.localpostpos', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='edep', full_name='proio.model.eic.SimTrackerHit.edep', index=3,
+      number=4, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='particleid', full_name='proio.model.eic.SimTrackerHit.particleid', index=4,
+      number=5, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=559,
+  serialized_end=725,
+)
+
 _PARTICLE.fields_by_name['vertex'].message_type = _XYZTDOUBLE
 _PARTICLE.fields_by_name['p'].message_type = _XYZDOUBLE
 _PARTICLE.fields_by_name['spin'].message_type = _XYZFLOAT
+_SIMTRACKERHIT.fields_by_name['localprepos'].message_type = _XYZTDOUBLE
+_SIMTRACKERHIT.fields_by_name['localpostpos'].message_type = _XYZTDOUBLE
 DESCRIPTOR.message_types_by_name['XYZTInt'] = _XYZTINT
 DESCRIPTOR.message_types_by_name['XYZTDouble'] = _XYZTDOUBLE
 DESCRIPTOR.message_types_by_name['XYZTFloat'] = _XYZTFLOAT
@@ -405,6 +466,7 @@ DESCRIPTOR.message_types_by_name['XYZInt'] = _XYZINT
 DESCRIPTOR.message_types_by_name['XYZDouble'] = _XYZDOUBLE
 DESCRIPTOR.message_types_by_name['XYZFloat'] = _XYZFLOAT
 DESCRIPTOR.message_types_by_name['Particle'] = _PARTICLE
+DESCRIPTOR.message_types_by_name['SimTrackerHit'] = _SIMTRACKERHIT
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 XYZTInt = _reflection.GeneratedProtocolMessageType('XYZTInt', (_message.Message,), dict(
@@ -455,6 +517,13 @@ Particle = _reflection.GeneratedProtocolMessageType('Particle', (_message.Messag
   # @@protoc_insertion_point(class_scope:proio.model.eic.Particle)
   ))
 _sym_db.RegisterMessage(Particle)
+
+SimTrackerHit = _reflection.GeneratedProtocolMessageType('SimTrackerHit', (_message.Message,), dict(
+  DESCRIPTOR = _SIMTRACKERHIT,
+  __module__ = 'proio.model.eic_pb2'
+  # @@protoc_insertion_point(class_scope:proio.model.eic.SimTrackerHit)
+  ))
+_sym_db.RegisterMessage(SimTrackerHit)
 
 
 DESCRIPTOR.has_options = True

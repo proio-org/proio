@@ -47,13 +47,23 @@ message Particle {
     repeated uint64 parent = 1;
     repeated uint64 child = 2;
     sint32 pdg = 3;
-    // vertex stores position in mm and time in ns
+    // position in mm and time in ns
     XYZTDouble vertex = 4;
-    // p stores momentum in units of GeV
+    // momentum in GeV
     XYZDouble p = 5;
-    // mass is in units of GeV
+    // mass in GeV
     double mass = 6;
     float charge = 7;
     XYZFloat spin = 8;
 }
 
+message SimTrackerHit {
+    uint64 cellid = 1;
+    // position in mm and time in ns
+    XYZTDouble localprepos = 2;
+    // position in mm and time in ns
+    XYZTDouble localpostpos = 3;
+    // energy in GeV
+    float edep = 4;
+    uint64 particleid = 5;
+}
