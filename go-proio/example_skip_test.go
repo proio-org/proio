@@ -34,9 +34,9 @@ func Example_skip() {
 	fmt.Println(event)
 
 	// Output:
-	// Tag: Particles
-	// ID:1 PDG:443 charge:4
-	//
-	// Tag: Particles
-	// ID:1 PDG:443 charge:1
+    // Tag: Particles
+    // ID:1 Type:proio.model.lcio.MCParticle PDG:443 charge:4
+
+    // Tag: Particles
+    // ID:1 Type:proio.model.lcio.MCParticle PDG:443 charge:1
 }
