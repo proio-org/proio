@@ -2,6 +2,7 @@
 
 #include <google/protobuf/io/gzip_stream.h>
 #include <lz4frame.h>
+#include <lz4hc.h>
 
 #include "writer.h"
 
@@ -40,22 +41,22 @@ void Writer::Flush() {
     switch (compression) {
         case LZ4: {
             LZ4F_frameInfo_t info;
+            std::memset(&info, 0, sizeof(info));
             info.contentSize = bucket->ByteCount();
             LZ4F_preferences_t prefs;
+            std::memset(&prefs, 0, sizeof(prefs));
             prefs.frameInfo = info;
+            prefs.compressionLevel = LZ4HC_CLEVEL_MAX;
             size_t compBound = LZ4F_compressFrameBound(bucket->ByteCount(), &prefs);
             compBucket->Reset(compBound);
-            size_t nWritten = LZ4F_compressFrame(compBucket->Bytes(), compBound, bucket->Bytes(),
-                                                 bucket->ByteCount(), &prefs);
-            compBucket->SetOffset(nWritten);
-            break;
-        }
+            compBucket->SetOffset(LZ4F_compressFrame(compBucket->Bytes(), compBound, bucket->Bytes(),
+                                                     bucket->ByteCount(), &prefs));
+        } break;
         case GZIP: {
             io::GzipOutputStream *gzipStream = new io::GzipOutputStream(compBucket);
             bucket->WriteTo(gzipStream);
             delete gzipStream;
-            break;
-        }
+        } break;
         default:
             BucketOutputStream *tmpBucket = bucket;
             bucket = compBucket;
