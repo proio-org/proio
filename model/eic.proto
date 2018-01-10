@@ -58,12 +58,12 @@ message Particle {
 }
 
 message SimTrackerHit {
-    uint64 cellid = 1;
     // position in mm and time in ns
-    XYZTDouble localprepos = 2;
+    XYZTDouble globalprepos = 1;
     // position in mm and time in ns
-    XYZTDouble localpostpos = 3;
+    XYZTDouble globalpostpos = 2;
     // energy in GeV
-    float edep = 4;
-    uint64 particleid = 5;
+    float edep = 3;
+    uint64 particleid = 4;
+    uint64 cellid = 5;
 }
