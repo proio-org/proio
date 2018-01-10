@@ -9,6 +9,7 @@ import (
 	"os"
 
 	"github.com/decibelcooper/proio/go-proio"
+	_ "github.com/decibelcooper/proio/go-proio/model/eic"
 	_ "github.com/decibelcooper/proio/go-proio/model/lcio"
 	_ "github.com/decibelcooper/proio/go-proio/model/promc"
 )

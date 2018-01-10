@@ -1,0 +1,59 @@
+syntax = "proto3";
+package proio.model.eic;
+option go_package = "github.com/decibelcooper/proio/go-proio/model/eic";
+option java_package = "proio.model";
+option java_outer_classname = "Eic";
+
+message XYZTInt {
+    sint64 x = 1;
+    sint64 y = 2;
+    sint64 z = 3;
+    sint64 t = 4;
+}
+
+message XYZTDouble {
+    double x = 1;
+    double y = 2;
+    double z = 3;
+    double t = 4;
+}
+
+message XYZTFloat {
+    float x = 1;
+    float y = 2;
+    float z = 3;
+    float t = 4;
+}
+
+message XYZInt {
+    sint64 x = 1;
+    sint64 y = 2;
+    sint64 z = 3;
+}
+
+message XYZDouble {
+    double x = 1;
+    double y = 2;
+    double z = 3;
+}
+
+message XYZFloat {
+    float x = 1;
+    float y = 2;
+    float z = 3;
+}
+
+message Particle {
+    repeated uint64 parent = 1;
+    repeated uint64 child = 2;
+    sint32 pdg = 3;
+    // vertex stores position in mm and time in ns
+    XYZTDouble vertex = 4;
+    // p stores momentum in units of GeV
+    XYZDouble p = 5;
+    // mass is in units of GeV
+    double mass = 6;
+    float charge = 7;
+    XYZFloat spin = 8;
+}
+
