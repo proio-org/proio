@@ -45,8 +45,9 @@ void Writer::Flush() {
             prefs.frameInfo = info;
             size_t compBound = LZ4F_compressFrameBound(bucket->ByteCount(), &prefs);
             compBucket->Reset(compBound);
-            compBucket->SetOffset(LZ4F_compressFrame(compBucket->Bytes(), compBound, bucket->Bytes(),
-                                                     bucket->ByteCount(), &prefs));
+            size_t nWritten = LZ4F_compressFrame(compBucket->Bytes(), compBound, bucket->Bytes(),
+                                                 bucket->ByteCount(), &prefs);
+            compBucket->SetOffset(nWritten);
             break;
         }
         case GZIP: {
