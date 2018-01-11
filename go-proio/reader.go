@@ -20,7 +20,6 @@ type Reader struct {
 	bucketReader     io.Reader
 	bucketHeader     *proto.BucketHeader
 	bucketEventsRead int
-	decompressor     io.Reader
 
 	Err                   chan error
 	EvtScanBufSize        int
@@ -294,7 +293,7 @@ func (rdr *Reader) readBucket(maxSkipEvents int) (eventsSkipped int, err error) 
 
 	switch rdr.bucketHeader.Compression {
 	case proto.BucketHeader_GZIP:
-		gzipRdr, ok := rdr.decompressor.(*gzip.Reader)
+		gzipRdr, ok := rdr.bucketReader.(*gzip.Reader)
 		if ok {
 			gzipRdr.Reset(rdr.bucket)
 		} else {
@@ -302,32 +301,16 @@ func (rdr *Reader) readBucket(maxSkipEvents int) (eventsSkipped int, err error) 
 			if err != nil {
 				return
 			}
-			rdr.decompressor = gzipRdr
 		}
-		bucketRdr, ok := rdr.bucketReader.(*bytes.Buffer)
-		if ok {
-			bucketRdr.Reset()
-		} else {
-			bucketRdr = &bytes.Buffer{}
-		}
-		bucketRdr.ReadFrom(gzipRdr)
-		rdr.bucketReader = bucketRdr
+		rdr.bucketReader = gzipRdr
 	case proto.BucketHeader_LZ4:
-		lz4Rdr, ok := rdr.decompressor.(*lz4.Reader)
+		lz4Rdr, ok := rdr.bucketReader.(*lz4.Reader)
 		if ok {
 			lz4Rdr.Reset(rdr.bucket)
 		} else {
 			lz4Rdr = lz4.NewReader(rdr.bucket)
-			rdr.decompressor = lz4Rdr
 		}
-		bucketRdr, ok := rdr.bucketReader.(*bytes.Buffer)
-		if ok {
-			bucketRdr.Reset()
-		} else {
-			bucketRdr = &bytes.Buffer{}
-		}
-		bucketRdr.ReadFrom(lz4Rdr)
-		rdr.bucketReader = bucketRdr
+		rdr.bucketReader = lz4Rdr
 	default:
 		rdr.bucketReader = rdr.bucket
 	}
