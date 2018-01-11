@@ -58,12 +58,27 @@ message Particle {
 }
 
 message SimTrackerHit {
+    // helper ID to circumvent volume lookup from global position during
+    // digitization
+    uint64 volumeid = 1;
     // position in mm and time in ns
-    XYZTDouble globalprepos = 1;
+    XYZTDouble globalprepos = 2;
     // position in mm and time in ns
-    XYZTDouble globalpostpos = 2;
+    XYZTDouble globalpostpos = 3;
     // energy in GeV
-    float edep = 3;
-    uint64 particleid = 4;
-    uint64 cellid = 5;
+    float edep = 4;
+    uint64 particleid = 5;
+}
+
+message SimCalorimeterHit {
+    // helper ID to circumvent volume lookup from global position during
+    // digitization
+    uint64 volumeid = 1;
+    // position in mm and time in ns
+    XYZTDouble globalprepos = 2;
+    // position in mm and time in ns
+    XYZTDouble globalpostpos = 3;
+    // energy in GeV
+    float edep = 4;
+    uint64 particleid = 5;
 }

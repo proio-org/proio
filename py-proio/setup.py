@@ -4,10 +4,10 @@ from os.path import splitext
 from setuptools import setup
 
 models = ['proio.model.' + splitext(basename(model))[0] for model in glob('proio/model/*')]
-models.remove('proio.model.__init__')
+models = list(filter(lambda model: model != 'proio.model.__init__', models))
 
 setup(name='proio',
-      version='0.3.3',
+      version='0.3.4',
       description='Library for reading and writing proio files and streams',
       url='http://github.com/decibelcooper/proio',
       author='David Blyth',

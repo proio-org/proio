@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='proio/model/eic.proto',
   package='proio.model.eic',
   syntax='proto3',
-  serialized_pb=_b('\n\x15proio/model/eic.proto\x12\x0fproio.model.eic\"5\n\x07XYZTInt\x12\t\n\x01x\x18\x01 \x01(\x12\x12\t\n\x01y\x18\x02 \x01(\x12\x12\t\n\x01z\x18\x03 \x01(\x12\x12\t\n\x01t\x18\x04 \x01(\x12\"8\n\nXYZTDouble\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\x12\t\n\x01t\x18\x04 \x01(\x01\"7\n\tXYZTFloat\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x12\t\n\x01t\x18\x04 \x01(\x02\")\n\x06XYZInt\x12\t\n\x01x\x18\x01 \x01(\x12\x12\t\n\x01y\x18\x02 \x01(\x12\x12\t\n\x01z\x18\x03 \x01(\x12\",\n\tXYZDouble\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\"+\n\x08XYZFloat\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\"\xd1\x01\n\x08Particle\x12\x0e\n\x06parent\x18\x01 \x03(\x04\x12\r\n\x05\x63hild\x18\x02 \x03(\x04\x12\x0b\n\x03pdg\x18\x03 \x01(\x11\x12+\n\x06vertex\x18\x04 \x01(\x0b\x32\x1b.proio.model.eic.XYZTDouble\x12%\n\x01p\x18\x05 \x01(\x0b\x32\x1a.proio.model.eic.XYZDouble\x12\x0c\n\x04mass\x18\x06 \x01(\x01\x12\x0e\n\x06\x63harge\x18\x07 \x01(\x02\x12\'\n\x04spin\x18\x08 \x01(\x0b\x32\x19.proio.model.eic.XYZFloat\"\xa8\x01\n\rSimTrackerHit\x12\x31\n\x0cglobalprepos\x18\x01 \x01(\x0b\x32\x1b.proio.model.eic.XYZTDouble\x12\x32\n\rglobalpostpos\x18\x02 \x01(\x0b\x32\x1b.proio.model.eic.XYZTDouble\x12\x0c\n\x04\x65\x64\x65p\x18\x03 \x01(\x02\x12\x12\n\nparticleid\x18\x04 \x01(\x04\x12\x0e\n\x06\x63\x65llid\x18\x05 \x01(\x04\x42\x45\n\x0bproio.modelB\x03\x45icZ1github.com/decibelcooper/proio/go-proio/model/eicb\x06proto3')
+  serialized_pb=_b('\n\x15proio/model/eic.proto\x12\x0fproio.model.eic\"5\n\x07XYZTInt\x12\t\n\x01x\x18\x01 \x01(\x12\x12\t\n\x01y\x18\x02 \x01(\x12\x12\t\n\x01z\x18\x03 \x01(\x12\x12\t\n\x01t\x18\x04 \x01(\x12\"8\n\nXYZTDouble\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\x12\t\n\x01t\x18\x04 \x01(\x01\"7\n\tXYZTFloat\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x12\t\n\x01t\x18\x04 \x01(\x02\")\n\x06XYZInt\x12\t\n\x01x\x18\x01 \x01(\x12\x12\t\n\x01y\x18\x02 \x01(\x12\x12\t\n\x01z\x18\x03 \x01(\x12\",\n\tXYZDouble\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\"+\n\x08XYZFloat\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\"\xd1\x01\n\x08Particle\x12\x0e\n\x06parent\x18\x01 \x03(\x04\x12\r\n\x05\x63hild\x18\x02 \x03(\x04\x12\x0b\n\x03pdg\x18\x03 \x01(\x11\x12+\n\x06vertex\x18\x04 \x01(\x0b\x32\x1b.proio.model.eic.XYZTDouble\x12%\n\x01p\x18\x05 \x01(\x0b\x32\x1a.proio.model.eic.XYZDouble\x12\x0c\n\x04mass\x18\x06 \x01(\x01\x12\x0e\n\x06\x63harge\x18\x07 \x01(\x02\x12\'\n\x04spin\x18\x08 \x01(\x0b\x32\x19.proio.model.eic.XYZFloat\"\xaa\x01\n\rSimTrackerHit\x12\x10\n\x08volumeid\x18\x01 \x01(\x04\x12\x31\n\x0cglobalprepos\x18\x02 \x01(\x0b\x32\x1b.proio.model.eic.XYZTDouble\x12\x32\n\rglobalpostpos\x18\x03 \x01(\x0b\x32\x1b.proio.model.eic.XYZTDouble\x12\x0c\n\x04\x65\x64\x65p\x18\x04 \x01(\x02\x12\x12\n\nparticleid\x18\x05 \x01(\x04\"\xae\x01\n\x11SimCalorimeterHit\x12\x10\n\x08volumeid\x18\x01 \x01(\x04\x12\x31\n\x0cglobalprepos\x18\x02 \x01(\x0b\x32\x1b.proio.model.eic.XYZTDouble\x12\x32\n\rglobalpostpos\x18\x03 \x01(\x0b\x32\x1b.proio.model.eic.XYZTDouble\x12\x0c\n\x04\x65\x64\x65p\x18\x04 \x01(\x02\x12\x12\n\nparticleid\x18\x05 \x01(\x04\x42\x45\n\x0bproio.modelB\x03\x45icZ1github.com/decibelcooper/proio/go-proio/model/eicb\x06proto3')
 )
 
 
@@ -404,35 +404,35 @@ _SIMTRACKERHIT = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='globalprepos', full_name='proio.model.eic.SimTrackerHit.globalprepos', index=0,
-      number=1, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
+      name='volumeid', full_name='proio.model.eic.SimTrackerHit.volumeid', index=0,
+      number=1, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='globalpostpos', full_name='proio.model.eic.SimTrackerHit.globalpostpos', index=1,
+      name='globalprepos', full_name='proio.model.eic.SimTrackerHit.globalprepos', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='edep', full_name='proio.model.eic.SimTrackerHit.edep', index=2,
-      number=3, type=2, cpp_type=6, label=1,
+      name='globalpostpos', full_name='proio.model.eic.SimTrackerHit.globalpostpos', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='edep', full_name='proio.model.eic.SimTrackerHit.edep', index=3,
+      number=4, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='particleid', full_name='proio.model.eic.SimTrackerHit.particleid', index=3,
-      number=4, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='cellid', full_name='proio.model.eic.SimTrackerHit.cellid', index=4,
+      name='particleid', full_name='proio.model.eic.SimTrackerHit.particleid', index=4,
       number=5, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -451,7 +451,66 @@ _SIMTRACKERHIT = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=559,
-  serialized_end=727,
+  serialized_end=729,
+)
+
+
+_SIMCALORIMETERHIT = _descriptor.Descriptor(
+  name='SimCalorimeterHit',
+  full_name='proio.model.eic.SimCalorimeterHit',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='volumeid', full_name='proio.model.eic.SimCalorimeterHit.volumeid', index=0,
+      number=1, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='globalprepos', full_name='proio.model.eic.SimCalorimeterHit.globalprepos', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='globalpostpos', full_name='proio.model.eic.SimCalorimeterHit.globalpostpos', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='edep', full_name='proio.model.eic.SimCalorimeterHit.edep', index=3,
+      number=4, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='particleid', full_name='proio.model.eic.SimCalorimeterHit.particleid', index=4,
+      number=5, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=732,
+  serialized_end=906,
 )
 
 _PARTICLE.fields_by_name['vertex'].message_type = _XYZTDOUBLE
@@ -459,6 +518,8 @@ _PARTICLE.fields_by_name['p'].message_type = _XYZDOUBLE
 _PARTICLE.fields_by_name['spin'].message_type = _XYZFLOAT
 _SIMTRACKERHIT.fields_by_name['globalprepos'].message_type = _XYZTDOUBLE
 _SIMTRACKERHIT.fields_by_name['globalpostpos'].message_type = _XYZTDOUBLE
+_SIMCALORIMETERHIT.fields_by_name['globalprepos'].message_type = _XYZTDOUBLE
+_SIMCALORIMETERHIT.fields_by_name['globalpostpos'].message_type = _XYZTDOUBLE
 DESCRIPTOR.message_types_by_name['XYZTInt'] = _XYZTINT
 DESCRIPTOR.message_types_by_name['XYZTDouble'] = _XYZTDOUBLE
 DESCRIPTOR.message_types_by_name['XYZTFloat'] = _XYZTFLOAT
@@ -467,6 +528,7 @@ DESCRIPTOR.message_types_by_name['XYZDouble'] = _XYZDOUBLE
 DESCRIPTOR.message_types_by_name['XYZFloat'] = _XYZFLOAT
 DESCRIPTOR.message_types_by_name['Particle'] = _PARTICLE
 DESCRIPTOR.message_types_by_name['SimTrackerHit'] = _SIMTRACKERHIT
+DESCRIPTOR.message_types_by_name['SimCalorimeterHit'] = _SIMCALORIMETERHIT
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 XYZTInt = _reflection.GeneratedProtocolMessageType('XYZTInt', (_message.Message,), dict(
@@ -524,6 +586,13 @@ SimTrackerHit = _reflection.GeneratedProtocolMessageType('SimTrackerHit', (_mess
   # @@protoc_insertion_point(class_scope:proio.model.eic.SimTrackerHit)
   ))
 _sym_db.RegisterMessage(SimTrackerHit)
+
+SimCalorimeterHit = _reflection.GeneratedProtocolMessageType('SimCalorimeterHit', (_message.Message,), dict(
+  DESCRIPTOR = _SIMCALORIMETERHIT,
+  __module__ = 'proio.model.eic_pb2'
+  # @@protoc_insertion_point(class_scope:proio.model.eic.SimCalorimeterHit)
+  ))
+_sym_db.RegisterMessage(SimCalorimeterHit)
 
 
 DESCRIPTOR.has_options = True
