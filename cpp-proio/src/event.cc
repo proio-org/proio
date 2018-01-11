@@ -76,15 +76,16 @@ const RepeatedField<uint64_t> &Event::TaggedEntries(std::string tag) {
 std::string Event::String() {
     std::string printString;
     for (auto tag : Tags()) {
-        printString += "Tag: " + tag + "\n";
+        printString += "---------- TAG: " + tag + " ----------\n";
         auto entries = TaggedEntries(tag);
         for (uint64_t entryID : entries) {
             std::stringstream ss;
-            ss << "ID:" << entryID << " ";
+            ss << "ID: " << entryID << "\n";
             Message *entry = GetEntry(entryID);
-            if (entry)
+            if (entry) {
+                ss << "Entry type: " << entry->GetTypeName() << "\n";
                 ss << entry->DebugString() << "\n";
-            else
+            } else
                 ss << "not found\n";
             printString += ss.str();
         }

@@ -143,12 +143,13 @@ class Event:
 
         tags = self.tags()
         for tag in tags:
-            print_string += 'Tag: ' + tag + '\n'
+            print_string += '---------- TAG: ' + tag + ' ----------\n'
             entries = self.tagged_entries(tag)
             for entry_id in entries:
-                print_string += 'ID:%i ' % entry_id
+                print_string += 'ID: %i\n' % entry_id
                 entry = self.get_entry(entry_id)
                 if entry != None:
+                    print_string += 'Entry type: ' + entry.DESCRIPTOR.full_name + '\n'
                     print_string += '%s\n' % entry
                 else:
                     print_string += 'not found'
