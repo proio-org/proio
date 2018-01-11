@@ -79,9 +79,7 @@ func main() {
 	for event := range reader.ScanEvents() {
 		if *keep {
 			keepTagIDs := make(map[uint64]bool)
-			keepTags := make(map[string]bool)
 			for _, keepTag := range argTags {
-				keepTags[keepTag] = true
 				for _, entryID := range event.TaggedEntries(keepTag) {
 					keepTagIDs[entryID] = true
 				}
@@ -91,17 +89,17 @@ func main() {
 					event.RemoveEntry(entryID)
 				}
 			}
-			for _, tag := range event.Tags() {
-				if !keepTags[tag] {
-					event.DeleteTag(tag)
-				}
-			}
 		} else {
 			for _, removeTag := range argTags {
 				for _, entryID := range event.TaggedEntries(removeTag) {
 					event.RemoveEntry(entryID)
 				}
-				event.DeleteTag(removeTag)
+			}
+		}
+
+		for _, tag := range event.Tags() {
+			if len(event.TaggedEntries(tag)) == 0 {
+				event.DeleteTag(tag)
 			}
 		}
 
