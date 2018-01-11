@@ -60,16 +60,14 @@ class Reader {
     void initBucket();
     Event *readFromBucket(bool doMerge = true);
     uint64_t readBucket(uint64_t maxSkipEvents = 0);
-    uint64_t syncToMagic(google::protobuf::io::CodedInputStream &);
+    uint64_t syncToMagic(google::protobuf::io::CodedInputStream *stream);
 
     BucketInputStream *compBucket;
     google::protobuf::io::FileInputStream *fileStream;
     int fd;
     bool closeFDOnDelete;
-
     uint64_t bucketEventsRead;
     proto::BucketHeader *bucketHeader;
-
     LZ4F_dctx *dctxPtr;
     BucketInputStream *bucket;
 };

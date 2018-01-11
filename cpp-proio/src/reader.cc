@@ -76,26 +76,32 @@ void Reader::initBucket() {
 
 Event *Reader::readFromBucket(bool doMerge) {
     if (bucket->BytesRemaining() == 0) readBucket();
-    io::CodedInputStream stream(bucket);
+    auto stream = new io::CodedInputStream(bucket);
 
     uint32_t protoSize;
-    if (!stream.ReadLittleEndian32(&protoSize)) return NULL;
+    if (!stream->ReadLittleEndian32(&protoSize)) {
+        delete stream;
+        return NULL;
+    }
 
     bucketEventsRead++;
     if (doMerge) {
-        auto eventLimit = stream.PushLimit(protoSize);
+        auto eventLimit = stream->PushLimit(protoSize);
         auto eventProto = new proto::Event;
-        if (!eventProto->MergeFromCodedStream(&stream) || !stream.ConsumedEntireMessage())
+        if (!eventProto->MergeFromCodedStream(stream) || !stream->ConsumedEntireMessage())
             throw deserializationError;
+        stream->PopLimit(eventLimit);
+        delete stream;
         return new Event(eventProto);
     } else {
-        if (!stream.Skip(protoSize)) throw corruptBucketError;
+        if (!stream->Skip(protoSize)) throw corruptBucketError;
+        delete stream;
         return NULL;
     }
 }
 
 uint64_t Reader::readBucket(uint64_t maxSkipEvents) {
-    io::CodedInputStream stream(fileStream);
+    auto stream = new io::CodedInputStream(fileStream);
     syncToMagic(stream);
 
     bucketEventsRead = 0;
@@ -103,21 +109,26 @@ uint64_t Reader::readBucket(uint64_t maxSkipEvents) {
     bucket->Reset(0);
 
     uint32_t headerSize;
-    if (!stream.ReadLittleEndian32(&headerSize)) return 0;
+    if (!stream->ReadLittleEndian32(&headerSize)) {
+        delete stream;
+        return 0;
+    }
 
-    auto headerLimit = stream.PushLimit(headerSize);
+    auto headerLimit = stream->PushLimit(headerSize);
     if (bucketHeader) delete bucketHeader;
     bucketHeader = new proto::BucketHeader;
-    if (!bucketHeader->MergeFromCodedStream(&stream) || !stream.ConsumedEntireMessage())
+    if (!bucketHeader->MergeFromCodedStream(stream) || !stream->ConsumedEntireMessage())
         throw deserializationError;
-    stream.PopLimit(headerLimit);
+    stream->PopLimit(headerLimit);
 
     uint64_t bucketSize = bucketHeader->bucketsize();
     if (bucketHeader->nevents() > maxSkipEvents) {
         compBucket->Reset(bucketSize);
-        if (!stream.ReadRaw(compBucket->Bytes(), bucketSize)) throw corruptBucketError;
+        if (!stream->ReadRaw(compBucket->Bytes(), bucketSize)) throw corruptBucketError;
+        delete stream;
     } else {
-        if (!stream.Skip(bucketSize)) throw corruptBucketError;
+        if (!stream->Skip(bucketSize)) throw corruptBucketError;
+        delete stream;
         return bucketHeader->nevents();
     }
 
@@ -141,18 +152,18 @@ uint64_t Reader::readBucket(uint64_t maxSkipEvents) {
     return 0;
 }
 
-uint64_t Reader::syncToMagic(io::CodedInputStream &stream) {
+uint64_t Reader::syncToMagic(io::CodedInputStream *stream) {
     uint8_t num;
     uint64_t nRead = 0;
 
-    while (stream.ReadRaw(&num, 1)) {
+    while (stream->ReadRaw(&num, 1)) {
         nRead++;
 
         if (num == magicBytes[0]) {
             bool goodSeq = true;
 
             for (int i = 1; i < 16; i++) {
-                if (!stream.ReadRaw(&num, 1)) break;
+                if (!stream->ReadRaw(&num, 1)) break;
                 nRead++;
 
                 if (num != magicBytes[i]) {

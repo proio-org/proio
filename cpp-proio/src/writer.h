@@ -68,7 +68,6 @@ class Writer {
 
     BucketOutputStream *bucket;
     google::protobuf::io::FileOutputStream *fileStream;
-
     uint64_t bucketEvents;
     Compression compression;
     BucketOutputStream *compBucket;
@@ -86,6 +85,10 @@ const class SerializationError : public std::exception {
 const class FileCreationError : public std::exception {
     virtual const char *what() const throw() { return "Failed to creating file for writing"; }
 } fileCreationError;
+
+const class LZ4FrameCreationError : public std::exception {
+    virtual const char *what() const throw() { return "Failed to create LZ4 frame"; }
+} lz4FrameCreationError;
 }  // namespace proio
 
 #endif  // PROIO_WRITER_H

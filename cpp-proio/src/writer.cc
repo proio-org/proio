@@ -2,7 +2,7 @@
 
 #include <google/protobuf/io/gzip_stream.h>
 #include <lz4frame.h>
-#include <lz4hc.h>
+//#include <lz4hc.h>
 
 #include "writer.h"
 
@@ -41,15 +41,16 @@ void Writer::Flush() {
         case LZ4: {
             LZ4F_frameInfo_t info;
             std::memset(&info, 0, sizeof(info));
-            info.contentSize = bucket->ByteCount();
             LZ4F_preferences_t prefs;
             std::memset(&prefs, 0, sizeof(prefs));
             prefs.frameInfo = info;
-            prefs.compressionLevel = LZ4HC_CLEVEL_MAX;
+            prefs.compressionLevel = 0;  // LZ4HC_CLEVEL_MAX;
             size_t compBound = LZ4F_compressFrameBound(bucket->ByteCount(), &prefs);
             compBucket->Reset(compBound);
-            compBucket->SetOffset(LZ4F_compressFrame(compBucket->Bytes(), compBound, bucket->Bytes(),
-                                                     bucket->ByteCount(), &prefs));
+            size_t nWritten = LZ4F_compressFrame(compBucket->Bytes(), compBound, bucket->Bytes(),
+                                                 bucket->ByteCount(), &prefs);
+            if (LZ4F_isError(nWritten)) throw lz4FrameCreationError;
+            compBucket->SetOffset(nWritten);
         } break;
         case GZIP: {
             io::GzipOutputStream *gzipStream = new io::GzipOutputStream(compBucket);
@@ -67,7 +68,7 @@ void Writer::Flush() {
     header->set_bucketsize(compBucket->ByteCount());
     header->set_compression(compression);
 
-    io::CodedOutputStream *stream = new io::CodedOutputStream(fileStream);
+    auto stream = new io::CodedOutputStream(fileStream);
     stream->WriteRaw(magicBytes, 16);
 #if GOOGLE_PROTOBUF_VERSION >= 3004000
     stream->WriteLittleEndian32((uint32_t)header->ByteSizeLong());
@@ -78,16 +79,16 @@ void Writer::Flush() {
     stream->WriteRaw(compBucket->Bytes(), compBucket->ByteCount());
     delete stream;
 
+    delete header;
     bucket->Reset();
     bucketEvents = 0;
-    delete header;
 }
 
 void Writer::Push(Event *event) {
     event->flushCollCache();
     proto::Event *proto = event->getProto();
 
-    io::CodedOutputStream *stream = new io::CodedOutputStream(bucket);
+    auto stream = new io::CodedOutputStream(bucket);
 #if GOOGLE_PROTOBUF_VERSION >= 3004000
     stream->WriteLittleEndian32((uint32_t)proto->ByteSizeLong());
 #else
@@ -98,9 +99,7 @@ void Writer::Push(Event *event) {
 
     bucketEvents++;
 
-    if (bucket->ByteCount() > bucketDumpSize) {
-        Flush();
-    }
+    if (bucket->ByteCount() > bucketDumpSize) Flush();
 }
 
 void Writer::SetCompression(Compression comp) { compression = comp; }

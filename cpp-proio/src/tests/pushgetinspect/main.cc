@@ -38,6 +38,7 @@ void pushGetInspect1(proio::Compression comp) {
 
     for (int i = 0; i < eventsOut.size(); i++) {
         event = reader->Next();
+        assert(event);
         assert(event->String().compare(eventsOut[i]->String()) == 0);
         delete eventsOut[i];
         delete event;
@@ -75,6 +76,7 @@ void pushGetInspect2(proio::Compression comp) {
 
     for (int i = 0; i < eventsOut.size(); i++) {
         event = reader->Next();
+        assert(event);
         assert(event->String().compare(eventsOut[i]->String()) == 0);
         delete eventsOut[i];
         delete event;
@@ -111,6 +113,7 @@ void pushSkipGet1(proio::Compression comp) {
 
     reader->Skip(1);
     event = reader->Next();
+    assert(event);
     assert(event->String().compare(eventsOut[1]->String()) == 0);
     delete event;
     for (int i = 0; i < eventsOut.size(); i++) delete eventsOut[i];
@@ -147,6 +150,7 @@ void pushSkipGet2(proio::Compression comp) {
 
     reader->Skip(1);
     event = reader->Next();
+    assert(event);
     assert(event->String().compare(eventsOut[1]->String()) == 0);
     delete event;
     for (int i = 0; i < eventsOut.size(); i++) delete eventsOut[i];
