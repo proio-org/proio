@@ -103,11 +103,14 @@ func (rdr *Reader) Skip(nEvents int) (nSkipped int, err error) {
 	}
 	if nEvents > bucketEventsLeft {
 		nSkipped += bucketEventsLeft
-		var n int
-		for n != 0 && err == nil {
+		for {
+			var n int
 			n, err = rdr.readBucket(nEvents - nSkipped)
 			if err != nil {
 				return
+			}
+			if n == 0 {
+				break
 			}
 			nSkipped += n
 		}
