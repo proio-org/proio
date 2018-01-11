@@ -14,12 +14,19 @@ import (
 var (
 	outFile   = flag.String("o", "", "file to save output to")
 	keep      = flag.Bool("k", false, "keep only entries with the specified tags, rather than stripping them away")
-	compLevel = flag.Int("c", 1, "compression level: 0 for uncompressed, 1 for LZ4 compression, 2 for GZIP compression")
+	compLevel = flag.Int("c", 1, "output compression level: 0 for uncompressed, 1 for LZ4 compression, 2 for GZIP compression")
 )
 
 func printUsage() {
 	fmt.Fprintf(os.Stderr,
-		`Usage: proio-strip [options] <proio-input-file> <tags>...
+		`Usage: proio-strip [options] <proio-input-file> [tags...]
+
+proio-strip will take an input proio file and either strip away entries with
+specific tags, or keep only entries with specific tags.  It can also be used to
+simply re-encode the proio stream by omitting tags.  By default, the output
+stream is pushed to stdout, but the -o option can be used to create a file
+descriptor for a specified path.
+
 options:
 `,
 	)
