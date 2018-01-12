@@ -57,20 +57,7 @@ message Particle {
     XYZFloat spin = 8;
 }
 
-message SimTrackerHit {
-    // helper ID to circumvent volume lookup from global position during
-    // digitization
-    uint64 volumeid = 1;
-    // position in mm and time in ns
-    XYZTDouble globalprepos = 2;
-    // position in mm and time in ns
-    XYZTDouble globalpostpos = 3;
-    // energy in GeV
-    float edep = 4;
-    uint64 particleid = 5;
-}
-
-message SimCalorimeterHit {
+message SimHit {
     // helper ID to circumvent volume lookup from global position during
     // digitization
     uint64 volumeid = 1;
