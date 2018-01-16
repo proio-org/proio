@@ -120,3 +120,7 @@ add_test(RefDeref refderef)
 add_executable(tagmanip src/tests/tagmanip/main.cc)
 target_link_libraries(tagmanip PUBLIC proio protobuf)
 add_test(TagManip tagmanip)
+
+add_executable(scan src/tests/scan/main.cc)
+target_link_libraries(scan PUBLIC proio protobuf)
+add_test(Scan scan)

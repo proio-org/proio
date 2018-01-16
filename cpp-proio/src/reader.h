@@ -48,6 +48,10 @@ class Reader {
     /** Next returns the next available Event.
      */
     Event *Next();
+    /** NextHeader returns the next bucket header.  This is useful for scanning
+     * a stream.  The corresponding bucket is discarded.
+     */
+    proto::BucketHeader *NextHeader();
     /** Skip skips the next nEvents events.
      */
     uint64_t Skip(uint64_t nEvents);

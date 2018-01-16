@@ -38,6 +38,11 @@ Reader::~Reader() {
 
 Event *Reader::Next() { return readFromBucket(); }
 
+proto::BucketHeader *Reader::NextHeader() {
+    readBucket(std::numeric_limits<uint64_t>::max());
+    return bucketHeader;
+}
+
 uint64_t Reader::Skip(uint64_t nEvents) {
     uint64_t bucketEventsLeft = 0;
     if (bucketHeader) {
