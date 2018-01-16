@@ -45,8 +45,7 @@ Message *Event::GetEntry(uint64_t id) {
     if (!eventProto->entries().count(id)) return NULL;
     const proto::Any entryProto = eventProto->entries().at(id);
 
-    const std::string typeName = eventProto->types().at(entryProto.type());
-    const Descriptor *desc = DescriptorPool::generated_pool()->FindMessageTypeByName(typeName);
+    const Descriptor *desc = getDescriptor(entryProto.type());
     if (!desc) throw unknownMessageTypeError;
     Message *entry = MessageFactory::generated_factory()->GetPrototype(desc)->New();
     if (!entry->ParseFromString(entryProto.payload())) {
@@ -180,4 +179,10 @@ uint64_t Event::getTypeID(Message *entry) {
     (*eventProto->mutable_types())[typeID] = typeName;
     revTypeLookup[typeName] = typeID;
     return typeID;
+}
+
+const Descriptor *Event::getDescriptor(uint64_t typeID) {
+    if (descriptorCache.count(typeID)) return descriptorCache[typeID];
+    const std::string typeName = eventProto->types().at(typeID);
+    return DescriptorPool::generated_pool()->FindMessageTypeByName(typeName);
 }
