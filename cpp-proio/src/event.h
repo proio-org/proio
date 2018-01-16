@@ -41,6 +41,9 @@ class Event {
      * the tag references.
      */
     std::vector<uint64_t> TaggedEntries(std::string tag);
+    /** AllEntries returns IDs for all entries in the event.
+     */
+    std::vector<uint64_t> AllEntries();
     /** EntryTags performs a reverse lookup of tags that point to an entry.
      * This is a relatively expensive search.
      */

@@ -98,6 +98,13 @@ std::vector<uint64_t> Event::TaggedEntries(std::string tag) {
     return std::vector<uint64_t>();
 }
 
+std::vector<uint64_t> Event::AllEntries() {
+    auto entries = eventProto->entries();
+    std::vector<uint64_t> returnEntries;
+    for (auto idEntryPair : entries) returnEntries.push_back(idEntryPair.first);
+    return returnEntries;
+}
+
 std::vector<std::string> Event::EntryTags(uint64_t id) {
     std::vector<std::string> tags;
     for (auto stringTagPair : eventProto->tags()) {
