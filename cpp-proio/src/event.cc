@@ -23,7 +23,7 @@ Event::~Event() {
     }
 }
 
-uint64_t Event::AddEntry(std::string tag, Message *entry) {
+uint64_t Event::AddEntry(Message *entry, std::string tag) {
     uint64_t typeID = getTypeID(entry);
     proto::Any entryProto;
     entryProto.set_type(typeID);
@@ -34,7 +34,7 @@ uint64_t Event::AddEntry(std::string tag, Message *entry) {
 
     entryCache[id] = entry;
 
-    TagEntry(id, tag);
+    if (tag.size() > 0) TagEntry(id, tag);
 
     return id;
 }
@@ -60,6 +60,25 @@ Message *Event::GetEntry(uint64_t id) {
 
 void Event::TagEntry(uint64_t id, std::string tag) { (*eventProto->mutable_tags())[tag].add_entries(id); }
 
+void Event::UntagEntry(uint64_t id, std::string tag) {
+    if (!eventProto->tags().count(tag)) return;
+
+    auto entries = eventProto->mutable_tags()->at(tag).mutable_entries();
+    for (auto iter = entries->begin(); iter != entries->end(); iter++) {
+        if ((*iter) == id) {
+            entries->erase(iter);
+            break;
+        }
+    }
+}
+
+void Event::RemoveEntry(uint64_t id) {
+    for (auto stringTagPair : eventProto->tags()) UntagEntry(id, stringTagPair.first);
+
+    entryCache.erase(id);
+    eventProto->mutable_entries()->erase(id);
+}
+
 std::vector<std::string> Event::Tags() {
     std::vector<std::string> tags;
     for (auto stringTagPair : eventProto->tags()) {
@@ -78,6 +97,21 @@ std::vector<uint64_t> Event::TaggedEntries(std::string tag) {
     }
     return std::vector<uint64_t>();
 }
+
+std::vector<std::string> Event::EntryTags(uint64_t id) {
+    std::vector<std::string> tags;
+    for (auto stringTagPair : eventProto->tags()) {
+        for (uint64_t entry : stringTagPair.second.entries())
+            if (entry == id) {
+                tags.push_back(stringTagPair.first);
+                break;
+            }
+    }
+    std::sort(tags.begin(), tags.end());
+    return tags;
+}
+
+void Event::DeleteTag(std::string tag) { eventProto->mutable_tags()->erase(tag); }
 
 std::string Event::String() {
     std::string printString;
@@ -99,7 +133,7 @@ std::string Event::String() {
     return printString;
 }
 
-void Event::flushCollCache() {
+void Event::flushCache() {
     for (auto idEntryPair : entryCache) {
         int64 id = idEntryPair.first;
         Message *entry = idEntryPair.second;

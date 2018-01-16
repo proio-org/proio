@@ -19,16 +19,16 @@ void pushGetInspect1(proio::Compression comp) {
     std::vector<proio::Event *> eventsOut;
 
     auto event = new proio::Event();
-    event->AddEntry("MCParticles", new lcio::MCParticle());
-    event->AddEntry("MCParticles", new lcio::MCParticle());
-    event->AddEntry("TrackerHits", new lcio::SimTrackerHit());
-    event->AddEntry("TrackerHits", new lcio::SimTrackerHit());
+    event->AddEntry(new lcio::MCParticle(), "MCParticles");
+    event->AddEntry(new lcio::MCParticle(), "MCParticles");
+    event->AddEntry(new lcio::SimTrackerHit(), "TrackerHits");
+    event->AddEntry(new lcio::SimTrackerHit(), "TrackerHits");
     writer->Push(event);
     eventsOut.push_back(event);
 
     event = new proio::Event();
-    event->AddEntry("TrackerHits", new lcio::SimTrackerHit());
-    event->AddEntry("TrackerHits", new lcio::SimTrackerHit());
+    event->AddEntry(new lcio::SimTrackerHit(), "TrackerHits");
+    event->AddEntry(new lcio::SimTrackerHit(), "TrackerHits");
     writer->Push(event);
     eventsOut.push_back(event);
 
@@ -56,17 +56,17 @@ void pushGetInspect2(proio::Compression comp) {
     std::vector<proio::Event *> eventsOut;
 
     auto event = new proio::Event();
-    event->AddEntry("MCParticles", new lcio::MCParticle());
-    event->AddEntry("MCParticles", new lcio::MCParticle());
-    event->AddEntry("TrackerHits", new lcio::SimTrackerHit());
-    event->AddEntry("TrackerHits", new lcio::SimTrackerHit());
+    event->AddEntry(new lcio::MCParticle(), "MCParticles");
+    event->AddEntry(new lcio::MCParticle(), "MCParticles");
+    event->AddEntry(new lcio::SimTrackerHit(), "TrackerHits");
+    event->AddEntry(new lcio::SimTrackerHit(), "TrackerHits");
     writer->Push(event);
     eventsOut.push_back(event);
     writer->Flush();
 
     event = new proio::Event();
-    event->AddEntry("TrackerHits", new lcio::SimTrackerHit());
-    event->AddEntry("TrackerHits", new lcio::SimTrackerHit());
+    event->AddEntry(new lcio::SimTrackerHit(), "TrackerHits");
+    event->AddEntry(new lcio::SimTrackerHit(), "TrackerHits");
     writer->Push(event);
     eventsOut.push_back(event);
 
@@ -94,16 +94,16 @@ void pushSkipGet1(proio::Compression comp) {
     std::vector<proio::Event *> eventsOut;
 
     auto event = new proio::Event();
-    event->AddEntry("MCParticles", new lcio::MCParticle());
-    event->AddEntry("MCParticles", new lcio::MCParticle());
-    event->AddEntry("TrackerHits", new lcio::SimTrackerHit());
-    event->AddEntry("TrackerHits", new lcio::SimTrackerHit());
+    event->AddEntry(new lcio::MCParticle(), "MCParticles");
+    event->AddEntry(new lcio::MCParticle(), "MCParticles");
+    event->AddEntry(new lcio::SimTrackerHit(), "TrackerHits");
+    event->AddEntry(new lcio::SimTrackerHit(), "TrackerHits");
     writer->Push(event);
     eventsOut.push_back(event);
 
     event = new proio::Event();
-    event->AddEntry("TrackerHits", new lcio::SimTrackerHit());
-    event->AddEntry("TrackerHits", new lcio::SimTrackerHit());
+    event->AddEntry(new lcio::SimTrackerHit(), "TrackerHits");
+    event->AddEntry(new lcio::SimTrackerHit(), "TrackerHits");
     writer->Push(event);
     eventsOut.push_back(event);
 
@@ -130,17 +130,17 @@ void pushSkipGet2(proio::Compression comp) {
     std::vector<proio::Event *> eventsOut;
 
     auto event = new proio::Event();
-    event->AddEntry("MCParticles", new lcio::MCParticle());
-    event->AddEntry("MCParticles", new lcio::MCParticle());
-    event->AddEntry("TrackerHits", new lcio::SimTrackerHit());
-    event->AddEntry("TrackerHits", new lcio::SimTrackerHit());
+    event->AddEntry(new lcio::MCParticle(), "MCParticles");
+    event->AddEntry(new lcio::MCParticle(), "MCParticles");
+    event->AddEntry(new lcio::SimTrackerHit(), "TrackerHits");
+    event->AddEntry(new lcio::SimTrackerHit(), "TrackerHits");
     writer->Push(event);
     eventsOut.push_back(event);
     writer->Flush();
 
     event = new proio::Event();
-    event->AddEntry("TrackerHits", new lcio::SimTrackerHit());
-    event->AddEntry("TrackerHits", new lcio::SimTrackerHit());
+    event->AddEntry(new lcio::SimTrackerHit(), "TrackerHits");
+    event->AddEntry(new lcio::SimTrackerHit(), "TrackerHits");
     writer->Push(event);
     eventsOut.push_back(event);
 

@@ -85,7 +85,7 @@ void Writer::Flush() {
 }
 
 void Writer::Push(Event *event) {
-    event->flushCollCache();
+    event->flushCache();
     proto::Event *proto = event->getProto();
 
     auto stream = new io::CodedOutputStream(bucket);

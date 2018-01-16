@@ -116,3 +116,7 @@ add_test(PushGetInspect pushgetinspect)
 add_executable(refderef src/tests/refderef/main.cc)
 target_link_libraries(refderef PUBLIC proio protobuf)
 add_test(RefDeref refderef)
+
+add_executable(tagmanip src/tests/tagmanip/main.cc)
+target_link_libraries(tagmanip PUBLIC proio protobuf)
+add_test(TagManip tagmanip)

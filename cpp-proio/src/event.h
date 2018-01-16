@@ -15,16 +15,25 @@ class Event {
 
     /** AddEntry takes a tag and protobuf message entry and adds it to the
      * Event.  The return value is a uint64_t ID number used to reference the
-     * added entry.
+     * added entry.  Once the entry is added, it is owned by the Event object.
      */
-    uint64_t AddEntry(std::string tag, google::protobuf::Message *entry);
-    /** GetEntry takes an entry ID and returns the corresponding entry.
+    uint64_t AddEntry(google::protobuf::Message *entry, std::string tag = "");
+    /** GetEntry takes an entry ID and returns the corresponding entry.  The
+     * returned entries are still owned by the Event object.
      */
     google::protobuf::Message *GetEntry(uint64_t id);
     /** TagEntry adds a tag to an entry that has already been added, identified
      * by its ID.
      */
     void TagEntry(uint64_t id, std::string tag);
+    /** UntagEntry removes a tag from a specified entry.
+     */
+    void UntagEntry(uint64_t id, std::string tag);
+    /** RemoveEntry removes an entry from the event.  This is relatively
+     * expensive because it requires a reverse tag lookup to clean up tags that
+     * may point to the entry.
+     */
+    void RemoveEntry(uint64_t id);
     /** Tags returns a list of tags that exist in the event.
      */
     std::vector<std::string> Tags();
@@ -32,12 +41,19 @@ class Event {
      * the tag references.
      */
     std::vector<uint64_t> TaggedEntries(std::string tag);
+    /** EntryTags performs a reverse lookup of tags that point to an entry.
+     * This is a relatively expensive search.
+     */
+    std::vector<std::string> EntryTags(uint64_t id);
+    /** DeleteTag removes a tag from the Event.
+     */
+    void DeleteTag(std::string tag);
 
     /** String returns a human-readable string representing the event.
      */
     std::string String();
 
-    void flushCollCache();
+    void flushCache();
     proto::Event *getProto();
 
    private:
