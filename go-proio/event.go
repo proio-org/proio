@@ -126,12 +126,7 @@ func (evt *Event) GetEntry(id uint64) protobuf.Message {
 func (evt *Event) RemoveEntry(id uint64) {
 	tags := evt.EntryTags(id)
 	for _, tag := range tags {
-		tagProto := evt.proto.Tags[tag]
-		for i, thisID := range tagProto.Entries {
-			if thisID == id {
-				tagProto.Entries = append(tagProto.Entries[:i], tagProto.Entries[i+1:]...)
-			}
-		}
+		evt.UntagEntry(id, tag)
 	}
 
 	delete(evt.entryCache, id)
