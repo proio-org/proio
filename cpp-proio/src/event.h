@@ -31,7 +31,7 @@ class Event {
     /** TaggedEntries tages a tag string and returns a list of entry IDs that
      * the tag references.
      */
-    const google::protobuf::RepeatedField<uint64_t> &TaggedEntries(std::string tag);
+    std::vector<uint64_t> TaggedEntries(std::string tag);
 
     /** String returns a human-readable string representing the event.
      */

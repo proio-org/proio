@@ -69,8 +69,14 @@ std::vector<std::string> Event::Tags() {
     return tags;
 }
 
-const RepeatedField<uint64_t> &Event::TaggedEntries(std::string tag) {
-    if (eventProto->tags().count(tag)) return eventProto->tags().at(tag).entries();
+std::vector<uint64_t> Event::TaggedEntries(std::string tag) {
+    if (eventProto->tags().count(tag)) {
+        auto entries = eventProto->tags().at(tag).entries();
+        std::vector<uint64_t> returnEntries;
+        for (uint64_t entry : entries) returnEntries.push_back(entry);
+        return returnEntries;
+    }
+    return std::vector<uint64_t>();
 }
 
 std::string Event::String() {
@@ -108,6 +114,7 @@ void Event::flushCollCache() {
         delete entry;
 
         (*eventProto->mutable_entries())[id].set_payload(buffer, byteSize);
+        delete[] buffer;
     }
     entryCache.clear();
 }
