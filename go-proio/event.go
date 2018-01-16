@@ -22,7 +22,6 @@ type Event struct {
 	proto *proto.Event
 
 	revTypeLookup  map[string]uint64
-	revTagLookup   map[uint64][]string
 	entryTypeCache map[uint64]reflect.Type
 	entryCache     map[uint64]protobuf.Message
 }
@@ -36,7 +35,6 @@ func NewEvent() *Event {
 			Tags:    make(map[string]*proto.Tag),
 		},
 		revTypeLookup:  make(map[string]uint64),
-		revTagLookup:   make(map[uint64][]string),
 		entryTypeCache: make(map[uint64]reflect.Type),
 		entryCache:     make(map[uint64]protobuf.Message),
 	}
@@ -136,7 +134,6 @@ func (evt *Event) RemoveEntry(id uint64) {
 		}
 	}
 
-	delete(evt.revTagLookup, id)
 	delete(evt.entryCache, id)
 	delete(evt.proto.Entries, id)
 }
@@ -199,12 +196,7 @@ func (evt *Event) Tags() []string {
 
 // EntryTags does a reverse lookup of tags that point to a given entry ID.
 func (evt *Event) EntryTags(id uint64) []string {
-	tags, ok := evt.revTagLookup[id]
-	if ok {
-		return tags
-	}
-
-	tags = make([]string, 0)
+	tags := make([]string, 0)
 	for name, tagProto := range evt.proto.Tags {
 		for _, thisID := range tagProto.Entries {
 			if thisID == id {
@@ -214,9 +206,6 @@ func (evt *Event) EntryTags(id uint64) []string {
 		}
 	}
 	sort.Strings(tags)
-
-	evt.revTagLookup[id] = tags
-
 	return tags
 }
 
@@ -268,7 +257,6 @@ func newEventFromProto(eventProto *proto.Event) *Event {
 	return &Event{
 		proto:          eventProto,
 		revTypeLookup:  make(map[string]uint64),
-		revTagLookup:   make(map[uint64][]string),
 		entryTypeCache: make(map[uint64]reflect.Type),
 		entryCache:     make(map[uint64]protobuf.Message),
 	}
