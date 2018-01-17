@@ -4,68 +4,161 @@ option go_package = "github.com/decibelcooper/proio/go-proio/model/eic";
 option java_package = "proio.model";
 option java_outer_classname = "Eic";
 
-message XYZTInt {
+////// PRIMARY DATA MODEL MESSAGES //////
+
+message Particle {
+    // ProIO entry identifiers that point to parent Particles
+    repeated uint64 parent = 1;
+    // ProIO entry identifiers that point to child Particles
+    repeated uint64 child = 2;
+    // PDG code
+    sint32 pdg = 3;
+    // position in mm and time in ns
+    XYZTD vertex = 4;
+    // momentum in GeV
+    XYZD p = 5;
+    // mass in GeV
+    double mass = 6;
+    // charge in units of e
+    float charge = 7;
+    XYZF spin = 8;
+}
+
+// simulation hit
+message SimHit {
+    // optional ID to circumvent volume lookup from global position during
+    // digitization
+    uint64 volumeid = 1;
+    // spatial in mm and time in ns
+    XYZTD globalprepos = 2;
+    // spatial in mm and time in ns
+    XYZTD globalpostpos = 3;
+    // energy in GeV
+    float edep = 4;
+    // "particle" is a ProIO entry identifier that points to the Particle
+    // responsible for this hit.
+    uint64 particle = 5;
+}
+
+// reconstructed hit
+message ReconHit {
+    // optional ID for identifying the cell that this hit came from
+    uint64 cellid = 1;
+    // energy in GeV
+    float edep = 2;
+    float edeperr = 3;
+    // Multiple possible positions can be specified.
+    repeated RandomPos pos = 4;
+    // "source"s are ProIO entry identifiers that may point to either SimHits
+    // or Particles responsible for the ReconHit.
+    repeated uint64 source = 5;
+}
+
+// randomly-distributed position
+message RandomPos {
+    // spatial in mm and time in ns
+    XYZTD mean = 1;
+    // "weightmod" describes additional weight to be applied to this position.
+    // For the case of multiple possible positions, it is implied that by
+    // default each position is equally likely.  This can be changed by adding
+    // weight to positions.  To make one position twice as likely as a position
+    // without a weight modifier, set weightmod to +1.
+    float weightmod = 2;
+    // These Distributions describe independent variance contributions, and
+    // repeated Distributions imply a convolution.  Orthogonal to the space
+    // spanned by the Distributions, the RandomPos is assumed to not vary.
+    repeated Distribution distrib = 3;
+    // "transform"s are ProIO entry identifiers that point to XYZTMatrixes that
+    // are to be applied to the convolved distribution in order.  These should
+    // be orthogonal matrices.
+    repeated uint64 transform = 4;
+}
+
+////// SECONDARY DATA MODEL MESSAGES //////
+
+message Distribution {
+    enum Type {
+        NORMAL = 0;
+        UNIFORM = 1;
+    }
+    Type type = 2;
+    XYZTF variance = 3;
+    // "transform"s are ProIO entry identifiers that point to XYZTMatrixes that
+    // are to be applied to the variance in order.  These should be orthogonal
+    // matrices.
+    repeated uint64 transform = 4;
+}
+
+message XYZTMatrix {
+    float xx = 1;
+    float xy = 2;
+    float xz = 3;
+    float xt = 4;
+    float yx = 5;
+    float yy = 6;
+    float yz = 7;
+    float yt = 8;
+    float zx = 9;
+    float zy = 10;
+    float zz = 11;
+    float zt = 12;
+    float tx = 13;
+    float ty = 14;
+    float tz = 15;
+    float tt = 16;
+    float exx = 17;
+    float exy = 18;
+    float exz = 19;
+    float ext = 20;
+    float eyx = 21;
+    float eyy = 22;
+    float eyz = 23;
+    float eyt = 24;
+    float ezx = 25;
+    float ezy = 26;
+    float ezz = 27;
+    float ezt = 28;
+    float etx = 29;
+    float ety = 30;
+    float etz = 31;
+    float ett = 32;
+}
+
+message XYZTI {
     sint64 x = 1;
     sint64 y = 2;
     sint64 z = 3;
     sint64 t = 4;
 }
 
-message XYZTDouble {
+message XYZTD {
     double x = 1;
     double y = 2;
     double z = 3;
     double t = 4;
 }
 
-message XYZTFloat {
+message XYZTF {
     float x = 1;
     float y = 2;
     float z = 3;
     float t = 4;
 }
 
-message XYZInt {
+message XYZI {
     sint64 x = 1;
     sint64 y = 2;
     sint64 z = 3;
 }
 
-message XYZDouble {
+message XYZD {
     double x = 1;
     double y = 2;
     double z = 3;
 }
 
-message XYZFloat {
+message XYZF {
     float x = 1;
     float y = 2;
     float z = 3;
-}
-
-message Particle {
-    repeated uint64 parent = 1;
-    repeated uint64 child = 2;
-    sint32 pdg = 3;
-    // position in mm and time in ns
-    XYZTDouble vertex = 4;
-    // momentum in GeV
-    XYZDouble p = 5;
-    // mass in GeV
-    double mass = 6;
-    float charge = 7;
-    XYZFloat spin = 8;
-}
-
-message SimHit {
-    // helper ID to circumvent volume lookup from global position during
-    // digitization
-    uint64 volumeid = 1;
-    // position in mm and time in ns
-    XYZTDouble globalprepos = 2;
-    // position in mm and time in ns
-    XYZTDouble globalpostpos = 3;
-    // energy in GeV
-    float edep = 4;
-    uint64 particleid = 5;
 }
