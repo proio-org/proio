@@ -15,12 +15,21 @@ import (
 )
 
 var (
-	event = flag.Int("e", -1, "list specified event, numbered consecutively from the start of the file or stream")
+	ignore = flag.Bool("i", false, "ignore the specified tags instead of isolating them")
+	event  = flag.Int("e", -1, "list specified event, numbered consecutively from the start of the stream starting with 0")
 )
 
 func printUsage() {
 	fmt.Fprintf(os.Stderr,
-		`Usage: proio-ls [options] <proio-input-file>
+		`Usage: proio-ls [options] <proio-input-file> [tags...]
+
+proio-ls will list the contents of a proio stream.  For each event, the tags
+are listed in alphabetical order followed by all entries with that tag (this
+means that entries with multiple tags will be printed multiple times).
+Optionally, tags can be specified, in which case only those tags will be shown.
+The -i flag can be specified to ignore the specified tags, instead of isolating
+them.  The -e flag can be used to isolate a specific event by its index.
+
 options:
 `,
 	)
@@ -31,7 +40,7 @@ func main() {
 	flag.Usage = printUsage
 	flag.Parse()
 
-	if flag.NArg() != 1 {
+	if flag.NArg() < 1 {
 		printUsage()
 		log.Fatal("Invalid arguments")
 	}
@@ -61,9 +70,26 @@ func main() {
 		}
 	}
 
+	argTags := make(map[string]bool)
+	for i := 1; i < flag.NArg(); i++ {
+		argTags[flag.Arg(i)] = true
+	}
+
 	nEventsRead := 0
 
 	for event := range reader.ScanEvents() {
+		if *ignore {
+			for tag, _ := range argTags {
+				event.DeleteTag(tag)
+			}
+		} else if len(argTags) > 0 {
+			for _, tag := range event.Tags() {
+				if !argTags[tag] {
+					event.DeleteTag(tag)
+				}
+			}
+		}
+
 		fmt.Println("========== EVENT", nEventsRead+startingEvent, "==========")
 		fmt.Print(event)
 
