@@ -62,11 +62,13 @@ class Event {
    private:
     uint64_t getTypeID(google::protobuf::Message *entry);
     const google::protobuf::Descriptor *getDescriptor(uint64_t typeID);
+    void tagCleanup();
 
     proto::Event *eventProto;
     std::map<std::string, uint64_t> revTypeLookup;
     std::map<uint64_t, google::protobuf::Message *> entryCache;
     std::map<uint64_t, const google::protobuf::Descriptor *> descriptorCache;
+    bool dirtyTags;
 };
 
 const class UnknownMessageTypeError : public std::exception {
