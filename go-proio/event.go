@@ -24,6 +24,7 @@ type Event struct {
 	revTypeLookup  map[string]uint64
 	entryTypeCache map[uint64]reflect.Type
 	entryCache     map[uint64]protobuf.Message
+	dirtyTags      bool
 }
 
 // NewEvent is required for constructing an Event.
@@ -37,6 +38,7 @@ func NewEvent() *Event {
 		revTypeLookup:  make(map[string]uint64),
 		entryTypeCache: make(map[uint64]reflect.Type),
 		entryCache:     make(map[uint64]protobuf.Message),
+		dirtyTags:      false,
 	}
 }
 
@@ -124,12 +126,9 @@ func (evt *Event) GetEntry(id uint64) protobuf.Message {
 }
 
 func (evt *Event) RemoveEntry(id uint64) {
-	for tag, _ := range evt.proto.Tags {
-		evt.UntagEntry(id, tag)
-	}
-
 	delete(evt.entryCache, id)
 	delete(evt.proto.Entries, id)
+	evt.dirtyTags = true
 }
 
 func (evt *Event) AllEntries() []uint64 {
@@ -173,6 +172,7 @@ func (evt *Event) UntagEntry(id uint64, tag string) {
 func (evt *Event) TaggedEntries(tag string) []uint64 {
 	tagProto, ok := evt.proto.Tags[tag]
 	if ok {
+		evt.tagCleanup()
 		entries := make([]uint64, len(tagProto.Entries))
 		copy(entries, tagProto.Entries)
 		return entries
@@ -304,15 +304,20 @@ func (evt *Event) flushCache() {
 		evt.proto.Entries[id].Payload = bytes
 	}
 	evt.entryCache = make(map[uint64]protobuf.Message)
+
+	evt.tagCleanup()
 }
 
-func fromProto(bytes []byte) *Event {
-	eventProto := &proto.Event{}
-	err := eventProto.Unmarshal(bytes)
-	if err != nil {
-		return nil
+func (evt *Event) tagCleanup() {
+	if !evt.dirtyTags {
+		return
 	}
-	return &Event{
-		proto: eventProto,
+	for _, tagProto := range evt.proto.Tags {
+		for i := len(tagProto.Entries) - 1; i >= 0; i-- {
+			if _, ok := evt.proto.Entries[tagProto.Entries[i]]; !ok {
+				tagProto.Entries = append(tagProto.Entries[:i], tagProto.Entries[i+1:]...)
+			}
+		}
 	}
+	evt.dirtyTags = false
 }

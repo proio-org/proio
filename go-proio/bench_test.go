@@ -106,36 +106,28 @@ func BenchmarkReadGZIP(b *testing.B) {
 }
 
 func BenchmarkAddRemove100Entries(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		event := NewEvent()
-		for i := 0; i < 100; i++ {
-			event.AddEntry("Particle", &eic.Particle{})
-		}
-		for i := 0; i < 100; i++ {
-			event.RemoveEntry(uint64(i + 1))
-		}
-	}
+	addRemoveNEntries(b, 100)
 }
 
 func BenchmarkAddRemove1000Entries(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		event := NewEvent()
-		for i := 0; i < 1000; i++ {
-			event.AddEntry("Particle", &eic.Particle{})
-		}
-		for i := 0; i < 1000; i++ {
-			event.RemoveEntry(uint64(i + 1))
-		}
-	}
+	addRemoveNEntries(b, 1000)
 }
 
 func BenchmarkAddRemove10000Entries(b *testing.B) {
+	addRemoveNEntries(b, 10000)
+}
+
+func BenchmarkAddRemove100000Entries(b *testing.B) {
+	addRemoveNEntries(b, 100000)
+}
+
+func addRemoveNEntries(b *testing.B, n int) {
 	for i := 0; i < b.N; i++ {
 		event := NewEvent()
-		for i := 0; i < 10000; i++ {
+		for i := 0; i < n; i++ {
 			event.AddEntry("Particle", &eic.Particle{})
 		}
-		for i := 0; i < 10000; i++ {
+		for i := 0; i < n; i++ {
 			event.RemoveEntry(uint64(i + 1))
 		}
 	}
