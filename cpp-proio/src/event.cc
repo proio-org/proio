@@ -185,9 +185,11 @@ uint64_t Event::getTypeID(Message *entry) {
 }
 
 const Descriptor *Event::getDescriptor(uint64_t typeID) {
-    if (descriptorCache.count(typeID)) return descriptorCache[typeID];
-    const std::string typeName = eventProto->types().at(typeID);
-    return DescriptorPool::generated_pool()->FindMessageTypeByName(typeName);
+    if (!descriptorCache.count(typeID)) {
+        const std::string typeName = eventProto->types().at(typeID);
+        descriptorCache[typeID] = DescriptorPool::generated_pool()->FindMessageTypeByName(typeName);
+    }
+    return descriptorCache[typeID];
 }
 
 void Event::tagCleanup() {
