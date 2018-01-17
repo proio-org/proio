@@ -124,8 +124,7 @@ func (evt *Event) GetEntry(id uint64) protobuf.Message {
 }
 
 func (evt *Event) RemoveEntry(id uint64) {
-	tags := evt.EntryTags(id)
-	for _, tag := range tags {
+	for tag, _ := range evt.proto.Tags {
 		evt.UntagEntry(id, tag)
 	}
 
@@ -174,7 +173,9 @@ func (evt *Event) UntagEntry(id uint64, tag string) {
 func (evt *Event) TaggedEntries(tag string) []uint64 {
 	tagProto, ok := evt.proto.Tags[tag]
 	if ok {
-		return tagProto.Entries[:]
+		entries := make([]uint64, len(tagProto.Entries))
+		copy(entries, tagProto.Entries)
+		return entries
 	}
 	return nil
 }
