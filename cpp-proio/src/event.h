@@ -29,9 +29,7 @@ class Event {
     /** UntagEntry removes a tag from a specified entry.
      */
     void UntagEntry(uint64_t id, std::string tag);
-    /** RemoveEntry removes an entry from the event.  This is relatively
-     * expensive because it requires a reverse tag lookup to clean up tags that
-     * may point to the entry.
+    /** RemoveEntry removes an entry from the event.
      */
     void RemoveEntry(uint64_t id);
     /** Tags returns a list of tags that exist in the event.
