@@ -27,18 +27,26 @@ results in the following (on my Core i5 desktop):
 goos: linux
 goarch: amd64
 pkg: github.com/decibelcooper/proio/go-proio
-BenchmarkWriteUncomp-4             10000            134603 ns/op
-BenchmarkWriteUncomp-4             10000            130964 ns/op
-BenchmarkWriteLZ4-4                 5000            273886 ns/op
-BenchmarkWriteLZ4-4                 5000            272471 ns/op
-BenchmarkWriteGZIP-4                5000           1360375 ns/op
-BenchmarkWriteGZIP-4                5000           1365100 ns/op
-BenchmarkReadUncomp-4               5000            279615 ns/op
-BenchmarkReadUncomp-4               5000            279104 ns/op
-BenchmarkReadLZ4-4                  5000            285193 ns/op
-BenchmarkReadLZ4-4                  5000            285822 ns/op
-BenchmarkReadGZIP-4                 5000            471545 ns/op
-BenchmarkReadGZIP-4                 5000            474458 ns/op
+BenchmarkWriteUncomp-4                     10000            128412 ns/op
+BenchmarkWriteUncomp-4                     10000            127741 ns/op
+BenchmarkWriteLZ4-4                         5000            267338 ns/op
+BenchmarkWriteLZ4-4                         5000            268786 ns/op
+BenchmarkWriteGZIP-4                        5000           1348183 ns/op
+BenchmarkWriteGZIP-4                        5000           1357786 ns/op
+BenchmarkReadUncomp-4                       5000            277247 ns/op
+BenchmarkReadUncomp-4                       5000            276152 ns/op
+BenchmarkReadLZ4-4                          5000            285991 ns/op
+BenchmarkReadLZ4-4                          5000            282309 ns/op
+BenchmarkReadGZIP-4                         5000            476960 ns/op
+BenchmarkReadGZIP-4                         5000            477229 ns/op
+BenchmarkAddRemove100Entries-4             30000             71958 ns/op
+BenchmarkAddRemove100Entries-4             20000             63136 ns/op
+BenchmarkAddRemove1000Entries-4             3000            742337 ns/op
+BenchmarkAddRemove1000Entries-4             2000            794221 ns/op
+BenchmarkAddRemove10000Entries-4             200           7657906 ns/op
+BenchmarkAddRemove10000Entries-4             200           8777519 ns/op
+BenchmarkAddRemove100000Entries-4             20          66231187 ns/op
+BenchmarkAddRemove100000Entries-4             20          64927346 ns/op
 PASS
-ok      github.com/decibelcooper/proio/go-proio 50.009s
+ok      github.com/decibelcooper/proio/go-proio 65.545s
 ```
