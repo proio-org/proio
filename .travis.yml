@@ -34,6 +34,29 @@ matrix:
               - cmake -DCMAKE_PREFIX_PATH=$HOME ../
               - make -j2
               - CTEST_OUTPUT_ON_FAILURE=True make test
+        - language: cpp
+          env:
+              - PROTOBUF_VERSION: latest
+              - LZ4_VERSION: latest
+          install:
+              - git clone https://github.com/lz4/lz4.git
+              - cd lz4
+              - make -j2
+              - make PREFIX=$HOME install
+              - cd ../
+              - git clone https://github.com/google/protobuf.git
+              - cd protobuf
+              - bash autogen.sh
+              - ./configure --prefix=$HOME
+              - make -j2
+              - make install
+              - cd ../
+          script:
+              - mkdir cpp-proio/build
+              - cd cpp-proio/build
+              - cmake -DCMAKE_PREFIX_PATH=$HOME ../
+              - make -j2
+              - CTEST_OUTPUT_ON_FAILURE=True make test
 
         - language: go
           go: 1.7.x
@@ -82,6 +105,9 @@ matrix:
 
 
     allow_failures:
+        - env:
+              - PROTOBUF_VERSION: latest
+              - LZ4_VERSION: latest
         - go: master
         - python: nightly
     fast_finish: true
