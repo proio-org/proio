@@ -68,10 +68,6 @@ message RandomPos {
     // repeated Distributions imply a convolution.  Orthogonal to the space
     // spanned by the Distributions, the RandomPos is assumed to not vary.
     repeated Distribution distrib = 3;
-    // "transform"s are ProIO entry identifiers that point to XYZTMatrixes that
-    // are to be applied to the convolved distribution in order.  These should
-    // be orthogonal matrices.
-    repeated uint64 transform = 4;
 }
 
 ////// SECONDARY DATA MODEL MESSAGES //////
@@ -82,53 +78,8 @@ message Distribution {
         UNIFORM = 1;
     }
     Type type = 2;
+    // spatial in mm and time in ns
     XYZTF variance = 3;
-    // "transform"s are ProIO entry identifiers that point to XYZTMatrixes that
-    // are to be applied to the variance in order.  These should be orthogonal
-    // matrices.
-    repeated uint64 transform = 4;
-}
-
-message XYZTMatrix {
-    float xx = 1;
-    float xy = 2;
-    float xz = 3;
-    float xt = 4;
-    float yx = 5;
-    float yy = 6;
-    float yz = 7;
-    float yt = 8;
-    float zx = 9;
-    float zy = 10;
-    float zz = 11;
-    float zt = 12;
-    float tx = 13;
-    float ty = 14;
-    float tz = 15;
-    float tt = 16;
-    float exx = 17;
-    float exy = 18;
-    float exz = 19;
-    float ext = 20;
-    float eyx = 21;
-    float eyy = 22;
-    float eyz = 23;
-    float eyt = 24;
-    float ezx = 25;
-    float ezy = 26;
-    float ezz = 27;
-    float ezt = 28;
-    float etx = 29;
-    float ety = 30;
-    float etz = 31;
-    float ett = 32;
-}
-
-message XYZTI {
-    sint64 x = 1;
-    sint64 y = 2;
-    sint64 z = 3;
-    sint64 t = 4;
 }
 
 message XYZTD {
@@ -143,12 +94,6 @@ message XYZTF {
     float y = 2;
     float z = 3;
     float t = 4;
-}
-
-message XYZI {
-    sint64 x = 1;
-    sint64 y = 2;
-    sint64 z = 3;
 }
 
 message XYZD {

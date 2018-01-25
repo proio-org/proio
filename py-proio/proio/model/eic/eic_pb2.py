@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='proio/model/eic.proto',
   package='proio.model.eic',
   syntax='proto3',
-  serialized_pb=_b('\n\x15proio/model/eic.proto\x12\x0fproio.model.eic\"\xc3\x01\n\x08Particle\x12\x0e\n\x06parent\x18\x01 \x03(\x04\x12\r\n\x05\x63hild\x18\x02 \x03(\x04\x12\x0b\n\x03pdg\x18\x03 \x01(\x11\x12&\n\x06vertex\x18\x04 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12 \n\x01p\x18\x05 \x01(\x0b\x32\x15.proio.model.eic.XYZD\x12\x0c\n\x04mass\x18\x06 \x01(\x01\x12\x0e\n\x06\x63harge\x18\x07 \x01(\x02\x12#\n\x04spin\x18\x08 \x01(\x0b\x32\x15.proio.model.eic.XYZF\"\x97\x01\n\x06SimHit\x12\x10\n\x08volumeid\x18\x01 \x01(\x04\x12,\n\x0cglobalprepos\x18\x02 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12-\n\rglobalpostpos\x18\x03 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12\x0c\n\x04\x65\x64\x65p\x18\x04 \x01(\x02\x12\x10\n\x08particle\x18\x05 \x01(\x04\"r\n\x08ReconHit\x12\x0e\n\x06\x63\x65llid\x18\x01 \x01(\x04\x12\x0c\n\x04\x65\x64\x65p\x18\x02 \x01(\x02\x12\x0f\n\x07\x65\x64\x65perr\x18\x03 \x01(\x02\x12\'\n\x03pos\x18\x04 \x03(\x0b\x32\x1a.proio.model.eic.RandomPos\x12\x0e\n\x06source\x18\x05 \x03(\x04\"\x87\x01\n\tRandomPos\x12$\n\x04mean\x18\x01 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12\x11\n\tweightmod\x18\x02 \x01(\x02\x12.\n\x07\x64istrib\x18\x03 \x03(\x0b\x32\x1d.proio.model.eic.Distribution\x12\x11\n\ttransform\x18\x04 \x03(\x04\"\x9e\x01\n\x0c\x44istribution\x12\x30\n\x04type\x18\x02 \x01(\x0e\x32\".proio.model.eic.Distribution.Type\x12(\n\x08variance\x18\x03 \x01(\x0b\x32\x16.proio.model.eic.XYZTF\x12\x11\n\ttransform\x18\x04 \x03(\x04\"\x1f\n\x04Type\x12\n\n\x06NORMAL\x10\x00\x12\x0b\n\x07UNIFORM\x10\x01\"\x9c\x03\n\nXYZTMatrix\x12\n\n\x02xx\x18\x01 \x01(\x02\x12\n\n\x02xy\x18\x02 \x01(\x02\x12\n\n\x02xz\x18\x03 \x01(\x02\x12\n\n\x02xt\x18\x04 \x01(\x02\x12\n\n\x02yx\x18\x05 \x01(\x02\x12\n\n\x02yy\x18\x06 \x01(\x02\x12\n\n\x02yz\x18\x07 \x01(\x02\x12\n\n\x02yt\x18\x08 \x01(\x02\x12\n\n\x02zx\x18\t \x01(\x02\x12\n\n\x02zy\x18\n \x01(\x02\x12\n\n\x02zz\x18\x0b \x01(\x02\x12\n\n\x02zt\x18\x0c \x01(\x02\x12\n\n\x02tx\x18\r \x01(\x02\x12\n\n\x02ty\x18\x0e \x01(\x02\x12\n\n\x02tz\x18\x0f \x01(\x02\x12\n\n\x02tt\x18\x10 \x01(\x02\x12\x0b\n\x03\x65xx\x18\x11 \x01(\x02\x12\x0b\n\x03\x65xy\x18\x12 \x01(\x02\x12\x0b\n\x03\x65xz\x18\x13 \x01(\x02\x12\x0b\n\x03\x65xt\x18\x14 \x01(\x02\x12\x0b\n\x03\x65yx\x18\x15 \x01(\x02\x12\x0b\n\x03\x65yy\x18\x16 \x01(\x02\x12\x0b\n\x03\x65yz\x18\x17 \x01(\x02\x12\x0b\n\x03\x65yt\x18\x18 \x01(\x02\x12\x0b\n\x03\x65zx\x18\x19 \x01(\x02\x12\x0b\n\x03\x65zy\x18\x1a \x01(\x02\x12\x0b\n\x03\x65zz\x18\x1b \x01(\x02\x12\x0b\n\x03\x65zt\x18\x1c \x01(\x02\x12\x0b\n\x03\x65tx\x18\x1d \x01(\x02\x12\x0b\n\x03\x65ty\x18\x1e \x01(\x02\x12\x0b\n\x03\x65tz\x18\x1f \x01(\x02\x12\x0b\n\x03\x65tt\x18  \x01(\x02\"3\n\x05XYZTI\x12\t\n\x01x\x18\x01 \x01(\x12\x12\t\n\x01y\x18\x02 \x01(\x12\x12\t\n\x01z\x18\x03 \x01(\x12\x12\t\n\x01t\x18\x04 \x01(\x12\"3\n\x05XYZTD\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\x12\t\n\x01t\x18\x04 \x01(\x01\"3\n\x05XYZTF\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x12\t\n\x01t\x18\x04 \x01(\x02\"\'\n\x04XYZI\x12\t\n\x01x\x18\x01 \x01(\x12\x12\t\n\x01y\x18\x02 \x01(\x12\x12\t\n\x01z\x18\x03 \x01(\x12\"\'\n\x04XYZD\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\"\'\n\x04XYZF\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x42\x45\n\x0bproio.modelB\x03\x45icZ1github.com/decibelcooper/proio/go-proio/model/eicb\x06proto3')
+  serialized_pb=_b('\n\x15proio/model/eic.proto\x12\x0fproio.model.eic\"\xc3\x01\n\x08Particle\x12\x0e\n\x06parent\x18\x01 \x03(\x04\x12\r\n\x05\x63hild\x18\x02 \x03(\x04\x12\x0b\n\x03pdg\x18\x03 \x01(\x11\x12&\n\x06vertex\x18\x04 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12 \n\x01p\x18\x05 \x01(\x0b\x32\x15.proio.model.eic.XYZD\x12\x0c\n\x04mass\x18\x06 \x01(\x01\x12\x0e\n\x06\x63harge\x18\x07 \x01(\x02\x12#\n\x04spin\x18\x08 \x01(\x0b\x32\x15.proio.model.eic.XYZF\"\x97\x01\n\x06SimHit\x12\x10\n\x08volumeid\x18\x01 \x01(\x04\x12,\n\x0cglobalprepos\x18\x02 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12-\n\rglobalpostpos\x18\x03 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12\x0c\n\x04\x65\x64\x65p\x18\x04 \x01(\x02\x12\x10\n\x08particle\x18\x05 \x01(\x04\"r\n\x08ReconHit\x12\x0e\n\x06\x63\x65llid\x18\x01 \x01(\x04\x12\x0c\n\x04\x65\x64\x65p\x18\x02 \x01(\x02\x12\x0f\n\x07\x65\x64\x65perr\x18\x03 \x01(\x02\x12\'\n\x03pos\x18\x04 \x03(\x0b\x32\x1a.proio.model.eic.RandomPos\x12\x0e\n\x06source\x18\x05 \x03(\x04\"t\n\tRandomPos\x12$\n\x04mean\x18\x01 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12\x11\n\tweightmod\x18\x02 \x01(\x02\x12.\n\x07\x64istrib\x18\x03 \x03(\x0b\x32\x1d.proio.model.eic.Distribution\"\x8b\x01\n\x0c\x44istribution\x12\x30\n\x04type\x18\x02 \x01(\x0e\x32\".proio.model.eic.Distribution.Type\x12(\n\x08variance\x18\x03 \x01(\x0b\x32\x16.proio.model.eic.XYZTF\"\x1f\n\x04Type\x12\n\n\x06NORMAL\x10\x00\x12\x0b\n\x07UNIFORM\x10\x01\"3\n\x05XYZTD\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\x12\t\n\x01t\x18\x04 \x01(\x01\"3\n\x05XYZTF\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x12\t\n\x01t\x18\x04 \x01(\x02\"\'\n\x04XYZD\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\"\'\n\x04XYZF\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x42\x45\n\x0bproio.modelB\x03\x45icZ1github.com/decibelcooper/proio/go-proio/model/eicb\x06proto3')
 )
 
 
@@ -41,8 +41,8 @@ _DISTRIBUTION_TYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=776,
-  serialized_end=807,
+  serialized_start=737,
+  serialized_end=768,
 )
 _sym_db.RegisterEnumDescriptor(_DISTRIBUTION_TYPE)
 
@@ -273,13 +273,6 @@ _RANDOMPOS = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='transform', full_name='proio.model.eic.RandomPos.transform', index=3,
-      number=4, type=4, cpp_type=4, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -292,8 +285,8 @@ _RANDOMPOS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=511,
-  serialized_end=646,
+  serialized_start=510,
+  serialized_end=626,
 )
 
 
@@ -318,13 +311,6 @@ _DISTRIBUTION = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='transform', full_name='proio.model.eic.Distribution.transform', index=2,
-      number=4, type=4, cpp_type=4, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -338,308 +324,8 @@ _DISTRIBUTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=649,
-  serialized_end=807,
-)
-
-
-_XYZTMATRIX = _descriptor.Descriptor(
-  name='XYZTMatrix',
-  full_name='proio.model.eic.XYZTMatrix',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='xx', full_name='proio.model.eic.XYZTMatrix.xx', index=0,
-      number=1, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='xy', full_name='proio.model.eic.XYZTMatrix.xy', index=1,
-      number=2, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='xz', full_name='proio.model.eic.XYZTMatrix.xz', index=2,
-      number=3, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='xt', full_name='proio.model.eic.XYZTMatrix.xt', index=3,
-      number=4, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='yx', full_name='proio.model.eic.XYZTMatrix.yx', index=4,
-      number=5, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='yy', full_name='proio.model.eic.XYZTMatrix.yy', index=5,
-      number=6, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='yz', full_name='proio.model.eic.XYZTMatrix.yz', index=6,
-      number=7, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='yt', full_name='proio.model.eic.XYZTMatrix.yt', index=7,
-      number=8, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='zx', full_name='proio.model.eic.XYZTMatrix.zx', index=8,
-      number=9, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='zy', full_name='proio.model.eic.XYZTMatrix.zy', index=9,
-      number=10, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='zz', full_name='proio.model.eic.XYZTMatrix.zz', index=10,
-      number=11, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='zt', full_name='proio.model.eic.XYZTMatrix.zt', index=11,
-      number=12, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='tx', full_name='proio.model.eic.XYZTMatrix.tx', index=12,
-      number=13, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='ty', full_name='proio.model.eic.XYZTMatrix.ty', index=13,
-      number=14, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='tz', full_name='proio.model.eic.XYZTMatrix.tz', index=14,
-      number=15, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='tt', full_name='proio.model.eic.XYZTMatrix.tt', index=15,
-      number=16, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='exx', full_name='proio.model.eic.XYZTMatrix.exx', index=16,
-      number=17, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='exy', full_name='proio.model.eic.XYZTMatrix.exy', index=17,
-      number=18, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='exz', full_name='proio.model.eic.XYZTMatrix.exz', index=18,
-      number=19, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='ext', full_name='proio.model.eic.XYZTMatrix.ext', index=19,
-      number=20, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='eyx', full_name='proio.model.eic.XYZTMatrix.eyx', index=20,
-      number=21, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='eyy', full_name='proio.model.eic.XYZTMatrix.eyy', index=21,
-      number=22, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='eyz', full_name='proio.model.eic.XYZTMatrix.eyz', index=22,
-      number=23, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='eyt', full_name='proio.model.eic.XYZTMatrix.eyt', index=23,
-      number=24, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='ezx', full_name='proio.model.eic.XYZTMatrix.ezx', index=24,
-      number=25, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='ezy', full_name='proio.model.eic.XYZTMatrix.ezy', index=25,
-      number=26, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='ezz', full_name='proio.model.eic.XYZTMatrix.ezz', index=26,
-      number=27, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='ezt', full_name='proio.model.eic.XYZTMatrix.ezt', index=27,
-      number=28, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='etx', full_name='proio.model.eic.XYZTMatrix.etx', index=28,
-      number=29, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='ety', full_name='proio.model.eic.XYZTMatrix.ety', index=29,
-      number=30, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='etz', full_name='proio.model.eic.XYZTMatrix.etz', index=30,
-      number=31, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='ett', full_name='proio.model.eic.XYZTMatrix.ett', index=31,
-      number=32, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=810,
-  serialized_end=1222,
-)
-
-
-_XYZTI = _descriptor.Descriptor(
-  name='XYZTI',
-  full_name='proio.model.eic.XYZTI',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='x', full_name='proio.model.eic.XYZTI.x', index=0,
-      number=1, type=18, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='y', full_name='proio.model.eic.XYZTI.y', index=1,
-      number=2, type=18, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='z', full_name='proio.model.eic.XYZTI.z', index=2,
-      number=3, type=18, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='t', full_name='proio.model.eic.XYZTI.t', index=3,
-      number=4, type=18, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1224,
-  serialized_end=1275,
+  serialized_start=629,
+  serialized_end=768,
 )
 
 
@@ -690,8 +376,8 @@ _XYZTD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1277,
-  serialized_end=1328,
+  serialized_start=770,
+  serialized_end=821,
 )
 
 
@@ -742,53 +428,8 @@ _XYZTF = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1330,
-  serialized_end=1381,
-)
-
-
-_XYZI = _descriptor.Descriptor(
-  name='XYZI',
-  full_name='proio.model.eic.XYZI',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='x', full_name='proio.model.eic.XYZI.x', index=0,
-      number=1, type=18, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='y', full_name='proio.model.eic.XYZI.y', index=1,
-      number=2, type=18, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='z', full_name='proio.model.eic.XYZI.z', index=2,
-      number=3, type=18, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1383,
-  serialized_end=1422,
+  serialized_start=823,
+  serialized_end=874,
 )
 
 
@@ -832,8 +473,8 @@ _XYZD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1424,
-  serialized_end=1463,
+  serialized_start=876,
+  serialized_end=915,
 )
 
 
@@ -877,8 +518,8 @@ _XYZF = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1465,
-  serialized_end=1504,
+  serialized_start=917,
+  serialized_end=956,
 )
 
 _PARTICLE.fields_by_name['vertex'].message_type = _XYZTD
@@ -897,11 +538,8 @@ DESCRIPTOR.message_types_by_name['SimHit'] = _SIMHIT
 DESCRIPTOR.message_types_by_name['ReconHit'] = _RECONHIT
 DESCRIPTOR.message_types_by_name['RandomPos'] = _RANDOMPOS
 DESCRIPTOR.message_types_by_name['Distribution'] = _DISTRIBUTION
-DESCRIPTOR.message_types_by_name['XYZTMatrix'] = _XYZTMATRIX
-DESCRIPTOR.message_types_by_name['XYZTI'] = _XYZTI
 DESCRIPTOR.message_types_by_name['XYZTD'] = _XYZTD
 DESCRIPTOR.message_types_by_name['XYZTF'] = _XYZTF
-DESCRIPTOR.message_types_by_name['XYZI'] = _XYZI
 DESCRIPTOR.message_types_by_name['XYZD'] = _XYZD
 DESCRIPTOR.message_types_by_name['XYZF'] = _XYZF
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -941,20 +579,6 @@ Distribution = _reflection.GeneratedProtocolMessageType('Distribution', (_messag
   ))
 _sym_db.RegisterMessage(Distribution)
 
-XYZTMatrix = _reflection.GeneratedProtocolMessageType('XYZTMatrix', (_message.Message,), dict(
-  DESCRIPTOR = _XYZTMATRIX,
-  __module__ = 'proio.model.eic_pb2'
-  # @@protoc_insertion_point(class_scope:proio.model.eic.XYZTMatrix)
-  ))
-_sym_db.RegisterMessage(XYZTMatrix)
-
-XYZTI = _reflection.GeneratedProtocolMessageType('XYZTI', (_message.Message,), dict(
-  DESCRIPTOR = _XYZTI,
-  __module__ = 'proio.model.eic_pb2'
-  # @@protoc_insertion_point(class_scope:proio.model.eic.XYZTI)
-  ))
-_sym_db.RegisterMessage(XYZTI)
-
 XYZTD = _reflection.GeneratedProtocolMessageType('XYZTD', (_message.Message,), dict(
   DESCRIPTOR = _XYZTD,
   __module__ = 'proio.model.eic_pb2'
@@ -968,13 +592,6 @@ XYZTF = _reflection.GeneratedProtocolMessageType('XYZTF', (_message.Message,), d
   # @@protoc_insertion_point(class_scope:proio.model.eic.XYZTF)
   ))
 _sym_db.RegisterMessage(XYZTF)
-
-XYZI = _reflection.GeneratedProtocolMessageType('XYZI', (_message.Message,), dict(
-  DESCRIPTOR = _XYZI,
-  __module__ = 'proio.model.eic_pb2'
-  # @@protoc_insertion_point(class_scope:proio.model.eic.XYZI)
-  ))
-_sym_db.RegisterMessage(XYZI)
 
 XYZD = _reflection.GeneratedProtocolMessageType('XYZD', (_message.Message,), dict(
   DESCRIPTOR = _XYZD,
