@@ -9,28 +9,6 @@ stages:
 
 matrix:
     include:
-        - language: go
-          go: 1.7.x
-        - language: go
-          go: 1.8.x
-        - language: go
-          go: 1.9.x
-        - language: go
-          go: master
-
-        - language: python
-          python: 2.7
-          install: pip install --upgrade pytest ./py-proio
-          script: pytest ./py-proio
-        - language: python
-          python: 3.6
-          install: pip install --upgrade pytest ./py-proio
-          script: pytest ./py-proio
-        - language: python
-          python: nightly
-          install: pip install --upgrade pytest ./py-proio
-          script: pytest ./py-proio
-
         - language: cpp
           env:
               - PROTOBUF_VERSION: v3.1.0
@@ -57,6 +35,28 @@ matrix:
               - make -j2
               - CTEST_OUTPUT_ON_FAILURE=True make test
 
+        - language: go
+          go: 1.7.x
+        - language: go
+          go: 1.8.x
+        - language: go
+          go: 1.9.x
+        - language: go
+          go: master
+
+        - language: python
+          python: 2.7
+          install: pip install --upgrade pytest ./py-proio
+          script: pytest ./py-proio
+        - language: python
+          python: 3.6
+          install: pip install --upgrade pytest ./py-proio
+          script: pytest ./py-proio
+        - language: python
+          python: nightly
+          install: pip install --upgrade pytest ./py-proio
+          script: pytest ./py-proio
+
         - language: python
           stage: doc
           env:
@@ -68,6 +68,7 @@ matrix:
               - pip install --upgrade .
               - cd docs
               - bash genAndDeploy.sh
+
         - language: cpp
           env:
               - CPP_DOCS_REPO_REF: github.com/decibelcooper/cpp-proio-docs.git
