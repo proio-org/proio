@@ -10,9 +10,9 @@
 	It has these top-level messages:
 		Particle
 		SimHit
-		ReconHit
-		RandomPos
-		Distribution
+		Observation
+		ObservedPos
+		RandVar
 		XYZTD
 		XYZTF
 		XYZD
@@ -37,27 +37,28 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
-type Distribution_Type int32
+type RandVar_Distribution int32
 
 const (
-	Distribution_NORMAL  Distribution_Type = 0
-	Distribution_UNIFORM Distribution_Type = 1
+	RandVar_NORMAL  RandVar_Distribution = 0
+	RandVar_UNIFORM RandVar_Distribution = 1
 )
 
-var Distribution_Type_name = map[int32]string{
+var RandVar_Distribution_name = map[int32]string{
 	0: "NORMAL",
 	1: "UNIFORM",
 }
-var Distribution_Type_value = map[string]int32{
+var RandVar_Distribution_value = map[string]int32{
 	"NORMAL":  0,
 	"UNIFORM": 1,
 }
 
-func (x Distribution_Type) String() string {
-	return proto.EnumName(Distribution_Type_name, int32(x))
+func (x RandVar_Distribution) String() string {
+	return proto.EnumName(RandVar_Distribution_name, int32(x))
 }
-func (Distribution_Type) EnumDescriptor() ([]byte, []int) { return fileDescriptorEic, []int{4, 0} }
+func (RandVar_Distribution) EnumDescriptor() ([]byte, []int) { return fileDescriptorEic, []int{4, 0} }
 
+// truth-level particle
 type Particle struct {
 	// ProIO entry identifiers that point to parent Particles
 	Parent []uint64 `protobuf:"varint,1,rep,packed,name=parent" json:"parent,omitempty"`
@@ -137,7 +138,7 @@ func (m *Particle) GetSpin() *XYZF {
 	return nil
 }
 
-// simulation hit
+// raw simulation output
 type SimHit struct {
 	// optional ID to circumvent volume lookup from global position during
 	// digitization
@@ -193,123 +194,126 @@ func (m *SimHit) GetParticle() uint64 {
 	return 0
 }
 
-// reconstructed hit
-type ReconHit struct {
+// fundamental object used in reconstruction
+type Observation struct {
 	// optional ID for identifying the cell that this hit came from
 	Cellid uint64 `protobuf:"varint,1,opt,name=cellid,proto3" json:"cellid,omitempty"`
 	// energy in GeV
-	Edep    float32 `protobuf:"fixed32,2,opt,name=edep,proto3" json:"edep,omitempty"`
-	Edeperr float32 `protobuf:"fixed32,3,opt,name=edeperr,proto3" json:"edeperr,omitempty"`
+	Edep float32 `protobuf:"fixed32,2,opt,name=edep,proto3" json:"edep,omitempty"`
+	// sigma value for normally-distributed noise (GeV)
+	Edepnoise float32 `protobuf:"fixed32,3,opt,name=edepnoise,proto3" json:"edepnoise,omitempty"`
 	// Multiple possible positions can be specified.
-	Pos []*RandomPos `protobuf:"bytes,4,rep,name=pos" json:"pos,omitempty"`
+	Pos []*ObservedPos `protobuf:"bytes,4,rep,name=pos" json:"pos,omitempty"`
 	// "source"s are ProIO entry identifiers that may point to either SimHits
 	// or Particles responsible for the ReconHit.
 	Source []uint64 `protobuf:"varint,5,rep,packed,name=source" json:"source,omitempty"`
 }
 
-func (m *ReconHit) Reset()                    { *m = ReconHit{} }
-func (m *ReconHit) String() string            { return proto.CompactTextString(m) }
-func (*ReconHit) ProtoMessage()               {}
-func (*ReconHit) Descriptor() ([]byte, []int) { return fileDescriptorEic, []int{2} }
+func (m *Observation) Reset()                    { *m = Observation{} }
+func (m *Observation) String() string            { return proto.CompactTextString(m) }
+func (*Observation) ProtoMessage()               {}
+func (*Observation) Descriptor() ([]byte, []int) { return fileDescriptorEic, []int{2} }
 
-func (m *ReconHit) GetCellid() uint64 {
+func (m *Observation) GetCellid() uint64 {
 	if m != nil {
 		return m.Cellid
 	}
 	return 0
 }
 
-func (m *ReconHit) GetEdep() float32 {
+func (m *Observation) GetEdep() float32 {
 	if m != nil {
 		return m.Edep
 	}
 	return 0
 }
 
-func (m *ReconHit) GetEdeperr() float32 {
+func (m *Observation) GetEdepnoise() float32 {
 	if m != nil {
-		return m.Edeperr
+		return m.Edepnoise
 	}
 	return 0
 }
 
-func (m *ReconHit) GetPos() []*RandomPos {
+func (m *Observation) GetPos() []*ObservedPos {
 	if m != nil {
 		return m.Pos
 	}
 	return nil
 }
 
-func (m *ReconHit) GetSource() []uint64 {
+func (m *Observation) GetSource() []uint64 {
 	if m != nil {
 		return m.Source
 	}
 	return nil
 }
 
-// randomly-distributed position
-type RandomPos struct {
+// position with detailed noise
+type ObservedPos struct {
 	// spatial in mm and time in ns
 	Mean *XYZTD `protobuf:"bytes,1,opt,name=mean" json:"mean,omitempty"`
+	// These RandVars describe independent random noise contributions, and
+	// repeated RandVars imply addition, or alternatively a convolution of
+	// their distributions.  The contributions must combine to span the full
+	// 4-dimensional space, so the number of contributions must be >= 4.
+	Noise []*RandVar `protobuf:"bytes,2,rep,name=noise" json:"noise,omitempty"`
 	// "weightmod" describes additional weight to be applied to this position.
 	// For the case of multiple possible positions, it is implied that by
 	// default each position is equally likely.  This can be changed by adding
 	// weight to positions.  To make one position twice as likely as a position
 	// without a weight modifier, set weightmod to +1.
-	Weightmod float32 `protobuf:"fixed32,2,opt,name=weightmod,proto3" json:"weightmod,omitempty"`
-	// These Distributions describe independent variance contributions, and
-	// repeated Distributions imply a convolution.  Orthogonal to the space
-	// spanned by the Distributions, the RandomPos is assumed to not vary.
-	Distrib []*Distribution `protobuf:"bytes,3,rep,name=distrib" json:"distrib,omitempty"`
+	Weightmod float32 `protobuf:"fixed32,3,opt,name=weightmod,proto3" json:"weightmod,omitempty"`
 }
 
-func (m *RandomPos) Reset()                    { *m = RandomPos{} }
-func (m *RandomPos) String() string            { return proto.CompactTextString(m) }
-func (*RandomPos) ProtoMessage()               {}
-func (*RandomPos) Descriptor() ([]byte, []int) { return fileDescriptorEic, []int{3} }
+func (m *ObservedPos) Reset()                    { *m = ObservedPos{} }
+func (m *ObservedPos) String() string            { return proto.CompactTextString(m) }
+func (*ObservedPos) ProtoMessage()               {}
+func (*ObservedPos) Descriptor() ([]byte, []int) { return fileDescriptorEic, []int{3} }
 
-func (m *RandomPos) GetMean() *XYZTD {
+func (m *ObservedPos) GetMean() *XYZTD {
 	if m != nil {
 		return m.Mean
 	}
 	return nil
 }
 
-func (m *RandomPos) GetWeightmod() float32 {
+func (m *ObservedPos) GetNoise() []*RandVar {
+	if m != nil {
+		return m.Noise
+	}
+	return nil
+}
+
+func (m *ObservedPos) GetWeightmod() float32 {
 	if m != nil {
 		return m.Weightmod
 	}
 	return 0
 }
 
-func (m *RandomPos) GetDistrib() []*Distribution {
-	if m != nil {
-		return m.Distrib
-	}
-	return nil
-}
-
-type Distribution struct {
-	Type Distribution_Type `protobuf:"varint,2,opt,name=type,proto3,enum=proio.model.eic.Distribution_Type" json:"type,omitempty"`
+// random variable with a specified distribution along an axis defined in XYZT
+type RandVar struct {
+	Dist RandVar_Distribution `protobuf:"varint,2,opt,name=dist,proto3,enum=proio.model.eic.RandVar_Distribution" json:"dist,omitempty"`
 	// spatial in mm and time in ns
-	Variance *XYZTF `protobuf:"bytes,3,opt,name=variance" json:"variance,omitempty"`
+	Sigma *XYZTF `protobuf:"bytes,3,opt,name=sigma" json:"sigma,omitempty"`
 }
 
-func (m *Distribution) Reset()                    { *m = Distribution{} }
-func (m *Distribution) String() string            { return proto.CompactTextString(m) }
-func (*Distribution) ProtoMessage()               {}
-func (*Distribution) Descriptor() ([]byte, []int) { return fileDescriptorEic, []int{4} }
+func (m *RandVar) Reset()                    { *m = RandVar{} }
+func (m *RandVar) String() string            { return proto.CompactTextString(m) }
+func (*RandVar) ProtoMessage()               {}
+func (*RandVar) Descriptor() ([]byte, []int) { return fileDescriptorEic, []int{4} }
 
-func (m *Distribution) GetType() Distribution_Type {
+func (m *RandVar) GetDist() RandVar_Distribution {
 	if m != nil {
-		return m.Type
+		return m.Dist
 	}
-	return Distribution_NORMAL
+	return RandVar_NORMAL
 }
 
-func (m *Distribution) GetVariance() *XYZTF {
+func (m *RandVar) GetSigma() *XYZTF {
 	if m != nil {
-		return m.Variance
+		return m.Sigma
 	}
 	return nil
 }
@@ -461,14 +465,14 @@ func (m *XYZF) GetZ() float32 {
 func init() {
 	proto.RegisterType((*Particle)(nil), "proio.model.eic.Particle")
 	proto.RegisterType((*SimHit)(nil), "proio.model.eic.SimHit")
-	proto.RegisterType((*ReconHit)(nil), "proio.model.eic.ReconHit")
-	proto.RegisterType((*RandomPos)(nil), "proio.model.eic.RandomPos")
-	proto.RegisterType((*Distribution)(nil), "proio.model.eic.Distribution")
+	proto.RegisterType((*Observation)(nil), "proio.model.eic.Observation")
+	proto.RegisterType((*ObservedPos)(nil), "proio.model.eic.ObservedPos")
+	proto.RegisterType((*RandVar)(nil), "proio.model.eic.RandVar")
 	proto.RegisterType((*XYZTD)(nil), "proio.model.eic.XYZTD")
 	proto.RegisterType((*XYZTF)(nil), "proio.model.eic.XYZTF")
 	proto.RegisterType((*XYZD)(nil), "proio.model.eic.XYZD")
 	proto.RegisterType((*XYZF)(nil), "proio.model.eic.XYZF")
-	proto.RegisterEnum("proio.model.eic.Distribution_Type", Distribution_Type_name, Distribution_Type_value)
+	proto.RegisterEnum("proio.model.eic.RandVar_Distribution", RandVar_Distribution_name, RandVar_Distribution_value)
 }
 func (m *Particle) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
@@ -620,7 +624,7 @@ func (m *SimHit) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 
-func (m *ReconHit) Marshal() (dAtA []byte, err error) {
+func (m *Observation) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -630,7 +634,7 @@ func (m *ReconHit) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *ReconHit) MarshalTo(dAtA []byte) (int, error) {
+func (m *Observation) MarshalTo(dAtA []byte) (int, error) {
 	var i int
 	_ = i
 	var l int
@@ -645,10 +649,10 @@ func (m *ReconHit) MarshalTo(dAtA []byte) (int, error) {
 		i++
 		i = encodeFixed32Eic(dAtA, i, uint32(math.Float32bits(float32(m.Edep))))
 	}
-	if m.Edeperr != 0 {
+	if m.Edepnoise != 0 {
 		dAtA[i] = 0x1d
 		i++
-		i = encodeFixed32Eic(dAtA, i, uint32(math.Float32bits(float32(m.Edeperr))))
+		i = encodeFixed32Eic(dAtA, i, uint32(math.Float32bits(float32(m.Edepnoise))))
 	}
 	if len(m.Pos) > 0 {
 		for _, msg := range m.Pos {
@@ -682,7 +686,7 @@ func (m *ReconHit) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 
-func (m *RandomPos) Marshal() (dAtA []byte, err error) {
+func (m *ObservedPos) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -692,7 +696,7 @@ func (m *RandomPos) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *RandomPos) MarshalTo(dAtA []byte) (int, error) {
+func (m *ObservedPos) MarshalTo(dAtA []byte) (int, error) {
 	var i int
 	_ = i
 	var l int
@@ -707,14 +711,9 @@ func (m *RandomPos) MarshalTo(dAtA []byte) (int, error) {
 		}
 		i += n12
 	}
-	if m.Weightmod != 0 {
-		dAtA[i] = 0x15
-		i++
-		i = encodeFixed32Eic(dAtA, i, uint32(math.Float32bits(float32(m.Weightmod))))
-	}
-	if len(m.Distrib) > 0 {
-		for _, msg := range m.Distrib {
-			dAtA[i] = 0x1a
+	if len(m.Noise) > 0 {
+		for _, msg := range m.Noise {
+			dAtA[i] = 0x12
 			i++
 			i = encodeVarintEic(dAtA, i, uint64(msg.Size()))
 			n, err := msg.MarshalTo(dAtA[i:])
@@ -724,10 +723,15 @@ func (m *RandomPos) MarshalTo(dAtA []byte) (int, error) {
 			i += n
 		}
 	}
+	if m.Weightmod != 0 {
+		dAtA[i] = 0x1d
+		i++
+		i = encodeFixed32Eic(dAtA, i, uint32(math.Float32bits(float32(m.Weightmod))))
+	}
 	return i, nil
 }
 
-func (m *Distribution) Marshal() (dAtA []byte, err error) {
+func (m *RandVar) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -737,21 +741,21 @@ func (m *Distribution) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *Distribution) MarshalTo(dAtA []byte) (int, error) {
+func (m *RandVar) MarshalTo(dAtA []byte) (int, error) {
 	var i int
 	_ = i
 	var l int
 	_ = l
-	if m.Type != 0 {
+	if m.Dist != 0 {
 		dAtA[i] = 0x10
 		i++
-		i = encodeVarintEic(dAtA, i, uint64(m.Type))
+		i = encodeVarintEic(dAtA, i, uint64(m.Dist))
 	}
-	if m.Variance != nil {
+	if m.Sigma != nil {
 		dAtA[i] = 0x1a
 		i++
-		i = encodeVarintEic(dAtA, i, uint64(m.Variance.Size()))
-		n13, err := m.Variance.MarshalTo(dAtA[i:])
+		i = encodeVarintEic(dAtA, i, uint64(m.Sigma.Size()))
+		n13, err := m.Sigma.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
@@ -993,7 +997,7 @@ func (m *SimHit) Size() (n int) {
 	return n
 }
 
-func (m *ReconHit) Size() (n int) {
+func (m *Observation) Size() (n int) {
 	var l int
 	_ = l
 	if m.Cellid != 0 {
@@ -1002,7 +1006,7 @@ func (m *ReconHit) Size() (n int) {
 	if m.Edep != 0 {
 		n += 5
 	}
-	if m.Edeperr != 0 {
+	if m.Edepnoise != 0 {
 		n += 5
 	}
 	if len(m.Pos) > 0 {
@@ -1021,33 +1025,33 @@ func (m *ReconHit) Size() (n int) {
 	return n
 }
 
-func (m *RandomPos) Size() (n int) {
+func (m *ObservedPos) Size() (n int) {
 	var l int
 	_ = l
 	if m.Mean != nil {
 		l = m.Mean.Size()
 		n += 1 + l + sovEic(uint64(l))
 	}
-	if m.Weightmod != 0 {
-		n += 5
-	}
-	if len(m.Distrib) > 0 {
-		for _, e := range m.Distrib {
+	if len(m.Noise) > 0 {
+		for _, e := range m.Noise {
 			l = e.Size()
 			n += 1 + l + sovEic(uint64(l))
 		}
 	}
+	if m.Weightmod != 0 {
+		n += 5
+	}
 	return n
 }
 
-func (m *Distribution) Size() (n int) {
+func (m *RandVar) Size() (n int) {
 	var l int
 	_ = l
-	if m.Type != 0 {
-		n += 1 + sovEic(uint64(m.Type))
+	if m.Dist != 0 {
+		n += 1 + sovEic(uint64(m.Dist))
 	}
-	if m.Variance != nil {
-		l = m.Variance.Size()
+	if m.Sigma != nil {
+		l = m.Sigma.Size()
 		n += 1 + l + sovEic(uint64(l))
 	}
 	return n
@@ -1626,7 +1630,7 @@ func (m *SimHit) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *ReconHit) Unmarshal(dAtA []byte) error {
+func (m *Observation) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1649,10 +1653,10 @@ func (m *ReconHit) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: ReconHit: wiretype end group for non-group")
+			return fmt.Errorf("proto: Observation: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: ReconHit: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: Observation: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -1690,7 +1694,7 @@ func (m *ReconHit) Unmarshal(dAtA []byte) error {
 			m.Edep = float32(math.Float32frombits(v))
 		case 3:
 			if wireType != 5 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Edeperr", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Edepnoise", wireType)
 			}
 			var v uint32
 			if (iNdEx + 4) > l {
@@ -1701,7 +1705,7 @@ func (m *ReconHit) Unmarshal(dAtA []byte) error {
 			v |= uint32(dAtA[iNdEx-3]) << 8
 			v |= uint32(dAtA[iNdEx-2]) << 16
 			v |= uint32(dAtA[iNdEx-1]) << 24
-			m.Edeperr = float32(math.Float32frombits(v))
+			m.Edepnoise = float32(math.Float32frombits(v))
 		case 4:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Pos", wireType)
@@ -1728,7 +1732,7 @@ func (m *ReconHit) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Pos = append(m.Pos, &RandomPos{})
+			m.Pos = append(m.Pos, &ObservedPos{})
 			if err := m.Pos[len(m.Pos)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
@@ -1816,7 +1820,7 @@ func (m *ReconHit) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *RandomPos) Unmarshal(dAtA []byte) error {
+func (m *ObservedPos) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1839,10 +1843,10 @@ func (m *RandomPos) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: RandomPos: wiretype end group for non-group")
+			return fmt.Errorf("proto: ObservedPos: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: RandomPos: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: ObservedPos: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -1879,22 +1883,8 @@ func (m *RandomPos) Unmarshal(dAtA []byte) error {
 			}
 			iNdEx = postIndex
 		case 2:
-			if wireType != 5 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Weightmod", wireType)
-			}
-			var v uint32
-			if (iNdEx + 4) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
-			m.Weightmod = float32(math.Float32frombits(v))
-		case 3:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Distrib", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Noise", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -1918,11 +1908,25 @@ func (m *RandomPos) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Distrib = append(m.Distrib, &Distribution{})
-			if err := m.Distrib[len(m.Distrib)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			m.Noise = append(m.Noise, &RandVar{})
+			if err := m.Noise[len(m.Noise)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
+		case 3:
+			if wireType != 5 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Weightmod", wireType)
+			}
+			var v uint32
+			if (iNdEx + 4) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += 4
+			v = uint32(dAtA[iNdEx-4])
+			v |= uint32(dAtA[iNdEx-3]) << 8
+			v |= uint32(dAtA[iNdEx-2]) << 16
+			v |= uint32(dAtA[iNdEx-1]) << 24
+			m.Weightmod = float32(math.Float32frombits(v))
 		default:
 			iNdEx = preIndex
 			skippy, err := skipEic(dAtA[iNdEx:])
@@ -1944,7 +1948,7 @@ func (m *RandomPos) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *Distribution) Unmarshal(dAtA []byte) error {
+func (m *RandVar) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1967,17 +1971,17 @@ func (m *Distribution) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: Distribution: wiretype end group for non-group")
+			return fmt.Errorf("proto: RandVar: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: Distribution: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: RandVar: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 2:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Dist", wireType)
 			}
-			m.Type = 0
+			m.Dist = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowEic
@@ -1987,14 +1991,14 @@ func (m *Distribution) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Type |= (Distribution_Type(b) & 0x7F) << shift
+				m.Dist |= (RandVar_Distribution(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
 		case 3:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Variance", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Sigma", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -2018,10 +2022,10 @@ func (m *Distribution) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if m.Variance == nil {
-				m.Variance = &XYZTF{}
+			if m.Sigma == nil {
+				m.Sigma = &XYZTF{}
 			}
-			if err := m.Variance.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.Sigma.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -2579,43 +2583,43 @@ func init() { proto.RegisterFile("proio/model/eic.proto", fileDescriptorEic) }
 
 var fileDescriptorEic = []byte{
 	// 624 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x54, 0x5d, 0x6b, 0x13, 0x41,
-	0x14, 0xed, 0xdd, 0xdd, 0x26, 0xe9, 0x4d, 0xd5, 0x3a, 0xd8, 0xb2, 0x14, 0x8d, 0xcb, 0xfa, 0xb2,
-	0x8a, 0x6e, 0x34, 0x82, 0x82, 0x08, 0x62, 0xa9, 0x41, 0xc1, 0x7e, 0x30, 0xb6, 0xa0, 0x7d, 0xdb,
-	0xec, 0x0e, 0xc9, 0xc0, 0xee, 0xce, 0xb0, 0x3b, 0xa9, 0x4d, 0x7f, 0x84, 0x8f, 0x22, 0xf8, 0x87,
-	0x7c, 0x12, 0x7f, 0x82, 0xd4, 0xff, 0xe0, 0xb3, 0xcc, 0x64, 0x9b, 0x26, 0xad, 0x0d, 0xfa, 0x94,
-	0x39, 0x77, 0xcf, 0x9c, 0x7b, 0xee, 0x99, 0xc9, 0xe0, 0xaa, 0x2c, 0x04, 0x17, 0xed, 0x4c, 0x24,
-	0x2c, 0x6d, 0x33, 0x1e, 0x87, 0xb2, 0x10, 0x4a, 0x90, 0x6b, 0xa6, 0x1c, 0x9a, 0x72, 0xc8, 0x78,
-	0xec, 0xff, 0x06, 0x6c, 0xec, 0x46, 0x85, 0xe2, 0x71, 0xca, 0xc8, 0x1a, 0xd6, 0x64, 0x54, 0xb0,
-	0x5c, 0xb9, 0xe0, 0xd9, 0x81, 0x43, 0x2b, 0x44, 0x6e, 0xe0, 0x62, 0x3c, 0xe0, 0x69, 0xe2, 0x5a,
-	0xa6, 0x3c, 0x06, 0x64, 0x05, 0x6d, 0x99, 0xf4, 0x5d, 0xdb, 0x83, 0xe0, 0x3a, 0xd5, 0x4b, 0x12,
-	0x62, 0xed, 0x90, 0x15, 0x8a, 0x1d, 0xb9, 0x8e, 0x07, 0x41, 0xb3, 0xb3, 0x16, 0x9e, 0x6b, 0x17,
-	0xbe, 0xff, 0x70, 0xb0, 0xb7, 0x49, 0x2b, 0x16, 0xb9, 0x83, 0x20, 0xdd, 0x45, 0x43, 0x5d, 0xfd,
-	0x1b, 0x75, 0x93, 0x82, 0x24, 0x04, 0x9d, 0x2c, 0x2a, 0x4b, 0xb7, 0xe6, 0x41, 0x00, 0xd4, 0xac,
-	0xb5, 0xd1, 0x78, 0x10, 0x15, 0x7d, 0xe6, 0xd6, 0x3d, 0x08, 0x2c, 0x5a, 0x21, 0x72, 0x17, 0x9d,
-	0x52, 0xf2, 0xdc, 0x6d, 0x5c, 0xae, 0xd9, 0xa5, 0x86, 0xe2, 0x7f, 0x07, 0xac, 0xbd, 0xe3, 0xd9,
-	0x6b, 0xae, 0xc8, 0x3a, 0x36, 0x0e, 0x45, 0x3a, 0xcc, 0x18, 0x4f, 0x5c, 0xf0, 0x20, 0x70, 0xe8,
-	0x04, 0x93, 0x67, 0xb8, 0xdc, 0x4f, 0x45, 0x2f, 0x4a, 0x65, 0xc1, 0xa4, 0x28, 0x5d, 0x6b, 0xee,
-	0x60, 0x33, 0x5c, 0xf2, 0x1c, 0xaf, 0x54, 0x58, 0x94, 0x4a, 0x6f, 0xb6, 0xe7, 0x6e, 0x9e, 0x25,
-	0xeb, 0xb9, 0x59, 0xc2, 0xa4, 0x89, 0xd2, 0xa2, 0x66, 0xad, 0x9d, 0xca, 0xea, 0xb0, 0x4c, 0x6e,
-	0x0e, 0x9d, 0x60, 0xff, 0x33, 0x60, 0x83, 0xb2, 0x58, 0xe4, 0x7a, 0x24, 0x1d, 0x10, 0x4b, 0xd3,
-	0xc9, 0x40, 0x15, 0x9a, 0x88, 0x5a, 0x53, 0xa2, 0x2e, 0xd6, 0xf5, 0x2f, 0x2b, 0x0a, 0x63, 0xd0,
-	0xa2, 0xa7, 0x90, 0xdc, 0x47, 0x5b, 0xdb, 0x76, 0x3c, 0x3b, 0x68, 0x76, 0xd6, 0x2f, 0xd8, 0xa6,
-	0x51, 0x9e, 0x88, 0x6c, 0x57, 0x94, 0x54, 0xd3, 0x74, 0xcf, 0x52, 0x0c, 0x8b, 0x58, 0x5b, 0x33,
-	0xb7, 0x67, 0x8c, 0xfc, 0x4f, 0x80, 0x4b, 0x13, 0x2a, 0xb9, 0x87, 0x4e, 0xc6, 0xa2, 0xdc, 0xf8,
-	0xba, 0x3c, 0x0b, 0xc3, 0x21, 0x37, 0x71, 0xe9, 0x23, 0xe3, 0xfd, 0x81, 0xca, 0x44, 0x52, 0x59,
-	0x3e, 0x2b, 0x90, 0xa7, 0x58, 0x4f, 0x78, 0xa9, 0x0a, 0xde, 0x73, 0x6d, 0xe3, 0xf0, 0xd6, 0x05,
-	0xb1, 0xcd, 0xf1, 0xf7, 0xa1, 0xe2, 0x22, 0xa7, 0xa7, 0x6c, 0xff, 0x2b, 0xe0, 0xf2, 0xf4, 0x17,
-	0xf2, 0x04, 0x1d, 0x35, 0x92, 0xcc, 0xb4, 0xb8, 0xda, 0xf1, 0xe7, 0xca, 0x84, 0x7b, 0x23, 0xc9,
-	0xa8, 0xe1, 0x93, 0x0e, 0x36, 0x0e, 0xa3, 0x82, 0x47, 0x79, 0xcc, 0xe6, 0x9e, 0x6d, 0x97, 0x4e,
-	0x78, 0xfe, 0x6d, 0x74, 0xb4, 0x02, 0x41, 0xac, 0x6d, 0xef, 0xd0, 0xad, 0x97, 0x6f, 0x57, 0x16,
-	0x48, 0x13, 0xeb, 0xfb, 0xdb, 0x6f, 0xba, 0x3b, 0x74, 0x6b, 0x05, 0xfc, 0x17, 0xb8, 0x68, 0x32,
-	0x20, 0xcb, 0x08, 0x47, 0x26, 0x26, 0xa0, 0x70, 0xa4, 0xd1, 0xc8, 0x18, 0x04, 0x0a, 0x23, 0x8d,
-	0x8e, 0x4d, 0x4b, 0xa0, 0x70, 0xac, 0x91, 0x32, 0xf7, 0x04, 0x28, 0xa8, 0x53, 0x81, 0xee, 0x99,
-	0x80, 0x35, 0x23, 0x60, 0xcd, 0x08, 0x58, 0x33, 0x02, 0x96, 0x16, 0x78, 0x88, 0x8e, 0xfe, 0xf3,
-	0xfd, 0xbb, 0x81, 0x6a, 0xc7, 0x7f, 0x74, 0xdc, 0xd8, 0xff, 0x76, 0xd2, 0x82, 0x1f, 0x27, 0x2d,
-	0xf8, 0x79, 0xd2, 0x82, 0x2f, 0xbf, 0x5a, 0x0b, 0xd8, 0x9c, 0x4a, 0x6e, 0xc3, 0x7e, 0xc5, 0xe3,
-	0x83, 0x47, 0x7d, 0xae, 0x06, 0xc3, 0x5e, 0x18, 0x8b, 0xac, 0x9d, 0xb0, 0x98, 0xf7, 0x58, 0x1a,
-	0x0b, 0x21, 0x59, 0xd1, 0x1e, 0x3f, 0x6e, 0x7d, 0xf1, 0xe0, 0xdc, 0x2b, 0xd7, 0xab, 0x99, 0x67,
-	0xee, 0xf1, 0x9f, 0x00, 0x00, 0x00, 0xff, 0xff, 0x89, 0x63, 0xb8, 0x12, 0xff, 0x04, 0x00, 0x00,
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x54, 0xdd, 0x6a, 0xd4, 0x40,
+	0x14, 0xee, 0x49, 0xb2, 0xdb, 0x7a, 0xb6, 0x6a, 0x1d, 0x6c, 0x09, 0x52, 0x96, 0x10, 0x11, 0xa3,
+	0x68, 0x56, 0xeb, 0x95, 0x22, 0x88, 0xa5, 0x2e, 0x0a, 0xf6, 0x87, 0xd1, 0x8a, 0xf6, 0x2e, 0x9b,
+	0x0c, 0xd9, 0x81, 0x64, 0x27, 0x24, 0xb3, 0xb5, 0xed, 0x0b, 0xf8, 0x0a, 0x82, 0x17, 0xbe, 0x8e,
+	0x57, 0xe2, 0x23, 0x48, 0x7d, 0x07, 0xaf, 0x65, 0x4e, 0xd2, 0x6d, 0xb7, 0xb5, 0x45, 0xaf, 0x76,
+	0xbe, 0xc3, 0x77, 0xbe, 0xf3, 0x9d, 0x2f, 0xb3, 0x83, 0x8b, 0x45, 0xa9, 0xa4, 0xea, 0xe5, 0x2a,
+	0x11, 0x59, 0x4f, 0xc8, 0x38, 0x2c, 0x4a, 0xa5, 0x15, 0xbb, 0x4a, 0xe5, 0x90, 0xca, 0xa1, 0x90,
+	0xb1, 0xff, 0x1b, 0x70, 0x6e, 0x2b, 0x2a, 0xb5, 0x8c, 0x33, 0xc1, 0x96, 0xb0, 0x5d, 0x44, 0xa5,
+	0x18, 0x69, 0x17, 0x3c, 0x3b, 0x70, 0x78, 0x83, 0xd8, 0x75, 0x6c, 0xc5, 0x43, 0x99, 0x25, 0xae,
+	0x45, 0xe5, 0x1a, 0xb0, 0x05, 0xb4, 0x8b, 0x24, 0x75, 0x6d, 0x0f, 0x82, 0x6b, 0xdc, 0x1c, 0x59,
+	0x88, 0xed, 0x5d, 0x51, 0x6a, 0xb1, 0xe7, 0x3a, 0x1e, 0x04, 0x9d, 0x95, 0xa5, 0xf0, 0xd4, 0xb8,
+	0xf0, 0xfd, 0x87, 0x9d, 0xb7, 0x6b, 0xbc, 0x61, 0xb1, 0x9b, 0x08, 0x85, 0xdb, 0x22, 0xea, 0xe2,
+	0xdf, 0xa8, 0x6b, 0x1c, 0x0a, 0xc6, 0xd0, 0xc9, 0xa3, 0xaa, 0x72, 0xdb, 0x1e, 0x04, 0xc0, 0xe9,
+	0x6c, 0x8c, 0xc6, 0xc3, 0xa8, 0x4c, 0x85, 0x3b, 0xeb, 0x41, 0x60, 0xf1, 0x06, 0xb1, 0x3b, 0xe8,
+	0x54, 0x85, 0x1c, 0xb9, 0x73, 0xe7, 0x6b, 0xf6, 0x39, 0x51, 0xfc, 0xef, 0x80, 0xed, 0x37, 0x32,
+	0x7f, 0x29, 0x35, 0xbb, 0x81, 0x73, 0xbb, 0x2a, 0x1b, 0xe7, 0x42, 0x26, 0x2e, 0x78, 0x10, 0x38,
+	0x7c, 0x82, 0xd9, 0x13, 0x9c, 0x4f, 0x33, 0x35, 0x88, 0xb2, 0xa2, 0x14, 0x85, 0xaa, 0x5c, 0xeb,
+	0xc2, 0xc5, 0xa6, 0xb8, 0xec, 0x29, 0x5e, 0x6e, 0xb0, 0xaa, 0xb4, 0x69, 0xb6, 0x2f, 0x6c, 0x9e,
+	0x26, 0x9b, 0xbd, 0x45, 0x22, 0x0a, 0x8a, 0xd2, 0xe2, 0x74, 0x36, 0x4e, 0x8b, 0xe6, 0x63, 0x51,
+	0x6e, 0x0e, 0x9f, 0x60, 0xff, 0x2b, 0x60, 0x67, 0x73, 0x50, 0x89, 0x72, 0x37, 0xd2, 0x52, 0x8d,
+	0x28, 0x23, 0x91, 0x65, 0x93, 0x9d, 0x1a, 0x34, 0xd1, 0xb5, 0x4e, 0xe8, 0x2e, 0xe3, 0x25, 0xf3,
+	0x3b, 0x52, 0xb2, 0x12, 0xe4, 0xd2, 0xe2, 0xc7, 0x05, 0x16, 0xa2, 0x6d, 0xdc, 0x3b, 0x9e, 0x1d,
+	0x74, 0x56, 0x96, 0xcf, 0xb8, 0xaf, 0x87, 0x8a, 0x64, 0x4b, 0x55, 0xdc, 0x10, 0xcd, 0xe4, 0x4a,
+	0x8d, 0xcb, 0xd8, 0x78, 0xa4, 0x6b, 0x54, 0x23, 0xff, 0xd3, 0xc4, 0x21, 0x91, 0xd9, 0x5d, 0x74,
+	0x72, 0x11, 0x8d, 0xc8, 0xdf, 0xf9, 0xb1, 0x10, 0x87, 0x85, 0xd8, 0xaa, 0xdd, 0x59, 0xe4, 0xc2,
+	0x3d, 0x43, 0xe6, 0xd1, 0x28, 0x79, 0x17, 0x95, 0xbc, 0xa6, 0x99, 0x8d, 0x3e, 0x0a, 0x99, 0x0e,
+	0x75, 0xae, 0x92, 0xa3, 0x8d, 0x26, 0x05, 0xff, 0x0b, 0xe0, 0x6c, 0xd3, 0xc0, 0x1e, 0xa3, 0x93,
+	0xc8, 0x4a, 0x53, 0x1e, 0x57, 0x56, 0x6e, 0x9d, 0x27, 0x1c, 0xae, 0xc9, 0x4a, 0x97, 0x72, 0x30,
+	0x36, 0xe1, 0x72, 0x6a, 0x61, 0xf7, 0xb0, 0x55, 0xc9, 0x34, 0x8f, 0x2e, 0xfc, 0xb0, 0x7d, 0x5e,
+	0x93, 0xfc, 0xdb, 0x38, 0x7f, 0x52, 0x83, 0x21, 0xb6, 0x37, 0x36, 0xf9, 0xfa, 0xf3, 0xd7, 0x0b,
+	0x33, 0xac, 0x83, 0xb3, 0xdb, 0x1b, 0xaf, 0xfa, 0x9b, 0x7c, 0x7d, 0x01, 0xfc, 0x67, 0xd8, 0xa2,
+	0xd5, 0xd9, 0x3c, 0xc2, 0x1e, 0xa5, 0x03, 0x1c, 0xf6, 0x0c, 0xda, 0x27, 0x97, 0xc0, 0x61, 0xdf,
+	0xa0, 0x03, 0x9a, 0x0b, 0x1c, 0x0e, 0x0c, 0xd2, 0x74, 0x53, 0x80, 0x83, 0x3e, 0x12, 0xe8, 0x1f,
+	0x0b, 0x58, 0x53, 0x02, 0xd6, 0x94, 0x80, 0x35, 0x25, 0x60, 0x19, 0x81, 0x07, 0xe8, 0x98, 0xbf,
+	0xdf, 0xbf, 0x1b, 0x68, 0x3a, 0xfe, 0x63, 0xe2, 0xea, 0xf6, 0xb7, 0xc3, 0x2e, 0xfc, 0x38, 0xec,
+	0xc2, 0xcf, 0xc3, 0x2e, 0x7c, 0xfe, 0xd5, 0x9d, 0xc1, 0xce, 0x89, 0xf8, 0x56, 0xed, 0x17, 0x32,
+	0xde, 0x79, 0x98, 0x4a, 0x3d, 0x1c, 0x0f, 0xc2, 0x58, 0xe5, 0xbd, 0x44, 0xc4, 0x72, 0x20, 0xb2,
+	0x58, 0xa9, 0x42, 0x94, 0xbd, 0xfa, 0x79, 0x4b, 0xd5, 0xfd, 0x53, 0xef, 0xdc, 0xa0, 0x4d, 0x0f,
+	0xdd, 0xa3, 0x3f, 0x01, 0x00, 0x00, 0xff, 0xff, 0x86, 0xd2, 0x70, 0x6e, 0x01, 0x05, 0x00, 0x00,
 }

@@ -19,14 +19,14 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='proio/model/eic.proto',
   package='proio.model.eic',
   syntax='proto3',
-  serialized_pb=_b('\n\x15proio/model/eic.proto\x12\x0fproio.model.eic\"\xc3\x01\n\x08Particle\x12\x0e\n\x06parent\x18\x01 \x03(\x04\x12\r\n\x05\x63hild\x18\x02 \x03(\x04\x12\x0b\n\x03pdg\x18\x03 \x01(\x11\x12&\n\x06vertex\x18\x04 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12 \n\x01p\x18\x05 \x01(\x0b\x32\x15.proio.model.eic.XYZD\x12\x0c\n\x04mass\x18\x06 \x01(\x01\x12\x0e\n\x06\x63harge\x18\x07 \x01(\x02\x12#\n\x04spin\x18\x08 \x01(\x0b\x32\x15.proio.model.eic.XYZF\"\x97\x01\n\x06SimHit\x12\x10\n\x08volumeid\x18\x01 \x01(\x04\x12,\n\x0cglobalprepos\x18\x02 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12-\n\rglobalpostpos\x18\x03 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12\x0c\n\x04\x65\x64\x65p\x18\x04 \x01(\x02\x12\x10\n\x08particle\x18\x05 \x01(\x04\"r\n\x08ReconHit\x12\x0e\n\x06\x63\x65llid\x18\x01 \x01(\x04\x12\x0c\n\x04\x65\x64\x65p\x18\x02 \x01(\x02\x12\x0f\n\x07\x65\x64\x65perr\x18\x03 \x01(\x02\x12\'\n\x03pos\x18\x04 \x03(\x0b\x32\x1a.proio.model.eic.RandomPos\x12\x0e\n\x06source\x18\x05 \x03(\x04\"t\n\tRandomPos\x12$\n\x04mean\x18\x01 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12\x11\n\tweightmod\x18\x02 \x01(\x02\x12.\n\x07\x64istrib\x18\x03 \x03(\x0b\x32\x1d.proio.model.eic.Distribution\"\x8b\x01\n\x0c\x44istribution\x12\x30\n\x04type\x18\x02 \x01(\x0e\x32\".proio.model.eic.Distribution.Type\x12(\n\x08variance\x18\x03 \x01(\x0b\x32\x16.proio.model.eic.XYZTF\"\x1f\n\x04Type\x12\n\n\x06NORMAL\x10\x00\x12\x0b\n\x07UNIFORM\x10\x01\"3\n\x05XYZTD\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\x12\t\n\x01t\x18\x04 \x01(\x01\"3\n\x05XYZTF\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x12\t\n\x01t\x18\x04 \x01(\x02\"\'\n\x04XYZD\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\"\'\n\x04XYZF\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x42\x45\n\x0bproio.modelB\x03\x45icZ1github.com/decibelcooper/proio/go-proio/model/eicb\x06proto3')
+  serialized_pb=_b('\n\x15proio/model/eic.proto\x12\x0fproio.model.eic\"\xc3\x01\n\x08Particle\x12\x0e\n\x06parent\x18\x01 \x03(\x04\x12\r\n\x05\x63hild\x18\x02 \x03(\x04\x12\x0b\n\x03pdg\x18\x03 \x01(\x11\x12&\n\x06vertex\x18\x04 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12 \n\x01p\x18\x05 \x01(\x0b\x32\x15.proio.model.eic.XYZD\x12\x0c\n\x04mass\x18\x06 \x01(\x01\x12\x0e\n\x06\x63harge\x18\x07 \x01(\x02\x12#\n\x04spin\x18\x08 \x01(\x0b\x32\x15.proio.model.eic.XYZF\"\x97\x01\n\x06SimHit\x12\x10\n\x08volumeid\x18\x01 \x01(\x04\x12,\n\x0cglobalprepos\x18\x02 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12-\n\rglobalpostpos\x18\x03 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12\x0c\n\x04\x65\x64\x65p\x18\x04 \x01(\x02\x12\x10\n\x08particle\x18\x05 \x01(\x04\"y\n\x0bObservation\x12\x0e\n\x06\x63\x65llid\x18\x01 \x01(\x04\x12\x0c\n\x04\x65\x64\x65p\x18\x02 \x01(\x02\x12\x11\n\tedepnoise\x18\x03 \x01(\x02\x12)\n\x03pos\x18\x04 \x03(\x0b\x32\x1c.proio.model.eic.ObservedPos\x12\x0e\n\x06source\x18\x05 \x03(\x04\"o\n\x0bObservedPos\x12$\n\x04mean\x18\x01 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12\'\n\x05noise\x18\x02 \x03(\x0b\x32\x18.proio.model.eic.RandVar\x12\x11\n\tweightmod\x18\x03 \x01(\x02\"\x8e\x01\n\x07RandVar\x12\x33\n\x04\x64ist\x18\x02 \x01(\x0e\x32%.proio.model.eic.RandVar.Distribution\x12%\n\x05sigma\x18\x03 \x01(\x0b\x32\x16.proio.model.eic.XYZTF\"\'\n\x0c\x44istribution\x12\n\n\x06NORMAL\x10\x00\x12\x0b\n\x07UNIFORM\x10\x01\"3\n\x05XYZTD\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\x12\t\n\x01t\x18\x04 \x01(\x01\"3\n\x05XYZTF\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x12\t\n\x01t\x18\x04 \x01(\x02\"\'\n\x04XYZD\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\"\'\n\x04XYZF\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x42\x45\n\x0bproio.modelB\x03\x45icZ1github.com/decibelcooper/proio/go-proio/model/eicb\x06proto3')
 )
 
 
 
-_DISTRIBUTION_TYPE = _descriptor.EnumDescriptor(
-  name='Type',
-  full_name='proio.model.eic.Distribution.Type',
+_RANDVAR_DISTRIBUTION = _descriptor.EnumDescriptor(
+  name='Distribution',
+  full_name='proio.model.eic.RandVar.Distribution',
   filename=None,
   file=DESCRIPTOR,
   values=[
@@ -41,10 +41,10 @@ _DISTRIBUTION_TYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=737,
-  serialized_end=768,
+  serialized_start=734,
+  serialized_end=773,
 )
-_sym_db.RegisterEnumDescriptor(_DISTRIBUTION_TYPE)
+_sym_db.RegisterEnumDescriptor(_RANDVAR_DISTRIBUTION)
 
 
 _PARTICLE = _descriptor.Descriptor(
@@ -186,43 +186,43 @@ _SIMHIT = _descriptor.Descriptor(
 )
 
 
-_RECONHIT = _descriptor.Descriptor(
-  name='ReconHit',
-  full_name='proio.model.eic.ReconHit',
+_OBSERVATION = _descriptor.Descriptor(
+  name='Observation',
+  full_name='proio.model.eic.Observation',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='cellid', full_name='proio.model.eic.ReconHit.cellid', index=0,
+      name='cellid', full_name='proio.model.eic.Observation.cellid', index=0,
       number=1, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='edep', full_name='proio.model.eic.ReconHit.edep', index=1,
+      name='edep', full_name='proio.model.eic.Observation.edep', index=1,
       number=2, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='edeperr', full_name='proio.model.eic.ReconHit.edeperr', index=2,
+      name='edepnoise', full_name='proio.model.eic.Observation.edepnoise', index=2,
       number=3, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='pos', full_name='proio.model.eic.ReconHit.pos', index=3,
+      name='pos', full_name='proio.model.eic.Observation.pos', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='source', full_name='proio.model.eic.ReconHit.source', index=4,
+      name='source', full_name='proio.model.eic.Observation.source', index=4,
       number=5, type=4, cpp_type=4, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -241,35 +241,35 @@ _RECONHIT = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=394,
-  serialized_end=508,
+  serialized_end=515,
 )
 
 
-_RANDOMPOS = _descriptor.Descriptor(
-  name='RandomPos',
-  full_name='proio.model.eic.RandomPos',
+_OBSERVEDPOS = _descriptor.Descriptor(
+  name='ObservedPos',
+  full_name='proio.model.eic.ObservedPos',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='mean', full_name='proio.model.eic.RandomPos.mean', index=0,
+      name='mean', full_name='proio.model.eic.ObservedPos.mean', index=0,
       number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='weightmod', full_name='proio.model.eic.RandomPos.weightmod', index=1,
-      number=2, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
+      name='noise', full_name='proio.model.eic.ObservedPos.noise', index=1,
+      number=2, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='distrib', full_name='proio.model.eic.RandomPos.distrib', index=2,
-      number=3, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
+      name='weightmod', full_name='proio.model.eic.ObservedPos.weightmod', index=2,
+      number=3, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
@@ -285,27 +285,27 @@ _RANDOMPOS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=510,
-  serialized_end=626,
+  serialized_start=517,
+  serialized_end=628,
 )
 
 
-_DISTRIBUTION = _descriptor.Descriptor(
-  name='Distribution',
-  full_name='proio.model.eic.Distribution',
+_RANDVAR = _descriptor.Descriptor(
+  name='RandVar',
+  full_name='proio.model.eic.RandVar',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='type', full_name='proio.model.eic.Distribution.type', index=0,
+      name='dist', full_name='proio.model.eic.RandVar.dist', index=0,
       number=2, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='variance', full_name='proio.model.eic.Distribution.variance', index=1,
+      name='sigma', full_name='proio.model.eic.RandVar.sigma', index=1,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -316,7 +316,7 @@ _DISTRIBUTION = _descriptor.Descriptor(
   ],
   nested_types=[],
   enum_types=[
-    _DISTRIBUTION_TYPE,
+    _RANDVAR_DISTRIBUTION,
   ],
   options=None,
   is_extendable=False,
@@ -324,8 +324,8 @@ _DISTRIBUTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=629,
-  serialized_end=768,
+  serialized_start=631,
+  serialized_end=773,
 )
 
 
@@ -376,8 +376,8 @@ _XYZTD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=770,
-  serialized_end=821,
+  serialized_start=775,
+  serialized_end=826,
 )
 
 
@@ -428,8 +428,8 @@ _XYZTF = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=823,
-  serialized_end=874,
+  serialized_start=828,
+  serialized_end=879,
 )
 
 
@@ -473,8 +473,8 @@ _XYZD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=876,
-  serialized_end=915,
+  serialized_start=881,
+  serialized_end=920,
 )
 
 
@@ -518,8 +518,8 @@ _XYZF = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=917,
-  serialized_end=956,
+  serialized_start=922,
+  serialized_end=961,
 )
 
 _PARTICLE.fields_by_name['vertex'].message_type = _XYZTD
@@ -527,17 +527,17 @@ _PARTICLE.fields_by_name['p'].message_type = _XYZD
 _PARTICLE.fields_by_name['spin'].message_type = _XYZF
 _SIMHIT.fields_by_name['globalprepos'].message_type = _XYZTD
 _SIMHIT.fields_by_name['globalpostpos'].message_type = _XYZTD
-_RECONHIT.fields_by_name['pos'].message_type = _RANDOMPOS
-_RANDOMPOS.fields_by_name['mean'].message_type = _XYZTD
-_RANDOMPOS.fields_by_name['distrib'].message_type = _DISTRIBUTION
-_DISTRIBUTION.fields_by_name['type'].enum_type = _DISTRIBUTION_TYPE
-_DISTRIBUTION.fields_by_name['variance'].message_type = _XYZTF
-_DISTRIBUTION_TYPE.containing_type = _DISTRIBUTION
+_OBSERVATION.fields_by_name['pos'].message_type = _OBSERVEDPOS
+_OBSERVEDPOS.fields_by_name['mean'].message_type = _XYZTD
+_OBSERVEDPOS.fields_by_name['noise'].message_type = _RANDVAR
+_RANDVAR.fields_by_name['dist'].enum_type = _RANDVAR_DISTRIBUTION
+_RANDVAR.fields_by_name['sigma'].message_type = _XYZTF
+_RANDVAR_DISTRIBUTION.containing_type = _RANDVAR
 DESCRIPTOR.message_types_by_name['Particle'] = _PARTICLE
 DESCRIPTOR.message_types_by_name['SimHit'] = _SIMHIT
-DESCRIPTOR.message_types_by_name['ReconHit'] = _RECONHIT
-DESCRIPTOR.message_types_by_name['RandomPos'] = _RANDOMPOS
-DESCRIPTOR.message_types_by_name['Distribution'] = _DISTRIBUTION
+DESCRIPTOR.message_types_by_name['Observation'] = _OBSERVATION
+DESCRIPTOR.message_types_by_name['ObservedPos'] = _OBSERVEDPOS
+DESCRIPTOR.message_types_by_name['RandVar'] = _RANDVAR
 DESCRIPTOR.message_types_by_name['XYZTD'] = _XYZTD
 DESCRIPTOR.message_types_by_name['XYZTF'] = _XYZTF
 DESCRIPTOR.message_types_by_name['XYZD'] = _XYZD
@@ -558,26 +558,26 @@ SimHit = _reflection.GeneratedProtocolMessageType('SimHit', (_message.Message,),
   ))
 _sym_db.RegisterMessage(SimHit)
 
-ReconHit = _reflection.GeneratedProtocolMessageType('ReconHit', (_message.Message,), dict(
-  DESCRIPTOR = _RECONHIT,
+Observation = _reflection.GeneratedProtocolMessageType('Observation', (_message.Message,), dict(
+  DESCRIPTOR = _OBSERVATION,
   __module__ = 'proio.model.eic_pb2'
-  # @@protoc_insertion_point(class_scope:proio.model.eic.ReconHit)
+  # @@protoc_insertion_point(class_scope:proio.model.eic.Observation)
   ))
-_sym_db.RegisterMessage(ReconHit)
+_sym_db.RegisterMessage(Observation)
 
-RandomPos = _reflection.GeneratedProtocolMessageType('RandomPos', (_message.Message,), dict(
-  DESCRIPTOR = _RANDOMPOS,
+ObservedPos = _reflection.GeneratedProtocolMessageType('ObservedPos', (_message.Message,), dict(
+  DESCRIPTOR = _OBSERVEDPOS,
   __module__ = 'proio.model.eic_pb2'
-  # @@protoc_insertion_point(class_scope:proio.model.eic.RandomPos)
+  # @@protoc_insertion_point(class_scope:proio.model.eic.ObservedPos)
   ))
-_sym_db.RegisterMessage(RandomPos)
+_sym_db.RegisterMessage(ObservedPos)
 
-Distribution = _reflection.GeneratedProtocolMessageType('Distribution', (_message.Message,), dict(
-  DESCRIPTOR = _DISTRIBUTION,
+RandVar = _reflection.GeneratedProtocolMessageType('RandVar', (_message.Message,), dict(
+  DESCRIPTOR = _RANDVAR,
   __module__ = 'proio.model.eic_pb2'
-  # @@protoc_insertion_point(class_scope:proio.model.eic.Distribution)
+  # @@protoc_insertion_point(class_scope:proio.model.eic.RandVar)
   ))
-_sym_db.RegisterMessage(Distribution)
+_sym_db.RegisterMessage(RandVar)
 
 XYZTD = _reflection.GeneratedProtocolMessageType('XYZTD', (_message.Message,), dict(
   DESCRIPTOR = _XYZTD,

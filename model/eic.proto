@@ -6,6 +6,7 @@ option java_outer_classname = "Eic";
 
 ////// PRIMARY DATA MODEL MESSAGES //////
 
+// truth-level particle
 message Particle {
     // ProIO entry identifiers that point to parent Particles
     repeated uint64 parent = 1;
@@ -24,7 +25,7 @@ message Particle {
     XYZF spin = 8;
 }
 
-// simulation hit
+// raw simulation output
 message SimHit {
     // optional ID to circumvent volume lookup from global position during
     // digitization
@@ -40,46 +41,49 @@ message SimHit {
     uint64 particle = 5;
 }
 
-// reconstructed hit
-message ReconHit {
+// fundamental object used in reconstruction
+message Observation {
     // optional ID for identifying the cell that this hit came from
     uint64 cellid = 1;
     // energy in GeV
     float edep = 2;
-    float edeperr = 3;
+    // sigma value for normally-distributed noise (GeV)
+    float edepnoise = 3;
     // Multiple possible positions can be specified.
-    repeated RandomPos pos = 4;
+    repeated ObservedPos pos = 4;
     // "source"s are ProIO entry identifiers that may point to either SimHits
     // or Particles responsible for the ReconHit.
     repeated uint64 source = 5;
 }
 
-// randomly-distributed position
-message RandomPos {
+////// SECONDARY DATA MODEL MESSAGES //////
+
+// position with detailed noise
+message ObservedPos {
     // spatial in mm and time in ns
     XYZTD mean = 1;
+    // These RandVars describe independent random noise contributions, and
+    // repeated RandVars imply addition, or alternatively a convolution of
+    // their distributions.  The contributions must combine to span the full
+    // 4-dimensional space, so the number of contributions must be >= 4.
+    repeated RandVar noise = 2;
     // "weightmod" describes additional weight to be applied to this position.
     // For the case of multiple possible positions, it is implied that by
     // default each position is equally likely.  This can be changed by adding
     // weight to positions.  To make one position twice as likely as a position
     // without a weight modifier, set weightmod to +1.
-    float weightmod = 2;
-    // These Distributions describe independent variance contributions, and
-    // repeated Distributions imply a convolution.  Orthogonal to the space
-    // spanned by the Distributions, the RandomPos is assumed to not vary.
-    repeated Distribution distrib = 3;
+    float weightmod = 3;
 }
 
-////// SECONDARY DATA MODEL MESSAGES //////
-
-message Distribution {
-    enum Type {
+// random variable with a specified distribution along an axis defined in XYZT
+message RandVar {
+    enum Distribution {
         NORMAL = 0;
         UNIFORM = 1;
     }
-    Type type = 2;
+    Distribution dist = 2;
     // spatial in mm and time in ns
-    XYZTF variance = 3;
+    XYZTF sigma = 3;
 }
 
 message XYZTD {
