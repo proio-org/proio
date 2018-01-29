@@ -2,6 +2,7 @@ import gzip
 import io
 import lz4.frame
 import struct
+import sys
 
 from .event import Event
 import proio.proto as proto
@@ -62,6 +63,17 @@ class Reader:
         :rtype: Event
         """
         return self._read_from_bucket(True)
+
+    def next_header(self):
+        """
+        returns the next event header.  This is useful for scanning the
+        stream/file.
+
+        :return: the next event header
+        :rtype: Event
+        """
+        self._read_bucket(sys.maxsize)
+        return self._bucket_header
 
     def skip(self, n_events):
         """
@@ -125,6 +137,7 @@ class Reader:
     def _read_bucket(self, max_skip_events = 0):
         self._bucket_evts_read = 0
         events_skipped = 0
+        self._bucket_header = None
         
         n = self._sync_to_magic()
         if n < len(magic_bytes):
