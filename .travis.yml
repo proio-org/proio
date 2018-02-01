@@ -64,6 +64,11 @@ matrix:
           go: 1.8.x
         - language: go
           go: 1.9.x
+          install:
+              - go get golang.org/x/tools/cmd/cover
+              - go get -t ./...
+          script: go test -v -race -covermode=atomic -coverprofile=coverage.txt ./go-proio
+          after_success: bash <(curl -s https://codecov.io/bash)
         - language: go
           go: master
 
@@ -73,8 +78,10 @@ matrix:
           script: pytest ./py-proio
         - language: python
           python: 3.6
-          install: pip install --upgrade pytest ./py-proio
-          script: pytest ./py-proio
+          install: pip install --upgrade pytest pytest-coverage codecov ./py-proio
+          script: pytest --cov=py-proio/proio --cov-report term-missing ./py-proio
+          after_success: codecov
+
         - language: python
           python: nightly
           install: pip install --upgrade pytest ./py-proio
