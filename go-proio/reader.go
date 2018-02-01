@@ -24,6 +24,7 @@ type Reader struct {
 	Err                   chan error
 	EvtScanBufSize        int
 	deferredUntilStopScan []func()
+	scanLock              sync.Mutex
 
 	deferredUntilClose []func() error
 
@@ -199,8 +200,8 @@ func (rdr *Reader) ScanEvents() <-chan *Event {
 
 // StopScan stops all scans initiated by Reader.ScanEvents()
 func (rdr *Reader) StopScan() {
-	//rdr.Lock()
-	//defer rdr.Unlock()
+	rdr.scanLock.Lock()
+	defer rdr.scanLock.Unlock()
 
 	for _, thisFunc := range rdr.deferredUntilStopScan {
 		thisFunc()
@@ -211,6 +212,9 @@ func (rdr *Reader) StopScan() {
 var evtScanBufferSize int = 100
 
 func (rdr *Reader) deferUntilStopScan(thisFunc func()) {
+	rdr.scanLock.Lock()
+	defer rdr.scanLock.Unlock()
+
 	rdr.deferredUntilStopScan = append(rdr.deferredUntilStopScan, thisFunc)
 }
 
