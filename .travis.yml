@@ -81,7 +81,6 @@ matrix:
           install: pip install --upgrade pytest pytest-coverage codecov ./py-proio
           script: pytest --cov=py-proio/proio --cov-report term-missing ./py-proio
           after_success: codecov
-
         - language: python
           python: nightly
           install: pip install --upgrade pytest ./py-proio
