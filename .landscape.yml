@@ -1,0 +1,3 @@
+ignore-paths:
+    - py-proio/model
+    - py-proio/proto
