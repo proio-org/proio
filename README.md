@@ -7,7 +7,8 @@ Github: https://github.com/decibelcooper/proio
 * [Go](go-proio)  
  [![Go Report Card](https://goreportcard.com/badge/github.com/decibelcooper/proio)](https://goreportcard.com/report/github.com/decibelcooper/proio)
   * Implemented.  See docs and issues for more information
-* [Python](py-proio)
+* [Python](py-proio)  
+ [![Code Health](https://landscape.io/github/decibelcooper/proio/master/landscape.svg?style=flat)](https://landscape.io/github/decibelcooper/proio/master)
   * Implemented.  See docs and issues for more information
 * [C++](cpp-proio)
   * Implemented.  See docs and issues for more information
