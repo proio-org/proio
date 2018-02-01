@@ -1,3 +1,4 @@
 ignore-paths:
+    - py-proio/docs
     - py-proio/proio/model
     - py-proio/proio/proto
