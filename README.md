@@ -4,7 +4,8 @@ Github: https://github.com/decibelcooper/proio
 ## Languages and status  
 [![Travis CI Build Status](https://travis-ci.org/decibelcooper/proio.svg?branch=master)](https://travis-ci.org/decibelcooper/proio)
 [![codecov](https://codecov.io/gh/decibelcooper/proio/branch/master/graph/badge.svg)](https://codecov.io/gh/decibelcooper/proio)
-* [Go](go-proio)
+* [Go](go-proio)  
+ [![Go Report Card](https://goreportcard.com/badge/github.com/decibelcooper/proio)](https://goreportcard.com/report/github.com/decibelcooper/proio)
   * Implemented.  See docs and issues for more information
 * [Python](py-proio)
   * Implemented.  See docs and issues for more information
