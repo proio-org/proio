@@ -139,7 +139,7 @@ func main() {
 
 func fixRefs(event *proio.Event) {
 	for _, slice := range refSlicesToFix {
-		for i, _ := range slice {
+		for i := range slice {
 			slice[i] = fixRef(event, slice[i])
 		}
 	}

@@ -133,7 +133,7 @@ func (evt *Event) RemoveEntry(id uint64) {
 
 func (evt *Event) AllEntries() []uint64 {
 	var IDs []uint64
-	for ID, _ := range evt.proto.Entries {
+	for ID := range evt.proto.Entries {
 		IDs = append(IDs, ID)
 	}
 	return IDs
@@ -183,7 +183,7 @@ func (evt *Event) TaggedEntries(tag string) []uint64 {
 // Tags returns a list of all tags in the Event.
 func (evt *Event) Tags() []string {
 	var tags []string
-	for key, _ := range evt.proto.Tags {
+	for key := range evt.proto.Tags {
 		tags = append(tags, key)
 	}
 	sort.Strings(tags)

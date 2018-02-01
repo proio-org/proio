@@ -12,8 +12,6 @@ import (
 	"github.com/decibelcooper/proio/go-proio/proto"
 )
 
-var ()
-
 func printUsage() {
 	fmt.Fprintf(os.Stderr,
 		`Usage: proio-summary [options] <proio-input-file>

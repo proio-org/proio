@@ -79,7 +79,7 @@ func main() {
 
 	for event := range reader.ScanEvents() {
 		if *ignore {
-			for tag, _ := range argTags {
+			for tag := range argTags {
 				event.DeleteTag(tag)
 			}
 		} else if len(argTags) > 0 {
