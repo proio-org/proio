@@ -3,7 +3,7 @@ import proio.proto as proto
 import google.protobuf.descriptor_pool as descriptor_pool
 import google.protobuf.message_factory as message_factory
 
-class Event:
+class Event(object):
     """
     Class representing a single event
     """
@@ -148,7 +148,7 @@ class Event:
             for entry_id in entries:
                 print_string += 'ID: %i\n' % entry_id
                 entry = self.get_entry(entry_id)
-                if entry != None:
+                if entry is not None:
                     print_string += 'Entry type: ' + entry.DESCRIPTOR.full_name + '\n'
                     print_string += '%s\n' % entry
                 else:

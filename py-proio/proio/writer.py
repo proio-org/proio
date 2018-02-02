@@ -3,7 +3,6 @@ import io
 import lz4.frame
 import struct
 
-from .event import Event
 import proio.proto as proto
 
 magic_bytes = [b'\xe1',
@@ -23,7 +22,7 @@ magic_bytes = [b'\xe1',
         b'\x00',
         b'\x00']
 
-class Writer:
+class Writer(object):
     """
     Writer for proio files
     
@@ -43,8 +42,8 @@ class Writer:
     """
 
     def __init__(self, filename = None, fileobj = None):
-        if filename == None:
-            if fileobj != None:
+        if filename is None:
+            if fileobj is not None:
                 self._stream_writer = fileobj
             else:
                 self._stream_writer = io.BytesIO(b'')
@@ -61,7 +60,7 @@ class Writer:
     def __enter__(self):
         return self
 
-    def __exit__(self, type, value, traceback):
+    def __exit__(self, exception_type, exception_value, traceback):
         self.close()
 
     def close(self):

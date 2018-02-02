@@ -8,7 +8,7 @@ from .event import Event
 import proio.proto as proto
 from .writer import magic_bytes
 
-class Reader:
+class Reader(object):
     """
     Reader for proio files
     
@@ -30,8 +30,8 @@ class Reader:
     """
 
     def __init__(self, filename = None, fileobj = None):
-        if filename == None:
-            if fileobj != None:
+        if filename is None:
+            if fileobj is not None:
                 self._stream_reader = fileobj
             else:
                 self._stream_reader = io.BytesIO(b'')
@@ -44,7 +44,7 @@ class Reader:
     def __enter__(self):
         return self
 
-    def __exit__(self, type, value, traceback):
+    def __exit__(self, exception_type, exception_value, traceback):
         self.close()
 
     def close(self):
@@ -205,6 +205,6 @@ class Reader:
 
     def __next__(self):
         event = self.next()
-        if event == None:
+        if event is None:
             raise StopIteration
         return event
