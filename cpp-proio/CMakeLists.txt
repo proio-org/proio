@@ -7,6 +7,8 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING "..." FORCE)
 endif()
 
+option(REPORT_COVERAGE "Enable coverage report" OFF)
+
 # Find Protobuf
 find_package(Protobuf 3 REQUIRED)
 include_directories(${Protobuf_INCLUDE_DIRS})
@@ -48,17 +50,21 @@ set(libraryheaders
     )
 include_directories(${PROJECT_SOURCE_DIR}/src)
 
-# Add library target
-add_library(proio SHARED
+# Add library targets
+add_library(proioProto SHARED
     ${protosources} ${protoheaders}
     ${modelsources} ${modelheaders}
+    )
+target_link_libraries(proioProto PUBLIC protobuf)
+
+add_library(proio SHARED
     ${librarysources} ${libraryheaders}
     )
-target_link_libraries(proio PUBLIC protobuf lz4)
+target_link_libraries(proio PUBLIC protobuf lz4 proioProto)
 
 # Install library and headers
 set(proio_INCLUDE_DIR include)
-install(TARGETS proio
+install(TARGETS proio proioProto
     EXPORT proioTargets
     DESTINATION lib
     )
@@ -124,3 +130,13 @@ add_test(TagManip tagmanip)
 add_executable(scan src/tests/scan/main.cc)
 target_link_libraries(scan PUBLIC proio protobuf)
 add_test(Scan scan)
+
+if(${REPORT_COVERAGE})
+    message("Enabling coverage reporting")
+    set_target_properties(proio
+        PROPERTIES COMPILE_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -pthread -g -O0 -fprofile-arcs -ftest-coverage"
+                   LINK_FLAGS "-fprofile-arcs")
+    set_target_properties(pushgetinspect refderef tagmanip scan
+        PROPERTIES LINK_FLAGS "-fprofile-arcs")
+endif()
+

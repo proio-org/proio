@@ -10,6 +10,7 @@ stages:
 matrix:
     include:
         - language: cpp
+          compiler: g++
           env:
               - PROTOBUF_VERSION: v3.1.0
               - LZ4_VERSION: v1.8.0
@@ -31,10 +32,16 @@ matrix:
           script:
               - mkdir cpp-proio/build
               - cd cpp-proio/build
-              - cmake -DCMAKE_PREFIX_PATH=$HOME ../
+              - cmake -DCMAKE_PREFIX_PATH=$HOME -DREPORT_COVERAGE=ON ../
               - make -j2
               - CTEST_OUTPUT_ON_FAILURE=True make test
+          after_success:
+              - lcov --directory . --capture --output-file coverage.info
+              - lcov --remove coverage.info '/usr/*' --output-file coverage.info
+              - lcov --list coverage.info
+              - bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
         - language: cpp
+          compiler: g++
           env:
               - PROTOBUF_VERSION: latest
               - LZ4_VERSION: latest
