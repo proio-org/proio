@@ -3,6 +3,7 @@ project(proio VERSION 0.1.1)
 
 set(CMAKE_CXX_STANDARD 11)
 
+# Options
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING "..." FORCE)
 endif()
@@ -10,7 +11,7 @@ endif()
 option(REPORT_COVERAGE "Enable coverage report" OFF)
 
 # Find Protobuf
-find_package(Protobuf 3 REQUIRED)
+find_package(Protobuf 3.1 REQUIRED)
 include_directories(${Protobuf_INCLUDE_DIRS})
 get_filename_component(Protobuf_LIBRARY_DIR ${Protobuf_LIBRARY} DIRECTORY)
 link_directories(${Protobuf_LIBRARY_DIR})
@@ -51,20 +52,20 @@ set(libraryheaders
 include_directories(${PROJECT_SOURCE_DIR}/src)
 
 # Add library targets
-add_library(proioProto SHARED
+add_library(proio.pb SHARED
     ${protosources} ${protoheaders}
     ${modelsources} ${modelheaders}
     )
-target_link_libraries(proioProto PUBLIC protobuf)
+target_link_libraries(proio.pb PUBLIC protobuf)
 
 add_library(proio SHARED
     ${librarysources} ${libraryheaders}
     )
-target_link_libraries(proio PUBLIC protobuf lz4 proioProto)
+target_link_libraries(proio PRIVATE proio.pb protobuf lz4)
 
 # Install library and headers
 set(proio_INCLUDE_DIR include)
-install(TARGETS proio proioProto
+install(TARGETS proio proio.pb
     EXPORT proioTargets
     DESTINATION lib
     )
@@ -94,11 +95,12 @@ include(CMakePackageConfigHelpers)
 
 set(TARGETS_INSTALL_PATH lib/proio/proioTargets.cmake)
 set(proio_LIBRARY lib/libproio.so)
+set(proio.pb_LIBRARY lib/libproio.pb.so)
 CONFIGURE_PACKAGE_CONFIG_FILE(
-    cmake/proioConfig.cmake.in
+    ${PROJECT_SOURCE_DIR}/cmake/proioConfig.cmake.in
     ${CMAKE_CURRENT_BINARY_DIR}/proioConfig.cmake
     INSTALL_DESTINATION lib/proio
-    PATH_VARS TARGETS_INSTALL_PATH proio_INCLUDE_DIR proio_LIBRARY
+    PATH_VARS TARGETS_INSTALL_PATH proio_INCLUDE_DIR proio_LIBRARY proio.pb_LIBRARY
     )
 
 write_basic_package_version_file("proioConfigVersion.cmake"
@@ -116,19 +118,19 @@ install(FILES
 enable_testing()
 
 add_executable(pushgetinspect src/tests/pushgetinspect/main.cc)
-target_link_libraries(pushgetinspect PUBLIC proio protobuf)
+target_link_libraries(pushgetinspect proio proio.pb)
 add_test(PushGetInspect pushgetinspect)
 
 add_executable(refderef src/tests/refderef/main.cc)
-target_link_libraries(refderef PUBLIC proio protobuf)
+target_link_libraries(refderef proio proio.pb)
 add_test(RefDeref refderef)
 
 add_executable(tagmanip src/tests/tagmanip/main.cc)
-target_link_libraries(tagmanip PUBLIC proio protobuf)
+target_link_libraries(tagmanip proio proio.pb)
 add_test(TagManip tagmanip)
 
 add_executable(scan src/tests/scan/main.cc)
-target_link_libraries(scan PUBLIC proio protobuf)
+target_link_libraries(scan proio proio.pb)
 add_test(Scan scan)
 
 if(${REPORT_COVERAGE})
