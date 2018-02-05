@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Generate necessary protobuf messages
 protoc --proto_path=proio/proto=../proto --python_out=. ../proto/proio.proto
 
