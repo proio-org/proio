@@ -4,11 +4,10 @@ Github: https://github.com/decibelcooper/proio
 ## Languages and status  
 [![Travis CI Build Status](https://travis-ci.org/decibelcooper/proio.svg?branch=master)](https://travis-ci.org/decibelcooper/proio)
 [![codecov](https://codecov.io/gh/decibelcooper/proio/branch/master/graph/badge.svg)](https://codecov.io/gh/decibelcooper/proio)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/12437b440e5047509a905ae96ec602c6)](https://www.codacy.com/app/decibelcooper/proio?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=decibelcooper/proio&amp;utm_campaign=Badge_Grade)
 * [Go](go-proio)  
- [![Go Report Card](https://goreportcard.com/badge/github.com/decibelcooper/proio)](https://goreportcard.com/report/github.com/decibelcooper/proio)
   * Implemented.  See docs and issues for more information
 * [Python](py-proio)  
- [![Code Health](https://landscape.io/github/decibelcooper/proio/master/landscape.svg?style=flat)](https://landscape.io/github/decibelcooper/proio/master)
   * Implemented.  See docs and issues for more information
 * [C++](cpp-proio)
   * Implemented.  See docs and issues for more information
