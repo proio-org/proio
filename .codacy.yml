@@ -7,3 +7,4 @@ exclude_paths:
     - go-proio/proto/**
     - py-proio/proio/model/**
     - py-proio/proio/proto/**
+    - py-proio/tests/**
