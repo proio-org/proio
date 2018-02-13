@@ -18,7 +18,11 @@ def test_next_header1():
         header = reader.next_header()
         assert(header.nEvents == 2)
         assert(reader.next() != None)
-        assert(reader.next() == None)
+        try:
+            reader.next()
+            assert(False)
+        except StopIteration:
+            pass
 
 def test_next_header2():
     buf = io.BytesIO(b'')
@@ -35,5 +39,8 @@ def test_next_header2():
         assert(reader.next() != None)
         header = reader.next_header()
         assert(header.nEvents == 1)
-        assert(reader.next() == None)
-
+        try:
+            reader.next()
+            assert(False)
+        except StopIteration:
+            pass

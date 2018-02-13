@@ -62,7 +62,10 @@ class Reader(object):
         :return: the next event
         :rtype: Event
         """
-        return self._read_from_bucket(True)
+        event = self._read_from_bucket(True)
+        if event is None:
+            raise StopIteration
+        return event
 
     def next_header(self):
         """
@@ -204,7 +207,4 @@ class Reader(object):
         return self
 
     def __next__(self):
-        event = self.next()
-        if event is None:
-            raise StopIteration
-        return event
+        return self.next()
