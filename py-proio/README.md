@@ -29,7 +29,7 @@ with proio.Writer(test_filename) as writer:
     parent.pdg = 443
     parent.p.x = 1
     parent.mass = 3.097
-    parent_id = event.add_entry('GenDoc', parent)
+    parent_id = event.add_entry('Particle', parent)
 
     child1 = model.Particle()
     child1.pdg = 11
@@ -43,7 +43,9 @@ with proio.Writer(test_filename) as writer:
     child2.mass = 0.000511
     child2.charge = 1
 
-    child_ids = event.add_entries('GenStable', child1, child2)
+    child_ids = event.add_entries('Particle', child1, child2)
+    for ID in child_ids:
+        event.tag_entry(ID, 'GenStable')
 
     parent.child.extend(child_ids)
     child1.parent.append(parent_id)
@@ -67,4 +69,45 @@ with proio.Reader(test_filename) as reader:
         n_events += 1
 
 print(n_events)
+```
+
+### Event inspection by tag
+```python
+import proio
+import proio.model.eic as model
+
+test_filename = 'test_file.proio'
+with proio.Writer(test_filename) as writer:
+    event = proio.Event()
+
+    parent = model.Particle()
+    parent.pdg = 443
+    parent_id = event.add_entry('Particle', parent)
+
+    child1 = model.MCParticle()
+    child1.PDG = 11
+    child2 = model.MCParticle()
+    child2.PDG = -11
+    child_ids = event.add_entries('Particle', child1, child2)
+    for ID in child_ids:
+        event.tag_entry(ID, 'GenStable')
+
+    parent.children.extend(child_ids)
+    child1.parents.append(parent_id)
+    child2.parents.append(parent_id)
+
+    writer.push(event)
+    
+with proio.Reader(test_filename) as reader:
+    event = reader.next()
+    
+    parts = event.tagged_entries('Particle')
+    print('%i particle(s)...' % len(parts))
+    for i in range(0, len(parts)):
+        part = event.get_entry(parts[i])
+        print('%i. PDG Code: %i' % (i, part.pdg))
+
+        print('  %i children...' % len(part.child))
+        for j in range(0, len(part.child)):
+            print('  %i. PDG Code: %i' % (j, event.get_entry(part.child[j]).pdg))
 ```
