@@ -15,64 +15,55 @@ For information on what versions of Python are supported, please see the
 [Travis CI page](https://travis-ci.org/decibelcooper/proio).
 
 ## Examples
-### Push, get, inspect
+### Manipulating data model objects (EIC Particle)
 ```python
 import proio
-import proio.model.lcio as model
+import proio.model.eic as model
 
 test_filename = 'test_file.proio'
+
 with proio.Writer(test_filename) as writer:
     event = proio.Event()
+    
+    parent = model.Particle()
+    parent.pdg = 443
+    parent.p.x = 1
+    parent.mass = 3.097
+    parent_id = event.add_entry('GenDoc', parent)
 
-    parent = model.MCParticle()
-    parent.PDG = 443
-    parent_id = event.add_entry('Particles', parent)
-    event.tag_entry(parent_id, 'MC', 'Primary')
+    child1 = model.Particle()
+    child1.pdg = 11
+    child1.vertex.x = 0.5
+    child1.mass = 0.000511
+    child1.charge = -1
 
-    child1 = model.MCParticle()
-    child1.PDG = 11
-    child2 = model.MCParticle()
-    child2.PDG = -11
-    child_ids = event.add_entries('Particles', child1, child2)
-    for ID in child_ids:
-        event.tag_entry(ID, 'MC', 'Simulated')
+    child2 = model.Particle()
+    child2.pdg = -11
+    child2.vertex.x = 0.5
+    child2.mass = 0.000511
+    child2.charge = 1
 
-    parent.children.extend(child_ids)
-    child1.parents.append(parent_id)
-    child2.parents.append(parent_id)
+    child_ids = event.add_entries('GenStable', child1, child2)
 
+    parent.child.extend(child_ids)
+    child1.parent.append(parent_id)
+    child2.parent.append(parent_id)
+
+    print(event)
     writer.push(event)
-    
-with proio.Reader(test_filename) as reader:
-    event = reader.next()
-    
-    mc_parts = event.tagged_entries('Primary')
-    print('%i Primary particle(s)...' % len(mc_parts))
-    for i in range(0, len(mc_parts)):
-        part = event.get_entry(mc_parts[i])
-        print('%i. PDG: %i' % (i, part.PDG))
-
-        print('  %i children...' % len(part.children))
-        for j in range(0, len(part.children)):
-            print('  %i. PDG: %i' % (j, event.get_entry(part.children[j]).PDG))
 ```
 
-### Iterate
+### Iterating events in a file
 ```python
-import proio
+import proio.model.eic # each model to be read should be imported
 
-n_events = 50
 test_filename = 'test_file.proio'
-
-with proio.Writer(test_filename) as writer:
-    event = proio.Event()
-    for i in range(0, n_events):
-        writer.push(event)
-
 n_events = 0
 
 with proio.Reader(test_filename) as reader:
     for event in reader:
+        print('========== EVENT ' + str(n_events) + ' ==========')
+        print(event)
         n_events += 1
 
 print(n_events)
