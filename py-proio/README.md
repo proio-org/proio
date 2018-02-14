@@ -84,17 +84,17 @@ with proio.Writer(test_filename) as writer:
     parent.pdg = 443
     parent_id = event.add_entry('Particle', parent)
 
-    child1 = model.MCParticle()
-    child1.PDG = 11
-    child2 = model.MCParticle()
-    child2.PDG = -11
+    child1 = model.Particle()
+    child1.pdg = 11
+    child2 = model.Particle()
+    child2.pdg = -11
     child_ids = event.add_entries('Particle', child1, child2)
     for ID in child_ids:
         event.tag_entry(ID, 'GenStable')
 
-    parent.children.extend(child_ids)
-    child1.parents.append(parent_id)
-    child2.parents.append(parent_id)
+    parent.child.extend(child_ids)
+    child1.parent.append(parent_id)
+    child2.parent.append(parent_id)
 
     writer.push(event)
     
