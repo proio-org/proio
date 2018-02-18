@@ -116,12 +116,8 @@ func (wrt *Writer) Push(event *Event) error {
 	protoSizeBuf := make([]byte, 4)
 	binary.LittleEndian.PutUint32(protoSizeBuf, uint32(len(protoBuf)))
 
-	if err := writeBytes(wrt.bucket, protoSizeBuf); err != nil {
-		return err
-	}
-	if err := writeBytes(wrt.bucket, protoBuf); err != nil {
-		return err
-	}
+	writeBytes(wrt.bucket, protoSizeBuf)
+	writeBytes(wrt.bucket, protoBuf)
 
 	wrt.bucketEvents++
 

@@ -3,6 +3,7 @@ package proio
 import (
 	"testing"
 
+	"github.com/decibelcooper/proio/go-proio/model/eic"
 	prolcio "github.com/decibelcooper/proio/go-proio/model/lcio"
 )
 
@@ -101,5 +102,26 @@ func TestDeleteTag(t *testing.T) {
 	}
 	if tags[1] != "Simulated" {
 		t.Errorf("Second tag is %v instead of Simulated", tags[2])
+	}
+}
+
+func TestDirtyTag(t *testing.T) {
+	event := NewEvent()
+	id0 := event.AddEntry(
+		"Particle",
+		&eic.Particle{},
+	)
+	id1 := event.AddEntry(
+		"Particle",
+		&eic.Particle{},
+	)
+	event.RemoveEntry(id0)
+
+	ids := event.TaggedEntries("Particle")
+	if len(ids) != 1 {
+		t.Errorf("%v IDs instead of 1", len(ids))
+	}
+	if ids[0] != id1 {
+		t.Errorf("got ID %v instead of %v", ids[0], id1)
 	}
 }
