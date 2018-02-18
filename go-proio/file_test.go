@@ -28,7 +28,7 @@ func writeIterateFile(comp Compression, t *testing.T) {
 	}
 	defer os.RemoveAll(tmpDir)
 
-    tmpFile := filepath.Join(tmpDir, "writeIterateFile")
+	tmpFile := filepath.Join(tmpDir, "writeIterateFile")
 
 	writer, err := Create(tmpFile)
 	if err != nil {
@@ -54,5 +54,22 @@ func writeIterateFile(comp Compression, t *testing.T) {
 
 	if nEvents != 5 {
 		t.Errorf("nEvents is %v instead of 5", nEvents)
+	}
+}
+
+func TestCreateFileInEmptyDir(t *testing.T) {
+	tmpDir, err := ioutil.TempDir("", "proiotest")
+	if err != nil {
+		t.Error(err)
+	}
+	defer os.RemoveAll(tmpDir)
+
+	tmpDir = filepath.Join(tmpDir, "nonExistant")
+	tmpFile := filepath.Join(tmpDir, "nonExistant")
+
+	writer, err := Create(tmpFile)
+	if err == nil {
+		t.Errorf("No error thrown for creating file in non-existent directory.  Path is \"%v\"", tmpFile)
+		writer.Close()
 	}
 }
