@@ -1,10 +1,13 @@
 package proio
 
 import (
+	"bytes"
+	"errors"
 	"testing"
 
 	"github.com/decibelcooper/proio/go-proio/model/eic"
 	prolcio "github.com/decibelcooper/proio/go-proio/model/lcio"
+	protobuf "github.com/golang/protobuf/proto"
 )
 
 func TestStrip1(t *testing.T) {
@@ -142,5 +145,116 @@ func TestDirtyTag(t *testing.T) {
 	}
 	if ids[0] != id1 {
 		t.Errorf("got ID %v instead of %v", ids[0], id1)
+	}
+}
+
+func TestNoSuchEntry(t *testing.T) {
+	event := NewEvent()
+	entry := event.GetEntry(0)
+	if entry != nil {
+		t.Error("Entry is not nil")
+	}
+}
+
+type unknownMsg struct {
+}
+
+func (*unknownMsg) Reset()         {}
+func (*unknownMsg) String() string { return "" }
+func (*unknownMsg) ProtoMessage()  {}
+
+func TestUnknownType(t *testing.T) {
+	event := NewEvent()
+	id := event.AddEntry("unknown", &unknownMsg{})
+
+	writer := NewWriter(&bytes.Buffer{})
+	writer.Push(event)
+
+	entry := event.GetEntry(id)
+	if entry != nil {
+		t.Error("Event returns entry for unknown type")
+	}
+}
+
+type nonSelfSerializingMsg struct {
+	X float32 `protobuf:"fixed32,1,opt,name=x,proto3" json:"x,omitempty"`
+	Y float32 `protobuf:"fixed32,2,opt,name=y,proto3" json:"y,omitempty"`
+	Z float32 `protobuf:"fixed32,3,opt,name=z,proto3" json:"z,omitempty"`
+}
+
+func (*nonSelfSerializingMsg) Reset()         {}
+func (*nonSelfSerializingMsg) String() string { return "" }
+func (*nonSelfSerializingMsg) ProtoMessage()  {}
+
+func init() {
+	protobuf.RegisterType((*nonSelfSerializingMsg)(nil), "nonSelfSerializingMsg")
+}
+
+func TestNonSelfSerializingMsg(t *testing.T) {
+	event := NewEvent()
+	id := event.AddEntry("nonSelfSerializingMsg", &nonSelfSerializingMsg{})
+
+	writer := NewWriter(&bytes.Buffer{})
+	writer.Push(event)
+
+	entry := event.GetEntry(id)
+	if entry == nil {
+		t.Error("Unable to deserialize message")
+	}
+}
+
+type halfSelfSerializingMsg1 struct {
+	X float32 `protobuf:"fixed32,1,opt,name=x,proto3" json:"x,omitempty"`
+	Y float32 `protobuf:"fixed32,2,opt,name=y,proto3" json:"y,omitempty"`
+	Z float32 `protobuf:"fixed32,3,opt,name=z,proto3" json:"z,omitempty"`
+}
+
+func (*halfSelfSerializingMsg1) Reset()                   {}
+func (*halfSelfSerializingMsg1) String() string           { return "" }
+func (*halfSelfSerializingMsg1) ProtoMessage()            {}
+func (*halfSelfSerializingMsg1) Marshal() ([]byte, error) { return []byte{0x7}, nil }
+
+func init() {
+	protobuf.RegisterType((*halfSelfSerializingMsg1)(nil), "halfSelfSerializingMsg1")
+}
+
+func TestHalfSelfSerializingMsg1(t *testing.T) {
+	event := NewEvent()
+	id := event.AddEntry("halfSelfSerializingMsg1", &halfSelfSerializingMsg1{})
+
+	writer := NewWriter(&bytes.Buffer{})
+	writer.Push(event)
+
+	entry := event.GetEntry(id)
+	if entry != nil {
+		t.Error("Broken message returns non-nil value")
+	}
+}
+
+type halfSelfSerializingMsg2 struct {
+	X float32 `protobuf:"fixed32,1,opt,name=x,proto3" json:"x,omitempty"`
+	Y float32 `protobuf:"fixed32,2,opt,name=y,proto3" json:"y,omitempty"`
+	Z float32 `protobuf:"fixed32,3,opt,name=z,proto3" json:"z,omitempty"`
+}
+
+func (*halfSelfSerializingMsg2) Reset()                 {}
+func (*halfSelfSerializingMsg2) String() string         { return "" }
+func (*halfSelfSerializingMsg2) ProtoMessage()          {}
+func (*halfSelfSerializingMsg2) Unmarshal([]byte) error { return errors.New("bad") }
+
+func init() {
+	protobuf.RegisterType((*halfSelfSerializingMsg2)(nil), "halfSelfSerializingMsg2")
+}
+
+func TestHalfSelfSerializingMsg2(t *testing.T) {
+	event := NewEvent()
+	id := event.AddEntry("halfSelfSerializingMsg2", &halfSelfSerializingMsg2{})
+
+	writer := NewWriter(&bytes.Buffer{})
+	writer.Push(event)
+
+	entry := event.GetEntry(id)
+	if entry != nil {
+		t.Error("Broken message returns non-nil value")
 	}
 }

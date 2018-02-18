@@ -96,7 +96,7 @@ func (evt *Event) GetEntry(id uint64) protobuf.Message {
 		evt.Err = errors.New("unknown type: " + evt.proto.Types[entryProto.Type])
 		return nil
 	}
-	selfSerializingEntry, ok := entry.(selfSerializingEntry)
+	selfSerializingEntry, ok := entry.(protobuf.Unmarshaler)
 	if ok {
 		if err := selfSerializingEntry.Unmarshal(entryProto.Payload); err != nil {
 			evt.Err = errors.New(
@@ -233,13 +233,6 @@ func (evt *Event) String() string {
 	return printString
 }
 
-type selfSerializingEntry interface {
-	protobuf.Message
-
-	Marshal() ([]byte, error)
-	Unmarshal([]byte) error
-}
-
 func newEventFromProto(eventProto *proto.Event) *Event {
 	if eventProto.Entries == nil {
 		eventProto.Entries = make(map[uint64]*proto.Any)
@@ -294,7 +287,7 @@ func (evt *Event) getTypeID(entry protobuf.Message) uint64 {
 
 func (evt *Event) flushCache() {
 	for id, entry := range evt.entryCache {
-		selfSerializingEntry, ok := entry.(selfSerializingEntry)
+		selfSerializingEntry, ok := entry.(protobuf.Marshaler)
 		var bytes []byte
 		if ok {
 			bytes, _ = selfSerializingEntry.Marshal()
