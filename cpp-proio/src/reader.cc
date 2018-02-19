@@ -198,10 +198,7 @@ inline bool BucketInputStream::Next(const void **data, int *size) {
     return true;
 }
 
-inline void BucketInputStream::BackUp(int count) {
-    offset -= count;
-    if (offset < 0) offset = 0;
-}
+inline void BucketInputStream::BackUp(int count) { offset -= count; }
 
 inline bool BucketInputStream::Skip(int count) {
     offset += count;

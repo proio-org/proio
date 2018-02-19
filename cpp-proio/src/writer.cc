@@ -124,10 +124,7 @@ inline bool BucketOutputStream::Next(void **data, int *size) {
     return true;
 }
 
-inline void BucketOutputStream::BackUp(int count) {
-    offset -= count;
-    if (offset < 0) offset = 0;
-}
+inline void BucketOutputStream::BackUp(int count) { offset -= count; }
 
 inline int64 BucketOutputStream::ByteCount() const { return offset; }
 
