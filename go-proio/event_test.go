@@ -12,20 +12,26 @@ import (
 
 func TestStrip1(t *testing.T) {
 	event := NewEvent()
-	for i := 0; i < 100; i++ {
-		event.AddEntry(
-			"Particle",
-			&eic.Particle{},
-		)
-	}
+	event.AddEntry(
+		"Particle",
+		&eic.Particle{},
+	)
+	event.AddEntry(
+		"Particle",
+		&eic.Particle{},
+	)
+	event.AddEntry(
+		"SimHit",
+		&eic.SimHit{},
+	)
 
 	for _, ID := range event.TaggedEntries("Particle") {
 		event.RemoveEntry(ID)
 	}
 
 	nEntries := len(event.AllEntries())
-	if nEntries > 0 {
-		t.Errorf("There should be no entries, but len(event.AllEntries()) = %v out of 100", nEntries)
+	if nEntries != 1 {
+		t.Errorf("There should be one entry, but len(event.AllEntries()) = %v", nEntries)
 	}
 }
 
@@ -65,6 +71,24 @@ func TestTagUntag2(t *testing.T) {
 	mcIDs := event.TaggedEntries("MCParticles")
 	if len(mcIDs) != 0 {
 		t.Errorf("%v IDs instead of 0", len(mcIDs))
+	}
+}
+
+func TestTagUntag3(t *testing.T) {
+	event := NewEvent()
+	id0 := event.AddEntry(
+		"Particle",
+		&prolcio.MCParticle{},
+	)
+	event.AddEntry(
+		"Particle",
+		&prolcio.MCParticle{},
+	)
+	event.UntagEntry(id0, "MCParticles")
+
+	ids := event.TaggedEntries("Particle")
+	if len(ids) != 2 {
+		t.Errorf("%v IDs instead of 2", len(ids))
 	}
 }
 
@@ -229,6 +253,14 @@ func TestHalfSelfSerializingMsg1(t *testing.T) {
 	if entry != nil {
 		t.Error("Broken message returns non-nil value")
 	}
+
+	eventString := `---------- TAG: halfSelfSerializingMsg1 ----------
+ID: 1
+failure to unmarshal entry 1 with type halfSelfSerializingMsg1
+`
+	if event.String() != eventString {
+		t.Errorf("Event string is \n%v\ninstead of\n%v", event.String(), eventString)
+	}
 }
 
 type halfSelfSerializingMsg2 struct {
@@ -256,5 +288,13 @@ func TestHalfSelfSerializingMsg2(t *testing.T) {
 	entry := event.GetEntry(id)
 	if entry != nil {
 		t.Error("Broken message returns non-nil value")
+	}
+
+	eventString := `---------- TAG: halfSelfSerializingMsg2 ----------
+ID: 1
+failure to unmarshal entry 1 with type halfSelfSerializingMsg2
+`
+	if event.String() != eventString {
+		t.Errorf("Event string is \n%v\ninstead of\n%v", event.String(), eventString)
 	}
 }

@@ -9,6 +9,7 @@ import (
 	"sync"
 	"testing"
 
+	"github.com/decibelcooper/proio/go-proio/model/eic"
 	prolcio "github.com/decibelcooper/proio/go-proio/model/lcio"
 )
 
@@ -120,6 +121,10 @@ func TestUncompPushGet2(t *testing.T) {
 	eventPushGet2(UNCOMPRESSED, t)
 }
 
+func TestUncompPushGet3(t *testing.T) {
+	eventPushGet3(UNCOMPRESSED, t)
+}
+
 func TestUncompPushSkipGet1(t *testing.T) {
 	eventPushSkipGet1(UNCOMPRESSED, t)
 }
@@ -136,6 +141,10 @@ func TestLZ4PushGet2(t *testing.T) {
 	eventPushGet2(LZ4, t)
 }
 
+func TestLZ4PushGet3(t *testing.T) {
+	eventPushGet3(LZ4, t)
+}
+
 func TestLZ4PushSkipGet1(t *testing.T) {
 	eventPushSkipGet1(LZ4, t)
 }
@@ -150,6 +159,10 @@ func TestGZIPPushGet1(t *testing.T) {
 
 func TestGZIPPushGet2(t *testing.T) {
 	eventPushGet2(GZIP, t)
+}
+
+func TestGZIPPushGet3(t *testing.T) {
+	eventPushGet3(GZIP, t)
 }
 
 func TestGZIPPushSkipGet1(t *testing.T) {
@@ -245,6 +258,58 @@ func eventPushGet2(comp Compression, t *testing.T) {
 
 	for i := 0; i < 2; i++ {
 		event, err := reader.Next()
+		if err != nil {
+			t.Error(err)
+		}
+		if event == nil {
+			t.Errorf("Event %v failed to Get", i)
+		}
+		if event.String() != eventsOut[i].String() {
+			t.Errorf("Event %v corrupted", i)
+		}
+	}
+}
+
+func eventPushGet3(comp Compression, t *testing.T) {
+	buffer := &bytes.Buffer{}
+	writer := NewWriter(buffer)
+	writer.SetCompression(comp)
+
+	var eventsOut [1]*Event
+
+	event := NewEvent()
+	event.AddEntries(
+		"Particle",
+		&eic.Particle{},
+		&eic.Particle{},
+	)
+	writer.Push(event)
+	writer.Close()
+
+	reader := NewReader(buffer)
+    var err error
+	event, err = reader.Next()
+	if err != nil {
+		t.Error(err)
+	}
+	reader.Close()
+
+	eventsOut[0] = event
+	event.AddEntry(
+		"Particle",
+		&eic.Particle{},
+	)
+	buffer = &bytes.Buffer{}
+	writer = NewWriter(buffer)
+	writer.SetCompression(comp)
+	writer.Push(event)
+	writer.Close()
+
+	reader = NewReader(buffer)
+	defer reader.Close()
+
+	for i := 0; i < len(eventsOut); i++ {
+		event, err = reader.Next()
 		if err != nil {
 			t.Error(err)
 		}
