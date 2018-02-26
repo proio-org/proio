@@ -66,11 +66,11 @@ matrix:
               - CTEST_OUTPUT_ON_FAILURE=True make test
 
         - language: go
-          go: 1.7.x
-        - language: go
           go: 1.8.x
         - language: go
           go: 1.9.x
+        - language: go
+          go: 1.10.x
           install:
               - go get golang.org/x/tools/cmd/cover
               - go get -t ./...
