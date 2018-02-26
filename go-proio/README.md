@@ -27,26 +27,26 @@ results in the following (on my Core i5 desktop):
 goos: linux
 goarch: amd64
 pkg: github.com/decibelcooper/proio/go-proio
-BenchmarkWriteUncomp-4                     10000            128412 ns/op
-BenchmarkWriteUncomp-4                     10000            127741 ns/op
-BenchmarkWriteLZ4-4                         5000            267338 ns/op
-BenchmarkWriteLZ4-4                         5000            268786 ns/op
-BenchmarkWriteGZIP-4                        5000           1348183 ns/op
-BenchmarkWriteGZIP-4                        5000           1357786 ns/op
-BenchmarkReadUncomp-4                       5000            277247 ns/op
-BenchmarkReadUncomp-4                       5000            276152 ns/op
-BenchmarkReadLZ4-4                          5000            285991 ns/op
-BenchmarkReadLZ4-4                          5000            282309 ns/op
-BenchmarkReadGZIP-4                         5000            476960 ns/op
-BenchmarkReadGZIP-4                         5000            477229 ns/op
-BenchmarkAddRemove100Entries-4             30000             71958 ns/op
-BenchmarkAddRemove100Entries-4             20000             63136 ns/op
-BenchmarkAddRemove1000Entries-4             3000            742337 ns/op
-BenchmarkAddRemove1000Entries-4             2000            794221 ns/op
-BenchmarkAddRemove10000Entries-4             200           7657906 ns/op
-BenchmarkAddRemove10000Entries-4             200           8777519 ns/op
-BenchmarkAddRemove100000Entries-4             20          66231187 ns/op
-BenchmarkAddRemove100000Entries-4             20          64927346 ns/op
+BenchmarkWriteUncomp-4                     10000            139903 ns/op
+BenchmarkWriteUncomp-4                     10000            122604 ns/op
+BenchmarkWriteLZ4-4                         5000            275437 ns/op
+BenchmarkWriteLZ4-4                         5000            278510 ns/op
+BenchmarkWriteGZIP-4                        5000           1364511 ns/op
+BenchmarkWriteGZIP-4                        5000           1365314 ns/op
+BenchmarkReadUncomp-4                       5000            254130 ns/op
+BenchmarkReadUncomp-4                       5000            244430 ns/op
+BenchmarkReadLZ4-4                          5000            249543 ns/op
+BenchmarkReadLZ4-4                          5000            247739 ns/op
+BenchmarkReadGZIP-4                         5000            434379 ns/op
+BenchmarkReadGZIP-4                         5000            437608 ns/op
+BenchmarkAddRemove100Entries-4             30000             65783 ns/op
+BenchmarkAddRemove100Entries-4             30000             51931 ns/op
+BenchmarkAddRemove1000Entries-4             3000            612425 ns/op
+BenchmarkAddRemove1000Entries-4             3000            541261 ns/op
+BenchmarkAddRemove10000Entries-4             200           6023315 ns/op
+BenchmarkAddRemove10000Entries-4             300           6985336 ns/op
+BenchmarkAddRemove100000Entries-4             20          61059149 ns/op
+BenchmarkAddRemove100000Entries-4             20          61536698 ns/op
 PASS
-ok      github.com/decibelcooper/proio/go-proio 65.545s
+ok      github.com/decibelcooper/proio/go-proio 63.981s
 ```
