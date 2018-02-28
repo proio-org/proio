@@ -157,9 +157,9 @@ class Reader(object):
         else:
             self._bucket_reader = io.BytesIO(b'')
             events_skipped = self._bucket_header.nEvents
-            if self._stream_reader.seekable():
+            try:
                 self._stream_reader.seek(self._bucket_header.bucketSize, 1)
-            else:
+            except OSError:
                 self._stream_reader.read(self._bucket_header.bucketSize)
             return events_skipped
 
