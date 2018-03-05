@@ -36,6 +36,8 @@ import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
 import math "math"
 
+import binary "encoding/binary"
+
 import io "io"
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -1613,14 +1615,8 @@ func (m *FloatParams) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.Array)*4))
 		for _, num := range m.Array {
 			f3 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f3)
-			i++
-			dAtA[i] = uint8(f3 >> 8)
-			i++
-			dAtA[i] = uint8(f3 >> 16)
-			i++
-			dAtA[i] = uint8(f3 >> 24)
-			i++
+			binary.LittleEndian.PutUint32(dAtA[i:], uint32(f3))
+			i += 4
 		}
 	}
 	return i, nil
@@ -1779,7 +1775,8 @@ func (m *ParticleID) MarshalTo(dAtA []byte) (int, error) {
 	if m.Likelihood != 0 {
 		dAtA[i] = 0xd
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.Likelihood))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Likelihood))))
+		i += 4
 	}
 	if m.Type != 0 {
 		dAtA[i] = 0x10
@@ -1802,14 +1799,8 @@ func (m *ParticleID) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.Params)*4))
 		for _, num := range m.Params {
 			f7 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f7)
-			i++
-			dAtA[i] = uint8(f7 >> 8)
-			i++
-			dAtA[i] = uint8(f7 >> 16)
-			i++
-			dAtA[i] = uint8(f7 >> 24)
-			i++
+			binary.LittleEndian.PutUint32(dAtA[i:], uint32(f7))
+			i += 4
 		}
 	}
 	return i, nil
@@ -1875,28 +1866,15 @@ func (m *MCParticle) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.Vertex)*8))
 		for _, num := range m.Vertex {
 			f12 := math.Float64bits(float64(num))
-			dAtA[i] = uint8(f12)
-			i++
-			dAtA[i] = uint8(f12 >> 8)
-			i++
-			dAtA[i] = uint8(f12 >> 16)
-			i++
-			dAtA[i] = uint8(f12 >> 24)
-			i++
-			dAtA[i] = uint8(f12 >> 32)
-			i++
-			dAtA[i] = uint8(f12 >> 40)
-			i++
-			dAtA[i] = uint8(f12 >> 48)
-			i++
-			dAtA[i] = uint8(f12 >> 56)
-			i++
+			binary.LittleEndian.PutUint64(dAtA[i:], uint64(f12))
+			i += 8
 		}
 	}
 	if m.Time != 0 {
 		dAtA[i] = 0x2d
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.Time))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Time))))
+		i += 4
 	}
 	if len(m.P) > 0 {
 		dAtA[i] = 0x32
@@ -1904,33 +1882,21 @@ func (m *MCParticle) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.P)*8))
 		for _, num := range m.P {
 			f13 := math.Float64bits(float64(num))
-			dAtA[i] = uint8(f13)
-			i++
-			dAtA[i] = uint8(f13 >> 8)
-			i++
-			dAtA[i] = uint8(f13 >> 16)
-			i++
-			dAtA[i] = uint8(f13 >> 24)
-			i++
-			dAtA[i] = uint8(f13 >> 32)
-			i++
-			dAtA[i] = uint8(f13 >> 40)
-			i++
-			dAtA[i] = uint8(f13 >> 48)
-			i++
-			dAtA[i] = uint8(f13 >> 56)
-			i++
+			binary.LittleEndian.PutUint64(dAtA[i:], uint64(f13))
+			i += 8
 		}
 	}
 	if m.Mass != 0 {
 		dAtA[i] = 0x39
 		i++
-		i = encodeFixed64Lcio(dAtA, i, uint64(math.Float64bits(float64(m.Mass))))
+		binary.LittleEndian.PutUint64(dAtA[i:], uint64(math.Float64bits(float64(m.Mass))))
+		i += 8
 	}
 	if m.Charge != 0 {
 		dAtA[i] = 0x45
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.Charge))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Charge))))
+		i += 4
 	}
 	if len(m.PEndPoint) > 0 {
 		dAtA[i] = 0x4a
@@ -1938,22 +1904,8 @@ func (m *MCParticle) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.PEndPoint)*8))
 		for _, num := range m.PEndPoint {
 			f14 := math.Float64bits(float64(num))
-			dAtA[i] = uint8(f14)
-			i++
-			dAtA[i] = uint8(f14 >> 8)
-			i++
-			dAtA[i] = uint8(f14 >> 16)
-			i++
-			dAtA[i] = uint8(f14 >> 24)
-			i++
-			dAtA[i] = uint8(f14 >> 32)
-			i++
-			dAtA[i] = uint8(f14 >> 40)
-			i++
-			dAtA[i] = uint8(f14 >> 48)
-			i++
-			dAtA[i] = uint8(f14 >> 56)
-			i++
+			binary.LittleEndian.PutUint64(dAtA[i:], uint64(f14))
+			i += 8
 		}
 	}
 	if len(m.Spin) > 0 {
@@ -1962,14 +1914,8 @@ func (m *MCParticle) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.Spin)*4))
 		for _, num := range m.Spin {
 			f15 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f15)
-			i++
-			dAtA[i] = uint8(f15 >> 8)
-			i++
-			dAtA[i] = uint8(f15 >> 16)
-			i++
-			dAtA[i] = uint8(f15 >> 24)
-			i++
+			binary.LittleEndian.PutUint32(dAtA[i:], uint32(f15))
+			i += 4
 		}
 	}
 	if len(m.ColorFlow) > 0 {
@@ -2034,33 +1980,21 @@ func (m *SimTrackerHit) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.Pos)*8))
 		for _, num := range m.Pos {
 			f18 := math.Float64bits(float64(num))
-			dAtA[i] = uint8(f18)
-			i++
-			dAtA[i] = uint8(f18 >> 8)
-			i++
-			dAtA[i] = uint8(f18 >> 16)
-			i++
-			dAtA[i] = uint8(f18 >> 24)
-			i++
-			dAtA[i] = uint8(f18 >> 32)
-			i++
-			dAtA[i] = uint8(f18 >> 40)
-			i++
-			dAtA[i] = uint8(f18 >> 48)
-			i++
-			dAtA[i] = uint8(f18 >> 56)
-			i++
+			binary.LittleEndian.PutUint64(dAtA[i:], uint64(f18))
+			i += 8
 		}
 	}
 	if m.EDep != 0 {
 		dAtA[i] = 0x25
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.EDep))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.EDep))))
+		i += 4
 	}
 	if m.Time != 0 {
 		dAtA[i] = 0x2d
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.Time))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Time))))
+		i += 4
 	}
 	if m.Mc != 0 {
 		dAtA[i] = 0x30
@@ -2073,20 +2007,15 @@ func (m *SimTrackerHit) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.P)*4))
 		for _, num := range m.P {
 			f19 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f19)
-			i++
-			dAtA[i] = uint8(f19 >> 8)
-			i++
-			dAtA[i] = uint8(f19 >> 16)
-			i++
-			dAtA[i] = uint8(f19 >> 24)
-			i++
+			binary.LittleEndian.PutUint32(dAtA[i:], uint32(f19))
+			i += 4
 		}
 	}
 	if m.PathLength != 0 {
 		dAtA[i] = 0x45
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.PathLength))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.PathLength))))
+		i += 4
 	}
 	if m.Quality != 0 {
 		dAtA[i] = 0x48
@@ -2174,7 +2103,8 @@ func (m *TrackerData) MarshalTo(dAtA []byte) (int, error) {
 	if m.Time != 0 {
 		dAtA[i] = 0x1d
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.Time))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Time))))
+		i += 4
 	}
 	if len(m.Charges) > 0 {
 		dAtA[i] = 0x22
@@ -2182,14 +2112,8 @@ func (m *TrackerData) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.Charges)*4))
 		for _, num := range m.Charges {
 			f22 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f22)
-			i++
-			dAtA[i] = uint8(f22 >> 8)
-			i++
-			dAtA[i] = uint8(f22 >> 16)
-			i++
-			dAtA[i] = uint8(f22 >> 24)
-			i++
+			binary.LittleEndian.PutUint32(dAtA[i:], uint32(f22))
+			i += 4
 		}
 	}
 	return i, nil
@@ -2231,22 +2155,8 @@ func (m *TrackerHit) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.Pos)*8))
 		for _, num := range m.Pos {
 			f23 := math.Float64bits(float64(num))
-			dAtA[i] = uint8(f23)
-			i++
-			dAtA[i] = uint8(f23 >> 8)
-			i++
-			dAtA[i] = uint8(f23 >> 16)
-			i++
-			dAtA[i] = uint8(f23 >> 24)
-			i++
-			dAtA[i] = uint8(f23 >> 32)
-			i++
-			dAtA[i] = uint8(f23 >> 40)
-			i++
-			dAtA[i] = uint8(f23 >> 48)
-			i++
-			dAtA[i] = uint8(f23 >> 56)
-			i++
+			binary.LittleEndian.PutUint64(dAtA[i:], uint64(f23))
+			i += 8
 		}
 	}
 	if len(m.Cov) > 0 {
@@ -2255,38 +2165,27 @@ func (m *TrackerHit) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.Cov)*8))
 		for _, num := range m.Cov {
 			f24 := math.Float64bits(float64(num))
-			dAtA[i] = uint8(f24)
-			i++
-			dAtA[i] = uint8(f24 >> 8)
-			i++
-			dAtA[i] = uint8(f24 >> 16)
-			i++
-			dAtA[i] = uint8(f24 >> 24)
-			i++
-			dAtA[i] = uint8(f24 >> 32)
-			i++
-			dAtA[i] = uint8(f24 >> 40)
-			i++
-			dAtA[i] = uint8(f24 >> 48)
-			i++
-			dAtA[i] = uint8(f24 >> 56)
-			i++
+			binary.LittleEndian.PutUint64(dAtA[i:], uint64(f24))
+			i += 8
 		}
 	}
 	if m.EDep != 0 {
 		dAtA[i] = 0x35
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.EDep))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.EDep))))
+		i += 4
 	}
 	if m.EDepErr != 0 {
 		dAtA[i] = 0x3d
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.EDepErr))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.EDepErr))))
+		i += 4
 	}
 	if m.Time != 0 {
 		dAtA[i] = 0x45
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.Time))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Time))))
+		i += 4
 	}
 	if m.Quality != 0 {
 		dAtA[i] = 0x48
@@ -2341,12 +2240,14 @@ func (m *TrackerPulse) MarshalTo(dAtA []byte) (int, error) {
 	if m.Time != 0 {
 		dAtA[i] = 0x1d
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.Time))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Time))))
+		i += 4
 	}
 	if m.Charge != 0 {
 		dAtA[i] = 0x25
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.Charge))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Charge))))
+		i += 4
 	}
 	if len(m.Cov) > 0 {
 		dAtA[i] = 0x2a
@@ -2354,14 +2255,8 @@ func (m *TrackerPulse) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.Cov)*4))
 		for _, num := range m.Cov {
 			f27 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f27)
-			i++
-			dAtA[i] = uint8(f27 >> 8)
-			i++
-			dAtA[i] = uint8(f27 >> 16)
-			i++
-			dAtA[i] = uint8(f27 >> 24)
-			i++
+			binary.LittleEndian.PutUint32(dAtA[i:], uint32(f27))
+			i += 4
 		}
 	}
 	if m.Quality != 0 {
@@ -2413,22 +2308,8 @@ func (m *TrackerHitPlane) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.Pos)*8))
 		for _, num := range m.Pos {
 			f28 := math.Float64bits(float64(num))
-			dAtA[i] = uint8(f28)
-			i++
-			dAtA[i] = uint8(f28 >> 8)
-			i++
-			dAtA[i] = uint8(f28 >> 16)
-			i++
-			dAtA[i] = uint8(f28 >> 24)
-			i++
-			dAtA[i] = uint8(f28 >> 32)
-			i++
-			dAtA[i] = uint8(f28 >> 40)
-			i++
-			dAtA[i] = uint8(f28 >> 48)
-			i++
-			dAtA[i] = uint8(f28 >> 56)
-			i++
+			binary.LittleEndian.PutUint64(dAtA[i:], uint64(f28))
+			i += 8
 		}
 	}
 	if len(m.U) > 0 {
@@ -2437,14 +2318,8 @@ func (m *TrackerHitPlane) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.U)*4))
 		for _, num := range m.U {
 			f29 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f29)
-			i++
-			dAtA[i] = uint8(f29 >> 8)
-			i++
-			dAtA[i] = uint8(f29 >> 16)
-			i++
-			dAtA[i] = uint8(f29 >> 24)
-			i++
+			binary.LittleEndian.PutUint32(dAtA[i:], uint32(f29))
+			i += 4
 		}
 	}
 	if len(m.V) > 0 {
@@ -2453,40 +2328,39 @@ func (m *TrackerHitPlane) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.V)*4))
 		for _, num := range m.V {
 			f30 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f30)
-			i++
-			dAtA[i] = uint8(f30 >> 8)
-			i++
-			dAtA[i] = uint8(f30 >> 16)
-			i++
-			dAtA[i] = uint8(f30 >> 24)
-			i++
+			binary.LittleEndian.PutUint32(dAtA[i:], uint32(f30))
+			i += 4
 		}
 	}
 	if m.DU != 0 {
 		dAtA[i] = 0x3d
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.DU))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.DU))))
+		i += 4
 	}
 	if m.DV != 0 {
 		dAtA[i] = 0x45
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.DV))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.DV))))
+		i += 4
 	}
 	if m.EDep != 0 {
 		dAtA[i] = 0x4d
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.EDep))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.EDep))))
+		i += 4
 	}
 	if m.EDepErr != 0 {
 		dAtA[i] = 0x55
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.EDepErr))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.EDepErr))))
+		i += 4
 	}
 	if m.Time != 0 {
 		dAtA[i] = 0x5d
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.Time))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Time))))
+		i += 4
 	}
 	if m.Quality != 0 {
 		dAtA[i] = 0x60
@@ -2549,22 +2423,8 @@ func (m *TrackerHitZCylinder) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.Pos)*8))
 		for _, num := range m.Pos {
 			f33 := math.Float64bits(float64(num))
-			dAtA[i] = uint8(f33)
-			i++
-			dAtA[i] = uint8(f33 >> 8)
-			i++
-			dAtA[i] = uint8(f33 >> 16)
-			i++
-			dAtA[i] = uint8(f33 >> 24)
-			i++
-			dAtA[i] = uint8(f33 >> 32)
-			i++
-			dAtA[i] = uint8(f33 >> 40)
-			i++
-			dAtA[i] = uint8(f33 >> 48)
-			i++
-			dAtA[i] = uint8(f33 >> 56)
-			i++
+			binary.LittleEndian.PutUint64(dAtA[i:], uint64(f33))
+			i += 8
 		}
 	}
 	if len(m.Center) > 0 {
@@ -2573,40 +2433,39 @@ func (m *TrackerHitZCylinder) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.Center)*4))
 		for _, num := range m.Center {
 			f34 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f34)
-			i++
-			dAtA[i] = uint8(f34 >> 8)
-			i++
-			dAtA[i] = uint8(f34 >> 16)
-			i++
-			dAtA[i] = uint8(f34 >> 24)
-			i++
+			binary.LittleEndian.PutUint32(dAtA[i:], uint32(f34))
+			i += 4
 		}
 	}
 	if m.DRPhi != 0 {
 		dAtA[i] = 0x35
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.DRPhi))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.DRPhi))))
+		i += 4
 	}
 	if m.DZ != 0 {
 		dAtA[i] = 0x3d
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.DZ))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.DZ))))
+		i += 4
 	}
 	if m.EDep != 0 {
 		dAtA[i] = 0x45
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.EDep))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.EDep))))
+		i += 4
 	}
 	if m.EDepErr != 0 {
 		dAtA[i] = 0x4d
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.EDepErr))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.EDepErr))))
+		i += 4
 	}
 	if m.Time != 0 {
 		dAtA[i] = 0x55
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.Time))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Time))))
+		i += 4
 	}
 	if m.Quality != 0 {
 		dAtA[i] = 0x58
@@ -2656,7 +2515,8 @@ func (m *Track) MarshalTo(dAtA []byte) (int, error) {
 	if m.Chi2 != 0 {
 		dAtA[i] = 0x15
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.Chi2))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Chi2))))
+		i += 4
 	}
 	if m.NDF != 0 {
 		dAtA[i] = 0x18
@@ -2666,17 +2526,20 @@ func (m *Track) MarshalTo(dAtA []byte) (int, error) {
 	if m.DEdx != 0 {
 		dAtA[i] = 0x25
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.DEdx))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.DEdx))))
+		i += 4
 	}
 	if m.DEdxErr != 0 {
 		dAtA[i] = 0x2d
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.DEdxErr))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.DEdxErr))))
+		i += 4
 	}
 	if m.Radius != 0 {
 		dAtA[i] = 0x35
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.Radius))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Radius))))
+		i += 4
 	}
 	if len(m.SubDetHits) > 0 {
 		dAtA38 := make([]byte, len(m.SubDetHits)*10)
@@ -2768,27 +2631,32 @@ func (m *Track_TrackState) MarshalTo(dAtA []byte) (int, error) {
 	if m.D0 != 0 {
 		dAtA[i] = 0x15
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.D0))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.D0))))
+		i += 4
 	}
 	if m.Phi != 0 {
 		dAtA[i] = 0x1d
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.Phi))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Phi))))
+		i += 4
 	}
 	if m.Omega != 0 {
 		dAtA[i] = 0x25
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.Omega))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Omega))))
+		i += 4
 	}
 	if m.Z0 != 0 {
 		dAtA[i] = 0x2d
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.Z0))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Z0))))
+		i += 4
 	}
 	if m.TanL != 0 {
 		dAtA[i] = 0x35
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.TanL))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.TanL))))
+		i += 4
 	}
 	if len(m.Cov) > 0 {
 		dAtA[i] = 0x3a
@@ -2796,14 +2664,8 @@ func (m *Track_TrackState) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.Cov)*4))
 		for _, num := range m.Cov {
 			f43 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f43)
-			i++
-			dAtA[i] = uint8(f43 >> 8)
-			i++
-			dAtA[i] = uint8(f43 >> 16)
-			i++
-			dAtA[i] = uint8(f43 >> 24)
-			i++
+			binary.LittleEndian.PutUint32(dAtA[i:], uint32(f43))
+			i += 4
 		}
 	}
 	if len(m.Ref) > 0 {
@@ -2812,14 +2674,8 @@ func (m *Track_TrackState) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.Ref)*4))
 		for _, num := range m.Ref {
 			f44 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f44)
-			i++
-			dAtA[i] = uint8(f44 >> 8)
-			i++
-			dAtA[i] = uint8(f44 >> 16)
-			i++
-			dAtA[i] = uint8(f44 >> 24)
-			i++
+			binary.LittleEndian.PutUint32(dAtA[i:], uint32(f44))
+			i += 4
 		}
 	}
 	return i, nil
@@ -2853,7 +2709,8 @@ func (m *SimCalorimeterHit) MarshalTo(dAtA []byte) (int, error) {
 	if m.Energy != 0 {
 		dAtA[i] = 0x1d
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.Energy))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Energy))))
+		i += 4
 	}
 	if len(m.Pos) > 0 {
 		dAtA[i] = 0x22
@@ -2861,14 +2718,8 @@ func (m *SimCalorimeterHit) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.Pos)*4))
 		for _, num := range m.Pos {
 			f45 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f45)
-			i++
-			dAtA[i] = uint8(f45 >> 8)
-			i++
-			dAtA[i] = uint8(f45 >> 16)
-			i++
-			dAtA[i] = uint8(f45 >> 24)
-			i++
+			binary.LittleEndian.PutUint32(dAtA[i:], uint32(f45))
+			i += 4
 		}
 	}
 	if len(m.Contributions) > 0 {
@@ -2909,12 +2760,14 @@ func (m *SimCalorimeterHit_Contrib) MarshalTo(dAtA []byte) (int, error) {
 	if m.Energy != 0 {
 		dAtA[i] = 0x15
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.Energy))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Energy))))
+		i += 4
 	}
 	if m.Time != 0 {
 		dAtA[i] = 0x1d
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.Time))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Time))))
+		i += 4
 	}
 	if m.PDG != 0 {
 		dAtA[i] = 0x20
@@ -2927,14 +2780,8 @@ func (m *SimCalorimeterHit_Contrib) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.StepPos)*4))
 		for _, num := range m.StepPos {
 			f46 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f46)
-			i++
-			dAtA[i] = uint8(f46 >> 8)
-			i++
-			dAtA[i] = uint8(f46 >> 16)
-			i++
-			dAtA[i] = uint8(f46 >> 24)
-			i++
+			binary.LittleEndian.PutUint32(dAtA[i:], uint32(f46))
+			i += 4
 		}
 	}
 	return i, nil
@@ -3006,17 +2853,20 @@ func (m *CalorimeterHit) MarshalTo(dAtA []byte) (int, error) {
 	if m.Energy != 0 {
 		dAtA[i] = 0x1d
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.Energy))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Energy))))
+		i += 4
 	}
 	if m.EnergyErr != 0 {
 		dAtA[i] = 0x25
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.EnergyErr))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.EnergyErr))))
+		i += 4
 	}
 	if m.Time != 0 {
 		dAtA[i] = 0x2d
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.Time))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Time))))
+		i += 4
 	}
 	if len(m.Pos) > 0 {
 		dAtA[i] = 0x32
@@ -3024,14 +2874,8 @@ func (m *CalorimeterHit) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.Pos)*4))
 		for _, num := range m.Pos {
 			f47 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f47)
-			i++
-			dAtA[i] = uint8(f47 >> 8)
-			i++
-			dAtA[i] = uint8(f47 >> 16)
-			i++
-			dAtA[i] = uint8(f47 >> 24)
-			i++
+			binary.LittleEndian.PutUint32(dAtA[i:], uint32(f47))
+			i += 4
 		}
 	}
 	if m.Type != 0 {
@@ -3070,12 +2914,14 @@ func (m *Cluster) MarshalTo(dAtA []byte) (int, error) {
 	if m.Energy != 0 {
 		dAtA[i] = 0x15
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.Energy))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Energy))))
+		i += 4
 	}
 	if m.EnergyErr != 0 {
 		dAtA[i] = 0x1d
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.EnergyErr))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.EnergyErr))))
+		i += 4
 	}
 	if len(m.Pos) > 0 {
 		dAtA[i] = 0x22
@@ -3083,14 +2929,8 @@ func (m *Cluster) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.Pos)*4))
 		for _, num := range m.Pos {
 			f48 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f48)
-			i++
-			dAtA[i] = uint8(f48 >> 8)
-			i++
-			dAtA[i] = uint8(f48 >> 16)
-			i++
-			dAtA[i] = uint8(f48 >> 24)
-			i++
+			binary.LittleEndian.PutUint32(dAtA[i:], uint32(f48))
+			i += 4
 		}
 	}
 	if len(m.PosErr) > 0 {
@@ -3099,25 +2939,21 @@ func (m *Cluster) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.PosErr)*4))
 		for _, num := range m.PosErr {
 			f49 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f49)
-			i++
-			dAtA[i] = uint8(f49 >> 8)
-			i++
-			dAtA[i] = uint8(f49 >> 16)
-			i++
-			dAtA[i] = uint8(f49 >> 24)
-			i++
+			binary.LittleEndian.PutUint32(dAtA[i:], uint32(f49))
+			i += 4
 		}
 	}
 	if m.Theta != 0 {
 		dAtA[i] = 0x35
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.Theta))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Theta))))
+		i += 4
 	}
 	if m.Phi != 0 {
 		dAtA[i] = 0x3d
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.Phi))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Phi))))
+		i += 4
 	}
 	if len(m.DirErr) > 0 {
 		dAtA[i] = 0x42
@@ -3125,14 +2961,8 @@ func (m *Cluster) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.DirErr)*4))
 		for _, num := range m.DirErr {
 			f50 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f50)
-			i++
-			dAtA[i] = uint8(f50 >> 8)
-			i++
-			dAtA[i] = uint8(f50 >> 16)
-			i++
-			dAtA[i] = uint8(f50 >> 24)
-			i++
+			binary.LittleEndian.PutUint32(dAtA[i:], uint32(f50))
+			i += 4
 		}
 	}
 	if len(m.Shape) > 0 {
@@ -3141,14 +2971,8 @@ func (m *Cluster) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.Shape)*4))
 		for _, num := range m.Shape {
 			f51 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f51)
-			i++
-			dAtA[i] = uint8(f51 >> 8)
-			i++
-			dAtA[i] = uint8(f51 >> 16)
-			i++
-			dAtA[i] = uint8(f51 >> 24)
-			i++
+			binary.LittleEndian.PutUint32(dAtA[i:], uint32(f51))
+			i += 4
 		}
 	}
 	if len(m.PIDs) > 0 {
@@ -3203,14 +3027,8 @@ func (m *Cluster) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.Weights)*4))
 		for _, num := range m.Weights {
 			f56 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f56)
-			i++
-			dAtA[i] = uint8(f56 >> 8)
-			i++
-			dAtA[i] = uint8(f56 >> 16)
-			i++
-			dAtA[i] = uint8(f56 >> 24)
-			i++
+			binary.LittleEndian.PutUint32(dAtA[i:], uint32(f56))
+			i += 4
 		}
 	}
 	if len(m.SubDetEnes) > 0 {
@@ -3219,14 +3037,8 @@ func (m *Cluster) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.SubDetEnes)*4))
 		for _, num := range m.SubDetEnes {
 			f57 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f57)
-			i++
-			dAtA[i] = uint8(f57 >> 8)
-			i++
-			dAtA[i] = uint8(f57 >> 16)
-			i++
-			dAtA[i] = uint8(f57 >> 24)
-			i++
+			binary.LittleEndian.PutUint32(dAtA[i:], uint32(f57))
+			i += 4
 		}
 	}
 	return i, nil
@@ -3258,20 +3070,15 @@ func (m *RecParticle) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.P)*4))
 		for _, num := range m.P {
 			f58 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f58)
-			i++
-			dAtA[i] = uint8(f58 >> 8)
-			i++
-			dAtA[i] = uint8(f58 >> 16)
-			i++
-			dAtA[i] = uint8(f58 >> 24)
-			i++
+			binary.LittleEndian.PutUint32(dAtA[i:], uint32(f58))
+			i += 4
 		}
 	}
 	if m.Energy != 0 {
 		dAtA[i] = 0x1d
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.Energy))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Energy))))
+		i += 4
 	}
 	if len(m.Cov) > 0 {
 		dAtA[i] = 0x22
@@ -3279,25 +3086,21 @@ func (m *RecParticle) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.Cov)*4))
 		for _, num := range m.Cov {
 			f59 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f59)
-			i++
-			dAtA[i] = uint8(f59 >> 8)
-			i++
-			dAtA[i] = uint8(f59 >> 16)
-			i++
-			dAtA[i] = uint8(f59 >> 24)
-			i++
+			binary.LittleEndian.PutUint32(dAtA[i:], uint32(f59))
+			i += 4
 		}
 	}
 	if m.Mass != 0 {
 		dAtA[i] = 0x2d
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.Mass))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Mass))))
+		i += 4
 	}
 	if m.Charge != 0 {
 		dAtA[i] = 0x35
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.Charge))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Charge))))
+		i += 4
 	}
 	if len(m.Ref) > 0 {
 		dAtA[i] = 0x3a
@@ -3305,14 +3108,8 @@ func (m *RecParticle) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.Ref)*4))
 		for _, num := range m.Ref {
 			f60 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f60)
-			i++
-			dAtA[i] = uint8(f60 >> 8)
-			i++
-			dAtA[i] = uint8(f60 >> 16)
-			i++
-			dAtA[i] = uint8(f60 >> 24)
-			i++
+			binary.LittleEndian.PutUint32(dAtA[i:], uint32(f60))
+			i += 4
 		}
 	}
 	if len(m.PIDs) > 0 {
@@ -3335,7 +3132,8 @@ func (m *RecParticle) MarshalTo(dAtA []byte) (int, error) {
 	if m.GoodnessOfPID != 0 {
 		dAtA[i] = 0x55
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.GoodnessOfPID))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.GoodnessOfPID))))
+		i += 4
 	}
 	if len(m.Recs) > 0 {
 		dAtA62 := make([]byte, len(m.Recs)*10)
@@ -3424,12 +3222,14 @@ func (m *Vertex) MarshalTo(dAtA []byte) (int, error) {
 	if m.Chi2 != 0 {
 		dAtA[i] = 0x1d
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.Chi2))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Chi2))))
+		i += 4
 	}
 	if m.Prob != 0 {
 		dAtA[i] = 0x25
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.Prob))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Prob))))
+		i += 4
 	}
 	if len(m.Pos) > 0 {
 		dAtA[i] = 0x2a
@@ -3437,14 +3237,8 @@ func (m *Vertex) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.Pos)*4))
 		for _, num := range m.Pos {
 			f67 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f67)
-			i++
-			dAtA[i] = uint8(f67 >> 8)
-			i++
-			dAtA[i] = uint8(f67 >> 16)
-			i++
-			dAtA[i] = uint8(f67 >> 24)
-			i++
+			binary.LittleEndian.PutUint32(dAtA[i:], uint32(f67))
+			i += 4
 		}
 	}
 	if len(m.Cov) > 0 {
@@ -3453,14 +3247,8 @@ func (m *Vertex) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.Cov)*4))
 		for _, num := range m.Cov {
 			f68 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f68)
-			i++
-			dAtA[i] = uint8(f68 >> 8)
-			i++
-			dAtA[i] = uint8(f68 >> 16)
-			i++
-			dAtA[i] = uint8(f68 >> 24)
-			i++
+			binary.LittleEndian.PutUint32(dAtA[i:], uint32(f68))
+			i += 4
 		}
 	}
 	if len(m.Params) > 0 {
@@ -3469,14 +3257,8 @@ func (m *Vertex) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintLcio(dAtA, i, uint64(len(m.Params)*4))
 		for _, num := range m.Params {
 			f69 := math.Float32bits(float32(num))
-			dAtA[i] = uint8(f69)
-			i++
-			dAtA[i] = uint8(f69 >> 8)
-			i++
-			dAtA[i] = uint8(f69 >> 16)
-			i++
-			dAtA[i] = uint8(f69 >> 24)
-			i++
+			binary.LittleEndian.PutUint32(dAtA[i:], uint32(f69))
+			i += 4
 		}
 	}
 	if m.RecPart != 0 {
@@ -3515,29 +3297,12 @@ func (m *Relation) MarshalTo(dAtA []byte) (int, error) {
 	if m.Weight != 0 {
 		dAtA[i] = 0x1d
 		i++
-		i = encodeFixed32Lcio(dAtA, i, uint32(math.Float32bits(float32(m.Weight))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Weight))))
+		i += 4
 	}
 	return i, nil
 }
 
-func encodeFixed64Lcio(dAtA []byte, offset int, v uint64) int {
-	dAtA[offset] = uint8(v)
-	dAtA[offset+1] = uint8(v >> 8)
-	dAtA[offset+2] = uint8(v >> 16)
-	dAtA[offset+3] = uint8(v >> 24)
-	dAtA[offset+4] = uint8(v >> 32)
-	dAtA[offset+5] = uint8(v >> 40)
-	dAtA[offset+6] = uint8(v >> 48)
-	dAtA[offset+7] = uint8(v >> 56)
-	return offset + 8
-}
-func encodeFixed32Lcio(dAtA []byte, offset int, v uint32) int {
-	dAtA[offset] = uint8(v)
-	dAtA[offset+1] = uint8(v >> 8)
-	dAtA[offset+2] = uint8(v >> 16)
-	dAtA[offset+3] = uint8(v >> 24)
-	return offset + 4
-}
 func encodeVarintLcio(dAtA []byte, offset int, v uint64) int {
 	for v >= 1<<7 {
 		dAtA[offset] = uint8(v&0x7f | 0x80)
@@ -4440,11 +4205,8 @@ func (m *FloatParams) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 4) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 				iNdEx += 4
-				v = uint32(dAtA[iNdEx-4])
-				v |= uint32(dAtA[iNdEx-3]) << 8
-				v |= uint32(dAtA[iNdEx-2]) << 16
-				v |= uint32(dAtA[iNdEx-1]) << 24
 				v2 := float32(math.Float32frombits(v))
 				m.Array = append(m.Array, v2)
 			} else if wireType == 2 {
@@ -4475,11 +4237,8 @@ func (m *FloatParams) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 4) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 					iNdEx += 4
-					v = uint32(dAtA[iNdEx-4])
-					v |= uint32(dAtA[iNdEx-3]) << 8
-					v |= uint32(dAtA[iNdEx-2]) << 16
-					v |= uint32(dAtA[iNdEx-1]) << 24
 					v2 := float32(math.Float32frombits(v))
 					m.Array = append(m.Array, v2)
 				}
@@ -5042,11 +4801,8 @@ func (m *ParticleID) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Likelihood = float32(math.Float32frombits(v))
 		case 2:
 			if wireType != 0 {
@@ -5111,11 +4867,8 @@ func (m *ParticleID) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 4) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 				iNdEx += 4
-				v = uint32(dAtA[iNdEx-4])
-				v |= uint32(dAtA[iNdEx-3]) << 8
-				v |= uint32(dAtA[iNdEx-2]) << 16
-				v |= uint32(dAtA[iNdEx-1]) << 24
 				v2 := float32(math.Float32frombits(v))
 				m.Params = append(m.Params, v2)
 			} else if wireType == 2 {
@@ -5146,11 +4899,8 @@ func (m *ParticleID) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 4) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 					iNdEx += 4
-					v = uint32(dAtA[iNdEx-4])
-					v |= uint32(dAtA[iNdEx-3]) << 8
-					v |= uint32(dAtA[iNdEx-2]) << 16
-					v |= uint32(dAtA[iNdEx-1]) << 24
 					v2 := float32(math.Float32frombits(v))
 					m.Params = append(m.Params, v2)
 				}
@@ -5356,15 +5106,8 @@ func (m *MCParticle) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 8) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint64(binary.LittleEndian.Uint64(dAtA[iNdEx:]))
 				iNdEx += 8
-				v = uint64(dAtA[iNdEx-8])
-				v |= uint64(dAtA[iNdEx-7]) << 8
-				v |= uint64(dAtA[iNdEx-6]) << 16
-				v |= uint64(dAtA[iNdEx-5]) << 24
-				v |= uint64(dAtA[iNdEx-4]) << 32
-				v |= uint64(dAtA[iNdEx-3]) << 40
-				v |= uint64(dAtA[iNdEx-2]) << 48
-				v |= uint64(dAtA[iNdEx-1]) << 56
 				v2 := float64(math.Float64frombits(v))
 				m.Vertex = append(m.Vertex, v2)
 			} else if wireType == 2 {
@@ -5395,15 +5138,8 @@ func (m *MCParticle) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 8) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint64(binary.LittleEndian.Uint64(dAtA[iNdEx:]))
 					iNdEx += 8
-					v = uint64(dAtA[iNdEx-8])
-					v |= uint64(dAtA[iNdEx-7]) << 8
-					v |= uint64(dAtA[iNdEx-6]) << 16
-					v |= uint64(dAtA[iNdEx-5]) << 24
-					v |= uint64(dAtA[iNdEx-4]) << 32
-					v |= uint64(dAtA[iNdEx-3]) << 40
-					v |= uint64(dAtA[iNdEx-2]) << 48
-					v |= uint64(dAtA[iNdEx-1]) << 56
 					v2 := float64(math.Float64frombits(v))
 					m.Vertex = append(m.Vertex, v2)
 				}
@@ -5418,11 +5154,8 @@ func (m *MCParticle) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Time = float32(math.Float32frombits(v))
 		case 6:
 			if wireType == 1 {
@@ -5430,15 +5163,8 @@ func (m *MCParticle) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 8) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint64(binary.LittleEndian.Uint64(dAtA[iNdEx:]))
 				iNdEx += 8
-				v = uint64(dAtA[iNdEx-8])
-				v |= uint64(dAtA[iNdEx-7]) << 8
-				v |= uint64(dAtA[iNdEx-6]) << 16
-				v |= uint64(dAtA[iNdEx-5]) << 24
-				v |= uint64(dAtA[iNdEx-4]) << 32
-				v |= uint64(dAtA[iNdEx-3]) << 40
-				v |= uint64(dAtA[iNdEx-2]) << 48
-				v |= uint64(dAtA[iNdEx-1]) << 56
 				v2 := float64(math.Float64frombits(v))
 				m.P = append(m.P, v2)
 			} else if wireType == 2 {
@@ -5469,15 +5195,8 @@ func (m *MCParticle) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 8) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint64(binary.LittleEndian.Uint64(dAtA[iNdEx:]))
 					iNdEx += 8
-					v = uint64(dAtA[iNdEx-8])
-					v |= uint64(dAtA[iNdEx-7]) << 8
-					v |= uint64(dAtA[iNdEx-6]) << 16
-					v |= uint64(dAtA[iNdEx-5]) << 24
-					v |= uint64(dAtA[iNdEx-4]) << 32
-					v |= uint64(dAtA[iNdEx-3]) << 40
-					v |= uint64(dAtA[iNdEx-2]) << 48
-					v |= uint64(dAtA[iNdEx-1]) << 56
 					v2 := float64(math.Float64frombits(v))
 					m.P = append(m.P, v2)
 				}
@@ -5492,15 +5211,8 @@ func (m *MCParticle) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 8) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint64(binary.LittleEndian.Uint64(dAtA[iNdEx:]))
 			iNdEx += 8
-			v = uint64(dAtA[iNdEx-8])
-			v |= uint64(dAtA[iNdEx-7]) << 8
-			v |= uint64(dAtA[iNdEx-6]) << 16
-			v |= uint64(dAtA[iNdEx-5]) << 24
-			v |= uint64(dAtA[iNdEx-4]) << 32
-			v |= uint64(dAtA[iNdEx-3]) << 40
-			v |= uint64(dAtA[iNdEx-2]) << 48
-			v |= uint64(dAtA[iNdEx-1]) << 56
 			m.Mass = float64(math.Float64frombits(v))
 		case 8:
 			if wireType != 5 {
@@ -5510,11 +5222,8 @@ func (m *MCParticle) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Charge = float32(math.Float32frombits(v))
 		case 9:
 			if wireType == 1 {
@@ -5522,15 +5231,8 @@ func (m *MCParticle) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 8) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint64(binary.LittleEndian.Uint64(dAtA[iNdEx:]))
 				iNdEx += 8
-				v = uint64(dAtA[iNdEx-8])
-				v |= uint64(dAtA[iNdEx-7]) << 8
-				v |= uint64(dAtA[iNdEx-6]) << 16
-				v |= uint64(dAtA[iNdEx-5]) << 24
-				v |= uint64(dAtA[iNdEx-4]) << 32
-				v |= uint64(dAtA[iNdEx-3]) << 40
-				v |= uint64(dAtA[iNdEx-2]) << 48
-				v |= uint64(dAtA[iNdEx-1]) << 56
 				v2 := float64(math.Float64frombits(v))
 				m.PEndPoint = append(m.PEndPoint, v2)
 			} else if wireType == 2 {
@@ -5561,15 +5263,8 @@ func (m *MCParticle) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 8) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint64(binary.LittleEndian.Uint64(dAtA[iNdEx:]))
 					iNdEx += 8
-					v = uint64(dAtA[iNdEx-8])
-					v |= uint64(dAtA[iNdEx-7]) << 8
-					v |= uint64(dAtA[iNdEx-6]) << 16
-					v |= uint64(dAtA[iNdEx-5]) << 24
-					v |= uint64(dAtA[iNdEx-4]) << 32
-					v |= uint64(dAtA[iNdEx-3]) << 40
-					v |= uint64(dAtA[iNdEx-2]) << 48
-					v |= uint64(dAtA[iNdEx-1]) << 56
 					v2 := float64(math.Float64frombits(v))
 					m.PEndPoint = append(m.PEndPoint, v2)
 				}
@@ -5582,11 +5277,8 @@ func (m *MCParticle) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 4) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 				iNdEx += 4
-				v = uint32(dAtA[iNdEx-4])
-				v |= uint32(dAtA[iNdEx-3]) << 8
-				v |= uint32(dAtA[iNdEx-2]) << 16
-				v |= uint32(dAtA[iNdEx-1]) << 24
 				v2 := float32(math.Float32frombits(v))
 				m.Spin = append(m.Spin, v2)
 			} else if wireType == 2 {
@@ -5617,11 +5309,8 @@ func (m *MCParticle) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 4) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 					iNdEx += 4
-					v = uint32(dAtA[iNdEx-4])
-					v |= uint32(dAtA[iNdEx-3]) << 8
-					v |= uint32(dAtA[iNdEx-2]) << 16
-					v |= uint32(dAtA[iNdEx-1]) << 24
 					v2 := float32(math.Float32frombits(v))
 					m.Spin = append(m.Spin, v2)
 				}
@@ -5822,15 +5511,8 @@ func (m *SimTrackerHit) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 8) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint64(binary.LittleEndian.Uint64(dAtA[iNdEx:]))
 				iNdEx += 8
-				v = uint64(dAtA[iNdEx-8])
-				v |= uint64(dAtA[iNdEx-7]) << 8
-				v |= uint64(dAtA[iNdEx-6]) << 16
-				v |= uint64(dAtA[iNdEx-5]) << 24
-				v |= uint64(dAtA[iNdEx-4]) << 32
-				v |= uint64(dAtA[iNdEx-3]) << 40
-				v |= uint64(dAtA[iNdEx-2]) << 48
-				v |= uint64(dAtA[iNdEx-1]) << 56
 				v2 := float64(math.Float64frombits(v))
 				m.Pos = append(m.Pos, v2)
 			} else if wireType == 2 {
@@ -5861,15 +5543,8 @@ func (m *SimTrackerHit) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 8) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint64(binary.LittleEndian.Uint64(dAtA[iNdEx:]))
 					iNdEx += 8
-					v = uint64(dAtA[iNdEx-8])
-					v |= uint64(dAtA[iNdEx-7]) << 8
-					v |= uint64(dAtA[iNdEx-6]) << 16
-					v |= uint64(dAtA[iNdEx-5]) << 24
-					v |= uint64(dAtA[iNdEx-4]) << 32
-					v |= uint64(dAtA[iNdEx-3]) << 40
-					v |= uint64(dAtA[iNdEx-2]) << 48
-					v |= uint64(dAtA[iNdEx-1]) << 56
 					v2 := float64(math.Float64frombits(v))
 					m.Pos = append(m.Pos, v2)
 				}
@@ -5884,11 +5559,8 @@ func (m *SimTrackerHit) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.EDep = float32(math.Float32frombits(v))
 		case 5:
 			if wireType != 5 {
@@ -5898,11 +5570,8 @@ func (m *SimTrackerHit) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Time = float32(math.Float32frombits(v))
 		case 6:
 			if wireType != 0 {
@@ -5929,11 +5598,8 @@ func (m *SimTrackerHit) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 4) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 				iNdEx += 4
-				v = uint32(dAtA[iNdEx-4])
-				v |= uint32(dAtA[iNdEx-3]) << 8
-				v |= uint32(dAtA[iNdEx-2]) << 16
-				v |= uint32(dAtA[iNdEx-1]) << 24
 				v2 := float32(math.Float32frombits(v))
 				m.P = append(m.P, v2)
 			} else if wireType == 2 {
@@ -5964,11 +5630,8 @@ func (m *SimTrackerHit) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 4) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 					iNdEx += 4
-					v = uint32(dAtA[iNdEx-4])
-					v |= uint32(dAtA[iNdEx-3]) << 8
-					v |= uint32(dAtA[iNdEx-2]) << 16
-					v |= uint32(dAtA[iNdEx-1]) << 24
 					v2 := float32(math.Float32frombits(v))
 					m.P = append(m.P, v2)
 				}
@@ -5983,11 +5646,8 @@ func (m *SimTrackerHit) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.PathLength = float32(math.Float32frombits(v))
 		case 9:
 			if wireType != 0 {
@@ -6273,11 +5933,8 @@ func (m *TrackerData) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Time = float32(math.Float32frombits(v))
 		case 4:
 			if wireType == 5 {
@@ -6285,11 +5942,8 @@ func (m *TrackerData) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 4) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 				iNdEx += 4
-				v = uint32(dAtA[iNdEx-4])
-				v |= uint32(dAtA[iNdEx-3]) << 8
-				v |= uint32(dAtA[iNdEx-2]) << 16
-				v |= uint32(dAtA[iNdEx-1]) << 24
 				v2 := float32(math.Float32frombits(v))
 				m.Charges = append(m.Charges, v2)
 			} else if wireType == 2 {
@@ -6320,11 +5974,8 @@ func (m *TrackerData) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 4) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 					iNdEx += 4
-					v = uint32(dAtA[iNdEx-4])
-					v |= uint32(dAtA[iNdEx-3]) << 8
-					v |= uint32(dAtA[iNdEx-2]) << 16
-					v |= uint32(dAtA[iNdEx-1]) << 24
 					v2 := float32(math.Float32frombits(v))
 					m.Charges = append(m.Charges, v2)
 				}
@@ -6444,15 +6095,8 @@ func (m *TrackerHit) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 8) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint64(binary.LittleEndian.Uint64(dAtA[iNdEx:]))
 				iNdEx += 8
-				v = uint64(dAtA[iNdEx-8])
-				v |= uint64(dAtA[iNdEx-7]) << 8
-				v |= uint64(dAtA[iNdEx-6]) << 16
-				v |= uint64(dAtA[iNdEx-5]) << 24
-				v |= uint64(dAtA[iNdEx-4]) << 32
-				v |= uint64(dAtA[iNdEx-3]) << 40
-				v |= uint64(dAtA[iNdEx-2]) << 48
-				v |= uint64(dAtA[iNdEx-1]) << 56
 				v2 := float64(math.Float64frombits(v))
 				m.Pos = append(m.Pos, v2)
 			} else if wireType == 2 {
@@ -6483,15 +6127,8 @@ func (m *TrackerHit) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 8) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint64(binary.LittleEndian.Uint64(dAtA[iNdEx:]))
 					iNdEx += 8
-					v = uint64(dAtA[iNdEx-8])
-					v |= uint64(dAtA[iNdEx-7]) << 8
-					v |= uint64(dAtA[iNdEx-6]) << 16
-					v |= uint64(dAtA[iNdEx-5]) << 24
-					v |= uint64(dAtA[iNdEx-4]) << 32
-					v |= uint64(dAtA[iNdEx-3]) << 40
-					v |= uint64(dAtA[iNdEx-2]) << 48
-					v |= uint64(dAtA[iNdEx-1]) << 56
 					v2 := float64(math.Float64frombits(v))
 					m.Pos = append(m.Pos, v2)
 				}
@@ -6504,15 +6141,8 @@ func (m *TrackerHit) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 8) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint64(binary.LittleEndian.Uint64(dAtA[iNdEx:]))
 				iNdEx += 8
-				v = uint64(dAtA[iNdEx-8])
-				v |= uint64(dAtA[iNdEx-7]) << 8
-				v |= uint64(dAtA[iNdEx-6]) << 16
-				v |= uint64(dAtA[iNdEx-5]) << 24
-				v |= uint64(dAtA[iNdEx-4]) << 32
-				v |= uint64(dAtA[iNdEx-3]) << 40
-				v |= uint64(dAtA[iNdEx-2]) << 48
-				v |= uint64(dAtA[iNdEx-1]) << 56
 				v2 := float64(math.Float64frombits(v))
 				m.Cov = append(m.Cov, v2)
 			} else if wireType == 2 {
@@ -6543,15 +6173,8 @@ func (m *TrackerHit) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 8) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint64(binary.LittleEndian.Uint64(dAtA[iNdEx:]))
 					iNdEx += 8
-					v = uint64(dAtA[iNdEx-8])
-					v |= uint64(dAtA[iNdEx-7]) << 8
-					v |= uint64(dAtA[iNdEx-6]) << 16
-					v |= uint64(dAtA[iNdEx-5]) << 24
-					v |= uint64(dAtA[iNdEx-4]) << 32
-					v |= uint64(dAtA[iNdEx-3]) << 40
-					v |= uint64(dAtA[iNdEx-2]) << 48
-					v |= uint64(dAtA[iNdEx-1]) << 56
 					v2 := float64(math.Float64frombits(v))
 					m.Cov = append(m.Cov, v2)
 				}
@@ -6566,11 +6189,8 @@ func (m *TrackerHit) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.EDep = float32(math.Float32frombits(v))
 		case 7:
 			if wireType != 5 {
@@ -6580,11 +6200,8 @@ func (m *TrackerHit) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.EDepErr = float32(math.Float32frombits(v))
 		case 8:
 			if wireType != 5 {
@@ -6594,11 +6211,8 @@ func (m *TrackerHit) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Time = float32(math.Float32frombits(v))
 		case 9:
 			if wireType != 0 {
@@ -6777,11 +6391,8 @@ func (m *TrackerPulse) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Time = float32(math.Float32frombits(v))
 		case 4:
 			if wireType != 5 {
@@ -6791,11 +6402,8 @@ func (m *TrackerPulse) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Charge = float32(math.Float32frombits(v))
 		case 5:
 			if wireType == 5 {
@@ -6803,11 +6411,8 @@ func (m *TrackerPulse) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 4) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 				iNdEx += 4
-				v = uint32(dAtA[iNdEx-4])
-				v |= uint32(dAtA[iNdEx-3]) << 8
-				v |= uint32(dAtA[iNdEx-2]) << 16
-				v |= uint32(dAtA[iNdEx-1]) << 24
 				v2 := float32(math.Float32frombits(v))
 				m.Cov = append(m.Cov, v2)
 			} else if wireType == 2 {
@@ -6838,11 +6443,8 @@ func (m *TrackerPulse) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 4) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 					iNdEx += 4
-					v = uint32(dAtA[iNdEx-4])
-					v |= uint32(dAtA[iNdEx-3]) << 8
-					v |= uint32(dAtA[iNdEx-2]) << 16
-					v |= uint32(dAtA[iNdEx-1]) << 24
 					v2 := float32(math.Float32frombits(v))
 					m.Cov = append(m.Cov, v2)
 				}
@@ -7000,15 +6602,8 @@ func (m *TrackerHitPlane) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 8) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint64(binary.LittleEndian.Uint64(dAtA[iNdEx:]))
 				iNdEx += 8
-				v = uint64(dAtA[iNdEx-8])
-				v |= uint64(dAtA[iNdEx-7]) << 8
-				v |= uint64(dAtA[iNdEx-6]) << 16
-				v |= uint64(dAtA[iNdEx-5]) << 24
-				v |= uint64(dAtA[iNdEx-4]) << 32
-				v |= uint64(dAtA[iNdEx-3]) << 40
-				v |= uint64(dAtA[iNdEx-2]) << 48
-				v |= uint64(dAtA[iNdEx-1]) << 56
 				v2 := float64(math.Float64frombits(v))
 				m.Pos = append(m.Pos, v2)
 			} else if wireType == 2 {
@@ -7039,15 +6634,8 @@ func (m *TrackerHitPlane) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 8) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint64(binary.LittleEndian.Uint64(dAtA[iNdEx:]))
 					iNdEx += 8
-					v = uint64(dAtA[iNdEx-8])
-					v |= uint64(dAtA[iNdEx-7]) << 8
-					v |= uint64(dAtA[iNdEx-6]) << 16
-					v |= uint64(dAtA[iNdEx-5]) << 24
-					v |= uint64(dAtA[iNdEx-4]) << 32
-					v |= uint64(dAtA[iNdEx-3]) << 40
-					v |= uint64(dAtA[iNdEx-2]) << 48
-					v |= uint64(dAtA[iNdEx-1]) << 56
 					v2 := float64(math.Float64frombits(v))
 					m.Pos = append(m.Pos, v2)
 				}
@@ -7060,11 +6648,8 @@ func (m *TrackerHitPlane) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 4) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 				iNdEx += 4
-				v = uint32(dAtA[iNdEx-4])
-				v |= uint32(dAtA[iNdEx-3]) << 8
-				v |= uint32(dAtA[iNdEx-2]) << 16
-				v |= uint32(dAtA[iNdEx-1]) << 24
 				v2 := float32(math.Float32frombits(v))
 				m.U = append(m.U, v2)
 			} else if wireType == 2 {
@@ -7095,11 +6680,8 @@ func (m *TrackerHitPlane) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 4) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 					iNdEx += 4
-					v = uint32(dAtA[iNdEx-4])
-					v |= uint32(dAtA[iNdEx-3]) << 8
-					v |= uint32(dAtA[iNdEx-2]) << 16
-					v |= uint32(dAtA[iNdEx-1]) << 24
 					v2 := float32(math.Float32frombits(v))
 					m.U = append(m.U, v2)
 				}
@@ -7112,11 +6694,8 @@ func (m *TrackerHitPlane) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 4) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 				iNdEx += 4
-				v = uint32(dAtA[iNdEx-4])
-				v |= uint32(dAtA[iNdEx-3]) << 8
-				v |= uint32(dAtA[iNdEx-2]) << 16
-				v |= uint32(dAtA[iNdEx-1]) << 24
 				v2 := float32(math.Float32frombits(v))
 				m.V = append(m.V, v2)
 			} else if wireType == 2 {
@@ -7147,11 +6726,8 @@ func (m *TrackerHitPlane) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 4) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 					iNdEx += 4
-					v = uint32(dAtA[iNdEx-4])
-					v |= uint32(dAtA[iNdEx-3]) << 8
-					v |= uint32(dAtA[iNdEx-2]) << 16
-					v |= uint32(dAtA[iNdEx-1]) << 24
 					v2 := float32(math.Float32frombits(v))
 					m.V = append(m.V, v2)
 				}
@@ -7166,11 +6742,8 @@ func (m *TrackerHitPlane) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.DU = float32(math.Float32frombits(v))
 		case 8:
 			if wireType != 5 {
@@ -7180,11 +6753,8 @@ func (m *TrackerHitPlane) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.DV = float32(math.Float32frombits(v))
 		case 9:
 			if wireType != 5 {
@@ -7194,11 +6764,8 @@ func (m *TrackerHitPlane) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.EDep = float32(math.Float32frombits(v))
 		case 10:
 			if wireType != 5 {
@@ -7208,11 +6775,8 @@ func (m *TrackerHitPlane) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.EDepErr = float32(math.Float32frombits(v))
 		case 11:
 			if wireType != 5 {
@@ -7222,11 +6786,8 @@ func (m *TrackerHitPlane) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Time = float32(math.Float32frombits(v))
 		case 12:
 			if wireType != 0 {
@@ -7422,15 +6983,8 @@ func (m *TrackerHitZCylinder) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 8) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint64(binary.LittleEndian.Uint64(dAtA[iNdEx:]))
 				iNdEx += 8
-				v = uint64(dAtA[iNdEx-8])
-				v |= uint64(dAtA[iNdEx-7]) << 8
-				v |= uint64(dAtA[iNdEx-6]) << 16
-				v |= uint64(dAtA[iNdEx-5]) << 24
-				v |= uint64(dAtA[iNdEx-4]) << 32
-				v |= uint64(dAtA[iNdEx-3]) << 40
-				v |= uint64(dAtA[iNdEx-2]) << 48
-				v |= uint64(dAtA[iNdEx-1]) << 56
 				v2 := float64(math.Float64frombits(v))
 				m.Pos = append(m.Pos, v2)
 			} else if wireType == 2 {
@@ -7461,15 +7015,8 @@ func (m *TrackerHitZCylinder) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 8) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint64(binary.LittleEndian.Uint64(dAtA[iNdEx:]))
 					iNdEx += 8
-					v = uint64(dAtA[iNdEx-8])
-					v |= uint64(dAtA[iNdEx-7]) << 8
-					v |= uint64(dAtA[iNdEx-6]) << 16
-					v |= uint64(dAtA[iNdEx-5]) << 24
-					v |= uint64(dAtA[iNdEx-4]) << 32
-					v |= uint64(dAtA[iNdEx-3]) << 40
-					v |= uint64(dAtA[iNdEx-2]) << 48
-					v |= uint64(dAtA[iNdEx-1]) << 56
 					v2 := float64(math.Float64frombits(v))
 					m.Pos = append(m.Pos, v2)
 				}
@@ -7482,11 +7029,8 @@ func (m *TrackerHitZCylinder) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 4) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 				iNdEx += 4
-				v = uint32(dAtA[iNdEx-4])
-				v |= uint32(dAtA[iNdEx-3]) << 8
-				v |= uint32(dAtA[iNdEx-2]) << 16
-				v |= uint32(dAtA[iNdEx-1]) << 24
 				v2 := float32(math.Float32frombits(v))
 				m.Center = append(m.Center, v2)
 			} else if wireType == 2 {
@@ -7517,11 +7061,8 @@ func (m *TrackerHitZCylinder) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 4) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 					iNdEx += 4
-					v = uint32(dAtA[iNdEx-4])
-					v |= uint32(dAtA[iNdEx-3]) << 8
-					v |= uint32(dAtA[iNdEx-2]) << 16
-					v |= uint32(dAtA[iNdEx-1]) << 24
 					v2 := float32(math.Float32frombits(v))
 					m.Center = append(m.Center, v2)
 				}
@@ -7536,11 +7077,8 @@ func (m *TrackerHitZCylinder) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.DRPhi = float32(math.Float32frombits(v))
 		case 7:
 			if wireType != 5 {
@@ -7550,11 +7088,8 @@ func (m *TrackerHitZCylinder) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.DZ = float32(math.Float32frombits(v))
 		case 8:
 			if wireType != 5 {
@@ -7564,11 +7099,8 @@ func (m *TrackerHitZCylinder) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.EDep = float32(math.Float32frombits(v))
 		case 9:
 			if wireType != 5 {
@@ -7578,11 +7110,8 @@ func (m *TrackerHitZCylinder) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.EDepErr = float32(math.Float32frombits(v))
 		case 10:
 			if wireType != 5 {
@@ -7592,11 +7121,8 @@ func (m *TrackerHitZCylinder) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Time = float32(math.Float32frombits(v))
 		case 11:
 			if wireType != 0 {
@@ -7756,11 +7282,8 @@ func (m *Track) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Chi2 = float32(math.Float32frombits(v))
 		case 3:
 			if wireType != 0 {
@@ -7789,11 +7312,8 @@ func (m *Track) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.DEdx = float32(math.Float32frombits(v))
 		case 5:
 			if wireType != 5 {
@@ -7803,11 +7323,8 @@ func (m *Track) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.DEdxErr = float32(math.Float32frombits(v))
 		case 6:
 			if wireType != 5 {
@@ -7817,11 +7334,8 @@ func (m *Track) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Radius = float32(math.Float32frombits(v))
 		case 7:
 			if wireType == 0 {
@@ -8117,11 +7631,8 @@ func (m *Track_TrackState) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.D0 = float32(math.Float32frombits(v))
 		case 3:
 			if wireType != 5 {
@@ -8131,11 +7642,8 @@ func (m *Track_TrackState) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Phi = float32(math.Float32frombits(v))
 		case 4:
 			if wireType != 5 {
@@ -8145,11 +7653,8 @@ func (m *Track_TrackState) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Omega = float32(math.Float32frombits(v))
 		case 5:
 			if wireType != 5 {
@@ -8159,11 +7664,8 @@ func (m *Track_TrackState) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Z0 = float32(math.Float32frombits(v))
 		case 6:
 			if wireType != 5 {
@@ -8173,11 +7675,8 @@ func (m *Track_TrackState) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.TanL = float32(math.Float32frombits(v))
 		case 7:
 			if wireType == 5 {
@@ -8185,11 +7684,8 @@ func (m *Track_TrackState) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 4) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 				iNdEx += 4
-				v = uint32(dAtA[iNdEx-4])
-				v |= uint32(dAtA[iNdEx-3]) << 8
-				v |= uint32(dAtA[iNdEx-2]) << 16
-				v |= uint32(dAtA[iNdEx-1]) << 24
 				v2 := float32(math.Float32frombits(v))
 				m.Cov = append(m.Cov, v2)
 			} else if wireType == 2 {
@@ -8220,11 +7716,8 @@ func (m *Track_TrackState) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 4) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 					iNdEx += 4
-					v = uint32(dAtA[iNdEx-4])
-					v |= uint32(dAtA[iNdEx-3]) << 8
-					v |= uint32(dAtA[iNdEx-2]) << 16
-					v |= uint32(dAtA[iNdEx-1]) << 24
 					v2 := float32(math.Float32frombits(v))
 					m.Cov = append(m.Cov, v2)
 				}
@@ -8237,11 +7730,8 @@ func (m *Track_TrackState) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 4) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 				iNdEx += 4
-				v = uint32(dAtA[iNdEx-4])
-				v |= uint32(dAtA[iNdEx-3]) << 8
-				v |= uint32(dAtA[iNdEx-2]) << 16
-				v |= uint32(dAtA[iNdEx-1]) << 24
 				v2 := float32(math.Float32frombits(v))
 				m.Ref = append(m.Ref, v2)
 			} else if wireType == 2 {
@@ -8272,11 +7762,8 @@ func (m *Track_TrackState) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 4) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 					iNdEx += 4
-					v = uint32(dAtA[iNdEx-4])
-					v |= uint32(dAtA[iNdEx-3]) << 8
-					v |= uint32(dAtA[iNdEx-2]) << 16
-					v |= uint32(dAtA[iNdEx-1]) << 24
 					v2 := float32(math.Float32frombits(v))
 					m.Ref = append(m.Ref, v2)
 				}
@@ -8379,11 +7866,8 @@ func (m *SimCalorimeterHit) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Energy = float32(math.Float32frombits(v))
 		case 4:
 			if wireType == 5 {
@@ -8391,11 +7875,8 @@ func (m *SimCalorimeterHit) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 4) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 				iNdEx += 4
-				v = uint32(dAtA[iNdEx-4])
-				v |= uint32(dAtA[iNdEx-3]) << 8
-				v |= uint32(dAtA[iNdEx-2]) << 16
-				v |= uint32(dAtA[iNdEx-1]) << 24
 				v2 := float32(math.Float32frombits(v))
 				m.Pos = append(m.Pos, v2)
 			} else if wireType == 2 {
@@ -8426,11 +7907,8 @@ func (m *SimCalorimeterHit) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 4) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 					iNdEx += 4
-					v = uint32(dAtA[iNdEx-4])
-					v |= uint32(dAtA[iNdEx-3]) << 8
-					v |= uint32(dAtA[iNdEx-2]) << 16
-					v |= uint32(dAtA[iNdEx-1]) << 24
 					v2 := float32(math.Float32frombits(v))
 					m.Pos = append(m.Pos, v2)
 				}
@@ -8545,11 +8023,8 @@ func (m *SimCalorimeterHit_Contrib) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Energy = float32(math.Float32frombits(v))
 		case 3:
 			if wireType != 5 {
@@ -8559,11 +8034,8 @@ func (m *SimCalorimeterHit_Contrib) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Time = float32(math.Float32frombits(v))
 		case 4:
 			if wireType != 0 {
@@ -8590,11 +8062,8 @@ func (m *SimCalorimeterHit_Contrib) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 4) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 				iNdEx += 4
-				v = uint32(dAtA[iNdEx-4])
-				v |= uint32(dAtA[iNdEx-3]) << 8
-				v |= uint32(dAtA[iNdEx-2]) << 16
-				v |= uint32(dAtA[iNdEx-1]) << 24
 				v2 := float32(math.Float32frombits(v))
 				m.StepPos = append(m.StepPos, v2)
 			} else if wireType == 2 {
@@ -8625,11 +8094,8 @@ func (m *SimCalorimeterHit_Contrib) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 4) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 					iNdEx += 4
-					v = uint32(dAtA[iNdEx-4])
-					v |= uint32(dAtA[iNdEx-3]) << 8
-					v |= uint32(dAtA[iNdEx-2]) << 16
-					v |= uint32(dAtA[iNdEx-1]) << 24
 					v2 := float32(math.Float32frombits(v))
 					m.StepPos = append(m.StepPos, v2)
 				}
@@ -8858,11 +8324,8 @@ func (m *CalorimeterHit) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Energy = float32(math.Float32frombits(v))
 		case 4:
 			if wireType != 5 {
@@ -8872,11 +8335,8 @@ func (m *CalorimeterHit) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.EnergyErr = float32(math.Float32frombits(v))
 		case 5:
 			if wireType != 5 {
@@ -8886,11 +8346,8 @@ func (m *CalorimeterHit) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Time = float32(math.Float32frombits(v))
 		case 6:
 			if wireType == 5 {
@@ -8898,11 +8355,8 @@ func (m *CalorimeterHit) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 4) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 				iNdEx += 4
-				v = uint32(dAtA[iNdEx-4])
-				v |= uint32(dAtA[iNdEx-3]) << 8
-				v |= uint32(dAtA[iNdEx-2]) << 16
-				v |= uint32(dAtA[iNdEx-1]) << 24
 				v2 := float32(math.Float32frombits(v))
 				m.Pos = append(m.Pos, v2)
 			} else if wireType == 2 {
@@ -8933,11 +8387,8 @@ func (m *CalorimeterHit) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 4) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 					iNdEx += 4
-					v = uint32(dAtA[iNdEx-4])
-					v |= uint32(dAtA[iNdEx-3]) << 8
-					v |= uint32(dAtA[iNdEx-2]) << 16
-					v |= uint32(dAtA[iNdEx-1]) << 24
 					v2 := float32(math.Float32frombits(v))
 					m.Pos = append(m.Pos, v2)
 				}
@@ -9059,11 +8510,8 @@ func (m *Cluster) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Energy = float32(math.Float32frombits(v))
 		case 3:
 			if wireType != 5 {
@@ -9073,11 +8521,8 @@ func (m *Cluster) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.EnergyErr = float32(math.Float32frombits(v))
 		case 4:
 			if wireType == 5 {
@@ -9085,11 +8530,8 @@ func (m *Cluster) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 4) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 				iNdEx += 4
-				v = uint32(dAtA[iNdEx-4])
-				v |= uint32(dAtA[iNdEx-3]) << 8
-				v |= uint32(dAtA[iNdEx-2]) << 16
-				v |= uint32(dAtA[iNdEx-1]) << 24
 				v2 := float32(math.Float32frombits(v))
 				m.Pos = append(m.Pos, v2)
 			} else if wireType == 2 {
@@ -9120,11 +8562,8 @@ func (m *Cluster) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 4) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 					iNdEx += 4
-					v = uint32(dAtA[iNdEx-4])
-					v |= uint32(dAtA[iNdEx-3]) << 8
-					v |= uint32(dAtA[iNdEx-2]) << 16
-					v |= uint32(dAtA[iNdEx-1]) << 24
 					v2 := float32(math.Float32frombits(v))
 					m.Pos = append(m.Pos, v2)
 				}
@@ -9137,11 +8576,8 @@ func (m *Cluster) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 4) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 				iNdEx += 4
-				v = uint32(dAtA[iNdEx-4])
-				v |= uint32(dAtA[iNdEx-3]) << 8
-				v |= uint32(dAtA[iNdEx-2]) << 16
-				v |= uint32(dAtA[iNdEx-1]) << 24
 				v2 := float32(math.Float32frombits(v))
 				m.PosErr = append(m.PosErr, v2)
 			} else if wireType == 2 {
@@ -9172,11 +8608,8 @@ func (m *Cluster) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 4) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 					iNdEx += 4
-					v = uint32(dAtA[iNdEx-4])
-					v |= uint32(dAtA[iNdEx-3]) << 8
-					v |= uint32(dAtA[iNdEx-2]) << 16
-					v |= uint32(dAtA[iNdEx-1]) << 24
 					v2 := float32(math.Float32frombits(v))
 					m.PosErr = append(m.PosErr, v2)
 				}
@@ -9191,11 +8624,8 @@ func (m *Cluster) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Theta = float32(math.Float32frombits(v))
 		case 7:
 			if wireType != 5 {
@@ -9205,11 +8635,8 @@ func (m *Cluster) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Phi = float32(math.Float32frombits(v))
 		case 8:
 			if wireType == 5 {
@@ -9217,11 +8644,8 @@ func (m *Cluster) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 4) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 				iNdEx += 4
-				v = uint32(dAtA[iNdEx-4])
-				v |= uint32(dAtA[iNdEx-3]) << 8
-				v |= uint32(dAtA[iNdEx-2]) << 16
-				v |= uint32(dAtA[iNdEx-1]) << 24
 				v2 := float32(math.Float32frombits(v))
 				m.DirErr = append(m.DirErr, v2)
 			} else if wireType == 2 {
@@ -9252,11 +8676,8 @@ func (m *Cluster) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 4) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 					iNdEx += 4
-					v = uint32(dAtA[iNdEx-4])
-					v |= uint32(dAtA[iNdEx-3]) << 8
-					v |= uint32(dAtA[iNdEx-2]) << 16
-					v |= uint32(dAtA[iNdEx-1]) << 24
 					v2 := float32(math.Float32frombits(v))
 					m.DirErr = append(m.DirErr, v2)
 				}
@@ -9269,11 +8690,8 @@ func (m *Cluster) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 4) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 				iNdEx += 4
-				v = uint32(dAtA[iNdEx-4])
-				v |= uint32(dAtA[iNdEx-3]) << 8
-				v |= uint32(dAtA[iNdEx-2]) << 16
-				v |= uint32(dAtA[iNdEx-1]) << 24
 				v2 := float32(math.Float32frombits(v))
 				m.Shape = append(m.Shape, v2)
 			} else if wireType == 2 {
@@ -9304,11 +8722,8 @@ func (m *Cluster) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 4) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 					iNdEx += 4
-					v = uint32(dAtA[iNdEx-4])
-					v |= uint32(dAtA[iNdEx-3]) << 8
-					v |= uint32(dAtA[iNdEx-2]) << 16
-					v |= uint32(dAtA[iNdEx-1]) << 24
 					v2 := float32(math.Float32frombits(v))
 					m.Shape = append(m.Shape, v2)
 				}
@@ -9476,11 +8891,8 @@ func (m *Cluster) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 4) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 				iNdEx += 4
-				v = uint32(dAtA[iNdEx-4])
-				v |= uint32(dAtA[iNdEx-3]) << 8
-				v |= uint32(dAtA[iNdEx-2]) << 16
-				v |= uint32(dAtA[iNdEx-1]) << 24
 				v2 := float32(math.Float32frombits(v))
 				m.Weights = append(m.Weights, v2)
 			} else if wireType == 2 {
@@ -9511,11 +8923,8 @@ func (m *Cluster) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 4) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 					iNdEx += 4
-					v = uint32(dAtA[iNdEx-4])
-					v |= uint32(dAtA[iNdEx-3]) << 8
-					v |= uint32(dAtA[iNdEx-2]) << 16
-					v |= uint32(dAtA[iNdEx-1]) << 24
 					v2 := float32(math.Float32frombits(v))
 					m.Weights = append(m.Weights, v2)
 				}
@@ -9528,11 +8937,8 @@ func (m *Cluster) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 4) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 				iNdEx += 4
-				v = uint32(dAtA[iNdEx-4])
-				v |= uint32(dAtA[iNdEx-3]) << 8
-				v |= uint32(dAtA[iNdEx-2]) << 16
-				v |= uint32(dAtA[iNdEx-1]) << 24
 				v2 := float32(math.Float32frombits(v))
 				m.SubDetEnes = append(m.SubDetEnes, v2)
 			} else if wireType == 2 {
@@ -9563,11 +8969,8 @@ func (m *Cluster) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 4) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 					iNdEx += 4
-					v = uint32(dAtA[iNdEx-4])
-					v |= uint32(dAtA[iNdEx-3]) << 8
-					v |= uint32(dAtA[iNdEx-2]) << 16
-					v |= uint32(dAtA[iNdEx-1]) << 24
 					v2 := float32(math.Float32frombits(v))
 					m.SubDetEnes = append(m.SubDetEnes, v2)
 				}
@@ -9649,11 +9052,8 @@ func (m *RecParticle) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 4) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 				iNdEx += 4
-				v = uint32(dAtA[iNdEx-4])
-				v |= uint32(dAtA[iNdEx-3]) << 8
-				v |= uint32(dAtA[iNdEx-2]) << 16
-				v |= uint32(dAtA[iNdEx-1]) << 24
 				v2 := float32(math.Float32frombits(v))
 				m.P = append(m.P, v2)
 			} else if wireType == 2 {
@@ -9684,11 +9084,8 @@ func (m *RecParticle) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 4) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 					iNdEx += 4
-					v = uint32(dAtA[iNdEx-4])
-					v |= uint32(dAtA[iNdEx-3]) << 8
-					v |= uint32(dAtA[iNdEx-2]) << 16
-					v |= uint32(dAtA[iNdEx-1]) << 24
 					v2 := float32(math.Float32frombits(v))
 					m.P = append(m.P, v2)
 				}
@@ -9703,11 +9100,8 @@ func (m *RecParticle) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Energy = float32(math.Float32frombits(v))
 		case 4:
 			if wireType == 5 {
@@ -9715,11 +9109,8 @@ func (m *RecParticle) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 4) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 				iNdEx += 4
-				v = uint32(dAtA[iNdEx-4])
-				v |= uint32(dAtA[iNdEx-3]) << 8
-				v |= uint32(dAtA[iNdEx-2]) << 16
-				v |= uint32(dAtA[iNdEx-1]) << 24
 				v2 := float32(math.Float32frombits(v))
 				m.Cov = append(m.Cov, v2)
 			} else if wireType == 2 {
@@ -9750,11 +9141,8 @@ func (m *RecParticle) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 4) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 					iNdEx += 4
-					v = uint32(dAtA[iNdEx-4])
-					v |= uint32(dAtA[iNdEx-3]) << 8
-					v |= uint32(dAtA[iNdEx-2]) << 16
-					v |= uint32(dAtA[iNdEx-1]) << 24
 					v2 := float32(math.Float32frombits(v))
 					m.Cov = append(m.Cov, v2)
 				}
@@ -9769,11 +9157,8 @@ func (m *RecParticle) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Mass = float32(math.Float32frombits(v))
 		case 6:
 			if wireType != 5 {
@@ -9783,11 +9168,8 @@ func (m *RecParticle) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Charge = float32(math.Float32frombits(v))
 		case 7:
 			if wireType == 5 {
@@ -9795,11 +9177,8 @@ func (m *RecParticle) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 4) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 				iNdEx += 4
-				v = uint32(dAtA[iNdEx-4])
-				v |= uint32(dAtA[iNdEx-3]) << 8
-				v |= uint32(dAtA[iNdEx-2]) << 16
-				v |= uint32(dAtA[iNdEx-1]) << 24
 				v2 := float32(math.Float32frombits(v))
 				m.Ref = append(m.Ref, v2)
 			} else if wireType == 2 {
@@ -9830,11 +9209,8 @@ func (m *RecParticle) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 4) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 					iNdEx += 4
-					v = uint32(dAtA[iNdEx-4])
-					v |= uint32(dAtA[iNdEx-3]) << 8
-					v |= uint32(dAtA[iNdEx-2]) << 16
-					v |= uint32(dAtA[iNdEx-1]) << 24
 					v2 := float32(math.Float32frombits(v))
 					m.Ref = append(m.Ref, v2)
 				}
@@ -9899,11 +9275,8 @@ func (m *RecParticle) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.GoodnessOfPID = float32(math.Float32frombits(v))
 		case 11:
 			if wireType == 0 {
@@ -10206,11 +9579,8 @@ func (m *Vertex) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Chi2 = float32(math.Float32frombits(v))
 		case 4:
 			if wireType != 5 {
@@ -10220,11 +9590,8 @@ func (m *Vertex) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Prob = float32(math.Float32frombits(v))
 		case 5:
 			if wireType == 5 {
@@ -10232,11 +9599,8 @@ func (m *Vertex) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 4) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 				iNdEx += 4
-				v = uint32(dAtA[iNdEx-4])
-				v |= uint32(dAtA[iNdEx-3]) << 8
-				v |= uint32(dAtA[iNdEx-2]) << 16
-				v |= uint32(dAtA[iNdEx-1]) << 24
 				v2 := float32(math.Float32frombits(v))
 				m.Pos = append(m.Pos, v2)
 			} else if wireType == 2 {
@@ -10267,11 +9631,8 @@ func (m *Vertex) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 4) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 					iNdEx += 4
-					v = uint32(dAtA[iNdEx-4])
-					v |= uint32(dAtA[iNdEx-3]) << 8
-					v |= uint32(dAtA[iNdEx-2]) << 16
-					v |= uint32(dAtA[iNdEx-1]) << 24
 					v2 := float32(math.Float32frombits(v))
 					m.Pos = append(m.Pos, v2)
 				}
@@ -10284,11 +9645,8 @@ func (m *Vertex) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 4) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 				iNdEx += 4
-				v = uint32(dAtA[iNdEx-4])
-				v |= uint32(dAtA[iNdEx-3]) << 8
-				v |= uint32(dAtA[iNdEx-2]) << 16
-				v |= uint32(dAtA[iNdEx-1]) << 24
 				v2 := float32(math.Float32frombits(v))
 				m.Cov = append(m.Cov, v2)
 			} else if wireType == 2 {
@@ -10319,11 +9677,8 @@ func (m *Vertex) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 4) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 					iNdEx += 4
-					v = uint32(dAtA[iNdEx-4])
-					v |= uint32(dAtA[iNdEx-3]) << 8
-					v |= uint32(dAtA[iNdEx-2]) << 16
-					v |= uint32(dAtA[iNdEx-1]) << 24
 					v2 := float32(math.Float32frombits(v))
 					m.Cov = append(m.Cov, v2)
 				}
@@ -10336,11 +9691,8 @@ func (m *Vertex) Unmarshal(dAtA []byte) error {
 				if (iNdEx + 4) > l {
 					return io.ErrUnexpectedEOF
 				}
+				v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 				iNdEx += 4
-				v = uint32(dAtA[iNdEx-4])
-				v |= uint32(dAtA[iNdEx-3]) << 8
-				v |= uint32(dAtA[iNdEx-2]) << 16
-				v |= uint32(dAtA[iNdEx-1]) << 24
 				v2 := float32(math.Float32frombits(v))
 				m.Params = append(m.Params, v2)
 			} else if wireType == 2 {
@@ -10371,11 +9723,8 @@ func (m *Vertex) Unmarshal(dAtA []byte) error {
 					if (iNdEx + 4) > l {
 						return io.ErrUnexpectedEOF
 					}
+					v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 					iNdEx += 4
-					v = uint32(dAtA[iNdEx-4])
-					v |= uint32(dAtA[iNdEx-3]) << 8
-					v |= uint32(dAtA[iNdEx-2]) << 16
-					v |= uint32(dAtA[iNdEx-1]) << 24
 					v2 := float32(math.Float32frombits(v))
 					m.Params = append(m.Params, v2)
 				}
@@ -10497,11 +9846,8 @@ func (m *Relation) Unmarshal(dAtA []byte) error {
 			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
+			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			v = uint32(dAtA[iNdEx-4])
-			v |= uint32(dAtA[iNdEx-3]) << 8
-			v |= uint32(dAtA[iNdEx-2]) << 16
-			v |= uint32(dAtA[iNdEx-1]) << 24
 			m.Weight = float32(math.Float32frombits(v))
 		default:
 			iNdEx = preIndex

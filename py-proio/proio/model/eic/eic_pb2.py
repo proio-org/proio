@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='proio/model/eic.proto',
   package='proio.model.eic',
   syntax='proto3',
-  serialized_pb=_b('\n\x15proio/model/eic.proto\x12\x0fproio.model.eic\"\xc3\x01\n\x08Particle\x12\x0e\n\x06parent\x18\x01 \x03(\x04\x12\r\n\x05\x63hild\x18\x02 \x03(\x04\x12\x0b\n\x03pdg\x18\x03 \x01(\x11\x12&\n\x06vertex\x18\x04 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12 \n\x01p\x18\x05 \x01(\x0b\x32\x15.proio.model.eic.XYZD\x12\x0c\n\x04mass\x18\x06 \x01(\x01\x12\x0e\n\x06\x63harge\x18\x07 \x01(\x02\x12#\n\x04spin\x18\x08 \x01(\x0b\x32\x15.proio.model.eic.XYZF\"\x97\x01\n\x06SimHit\x12\x10\n\x08volumeid\x18\x01 \x01(\x04\x12,\n\x0cglobalprepos\x18\x02 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12-\n\rglobalpostpos\x18\x03 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12\x0c\n\x04\x65\x64\x65p\x18\x04 \x01(\x02\x12\x10\n\x08particle\x18\x05 \x01(\x04\"c\n\tEnergyDep\x12\x0c\n\x04mean\x18\x01 \x01(\x02\x12\r\n\x05noise\x18\x02 \x01(\x02\x12)\n\x03pos\x18\x03 \x03(\x0b\x32\x1c.proio.model.eic.ObservedPos\x12\x0e\n\x06source\x18\x04 \x03(\x04\"o\n\x0bObservedPos\x12$\n\x04mean\x18\x01 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12\'\n\x05noise\x18\x02 \x03(\x0b\x32\x18.proio.model.eic.RandVar\x12\x11\n\tweightmod\x18\x03 \x01(\x02\"\x8e\x01\n\x07RandVar\x12\x33\n\x04\x64ist\x18\x02 \x01(\x0e\x32%.proio.model.eic.RandVar.Distribution\x12%\n\x05sigma\x18\x03 \x01(\x0b\x32\x16.proio.model.eic.XYZTF\"\'\n\x0c\x44istribution\x12\n\n\x06NORMAL\x10\x00\x12\x0b\n\x07UNIFORM\x10\x01\"3\n\x05XYZTD\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\x12\t\n\x01t\x18\x04 \x01(\x01\"3\n\x05XYZTF\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x12\t\n\x01t\x18\x04 \x01(\x02\"\'\n\x04XYZD\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\"\'\n\x04XYZF\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x42\x45\n\x0bproio.modelB\x03\x45icZ1github.com/decibelcooper/proio/go-proio/model/eicb\x06proto3')
+  serialized_pb=_b('\n\x15proio/model/eic.proto\x12\x0fproio.model.eic\"\xc3\x01\n\x08Particle\x12\x0e\n\x06parent\x18\x01 \x03(\x04\x12\r\n\x05\x63hild\x18\x02 \x03(\x04\x12\x0b\n\x03pdg\x18\x03 \x01(\x11\x12&\n\x06vertex\x18\x04 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12 \n\x01p\x18\x05 \x01(\x0b\x32\x15.proio.model.eic.XYZD\x12\x0c\n\x04mass\x18\x06 \x01(\x01\x12\x0e\n\x06\x63harge\x18\x07 \x01(\x02\x12#\n\x04spin\x18\x08 \x01(\x0b\x32\x15.proio.model.eic.XYZF\"\x97\x01\n\x06SimHit\x12\x10\n\x08volumeid\x18\x01 \x01(\x04\x12,\n\x0cglobalprepos\x18\x02 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12-\n\rglobalpostpos\x18\x03 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12\x0c\n\x04\x65\x64\x65p\x18\x04 \x01(\x02\x12\x10\n\x08particle\x18\x05 \x01(\x04\"c\n\tEnergyDep\x12\x0c\n\x04mean\x18\x01 \x01(\x02\x12\r\n\x05noise\x18\x02 \x01(\x02\x12)\n\x03pos\x18\x03 \x03(\x0b\x32\x1c.proio.model.eic.ObservedPos\x12\x0e\n\x06source\x18\x04 \x03(\x04\"L\n\x05Track\x12.\n\x07segment\x18\x01 \x03(\x0b\x32\x1d.proio.model.eic.TrackSegment\x12\x13\n\x0bobservation\x18\x02 \x03(\x04\"\xb5\x02\n\x0cTrackSegment\x12&\n\x06vertex\x18\x01 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12-\n\x0bvertexnoise\x18\x02 \x03(\x0b\x32\x18.proio.model.eic.RandVar\x12\"\n\x03poq\x18\x03 \x01(\x0b\x32\x15.proio.model.eic.XYZD\x12*\n\x08poqnoise\x18\x04 \x03(\x0b\x32\x18.proio.model.eic.RandVar\x12(\n\tcurvature\x18\x05 \x01(\x0b\x32\x15.proio.model.eic.XYZD\x12\x30\n\x0e\x63urvaturenoise\x18\x06 \x03(\x0b\x32\x18.proio.model.eic.RandVar\x12\x12\n\nchargesign\x18\x07 \x01(\x02\x12\x0e\n\x06length\x18\x08 \x01(\x02\"o\n\x0bObservedPos\x12$\n\x04mean\x18\x01 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12\'\n\x05noise\x18\x02 \x03(\x0b\x32\x18.proio.model.eic.RandVar\x12\x11\n\tweightmod\x18\x03 \x01(\x02\"\x8e\x01\n\x07RandVar\x12\x33\n\x04\x64ist\x18\x02 \x01(\x0e\x32%.proio.model.eic.RandVar.Distribution\x12%\n\x05sigma\x18\x03 \x01(\x0b\x32\x16.proio.model.eic.XYZTF\"\'\n\x0c\x44istribution\x12\n\n\x06NORMAL\x10\x00\x12\x0b\n\x07UNIFORM\x10\x01\"3\n\x05XYZTD\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\x12\t\n\x01t\x18\x04 \x01(\x01\"3\n\x05XYZTF\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x12\t\n\x01t\x18\x04 \x01(\x02\"\'\n\x04XYZD\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\"\'\n\x04XYZF\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x42\x45\n\x0bproio.modelB\x03\x45icZ1github.com/decibelcooper/proio/go-proio/model/eicb\x06proto3')
 )
 
 
@@ -41,8 +41,8 @@ _RANDVAR_DISTRIBUTION = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=712,
-  serialized_end=751,
+  serialized_start=1102,
+  serialized_end=1141,
 )
 _sym_db.RegisterEnumDescriptor(_RANDVAR_DISTRIBUTION)
 
@@ -238,6 +238,124 @@ _ENERGYDEP = _descriptor.Descriptor(
 )
 
 
+_TRACK = _descriptor.Descriptor(
+  name='Track',
+  full_name='proio.model.eic.Track',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='segment', full_name='proio.model.eic.Track.segment', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='observation', full_name='proio.model.eic.Track.observation', index=1,
+      number=2, type=4, cpp_type=4, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=495,
+  serialized_end=571,
+)
+
+
+_TRACKSEGMENT = _descriptor.Descriptor(
+  name='TrackSegment',
+  full_name='proio.model.eic.TrackSegment',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='vertex', full_name='proio.model.eic.TrackSegment.vertex', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='vertexnoise', full_name='proio.model.eic.TrackSegment.vertexnoise', index=1,
+      number=2, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='poq', full_name='proio.model.eic.TrackSegment.poq', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='poqnoise', full_name='proio.model.eic.TrackSegment.poqnoise', index=3,
+      number=4, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='curvature', full_name='proio.model.eic.TrackSegment.curvature', index=4,
+      number=5, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='curvaturenoise', full_name='proio.model.eic.TrackSegment.curvaturenoise', index=5,
+      number=6, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='chargesign', full_name='proio.model.eic.TrackSegment.chargesign', index=6,
+      number=7, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='length', full_name='proio.model.eic.TrackSegment.length', index=7,
+      number=8, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=574,
+  serialized_end=883,
+)
+
+
 _OBSERVEDPOS = _descriptor.Descriptor(
   name='ObservedPos',
   full_name='proio.model.eic.ObservedPos',
@@ -278,8 +396,8 @@ _OBSERVEDPOS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=495,
-  serialized_end=606,
+  serialized_start=885,
+  serialized_end=996,
 )
 
 
@@ -317,8 +435,8 @@ _RANDVAR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=609,
-  serialized_end=751,
+  serialized_start=999,
+  serialized_end=1141,
 )
 
 
@@ -369,8 +487,8 @@ _XYZTD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=753,
-  serialized_end=804,
+  serialized_start=1143,
+  serialized_end=1194,
 )
 
 
@@ -421,8 +539,8 @@ _XYZTF = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=806,
-  serialized_end=857,
+  serialized_start=1196,
+  serialized_end=1247,
 )
 
 
@@ -466,8 +584,8 @@ _XYZD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=859,
-  serialized_end=898,
+  serialized_start=1249,
+  serialized_end=1288,
 )
 
 
@@ -511,8 +629,8 @@ _XYZF = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=900,
-  serialized_end=939,
+  serialized_start=1290,
+  serialized_end=1329,
 )
 
 _PARTICLE.fields_by_name['vertex'].message_type = _XYZTD
@@ -521,6 +639,13 @@ _PARTICLE.fields_by_name['spin'].message_type = _XYZF
 _SIMHIT.fields_by_name['globalprepos'].message_type = _XYZTD
 _SIMHIT.fields_by_name['globalpostpos'].message_type = _XYZTD
 _ENERGYDEP.fields_by_name['pos'].message_type = _OBSERVEDPOS
+_TRACK.fields_by_name['segment'].message_type = _TRACKSEGMENT
+_TRACKSEGMENT.fields_by_name['vertex'].message_type = _XYZTD
+_TRACKSEGMENT.fields_by_name['vertexnoise'].message_type = _RANDVAR
+_TRACKSEGMENT.fields_by_name['poq'].message_type = _XYZD
+_TRACKSEGMENT.fields_by_name['poqnoise'].message_type = _RANDVAR
+_TRACKSEGMENT.fields_by_name['curvature'].message_type = _XYZD
+_TRACKSEGMENT.fields_by_name['curvaturenoise'].message_type = _RANDVAR
 _OBSERVEDPOS.fields_by_name['mean'].message_type = _XYZTD
 _OBSERVEDPOS.fields_by_name['noise'].message_type = _RANDVAR
 _RANDVAR.fields_by_name['dist'].enum_type = _RANDVAR_DISTRIBUTION
@@ -529,6 +654,8 @@ _RANDVAR_DISTRIBUTION.containing_type = _RANDVAR
 DESCRIPTOR.message_types_by_name['Particle'] = _PARTICLE
 DESCRIPTOR.message_types_by_name['SimHit'] = _SIMHIT
 DESCRIPTOR.message_types_by_name['EnergyDep'] = _ENERGYDEP
+DESCRIPTOR.message_types_by_name['Track'] = _TRACK
+DESCRIPTOR.message_types_by_name['TrackSegment'] = _TRACKSEGMENT
 DESCRIPTOR.message_types_by_name['ObservedPos'] = _OBSERVEDPOS
 DESCRIPTOR.message_types_by_name['RandVar'] = _RANDVAR
 DESCRIPTOR.message_types_by_name['XYZTD'] = _XYZTD
@@ -557,6 +684,20 @@ EnergyDep = _reflection.GeneratedProtocolMessageType('EnergyDep', (_message.Mess
   # @@protoc_insertion_point(class_scope:proio.model.eic.EnergyDep)
   ))
 _sym_db.RegisterMessage(EnergyDep)
+
+Track = _reflection.GeneratedProtocolMessageType('Track', (_message.Message,), dict(
+  DESCRIPTOR = _TRACK,
+  __module__ = 'proio.model.eic_pb2'
+  # @@protoc_insertion_point(class_scope:proio.model.eic.Track)
+  ))
+_sym_db.RegisterMessage(Track)
+
+TrackSegment = _reflection.GeneratedProtocolMessageType('TrackSegment', (_message.Message,), dict(
+  DESCRIPTOR = _TRACKSEGMENT,
+  __module__ = 'proio.model.eic_pb2'
+  # @@protoc_insertion_point(class_scope:proio.model.eic.TrackSegment)
+  ))
+_sym_db.RegisterMessage(TrackSegment)
 
 ObservedPos = _reflection.GeneratedProtocolMessageType('ObservedPos', (_message.Message,), dict(
   DESCRIPTOR = _OBSERVEDPOS,

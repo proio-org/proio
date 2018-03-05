@@ -55,7 +55,25 @@ message EnergyDep {
     repeated uint64 source = 4;
 }
 
+////// RECONSTRUCTION LEVEL DATA MODEL MESSAGES //////
+
+message Track {
+    repeated TrackSegment segment = 1;
+    repeated uint64 observation = 2;
+}
+
 ////// SECONDARY DATA MODEL MESSAGES //////
+
+message TrackSegment {
+    XYZTD vertex = 1;
+    repeated RandVar vertexnoise = 2;
+    XYZD poq = 3;
+    repeated RandVar poqnoise = 4;
+    XYZD curvature = 5;
+    repeated RandVar curvaturenoise = 6;
+    float chargesign = 7;
+    float length = 8;
+}
 
 // position with detailed noise
 message ObservedPos {
