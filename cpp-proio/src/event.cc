@@ -73,7 +73,10 @@ void Event::UntagEntry(uint64_t id, std::string tag) {
 }
 
 void Event::RemoveEntry(uint64_t id) {
-    entryCache.erase(id);
+    if (entryCache.count(id)) {
+        delete entryCache[id];
+        entryCache.erase(id);
+    }
     eventProto->mutable_entries()->erase(id);
     dirtyTags = true;
 }
