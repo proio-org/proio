@@ -287,7 +287,7 @@ func eventPushGet3(comp Compression, t *testing.T) {
 	writer.Close()
 
 	reader := NewReader(buffer)
-    var err error
+	var err error
 	event, err = reader.Next()
 	if err != nil {
 		t.Error(err)
@@ -367,6 +367,11 @@ func eventPushSkipGet1(comp Compression, t *testing.T) {
 	if event.String() != eventsOut[1].String() {
 		t.Errorf("Event %v corrupted", 1)
 	}
+
+	n, err := reader.Skip(1)
+	if n != 0 || err == nil {
+		t.Errorf("Reader returned OK when skipping past end of file")
+	}
 }
 
 func eventPushSkipGet2(comp Compression, t *testing.T) {
@@ -414,6 +419,11 @@ func eventPushSkipGet2(comp Compression, t *testing.T) {
 	}
 	if event.String() != eventsOut[1].String() {
 		t.Errorf("Event %v corrupted", 1)
+	}
+
+	n, err := reader.Skip(1)
+	if n != 0 || err == nil {
+		t.Errorf("Reader returned OK when skipping past end of file")
 	}
 }
 
