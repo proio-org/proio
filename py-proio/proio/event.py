@@ -13,6 +13,7 @@ class Event(object):
         self._entry_cache = {}
         self._factory = message_factory.MessageFactory()
         self._rev_type_lookup = {}
+        self._dirty_tags = False
 
     def add_entry(self, tag, entry):
         """
@@ -77,6 +78,16 @@ class Event(object):
 
         return entry
 
+    def remove_entry(self, ID):
+        """
+        removes an entry from the event by its entry ID.
+
+        :param int ID: identifier for entry
+        """
+        self._entry_cache.pop(ID, None)
+        self._proto.entries.pop(ID, None)
+        self._dirty_tags = True
+
     def tag_entry(self, ID, *tags):
         """
         adds tags to an entry identified by ID.
@@ -85,13 +96,21 @@ class Event(object):
         :param string \*tags: tags
         """
         for tag in tags:
-            try:
-                tag_proto = self._proto.tags[tag]
-            except KeyError:
-                tag_proto = proto.Tag()
-                self._proto.tags[tag] = tag_proto
-
+            tag_proto = self._proto.tags[tag]
             tag_proto.entries.append(ID)
+
+    def untag_entry(self, ID, tag):
+        """
+        removes the specified tag from the entry ID
+
+        :param int ID: identifier for entry
+        :param string tag: tag
+        """
+        if tag in self._proto.tags:
+            try:
+                self._proto.tags[tag].entries.remove(ID)
+            except ValueError:
+                pass
 
     def tags(self):
         """
@@ -99,10 +118,21 @@ class Event(object):
 
         :return: list of strings
         """
-        tags = []
-        for tag in self._proto.tags.keys():
-            tags.append(tag)
+        tags = list(self._proto.tags.keys())
         tags.sort()
+        return tags
+
+    def entry_tags(self, ID):
+        """
+        returns a list of tags that point to a given entry ID.
+
+        :param int ID: identifier for entry
+        :return: list of strings
+        """
+        tags = []
+        for tag, value in self._proto.tags.items():
+            if ID in value.entries:
+                tags.append(tag)
         return tags
 
     def tagged_entries(self, tag):
@@ -114,7 +144,25 @@ class Event(object):
         :return: identifiers for entries
         :rtype: int list
         """
-        return self._proto.tags[tag].entries
+        self._tag_cleanup()
+        return list(self._proto.tags[tag].entries)
+
+    def all_entries(self):
+        """
+        returns a list of entry IDs for the event.
+
+        :return: identifiers for entries
+        :rtype: int list
+        """
+        return list(self._proto.entries.keys())
+
+    def delete_tag(self, tag):
+        """
+        removes the tag that matches the given tag string from the event.
+
+        :param string tag: tag
+        """
+        self._proto.tags.pop(tag, None)
 
     def _get_type_id(self, entry):
         type_name = entry.DESCRIPTOR.full_name
@@ -137,6 +185,7 @@ class Event(object):
         for ID, entry in self._entry_cache.items():
             self._proto.entries[ID].payload = entry.SerializeToString()
         self._entry_cache = {}
+        self._tag_cleanup()
 
     def __str__(self):
         print_string = ''
@@ -155,3 +204,10 @@ class Event(object):
                     print_string += 'not found'
 
         return print_string
+
+    def _tag_cleanup(self):
+        if not self._dirty_tags:
+            return
+        for tag in self._proto.tags.values():
+            tag.entries[:] = [ID for ID in tag.entries if ID in self._proto.entries]
+        self._dirty_tags = False
