@@ -54,7 +54,8 @@ class Event(object):
 
     def get_entry(self, ID):
         """
-        takes an entry ID and returns the corresponding entry.
+        takes an entry ID and returns the corresponding entry.  Returns None if
+        the entry does not exist.
 
         :param int ID: identifier for entry
         :return: entry message object
@@ -64,6 +65,8 @@ class Event(object):
             return self._entry_cache[ID]
         if ID in self._proto.entries:
             entry_proto = self._proto.entries[ID]
+        else:
+            return None
 
         type_string = self._proto.types[entry_proto.type]
         type_desc = descriptor_pool.Default().FindMessageTypeByName(type_string)

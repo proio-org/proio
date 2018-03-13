@@ -69,3 +69,7 @@ def test_ref_deref2():
     assert parent_.__str__() == parent.__str__()
     parent_ = event.get_entry(child2_.parents[0])
     assert parent_.__str__() == parent.__str__()
+
+def test_get_bad_entry1():
+    event = proio.Event()
+    assert(event.get_entry(1) is None)
