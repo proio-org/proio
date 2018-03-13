@@ -60,15 +60,10 @@ class Event(object):
         :return: entry message object
         :rtype: :class:`google.protobuf.message.Message`
         """
-        try:
+        if ID in self._entry_cache:
             return self._entry_cache[ID]
-        except KeyError:
-            pass
-
-        try:
+        if ID in self._proto.entries:
             entry_proto = self._proto.entries[ID]
-        except KeyError:
-            return
 
         type_string = self._proto.types[entry_proto.type]
         type_desc = descriptor_pool.Default().FindMessageTypeByName(type_string)
