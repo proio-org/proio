@@ -1,6 +1,7 @@
 #ifndef PROIO_WRITER_H
 #define PROIO_WRITER_H
 
+#include <pthread.h>
 #include <cstring>
 #include <string>
 
@@ -65,15 +66,31 @@ class Writer {
 
    private:
     void initBucket();
+    static void *streamWrite(void *writeJobPtr);
 
     BucketOutputStream *bucket;
     google::protobuf::io::FileOutputStream *fileStream;
     uint64_t bucketEvents;
     Compression compression;
     BucketOutputStream *compBucket;
+
+    pthread_t streamWriteThread;
+
+   public:
+    typedef struct {
+        BucketOutputStream *compBucket;
+        proto::BucketHeader *header;
+        google::protobuf::io::FileOutputStream *fileStream;
+    } WriteJob;
+
+    pthread_mutex_t streamWriteJobMutex;
+    pthread_cond_t streamWriteJobCond;
+    pthread_mutex_t streamWriteReadyMutex;
+    pthread_cond_t streamWriteReadyCond;
+    WriteJob *streamWriteJob;
 };
 
-const uint64_t bucketDumpSize = 0x1000000;
+const uint64_t bucketDumpThres = 0x1000000;
 
 const uint8_t magicBytes[] = {0xe1, 0xc1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                               0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
