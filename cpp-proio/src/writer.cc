@@ -28,18 +28,18 @@ Writer::Writer(std::string filename) {
 Writer::~Writer() {
     Flush();
 
-    pthread_cond_wait(&streamWriteReadyCond, &streamWriteReadyMutex);
-    streamWriteJob = NULL;
-    pthread_mutex_lock(&streamWriteJobMutex);
-    pthread_cond_signal(&streamWriteJobCond);
-    pthread_mutex_unlock(&streamWriteJobMutex);
-    pthread_mutex_unlock(&streamWriteReadyMutex);
+    pthread_cond_wait(&streamWriteJob.workerReadyCond, &streamWriteJob.workerReadyMutex);
+    streamWriteJob.isValid = false;
+    pthread_mutex_lock(&streamWriteJob.doJobMutex);
+    pthread_cond_signal(&streamWriteJob.doJobCond);
+    pthread_mutex_unlock(&streamWriteJob.doJobMutex);
+    pthread_mutex_unlock(&streamWriteJob.workerReadyMutex);
 
     pthread_join(streamWriteThread, NULL);
-    pthread_cond_destroy(&streamWriteReadyCond);
-    pthread_mutex_destroy(&streamWriteReadyMutex);
-    pthread_cond_destroy(&streamWriteJobCond);
-    pthread_mutex_destroy(&streamWriteJobMutex);
+    pthread_cond_destroy(&streamWriteJob.workerReadyCond);
+    pthread_mutex_destroy(&streamWriteJob.workerReadyMutex);
+    pthread_cond_destroy(&streamWriteJob.doJobCond);
+    pthread_mutex_destroy(&streamWriteJob.doJobMutex);
 
     delete bucket;
     delete fileStream;
@@ -49,7 +49,7 @@ Writer::~Writer() {
 void Writer::Flush() {
     if (bucketEvents == 0) return;
 
-    pthread_cond_wait(&streamWriteReadyCond, &streamWriteReadyMutex);
+    pthread_cond_wait(&streamWriteJob.workerReadyCond, &streamWriteJob.workerReadyMutex);
     compBucket->Reset();
     switch (compression) {
         case LZ4: {
@@ -82,13 +82,12 @@ void Writer::Flush() {
     header->set_bucketsize(compBucket->ByteCount());
     header->set_compression(compression);
 
-    streamWriteJob = new WriteJob;
-    streamWriteJob->compBucket = compBucket;
-    streamWriteJob->header = header;
-    streamWriteJob->fileStream = fileStream;
-    pthread_mutex_lock(&streamWriteJobMutex);
-    pthread_cond_signal(&streamWriteJobCond);
-    pthread_mutex_unlock(&streamWriteJobMutex);
+    streamWriteJob.compBucket = compBucket;
+    streamWriteJob.header = header;
+    streamWriteJob.isValid = true;
+    pthread_mutex_lock(&streamWriteJob.doJobMutex);
+    pthread_cond_signal(&streamWriteJob.doJobCond);
+    pthread_mutex_unlock(&streamWriteJob.doJobMutex);
 
     bucket->Reset();
     bucketEvents = 0;
@@ -112,36 +111,35 @@ void Writer::Push(Event *event) {
     if (bucket->ByteCount() > bucketDumpThres) Flush();
 }
 
-void Writer::SetCompression(Compression comp) { compression = comp; }
-
 void Writer::initBucket() {
     bucket = new BucketOutputStream();
     bucketEvents = 0;
-
-    compression = LZ4;
+    SetCompression();
     compBucket = new BucketOutputStream();
+    SetBucketDumpThreshold();
 
-    pthread_mutex_init(&streamWriteJobMutex, NULL);
-    pthread_cond_init(&streamWriteJobCond, NULL);
-    pthread_mutex_init(&streamWriteReadyMutex, NULL);
-    pthread_cond_init(&streamWriteReadyCond, NULL);
+    pthread_mutex_init(&streamWriteJob.doJobMutex, NULL);
+    pthread_cond_init(&streamWriteJob.doJobCond, NULL);
+    pthread_mutex_init(&streamWriteJob.workerReadyMutex, NULL);
+    pthread_cond_init(&streamWriteJob.workerReadyCond, NULL);
+    streamWriteJob.fileStream = fileStream;
+    streamWriteJob.isValid = false;
 
-    pthread_mutex_lock(&streamWriteReadyMutex);
-    pthread_create(&streamWriteThread, NULL, Writer::streamWrite, this);
+    pthread_mutex_lock(&streamWriteJob.workerReadyMutex);
+    pthread_create(&streamWriteThread, NULL, Writer::streamWrite, &streamWriteJob);
 }
 
-void *Writer::streamWrite(void *writerVoid) {
-    auto writer = (Writer *)writerVoid;
+void *Writer::streamWrite(void *writeJobVoid) {
+    auto job = static_cast<WriteJob *>(writeJobVoid);
 
-    pthread_mutex_lock(&writer->streamWriteJobMutex);
+    pthread_mutex_lock(&job->doJobMutex);
     while (true) {
-        pthread_mutex_lock(&writer->streamWriteReadyMutex);
-        pthread_cond_signal(&writer->streamWriteReadyCond);
-        pthread_mutex_unlock(&writer->streamWriteReadyMutex);
-        pthread_cond_wait(&writer->streamWriteJobCond, &writer->streamWriteJobMutex);
+        pthread_mutex_lock(&job->workerReadyMutex);
+        pthread_cond_signal(&job->workerReadyCond);
+        pthread_mutex_unlock(&job->workerReadyMutex);
+        pthread_cond_wait(&job->doJobCond, &job->doJobMutex);
 
-        auto job = writer->streamWriteJob;
-        if (job) {
+        if (job->isValid) {
             auto stream = new io::CodedOutputStream(job->fileStream);
             stream->WriteRaw(magicBytes, 16);
 #if GOOGLE_PROTOBUF_VERSION >= 3004000
@@ -154,12 +152,11 @@ void *Writer::streamWrite(void *writerVoid) {
             delete stream;
 
             delete job->header;
-            delete job;
-            writer->streamWriteJob = NULL;
+            job->isValid = false;
         } else
             break;
     }
-    pthread_mutex_unlock(&writer->streamWriteJobMutex);
+    pthread_mutex_unlock(&job->doJobMutex);
 
     return NULL;
 }

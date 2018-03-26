@@ -52,17 +52,26 @@ class Writer {
     Writer(std::string filename);
     virtual ~Writer();
 
-    /** Flush flushes all buffered data to the output stream.  This is
-     * automatically called upon destruction of the Writer object.
+    /** Flush compresses and flushes all buffered (bucket) data to the output
+     * stream.  This is automatically called upon destruction of the Writer
+     * object, and when the bucket dump threshold is reached.  This function is
+     * asynchronous, meaning that it will return before the flush to the output
+     * stream is actually complete.  Synchronization is forced on destruction.
      */
     void Flush();
     /** Push takes an Event and serializes it into the output bucket.
      */
     void Push(Event *event);
     /** SetCompression sets the compression type to use for future output
-     * buckets.
+     * buckets.  One of: LZ4, GZIP, or UNCOMPRESSED.
      */
-    void SetCompression(Compression comp);
+    void SetCompression(Compression comp = LZ4) { compression = comp; }
+    /** SetBucketDumpThreshold sets the threshold uncompressed bucket size for
+     * automatic compression and output (dump).  I.e., once the size of the
+     * uncompressed bucket in memory reaches this threshold, Flush() will be
+     * called.  Flush() can also be manually called at any time.
+     */
+    void SetBucketDumpThreshold(uint64_t thres = 0x1000000) { bucketDumpThres = thres; }
 
    private:
     void initBucket();
@@ -73,24 +82,23 @@ class Writer {
     uint64_t bucketEvents;
     Compression compression;
     BucketOutputStream *compBucket;
+    uint64_t bucketDumpThres;
 
     pthread_t streamWriteThread;
-
-   public:
     typedef struct {
+        bool isValid;
+
         BucketOutputStream *compBucket;
         proto::BucketHeader *header;
         google::protobuf::io::FileOutputStream *fileStream;
+
+        pthread_mutex_t doJobMutex;
+        pthread_cond_t doJobCond;
+        pthread_mutex_t workerReadyMutex;
+        pthread_cond_t workerReadyCond;
     } WriteJob;
-
-    pthread_mutex_t streamWriteJobMutex;
-    pthread_cond_t streamWriteJobCond;
-    pthread_mutex_t streamWriteReadyMutex;
-    pthread_cond_t streamWriteReadyCond;
-    WriteJob *streamWriteJob;
+    WriteJob streamWriteJob;
 };
-
-const uint64_t bucketDumpThres = 0x1000000;
 
 const uint8_t magicBytes[] = {0xe1, 0xc1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                               0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
