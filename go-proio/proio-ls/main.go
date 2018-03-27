@@ -7,6 +7,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"reflect"
 
 	"github.com/decibelcooper/proio/go-proio"
 	_ "github.com/decibelcooper/proio/go-proio/model/eic"
@@ -15,8 +16,9 @@ import (
 )
 
 var (
-	ignore = flag.Bool("i", false, "ignore the specified tags instead of isolating them")
-	event  = flag.Int("e", -1, "list specified event, numbered consecutively from the start of the stream starting with 0")
+	ignore        = flag.Bool("i", false, "ignore the specified tags instead of isolating them")
+	event         = flag.Int("e", -1, "list specified event, numbered consecutively from the start of the stream starting with 0")
+	printMetadata = flag.Bool("m", false, "print metadata as string")
 )
 
 func printUsage() {
@@ -76,6 +78,7 @@ func main() {
 	}
 
 	nEventsRead := 0
+    lastMetadata := make(map[string][]byte)
 
 	for event := range reader.ScanEvents() {
 		if *ignore {
@@ -88,6 +91,20 @@ func main() {
 					event.DeleteTag(tag)
 				}
 			}
+		}
+
+		if !reflect.DeepEqual(event.Metadata, lastMetadata) {
+			fmt.Println("========== META DATA ==========")
+			for key, bytes := range event.Metadata {
+				fmt.Printf("%v: ", key)
+				if *printMetadata {
+					fmt.Println(string(bytes))
+				} else {
+					fmt.Printf("%v bytes\n", len(bytes))
+				}
+			}
+			fmt.Println()
+			lastMetadata = event.Metadata
 		}
 
 		fmt.Println("========== EVENT", nEventsRead+startingEvent, "==========")

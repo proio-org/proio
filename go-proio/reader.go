@@ -20,6 +20,7 @@ type Reader struct {
 	bucketReader     io.Reader
 	bucketHeader     *proto.BucketHeader
 	bucketEventsRead int
+	metadata         map[string][]byte
 
 	Err                   chan error
 	EvtScanBufSize        int
@@ -51,6 +52,7 @@ func NewReader(streamReader io.Reader) *Reader {
 		streamReader:   streamReader,
 		bucket:         &bytes.Reader{},
 		bucketReader:   &bytes.Buffer{},
+		metadata:       make(map[string][]byte),
 		Err:            make(chan error, evtScanBufferSize),
 		EvtScanBufSize: evtScanBufferSize,
 	}
@@ -251,6 +253,9 @@ func (rdr *Reader) readFromBucket(doUnmarshal bool) (*Event, error) {
 		}
 
 		event = newEventFromProto(eventProto)
+		for key, bytes := range rdr.metadata {
+			event.Metadata[key] = bytes
+		}
 	}
 
 	return event, nil
@@ -259,11 +264,13 @@ func (rdr *Reader) readFromBucket(doUnmarshal bool) (*Event, error) {
 func (rdr *Reader) readBucket(maxSkipEvents int) (eventsSkipped int, err error) {
 	rdr.bucketEventsRead = 0
 
+	// Find and read magic bytes for synchronization
 	_, err = rdr.syncToMagic()
 	if err != nil {
 		return
 	}
 
+	// Read header size and then header
 	headerSizeBuf := make([]byte, 4)
 	if err = readBytes(rdr.streamReader, headerSizeBuf); err != nil {
 		return
@@ -279,6 +286,12 @@ func (rdr *Reader) readBucket(maxSkipEvents int) (eventsSkipped int, err error) 
 		return
 	}
 
+	// Set metadata for future events
+	for key, bytes := range rdr.bucketHeader.Metadata {
+		rdr.metadata[key] = bytes
+	}
+
+	// Either read or skip bucket bytes
 	if int(rdr.bucketHeader.NEvents) > maxSkipEvents {
 		bucketBytes := make([]byte, rdr.bucketHeader.BucketSize)
 		if err = readBytes(rdr.streamReader, bucketBytes); err != nil {
@@ -298,6 +311,7 @@ func (rdr *Reader) readBucket(maxSkipEvents int) (eventsSkipped int, err error) 
 		return
 	}
 
+	// Set up decompression for bucket
 	switch rdr.bucketHeader.Compression {
 	case proto.BucketHeader_GZIP:
 		gzipRdr, ok := rdr.bucketReader.(*gzip.Reader)

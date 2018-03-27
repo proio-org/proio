@@ -7,6 +7,7 @@ import (
 	"errors"
 	"io"
 	"os"
+	"reflect"
 	"sync"
 
 	"github.com/decibelcooper/proio/go-proio/proto"
@@ -25,8 +26,8 @@ const (
 type Writer struct {
 	streamWriter io.Writer
 	bucket       *bytes.Buffer
-	bucketEvents uint64
-	bucketComp   proto.BucketHeader_CompType
+	bucketHeader proto.BucketHeader
+	metadata     map[string][]byte
 
 	deferredUntilClose []func() error
 
@@ -76,6 +77,7 @@ func NewWriter(streamWriter io.Writer) *Writer {
 	writer := &Writer{
 		streamWriter: streamWriter,
 		bucket:       &bytes.Buffer{},
+		metadata:     make(map[string][]byte),
 	}
 
 	writer.SetCompression(LZ4)
@@ -89,11 +91,11 @@ func NewWriter(streamWriter io.Writer) *Writer {
 func (wrt *Writer) SetCompression(comp Compression) error {
 	switch comp {
 	case GZIP:
-		wrt.bucketComp = proto.BucketHeader_GZIP
+		wrt.bucketHeader.Compression = proto.BucketHeader_GZIP
 	case LZ4:
-		wrt.bucketComp = proto.BucketHeader_LZ4
+		wrt.bucketHeader.Compression = proto.BucketHeader_LZ4
 	case UNCOMPRESSED:
-		wrt.bucketComp = proto.BucketHeader_NONE
+		wrt.bucketHeader.Compression = proto.BucketHeader_NONE
 	default:
 		return errors.New("invalid compression type")
 	}
@@ -107,6 +109,13 @@ func (wrt *Writer) Push(event *Event) error {
 	wrt.Lock()
 	defer wrt.Unlock()
 
+	for key, value := range event.Metadata {
+		if !reflect.DeepEqual(wrt.metadata[key], value) {
+			wrt.PushMetadata(key, value)
+			wrt.metadata[key] = value
+		}
+	}
+
 	event.flushCache()
 	protoBuf, err := event.proto.Marshal()
 	if err != nil {
@@ -119,7 +128,7 @@ func (wrt *Writer) Push(event *Event) error {
 	writeBytes(wrt.bucket, protoSizeBuf)
 	writeBytes(wrt.bucket, protoBuf)
 
-	wrt.bucketEvents++
+	wrt.bucketHeader.NEvents++
 
 	if wrt.bucket.Len() > bucketDumpSize {
 		if err := wrt.writeBucket(); err != nil {
@@ -127,6 +136,17 @@ func (wrt *Writer) Push(event *Event) error {
 		}
 	}
 
+	return nil
+}
+
+func (wrt *Writer) PushMetadata(name string, data []byte) error {
+	if err := wrt.Flush(); err != nil {
+		return err
+	}
+	if wrt.bucketHeader.Metadata == nil {
+		wrt.bucketHeader.Metadata = make(map[string][]byte)
+	}
+	wrt.bucketHeader.Metadata[name] = data
 	return nil
 }
 
@@ -153,7 +173,7 @@ var magicBytes = [...]byte{
 
 func (wrt *Writer) writeBucket() error {
 	bucketBytes := wrt.bucket.Bytes()
-	switch wrt.bucketComp {
+	switch wrt.bucketHeader.Compression {
 	case proto.BucketHeader_GZIP:
 		buffer := &bytes.Buffer{}
 		gzipWriter := gzip.NewWriter(buffer)
@@ -168,12 +188,9 @@ func (wrt *Writer) writeBucket() error {
 		lz4Writer.Close()
 		bucketBytes = buffer.Bytes()
 	}
-	header := &proto.BucketHeader{
-		NEvents:     wrt.bucketEvents,
-		BucketSize:  uint64(len(bucketBytes)),
-		Compression: wrt.bucketComp,
-	}
-	headerBuf, err := header.Marshal()
+	header := wrt.bucketHeader
+	header.BucketSize = uint64(len(bucketBytes))
+	headerBuf, err := (&header).Marshal()
 	if err != nil {
 		return err
 	}
@@ -194,7 +211,8 @@ func (wrt *Writer) writeBucket() error {
 		return err
 	}
 
-	wrt.bucketEvents = 0
+	wrt.bucketHeader.NEvents = 0
+	wrt.bucketHeader.Metadata = make(map[string][]byte)
 	wrt.bucket.Reset()
 
 	return nil

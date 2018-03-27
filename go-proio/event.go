@@ -17,7 +17,8 @@ import (
 // Event contains all data for an event, and provides methods for adding and
 // retrieving data.
 type Event struct {
-	Err error
+	Err      error
+	Metadata map[string][]byte
 
 	proto *proto.Event
 
@@ -30,6 +31,7 @@ type Event struct {
 // NewEvent is required for constructing an Event.
 func NewEvent() *Event {
 	return &Event{
+		Metadata: make(map[string][]byte),
 		proto: &proto.Event{
 			Entries: make(map[uint64]*proto.Any),
 			Types:   make(map[uint64]string),
@@ -244,6 +246,7 @@ func newEventFromProto(eventProto *proto.Event) *Event {
 		eventProto.Tags = make(map[string]*proto.Tag)
 	}
 	return &Event{
+		Metadata:       make(map[string][]byte),
 		proto:          eventProto,
 		revTypeLookup:  make(map[string]uint64),
 		entryTypeCache: make(map[uint64]reflect.Type),
