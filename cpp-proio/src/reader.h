@@ -74,6 +74,7 @@ class Reader {
     proto::BucketHeader *bucketHeader;
     LZ4F_dctx *dctxPtr;
     BucketInputStream *bucket;
+    std::map<std::string, std::shared_ptr<std::string>> metadata;
 };
 
 const class FileOpenError : public std::exception {

@@ -77,13 +77,13 @@ void Writer::Flush() {
             compBucket = tmpBucket;
     }
 
-    auto header = new proto::BucketHeader();
     header->set_nevents(bucketEvents);
     header->set_bucketsize(compBucket->ByteCount());
     header->set_compression(compression);
 
     streamWriteJob.compBucket = compBucket;
     streamWriteJob.header = header;
+    header = new proto::BucketHeader();
     streamWriteJob.isValid = true;
     pthread_mutex_lock(&streamWriteJob.doJobMutex);
     pthread_cond_signal(&streamWriteJob.doJobCond);
@@ -94,6 +94,12 @@ void Writer::Flush() {
 }
 
 void Writer::Push(Event *event) {
+    for (auto keyValuePair : event->metadata)
+        if (metadata[keyValuePair.first] != keyValuePair.second) {
+            PushMetadata(keyValuePair.first, *keyValuePair.second);
+            metadata[keyValuePair.first] = keyValuePair.second;
+        }
+
     event->flushCache();
     proto::Event *proto = event->getProto();
 
@@ -111,12 +117,23 @@ void Writer::Push(Event *event) {
     if (bucket->ByteCount() > bucketDumpThres) Flush();
 }
 
+void Writer::PushMetadata(std::string name, std::string &data) {
+    Flush();
+    (*header->mutable_metadata())[name] = data;
+}
+
+void Writer::PushMetadata(std::string name, const char *data) {
+    Flush();
+    (*header->mutable_metadata())[name] = data;
+}
+
 void Writer::initBucket() {
     bucket = new BucketOutputStream();
     bucketEvents = 0;
     SetCompression();
     compBucket = new BucketOutputStream();
     SetBucketDumpThreshold();
+    header = new proto::BucketHeader;
 
     pthread_mutex_init(&streamWriteJob.doJobMutex, NULL);
     pthread_cond_init(&streamWriteJob.doJobCond, NULL);

@@ -133,6 +133,10 @@ add_executable(scan src/tests/scan/main.cc)
 target_link_libraries(scan proio proio.pb)
 add_test(Scan scan)
 
+add_executable(metadata src/tests/metadata/main.cc)
+target_link_libraries(metadata proio proio.pb)
+add_test(Metadata metadata)
+
 if(${REPORT_COVERAGE})
     message("Enabling coverage reporting")
     set_target_properties(proio

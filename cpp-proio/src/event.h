@@ -49,24 +49,33 @@ class Event {
     /** DeleteTag removes a tag from the Event.
      */
     void DeleteTag(std::string tag);
+    /** Metadata returns a mapping from a string key to a pointer to a string
+     * that contains the metadata, by reference.  These metadata are all the
+     * entries received on the stream up to this Event.
+     */
+    const std::map<std::string, std::shared_ptr<std::string>> &Metadata() { return metadata; }
 
     /** String returns a human-readable string representing the event.
      */
     std::string String();
-
-    void flushCache();
-    proto::Event *getProto();
 
    private:
     uint64_t getTypeID(google::protobuf::Message *entry);
     const google::protobuf::Descriptor *getDescriptor(uint64_t typeID);
     void tagCleanup();
 
+    friend class Writer;
+    void flushCache();
+    proto::Event *getProto();
+
     proto::Event *eventProto;
     std::map<std::string, uint64_t> revTypeLookup;
     std::map<uint64_t, google::protobuf::Message *> entryCache;
     std::map<uint64_t, const google::protobuf::Descriptor *> descriptorCache;
     bool dirtyTags;
+
+    friend class Reader;
+    std::map<std::string, std::shared_ptr<std::string>> metadata;
 };
 
 const class UnknownMessageTypeError : public std::exception {

@@ -62,6 +62,16 @@ class Writer {
     /** Push takes an Event and serializes it into the output bucket.
      */
     void Push(Event *event);
+    /** PushMetadata takes a string key and string data set and pushes it into
+     * the stream.  If Events exist in the current bucket, the bucket is
+     * flushed first.
+     */
+    void PushMetadata(std::string name, std::string &data);
+    /** PushMetadata takes a string key and null-terminated const char array by
+     * pointer and pushes it into the stream.  If Events exist in the current
+     * bucket, the bucket is flushed first.
+     */
+    void PushMetadata(std::string name, const char *data);
     /** SetCompression sets the compression type to use for future output
      * buckets.  One of: LZ4, GZIP, or UNCOMPRESSED.
      */
@@ -83,6 +93,8 @@ class Writer {
     Compression compression;
     BucketOutputStream *compBucket;
     uint64_t bucketDumpThres;
+    proto::BucketHeader *header;
+    std::map<std::string, std::shared_ptr<std::string>> metadata;
 
     pthread_t streamWriteThread;
     typedef struct {

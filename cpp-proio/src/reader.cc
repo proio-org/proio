@@ -97,7 +97,9 @@ Event *Reader::readFromBucket(bool doMerge) {
             throw deserializationError;
         stream->PopLimit(eventLimit);
         delete stream;
-        return new Event(eventProto);
+        auto event = new Event(eventProto);
+        event->metadata = metadata;
+        return event;
     } else {
         if (!stream->Skip(protoSize)) throw corruptBucketError;
         delete stream;
@@ -125,6 +127,10 @@ uint64_t Reader::readBucket(uint64_t maxSkipEvents) {
     if (!bucketHeader->MergeFromCodedStream(stream) || !stream->ConsumedEntireMessage())
         throw deserializationError;
     stream->PopLimit(headerLimit);
+
+    // Set metadata for future events
+    for (auto keyValuePair : bucketHeader->metadata())
+        metadata[keyValuePair.first] = std::make_shared<std::string>(keyValuePair.second);
 
     uint64_t bucketSize = bucketHeader->bucketsize();
     if (bucketHeader->nevents() > maxSkipEvents) {
