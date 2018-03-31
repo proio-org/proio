@@ -69,9 +69,9 @@ func (evt *Event) AddEntry(tag string, entry protobuf.Message) uint64 {
 // number of entries separated by commas.  Additionally, the return value is a
 // slice of IDs.
 func (evt *Event) AddEntries(tag string, entries ...protobuf.Message) []uint64 {
-	var ids []uint64
-	for _, entry := range entries {
-		ids = append(ids, evt.AddEntry(tag, entry))
+	ids := make([]uint64, len(entries))
+	for i, entry := range entries {
+		ids[i] = evt.AddEntry(tag, entry)
 	}
 	return ids
 }
@@ -98,27 +98,15 @@ func (evt *Event) GetEntry(id uint64) protobuf.Message {
 		evt.Err = errors.New("unknown type: " + evt.proto.Types[entryProto.Type])
 		return nil
 	}
-	selfSerializingEntry, ok := entry.(protobuf.Unmarshaler)
-	if ok {
-		if err := selfSerializingEntry.Unmarshal(entryProto.Payload); err != nil {
-			evt.Err = errors.New(
-				"failure to unmarshal entry " +
-					strconv.FormatUint(id, 10) +
-					" with type " +
-					evt.proto.Types[entryProto.Type],
-			)
-			return nil
-		}
-	} else {
-		if err := protobuf.Unmarshal(entryProto.Payload, entry); err != nil {
-			evt.Err = errors.New(
-				"failure to unmarshal entry " +
-					strconv.FormatUint(id, 10) +
-					" with type " +
-					evt.proto.Types[entryProto.Type],
-			)
-			return nil
-		}
+
+	if err := protobuf.Unmarshal(entryProto.Payload, entry); err != nil {
+		evt.Err = errors.New(
+			"failure to unmarshal entry " +
+				strconv.FormatUint(id, 10) +
+				" with type " +
+				evt.proto.Types[entryProto.Type],
+		)
+		return nil
 	}
 
 	evt.entryCache[id] = entry
@@ -134,9 +122,11 @@ func (evt *Event) RemoveEntry(id uint64) {
 }
 
 func (evt *Event) AllEntries() []uint64 {
-	var IDs []uint64
+	IDs := make([]uint64, len(evt.proto.Entries))
+	var i int
 	for ID := range evt.proto.Entries {
-		IDs = append(IDs, ID)
+		IDs[i] = ID
+		i++
 	}
 	return IDs
 }
