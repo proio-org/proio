@@ -115,12 +115,16 @@ func (evt *Event) GetEntry(id uint64) protobuf.Message {
 	return entry
 }
 
+// RemoveEntry takes an entry id and removes the referenced entry from the
+// Event.
 func (evt *Event) RemoveEntry(id uint64) {
 	delete(evt.entryCache, id)
 	delete(evt.proto.Entries, id)
 	evt.dirtyTags = true
 }
 
+// AllEntries returns a slice of identifiers for all entries contained in the
+// Event.
 func (evt *Event) AllEntries() []uint64 {
 	IDs := make([]uint64, len(evt.proto.Entries))
 	var i int
@@ -197,6 +201,8 @@ func (evt *Event) EntryTags(id uint64) []string {
 	return tags
 }
 
+// DeleteTag takes a tag name as an argument and deletes that tag from the
+// Event if it exists.
 func (evt *Event) DeleteTag(tag string) {
 	delete(evt.proto.Tags, tag)
 }
