@@ -12,9 +12,10 @@ import (
 )
 
 var (
-	outFile   = flag.String("o", "", "file to save output to")
-	keep      = flag.Bool("k", false, "keep only entries with the specified tags, rather than stripping them away")
-	compLevel = flag.Int("c", 1, "output compression level: 0 for uncompressed, 1 for LZ4 compression, 2 for GZIP compression")
+	outFile       = flag.String("o", "", "file to save output to")
+	keep          = flag.Bool("k", false, "keep only entries with the specified tags, rather than stripping them away")
+	stripMetadata = flag.Bool("m", false, "strip all metadata")
+	compLevel     = flag.Int("c", 1, "output compression level: 0 for uncompressed, 1 for LZ4 compression, 2 for GZIP compression")
 )
 
 func printUsage() {
@@ -84,6 +85,10 @@ func main() {
 	nEventsRead := 0
 
 	for event := range reader.ScanEvents() {
+		if *stripMetadata {
+			event.Metadata = nil
+		}
+
 		if *keep {
 			keepTagIDs := make(map[uint64]bool)
 			for _, keepTag := range argTags {
