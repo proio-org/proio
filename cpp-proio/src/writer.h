@@ -110,6 +110,8 @@ class Writer {
         pthread_cond_t workerReadyCond;
     } WriteJob;
     WriteJob streamWriteJob;
+
+    pthread_mutex_t mutex;
 };
 
 const uint8_t magicBytes[] = {0xe1, 0xc1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,

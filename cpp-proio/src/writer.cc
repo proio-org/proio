@@ -26,6 +26,10 @@ Writer::Writer(std::string filename) {
 }
 
 Writer::~Writer() {
+    pthread_mutex_lock(&mutex);
+    pthread_mutex_unlock(&mutex);
+    pthread_mutex_destroy(&mutex);
+
     Flush();
 
     pthread_cond_wait(&streamWriteJob.workerReadyCond, &streamWriteJob.workerReadyMutex);
@@ -94,6 +98,8 @@ void Writer::Flush() {
 }
 
 void Writer::Push(Event *event) {
+    pthread_mutex_lock(&mutex);
+
     for (auto keyValuePair : event->metadata)
         if (metadata[keyValuePair.first] != keyValuePair.second) {
             PushMetadata(keyValuePair.first, *keyValuePair.second);
@@ -115,6 +121,8 @@ void Writer::Push(Event *event) {
     bucketEvents++;
 
     if (bucket->ByteCount() > bucketDumpThres) Flush();
+
+    pthread_mutex_unlock(&mutex);
 }
 
 void Writer::PushMetadata(std::string name, std::string &data) {
@@ -144,6 +152,8 @@ void Writer::initBucket() {
 
     pthread_mutex_lock(&streamWriteJob.workerReadyMutex);
     pthread_create(&streamWriteThread, NULL, Writer::streamWrite, &streamWriteJob);
+
+    pthread_mutex_init(&mutex, NULL);
 }
 
 void *Writer::streamWrite(void *writeJobVoid) {

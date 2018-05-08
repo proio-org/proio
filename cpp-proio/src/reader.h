@@ -1,6 +1,7 @@
 #ifndef PROIO_READER_H
 #define PROIO_READER_H
 
+#include <pthread.h>
 #include <cstring>
 #include <string>
 
@@ -75,6 +76,8 @@ class Reader {
     LZ4F_dctx *dctxPtr;
     BucketInputStream *bucket;
     std::map<std::string, std::shared_ptr<std::string>> metadata;
+
+    pthread_mutex_t mutex;
 };
 
 const class FileOpenError : public std::exception {

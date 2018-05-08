@@ -28,6 +28,10 @@ Reader::Reader(std::string filename) {
 }
 
 Reader::~Reader() {
+    pthread_mutex_lock(&mutex);
+    pthread_mutex_unlock(&mutex);
+    pthread_mutex_destroy(&mutex);
+
     if (bucketHeader) delete bucketHeader;
     delete compBucket;
     LZ4F_freeDecompressionContext(dctxPtr);
@@ -36,14 +40,23 @@ Reader::~Reader() {
     if (closeFDOnDelete) close(fd);
 }
 
-Event *Reader::Next() { return readFromBucket(); }
+Event *Reader::Next() {
+    pthread_mutex_lock(&mutex);
+    Event *event = readFromBucket();
+    pthread_mutex_unlock(&mutex);
+    return event;
+}
 
 proto::BucketHeader *Reader::NextHeader() {
+    pthread_mutex_lock(&mutex);
     readBucket(std::numeric_limits<uint64_t>::max());
+    pthread_mutex_unlock(&mutex);
     return bucketHeader;
 }
 
 uint64_t Reader::Skip(uint64_t nEvents) {
+    pthread_mutex_lock(&mutex);
+
     uint64_t bucketEventsLeft = 0;
     if (bucketHeader) {
         bucketEventsLeft = bucketHeader->nevents() - bucketEventsRead;
@@ -60,15 +73,20 @@ uint64_t Reader::Skip(uint64_t nEvents) {
         nSkipped++;
     }
 
+    pthread_mutex_unlock(&mutex);
     return nSkipped;
 }
 
 void Reader::SeekToStart() {
+    pthread_mutex_lock(&mutex);
+
     delete fileStream;
     if (lseek(fd, 0, SEEK_SET) == -1) throw seekError;
     fileStream = new io::FileInputStream(fd);
 
     readBucket();
+
+    pthread_mutex_unlock(&mutex);
 }
 
 void Reader::initBucket() {
@@ -77,6 +95,8 @@ void Reader::initBucket() {
     bucketHeader = NULL;
     LZ4F_createDecompressionContext(&dctxPtr, LZ4F_VERSION);
     bucket = new BucketInputStream(0);
+
+    pthread_mutex_init(&mutex, NULL);
 }
 
 Event *Reader::readFromBucket(bool doMerge) {
