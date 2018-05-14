@@ -16,7 +16,7 @@ var (
 	intersection  = flag.Bool("i", false, "only strip the intersection of the specified tags (entries that each have all tags)")
 	keep          = flag.Bool("k", false, "keep only entries with the specified tags, rather than stripping them away")
 	stripMetadata = flag.Bool("m", false, "strip all metadata")
-	compLevel     = flag.Int("c", 1, "output compression level: 0 for uncompressed, 1 for LZ4 compression, 2 for GZIP compression")
+	compLevel     = flag.Int("c", 2, "output compression level: 0 for uncompressed, 1 for LZ4 compression, 2 for GZIP compression")
 )
 
 func printUsage() {

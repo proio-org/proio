@@ -80,7 +80,7 @@ func NewWriter(streamWriter io.Writer) *Writer {
 		metadata:     make(map[string][]byte),
 	}
 
-	writer.SetCompression(LZ4)
+	writer.SetCompression(GZIP)
 	writer.deferUntilClose(writer.Flush)
 
 	return writer

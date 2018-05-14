@@ -16,7 +16,7 @@ import (
 
 var (
 	outFile        = flag.String("o", "", "create file to save output to")
-	compLevel      = flag.Int("c", 1, "compression level: 0 for uncompressed, 1 for LZ4 compression, 2 for GZIP compression")
+	compLevel      = flag.Int("c", 2, "compression level: 0 for uncompressed, 1 for LZ4 compression, 2 for GZIP compression")
 	updateInterval = flag.Int("u", 5, "update interval in seconds (set to 0 to disable)")
 )
 
