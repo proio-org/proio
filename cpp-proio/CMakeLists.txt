@@ -85,6 +85,39 @@ foreach(header ${libraryheaders})
         )
 endforeach()
 
+# Configure and install rootmap files
+foreach(header ${protoheaders})
+    get_filename_component(header ${header} NAME)
+    set(libproio.pb_ROOTMAP_HEADERS
+        "header proio/${header}\n${libproio.pb_ROOTMAP_HEADERS}"
+        )
+endforeach()
+foreach(header ${modelheaders})
+    get_filename_component(header ${header} NAME)
+    set(libproio.pb_ROOTMAP_HEADERS
+        "header proio/model/${header}\n${libproio.pb_ROOTMAP_HEADERS}"
+        )
+endforeach()
+foreach(header ${libraryheaders})
+    get_filename_component(header ${header} NAME)
+    set(libproio_ROOTMAP_HEADERS
+        "header proio/${header}\n${libproio_ROOTMAP_HEADERS}"
+        )
+endforeach()
+configure_file(${PROJECT_SOURCE_DIR}/lib/libproio.pb.rootmap.in
+    ${CMAKE_CURRENT_BINARY_DIR}/lib/libproio.pb.rootmap
+    @ONLY
+    )
+configure_file(${PROJECT_SOURCE_DIR}/lib/libproio.rootmap.in
+    ${CMAKE_CURRENT_BINARY_DIR}/lib/libproio.rootmap
+    @ONLY
+    )
+install(FILES
+    ${CMAKE_CURRENT_BINARY_DIR}/lib/libproio.pb.rootmap
+    ${CMAKE_CURRENT_BINARY_DIR}/lib/libproio.rootmap
+    DESTINATION lib
+    )
+
 # Install and export targets
 install(EXPORT proioTargets
     FILE proioTargets.cmake
