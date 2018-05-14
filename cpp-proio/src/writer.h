@@ -75,7 +75,7 @@ class Writer {
     /** SetCompression sets the compression type to use for future output
      * buckets.  One of: LZ4, GZIP, or UNCOMPRESSED.
      */
-    void SetCompression(Compression comp = LZ4) { compression = comp; }
+    void SetCompression(Compression comp = GZIP) { compression = comp; }
     /** SetBucketDumpThreshold sets the threshold uncompressed bucket size for
      * automatic compression and output (dump).  I.e., once the size of the
      * uncompressed bucket in memory reaches this threshold, Flush() will be
