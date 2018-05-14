@@ -55,7 +55,7 @@ class Writer(object):
 
         self._bucket_events = 0
         self._bucket = io.BytesIO(b'')
-        self.set_compression(proto.BucketHeader.LZ4)
+        self.set_compression(proto.BucketHeader.GZIP)
 
     def __enter__(self):
         return self
