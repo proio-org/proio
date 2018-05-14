@@ -13,6 +13,7 @@ import (
 
 var (
 	outFile       = flag.String("o", "", "file to save output to")
+	intersection  = flag.Bool("i", false, "only strip the intersection of the specified tags (entries that each have all tags)")
 	keep          = flag.Bool("k", false, "keep only entries with the specified tags, rather than stripping them away")
 	stripMetadata = flag.Bool("m", false, "strip all metadata")
 	compLevel     = flag.Int("c", 1, "output compression level: 0 for uncompressed, 1 for LZ4 compression, 2 for GZIP compression")
@@ -102,8 +103,14 @@ func main() {
 				}
 			}
 		} else {
+			removeTagIDs := make(map[uint64]int)
 			for _, removeTag := range argTags {
 				for _, entryID := range event.TaggedEntries(removeTag) {
+					removeTagIDs[entryID]++
+				}
+			}
+			for entryID, count := range removeTagIDs {
+				if !*intersection || count == len(argTags) {
 					event.RemoveEntry(entryID)
 				}
 			}
