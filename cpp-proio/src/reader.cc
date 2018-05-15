@@ -40,43 +40,58 @@ Reader::~Reader() {
     if (closeFDOnDelete) close(fd);
 }
 
-Event *Reader::Next() {
+Event *Reader::Next(Event *event, bool metaOnly) {
+    if (event)
+        event->Clear();
+    else
+        event = new Event();
+
     pthread_mutex_lock(&mutex);
-    Event *event = readFromBucket();
+
+    while (!bucketHeader || bucketIndex >= bucketHeader->nevents()) {
+        if (bucketHeader) bucketIndex -= bucketHeader->nevents();
+        readHeader();
+        if (!bucketHeader) {
+            pthread_mutex_unlock(&mutex);
+            return NULL;
+        }
+    }
+    event->metadata = metadata;
+    if (!metaOnly) {
+        if (bucket->BytesRemaining() == 0) readBucket();
+        readFromBucket(event);
+    } else
+        bucketIndex++;
+
     pthread_mutex_unlock(&mutex);
+
     return event;
 }
 
-proto::BucketHeader *Reader::NextHeader() {
-    pthread_mutex_lock(&mutex);
-    readBucket(std::numeric_limits<uint64_t>::max());
-    pthread_mutex_unlock(&mutex);
-    return bucketHeader;
-}
-
 uint64_t Reader::Skip(uint64_t nEvents) {
+    uint64_t nSkipped = 0;
+
     pthread_mutex_lock(&mutex);
 
-    uint64_t bucketEventsLeft = 0;
-    if (bucketHeader) {
-        bucketEventsLeft = bucketHeader->nevents() - bucketEventsRead;
+    uint64_t startIndex = bucketIndex;
+    bucketIndex += nEvents;
+    while (!bucketHeader || bucketIndex >= bucketHeader->nevents()) {
+        if (bucketHeader) {
+            uint64_t nBucketEvents = bucketHeader->nevents();
+            bucketIndex -= nBucketEvents;
+            nSkipped += nBucketEvents - startIndex;
+        }
+        readHeader();
+        if (!bucketHeader) {
+            pthread_mutex_unlock(&mutex);
+            return nSkipped;
+        }
+        startIndex = 0;
     }
-    uint64_t nSkipped = 0;
-    if (nEvents > bucketEventsLeft) {
-        nSkipped += bucketEventsLeft;
-        uint64_t n;
-        while ((n = readBucket(nEvents - nSkipped)) > 0) nSkipped += n;
-    }
-
-    uint64_t nRead0 = bucketEventsRead;
-    while (nSkipped < nEvents) {
-        readFromBucket(false);
-        if (bucketEventsRead == nRead0) break;
-        nRead0 = bucketEventsRead;
-        nSkipped++;
-    }
+    nSkipped += bucketIndex - startIndex;
 
     pthread_mutex_unlock(&mutex);
+
     return nSkipped;
 }
 
@@ -84,87 +99,101 @@ void Reader::SeekToStart() {
     pthread_mutex_lock(&mutex);
 
     delete fileStream;
-    if (lseek(fd, 0, SEEK_SET) == -1) throw seekError;
+    if (lseek(fd, 0, SEEK_SET) == -1) {
+        pthread_mutex_unlock(&mutex);
+        throw seekError;
+    }
     fileStream = new io::FileInputStream(fd);
-
-    readBucket();
+    bucketIndex = 0;
+    readHeader();
 
     pthread_mutex_unlock(&mutex);
 }
 
 void Reader::initBucket() {
     compBucket = new BucketInputStream(0);
-    bucketEventsRead = 0;
     bucketHeader = NULL;
+    bucketEventsRead = 0;
+    bucketIndex = 0;
     LZ4F_createDecompressionContext(&dctxPtr, LZ4F_VERSION);
     bucket = new BucketInputStream(0);
 
     pthread_mutex_init(&mutex, NULL);
 }
 
-Event *Reader::readFromBucket(bool doMerge) {
-    if (bucket->BytesRemaining() == 0) readBucket();
+void Reader::readFromBucket(Event *event) {
     auto stream = new io::CodedInputStream(bucket);
 
-    uint32_t protoSize;
-    if (!stream->ReadLittleEndian32(&protoSize)) {
-        delete stream;
-        return NULL;
-    }
+    while (bucketEventsRead <= bucketIndex) {
+        uint32_t protoSize;
+        if (!stream->ReadLittleEndian32(&protoSize)) {
+            delete stream;
+            throw corruptBucketError;
+        }
 
-    bucketEventsRead++;
-    if (doMerge) {
-        auto eventLimit = stream->PushLimit(protoSize);
-        auto eventProto = new proto::Event;
-        if (!eventProto->MergeFromCodedStream(stream) || !stream->ConsumedEntireMessage())
-            throw deserializationError;
-        stream->PopLimit(eventLimit);
-        delete stream;
-        auto event = new Event(eventProto);
-        event->metadata = metadata;
-        return event;
-    } else {
-        if (!stream->Skip(protoSize)) throw corruptBucketError;
-        delete stream;
-        return NULL;
+        if (event && bucketEventsRead == bucketIndex) {
+            auto eventLimit = stream->PushLimit(protoSize);
+            auto eventProto = event->getProto();
+            if (!eventProto->MergeFromCodedStream(stream) || !stream->ConsumedEntireMessage()) {
+                delete stream;
+                throw deserializationError;
+            }
+            stream->PopLimit(eventLimit);
+        } else if (!stream->Skip(protoSize)) {
+            delete stream;
+            throw corruptBucketError;
+        }
+
+        bucketEventsRead++;
     }
+    bucketIndex++;
+
+    delete stream;
 }
 
-uint64_t Reader::readBucket(uint64_t maxSkipEvents) {
-    auto stream = new io::CodedInputStream(fileStream);
-    syncToMagic(stream);
-
+void Reader::readHeader() {
+    if (bucketHeader) {
+        delete bucketHeader;
+        bucketHeader = NULL;
+    }
     bucketEventsRead = 0;
     compBucket->Reset(0);
     bucket->Reset(0);
 
+    auto stream = new io::CodedInputStream(fileStream);
+    syncToMagic(stream);
     uint32_t headerSize;
     if (!stream->ReadLittleEndian32(&headerSize)) {
         delete stream;
-        return 0;
+        return;
     }
 
     auto headerLimit = stream->PushLimit(headerSize);
-    if (bucketHeader) delete bucketHeader;
     bucketHeader = new proto::BucketHeader;
-    if (!bucketHeader->MergeFromCodedStream(stream) || !stream->ConsumedEntireMessage())
+    if (!bucketHeader->MergeFromCodedStream(stream) || !stream->ConsumedEntireMessage()) {
+        delete stream;
         throw deserializationError;
+    }
     stream->PopLimit(headerLimit);
 
     // Set metadata for future events
     for (auto keyValuePair : bucketHeader->metadata())
         metadata[keyValuePair.first] = std::make_shared<std::string>(keyValuePair.second);
 
+    delete stream;
+}
+
+void Reader::readBucket() {
+    auto stream = new io::CodedInputStream(fileStream);
+
     uint64_t bucketSize = bucketHeader->bucketsize();
-    if (bucketHeader->nevents() > maxSkipEvents) {
-        compBucket->Reset(bucketSize);
-        if (!stream->ReadRaw(compBucket->Bytes(), bucketSize)) throw corruptBucketError;
+    compBucket->Reset(bucketSize);
+    if (!stream->ReadRaw(compBucket->Bytes(), bucketSize)) {
         delete stream;
-    } else {
-        if (!stream->Skip(bucketSize)) throw corruptBucketError;
-        delete stream;
-        return bucketHeader->nevents();
+        throw corruptBucketError;
     }
+
+    delete stream;
 
     switch (bucketHeader->compression()) {
         case LZ4: {
@@ -182,8 +211,6 @@ uint64_t Reader::readBucket(uint64_t maxSkipEvents) {
             bucket = compBucket;
             compBucket = tmpBucket;
     }
-
-    return 0;
 }
 
 uint64_t Reader::syncToMagic(io::CodedInputStream *stream) {

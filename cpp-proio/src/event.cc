@@ -8,20 +8,16 @@
 using namespace proio;
 using namespace google::protobuf;
 
-Event::Event(proto::Event *eventProto) {
-    if (!eventProto)
-        this->eventProto = new proto::Event();
-    else
-        this->eventProto = eventProto;
+Event::Event() {
+    eventProto = new proto::Event();
     dirtyTags = false;
 }
 
 Event::~Event() {
     delete eventProto;
-    for (auto idEntryPair : entryCache) {
-        int64 id = idEntryPair.first;
-        delete idEntryPair.second;
-    }
+    for (auto idEntryPair : entryCache) delete idEntryPair.second;
+    for (auto descVectorPair : store)
+        for (auto entry : descVectorPair.second) delete entry;
 }
 
 uint64_t Event::AddEntry(Message *entry, std::string tag) {
@@ -48,9 +44,16 @@ Message *Event::GetEntry(uint64_t id) {
 
     const Descriptor *desc = getDescriptor(entryProto.type());
     if (!desc) throw unknownMessageTypeError;
-    Message *entry = MessageFactory::generated_factory()->GetPrototype(desc)->New();
+    Message *entry;
+    std::vector<Message *> &storeEntries = store[desc];
+    if (storeEntries.size() > 0) {
+        entry = storeEntries.back();
+        storeEntries.pop_back();
+    } else
+        entry = MessageFactory::generated_factory()->GetPrototype(desc)->New();
     if (!entry->ParseFromString(entryProto.payload())) {
-        delete entry;
+        entry->Clear();
+        store[entry->GetDescriptor()].push_back(entry);
         throw deserializationError;
     }
     entryCache[id] = entry;
@@ -74,8 +77,10 @@ void Event::UntagEntry(uint64_t id, std::string tag) {
 
 void Event::RemoveEntry(uint64_t id) {
     if (entryCache.count(id)) {
-        delete entryCache[id];
+        Message *entry = entryCache[id];
         entryCache.erase(id);
+        entry->Clear();
+        store[entry->GetDescriptor()].push_back(entry);
     }
     eventProto->mutable_entries()->erase(id);
     dirtyTags = true;
@@ -143,6 +148,38 @@ std::string Event::String() {
     return printString;
 }
 
+void Event::Clear() {
+    eventProto->Clear();
+    revTypeLookup.clear();
+    for (auto idEntryPair : entryCache) {
+        Message *entry = idEntryPair.second;
+        entry->Clear();
+        store[entry->GetDescriptor()].push_back(entry);
+    }
+    entryCache.clear();
+    descriptorCache.clear();
+    metadata.clear();
+    dirtyTags = false;
+}
+
+Event &Event::operator=(const Event &event) {
+    if (&event == this) return *this;
+    *this->eventProto = *event.eventProto;
+    this->revTypeLookup = event.revTypeLookup;
+    for (auto idEntryPair : event.entryCache) {
+        auto entry = idEntryPair.second;
+        const Descriptor *desc = getDescriptor(getTypeID(entry));
+        if (!desc) throw unknownMessageTypeError;
+        auto newEntry = MessageFactory::generated_factory()->GetPrototype(desc)->New();
+        newEntry->MergeFrom(*entry);
+        this->entryCache[idEntryPair.first] = newEntry;
+    }
+    this->descriptorCache = event.descriptorCache;
+    this->metadata = event.metadata;
+    this->dirtyTags = event.dirtyTags;
+    return *this;
+}
+
 void Event::flushCache() {
     for (auto idEntryPair : entryCache) {
         int64 id = idEntryPair.first;
@@ -155,7 +192,8 @@ void Event::flushCache() {
 #endif
         uint8_t *buffer = new uint8_t[byteSize];
         entry->SerializeToArray(buffer, byteSize);
-        delete entry;
+        entry->Clear();
+        store[entry->GetDescriptor()].push_back(entry);
 
         (*eventProto->mutable_entries())[id].set_payload(buffer, byteSize);
         delete[] buffer;

@@ -91,6 +91,8 @@ void entryRemoveTagInspect1() {
     assert(tag2Entries.size() == 1);
     assert(tag2Entries[0] == id2);
 
+    assert(event->AllEntries().size() == 1);
+
     delete event;
 }
 

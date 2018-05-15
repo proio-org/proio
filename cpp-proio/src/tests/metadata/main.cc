@@ -70,4 +70,61 @@ void pushUpdate1() {
     remove(filename2);
 }
 
-int main() { pushUpdate1(); }
+void pushUpdate2() {
+    auto event = new proio::Event();
+    char filename1[] = "pushupdate2.1XXXXXX";
+    auto writer = new proio::Writer(mkstemp(filename1));
+
+    writer->PushMetadata("key1", "value1");
+    writer->PushMetadata("key2", "value2");
+    writer->Push(event);
+    writer->PushMetadata("key2", "value3");
+    writer->Push(event);
+    std::string value4 = "value4";
+    std::string value5 = "value5";
+    writer->PushMetadata("key1", value4);
+    writer->PushMetadata("key2", value5);
+    writer->Push(event);
+
+    delete writer;
+    auto reader = new proio::Reader(filename1);
+    char filename2[] = "pushupdate2.2XXXXXX";
+    writer = new proio::Writer(mkstemp(filename2));
+
+    reader->Next(event, true);
+    assert(event->Metadata().at("key1")->compare("value1") == 0);
+    assert(event->Metadata().at("key2")->compare("value2") == 0);
+    writer->Push(event);
+    reader->Next(event, true);
+    assert(event->Metadata().at("key1")->compare("value1") == 0);
+    assert(event->Metadata().at("key2")->compare("value3") == 0);
+    writer->Push(event);
+    reader->Next(event, true);
+    assert(event->Metadata().at("key1")->compare("value4") == 0);
+    assert(event->Metadata().at("key2")->compare("value5") == 0);
+    writer->Push(event);
+
+    delete writer;
+    delete reader;
+    reader = new proio::Reader(filename1);
+
+    reader->Next(event, true);
+    assert(event->Metadata().at("key1")->compare("value1") == 0);
+    assert(event->Metadata().at("key2")->compare("value2") == 0);
+    reader->Next(event, true);
+    assert(event->Metadata().at("key1")->compare("value1") == 0);
+    assert(event->Metadata().at("key2")->compare("value3") == 0);
+    reader->Next(event, true);
+    assert(event->Metadata().at("key1")->compare("value4") == 0);
+    assert(event->Metadata().at("key2")->compare("value5") == 0);
+
+    delete reader;
+    remove(filename1);
+    remove(filename2);
+    delete event;
+}
+
+int main() {
+    pushUpdate1();
+    pushUpdate2();
+}

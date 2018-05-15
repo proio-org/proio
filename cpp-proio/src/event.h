@@ -10,7 +10,7 @@ namespace proio {
  */
 class Event {
    public:
-    Event(proto::Event *eventProto = NULL);
+    Event();
     virtual ~Event();
 
     /** AddEntry takes a tag and protobuf message entry and adds it to the
@@ -58,6 +58,11 @@ class Event {
     /** String returns a human-readable string representing the event.
      */
     std::string String();
+    /** Clear prepares the Event for data from a new event.
+     */
+    void Clear();
+
+    Event &operator=(const Event &event);
 
    private:
     uint64_t getTypeID(google::protobuf::Message *entry);
@@ -65,6 +70,8 @@ class Event {
     void tagCleanup();
 
     friend class Writer;
+    friend class Reader;
+
     void flushCache();
     proto::Event *getProto();
 
@@ -72,10 +79,10 @@ class Event {
     std::map<std::string, uint64_t> revTypeLookup;
     std::map<uint64_t, google::protobuf::Message *> entryCache;
     std::map<uint64_t, const google::protobuf::Descriptor *> descriptorCache;
+    std::map<std::string, std::shared_ptr<std::string>> metadata;
     bool dirtyTags;
 
-    friend class Reader;
-    std::map<std::string, std::shared_ptr<std::string>> metadata;
+    std::map<const google::protobuf::Descriptor *, std::vector<google::protobuf::Message *>> store;
 };
 
 const class UnknownMessageTypeError : public std::exception {

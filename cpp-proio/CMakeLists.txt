@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(proio VERSION 0.4.1)
+project(proio VERSION 0.5.0)
 
 set(CMAKE_CXX_STANDARD 11)
 
@@ -162,10 +162,6 @@ add_executable(tagmanip src/tests/tagmanip/main.cc)
 target_link_libraries(tagmanip proio proio.pb)
 add_test(TagManip tagmanip)
 
-add_executable(scan src/tests/scan/main.cc)
-target_link_libraries(scan proio proio.pb)
-add_test(Scan scan)
-
 add_executable(metadata src/tests/metadata/main.cc)
 target_link_libraries(metadata proio proio.pb)
 add_test(Metadata metadata)
@@ -175,7 +171,7 @@ if(${REPORT_COVERAGE})
     set_target_properties(proio
         PROPERTIES COMPILE_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -pthread -g -O0 -fprofile-arcs -ftest-coverage"
                    LINK_FLAGS "-fprofile-arcs")
-    set_target_properties(pushgetinspect refderef tagmanip scan
+    set_target_properties(pushgetinspect refderef tagmanip metadata
         PROPERTIES LINK_FLAGS "-fprofile-arcs")
 endif()
 

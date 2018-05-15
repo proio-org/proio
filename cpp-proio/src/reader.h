@@ -46,13 +46,14 @@ class Reader {
     Reader(std::string filename);
     virtual ~Reader();
 
-    /** Next returns the next available Event.
+    /** Next returns the next available Event.  This function takes two
+     * important optional arguments.  The first argument is a pointer to a
+     * recycled Event to be cleared and filled by the Reader.  The second
+     * argument is an option for filling only metadata; this is useful for
+     * scanning a file on disk, since only bucket headers need to be read for
+     * this.
      */
-    Event *Next();
-    /** NextHeader returns the next bucket header.  This is useful for scanning
-     * a stream.  The corresponding bucket is discarded.
-     */
-    proto::BucketHeader *NextHeader();
+    Event *Next(Event *recycledEvent = NULL, bool metadataOnly = false);
     /** Skip skips the next nEvents events.
      */
     uint64_t Skip(uint64_t nEvents);
@@ -63,16 +64,18 @@ class Reader {
 
    private:
     void initBucket();
-    Event *readFromBucket(bool doMerge = true);
-    uint64_t readBucket(uint64_t maxSkipEvents = 0);
+    void readFromBucket(Event *event = NULL);
+    void readHeader();
+    void readBucket();
     uint64_t syncToMagic(google::protobuf::io::CodedInputStream *stream);
 
     BucketInputStream *compBucket;
     google::protobuf::io::FileInputStream *fileStream;
     int fd;
     bool closeFDOnDelete;
-    uint64_t bucketEventsRead;
     proto::BucketHeader *bucketHeader;
+    uint64_t bucketEventsRead;
+    uint64_t bucketIndex;
     LZ4F_dctx *dctxPtr;
     BucketInputStream *bucket;
     std::map<std::string, std::shared_ptr<std::string>> metadata;
