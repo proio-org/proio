@@ -68,8 +68,11 @@ uint64_t Reader::Skip(uint64_t nEvents) {
         while ((n = readBucket(nEvents - nSkipped)) > 0) nSkipped += n;
     }
 
+    uint64_t nRead0 = bucketEventsRead;
     while (nSkipped < nEvents) {
         readFromBucket(false);
+        if (bucketEventsRead == nRead0) break;
+        nRead0 = bucketEventsRead;
         nSkipped++;
     }
 
