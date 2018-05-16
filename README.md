@@ -81,10 +81,18 @@ writer so that the reader has all of the information needed to read the user's
 event data, even without having access to the particular protobuf message code
 used by the user.
 
-Compression type is set per-bucket, and can be LZ4 (default), GZIP, or
-uncompressed.
+Compression type is set per-bucket, and can be GZIP, LZ4, or uncompressed.
 
 ![proio buckets](proto/figures/proio_buckets.png)
+
+#### Metadata
+Bucket headers also introduce metadata to the stream in a way that is simple
+for the user.  Metadata can be any slowly-changing information that is common
+to multiple events.  Metadata can be added with proio writers, and is
+automatically associated with events when the stream is read by proio readers.
+Each metadata entry has a string key, can be added at any point in the stream,
+and is associated with all future events until a particular key is overridden
+at a future point in the stream.
 
 ## Getting started
 The best way to get started with proio is to look at examples.  First, pick a
