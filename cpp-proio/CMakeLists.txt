@@ -61,7 +61,7 @@ target_link_libraries(proio.pb PUBLIC protobuf)
 add_library(proio SHARED
     ${librarysources} ${libraryheaders}
     )
-target_link_libraries(proio PRIVATE proio.pb protobuf lz4)
+target_link_libraries(proio PRIVATE proio.pb protobuf lz4 pthread)
 
 # Install library and headers
 set(proio_INCLUDE_DIR include)
@@ -155,7 +155,7 @@ target_link_libraries(pushgetinspect proio proio.pb)
 add_test(PushGetInspect pushgetinspect)
 
 add_executable(refderef src/tests/refderef/main.cc)
-target_link_libraries(refderef proio proio.pb)
+target_link_libraries(refderef proio proio.pb pthread)
 add_test(RefDeref refderef)
 
 add_executable(tagmanip src/tests/tagmanip/main.cc)
