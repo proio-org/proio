@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(proio VERSION 0.5.0)
+project(proio VERSION 0.5.1)
 
 set(CMAKE_CXX_STANDARD 11)
 
@@ -166,12 +166,16 @@ add_executable(metadata src/tests/metadata/main.cc)
 target_link_libraries(metadata proio proio.pb)
 add_test(Metadata metadata)
 
+add_executable(eicunset src/tests/eicunset/main.cc)
+target_link_libraries(eicunset proio proio.pb)
+add_test(EICUnset eicunset)
+
 if(${REPORT_COVERAGE})
     message("Enabling coverage reporting")
     set_target_properties(proio
         PROPERTIES COMPILE_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -pthread -g -O0 -fprofile-arcs -ftest-coverage"
                    LINK_FLAGS "-fprofile-arcs")
-    set_target_properties(pushgetinspect refderef tagmanip metadata
+    set_target_properties(pushgetinspect refderef tagmanip metadata eicunset
         PROPERTIES LINK_FLAGS "-fprofile-arcs")
 endif()
 

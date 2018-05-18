@@ -1,4 +1,4 @@
-syntax = "proto3";
+syntax = "proto2";
 package proio.model.eic;
 option go_package = "github.com/decibelcooper/proio/go-proio/model/eic";
 option java_package = "proio.model";
@@ -12,16 +12,16 @@ message Particle {
     // ProIO entry identifiers that point to child Particles
     repeated uint64 child = 2;
     // PDG code
-    sint32 pdg = 3;
+    optional sint32 pdg = 3;
     // position in mm and time in ns
-    XYZTD vertex = 4;
+    optional XYZTD vertex = 4;
     // momentum in GeV
-    XYZD p = 5;
+    optional XYZD p = 5;
     // mass in GeV
-    double mass = 6;
+    optional double mass = 6;
     // charge in units of e
-    float charge = 7;
-    XYZF spin = 8;
+    optional float charge = 7;
+    optional XYZF spin = 8;
 }
 
 ////// SIMULATION LEVEL DATA MODEL MESSAGES //////
@@ -29,25 +29,25 @@ message Particle {
 message SimHit {
     // optional ID to circumvent volume lookup from global position during
     // digitization
-    uint64 volumeid = 1;
+    optional uint64 volumeid = 1;
     // spatial in mm and time in ns
-    XYZTD globalprepos = 2;
+    optional XYZTD globalprepos = 2;
     // spatial in mm and time in ns
-    XYZTD globalpostpos = 3;
+    optional XYZTD globalpostpos = 3;
     // energy in GeV
-    float edep = 4;
+    optional float edep = 4;
     // "particle" is a ProIO entry identifier that points to the Particle
     // responsible for this hit.
-    uint64 particle = 5;
+    optional uint64 particle = 5;
 }
 
 ////// OBSERVATION LEVEL DATA MODEL MESSAGES //////
 
 message EnergyDep {
     // mean and noise are in units of GeV
-    float mean = 1;
+    optional float mean = 1;
     // sigma value for normally-distributed noise
-    float noise = 2;
+    optional float noise = 2;
     // Multiple possible positions can be specified.
     repeated ObservedPos pos = 3;
     // "source"s are ProIO entry identifiers that may point to SimHits,
@@ -65,20 +65,20 @@ message Track {
 ////// SECONDARY DATA MODEL MESSAGES //////
 
 message TrackSegment {
-    XYZTD vertex = 1;
+    optional XYZTD vertex = 1;
     repeated RandVar vertexnoise = 2;
-    XYZD poq = 3;
+    optional XYZD poq = 3;
     repeated RandVar poqnoise = 4;
-    XYZD curvature = 5;
+    optional XYZD curvature = 5;
     repeated RandVar curvaturenoise = 6;
-    float chargesign = 7;
-    float length = 8;
+    optional float chargesign = 7;
+    optional float length = 8;
 }
 
 // position with detailed noise
 message ObservedPos {
     // spatial in mm and time in ns
-    XYZTD mean = 1;
+    optional XYZTD mean = 1;
     // These RandVars describe independent random noise contributions, and
     // repeated RandVars imply addition, or alternatively a convolution of
     // their distributions.  The contributions must combine to span the full
@@ -89,7 +89,7 @@ message ObservedPos {
     // default each position is equally likely.  This can be changed by adding
     // weight to positions.  To make one position twice as likely as a position
     // without a weight modifier, set weightmod to +1.
-    float weightmod = 3;
+    optional float weightmod = 3;
 }
 
 // random variable with a specified distribution along an axis defined in XYZT
@@ -98,33 +98,33 @@ message RandVar {
         NORMAL = 0;
         UNIFORM = 1;
     }
-    Distribution dist = 2;
+    optional Distribution dist = 2;
     // spatial in mm and time in ns
-    XYZTF sigma = 3;
+    optional XYZTF sigma = 3;
 }
 
 message XYZTD {
-    double x = 1;
-    double y = 2;
-    double z = 3;
-    double t = 4;
+    optional double x = 1;
+    optional double y = 2;
+    optional double z = 3;
+    optional double t = 4;
 }
 
 message XYZTF {
-    float x = 1;
-    float y = 2;
-    float z = 3;
-    float t = 4;
+    optional float x = 1;
+    optional float y = 2;
+    optional float z = 3;
+    optional float t = 4;
 }
 
 message XYZD {
-    double x = 1;
-    double y = 2;
-    double z = 3;
+    optional double x = 1;
+    optional double y = 2;
+    optional double z = 3;
 }
 
 message XYZF {
-    float x = 1;
-    float y = 2;
-    float z = 3;
+    optional float x = 1;
+    optional float y = 2;
+    optional float z = 3;
 }

@@ -57,27 +57,41 @@ var RandVar_Distribution_value = map[string]int32{
 	"UNIFORM": 1,
 }
 
+func (x RandVar_Distribution) Enum() *RandVar_Distribution {
+	p := new(RandVar_Distribution)
+	*p = x
+	return p
+}
 func (x RandVar_Distribution) String() string {
 	return proto.EnumName(RandVar_Distribution_name, int32(x))
+}
+func (x *RandVar_Distribution) UnmarshalJSON(data []byte) error {
+	value, err := proto.UnmarshalJSONEnum(RandVar_Distribution_value, data, "RandVar_Distribution")
+	if err != nil {
+		return err
+	}
+	*x = RandVar_Distribution(value)
+	return nil
 }
 func (RandVar_Distribution) EnumDescriptor() ([]byte, []int) { return fileDescriptorEic, []int{6, 0} }
 
 type Particle struct {
 	// ProIO entry identifiers that point to parent Particles
-	Parent []uint64 `protobuf:"varint,1,rep,packed,name=parent" json:"parent,omitempty"`
+	Parent []uint64 `protobuf:"varint,1,rep,name=parent" json:"parent,omitempty"`
 	// ProIO entry identifiers that point to child Particles
-	Child []uint64 `protobuf:"varint,2,rep,packed,name=child" json:"child,omitempty"`
+	Child []uint64 `protobuf:"varint,2,rep,name=child" json:"child,omitempty"`
 	// PDG code
-	Pdg int32 `protobuf:"zigzag32,3,opt,name=pdg,proto3" json:"pdg,omitempty"`
+	Pdg *int32 `protobuf:"zigzag32,3,opt,name=pdg" json:"pdg,omitempty"`
 	// position in mm and time in ns
 	Vertex *XYZTD `protobuf:"bytes,4,opt,name=vertex" json:"vertex,omitempty"`
 	// momentum in GeV
 	P *XYZD `protobuf:"bytes,5,opt,name=p" json:"p,omitempty"`
 	// mass in GeV
-	Mass float64 `protobuf:"fixed64,6,opt,name=mass,proto3" json:"mass,omitempty"`
+	Mass *float64 `protobuf:"fixed64,6,opt,name=mass" json:"mass,omitempty"`
 	// charge in units of e
-	Charge float32 `protobuf:"fixed32,7,opt,name=charge,proto3" json:"charge,omitempty"`
-	Spin   *XYZF   `protobuf:"bytes,8,opt,name=spin" json:"spin,omitempty"`
+	Charge           *float32 `protobuf:"fixed32,7,opt,name=charge" json:"charge,omitempty"`
+	Spin             *XYZF    `protobuf:"bytes,8,opt,name=spin" json:"spin,omitempty"`
+	XXX_unrecognized []byte   `json:"-"`
 }
 
 func (m *Particle) Reset()                    { *m = Particle{} }
@@ -100,8 +114,8 @@ func (m *Particle) GetChild() []uint64 {
 }
 
 func (m *Particle) GetPdg() int32 {
-	if m != nil {
-		return m.Pdg
+	if m != nil && m.Pdg != nil {
+		return *m.Pdg
 	}
 	return 0
 }
@@ -121,15 +135,15 @@ func (m *Particle) GetP() *XYZD {
 }
 
 func (m *Particle) GetMass() float64 {
-	if m != nil {
-		return m.Mass
+	if m != nil && m.Mass != nil {
+		return *m.Mass
 	}
 	return 0
 }
 
 func (m *Particle) GetCharge() float32 {
-	if m != nil {
-		return m.Charge
+	if m != nil && m.Charge != nil {
+		return *m.Charge
 	}
 	return 0
 }
@@ -144,16 +158,17 @@ func (m *Particle) GetSpin() *XYZF {
 type SimHit struct {
 	// optional ID to circumvent volume lookup from global position during
 	// digitization
-	Volumeid uint64 `protobuf:"varint,1,opt,name=volumeid,proto3" json:"volumeid,omitempty"`
+	Volumeid *uint64 `protobuf:"varint,1,opt,name=volumeid" json:"volumeid,omitempty"`
 	// spatial in mm and time in ns
 	Globalprepos *XYZTD `protobuf:"bytes,2,opt,name=globalprepos" json:"globalprepos,omitempty"`
 	// spatial in mm and time in ns
 	Globalpostpos *XYZTD `protobuf:"bytes,3,opt,name=globalpostpos" json:"globalpostpos,omitempty"`
 	// energy in GeV
-	Edep float32 `protobuf:"fixed32,4,opt,name=edep,proto3" json:"edep,omitempty"`
+	Edep *float32 `protobuf:"fixed32,4,opt,name=edep" json:"edep,omitempty"`
 	// "particle" is a ProIO entry identifier that points to the Particle
 	// responsible for this hit.
-	Particle uint64 `protobuf:"varint,5,opt,name=particle,proto3" json:"particle,omitempty"`
+	Particle         *uint64 `protobuf:"varint,5,opt,name=particle" json:"particle,omitempty"`
+	XXX_unrecognized []byte  `json:"-"`
 }
 
 func (m *SimHit) Reset()                    { *m = SimHit{} }
@@ -162,8 +177,8 @@ func (*SimHit) ProtoMessage()               {}
 func (*SimHit) Descriptor() ([]byte, []int) { return fileDescriptorEic, []int{1} }
 
 func (m *SimHit) GetVolumeid() uint64 {
-	if m != nil {
-		return m.Volumeid
+	if m != nil && m.Volumeid != nil {
+		return *m.Volumeid
 	}
 	return 0
 }
@@ -183,29 +198,30 @@ func (m *SimHit) GetGlobalpostpos() *XYZTD {
 }
 
 func (m *SimHit) GetEdep() float32 {
-	if m != nil {
-		return m.Edep
+	if m != nil && m.Edep != nil {
+		return *m.Edep
 	}
 	return 0
 }
 
 func (m *SimHit) GetParticle() uint64 {
-	if m != nil {
-		return m.Particle
+	if m != nil && m.Particle != nil {
+		return *m.Particle
 	}
 	return 0
 }
 
 type EnergyDep struct {
 	// mean and noise are in units of GeV
-	Mean float32 `protobuf:"fixed32,1,opt,name=mean,proto3" json:"mean,omitempty"`
+	Mean *float32 `protobuf:"fixed32,1,opt,name=mean" json:"mean,omitempty"`
 	// sigma value for normally-distributed noise
-	Noise float32 `protobuf:"fixed32,2,opt,name=noise,proto3" json:"noise,omitempty"`
+	Noise *float32 `protobuf:"fixed32,2,opt,name=noise" json:"noise,omitempty"`
 	// Multiple possible positions can be specified.
 	Pos []*ObservedPos `protobuf:"bytes,3,rep,name=pos" json:"pos,omitempty"`
 	// "source"s are ProIO entry identifiers that may point to SimHits,
 	// Particles, or specialized raw data objects.
-	Source []uint64 `protobuf:"varint,4,rep,packed,name=source" json:"source,omitempty"`
+	Source           []uint64 `protobuf:"varint,4,rep,name=source" json:"source,omitempty"`
+	XXX_unrecognized []byte   `json:"-"`
 }
 
 func (m *EnergyDep) Reset()                    { *m = EnergyDep{} }
@@ -214,15 +230,15 @@ func (*EnergyDep) ProtoMessage()               {}
 func (*EnergyDep) Descriptor() ([]byte, []int) { return fileDescriptorEic, []int{2} }
 
 func (m *EnergyDep) GetMean() float32 {
-	if m != nil {
-		return m.Mean
+	if m != nil && m.Mean != nil {
+		return *m.Mean
 	}
 	return 0
 }
 
 func (m *EnergyDep) GetNoise() float32 {
-	if m != nil {
-		return m.Noise
+	if m != nil && m.Noise != nil {
+		return *m.Noise
 	}
 	return 0
 }
@@ -242,8 +258,9 @@ func (m *EnergyDep) GetSource() []uint64 {
 }
 
 type Track struct {
-	Segment     []*TrackSegment `protobuf:"bytes,1,rep,name=segment" json:"segment,omitempty"`
-	Observation []uint64        `protobuf:"varint,2,rep,packed,name=observation" json:"observation,omitempty"`
+	Segment          []*TrackSegment `protobuf:"bytes,1,rep,name=segment" json:"segment,omitempty"`
+	Observation      []uint64        `protobuf:"varint,2,rep,name=observation" json:"observation,omitempty"`
+	XXX_unrecognized []byte          `json:"-"`
 }
 
 func (m *Track) Reset()                    { *m = Track{} }
@@ -266,14 +283,15 @@ func (m *Track) GetObservation() []uint64 {
 }
 
 type TrackSegment struct {
-	Vertex         *XYZTD     `protobuf:"bytes,1,opt,name=vertex" json:"vertex,omitempty"`
-	Vertexnoise    []*RandVar `protobuf:"bytes,2,rep,name=vertexnoise" json:"vertexnoise,omitempty"`
-	Poq            *XYZD      `protobuf:"bytes,3,opt,name=poq" json:"poq,omitempty"`
-	Poqnoise       []*RandVar `protobuf:"bytes,4,rep,name=poqnoise" json:"poqnoise,omitempty"`
-	Curvature      *XYZD      `protobuf:"bytes,5,opt,name=curvature" json:"curvature,omitempty"`
-	Curvaturenoise []*RandVar `protobuf:"bytes,6,rep,name=curvaturenoise" json:"curvaturenoise,omitempty"`
-	Chargesign     float32    `protobuf:"fixed32,7,opt,name=chargesign,proto3" json:"chargesign,omitempty"`
-	Length         float32    `protobuf:"fixed32,8,opt,name=length,proto3" json:"length,omitempty"`
+	Vertex           *XYZTD     `protobuf:"bytes,1,opt,name=vertex" json:"vertex,omitempty"`
+	Vertexnoise      []*RandVar `protobuf:"bytes,2,rep,name=vertexnoise" json:"vertexnoise,omitempty"`
+	Poq              *XYZD      `protobuf:"bytes,3,opt,name=poq" json:"poq,omitempty"`
+	Poqnoise         []*RandVar `protobuf:"bytes,4,rep,name=poqnoise" json:"poqnoise,omitempty"`
+	Curvature        *XYZD      `protobuf:"bytes,5,opt,name=curvature" json:"curvature,omitempty"`
+	Curvaturenoise   []*RandVar `protobuf:"bytes,6,rep,name=curvaturenoise" json:"curvaturenoise,omitempty"`
+	Chargesign       *float32   `protobuf:"fixed32,7,opt,name=chargesign" json:"chargesign,omitempty"`
+	Length           *float32   `protobuf:"fixed32,8,opt,name=length" json:"length,omitempty"`
+	XXX_unrecognized []byte     `json:"-"`
 }
 
 func (m *TrackSegment) Reset()                    { *m = TrackSegment{} }
@@ -324,15 +342,15 @@ func (m *TrackSegment) GetCurvaturenoise() []*RandVar {
 }
 
 func (m *TrackSegment) GetChargesign() float32 {
-	if m != nil {
-		return m.Chargesign
+	if m != nil && m.Chargesign != nil {
+		return *m.Chargesign
 	}
 	return 0
 }
 
 func (m *TrackSegment) GetLength() float32 {
-	if m != nil {
-		return m.Length
+	if m != nil && m.Length != nil {
+		return *m.Length
 	}
 	return 0
 }
@@ -351,7 +369,8 @@ type ObservedPos struct {
 	// default each position is equally likely.  This can be changed by adding
 	// weight to positions.  To make one position twice as likely as a position
 	// without a weight modifier, set weightmod to +1.
-	Weightmod float32 `protobuf:"fixed32,3,opt,name=weightmod,proto3" json:"weightmod,omitempty"`
+	Weightmod        *float32 `protobuf:"fixed32,3,opt,name=weightmod" json:"weightmod,omitempty"`
+	XXX_unrecognized []byte   `json:"-"`
 }
 
 func (m *ObservedPos) Reset()                    { *m = ObservedPos{} }
@@ -374,17 +393,18 @@ func (m *ObservedPos) GetNoise() []*RandVar {
 }
 
 func (m *ObservedPos) GetWeightmod() float32 {
-	if m != nil {
-		return m.Weightmod
+	if m != nil && m.Weightmod != nil {
+		return *m.Weightmod
 	}
 	return 0
 }
 
 // random variable with a specified distribution along an axis defined in XYZT
 type RandVar struct {
-	Dist RandVar_Distribution `protobuf:"varint,2,opt,name=dist,proto3,enum=proio.model.eic.RandVar_Distribution" json:"dist,omitempty"`
+	Dist *RandVar_Distribution `protobuf:"varint,2,opt,name=dist,enum=proio.model.eic.RandVar_Distribution" json:"dist,omitempty"`
 	// spatial in mm and time in ns
-	Sigma *XYZTF `protobuf:"bytes,3,opt,name=sigma" json:"sigma,omitempty"`
+	Sigma            *XYZTF `protobuf:"bytes,3,opt,name=sigma" json:"sigma,omitempty"`
+	XXX_unrecognized []byte `json:"-"`
 }
 
 func (m *RandVar) Reset()                    { *m = RandVar{} }
@@ -393,8 +413,8 @@ func (*RandVar) ProtoMessage()               {}
 func (*RandVar) Descriptor() ([]byte, []int) { return fileDescriptorEic, []int{6} }
 
 func (m *RandVar) GetDist() RandVar_Distribution {
-	if m != nil {
-		return m.Dist
+	if m != nil && m.Dist != nil {
+		return *m.Dist
 	}
 	return RandVar_NORMAL
 }
@@ -407,10 +427,11 @@ func (m *RandVar) GetSigma() *XYZTF {
 }
 
 type XYZTD struct {
-	X float64 `protobuf:"fixed64,1,opt,name=x,proto3" json:"x,omitempty"`
-	Y float64 `protobuf:"fixed64,2,opt,name=y,proto3" json:"y,omitempty"`
-	Z float64 `protobuf:"fixed64,3,opt,name=z,proto3" json:"z,omitempty"`
-	T float64 `protobuf:"fixed64,4,opt,name=t,proto3" json:"t,omitempty"`
+	X                *float64 `protobuf:"fixed64,1,opt,name=x" json:"x,omitempty"`
+	Y                *float64 `protobuf:"fixed64,2,opt,name=y" json:"y,omitempty"`
+	Z                *float64 `protobuf:"fixed64,3,opt,name=z" json:"z,omitempty"`
+	T                *float64 `protobuf:"fixed64,4,opt,name=t" json:"t,omitempty"`
+	XXX_unrecognized []byte   `json:"-"`
 }
 
 func (m *XYZTD) Reset()                    { *m = XYZTD{} }
@@ -419,38 +440,39 @@ func (*XYZTD) ProtoMessage()               {}
 func (*XYZTD) Descriptor() ([]byte, []int) { return fileDescriptorEic, []int{7} }
 
 func (m *XYZTD) GetX() float64 {
-	if m != nil {
-		return m.X
+	if m != nil && m.X != nil {
+		return *m.X
 	}
 	return 0
 }
 
 func (m *XYZTD) GetY() float64 {
-	if m != nil {
-		return m.Y
+	if m != nil && m.Y != nil {
+		return *m.Y
 	}
 	return 0
 }
 
 func (m *XYZTD) GetZ() float64 {
-	if m != nil {
-		return m.Z
+	if m != nil && m.Z != nil {
+		return *m.Z
 	}
 	return 0
 }
 
 func (m *XYZTD) GetT() float64 {
-	if m != nil {
-		return m.T
+	if m != nil && m.T != nil {
+		return *m.T
 	}
 	return 0
 }
 
 type XYZTF struct {
-	X float32 `protobuf:"fixed32,1,opt,name=x,proto3" json:"x,omitempty"`
-	Y float32 `protobuf:"fixed32,2,opt,name=y,proto3" json:"y,omitempty"`
-	Z float32 `protobuf:"fixed32,3,opt,name=z,proto3" json:"z,omitempty"`
-	T float32 `protobuf:"fixed32,4,opt,name=t,proto3" json:"t,omitempty"`
+	X                *float32 `protobuf:"fixed32,1,opt,name=x" json:"x,omitempty"`
+	Y                *float32 `protobuf:"fixed32,2,opt,name=y" json:"y,omitempty"`
+	Z                *float32 `protobuf:"fixed32,3,opt,name=z" json:"z,omitempty"`
+	T                *float32 `protobuf:"fixed32,4,opt,name=t" json:"t,omitempty"`
+	XXX_unrecognized []byte   `json:"-"`
 }
 
 func (m *XYZTF) Reset()                    { *m = XYZTF{} }
@@ -459,37 +481,38 @@ func (*XYZTF) ProtoMessage()               {}
 func (*XYZTF) Descriptor() ([]byte, []int) { return fileDescriptorEic, []int{8} }
 
 func (m *XYZTF) GetX() float32 {
-	if m != nil {
-		return m.X
+	if m != nil && m.X != nil {
+		return *m.X
 	}
 	return 0
 }
 
 func (m *XYZTF) GetY() float32 {
-	if m != nil {
-		return m.Y
+	if m != nil && m.Y != nil {
+		return *m.Y
 	}
 	return 0
 }
 
 func (m *XYZTF) GetZ() float32 {
-	if m != nil {
-		return m.Z
+	if m != nil && m.Z != nil {
+		return *m.Z
 	}
 	return 0
 }
 
 func (m *XYZTF) GetT() float32 {
-	if m != nil {
-		return m.T
+	if m != nil && m.T != nil {
+		return *m.T
 	}
 	return 0
 }
 
 type XYZD struct {
-	X float64 `protobuf:"fixed64,1,opt,name=x,proto3" json:"x,omitempty"`
-	Y float64 `protobuf:"fixed64,2,opt,name=y,proto3" json:"y,omitempty"`
-	Z float64 `protobuf:"fixed64,3,opt,name=z,proto3" json:"z,omitempty"`
+	X                *float64 `protobuf:"fixed64,1,opt,name=x" json:"x,omitempty"`
+	Y                *float64 `protobuf:"fixed64,2,opt,name=y" json:"y,omitempty"`
+	Z                *float64 `protobuf:"fixed64,3,opt,name=z" json:"z,omitempty"`
+	XXX_unrecognized []byte   `json:"-"`
 }
 
 func (m *XYZD) Reset()                    { *m = XYZD{} }
@@ -498,30 +521,31 @@ func (*XYZD) ProtoMessage()               {}
 func (*XYZD) Descriptor() ([]byte, []int) { return fileDescriptorEic, []int{9} }
 
 func (m *XYZD) GetX() float64 {
-	if m != nil {
-		return m.X
+	if m != nil && m.X != nil {
+		return *m.X
 	}
 	return 0
 }
 
 func (m *XYZD) GetY() float64 {
-	if m != nil {
-		return m.Y
+	if m != nil && m.Y != nil {
+		return *m.Y
 	}
 	return 0
 }
 
 func (m *XYZD) GetZ() float64 {
-	if m != nil {
-		return m.Z
+	if m != nil && m.Z != nil {
+		return *m.Z
 	}
 	return 0
 }
 
 type XYZF struct {
-	X float32 `protobuf:"fixed32,1,opt,name=x,proto3" json:"x,omitempty"`
-	Y float32 `protobuf:"fixed32,2,opt,name=y,proto3" json:"y,omitempty"`
-	Z float32 `protobuf:"fixed32,3,opt,name=z,proto3" json:"z,omitempty"`
+	X                *float32 `protobuf:"fixed32,1,opt,name=x" json:"x,omitempty"`
+	Y                *float32 `protobuf:"fixed32,2,opt,name=y" json:"y,omitempty"`
+	Z                *float32 `protobuf:"fixed32,3,opt,name=z" json:"z,omitempty"`
+	XXX_unrecognized []byte   `json:"-"`
 }
 
 func (m *XYZF) Reset()                    { *m = XYZF{} }
@@ -530,22 +554,22 @@ func (*XYZF) ProtoMessage()               {}
 func (*XYZF) Descriptor() ([]byte, []int) { return fileDescriptorEic, []int{10} }
 
 func (m *XYZF) GetX() float32 {
-	if m != nil {
-		return m.X
+	if m != nil && m.X != nil {
+		return *m.X
 	}
 	return 0
 }
 
 func (m *XYZF) GetY() float32 {
-	if m != nil {
-		return m.Y
+	if m != nil && m.Y != nil {
+		return *m.Y
 	}
 	return 0
 }
 
 func (m *XYZF) GetZ() float32 {
-	if m != nil {
-		return m.Z
+	if m != nil && m.Z != nil {
+		return *m.Z
 	}
 	return 0
 }
@@ -580,85 +604,68 @@ func (m *Particle) MarshalTo(dAtA []byte) (int, error) {
 	var l int
 	_ = l
 	if len(m.Parent) > 0 {
-		dAtA2 := make([]byte, len(m.Parent)*10)
-		var j1 int
 		for _, num := range m.Parent {
-			for num >= 1<<7 {
-				dAtA2[j1] = uint8(uint64(num)&0x7f | 0x80)
-				num >>= 7
-				j1++
-			}
-			dAtA2[j1] = uint8(num)
-			j1++
+			dAtA[i] = 0x8
+			i++
+			i = encodeVarintEic(dAtA, i, uint64(num))
 		}
-		dAtA[i] = 0xa
-		i++
-		i = encodeVarintEic(dAtA, i, uint64(j1))
-		i += copy(dAtA[i:], dAtA2[:j1])
 	}
 	if len(m.Child) > 0 {
-		dAtA4 := make([]byte, len(m.Child)*10)
-		var j3 int
 		for _, num := range m.Child {
-			for num >= 1<<7 {
-				dAtA4[j3] = uint8(uint64(num)&0x7f | 0x80)
-				num >>= 7
-				j3++
-			}
-			dAtA4[j3] = uint8(num)
-			j3++
+			dAtA[i] = 0x10
+			i++
+			i = encodeVarintEic(dAtA, i, uint64(num))
 		}
-		dAtA[i] = 0x12
-		i++
-		i = encodeVarintEic(dAtA, i, uint64(j3))
-		i += copy(dAtA[i:], dAtA4[:j3])
 	}
-	if m.Pdg != 0 {
+	if m.Pdg != nil {
 		dAtA[i] = 0x18
 		i++
-		i = encodeVarintEic(dAtA, i, uint64((uint32(m.Pdg)<<1)^uint32((m.Pdg>>31))))
+		i = encodeVarintEic(dAtA, i, uint64((uint32(*m.Pdg)<<1)^uint32((*m.Pdg>>31))))
 	}
 	if m.Vertex != nil {
 		dAtA[i] = 0x22
 		i++
 		i = encodeVarintEic(dAtA, i, uint64(m.Vertex.Size()))
-		n5, err := m.Vertex.MarshalTo(dAtA[i:])
+		n1, err := m.Vertex.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n5
+		i += n1
 	}
 	if m.P != nil {
 		dAtA[i] = 0x2a
 		i++
 		i = encodeVarintEic(dAtA, i, uint64(m.P.Size()))
-		n6, err := m.P.MarshalTo(dAtA[i:])
+		n2, err := m.P.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n6
+		i += n2
 	}
-	if m.Mass != 0 {
+	if m.Mass != nil {
 		dAtA[i] = 0x31
 		i++
-		binary.LittleEndian.PutUint64(dAtA[i:], uint64(math.Float64bits(float64(m.Mass))))
+		binary.LittleEndian.PutUint64(dAtA[i:], uint64(math.Float64bits(float64(*m.Mass))))
 		i += 8
 	}
-	if m.Charge != 0 {
+	if m.Charge != nil {
 		dAtA[i] = 0x3d
 		i++
-		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Charge))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(*m.Charge))))
 		i += 4
 	}
 	if m.Spin != nil {
 		dAtA[i] = 0x42
 		i++
 		i = encodeVarintEic(dAtA, i, uint64(m.Spin.Size()))
-		n7, err := m.Spin.MarshalTo(dAtA[i:])
+		n3, err := m.Spin.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n7
+		i += n3
+	}
+	if m.XXX_unrecognized != nil {
+		i += copy(dAtA[i:], m.XXX_unrecognized)
 	}
 	return i, nil
 }
@@ -678,41 +685,44 @@ func (m *SimHit) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.Volumeid != 0 {
+	if m.Volumeid != nil {
 		dAtA[i] = 0x8
 		i++
-		i = encodeVarintEic(dAtA, i, uint64(m.Volumeid))
+		i = encodeVarintEic(dAtA, i, uint64(*m.Volumeid))
 	}
 	if m.Globalprepos != nil {
 		dAtA[i] = 0x12
 		i++
 		i = encodeVarintEic(dAtA, i, uint64(m.Globalprepos.Size()))
-		n8, err := m.Globalprepos.MarshalTo(dAtA[i:])
+		n4, err := m.Globalprepos.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n8
+		i += n4
 	}
 	if m.Globalpostpos != nil {
 		dAtA[i] = 0x1a
 		i++
 		i = encodeVarintEic(dAtA, i, uint64(m.Globalpostpos.Size()))
-		n9, err := m.Globalpostpos.MarshalTo(dAtA[i:])
+		n5, err := m.Globalpostpos.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n9
+		i += n5
 	}
-	if m.Edep != 0 {
+	if m.Edep != nil {
 		dAtA[i] = 0x25
 		i++
-		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Edep))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(*m.Edep))))
 		i += 4
 	}
-	if m.Particle != 0 {
+	if m.Particle != nil {
 		dAtA[i] = 0x28
 		i++
-		i = encodeVarintEic(dAtA, i, uint64(m.Particle))
+		i = encodeVarintEic(dAtA, i, uint64(*m.Particle))
+	}
+	if m.XXX_unrecognized != nil {
+		i += copy(dAtA[i:], m.XXX_unrecognized)
 	}
 	return i, nil
 }
@@ -732,16 +742,16 @@ func (m *EnergyDep) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.Mean != 0 {
+	if m.Mean != nil {
 		dAtA[i] = 0xd
 		i++
-		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Mean))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(*m.Mean))))
 		i += 4
 	}
-	if m.Noise != 0 {
+	if m.Noise != nil {
 		dAtA[i] = 0x15
 		i++
-		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Noise))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(*m.Noise))))
 		i += 4
 	}
 	if len(m.Pos) > 0 {
@@ -757,21 +767,14 @@ func (m *EnergyDep) MarshalTo(dAtA []byte) (int, error) {
 		}
 	}
 	if len(m.Source) > 0 {
-		dAtA11 := make([]byte, len(m.Source)*10)
-		var j10 int
 		for _, num := range m.Source {
-			for num >= 1<<7 {
-				dAtA11[j10] = uint8(uint64(num)&0x7f | 0x80)
-				num >>= 7
-				j10++
-			}
-			dAtA11[j10] = uint8(num)
-			j10++
+			dAtA[i] = 0x20
+			i++
+			i = encodeVarintEic(dAtA, i, uint64(num))
 		}
-		dAtA[i] = 0x22
-		i++
-		i = encodeVarintEic(dAtA, i, uint64(j10))
-		i += copy(dAtA[i:], dAtA11[:j10])
+	}
+	if m.XXX_unrecognized != nil {
+		i += copy(dAtA[i:], m.XXX_unrecognized)
 	}
 	return i, nil
 }
@@ -804,21 +807,14 @@ func (m *Track) MarshalTo(dAtA []byte) (int, error) {
 		}
 	}
 	if len(m.Observation) > 0 {
-		dAtA13 := make([]byte, len(m.Observation)*10)
-		var j12 int
 		for _, num := range m.Observation {
-			for num >= 1<<7 {
-				dAtA13[j12] = uint8(uint64(num)&0x7f | 0x80)
-				num >>= 7
-				j12++
-			}
-			dAtA13[j12] = uint8(num)
-			j12++
+			dAtA[i] = 0x10
+			i++
+			i = encodeVarintEic(dAtA, i, uint64(num))
 		}
-		dAtA[i] = 0x12
-		i++
-		i = encodeVarintEic(dAtA, i, uint64(j12))
-		i += copy(dAtA[i:], dAtA13[:j12])
+	}
+	if m.XXX_unrecognized != nil {
+		i += copy(dAtA[i:], m.XXX_unrecognized)
 	}
 	return i, nil
 }
@@ -842,11 +838,11 @@ func (m *TrackSegment) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0xa
 		i++
 		i = encodeVarintEic(dAtA, i, uint64(m.Vertex.Size()))
-		n14, err := m.Vertex.MarshalTo(dAtA[i:])
+		n6, err := m.Vertex.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n14
+		i += n6
 	}
 	if len(m.Vertexnoise) > 0 {
 		for _, msg := range m.Vertexnoise {
@@ -864,11 +860,11 @@ func (m *TrackSegment) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x1a
 		i++
 		i = encodeVarintEic(dAtA, i, uint64(m.Poq.Size()))
-		n15, err := m.Poq.MarshalTo(dAtA[i:])
+		n7, err := m.Poq.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n15
+		i += n7
 	}
 	if len(m.Poqnoise) > 0 {
 		for _, msg := range m.Poqnoise {
@@ -886,11 +882,11 @@ func (m *TrackSegment) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x2a
 		i++
 		i = encodeVarintEic(dAtA, i, uint64(m.Curvature.Size()))
-		n16, err := m.Curvature.MarshalTo(dAtA[i:])
+		n8, err := m.Curvature.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n16
+		i += n8
 	}
 	if len(m.Curvaturenoise) > 0 {
 		for _, msg := range m.Curvaturenoise {
@@ -904,17 +900,20 @@ func (m *TrackSegment) MarshalTo(dAtA []byte) (int, error) {
 			i += n
 		}
 	}
-	if m.Chargesign != 0 {
+	if m.Chargesign != nil {
 		dAtA[i] = 0x3d
 		i++
-		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Chargesign))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(*m.Chargesign))))
 		i += 4
 	}
-	if m.Length != 0 {
+	if m.Length != nil {
 		dAtA[i] = 0x45
 		i++
-		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Length))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(*m.Length))))
 		i += 4
+	}
+	if m.XXX_unrecognized != nil {
+		i += copy(dAtA[i:], m.XXX_unrecognized)
 	}
 	return i, nil
 }
@@ -938,11 +937,11 @@ func (m *ObservedPos) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0xa
 		i++
 		i = encodeVarintEic(dAtA, i, uint64(m.Mean.Size()))
-		n17, err := m.Mean.MarshalTo(dAtA[i:])
+		n9, err := m.Mean.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n17
+		i += n9
 	}
 	if len(m.Noise) > 0 {
 		for _, msg := range m.Noise {
@@ -956,11 +955,14 @@ func (m *ObservedPos) MarshalTo(dAtA []byte) (int, error) {
 			i += n
 		}
 	}
-	if m.Weightmod != 0 {
+	if m.Weightmod != nil {
 		dAtA[i] = 0x1d
 		i++
-		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Weightmod))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(*m.Weightmod))))
 		i += 4
+	}
+	if m.XXX_unrecognized != nil {
+		i += copy(dAtA[i:], m.XXX_unrecognized)
 	}
 	return i, nil
 }
@@ -980,20 +982,23 @@ func (m *RandVar) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.Dist != 0 {
+	if m.Dist != nil {
 		dAtA[i] = 0x10
 		i++
-		i = encodeVarintEic(dAtA, i, uint64(m.Dist))
+		i = encodeVarintEic(dAtA, i, uint64(*m.Dist))
 	}
 	if m.Sigma != nil {
 		dAtA[i] = 0x1a
 		i++
 		i = encodeVarintEic(dAtA, i, uint64(m.Sigma.Size()))
-		n18, err := m.Sigma.MarshalTo(dAtA[i:])
+		n10, err := m.Sigma.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n18
+		i += n10
+	}
+	if m.XXX_unrecognized != nil {
+		i += copy(dAtA[i:], m.XXX_unrecognized)
 	}
 	return i, nil
 }
@@ -1013,29 +1018,32 @@ func (m *XYZTD) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.X != 0 {
+	if m.X != nil {
 		dAtA[i] = 0x9
 		i++
-		binary.LittleEndian.PutUint64(dAtA[i:], uint64(math.Float64bits(float64(m.X))))
+		binary.LittleEndian.PutUint64(dAtA[i:], uint64(math.Float64bits(float64(*m.X))))
 		i += 8
 	}
-	if m.Y != 0 {
+	if m.Y != nil {
 		dAtA[i] = 0x11
 		i++
-		binary.LittleEndian.PutUint64(dAtA[i:], uint64(math.Float64bits(float64(m.Y))))
+		binary.LittleEndian.PutUint64(dAtA[i:], uint64(math.Float64bits(float64(*m.Y))))
 		i += 8
 	}
-	if m.Z != 0 {
+	if m.Z != nil {
 		dAtA[i] = 0x19
 		i++
-		binary.LittleEndian.PutUint64(dAtA[i:], uint64(math.Float64bits(float64(m.Z))))
+		binary.LittleEndian.PutUint64(dAtA[i:], uint64(math.Float64bits(float64(*m.Z))))
 		i += 8
 	}
-	if m.T != 0 {
+	if m.T != nil {
 		dAtA[i] = 0x21
 		i++
-		binary.LittleEndian.PutUint64(dAtA[i:], uint64(math.Float64bits(float64(m.T))))
+		binary.LittleEndian.PutUint64(dAtA[i:], uint64(math.Float64bits(float64(*m.T))))
 		i += 8
+	}
+	if m.XXX_unrecognized != nil {
+		i += copy(dAtA[i:], m.XXX_unrecognized)
 	}
 	return i, nil
 }
@@ -1055,29 +1063,32 @@ func (m *XYZTF) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.X != 0 {
+	if m.X != nil {
 		dAtA[i] = 0xd
 		i++
-		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.X))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(*m.X))))
 		i += 4
 	}
-	if m.Y != 0 {
+	if m.Y != nil {
 		dAtA[i] = 0x15
 		i++
-		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Y))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(*m.Y))))
 		i += 4
 	}
-	if m.Z != 0 {
+	if m.Z != nil {
 		dAtA[i] = 0x1d
 		i++
-		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Z))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(*m.Z))))
 		i += 4
 	}
-	if m.T != 0 {
+	if m.T != nil {
 		dAtA[i] = 0x25
 		i++
-		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.T))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(*m.T))))
 		i += 4
+	}
+	if m.XXX_unrecognized != nil {
+		i += copy(dAtA[i:], m.XXX_unrecognized)
 	}
 	return i, nil
 }
@@ -1097,23 +1108,26 @@ func (m *XYZD) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.X != 0 {
+	if m.X != nil {
 		dAtA[i] = 0x9
 		i++
-		binary.LittleEndian.PutUint64(dAtA[i:], uint64(math.Float64bits(float64(m.X))))
+		binary.LittleEndian.PutUint64(dAtA[i:], uint64(math.Float64bits(float64(*m.X))))
 		i += 8
 	}
-	if m.Y != 0 {
+	if m.Y != nil {
 		dAtA[i] = 0x11
 		i++
-		binary.LittleEndian.PutUint64(dAtA[i:], uint64(math.Float64bits(float64(m.Y))))
+		binary.LittleEndian.PutUint64(dAtA[i:], uint64(math.Float64bits(float64(*m.Y))))
 		i += 8
 	}
-	if m.Z != 0 {
+	if m.Z != nil {
 		dAtA[i] = 0x19
 		i++
-		binary.LittleEndian.PutUint64(dAtA[i:], uint64(math.Float64bits(float64(m.Z))))
+		binary.LittleEndian.PutUint64(dAtA[i:], uint64(math.Float64bits(float64(*m.Z))))
 		i += 8
+	}
+	if m.XXX_unrecognized != nil {
+		i += copy(dAtA[i:], m.XXX_unrecognized)
 	}
 	return i, nil
 }
@@ -1133,23 +1147,26 @@ func (m *XYZF) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.X != 0 {
+	if m.X != nil {
 		dAtA[i] = 0xd
 		i++
-		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.X))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(*m.X))))
 		i += 4
 	}
-	if m.Y != 0 {
+	if m.Y != nil {
 		dAtA[i] = 0x15
 		i++
-		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Y))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(*m.Y))))
 		i += 4
 	}
-	if m.Z != 0 {
+	if m.Z != nil {
 		dAtA[i] = 0x1d
 		i++
-		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Z))))
+		binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(*m.Z))))
 		i += 4
+	}
+	if m.XXX_unrecognized != nil {
+		i += copy(dAtA[i:], m.XXX_unrecognized)
 	}
 	return i, nil
 }
@@ -1167,21 +1184,17 @@ func (m *Particle) Size() (n int) {
 	var l int
 	_ = l
 	if len(m.Parent) > 0 {
-		l = 0
 		for _, e := range m.Parent {
-			l += sovEic(uint64(e))
+			n += 1 + sovEic(uint64(e))
 		}
-		n += 1 + sovEic(uint64(l)) + l
 	}
 	if len(m.Child) > 0 {
-		l = 0
 		for _, e := range m.Child {
-			l += sovEic(uint64(e))
+			n += 1 + sovEic(uint64(e))
 		}
-		n += 1 + sovEic(uint64(l)) + l
 	}
-	if m.Pdg != 0 {
-		n += 1 + sozEic(uint64(m.Pdg))
+	if m.Pdg != nil {
+		n += 1 + sozEic(uint64(*m.Pdg))
 	}
 	if m.Vertex != nil {
 		l = m.Vertex.Size()
@@ -1191,15 +1204,18 @@ func (m *Particle) Size() (n int) {
 		l = m.P.Size()
 		n += 1 + l + sovEic(uint64(l))
 	}
-	if m.Mass != 0 {
+	if m.Mass != nil {
 		n += 9
 	}
-	if m.Charge != 0 {
+	if m.Charge != nil {
 		n += 5
 	}
 	if m.Spin != nil {
 		l = m.Spin.Size()
 		n += 1 + l + sovEic(uint64(l))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
 	}
 	return n
 }
@@ -1207,8 +1223,8 @@ func (m *Particle) Size() (n int) {
 func (m *SimHit) Size() (n int) {
 	var l int
 	_ = l
-	if m.Volumeid != 0 {
-		n += 1 + sovEic(uint64(m.Volumeid))
+	if m.Volumeid != nil {
+		n += 1 + sovEic(uint64(*m.Volumeid))
 	}
 	if m.Globalprepos != nil {
 		l = m.Globalprepos.Size()
@@ -1218,11 +1234,14 @@ func (m *SimHit) Size() (n int) {
 		l = m.Globalpostpos.Size()
 		n += 1 + l + sovEic(uint64(l))
 	}
-	if m.Edep != 0 {
+	if m.Edep != nil {
 		n += 5
 	}
-	if m.Particle != 0 {
-		n += 1 + sovEic(uint64(m.Particle))
+	if m.Particle != nil {
+		n += 1 + sovEic(uint64(*m.Particle))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
 	}
 	return n
 }
@@ -1230,10 +1249,10 @@ func (m *SimHit) Size() (n int) {
 func (m *EnergyDep) Size() (n int) {
 	var l int
 	_ = l
-	if m.Mean != 0 {
+	if m.Mean != nil {
 		n += 5
 	}
-	if m.Noise != 0 {
+	if m.Noise != nil {
 		n += 5
 	}
 	if len(m.Pos) > 0 {
@@ -1243,11 +1262,12 @@ func (m *EnergyDep) Size() (n int) {
 		}
 	}
 	if len(m.Source) > 0 {
-		l = 0
 		for _, e := range m.Source {
-			l += sovEic(uint64(e))
+			n += 1 + sovEic(uint64(e))
 		}
-		n += 1 + sovEic(uint64(l)) + l
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
 	}
 	return n
 }
@@ -1262,11 +1282,12 @@ func (m *Track) Size() (n int) {
 		}
 	}
 	if len(m.Observation) > 0 {
-		l = 0
 		for _, e := range m.Observation {
-			l += sovEic(uint64(e))
+			n += 1 + sovEic(uint64(e))
 		}
-		n += 1 + sovEic(uint64(l)) + l
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
 	}
 	return n
 }
@@ -1304,11 +1325,14 @@ func (m *TrackSegment) Size() (n int) {
 			n += 1 + l + sovEic(uint64(l))
 		}
 	}
-	if m.Chargesign != 0 {
+	if m.Chargesign != nil {
 		n += 5
 	}
-	if m.Length != 0 {
+	if m.Length != nil {
 		n += 5
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
 	}
 	return n
 }
@@ -1326,8 +1350,11 @@ func (m *ObservedPos) Size() (n int) {
 			n += 1 + l + sovEic(uint64(l))
 		}
 	}
-	if m.Weightmod != 0 {
+	if m.Weightmod != nil {
 		n += 5
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
 	}
 	return n
 }
@@ -1335,12 +1362,15 @@ func (m *ObservedPos) Size() (n int) {
 func (m *RandVar) Size() (n int) {
 	var l int
 	_ = l
-	if m.Dist != 0 {
-		n += 1 + sovEic(uint64(m.Dist))
+	if m.Dist != nil {
+		n += 1 + sovEic(uint64(*m.Dist))
 	}
 	if m.Sigma != nil {
 		l = m.Sigma.Size()
 		n += 1 + l + sovEic(uint64(l))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
 	}
 	return n
 }
@@ -1348,17 +1378,20 @@ func (m *RandVar) Size() (n int) {
 func (m *XYZTD) Size() (n int) {
 	var l int
 	_ = l
-	if m.X != 0 {
+	if m.X != nil {
 		n += 9
 	}
-	if m.Y != 0 {
+	if m.Y != nil {
 		n += 9
 	}
-	if m.Z != 0 {
+	if m.Z != nil {
 		n += 9
 	}
-	if m.T != 0 {
+	if m.T != nil {
 		n += 9
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
 	}
 	return n
 }
@@ -1366,17 +1399,20 @@ func (m *XYZTD) Size() (n int) {
 func (m *XYZTF) Size() (n int) {
 	var l int
 	_ = l
-	if m.X != 0 {
+	if m.X != nil {
 		n += 5
 	}
-	if m.Y != 0 {
+	if m.Y != nil {
 		n += 5
 	}
-	if m.Z != 0 {
+	if m.Z != nil {
 		n += 5
 	}
-	if m.T != 0 {
+	if m.T != nil {
 		n += 5
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
 	}
 	return n
 }
@@ -1384,14 +1420,17 @@ func (m *XYZTF) Size() (n int) {
 func (m *XYZD) Size() (n int) {
 	var l int
 	_ = l
-	if m.X != 0 {
+	if m.X != nil {
 		n += 9
 	}
-	if m.Y != 0 {
+	if m.Y != nil {
 		n += 9
 	}
-	if m.Z != 0 {
+	if m.Z != nil {
 		n += 9
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
 	}
 	return n
 }
@@ -1399,14 +1438,17 @@ func (m *XYZD) Size() (n int) {
 func (m *XYZF) Size() (n int) {
 	var l int
 	_ = l
-	if m.X != 0 {
+	if m.X != nil {
 		n += 5
 	}
-	if m.Y != 0 {
+	if m.Y != nil {
 		n += 5
 	}
-	if m.Z != 0 {
+	if m.Z != nil {
 		n += 5
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
 	}
 	return n
 }
@@ -1597,7 +1639,7 @@ func (m *Particle) Unmarshal(dAtA []byte) error {
 				}
 			}
 			v = int32((uint32(v) >> 1) ^ uint32(((v&1)<<31)>>31))
-			m.Pdg = v
+			m.Pdg = &v
 		case 4:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Vertex", wireType)
@@ -1674,7 +1716,8 @@ func (m *Particle) Unmarshal(dAtA []byte) error {
 			}
 			v = uint64(binary.LittleEndian.Uint64(dAtA[iNdEx:]))
 			iNdEx += 8
-			m.Mass = float64(math.Float64frombits(v))
+			v2 := float64(math.Float64frombits(v))
+			m.Mass = &v2
 		case 7:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Charge", wireType)
@@ -1685,7 +1728,8 @@ func (m *Particle) Unmarshal(dAtA []byte) error {
 			}
 			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			m.Charge = float32(math.Float32frombits(v))
+			v2 := float32(math.Float32frombits(v))
+			m.Charge = &v2
 		case 8:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Spin", wireType)
@@ -1731,6 +1775,7 @@ func (m *Particle) Unmarshal(dAtA []byte) error {
 			if (iNdEx + skippy) > l {
 				return io.ErrUnexpectedEOF
 			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
 			iNdEx += skippy
 		}
 	}
@@ -1773,7 +1818,7 @@ func (m *SimHit) Unmarshal(dAtA []byte) error {
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Volumeid", wireType)
 			}
-			m.Volumeid = 0
+			var v uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowEic
@@ -1783,11 +1828,12 @@ func (m *SimHit) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Volumeid |= (uint64(b) & 0x7F) << shift
+				v |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			m.Volumeid = &v
 		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Globalprepos", wireType)
@@ -1864,12 +1910,13 @@ func (m *SimHit) Unmarshal(dAtA []byte) error {
 			}
 			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			m.Edep = float32(math.Float32frombits(v))
+			v2 := float32(math.Float32frombits(v))
+			m.Edep = &v2
 		case 5:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Particle", wireType)
 			}
-			m.Particle = 0
+			var v uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowEic
@@ -1879,11 +1926,12 @@ func (m *SimHit) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Particle |= (uint64(b) & 0x7F) << shift
+				v |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			m.Particle = &v
 		default:
 			iNdEx = preIndex
 			skippy, err := skipEic(dAtA[iNdEx:])
@@ -1896,6 +1944,7 @@ func (m *SimHit) Unmarshal(dAtA []byte) error {
 			if (iNdEx + skippy) > l {
 				return io.ErrUnexpectedEOF
 			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
 			iNdEx += skippy
 		}
 	}
@@ -1944,7 +1993,8 @@ func (m *EnergyDep) Unmarshal(dAtA []byte) error {
 			}
 			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			m.Mean = float32(math.Float32frombits(v))
+			v2 := float32(math.Float32frombits(v))
+			m.Mean = &v2
 		case 2:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Noise", wireType)
@@ -1955,7 +2005,8 @@ func (m *EnergyDep) Unmarshal(dAtA []byte) error {
 			}
 			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			m.Noise = float32(math.Float32frombits(v))
+			v2 := float32(math.Float32frombits(v))
+			m.Noise = &v2
 		case 3:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Pos", wireType)
@@ -2061,6 +2112,7 @@ func (m *EnergyDep) Unmarshal(dAtA []byte) error {
 			if (iNdEx + skippy) > l {
 				return io.ErrUnexpectedEOF
 			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
 			iNdEx += skippy
 		}
 	}
@@ -2204,6 +2256,7 @@ func (m *Track) Unmarshal(dAtA []byte) error {
 			if (iNdEx + skippy) > l {
 				return io.ErrUnexpectedEOF
 			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
 			iNdEx += skippy
 		}
 	}
@@ -2444,7 +2497,8 @@ func (m *TrackSegment) Unmarshal(dAtA []byte) error {
 			}
 			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			m.Chargesign = float32(math.Float32frombits(v))
+			v2 := float32(math.Float32frombits(v))
+			m.Chargesign = &v2
 		case 8:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Length", wireType)
@@ -2455,7 +2509,8 @@ func (m *TrackSegment) Unmarshal(dAtA []byte) error {
 			}
 			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			m.Length = float32(math.Float32frombits(v))
+			v2 := float32(math.Float32frombits(v))
+			m.Length = &v2
 		default:
 			iNdEx = preIndex
 			skippy, err := skipEic(dAtA[iNdEx:])
@@ -2468,6 +2523,7 @@ func (m *TrackSegment) Unmarshal(dAtA []byte) error {
 			if (iNdEx + skippy) > l {
 				return io.ErrUnexpectedEOF
 			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
 			iNdEx += skippy
 		}
 	}
@@ -2580,7 +2636,8 @@ func (m *ObservedPos) Unmarshal(dAtA []byte) error {
 			}
 			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			m.Weightmod = float32(math.Float32frombits(v))
+			v2 := float32(math.Float32frombits(v))
+			m.Weightmod = &v2
 		default:
 			iNdEx = preIndex
 			skippy, err := skipEic(dAtA[iNdEx:])
@@ -2593,6 +2650,7 @@ func (m *ObservedPos) Unmarshal(dAtA []byte) error {
 			if (iNdEx + skippy) > l {
 				return io.ErrUnexpectedEOF
 			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
 			iNdEx += skippy
 		}
 	}
@@ -2635,7 +2693,7 @@ func (m *RandVar) Unmarshal(dAtA []byte) error {
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Dist", wireType)
 			}
-			m.Dist = 0
+			var v RandVar_Distribution
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowEic
@@ -2645,11 +2703,12 @@ func (m *RandVar) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Dist |= (RandVar_Distribution(b) & 0x7F) << shift
+				v |= (RandVar_Distribution(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			m.Dist = &v
 		case 3:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Sigma", wireType)
@@ -2695,6 +2754,7 @@ func (m *RandVar) Unmarshal(dAtA []byte) error {
 			if (iNdEx + skippy) > l {
 				return io.ErrUnexpectedEOF
 			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
 			iNdEx += skippy
 		}
 	}
@@ -2743,7 +2803,8 @@ func (m *XYZTD) Unmarshal(dAtA []byte) error {
 			}
 			v = uint64(binary.LittleEndian.Uint64(dAtA[iNdEx:]))
 			iNdEx += 8
-			m.X = float64(math.Float64frombits(v))
+			v2 := float64(math.Float64frombits(v))
+			m.X = &v2
 		case 2:
 			if wireType != 1 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Y", wireType)
@@ -2754,7 +2815,8 @@ func (m *XYZTD) Unmarshal(dAtA []byte) error {
 			}
 			v = uint64(binary.LittleEndian.Uint64(dAtA[iNdEx:]))
 			iNdEx += 8
-			m.Y = float64(math.Float64frombits(v))
+			v2 := float64(math.Float64frombits(v))
+			m.Y = &v2
 		case 3:
 			if wireType != 1 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Z", wireType)
@@ -2765,7 +2827,8 @@ func (m *XYZTD) Unmarshal(dAtA []byte) error {
 			}
 			v = uint64(binary.LittleEndian.Uint64(dAtA[iNdEx:]))
 			iNdEx += 8
-			m.Z = float64(math.Float64frombits(v))
+			v2 := float64(math.Float64frombits(v))
+			m.Z = &v2
 		case 4:
 			if wireType != 1 {
 				return fmt.Errorf("proto: wrong wireType = %d for field T", wireType)
@@ -2776,7 +2839,8 @@ func (m *XYZTD) Unmarshal(dAtA []byte) error {
 			}
 			v = uint64(binary.LittleEndian.Uint64(dAtA[iNdEx:]))
 			iNdEx += 8
-			m.T = float64(math.Float64frombits(v))
+			v2 := float64(math.Float64frombits(v))
+			m.T = &v2
 		default:
 			iNdEx = preIndex
 			skippy, err := skipEic(dAtA[iNdEx:])
@@ -2789,6 +2853,7 @@ func (m *XYZTD) Unmarshal(dAtA []byte) error {
 			if (iNdEx + skippy) > l {
 				return io.ErrUnexpectedEOF
 			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
 			iNdEx += skippy
 		}
 	}
@@ -2837,7 +2902,8 @@ func (m *XYZTF) Unmarshal(dAtA []byte) error {
 			}
 			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			m.X = float32(math.Float32frombits(v))
+			v2 := float32(math.Float32frombits(v))
+			m.X = &v2
 		case 2:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Y", wireType)
@@ -2848,7 +2914,8 @@ func (m *XYZTF) Unmarshal(dAtA []byte) error {
 			}
 			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			m.Y = float32(math.Float32frombits(v))
+			v2 := float32(math.Float32frombits(v))
+			m.Y = &v2
 		case 3:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Z", wireType)
@@ -2859,7 +2926,8 @@ func (m *XYZTF) Unmarshal(dAtA []byte) error {
 			}
 			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			m.Z = float32(math.Float32frombits(v))
+			v2 := float32(math.Float32frombits(v))
+			m.Z = &v2
 		case 4:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field T", wireType)
@@ -2870,7 +2938,8 @@ func (m *XYZTF) Unmarshal(dAtA []byte) error {
 			}
 			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			m.T = float32(math.Float32frombits(v))
+			v2 := float32(math.Float32frombits(v))
+			m.T = &v2
 		default:
 			iNdEx = preIndex
 			skippy, err := skipEic(dAtA[iNdEx:])
@@ -2883,6 +2952,7 @@ func (m *XYZTF) Unmarshal(dAtA []byte) error {
 			if (iNdEx + skippy) > l {
 				return io.ErrUnexpectedEOF
 			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
 			iNdEx += skippy
 		}
 	}
@@ -2931,7 +3001,8 @@ func (m *XYZD) Unmarshal(dAtA []byte) error {
 			}
 			v = uint64(binary.LittleEndian.Uint64(dAtA[iNdEx:]))
 			iNdEx += 8
-			m.X = float64(math.Float64frombits(v))
+			v2 := float64(math.Float64frombits(v))
+			m.X = &v2
 		case 2:
 			if wireType != 1 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Y", wireType)
@@ -2942,7 +3013,8 @@ func (m *XYZD) Unmarshal(dAtA []byte) error {
 			}
 			v = uint64(binary.LittleEndian.Uint64(dAtA[iNdEx:]))
 			iNdEx += 8
-			m.Y = float64(math.Float64frombits(v))
+			v2 := float64(math.Float64frombits(v))
+			m.Y = &v2
 		case 3:
 			if wireType != 1 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Z", wireType)
@@ -2953,7 +3025,8 @@ func (m *XYZD) Unmarshal(dAtA []byte) error {
 			}
 			v = uint64(binary.LittleEndian.Uint64(dAtA[iNdEx:]))
 			iNdEx += 8
-			m.Z = float64(math.Float64frombits(v))
+			v2 := float64(math.Float64frombits(v))
+			m.Z = &v2
 		default:
 			iNdEx = preIndex
 			skippy, err := skipEic(dAtA[iNdEx:])
@@ -2966,6 +3039,7 @@ func (m *XYZD) Unmarshal(dAtA []byte) error {
 			if (iNdEx + skippy) > l {
 				return io.ErrUnexpectedEOF
 			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
 			iNdEx += skippy
 		}
 	}
@@ -3014,7 +3088,8 @@ func (m *XYZF) Unmarshal(dAtA []byte) error {
 			}
 			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			m.X = float32(math.Float32frombits(v))
+			v2 := float32(math.Float32frombits(v))
+			m.X = &v2
 		case 2:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Y", wireType)
@@ -3025,7 +3100,8 @@ func (m *XYZF) Unmarshal(dAtA []byte) error {
 			}
 			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			m.Y = float32(math.Float32frombits(v))
+			v2 := float32(math.Float32frombits(v))
+			m.Y = &v2
 		case 3:
 			if wireType != 5 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Z", wireType)
@@ -3036,7 +3112,8 @@ func (m *XYZF) Unmarshal(dAtA []byte) error {
 			}
 			v = uint32(binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
-			m.Z = float32(math.Float32frombits(v))
+			v2 := float32(math.Float32frombits(v))
+			m.Z = &v2
 		default:
 			iNdEx = preIndex
 			skippy, err := skipEic(dAtA[iNdEx:])
@@ -3049,6 +3126,7 @@ func (m *XYZF) Unmarshal(dAtA []byte) error {
 			if (iNdEx + skippy) > l {
 				return io.ErrUnexpectedEOF
 			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
 			iNdEx += skippy
 		}
 	}
@@ -3166,53 +3244,52 @@ var (
 func init() { proto.RegisterFile("proio/model/eic.proto", fileDescriptorEic) }
 
 var fileDescriptorEic = []byte{
-	// 755 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x55, 0x5d, 0x6b, 0xd4, 0x4a,
-	0x18, 0xee, 0x24, 0xd9, 0x8f, 0xbe, 0xd9, 0xd3, 0xd3, 0x33, 0x9c, 0x96, 0x70, 0xe8, 0x59, 0x96,
-	0x88, 0x74, 0x15, 0xcd, 0xea, 0x56, 0x10, 0x8b, 0xa0, 0x96, 0xed, 0xa2, 0x60, 0x3f, 0x98, 0xb6,
-	0xa2, 0xbd, 0xcb, 0x26, 0x43, 0x76, 0x30, 0xc9, 0xa4, 0x49, 0xb6, 0xb6, 0x05, 0xaf, 0xf5, 0x27,
-	0x08, 0xfe, 0x21, 0xaf, 0xc4, 0x9f, 0x20, 0xf5, 0x3f, 0x78, 0x2d, 0x33, 0xc9, 0xee, 0x66, 0x5b,
-	0x77, 0x5b, 0xef, 0xe6, 0x79, 0x79, 0xde, 0xef, 0xe7, 0x65, 0x60, 0x29, 0x8a, 0x39, 0xe3, 0xad,
-	0x80, 0xbb, 0xd4, 0x6f, 0x51, 0xe6, 0x58, 0x51, 0xcc, 0x53, 0x8e, 0xff, 0x96, 0x66, 0x4b, 0x9a,
-	0x2d, 0xca, 0x1c, 0xf3, 0x27, 0x82, 0xea, 0xae, 0x1d, 0xa7, 0xcc, 0xf1, 0x29, 0x5e, 0x86, 0x72,
-	0x64, 0xc7, 0x34, 0x4c, 0x0d, 0xd4, 0x50, 0x9b, 0x1a, 0xc9, 0x11, 0xfe, 0x17, 0x4a, 0x4e, 0x9f,
-	0xf9, 0xae, 0xa1, 0x48, 0x73, 0x06, 0xf0, 0x22, 0xa8, 0x91, 0xeb, 0x19, 0x6a, 0x03, 0x35, 0xff,
-	0x21, 0xe2, 0x89, 0x2d, 0x28, 0x1f, 0xd3, 0x38, 0xa5, 0x27, 0x86, 0xd6, 0x40, 0x4d, 0xbd, 0xbd,
-	0x6c, 0x5d, 0x48, 0x67, 0xbd, 0x7e, 0x73, 0xb8, 0xdf, 0x21, 0x39, 0x0b, 0xdf, 0x00, 0x14, 0x19,
-	0x25, 0x49, 0x5d, 0xfa, 0x1d, 0xb5, 0x43, 0x50, 0x84, 0x31, 0x68, 0x81, 0x9d, 0x24, 0x46, 0xb9,
-	0x81, 0x9a, 0x88, 0xc8, 0xb7, 0x28, 0xd4, 0xe9, 0xdb, 0xb1, 0x47, 0x8d, 0x4a, 0x03, 0x35, 0x15,
-	0x92, 0x23, 0x7c, 0x0b, 0xb4, 0x24, 0x62, 0xa1, 0x51, 0x9d, 0x1e, 0xb3, 0x4b, 0x24, 0xc5, 0xfc,
-	0x8a, 0xa0, 0xbc, 0xc7, 0x82, 0xe7, 0x2c, 0xc5, 0xff, 0x41, 0xf5, 0x98, 0xfb, 0x83, 0x80, 0x32,
-	0xd7, 0x40, 0x0d, 0xd4, 0xd4, 0xc8, 0x08, 0xe3, 0x75, 0xa8, 0x79, 0x3e, 0xef, 0xd9, 0x7e, 0x14,
-	0xd3, 0x88, 0x27, 0x86, 0x32, 0xb3, 0xb1, 0x09, 0x2e, 0x7e, 0x0c, 0x7f, 0xe5, 0x98, 0x27, 0xa9,
-	0x70, 0x56, 0x67, 0x3a, 0x4f, 0x92, 0x45, 0xdf, 0xd4, 0xa5, 0x91, 0x1c, 0xa5, 0x42, 0xe4, 0x5b,
-	0x54, 0x1a, 0xe5, 0xcb, 0x92, 0x73, 0xd3, 0xc8, 0x08, 0x9b, 0xef, 0x61, 0x7e, 0x33, 0xa4, 0xb1,
-	0x77, 0xda, 0xa1, 0xd9, 0xd0, 0xa8, 0x1d, 0xca, 0x76, 0x14, 0x22, 0xdf, 0x62, 0x8b, 0x21, 0x67,
-	0x09, 0x95, 0x3d, 0x28, 0x24, 0x03, 0xd8, 0x02, 0x35, 0x2b, 0x4d, 0x6d, 0xea, 0xed, 0x95, 0x4b,
-	0xa5, 0xed, 0xf4, 0x12, 0x1a, 0x1f, 0x53, 0x77, 0x97, 0x27, 0x44, 0x10, 0xc5, 0xe8, 0x13, 0x3e,
-	0x88, 0x1d, 0x6a, 0x68, 0x99, 0x46, 0x32, 0x64, 0xf6, 0xa0, 0xb4, 0x1f, 0xdb, 0xce, 0x5b, 0xfc,
-	0x10, 0x2a, 0x09, 0xf5, 0x82, 0xa1, 0x8a, 0xf4, 0xf6, 0xff, 0x97, 0x82, 0x4a, 0xe2, 0x5e, 0x46,
-	0x22, 0x43, 0x36, 0x6e, 0x80, 0xce, 0x65, 0x36, 0x3b, 0x65, 0x3c, 0xcc, 0xb5, 0x56, 0x34, 0x99,
-	0x1f, 0x55, 0xa8, 0x15, 0x7d, 0x0b, 0x82, 0x43, 0xd7, 0x12, 0xdc, 0x3a, 0xe8, 0xd9, 0x6b, 0x38,
-	0x08, 0x51, 0x9f, 0x71, 0xc9, 0x89, 0xd8, 0xa1, 0xfb, 0xca, 0x8e, 0x49, 0x91, 0x8c, 0x57, 0xc5,
-	0xa0, 0x8e, 0xf2, 0x1d, 0x4e, 0x91, 0xab, 0x60, 0xe0, 0x07, 0x50, 0x8d, 0xf8, 0x51, 0x96, 0x41,
-	0xbb, 0x22, 0xc3, 0x88, 0x89, 0xd7, 0x60, 0xde, 0x19, 0x88, 0x46, 0x07, 0x31, 0x9d, 0x7d, 0x13,
-	0x63, 0x1e, 0x7e, 0x0a, 0x0b, 0x23, 0x90, 0x25, 0x2c, 0x5f, 0x91, 0xf0, 0x02, 0x1f, 0xd7, 0x01,
-	0xb2, 0xdb, 0x49, 0x98, 0x17, 0xe6, 0xd7, 0x54, 0xb0, 0x88, 0x75, 0xfb, 0x34, 0xf4, 0xd2, 0xbe,
-	0xbc, 0x29, 0x85, 0xe4, 0xc8, 0xfc, 0x80, 0x40, 0x2f, 0x68, 0x03, 0xdf, 0x2e, 0x08, 0x6e, 0xfa,
-	0x1e, 0x32, 0x21, 0x5a, 0x63, 0x21, 0xce, 0x2e, 0x36, 0x97, 0xe8, 0x0a, 0xcc, 0xbf, 0xa3, 0xcc,
-	0xeb, 0xa7, 0x01, 0x77, 0xe5, 0xfc, 0x15, 0x32, 0x36, 0x98, 0x9f, 0x11, 0x54, 0x72, 0x07, 0xfc,
-	0x08, 0x34, 0x97, 0x25, 0xa9, 0x54, 0xf8, 0x42, 0xfb, 0xe6, 0xb4, 0xc0, 0x56, 0x87, 0x25, 0x69,
-	0xcc, 0x7a, 0x03, 0xa1, 0x2a, 0x22, 0x5d, 0xf0, 0x1d, 0x28, 0x25, 0xcc, 0x0b, 0xec, 0x99, 0x47,
-	0xda, 0x25, 0x19, 0xc9, 0x5c, 0x85, 0x5a, 0x31, 0x06, 0x06, 0x28, 0x6f, 0xef, 0x90, 0xad, 0x67,
-	0x2f, 0x17, 0xe7, 0xb0, 0x0e, 0x95, 0x83, 0xed, 0x17, 0xdd, 0x1d, 0xb2, 0xb5, 0x88, 0xcc, 0x27,
-	0x50, 0x92, 0xad, 0xe3, 0x1a, 0xa0, 0x4c, 0xa5, 0x88, 0xa0, 0x13, 0x81, 0x4e, 0x65, 0x95, 0x88,
-	0xa0, 0x53, 0x81, 0xce, 0x64, 0x5e, 0x44, 0xd0, 0x99, 0x40, 0xa9, 0xbc, 0x7a, 0x44, 0x50, 0x3a,
-	0x0c, 0xd0, 0x1d, 0x07, 0x50, 0x26, 0x02, 0x28, 0x13, 0x01, 0x94, 0x89, 0x00, 0x8a, 0x08, 0x70,
-	0x0f, 0x34, 0x21, 0x9b, 0xeb, 0x17, 0x90, 0x7b, 0xfc, 0x41, 0xc6, 0x8d, 0x83, 0x2f, 0xe7, 0x75,
-	0xf4, 0xed, 0xbc, 0x8e, 0xbe, 0x9f, 0xd7, 0xd1, 0xa7, 0x1f, 0xf5, 0x39, 0xd0, 0x0b, 0xe3, 0xdb,
-	0x50, 0x37, 0x99, 0x73, 0x78, 0xdf, 0x63, 0x69, 0x7f, 0xd0, 0xb3, 0x1c, 0x1e, 0xb4, 0x5c, 0xea,
-	0xb0, 0x1e, 0xf5, 0x1d, 0xce, 0x23, 0x1a, 0xb7, 0xb2, 0xaf, 0xca, 0xe3, 0x77, 0x2f, 0xfc, 0x59,
-	0xbd, 0xb2, 0xfc, 0xb4, 0xd6, 0x7e, 0x05, 0x00, 0x00, 0xff, 0xff, 0x69, 0x57, 0x88, 0x9b, 0xcd,
-	0x06, 0x00, 0x00,
+	// 749 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x55, 0xdd, 0x6a, 0xd4, 0x4c,
+	0x18, 0xee, 0x24, 0xd9, 0x9f, 0xbe, 0xd9, 0xaf, 0x5f, 0xbf, 0xe1, 0x6b, 0x09, 0x52, 0x97, 0x25,
+	0x22, 0x5d, 0x45, 0xb3, 0xba, 0x0a, 0x62, 0x11, 0xd4, 0xb2, 0x5d, 0x14, 0xec, 0x0f, 0xd3, 0x56,
+	0xb4, 0x67, 0xd9, 0x64, 0xc8, 0x0e, 0x26, 0x99, 0x34, 0xc9, 0xd6, 0xb6, 0xe0, 0xb1, 0x5e, 0x82,
+	0xe0, 0x0d, 0x79, 0x24, 0x5e, 0x82, 0xd4, 0x7b, 0xf0, 0x58, 0x66, 0x92, 0xdd, 0xcd, 0xb6, 0xee,
+	0xb6, 0x9e, 0xcd, 0xf3, 0xf2, 0xbc, 0xff, 0xcf, 0xcb, 0xc0, 0x52, 0x14, 0x73, 0xc6, 0x5b, 0x01,
+	0x77, 0xa9, 0xdf, 0xa2, 0xcc, 0xb1, 0xa2, 0x98, 0xa7, 0x1c, 0xff, 0x2b, 0xcd, 0x96, 0x34, 0x5b,
+	0x94, 0x39, 0xe6, 0x2f, 0x04, 0xd5, 0x1d, 0x3b, 0x4e, 0x99, 0xe3, 0x53, 0xbc, 0x0c, 0xe5, 0xc8,
+	0x8e, 0x69, 0x98, 0x1a, 0xa8, 0xa1, 0x36, 0x35, 0x92, 0x23, 0xfc, 0x3f, 0x94, 0x9c, 0x3e, 0xf3,
+	0x5d, 0x43, 0x91, 0xe6, 0x0c, 0xe0, 0x45, 0x50, 0x23, 0xd7, 0x33, 0xd4, 0x06, 0x6a, 0xfe, 0x47,
+	0xc4, 0x13, 0x5b, 0x50, 0x3e, 0xa2, 0x71, 0x4a, 0x8f, 0x0d, 0xad, 0x81, 0x9a, 0x7a, 0x7b, 0xd9,
+	0x3a, 0x97, 0xce, 0x7a, 0xf3, 0xf6, 0x60, 0xaf, 0x43, 0x72, 0x16, 0xbe, 0x01, 0x28, 0x32, 0x4a,
+	0x92, 0xba, 0xf4, 0x27, 0x6a, 0x87, 0xa0, 0x08, 0x63, 0xd0, 0x02, 0x3b, 0x49, 0x8c, 0x72, 0x03,
+	0x35, 0x11, 0x91, 0x6f, 0x51, 0xa8, 0xd3, 0xb7, 0x63, 0x8f, 0x1a, 0x95, 0x06, 0x6a, 0x2a, 0x24,
+	0x47, 0xf8, 0x16, 0x68, 0x49, 0xc4, 0x42, 0xa3, 0x3a, 0x3d, 0x66, 0x97, 0x48, 0x8a, 0xf9, 0x0d,
+	0x41, 0x79, 0x97, 0x05, 0x2f, 0x58, 0x8a, 0xaf, 0x41, 0xf5, 0x88, 0xfb, 0x83, 0x80, 0x32, 0xd7,
+	0x40, 0x0d, 0xd4, 0xd4, 0xc8, 0x08, 0xe3, 0x35, 0xa8, 0x79, 0x3e, 0xef, 0xd9, 0x7e, 0x14, 0xd3,
+	0x88, 0x27, 0x86, 0x32, 0xb3, 0xb1, 0x09, 0x2e, 0x7e, 0x02, 0xff, 0xe4, 0x98, 0x27, 0xa9, 0x70,
+	0x56, 0x67, 0x3a, 0x4f, 0x92, 0x45, 0xdf, 0xd4, 0xa5, 0x91, 0x1c, 0xa5, 0x42, 0xe4, 0x5b, 0x54,
+	0x1a, 0xe5, 0xcb, 0x92, 0x73, 0xd3, 0xc8, 0x08, 0x9b, 0x1f, 0x60, 0x7e, 0x23, 0xa4, 0xb1, 0x77,
+	0xd2, 0xa1, 0xd9, 0xd0, 0xa8, 0x1d, 0xca, 0x76, 0x14, 0x22, 0xdf, 0x62, 0x8b, 0x21, 0x67, 0x09,
+	0x95, 0x3d, 0x28, 0x24, 0x03, 0xd8, 0x02, 0x35, 0x2b, 0x4d, 0x6d, 0xea, 0xed, 0x95, 0x0b, 0xa5,
+	0x6d, 0xf7, 0x12, 0x1a, 0x1f, 0x51, 0x77, 0x87, 0x27, 0x44, 0x10, 0xc5, 0xe8, 0x13, 0x3e, 0x88,
+	0x1d, 0x6a, 0x68, 0x99, 0x46, 0x32, 0x64, 0xf6, 0xa0, 0xb4, 0x17, 0xdb, 0xce, 0x3b, 0xfc, 0x08,
+	0x2a, 0x09, 0xf5, 0x82, 0xa1, 0x8a, 0xf4, 0xf6, 0xf5, 0x0b, 0x41, 0x25, 0x71, 0x37, 0x23, 0x91,
+	0x21, 0x1b, 0x37, 0x40, 0xe7, 0x32, 0x9b, 0x9d, 0x32, 0x1e, 0xe6, 0x5a, 0x2b, 0x9a, 0xcc, 0x4f,
+	0x2a, 0xd4, 0x8a, 0xbe, 0x05, 0xc1, 0xa1, 0x2b, 0x09, 0x6e, 0x0d, 0xf4, 0xec, 0x35, 0x1c, 0x84,
+	0xa8, 0xcf, 0xb8, 0xe0, 0x44, 0xec, 0xd0, 0x7d, 0x6d, 0xc7, 0xa4, 0x48, 0xc6, 0xab, 0x62, 0x50,
+	0x87, 0xf9, 0x0e, 0xa7, 0xc8, 0x55, 0x30, 0xf0, 0x43, 0xa8, 0x46, 0xfc, 0x30, 0xcb, 0xa0, 0x5d,
+	0x92, 0x61, 0xc4, 0xc4, 0x0f, 0x60, 0xde, 0x19, 0x88, 0x46, 0x07, 0x31, 0x9d, 0x7d, 0x13, 0x63,
+	0x1e, 0x7e, 0x06, 0x0b, 0x23, 0x90, 0x25, 0x2c, 0x5f, 0x92, 0xf0, 0x1c, 0x1f, 0xd7, 0x01, 0xb2,
+	0xdb, 0x49, 0x98, 0x17, 0xe6, 0xd7, 0x54, 0xb0, 0x88, 0x75, 0xfb, 0x34, 0xf4, 0xd2, 0xbe, 0xbc,
+	0x29, 0x85, 0xe4, 0xc8, 0xfc, 0x88, 0x40, 0x2f, 0x68, 0x03, 0xdf, 0x2e, 0x08, 0x6e, 0xfa, 0x1e,
+	0x32, 0x21, 0x5a, 0x63, 0x21, 0xce, 0x2e, 0x36, 0x97, 0xe8, 0x0a, 0xcc, 0xbf, 0xa7, 0xcc, 0xeb,
+	0xa7, 0x01, 0x77, 0xe5, 0xfc, 0x15, 0x32, 0x36, 0x98, 0x5f, 0x10, 0x54, 0x72, 0x07, 0xfc, 0x18,
+	0x34, 0x97, 0x25, 0xa9, 0x54, 0xf8, 0x42, 0xfb, 0xe6, 0xb4, 0xc0, 0x56, 0x87, 0x25, 0x69, 0xcc,
+	0x7a, 0x03, 0xa1, 0x2a, 0x22, 0x5d, 0xf0, 0x1d, 0x28, 0x25, 0xcc, 0x0b, 0xec, 0x99, 0x47, 0xda,
+	0x25, 0x19, 0xc9, 0x5c, 0x85, 0x5a, 0x31, 0x06, 0x06, 0x28, 0x6f, 0x6d, 0x93, 0xcd, 0xe7, 0xaf,
+	0x16, 0xe7, 0xb0, 0x0e, 0x95, 0xfd, 0xad, 0x97, 0xdd, 0x6d, 0xb2, 0xb9, 0x88, 0xcc, 0xa7, 0x50,
+	0x92, 0xad, 0xe3, 0x1a, 0xa0, 0x4c, 0xa5, 0x88, 0xa0, 0x63, 0x81, 0x4e, 0x64, 0x95, 0x88, 0xa0,
+	0x13, 0x81, 0x4e, 0x65, 0x5e, 0x44, 0xd0, 0xa9, 0x40, 0xa9, 0xbc, 0x7a, 0x44, 0x50, 0x3a, 0x0c,
+	0xd0, 0x1d, 0x07, 0x50, 0x26, 0x02, 0x28, 0x13, 0x01, 0x94, 0x89, 0x00, 0x8a, 0x08, 0x70, 0x0f,
+	0x34, 0x21, 0x9b, 0xab, 0x17, 0x90, 0x7b, 0xfc, 0x45, 0xc6, 0xf5, 0xfd, 0xaf, 0x67, 0x75, 0xf4,
+	0xfd, 0xac, 0x8e, 0x7e, 0x9c, 0xd5, 0xd1, 0xe7, 0x9f, 0xf5, 0x39, 0xd0, 0x0b, 0xe3, 0x5b, 0x57,
+	0x37, 0x98, 0x73, 0x70, 0xdf, 0x63, 0x69, 0x7f, 0xd0, 0xb3, 0x1c, 0x1e, 0xb4, 0x5c, 0xea, 0xb0,
+	0x1e, 0xf5, 0x1d, 0xce, 0x23, 0x1a, 0xb7, 0xb2, 0xaf, 0xca, 0xe3, 0x77, 0xcf, 0xfd, 0x59, 0xbf,
+	0x03, 0x00, 0x00, 0xff, 0xff, 0x1e, 0x49, 0xab, 0xc5, 0xc5, 0x06, 0x00, 0x00,
 }
