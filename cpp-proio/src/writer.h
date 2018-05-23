@@ -1,9 +1,11 @@
 #ifndef PROIO_WRITER_H
 #define PROIO_WRITER_H
 
-#include <pthread.h>
+#include <condition_variable>
 #include <cstring>
+#include <mutex>
 #include <string>
+#include <thread>
 
 #include <google/protobuf/io/zero_copy_stream_impl.h>
 
@@ -41,7 +43,7 @@ class BucketOutputStream : public google::protobuf::io::ZeroCopyOutputStream {
 
 /** Writer for proio files
  */
-class Writer {
+class Writer : public std::mutex {
    public:
     /** Constructor for providing a file descriptor
      */
@@ -84,9 +86,6 @@ class Writer {
     void SetBucketDumpThreshold(uint64_t thres = 0x1000000) { bucketDumpThres = thres; }
 
    private:
-    void initBucket();
-    static void *streamWrite(void *writeJobPtr);
-
     BucketOutputStream *bucket;
     google::protobuf::io::FileOutputStream *fileStream;
     uint64_t bucketEvents;
@@ -96,7 +95,9 @@ class Writer {
     proto::BucketHeader *header;
     std::map<std::string, std::shared_ptr<std::string>> metadata;
 
-    pthread_t streamWriteThread;
+    void initBucket();
+
+    std::thread streamWriteThread;
     typedef struct {
         bool isValid;
 
@@ -104,14 +105,15 @@ class Writer {
         proto::BucketHeader *header;
         google::protobuf::io::FileOutputStream *fileStream;
 
-        pthread_mutex_t doJobMutex;
-        pthread_cond_t doJobCond;
-        pthread_mutex_t workerReadyMutex;
-        pthread_cond_t workerReadyCond;
+        std::mutex doJobMutex;
+        std::condition_variable doJobCond;
+        std::mutex workerReadyMutex;
+        std::condition_variable workerReadyCond;
     } WriteJob;
     WriteJob streamWriteJob;
+    std::unique_lock<std::mutex> workerReadyLock;
 
-    pthread_mutex_t mutex;
+    static void streamWrite(WriteJob *job);
 };
 
 const uint8_t magicBytes[] = {0xe1, 0xc1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,

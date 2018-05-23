@@ -28,10 +28,6 @@ Reader::Reader(std::string filename) {
 }
 
 Reader::~Reader() {
-    pthread_mutex_lock(&mutex);
-    pthread_mutex_unlock(&mutex);
-    pthread_mutex_destroy(&mutex);
-
     if (bucketHeader) delete bucketHeader;
     delete compBucket;
     LZ4F_freeDecompressionContext(dctxPtr);
@@ -46,15 +42,10 @@ Event *Reader::Next(Event *event, bool metaOnly) {
     else
         event = new Event();
 
-    pthread_mutex_lock(&mutex);
-
     while (!bucketHeader || bucketIndex >= bucketHeader->nevents()) {
         if (bucketHeader) bucketIndex -= bucketHeader->nevents();
         readHeader();
-        if (!bucketHeader) {
-            pthread_mutex_unlock(&mutex);
-            return NULL;
-        }
+        if (!bucketHeader) return NULL;
     }
     event->metadata = metadata;
     if (!metaOnly) {
@@ -63,15 +54,11 @@ Event *Reader::Next(Event *event, bool metaOnly) {
     } else
         bucketIndex++;
 
-    pthread_mutex_unlock(&mutex);
-
     return event;
 }
 
 uint64_t Reader::Skip(uint64_t nEvents) {
     uint64_t nSkipped = 0;
-
-    pthread_mutex_lock(&mutex);
 
     uint64_t startIndex = bucketIndex;
     bucketIndex += nEvents;
@@ -82,32 +69,20 @@ uint64_t Reader::Skip(uint64_t nEvents) {
             nSkipped += nBucketEvents - startIndex;
         }
         readHeader();
-        if (!bucketHeader) {
-            pthread_mutex_unlock(&mutex);
-            return nSkipped;
-        }
+        if (!bucketHeader) return nSkipped;
         startIndex = 0;
     }
     nSkipped += bucketIndex - startIndex;
-
-    pthread_mutex_unlock(&mutex);
 
     return nSkipped;
 }
 
 void Reader::SeekToStart() {
-    pthread_mutex_lock(&mutex);
-
     delete fileStream;
-    if (lseek(fd, 0, SEEK_SET) == -1) {
-        pthread_mutex_unlock(&mutex);
-        throw seekError;
-    }
+    if (lseek(fd, 0, SEEK_SET) == -1) throw seekError;
     fileStream = new io::FileInputStream(fd);
     bucketIndex = 0;
     readHeader();
-
-    pthread_mutex_unlock(&mutex);
 }
 
 void Reader::initBucket() {
@@ -117,8 +92,6 @@ void Reader::initBucket() {
     bucketIndex = 0;
     LZ4F_createDecompressionContext(&dctxPtr, LZ4F_VERSION);
     bucket = new BucketInputStream(0);
-
-    pthread_mutex_init(&mutex, NULL);
 }
 
 void Reader::readFromBucket(Event *event) {

@@ -1,8 +1,8 @@
 #ifndef PROIO_READER_H
 #define PROIO_READER_H
 
-#include <pthread.h>
 #include <cstring>
+#include <mutex>
 #include <string>
 
 #include <google/protobuf/io/zero_copy_stream_impl.h>
@@ -35,7 +35,7 @@ class BucketInputStream : public google::protobuf::io::ZeroCopyInputStream {
 
 /** Reader for proio files
  */
-class Reader {
+class Reader : public std::mutex {
    public:
     /** Constructor for providing a file descriptor
      */
@@ -79,8 +79,6 @@ class Reader {
     LZ4F_dctx *dctxPtr;
     BucketInputStream *bucket;
     std::map<std::string, std::shared_ptr<std::string>> metadata;
-
-    pthread_mutex_t mutex;
 };
 
 const class FileOpenError : public std::exception {

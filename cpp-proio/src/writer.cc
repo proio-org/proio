@@ -26,24 +26,16 @@ Writer::Writer(std::string filename) {
 }
 
 Writer::~Writer() {
-    pthread_mutex_lock(&mutex);
-    pthread_mutex_unlock(&mutex);
-    pthread_mutex_destroy(&mutex);
-
     Flush();
 
-    pthread_cond_wait(&streamWriteJob.workerReadyCond, &streamWriteJob.workerReadyMutex);
+    streamWriteJob.workerReadyCond.wait(workerReadyLock);
     streamWriteJob.isValid = false;
-    pthread_mutex_lock(&streamWriteJob.doJobMutex);
-    pthread_cond_signal(&streamWriteJob.doJobCond);
-    pthread_mutex_unlock(&streamWriteJob.doJobMutex);
-    pthread_mutex_unlock(&streamWriteJob.workerReadyMutex);
+    streamWriteJob.doJobMutex.lock();
+    streamWriteJob.doJobCond.notify_all();
+    streamWriteJob.doJobMutex.unlock();
+    workerReadyLock.unlock();
 
-    pthread_join(streamWriteThread, NULL);
-    pthread_cond_destroy(&streamWriteJob.workerReadyCond);
-    pthread_mutex_destroy(&streamWriteJob.workerReadyMutex);
-    pthread_cond_destroy(&streamWriteJob.doJobCond);
-    pthread_mutex_destroy(&streamWriteJob.doJobMutex);
+    streamWriteThread.join();
 
     delete bucket;
     delete fileStream;
@@ -53,7 +45,7 @@ Writer::~Writer() {
 void Writer::Flush() {
     if (bucketEvents == 0) return;
 
-    pthread_cond_wait(&streamWriteJob.workerReadyCond, &streamWriteJob.workerReadyMutex);
+    streamWriteJob.workerReadyCond.wait(workerReadyLock);
     compBucket->Reset();
     switch (compression) {
         case LZ4: {
@@ -89,17 +81,15 @@ void Writer::Flush() {
     streamWriteJob.header = header;
     header = new proto::BucketHeader();
     streamWriteJob.isValid = true;
-    pthread_mutex_lock(&streamWriteJob.doJobMutex);
-    pthread_cond_signal(&streamWriteJob.doJobCond);
-    pthread_mutex_unlock(&streamWriteJob.doJobMutex);
+    streamWriteJob.doJobMutex.lock();
+    streamWriteJob.doJobCond.notify_all();
+    streamWriteJob.doJobMutex.unlock();
 
     bucket->Reset();
     bucketEvents = 0;
 }
 
 void Writer::Push(Event *event) {
-    pthread_mutex_lock(&mutex);
-
     for (auto keyValuePair : event->metadata)
         if (metadata[keyValuePair.first] != keyValuePair.second) {
             PushMetadata(keyValuePair.first, *keyValuePair.second);
@@ -121,8 +111,6 @@ void Writer::Push(Event *event) {
     bucketEvents++;
 
     if (bucket->ByteCount() > bucketDumpThres) Flush();
-
-    pthread_mutex_unlock(&mutex);
 }
 
 void Writer::PushMetadata(std::string name, std::string &data) {
@@ -143,28 +131,20 @@ void Writer::initBucket() {
     SetBucketDumpThreshold();
     header = new proto::BucketHeader;
 
-    pthread_mutex_init(&streamWriteJob.doJobMutex, NULL);
-    pthread_cond_init(&streamWriteJob.doJobCond, NULL);
-    pthread_mutex_init(&streamWriteJob.workerReadyMutex, NULL);
-    pthread_cond_init(&streamWriteJob.workerReadyCond, NULL);
     streamWriteJob.fileStream = fileStream;
     streamWriteJob.isValid = false;
 
-    pthread_mutex_lock(&streamWriteJob.workerReadyMutex);
-    pthread_create(&streamWriteThread, NULL, Writer::streamWrite, &streamWriteJob);
-
-    pthread_mutex_init(&mutex, NULL);
+    workerReadyLock = std::unique_lock<std::mutex>(streamWriteJob.workerReadyMutex);
+    streamWriteThread = std::thread(Writer::streamWrite, &streamWriteJob);
 }
 
-void *Writer::streamWrite(void *writeJobVoid) {
-    auto job = static_cast<WriteJob *>(writeJobVoid);
-
-    pthread_mutex_lock(&job->doJobMutex);
+void Writer::streamWrite(WriteJob *job) {
+    std::unique_lock<std::mutex> doJobLock(job->doJobMutex);
     while (true) {
-        pthread_mutex_lock(&job->workerReadyMutex);
-        pthread_cond_signal(&job->workerReadyCond);
-        pthread_mutex_unlock(&job->workerReadyMutex);
-        pthread_cond_wait(&job->doJobCond, &job->doJobMutex);
+        job->workerReadyMutex.lock();
+        job->workerReadyCond.notify_all();
+        job->workerReadyMutex.unlock();
+        job->doJobCond.wait(doJobLock);
 
         if (job->isValid) {
             auto stream = new io::CodedOutputStream(job->fileStream);
@@ -183,9 +163,6 @@ void *Writer::streamWrite(void *writeJobVoid) {
         } else
             break;
     }
-    pthread_mutex_unlock(&job->doJobMutex);
-
-    return NULL;
 }
 
 BucketOutputStream::BucketOutputStream() { offset = 0; }
