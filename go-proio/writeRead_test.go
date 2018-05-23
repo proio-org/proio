@@ -609,8 +609,8 @@ func TestScan1(t *testing.T) {
 	done := make(chan int)
 	var eventOutMutex sync.Mutex
 
-	scanner := func() {
-		for event := range reader.ScanEvents() {
+	scanner := func(c <-chan *Event) {
+		for event := range c {
 			eventOutMutex.Lock()
 			if event.String() != eventOut.String() {
 				t.Error("Event corrupted")
@@ -621,8 +621,9 @@ func TestScan1(t *testing.T) {
 		done <- 1
 	}
 
-	go scanner()
-	go scanner()
+	c := reader.ScanEvents()
+	go scanner(c)
+	go scanner(c)
 
 	totEvtsRead := 0
 	totDone := 0
@@ -686,8 +687,8 @@ func TestScan2(t *testing.T) {
 	done := make(chan int)
 	var eventOutMutex sync.Mutex
 
-	scanner := func() {
-		for event := range reader.ScanEvents() {
+	scanner := func(c <-chan *Event) {
+		for event := range c {
 			eventOutMutex.Lock()
 			if event.String() != eventOut.String() {
 				t.Error("Event corrupted")
@@ -698,8 +699,9 @@ func TestScan2(t *testing.T) {
 		done <- 1
 	}
 
-	go scanner()
-	go scanner()
+	c := reader.ScanEvents()
+	go scanner(c)
+	go scanner(c)
 
 	totEvtsRead := 0
 	totDone := 0
@@ -760,23 +762,26 @@ func TestScan3(t *testing.T) {
 	done := make(chan int)
 	var eventOutMutex sync.Mutex
 
-	scanner := func() {
-		for event := range reader.ScanEvents() {
+	scanner := func(c <-chan *Event) {
+		for event := range c {
 			eventOutMutex.Lock()
 			if event.String() != eventOut.String() {
 				t.Error("Event corrupted")
 			}
 			eventOutMutex.Unlock()
 			evtsRead <- 1
+			reader.Lock()
 			if nSkipped, _ := reader.Skip(1); nSkipped == 1 {
 				evtsRead <- 1
 			}
+			reader.Unlock()
 		}
 		done <- 1
 	}
 
-	go scanner()
-	go scanner()
+	c := reader.ScanEvents()
+	go scanner(c)
+	go scanner(c)
 
 	totEvtsRead := 0
 	totDone := 0
@@ -840,23 +845,26 @@ func TestScan4(t *testing.T) {
 	done := make(chan int)
 	var eventOutMutex sync.Mutex
 
-	scanner := func() {
-		for event := range reader.ScanEvents() {
+	scanner := func(c <-chan *Event) {
+		for event := range c {
 			eventOutMutex.Lock()
 			if event.String() != eventOut.String() {
 				t.Error("Event corrupted")
 			}
 			eventOutMutex.Unlock()
 			evtsRead <- 1
+			reader.Lock()
 			if nSkipped, _ := reader.Skip(1); nSkipped == 1 {
 				evtsRead <- 1
 			}
+			reader.Unlock()
 		}
 		done <- 1
 	}
 
-	go scanner()
-	go scanner()
+	c := reader.ScanEvents()
+	go scanner(c)
+	go scanner(c)
 
 	totEvtsRead := 0
 	totDone := 0
@@ -917,8 +925,8 @@ func TestScan5(t *testing.T) {
 	done := make(chan int)
 	var eventOutMutex sync.Mutex
 
-	scanner := func() {
-		for event := range reader.ScanEvents() {
+	scanner := func(c <-chan *Event) {
+		for event := range c {
 			eventOutMutex.Lock()
 			if event.String() != eventOut.String() {
 				t.Error("Event corrupted")
@@ -929,8 +937,9 @@ func TestScan5(t *testing.T) {
 		done <- 1
 	}
 
-	go scanner()
-	go scanner()
+	c := reader.ScanEvents()
+	go scanner(c)
+	go scanner(c)
 
 	totEvtsRead := 0
 	totDone := 0

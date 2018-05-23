@@ -13,7 +13,9 @@ import (
 	"github.com/pierrec/lz4"
 )
 
-// Reader serves to read Events from a stream in the proio format.
+// Reader serves to read Events from a stream in the proio format.  The Reader
+// is not inherently thread safe, but it conveniently embeds sync.Mutex so that
+// it can be locked and unlocked.
 type Reader struct {
 	streamReader     io.Reader
 	bucket           *bytes.Reader
@@ -25,7 +27,6 @@ type Reader struct {
 	Err                   chan error
 	EvtScanBufSize        int
 	deferredUntilStopScan []func()
-	scanLock              sync.Mutex
 
 	deferredUntilClose []func() error
 
@@ -64,9 +65,6 @@ func NewReader(streamReader io.Reader) *Reader {
 // unfinished scans.  Close does not close io.Readers passed directly to
 // NewReader.
 func (rdr *Reader) Close() {
-	rdr.Lock()
-	defer rdr.Unlock()
-
 	rdr.StopScan()
 	closer, ok := rdr.streamReader.(io.Closer)
 	if ok {
@@ -76,18 +74,12 @@ func (rdr *Reader) Close() {
 
 // Next retrieves the next event from the stream.
 func (rdr *Reader) Next() (*Event, error) {
-	rdr.Lock()
-	defer rdr.Unlock()
-
 	return rdr.readFromBucket(true)
 }
 
 // NextHeader returns the next bucket header from the stream, and discards the
 // bucket payload.
 func (rdr *Reader) NextHeader() (*proto.BucketHeader, error) {
-	rdr.Lock()
-	defer rdr.Unlock()
-
 	if _, err := rdr.readBucket(1 << 62); err != nil {
 		return nil, err
 	}
@@ -97,9 +89,6 @@ func (rdr *Reader) NextHeader() (*proto.BucketHeader, error) {
 // Skip skips nEvents events.  If the return error is nil, nEvents have been
 // skipped.
 func (rdr *Reader) Skip(nEvents int) (nSkipped int, err error) {
-	rdr.Lock()
-	defer rdr.Unlock()
-
 	bucketEventsLeft := 0
 	if rdr.bucketHeader != nil {
 		bucketEventsLeft = int(rdr.bucketHeader.NEvents) - rdr.bucketEventsRead
@@ -133,9 +122,6 @@ func (rdr *Reader) Skip(nEvents int) (nSkipped int, err error) {
 // SeekToStart seeks seekable streams to the beginning, and prepares the stream
 // to read from there.
 func (rdr *Reader) SeekToStart() error {
-	rdr.Lock()
-	defer rdr.Unlock()
-
 	seeker, ok := rdr.streamReader.(io.Seeker)
 	if !ok {
 		return errors.New("stream not seekable")
@@ -156,23 +142,22 @@ func (rdr *Reader) SeekToStart() error {
 	return nil
 }
 
-//ScanEvents returns a buffered channel of type Event where all of the events
-//in the stream will be pushed.  The channel buffer size is defined by
-//Reader.EvtScanBufSize which defaults to 100.  The goroutine responsible
-//for fetching events will not break until there are no more events,
-//Reader.StopScan() is called, or Reader.Close() is called.  In this scenario,
-//errors are pushed to the Reader.Err channel.
+// ScanEvents returns a buffered channel of type Event where all of the events
+// in the stream will be pushed.  The channel buffer size is defined by
+// Reader.EvtScanBufSize which defaults to 100.  The goroutine responsible for
+// fetching events will not break until there are no more events,
+// Reader.StopScan() is called, or Reader.Close() is called.  In this scenario,
+// errors are pushed to the Reader.Err channel.
 func (rdr *Reader) ScanEvents() <-chan *Event {
-	rdr.Lock()
-	defer rdr.Unlock()
-
 	events := make(chan *Event, rdr.EvtScanBufSize)
 	quit := make(chan int)
 
 	go func() {
 		defer close(events)
 		for {
+			rdr.Lock()
 			event, err := rdr.Next()
+			rdr.Unlock()
 			if err != nil {
 				select {
 				case rdr.Err <- err:
@@ -200,11 +185,8 @@ func (rdr *Reader) ScanEvents() <-chan *Event {
 	return events
 }
 
-// StopScan stops all scans initiated by Reader.ScanEvents()
+// StopScan stops all scans initiated by Reader.ScanEvents().
 func (rdr *Reader) StopScan() {
-	rdr.scanLock.Lock()
-	defer rdr.scanLock.Unlock()
-
 	for _, thisFunc := range rdr.deferredUntilStopScan {
 		thisFunc()
 	}
@@ -214,9 +196,6 @@ func (rdr *Reader) StopScan() {
 var evtScanBufferSize int = 100
 
 func (rdr *Reader) deferUntilStopScan(thisFunc func()) {
-	rdr.scanLock.Lock()
-	defer rdr.scanLock.Unlock()
-
 	rdr.deferredUntilStopScan = append(rdr.deferredUntilStopScan, thisFunc)
 }
 

@@ -22,7 +22,9 @@ const (
 	LZ4
 )
 
-// Writer serves to write Events into the proio format.
+// Writer serves to write Events into a stream in the proio format.  The Writer
+// is not inherently thread safe, but it conveniently embeds sync.Mutex so that
+// it can be locked and unlocked.
 type Writer struct {
 	streamWriter io.Writer
 	bucket       *bytes.Buffer
@@ -106,9 +108,6 @@ func (wrt *Writer) SetCompression(comp Compression) error {
 // Serialize the given Event.  Once this is performed, changes to the Event in
 // memory are not reflected in the output stream.
 func (wrt *Writer) Push(event *Event) error {
-	wrt.Lock()
-	defer wrt.Unlock()
-
 	for key, value := range event.Metadata {
 		if !reflect.DeepEqual(wrt.metadata[key], value) {
 			wrt.PushMetadata(key, value)
