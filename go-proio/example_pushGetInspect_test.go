@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/decibelcooper/proio/go-proio"
-	"github.com/decibelcooper/proio/go-proio/model/lcio"
+	"github.com/decibelcooper/proio/go-proio/model/eic"
 )
 
 func Example_pushGetInspect() {
@@ -16,20 +16,23 @@ func Example_pushGetInspect() {
 
 	// Create entries and hold onto their IDs for referencing
 
-	parent := &lcio.MCParticle{PDG: 443}
-	parentID := eventOut.AddEntry("Particles", parent)
+	parentPDG := int32(443)
+	parent := &eic.Particle{Pdg: &parentPDG}
+	parentID := eventOut.AddEntry("Particle", parent)
 	eventOut.TagEntry(parentID, "MC", "Primary")
 
-	child1 := &lcio.MCParticle{PDG: 11}
-	child2 := &lcio.MCParticle{PDG: -11}
-	childIDs := eventOut.AddEntries("Particles", child1, child2)
+	child1PDG := int32(11)
+	child1 := &eic.Particle{Pdg: &child1PDG}
+	child2PDG := int32(-11)
+	child2 := &eic.Particle{Pdg: &child2PDG}
+	childIDs := eventOut.AddEntries("Particle", child1, child2)
 	for _, id := range childIDs {
-		eventOut.TagEntry(id, "MC", "Simulated")
+		eventOut.TagEntry(id, "MC", "GenStable")
 	}
 
-	parent.Children = append(parent.Children, childIDs...)
-	child1.Parents = append(child1.Parents, parentID)
-	child2.Parents = append(child2.Parents, parentID)
+	parent.Child = append(parent.Child, childIDs...)
+	child1.Parent = append(child1.Parent, parentID)
+	child2.Parent = append(child2.Parent, parentID)
 
 	writer.Push(eventOut)
 
@@ -43,11 +46,11 @@ func Example_pushGetInspect() {
 	mcParts := eventIn.TaggedEntries("Primary")
 	fmt.Print(len(mcParts), " Primary particle(s)...\n")
 	for i, parentID := range mcParts {
-		part := eventIn.GetEntry(parentID).(*lcio.MCParticle)
-		fmt.Print(i, ". PDG: ", part.PDG, "\n")
-		fmt.Print("  ", len(part.Children), " children...\n")
-		for j, childID := range part.Children {
-			fmt.Print("  ", j, ". PDG: ", eventIn.GetEntry(childID).(*lcio.MCParticle).PDG, "\n")
+		part := eventIn.GetEntry(parentID).(*eic.Particle)
+		fmt.Print(i, ". PDG: ", part.GetPdg(), "\n")
+		fmt.Print("  ", len(part.Child), " children...\n")
+		for j, childID := range part.Child {
+			fmt.Print("  ", j, ". PDG: ", eventIn.GetEntry(childID).(*eic.Particle).GetPdg(), "\n")
 		}
 	}
 

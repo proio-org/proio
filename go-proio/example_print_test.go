@@ -4,79 +4,82 @@ import (
 	"fmt"
 
 	"github.com/decibelcooper/proio/go-proio"
-	"github.com/decibelcooper/proio/go-proio/model/lcio"
+	"github.com/decibelcooper/proio/go-proio/model/eic"
 )
 
 func Example_print() {
 	event := proio.NewEvent()
 
-	parent := &lcio.MCParticle{PDG: 443}
-	parentID := event.AddEntry("Particles", parent)
+	parentPDG := int32(443)
+	parent := &eic.Particle{Pdg: &parentPDG}
+	parentID := event.AddEntry("Particle", parent)
 	event.TagEntry(parentID, "MC", "Primary")
 
-	child1 := &lcio.MCParticle{PDG: 11}
-	child2 := &lcio.MCParticle{PDG: -11}
-	childIDs := event.AddEntries("Particles", child1, child2)
+	child1PDG := int32(11)
+	child1 := &eic.Particle{Pdg: &child1PDG}
+	child2PDG := int32(-11)
+	child2 := &eic.Particle{Pdg: &child2PDG}
+	childIDs := event.AddEntries("Particle", child1, child2)
 	for _, id := range childIDs {
-		event.TagEntry(id, "MC", "Simulated")
+		event.TagEntry(id, "MC", "GenStable")
 	}
 
-	parent.Children = append(parent.Children, childIDs...)
-	child1.Parents = append(child1.Parents, parentID)
-	child2.Parents = append(child2.Parents, parentID)
+	parent.Child = append(parent.Child, childIDs...)
+	child1.Parent = append(child1.Parent, parentID)
+	child2.Parent = append(child2.Parent, parentID)
 
 	fmt.Print(event)
 
 	// Output:
-	// ---------- TAG: MC ----------
-	// ID: 1
-	// Entry type: proio.model.lcio.MCParticle
-	// children: 2
-	// children: 3
-	// PDG: 443
-	//
-	// ID: 2
-	// Entry type: proio.model.lcio.MCParticle
-	// parents: 1
-	// PDG: 11
-	//
-	// ID: 3
-	// Entry type: proio.model.lcio.MCParticle
-	// parents: 1
-	// PDG: -11
-	//
-	// ---------- TAG: Particles ----------
-	// ID: 1
-	// Entry type: proio.model.lcio.MCParticle
-	// children: 2
-	// children: 3
-	// PDG: 443
-	//
-	// ID: 2
-	// Entry type: proio.model.lcio.MCParticle
-	// parents: 1
-	// PDG: 11
-	//
-	// ID: 3
-	// Entry type: proio.model.lcio.MCParticle
-	// parents: 1
-	// PDG: -11
-	//
-	// ---------- TAG: Primary ----------
-	// ID: 1
-	// Entry type: proio.model.lcio.MCParticle
-	// children: 2
-	// children: 3
-	// PDG: 443
-	//
-	// ---------- TAG: Simulated ----------
-	// ID: 2
-	// Entry type: proio.model.lcio.MCParticle
-	// parents: 1
-	// PDG: 11
-	//
-	// ID: 3
-	// Entry type: proio.model.lcio.MCParticle
-	// parents: 1
-	// PDG: -11
+    // ---------- TAG: GenStable ----------
+    // ID: 2
+    // Entry type: proio.model.eic.Particle
+    // parent: 1
+    // pdg: 11                             
+    //            
+    // ID: 3      
+    // Entry type: proio.model.eic.Particle
+    // parent: 1
+    // pdg: -11                            
+    //      
+    // ---------- TAG: MC ----------       
+    // ID: 1     
+    // Entry type: proio.model.eic.Particle
+    // child: 2
+    // child: 3
+    // pdg: 443                            
+    //           
+    // ID: 2   
+    // Entry type: proio.model.eic.Particle
+    // parent: 1    
+    // pdg: 11                                               
+    //                            
+    // ID: 3
+    // Entry type: proio.model.eic.Particle
+    // parent: 1
+    // pdg: -11
+
+    // ---------- TAG: Particle ----------
+    // ID: 1
+    // Entry type: proio.model.eic.Particle
+    // child: 2
+    // child: 3
+    // pdg: 443
+
+    // ID: 2
+    // Entry type: proio.model.eic.Particle
+    // parent: 1
+    // pdg: 11
+
+    // ID: 3
+    // Entry type: proio.model.eic.Particle
+    // parent: 1
+    // pdg: -11
+
+    // ---------- TAG: Primary ----------
+    // ID: 1
+    // Entry type: proio.model.eic.Particle
+    // child: 2
+    // child: 3
+    // pdg: 443
 }

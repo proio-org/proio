@@ -5,20 +5,22 @@ import (
 	"fmt"
 
 	"github.com/decibelcooper/proio/go-proio"
-	"github.com/decibelcooper/proio/go-proio/model/lcio"
+	"github.com/decibelcooper/proio/go-proio/model/eic"
 )
 
 func Example_scan() {
 	buffer := &bytes.Buffer{}
 	writer := proio.NewWriter(buffer)
 
+	pdg := int32(443)
 	for i := 0; i < 5; i++ {
 		event := proio.NewEvent()
-		p := &lcio.MCParticle{
-			PDG:    443,
-			Charge: float32(i + 1),
+		charge := float32(i + 1)
+		p := &eic.Particle{
+			Pdg:    &pdg,
+			Charge: &charge,
 		}
-		event.AddEntry("Particles", p)
+		event.AddEntry("Particle", p)
 		writer.Push(event)
 	}
 	writer.Flush()
@@ -30,33 +32,33 @@ func Example_scan() {
 	}
 
 	// Output:
-	// ---------- TAG: Particles ----------
+	// ---------- TAG: Particle ----------
 	// ID: 1
-	// Entry type: proio.model.lcio.MCParticle
-	// PDG: 443
+	// Entry type: proio.model.eic.Particle
+	// pdg: 443
 	// charge: 1
 	//
-	// ---------- TAG: Particles ----------
+	// ---------- TAG: Particle ----------
 	// ID: 1
-	// Entry type: proio.model.lcio.MCParticle
-	// PDG: 443
+	// Entry type: proio.model.eic.Particle
+	// pdg: 443
 	// charge: 2
 	//
-	// ---------- TAG: Particles ----------
+	// ---------- TAG: Particle ----------
 	// ID: 1
-	// Entry type: proio.model.lcio.MCParticle
-	// PDG: 443
+	// Entry type: proio.model.eic.Particle
+	// pdg: 443
 	// charge: 3
 	//
-	// ---------- TAG: Particles ----------
+	// ---------- TAG: Particle ----------
 	// ID: 1
-	// Entry type: proio.model.lcio.MCParticle
-	// PDG: 443
+	// Entry type: proio.model.eic.Particle
+	// pdg: 443
 	// charge: 4
 	//
-	// ---------- TAG: Particles ----------
+	// ---------- TAG: Particle ----------
 	// ID: 1
-	// Entry type: proio.model.lcio.MCParticle
-	// PDG: 443
+	// Entry type: proio.model.eic.Particle
+	// pdg: 443
 	// charge: 5
 }
