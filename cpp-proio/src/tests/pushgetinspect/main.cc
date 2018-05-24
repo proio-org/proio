@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <iostream>
 
+#include "eic.pb.h"
 #include "event.h"
 #include "lcio.pb.h"
 #include "reader.h"
@@ -111,6 +112,65 @@ void pushGetInspect3(proio::Compression comp) {
     eventOut = new proio::Event();
     *eventOut = *event;
     eventsOut.push_back(eventOut);
+
+    delete writer;
+
+    auto reader = new proio::Reader(filename);
+
+    for (int i = 0; i < eventsOut.size(); i++) {
+        assert(reader->Next(event));
+        assert(event->String().compare(eventsOut[i]->String()) == 0);
+        delete eventsOut[i];
+    }
+
+    delete reader;
+    delete event;
+    remove(filename);
+}
+
+void pushGetInspect4(proio::Compression comp) {
+    char filename[] = "pushgetinspect4XXXXXX";
+    auto writer = new proio::Writer(mkstemp(filename));
+    writer->SetCompression(comp);
+
+    std::vector<proio::Event *> eventsOut;
+
+    auto event = new proio::Event();
+    auto partDesc =
+        google::protobuf::DescriptorPool::generated_pool()->FindMessageTypeByName("proio.model.eic.Particle");
+    auto part = (eic::Particle *)event->Free(partDesc);
+    assert(!part);
+    event->AddEntry(new eic::Particle(), "Particle");
+    event->AddEntry(new eic::Particle(), "Particle");
+    auto hitDesc =
+        google::protobuf::DescriptorPool::generated_pool()->FindMessageTypeByName("proio.model.eic.SimHit");
+    auto hit = (eic::SimHit *)event->Free(hitDesc);
+    assert(!hit);
+    event->AddEntry(new eic::SimHit(), "Tracker");
+    event->AddEntry(new eic::SimHit(), "Tracker");
+    auto eventOut = new proio::Event();
+    *eventOut = *event;
+    eventsOut.push_back(eventOut);
+    writer->Push(event);
+    writer->Flush();
+
+    event->Clear();
+    hit = (eic::SimHit *)event->Free(hitDesc);
+    assert(hit);
+    event->AddEntry(hit, "Tracker");
+    hit = (eic::SimHit *)event->Free(hitDesc);
+    assert(hit);
+    event->AddEntry(hit, "Tracker");
+    hit = (eic::SimHit *)event->Free(hitDesc);
+    assert(!hit);
+    writer->Push(event);
+    eventOut = new proio::Event();
+    *eventOut = *event;
+    eventsOut.push_back(eventOut);
+    event->Clear();
+    hit = (eic::SimHit *)event->Free(hitDesc);
+    assert(hit);
+    delete hit;
 
     delete writer;
 
@@ -258,6 +318,10 @@ int main() {
     pushGetInspect3(proio::LZ4);
     pushGetInspect3(proio::UNCOMPRESSED);
     pushGetInspect3(proio::GZIP);
+
+    pushGetInspect4(proio::LZ4);
+    pushGetInspect4(proio::UNCOMPRESSED);
+    pushGetInspect4(proio::GZIP);
 
     pushSkipGet1(proio::LZ4);
     pushSkipGet1(proio::UNCOMPRESSED);

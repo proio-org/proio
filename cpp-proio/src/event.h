@@ -49,6 +49,11 @@ class Event {
     /** DeleteTag removes a tag from the Event.
      */
     void DeleteTag(std::string tag);
+    /** Free returns an allocated and cleared entry Message of the type
+     * described by the given Descriptor, or NULL if no already-allocated
+     * messages of this type are available.
+     */
+    google::protobuf::Message *Free(const google::protobuf::Descriptor *desc);
     /** Metadata returns a mapping from a string key to a pointer to a string
      * that contains the metadata, by reference.  These metadata are all the
      * entries received on the stream up to this Event.

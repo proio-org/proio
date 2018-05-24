@@ -128,6 +128,16 @@ std::vector<std::string> Event::EntryTags(uint64_t id) {
 
 void Event::DeleteTag(std::string tag) { eventProto->mutable_tags()->erase(tag); }
 
+Message *Event::Free(const Descriptor *desc) {
+    std::vector<Message *> &storeEntries = store[desc];
+    if (storeEntries.size() > 0) {
+        Message *entry = storeEntries.back();
+        storeEntries.pop_back();
+        return entry;
+    } else
+        return NULL;
+}
+
 std::string Event::String() {
     std::string printString;
     for (auto tag : Tags()) {
