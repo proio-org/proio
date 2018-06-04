@@ -19,6 +19,9 @@ def test_push_skip_get1_lz4():
 def test_push_skip_get2_lz4():
     push_skip_get2(proio.LZ4)
 
+def test_push_seek_skip_get1_lz4():
+    push_seek_skip_get1(proio.LZ4)
+
 def test_push_get1_gzip():
     push_get1(proio.GZIP)
 
@@ -34,6 +37,9 @@ def test_push_skip_get1_gzip():
 def test_push_skip_get2_gzip():
     push_skip_get2(proio.GZIP)
 
+def test_push_seek_skip_get1_gzip():
+    push_seek_skip_get1(proio.GZIP)
+
 def test_push_get1_uncompressed():
     push_get1(proio.UNCOMPRESSED)
 
@@ -48,6 +54,9 @@ def test_push_skip_get1_uncompressed():
 
 def test_push_skip_get2_uncompressed():
     push_skip_get2(proio.UNCOMPRESSED)
+
+def test_push_seek_skip_get1_uncompressed():
+    push_seek_skip_get1(proio.UNCOMPRESSED)
 
 def push_get1(comp):
     buf = io.BytesIO(b'')
@@ -249,3 +258,53 @@ def push_skip_get2(comp):
         event = reader.next()
         assert event != None
         assert event.__str__() == eventsOut[1].__str__()
+
+def push_seek_skip_get1(comp):
+    buf = io.BytesIO(b'')
+    with proio.Writer(fileobj = buf) as writer:
+        writer.set_compression(comp)
+
+        eventsOut = []
+
+        event = proio.Event()
+        event.add_entries(
+                'Hit1',
+                prolcio.MCParticle(),
+                prolcio.MCParticle()
+                )
+        writer.push(event)
+        eventsOut.append(event)
+        
+        event = proio.Event()
+        event.add_entries(
+                'Hit2',
+                prolcio.SimTrackerHit(),
+                prolcio.SimTrackerHit()
+                )
+        writer.push(event)
+        eventsOut.append(event)
+
+        writer.flush()
+
+        event = proio.Event()
+        event.add_entries(
+                'Hit3',
+                prolcio.SimTrackerHit(),
+                prolcio.SimTrackerHit()
+                )
+        writer.push(event)
+        eventsOut.append(event)
+
+    buf.seek(0, 0)
+
+    with proio.Reader(fileobj = buf) as reader:
+        event = reader.next()
+        assert event != None
+        assert event.__str__() == eventsOut[0].__str__()
+
+        reader.seek_to_start()
+        reader.skip(2)
+        event = reader.next()
+        assert event != None
+        assert event.__str__() == eventsOut[2].__str__()
+

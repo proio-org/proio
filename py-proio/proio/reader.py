@@ -116,6 +116,8 @@ class Reader(object):
         if self._stream_reader.seekable():
             self._stream_reader.seek(0, 0)
             self._bucket_reader = io.BytesIO(b'')
+            self._bucket_header = None
+            self._bucket_evts_read = 0
 
     def _read_from_bucket(self, do_unmarshal = True):
         proto_size_buf = self._bucket_reader.read(4)
