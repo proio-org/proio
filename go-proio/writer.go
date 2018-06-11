@@ -182,7 +182,6 @@ func (wrt *Writer) writeBucket() error {
 	case proto.BucketHeader_LZ4:
 		buffer := &bytes.Buffer{}
 		lz4Writer := lz4.NewWriter(buffer)
-		lz4Writer.HighCompression = true
 		lz4Writer.Write(bucketBytes)
 		lz4Writer.Close()
 		bucketBytes = buffer.Bytes()
