@@ -1,7 +1,5 @@
 package proio;
 
-import com.google.protobuf.Message;
-
 public class Writer
 {
 	public static final byte[] magicBytes = {

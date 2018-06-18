@@ -8,3 +8,5 @@ exclude_paths:
     - py-proio/proio/model/**
     - py-proio/proio/proto/**
     - py-proio/tests/**
+    - java-proio/src/main/java/proio/model/**
+    - java-proio/src/main/java/proio/Proto.java

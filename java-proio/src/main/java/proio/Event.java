@@ -2,34 +2,29 @@ package proio;
 
 import java.lang.ClassNotFoundException;
 import java.lang.IllegalAccessException;
-import java.lang.InstantiationException;
 import java.lang.NoSuchMethodException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
-import com.google.common.primitives.Bytes;
 import com.google.protobuf.ByteString;
-import com.google.protobuf.Descriptors.Descriptor;
-import com.google.protobuf.Descriptors.FileDescriptor;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message;
-import com.google.protobuf.Parser;
 import org.reflections.Reflections;
 
 public class Event
 {
-	private Map<String, Message> collCache = new HashMap<String, Message>();
+    protected Proto.Event eventProto = null;
+    protected Map<String, ByteString> metadata = new HashMap<String, ByteString>();
+    
+    private Map<Long, Message> entryCache = new HashMap<Long, Message>();
+    private Map<Long, Class> classCache = new HashMap<Long, Class>();
+    private static Reflections refl = new Reflections("proio.model");
 
-	public Event() {
-        return;
-	}
+	public Event() {}
 
     public Iterable<Long> getAllEntries() {
         Vector<Long> entries = new Vector<Long>();
@@ -90,13 +85,6 @@ public class Event
         metadata.clear();
         return;
     };
-
-    protected Proto.Event eventProto = null;
-    protected Map<String, ByteString> metadata = new HashMap<String, ByteString>();
-    
-    private Map<Long, Message> entryCache = new HashMap<Long, Message>();
-    private Map<Long, Class> classCache = new HashMap<Long, Class>();
-    private static Reflections refl = new Reflections("proio.model");
 
     private Class getClass(long typeID)
             throws ClassNotFoundException {

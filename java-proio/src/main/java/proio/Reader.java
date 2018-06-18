@@ -1,14 +1,10 @@
 package proio;
 
 import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
-import java.io.EOFException;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.IOException;
 import java.lang.Iterable;
-import java.lang.Math;
 import java.util.Iterator;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +17,16 @@ import net.jpountz.lz4.LZ4FrameInputStream;
 
 public class Reader implements Iterable<Event>, Iterator<Event>
 {
+	private InputStream fileStream = null;
+	private CodedInputStream stream = null;
+    private CodedInputStream bucket = null;
+    private Proto.BucketHeader bucketHeader = null;
+    private int bucketEventsRead = 0;
+    private int bucketIndex = 0;
+    private Map<String, ByteString> metadata = new HashMap<String, ByteString>();
+
+    private Event queuedEvent = null;
+
 	public Reader(String filename)
 			throws IOException {
 		fileStream = new FileInputStream(filename);
@@ -96,19 +102,7 @@ public class Reader implements Iterable<Event>, Iterator<Event>
         }
 	}
 
-	public void remove() {
-		return;
-	}
-
-	private InputStream fileStream = null;
-	private CodedInputStream stream = null;
-    private CodedInputStream bucket = null;
-    private Proto.BucketHeader bucketHeader = null;
-    private int bucketEventsRead = 0;
-    private int bucketIndex = 0;
-    private Map<String, ByteString> metadata = new HashMap<String, ByteString>();
-
-    private Event queuedEvent = null;
+	public void remove() {}
 
     private void readHeader()
             throws IOException {
@@ -143,6 +137,7 @@ public class Reader implements Iterable<Event>, Iterator<Event>
                 break;
             default:
                 bucket = CodedInputStream.newInstance(compBucket);
+                break;
         }
     }
 
@@ -169,14 +164,12 @@ public class Reader implements Iterable<Event>, Iterator<Event>
 		int nRead = 0;
         while (true) {
             byte thisByte = stream.readRawByte();
-            nRead++;
 
             if (thisByte == Writer.magicBytes[0]) {
                 boolean goodSeq = true;
 
                 for (int i = 1; i < 16; i++) {
                     thisByte = stream.readRawByte();
-                    nRead++;
 
                     if (thisByte != Writer.magicBytes[i]) {
                         goodSeq = false;
