@@ -27,7 +27,7 @@ uint64_t Event::AddEntry(Message *entry, std::string tag) {
 
     eventProto->set_nentries(eventProto->nentries() + 1);
     uint64_t id = eventProto->nentries();
-    (*eventProto->mutable_entries())[id] = entryProto;
+    (*eventProto->mutable_entry())[id] = entryProto;
 
     entryCache[id] = entry;
 
@@ -39,8 +39,8 @@ uint64_t Event::AddEntry(Message *entry, std::string tag) {
 Message *Event::GetEntry(uint64_t id) {
     if (entryCache.count(id)) return entryCache[id];
 
-    if (!eventProto->entries().count(id)) return NULL;
-    const proto::Any entryProto = eventProto->entries().at(id);
+    if (!eventProto->entry().count(id)) return NULL;
+    const proto::Any entryProto = eventProto->entry().at(id);
 
     const Descriptor *desc = getDescriptor(entryProto.type());
     if (!desc) throw unknownMessageTypeError;
@@ -61,12 +61,12 @@ Message *Event::GetEntry(uint64_t id) {
     return entry;
 }
 
-void Event::TagEntry(uint64_t id, std::string tag) { (*eventProto->mutable_tags())[tag].add_entries(id); }
+void Event::TagEntry(uint64_t id, std::string tag) { (*eventProto->mutable_tag())[tag].add_entry(id); }
 
 void Event::UntagEntry(uint64_t id, std::string tag) {
-    if (!eventProto->tags().count(tag)) return;
+    if (!eventProto->tag().count(tag)) return;
 
-    auto entries = eventProto->mutable_tags()->at(tag).mutable_entries();
+    auto entries = eventProto->mutable_tag()->at(tag).mutable_entry();
     for (auto iter = entries->begin(); iter != entries->end(); iter++) {
         if ((*iter) == id) {
             entries->erase(iter);
@@ -82,13 +82,13 @@ void Event::RemoveEntry(uint64_t id) {
         entry->Clear();
         store[entry->GetDescriptor()].push_back(entry);
     }
-    eventProto->mutable_entries()->erase(id);
+    eventProto->mutable_entry()->erase(id);
     dirtyTags = true;
 }
 
 std::vector<std::string> Event::Tags() {
     std::vector<std::string> tags;
-    for (auto stringTagPair : eventProto->tags()) {
+    for (auto stringTagPair : eventProto->tag()) {
         tags.push_back(stringTagPair.first);
     }
     std::sort(tags.begin(), tags.end());
@@ -96,9 +96,9 @@ std::vector<std::string> Event::Tags() {
 }
 
 std::vector<uint64_t> Event::TaggedEntries(std::string tag) {
-    if (eventProto->tags().count(tag)) {
+    if (eventProto->tag().count(tag)) {
         tagCleanup();
-        auto entries = eventProto->tags().at(tag).entries();
+        auto entries = eventProto->tag().at(tag).entry();
         std::vector<uint64_t> returnEntries;
         for (uint64_t entry : entries) returnEntries.push_back(entry);
         return returnEntries;
@@ -107,7 +107,7 @@ std::vector<uint64_t> Event::TaggedEntries(std::string tag) {
 }
 
 std::vector<uint64_t> Event::AllEntries() {
-    auto entries = eventProto->entries();
+    auto entries = eventProto->entry();
     std::vector<uint64_t> returnEntries;
     for (auto idEntryPair : entries) returnEntries.push_back(idEntryPair.first);
     return returnEntries;
@@ -115,8 +115,8 @@ std::vector<uint64_t> Event::AllEntries() {
 
 std::vector<std::string> Event::EntryTags(uint64_t id) {
     std::vector<std::string> tags;
-    for (auto stringTagPair : eventProto->tags()) {
-        for (uint64_t entry : stringTagPair.second.entries())
+    for (auto stringTagPair : eventProto->tag()) {
+        for (uint64_t entry : stringTagPair.second.entry())
             if (entry == id) {
                 tags.push_back(stringTagPair.first);
                 break;
@@ -126,7 +126,7 @@ std::vector<std::string> Event::EntryTags(uint64_t id) {
     return tags;
 }
 
-void Event::DeleteTag(std::string tag) { eventProto->mutable_tags()->erase(tag); }
+void Event::DeleteTag(std::string tag) { eventProto->mutable_tag()->erase(tag); }
 
 Message *Event::Free(const Descriptor *desc) {
     std::vector<Message *> &storeEntries = store[desc];
@@ -205,7 +205,7 @@ void Event::flushCache() {
         entry->Clear();
         store[entry->GetDescriptor()].push_back(entry);
 
-        (*eventProto->mutable_entries())[id].set_payload(buffer, byteSize);
+        (*eventProto->mutable_entry())[id].set_payload(buffer, byteSize);
         delete[] buffer;
     }
     entryCache.clear();
@@ -221,7 +221,7 @@ uint64_t Event::getTypeID(Message *entry) {
         return revTypeLookup[typeName];
     }
 
-    for (auto typePair : eventProto->types()) {
+    for (auto typePair : eventProto->type()) {
         if (typePair.second.compare(typeName) == 0) {
             revTypeLookup[typeName] = typePair.first;
             return typePair.first;
@@ -230,14 +230,14 @@ uint64_t Event::getTypeID(Message *entry) {
 
     eventProto->set_ntypes(eventProto->ntypes() + 1);
     uint64_t typeID = eventProto->ntypes();
-    (*eventProto->mutable_types())[typeID] = typeName;
+    (*eventProto->mutable_type())[typeID] = typeName;
     revTypeLookup[typeName] = typeID;
     return typeID;
 }
 
 const Descriptor *Event::getDescriptor(uint64_t typeID) {
     if (!descriptorCache.count(typeID)) {
-        const std::string typeName = eventProto->types().at(typeID);
+        const std::string typeName = eventProto->type().at(typeID);
         descriptorCache[typeID] = DescriptorPool::generated_pool()->FindMessageTypeByName(typeName);
     }
     return descriptorCache[typeID];
@@ -245,11 +245,11 @@ const Descriptor *Event::getDescriptor(uint64_t typeID) {
 
 void Event::tagCleanup() {
     if (!dirtyTags) return;
-    auto tags = eventProto->mutable_tags();
+    auto tags = eventProto->mutable_tag();
     for (auto iter = tags->begin(); iter != tags->end(); iter++) {
-        RepeatedField<uint64_t> *entryList = iter->second.mutable_entries();
+        RepeatedField<uint64_t> *entryList = iter->second.mutable_entry();
         for (int i = entryList->size() - 1; i >= 0; i--) {
-            if (!eventProto->entries().count((*entryList)[i])) {
+            if (!eventProto->entry().count((*entryList)[i])) {
                 for (int j = i; j < entryList->size() - 1; j++) entryList->Set(j, entryList->Get(j + 1));
                 entryList->RemoveLast();
             }

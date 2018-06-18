@@ -29,7 +29,7 @@ class Event(object):
 
         self._proto.nEntries += 1
         ID = self._proto.nEntries
-        self._proto.entries[ID].type = type_id
+        self._proto.entry[ID].type = type_id
 
         self._entry_cache[ID] = entry
 
@@ -63,12 +63,12 @@ class Event(object):
         """
         if ID in self._entry_cache:
             return self._entry_cache[ID]
-        if ID in self._proto.entries:
-            entry_proto = self._proto.entries[ID]
+        if ID in self._proto.entry:
+            entry_proto = self._proto.entry[ID]
         else:
             return None
 
-        type_string = self._proto.types[entry_proto.type]
+        type_string = self._proto.type[entry_proto.type]
         type_desc = descriptor_pool.Default().FindMessageTypeByName(type_string)
         msg_class = self._factory.GetPrototype(type_desc)
         entry = msg_class.FromString(entry_proto.payload)
@@ -83,7 +83,7 @@ class Event(object):
         :param int ID: identifier for entry
         """
         self._entry_cache.pop(ID, None)
-        self._proto.entries.pop(ID, None)
+        self._proto.entry.pop(ID, None)
         self._dirty_tags = True
 
     def tag_entry(self, ID, *tags):
@@ -94,8 +94,8 @@ class Event(object):
         :param string \*tags: tags
         """
         for tag in tags:
-            tag_proto = self._proto.tags[tag]
-            tag_proto.entries.append(ID)
+            tag_proto = self._proto.tag[tag]
+            tag_proto.entry.append(ID)
 
     def untag_entry(self, ID, tag):
         """
@@ -104,9 +104,9 @@ class Event(object):
         :param int ID: identifier for entry
         :param string tag: tag
         """
-        if tag in self._proto.tags:
+        if tag in self._proto.tag:
             try:
-                self._proto.tags[tag].entries.remove(ID)
+                self._proto.tag[tag].entry.remove(ID)
             except ValueError:
                 pass
 
@@ -116,7 +116,7 @@ class Event(object):
 
         :return: list of strings
         """
-        tags = list(self._proto.tags.keys())
+        tags = list(self._proto.tag.keys())
         tags.sort()
         return tags
 
@@ -128,8 +128,8 @@ class Event(object):
         :return: list of strings
         """
         tags = []
-        for tag, value in self._proto.tags.items():
-            if ID in value.entries:
+        for tag, value in self._proto.tag.items():
+            if ID in value.entry:
                 tags.append(tag)
         return tags
 
@@ -143,7 +143,7 @@ class Event(object):
         :rtype: int list
         """
         self._tag_cleanup()
-        return list(self._proto.tags[tag].entries)
+        return list(self._proto.tag[tag].entry)
 
     def all_entries(self):
         """
@@ -152,7 +152,7 @@ class Event(object):
         :return: identifiers for entries
         :rtype: int list
         """
-        return list(self._proto.entries.keys())
+        return list(self._proto.entry.keys())
 
     def delete_tag(self, tag):
         """
@@ -160,28 +160,28 @@ class Event(object):
 
         :param string tag: tag
         """
-        self._proto.tags.pop(tag, None)
+        self._proto.tag.pop(tag, None)
 
     def _get_type_id(self, entry):
         type_name = entry.DESCRIPTOR.full_name
         try:
             return self._rev_type_lookup[type_name]
         except KeyError:
-            for ID, name in self._proto.types.items():
+            for ID, name in self._proto.type.items():
                 if name == type_name:
                     self._rev_type_lookup[name] = ID
                     return ID
 
             self._proto.nTypes += 1
             type_id = self._proto.nTypes
-            self._proto.types[type_id] = type_name
+            self._proto.type[type_id] = type_name
             self._rev_type_lookup[type_name] = type_id
 
             return type_id
 
     def _flush_cache(self):
         for ID, entry in self._entry_cache.items():
-            self._proto.entries[ID].payload = entry.SerializeToString()
+            self._proto.entry[ID].payload = entry.SerializeToString()
         self._entry_cache = {}
         self._tag_cleanup()
 
@@ -206,6 +206,6 @@ class Event(object):
     def _tag_cleanup(self):
         if not self._dirty_tags:
             return
-        for tag in self._proto.tags.values():
-            tag.entries[:] = [ID for ID in tag.entries if ID in self._proto.entries]
+        for tag in self._proto.tag.values():
+            tag.entry[:] = [ID for ID in tag.entry if ID in self._proto.entry]
         self._dirty_tags = False

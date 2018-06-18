@@ -25,12 +25,12 @@ message BucketHeader {
     }
     BucketType type = 4;
 
-    repeated bytes fileDescriptors = 5;
+    repeated bytes fileDescriptor = 5;
     map<string, bytes> metadata = 7;
 }
 
 message Tag {
-    repeated uint64 entries = 1;
+    repeated uint64 entry = 1;
 }
 
 message Any {
@@ -39,12 +39,10 @@ message Any {
 }
 
 message Event {
-    map<string, Tag> tags = 1;
+    map<string, Tag> tag = 1;
     uint64 nEntries = 2;
-    map<uint64, Any> entries = 3;
+    map<uint64, Any> entry = 3;
     uint64 nTypes = 4;
-    map<uint64, string> types = 5;
-
-    uint64 timestamp = 6;
+    map<uint64, string> type = 5;
 }
 

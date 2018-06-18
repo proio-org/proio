@@ -33,9 +33,9 @@ func NewEvent() *Event {
 	return &Event{
 		Metadata: make(map[string][]byte),
 		proto: &proto.Event{
-			Entries: make(map[uint64]*proto.Any),
-			Types:   make(map[uint64]string),
-			Tags:    make(map[string]*proto.Tag),
+			Entry: make(map[uint64]*proto.Any),
+			Type:  make(map[uint64]string),
+			Tag:   make(map[string]*proto.Tag),
 		},
 		revTypeLookup:  make(map[string]uint64),
 		entryTypeCache: make(map[uint64]reflect.Type),
@@ -56,7 +56,7 @@ func (evt *Event) AddEntry(tag string, entry protobuf.Message) uint64 {
 
 	evt.proto.NEntries++
 	id := evt.proto.NEntries
-	evt.proto.Entries[id] = entryProto
+	evt.proto.Entry[id] = entryProto
 
 	evt.entryCache[id] = entry
 
@@ -87,7 +87,7 @@ func (evt *Event) GetEntry(id uint64) protobuf.Message {
 		return entry
 	}
 
-	entryProto, ok := evt.proto.Entries[uint64(id)]
+	entryProto, ok := evt.proto.Entry[uint64(id)]
 	if !ok {
 		evt.Err = errors.New("no such entry: " + strconv.FormatUint(id, 10))
 		return nil
@@ -95,7 +95,7 @@ func (evt *Event) GetEntry(id uint64) protobuf.Message {
 
 	entry = evt.getPrototype(entryProto.Type)
 	if entry == nil {
-		evt.Err = errors.New("unknown type: " + evt.proto.Types[entryProto.Type])
+		evt.Err = errors.New("unknown type: " + evt.proto.Type[entryProto.Type])
 		return nil
 	}
 
@@ -104,7 +104,7 @@ func (evt *Event) GetEntry(id uint64) protobuf.Message {
 			"failure to unmarshal entry " +
 				strconv.FormatUint(id, 10) +
 				" with type " +
-				evt.proto.Types[entryProto.Type],
+				evt.proto.Type[entryProto.Type],
 		)
 		return nil
 	}
@@ -119,16 +119,16 @@ func (evt *Event) GetEntry(id uint64) protobuf.Message {
 // Event.
 func (evt *Event) RemoveEntry(id uint64) {
 	delete(evt.entryCache, id)
-	delete(evt.proto.Entries, id)
+	delete(evt.proto.Entry, id)
 	evt.dirtyTags = true
 }
 
 // AllEntries returns a slice of identifiers for all entries contained in the
 // Event.
 func (evt *Event) AllEntries() []uint64 {
-	IDs := make([]uint64, len(evt.proto.Entries))
+	IDs := make([]uint64, len(evt.proto.Entry))
 	var i int
-	for ID := range evt.proto.Entries {
+	for ID := range evt.proto.Entry {
 		IDs[i] = ID
 		i++
 	}
@@ -138,26 +138,26 @@ func (evt *Event) AllEntries() []uint64 {
 // TagEntry adds additional tags to an entry ID returned by AddEntry.
 func (evt *Event) TagEntry(id uint64, tags ...string) {
 	for _, tag := range tags {
-		tagProto, ok := evt.proto.Tags[tag]
+		tagProto, ok := evt.proto.Tag[tag]
 		if !ok {
 			tagProto = &proto.Tag{}
-			evt.proto.Tags[tag] = tagProto
+			evt.proto.Tag[tag] = tagProto
 		}
 
-		tagProto.Entries = append(tagProto.Entries, id)
+		tagProto.Entry = append(tagProto.Entry, id)
 	}
 }
 
 // UntagEntry removes the association between a tag and an entry.
 func (evt *Event) UntagEntry(id uint64, tag string) {
-	tagProto, ok := evt.proto.Tags[tag]
+	tagProto, ok := evt.proto.Tag[tag]
 	if !ok {
 		return
 	}
 
-	for i, entryID := range tagProto.Entries {
+	for i, entryID := range tagProto.Entry {
 		if entryID == id {
-			tagProto.Entries = append(tagProto.Entries[:i], tagProto.Entries[i+1:]...)
+			tagProto.Entry = append(tagProto.Entry[:i], tagProto.Entry[i+1:]...)
 			return
 		}
 	}
@@ -166,11 +166,11 @@ func (evt *Event) UntagEntry(id uint64, tag string) {
 // TaggedEntries returns a slice of ID numbers that are referenced by the given
 // tag.
 func (evt *Event) TaggedEntries(tag string) []uint64 {
-	tagProto, ok := evt.proto.Tags[tag]
+	tagProto, ok := evt.proto.Tag[tag]
 	if ok {
 		evt.tagCleanup()
-		entries := make([]uint64, len(tagProto.Entries))
-		copy(entries, tagProto.Entries)
+		entries := make([]uint64, len(tagProto.Entry))
+		copy(entries, tagProto.Entry)
 		return entries
 	}
 	return nil
@@ -179,7 +179,7 @@ func (evt *Event) TaggedEntries(tag string) []uint64 {
 // Tags returns a list of all tags in the Event.
 func (evt *Event) Tags() []string {
 	var tags []string
-	for key := range evt.proto.Tags {
+	for key := range evt.proto.Tag {
 		tags = append(tags, key)
 	}
 	sort.Strings(tags)
@@ -189,8 +189,8 @@ func (evt *Event) Tags() []string {
 // EntryTags does a reverse lookup of tags that point to a given entry ID.
 func (evt *Event) EntryTags(id uint64) []string {
 	tags := make([]string, 0)
-	for name, tagProto := range evt.proto.Tags {
-		for _, thisID := range tagProto.Entries {
+	for name, tagProto := range evt.proto.Tag {
+		for _, thisID := range tagProto.Entry {
 			if thisID == id {
 				tags = append(tags, name)
 				break
@@ -204,7 +204,7 @@ func (evt *Event) EntryTags(id uint64) []string {
 // DeleteTag takes a tag name as an argument and deletes that tag from the
 // Event if it exists.
 func (evt *Event) DeleteTag(tag string) {
-	delete(evt.proto.Tags, tag)
+	delete(evt.proto.Tag, tag)
 }
 
 func (evt *Event) String() string {
@@ -232,14 +232,14 @@ func (evt *Event) String() string {
 }
 
 func newEventFromProto(eventProto *proto.Event) *Event {
-	if eventProto.Entries == nil {
-		eventProto.Entries = make(map[uint64]*proto.Any)
+	if eventProto.Entry == nil {
+		eventProto.Entry = make(map[uint64]*proto.Any)
 	}
-	if eventProto.Types == nil {
-		eventProto.Types = make(map[uint64]string)
+	if eventProto.Type == nil {
+		eventProto.Type = make(map[uint64]string)
 	}
-	if eventProto.Tags == nil {
-		eventProto.Tags = make(map[string]*proto.Tag)
+	if eventProto.Tag == nil {
+		eventProto.Tag = make(map[string]*proto.Tag)
 	}
 	return &Event{
 		Metadata:       make(map[string][]byte),
@@ -253,7 +253,7 @@ func newEventFromProto(eventProto *proto.Event) *Event {
 func (evt *Event) getPrototype(id uint64) protobuf.Message {
 	entryType, ok := evt.entryTypeCache[id]
 	if !ok {
-		ptrType := protobuf.MessageType(evt.proto.Types[id])
+		ptrType := protobuf.MessageType(evt.proto.Type[id])
 		if ptrType == nil {
 			return nil
 		}
@@ -268,7 +268,7 @@ func (evt *Event) getTypeID(entry protobuf.Message) uint64 {
 	typeName := protobuf.MessageName(entry)
 	typeID, ok := evt.revTypeLookup[typeName]
 	if !ok {
-		for id, name := range evt.proto.Types {
+		for id, name := range evt.proto.Type {
 			if name == typeName {
 				evt.revTypeLookup[typeName] = id
 				return id
@@ -277,7 +277,7 @@ func (evt *Event) getTypeID(entry protobuf.Message) uint64 {
 
 		evt.proto.NTypes++
 		typeID = evt.proto.NTypes
-		evt.proto.Types[typeID] = typeName
+		evt.proto.Type[typeID] = typeName
 		evt.revTypeLookup[typeName] = typeID
 	}
 
@@ -293,7 +293,7 @@ func (evt *Event) flushCache() {
 		} else {
 			bytes, _ = protobuf.Marshal(entry)
 		}
-		evt.proto.Entries[id].Payload = bytes
+		evt.proto.Entry[id].Payload = bytes
 	}
 	evt.entryCache = make(map[uint64]protobuf.Message)
 
@@ -304,10 +304,10 @@ func (evt *Event) tagCleanup() {
 	if !evt.dirtyTags {
 		return
 	}
-	for _, tagProto := range evt.proto.Tags {
-		for i := len(tagProto.Entries) - 1; i >= 0; i-- {
-			if _, ok := evt.proto.Entries[tagProto.Entries[i]]; !ok {
-				tagProto.Entries = append(tagProto.Entries[:i], tagProto.Entries[i+1:]...)
+	for _, tagProto := range evt.proto.Tag {
+		for i := len(tagProto.Entry) - 1; i >= 0; i-- {
+			if _, ok := evt.proto.Entry[tagProto.Entry[i]]; !ok {
+				tagProto.Entry = append(tagProto.Entry[:i], tagProto.Entry[i+1:]...)
 			}
 		}
 	}
