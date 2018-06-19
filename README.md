@@ -12,8 +12,7 @@ Github: https://github.com/decibelcooper/proio
 * [C++](cpp-proio)
   * Implemented.  See docs and issues for more information
 * [Java](java-proio)
-  * Code has been cleared with recent rewrite
-  * Needs to be rewritten based on new scheme
+  * Currently read only.  See docs and issues for more information
   
 ## What is proio?
 Proio is a library and set of tools that provide a simple but powerful and
