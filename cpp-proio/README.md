@@ -25,10 +25,13 @@ If you need to point CMake to dependencies in non-standard locations, please
 set the
 [`CMAKE_PREFIX_PATH`](https://cmake.org/cmake/help/v3.0/variable/CMAKE_PREFIX_PATH.html)
 variable.  For example, if you build and install the required Protobuf and LZ4
-libraries into your `$HOME` directory, your `cmake` command should look like
+libraries into subdirectories of `/opt`, your `cmake` command might look like
 the following:
 ```shell
-cmake -DCMAKE_PREFIX_PATH=$HOME ../
+cmake \
+    -DCMAKE_PREFIX_PATH="/opt/protobuf;/opt/lz4" \
+    -DCMAKE_INSTALL_PREFIX=/opt/proio \
+    ../
 ```
 
 ### Installing LZ4 from github
