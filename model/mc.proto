@@ -1,0 +1,24 @@
+syntax = "proto2";
+package proio.model.mc;
+option go_package = "github.com/decibelcooper/proio/go-proio/model/mc";
+option java_package = "proio.model";
+option java_outer_classname = "Mc";
+
+message MCParameters {
+    optional uint64 number = 1;
+    optional int32 processid = 2;
+    optional double pt_hat = 3;
+    optional double alpha_em = 4;
+    optional double alpha_s = 5;
+    optional double scale_q_fac = 6;
+    optional double weight = 7;
+    optional double x1 = 8;
+    optional double x2 = 9;
+    optional uint64 id1 = 10;
+    optional uint64 id2 = 11;
+}
+
+message PythiaParameters {
+    optional double weight_sum = 1;
+    optional double merging_weight = 2;
+}
