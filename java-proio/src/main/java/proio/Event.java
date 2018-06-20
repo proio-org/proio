@@ -72,6 +72,14 @@ public class Event {
     return tags;
   }
 
+  public Map<String, ByteString> getMetadata() {
+    Map map = new HashMap<String, ByteString>();
+    for (Map.Entry<String, ByteString> entry : metadata.entrySet()) {
+      map.put(entry.getKey(), entry.getValue());
+    }
+    return map;
+  }
+
   public void clear() {
     eventProto = null;
     metadata.clear();

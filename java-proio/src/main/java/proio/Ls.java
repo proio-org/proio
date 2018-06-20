@@ -1,8 +1,12 @@
 package proio;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.google.protobuf.ByteString;
 import com.google.protobuf.Descriptors;
 import com.google.protobuf.Message;
-import java.util.List;
 
 public class Ls {
   public static void main(String[] args) {
@@ -15,7 +19,15 @@ public class Ls {
       Reader reader = new Reader(args[0]);
 
       int nEvents = 0;
+      Map<String, ByteString> lastMetadata = new HashMap<String, ByteString>();
       for (Event event : reader) {
+        Map<String, ByteString> metadata = event.getMetadata();
+        for (Map.Entry<String, ByteString> entry : metadata.entrySet()) {
+          if (lastMetadata.get(entry.getKey()) != entry.getValue()) {
+            System.out.println("Metadata: " + entry.getKey() + ": " + entry.getValue());
+          }
+        }
+        lastMetadata = metadata;
         System.out.println("EVENT: " + nEvents);
         for (String tag : event.getTags()) {
           System.out.println(tag);
