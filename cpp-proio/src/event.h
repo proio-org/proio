@@ -70,9 +70,14 @@ class Event {
      * format.
      */
     bool SerializeToString(std::string *output) {
-        flushCache();
+        FlushCache();
         return getProto()->SerializeToString(output);
     }
+    /** FlushCache forces all event entries to be serialized.  This is useful
+     * for putting the main serialization load into parallel threads before
+     * aggregating the events into an output stream.
+     */
+    void FlushCache();
     /** Clear prepares the Event for data from a new event.
      */
     void Clear();
@@ -87,7 +92,6 @@ class Event {
     friend class Writer;
     friend class Reader;
 
-    void flushCache();
     proto::Event *getProto();
 
     proto::Event *eventProto;

@@ -160,6 +160,25 @@ std::string Event::String() {
     return printString;
 }
 
+void Event::FlushCache() {
+    for (auto idEntryPair : entryCache) {
+        int64 id = idEntryPair.first;
+        Message *entry = idEntryPair.second;
+
+        size_t byteSize = entry->ByteSizeLong();
+        uint8_t *buffer = new uint8_t[byteSize];
+        entry->SerializeToArray(buffer, byteSize);
+        entry->Clear();
+        store[entry->GetDescriptor()].push_back(entry);
+
+        (*eventProto->mutable_entry())[id].set_payload(buffer, byteSize);
+        delete[] buffer;
+    }
+    entryCache.clear();
+
+    tagCleanup();
+}
+
 void Event::Clear() {
     eventProto->Clear();
     revTypeLookup.clear();
@@ -190,29 +209,6 @@ Event &Event::operator=(const Event &event) {
     this->metadata = event.metadata;
     this->dirtyTags = event.dirtyTags;
     return *this;
-}
-
-void Event::flushCache() {
-    for (auto idEntryPair : entryCache) {
-        int64 id = idEntryPair.first;
-        Message *entry = idEntryPair.second;
-
-#if GOOGLE_PROTOBUF_VERSION >= 3004000
-        size_t byteSize = entry->ByteSizeLong();
-#else
-        size_t byteSize = entry->ByteSize();
-#endif
-        uint8_t *buffer = new uint8_t[byteSize];
-        entry->SerializeToArray(buffer, byteSize);
-        entry->Clear();
-        store[entry->GetDescriptor()].push_back(entry);
-
-        (*eventProto->mutable_entry())[id].set_payload(buffer, byteSize);
-        delete[] buffer;
-    }
-    entryCache.clear();
-
-    tagCleanup();
 }
 
 proto::Event *Event::getProto() { return eventProto; }

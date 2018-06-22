@@ -96,7 +96,7 @@ void Writer::Push(Event *event) {
             metadata[keyValuePair.first] = keyValuePair.second;
         }
 
-    event->flushCache();
+    event->FlushCache();
     proto::Event *proto = event->getProto();
 
     auto stream = new io::CodedOutputStream(bucket);
