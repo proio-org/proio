@@ -179,12 +179,16 @@ add_executable(eicunset src/tests/eicunset/main.cc)
 target_link_libraries(eicunset proio proio.pb)
 add_test(EICUnset eicunset)
 
+add_executable(serialize src/tests/serialize/main.cc)
+target_link_libraries(serialize proio proio.pb pthread)
+add_test(Serialize serialize)
+
 if(${REPORT_COVERAGE})
     message("Enabling coverage reporting")
     set_target_properties(proio
         PROPERTIES COMPILE_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -pthread -g -O0 -fprofile-arcs -ftest-coverage"
                    LINK_FLAGS "-fprofile-arcs")
-    set_target_properties(pushgetinspect refderef tagmanip metadata eicunset
+    set_target_properties(pushgetinspect refderef tagmanip metadata eicunset serialize
         PROPERTIES LINK_FLAGS "-fprofile-arcs")
 endif()
 

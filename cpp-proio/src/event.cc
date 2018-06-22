@@ -13,6 +13,8 @@ Event::Event() {
     dirtyTags = false;
 }
 
+Event::Event(const std::string &data) : Event() { eventProto->ParseFromString(data); }
+
 Event::~Event() {
     delete eventProto;
     for (auto idEntryPair : entryCache) delete idEntryPair.second;

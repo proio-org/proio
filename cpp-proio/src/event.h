@@ -11,6 +11,9 @@ namespace proio {
 class Event {
    public:
     Event();
+    /** This constructor initializes the event from the protobuf wire format.
+     */
+    Event(const std::string &proto);
     virtual ~Event();
 
     /** AddEntry takes a tag and protobuf message entry and adds it to the
@@ -63,6 +66,13 @@ class Event {
     /** String returns a human-readable string representing the event.
      */
     std::string String();
+    /** SerializeToString stores the event in the given string in protobuf wire
+     * format.
+     */
+    bool SerializeToString(std::string *output) {
+        flushCache();
+        return getProto()->SerializeToString(output);
+    }
     /** Clear prepares the Event for data from a new event.
      */
     void Clear();
