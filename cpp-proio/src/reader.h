@@ -54,6 +54,10 @@ class Reader : public std::mutex {
      * this.
      */
     Event *Next(Event *recycledEvent = NULL, bool metadataOnly = false);
+    /** Next copies the next event data in protobuf wire format into the given
+     * string.
+     */
+    bool Next(std::string *data);
     /** Skip skips the next nEvents events.
      */
     uint64_t Skip(uint64_t nEvents);
@@ -64,7 +68,8 @@ class Reader : public std::mutex {
 
    private:
     void initBucket();
-    void readFromBucket(Event *event = NULL);
+    void readFromBucket(Event *event);
+    void readFromBucket(std::string *data);
     void readHeader();
     void readBucket();
     uint64_t syncToMagic(google::protobuf::io::CodedInputStream *stream);

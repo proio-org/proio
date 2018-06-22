@@ -57,6 +57,21 @@ Event *Reader::Next(Event *event, bool metaOnly) {
     return event;
 }
 
+bool Reader::Next(std::string *data) {
+    if (!data) return false;
+
+    while (!bucketHeader || bucketIndex >= bucketHeader->nevents()) {
+        if (bucketHeader) bucketIndex -= bucketHeader->nevents();
+        readHeader();
+        if (!bucketHeader) return false;
+    }
+
+    if (bucket->BytesRemaining() == 0) readBucket();
+    readFromBucket(data);
+
+    return true;
+}
+
 uint64_t Reader::Skip(uint64_t nEvents) {
     uint64_t nSkipped = 0;
 
@@ -112,6 +127,34 @@ void Reader::readFromBucket(Event *event) {
                 throw deserializationError;
             }
             stream->PopLimit(eventLimit);
+        } else if (!stream->Skip(protoSize)) {
+            delete stream;
+            throw corruptBucketError;
+        }
+
+        bucketEventsRead++;
+    }
+    bucketIndex++;
+
+    delete stream;
+}
+
+void Reader::readFromBucket(std::string *data) {
+    auto stream = new io::CodedInputStream(bucket);
+
+    while (bucketEventsRead <= bucketIndex) {
+        uint32_t protoSize;
+        if (!stream->ReadLittleEndian32(&protoSize)) {
+            delete stream;
+            throw corruptBucketError;
+        }
+
+        if (data && bucketEventsRead == bucketIndex) {
+            data->resize(protoSize);
+            if (!stream->ReadString(data, protoSize)) {
+                delete stream;
+                throw corruptBucketError;
+            }
         } else if (!stream->Skip(protoSize)) {
             delete stream;
             throw corruptBucketError;
