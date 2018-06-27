@@ -16,9 +16,9 @@ message Particle {
     // position in mm and time in ns
     optional XYZTD vertex = 4;
     // momentum in GeV
-    optional XYZD p = 5;
+    optional XYZF p = 5;
     // mass in GeV
-    optional double mass = 6;
+    optional float mass = 6;
     // charge in units of e
     optional float charge = 7;
     optional XYZF spin = 8;
