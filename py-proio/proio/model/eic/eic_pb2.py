@@ -7,6 +7,7 @@ from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
+from google.protobuf import descriptor_pb2
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
@@ -18,8 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='proio/model/eic.proto',
   package='proio.model.eic',
   syntax='proto2',
-  serialized_options=_b('\n\013proio.modelB\003EicZ1github.com/decibelcooper/proio/go-proio/model/eic'),
-  serialized_pb=_b('\n\x15proio/model/eic.proto\x12\x0fproio.model.eic\"\xc3\x01\n\x08Particle\x12\x0e\n\x06parent\x18\x01 \x03(\x04\x12\r\n\x05\x63hild\x18\x02 \x03(\x04\x12\x0b\n\x03pdg\x18\x03 \x01(\x11\x12&\n\x06vertex\x18\x04 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12 \n\x01p\x18\x05 \x01(\x0b\x32\x15.proio.model.eic.XYZD\x12\x0c\n\x04mass\x18\x06 \x01(\x01\x12\x0e\n\x06\x63harge\x18\x07 \x01(\x02\x12#\n\x04spin\x18\x08 \x01(\x0b\x32\x15.proio.model.eic.XYZF\"\x97\x01\n\x06SimHit\x12\x10\n\x08volumeid\x18\x01 \x01(\x04\x12,\n\x0cglobalprepos\x18\x02 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12-\n\rglobalpostpos\x18\x03 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12\x0c\n\x04\x65\x64\x65p\x18\x04 \x01(\x02\x12\x10\n\x08particle\x18\x05 \x01(\x04\"c\n\tEnergyDep\x12\x0c\n\x04mean\x18\x01 \x01(\x02\x12\r\n\x05noise\x18\x02 \x01(\x02\x12)\n\x03pos\x18\x03 \x03(\x0b\x32\x1c.proio.model.eic.ObservedPos\x12\x0e\n\x06source\x18\x04 \x03(\x04\"L\n\x05Track\x12.\n\x07segment\x18\x01 \x03(\x0b\x32\x1d.proio.model.eic.TrackSegment\x12\x13\n\x0bobservation\x18\x02 \x03(\x04\"\xb5\x02\n\x0cTrackSegment\x12&\n\x06vertex\x18\x01 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12-\n\x0bvertexnoise\x18\x02 \x03(\x0b\x32\x18.proio.model.eic.RandVar\x12\"\n\x03poq\x18\x03 \x01(\x0b\x32\x15.proio.model.eic.XYZD\x12*\n\x08poqnoise\x18\x04 \x03(\x0b\x32\x18.proio.model.eic.RandVar\x12(\n\tcurvature\x18\x05 \x01(\x0b\x32\x15.proio.model.eic.XYZD\x12\x30\n\x0e\x63urvaturenoise\x18\x06 \x03(\x0b\x32\x18.proio.model.eic.RandVar\x12\x12\n\nchargesign\x18\x07 \x01(\x02\x12\x0e\n\x06length\x18\x08 \x01(\x02\"o\n\x0bObservedPos\x12$\n\x04mean\x18\x01 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12\'\n\x05noise\x18\x02 \x03(\x0b\x32\x18.proio.model.eic.RandVar\x12\x11\n\tweightmod\x18\x03 \x01(\x02\"\x8e\x01\n\x07RandVar\x12\x33\n\x04\x64ist\x18\x02 \x01(\x0e\x32%.proio.model.eic.RandVar.Distribution\x12%\n\x05sigma\x18\x03 \x01(\x0b\x32\x16.proio.model.eic.XYZTF\"\'\n\x0c\x44istribution\x12\n\n\x06NORMAL\x10\x00\x12\x0b\n\x07UNIFORM\x10\x01\"3\n\x05XYZTD\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\x12\t\n\x01t\x18\x04 \x01(\x01\"3\n\x05XYZTF\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x12\t\n\x01t\x18\x04 \x01(\x02\"\'\n\x04XYZD\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\"\'\n\x04XYZF\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x42\x45\n\x0bproio.modelB\x03\x45icZ1github.com/decibelcooper/proio/go-proio/model/eic')
+  serialized_pb=_b('\n\x15proio/model/eic.proto\x12\x0fproio.model.eic\"\xc3\x01\n\x08Particle\x12\x0e\n\x06parent\x18\x01 \x03(\x04\x12\r\n\x05\x63hild\x18\x02 \x03(\x04\x12\x0b\n\x03pdg\x18\x03 \x01(\x11\x12&\n\x06vertex\x18\x04 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12 \n\x01p\x18\x05 \x01(\x0b\x32\x15.proio.model.eic.XYZF\x12\x0c\n\x04mass\x18\x06 \x01(\x02\x12\x0e\n\x06\x63harge\x18\x07 \x01(\x02\x12#\n\x04spin\x18\x08 \x01(\x0b\x32\x15.proio.model.eic.XYZF\"\x97\x01\n\x06SimHit\x12\x10\n\x08volumeid\x18\x01 \x01(\x04\x12,\n\x0cglobalprepos\x18\x02 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12-\n\rglobalpostpos\x18\x03 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12\x0c\n\x04\x65\x64\x65p\x18\x04 \x01(\x02\x12\x10\n\x08particle\x18\x05 \x01(\x04\"c\n\tEnergyDep\x12\x0c\n\x04mean\x18\x01 \x01(\x02\x12\r\n\x05noise\x18\x02 \x01(\x02\x12)\n\x03pos\x18\x03 \x03(\x0b\x32\x1c.proio.model.eic.ObservedPos\x12\x0e\n\x06source\x18\x04 \x03(\x04\"L\n\x05Track\x12.\n\x07segment\x18\x01 \x03(\x0b\x32\x1d.proio.model.eic.TrackSegment\x12\x13\n\x0bobservation\x18\x02 \x03(\x04\"\xb5\x02\n\x0cTrackSegment\x12&\n\x06vertex\x18\x01 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12-\n\x0bvertexnoise\x18\x02 \x03(\x0b\x32\x18.proio.model.eic.RandVar\x12\"\n\x03poq\x18\x03 \x01(\x0b\x32\x15.proio.model.eic.XYZD\x12*\n\x08poqnoise\x18\x04 \x03(\x0b\x32\x18.proio.model.eic.RandVar\x12(\n\tcurvature\x18\x05 \x01(\x0b\x32\x15.proio.model.eic.XYZD\x12\x30\n\x0e\x63urvaturenoise\x18\x06 \x03(\x0b\x32\x18.proio.model.eic.RandVar\x12\x12\n\nchargesign\x18\x07 \x01(\x02\x12\x0e\n\x06length\x18\x08 \x01(\x02\"o\n\x0bObservedPos\x12$\n\x04mean\x18\x01 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12\'\n\x05noise\x18\x02 \x03(\x0b\x32\x18.proio.model.eic.RandVar\x12\x11\n\tweightmod\x18\x03 \x01(\x02\"\x8e\x01\n\x07RandVar\x12\x33\n\x04\x64ist\x18\x02 \x01(\x0e\x32%.proio.model.eic.RandVar.Distribution\x12%\n\x05sigma\x18\x03 \x01(\x0b\x32\x16.proio.model.eic.XYZTF\"\'\n\x0c\x44istribution\x12\n\n\x06NORMAL\x10\x00\x12\x0b\n\x07UNIFORM\x10\x01\"3\n\x05XYZTD\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\x12\t\n\x01t\x18\x04 \x01(\x01\"3\n\x05XYZTF\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x12\t\n\x01t\x18\x04 \x01(\x02\"\'\n\x04XYZD\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\"\'\n\x04XYZF\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x42\x45\n\x0bproio.modelB\x03\x45icZ1github.com/decibelcooper/proio/go-proio/model/eic')
 )
 
 
@@ -32,15 +32,15 @@ _RANDVAR_DISTRIBUTION = _descriptor.EnumDescriptor(
   values=[
     _descriptor.EnumValueDescriptor(
       name='NORMAL', index=0, number=0,
-      serialized_options=None,
+      options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
       name='UNIFORM', index=1, number=1,
-      serialized_options=None,
+      options=None,
       type=None),
   ],
   containing_type=None,
-  serialized_options=None,
+  options=None,
   serialized_start=1102,
   serialized_end=1141,
 )
@@ -60,63 +60,63 @@ _PARTICLE = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='child', full_name='proio.model.eic.Particle.child', index=1,
       number=2, type=4, cpp_type=4, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='pdg', full_name='proio.model.eic.Particle.pdg', index=2,
       number=3, type=17, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='vertex', full_name='proio.model.eic.Particle.vertex', index=3,
       number=4, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='p', full_name='proio.model.eic.Particle.p', index=4,
       number=5, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='mass', full_name='proio.model.eic.Particle.mass', index=5,
-      number=6, type=1, cpp_type=5, label=1,
+      number=6, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='charge', full_name='proio.model.eic.Particle.charge', index=6,
       number=7, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='spin', full_name='proio.model.eic.Particle.spin', index=7,
       number=8, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  serialized_options=None,
+  options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
@@ -140,42 +140,42 @@ _SIMHIT = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='globalprepos', full_name='proio.model.eic.SimHit.globalprepos', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='globalpostpos', full_name='proio.model.eic.SimHit.globalpostpos', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='edep', full_name='proio.model.eic.SimHit.edep', index=3,
       number=4, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='particle', full_name='proio.model.eic.SimHit.particle', index=4,
       number=5, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  serialized_options=None,
+  options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
@@ -199,35 +199,35 @@ _ENERGYDEP = _descriptor.Descriptor(
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='noise', full_name='proio.model.eic.EnergyDep.noise', index=1,
       number=2, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='pos', full_name='proio.model.eic.EnergyDep.pos', index=2,
       number=3, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='source', full_name='proio.model.eic.EnergyDep.source', index=3,
       number=4, type=4, cpp_type=4, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  serialized_options=None,
+  options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
@@ -251,21 +251,21 @@ _TRACK = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='observation', full_name='proio.model.eic.Track.observation', index=1,
       number=2, type=4, cpp_type=4, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  serialized_options=None,
+  options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
@@ -289,63 +289,63 @@ _TRACKSEGMENT = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='vertexnoise', full_name='proio.model.eic.TrackSegment.vertexnoise', index=1,
       number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='poq', full_name='proio.model.eic.TrackSegment.poq', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='poqnoise', full_name='proio.model.eic.TrackSegment.poqnoise', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='curvature', full_name='proio.model.eic.TrackSegment.curvature', index=4,
       number=5, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='curvaturenoise', full_name='proio.model.eic.TrackSegment.curvaturenoise', index=5,
       number=6, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='chargesign', full_name='proio.model.eic.TrackSegment.chargesign', index=6,
       number=7, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='length', full_name='proio.model.eic.TrackSegment.length', index=7,
       number=8, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  serialized_options=None,
+  options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
@@ -369,28 +369,28 @@ _OBSERVEDPOS = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='noise', full_name='proio.model.eic.ObservedPos.noise', index=1,
       number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='weightmod', full_name='proio.model.eic.ObservedPos.weightmod', index=2,
       number=3, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  serialized_options=None,
+  options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
@@ -414,14 +414,14 @@ _RANDVAR = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='sigma', full_name='proio.model.eic.RandVar.sigma', index=1,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -429,7 +429,7 @@ _RANDVAR = _descriptor.Descriptor(
   enum_types=[
     _RANDVAR_DISTRIBUTION,
   ],
-  serialized_options=None,
+  options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
@@ -453,35 +453,35 @@ _XYZTD = _descriptor.Descriptor(
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='y', full_name='proio.model.eic.XYZTD.y', index=1,
       number=2, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='z', full_name='proio.model.eic.XYZTD.z', index=2,
       number=3, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='t', full_name='proio.model.eic.XYZTD.t', index=3,
       number=4, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  serialized_options=None,
+  options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
@@ -505,35 +505,35 @@ _XYZTF = _descriptor.Descriptor(
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='y', full_name='proio.model.eic.XYZTF.y', index=1,
       number=2, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='z', full_name='proio.model.eic.XYZTF.z', index=2,
       number=3, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='t', full_name='proio.model.eic.XYZTF.t', index=3,
       number=4, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  serialized_options=None,
+  options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
@@ -557,28 +557,28 @@ _XYZD = _descriptor.Descriptor(
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='y', full_name='proio.model.eic.XYZD.y', index=1,
       number=2, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='z', full_name='proio.model.eic.XYZD.z', index=2,
       number=3, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  serialized_options=None,
+  options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
@@ -602,28 +602,28 @@ _XYZF = _descriptor.Descriptor(
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='y', full_name='proio.model.eic.XYZF.y', index=1,
       number=2, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='z', full_name='proio.model.eic.XYZF.z', index=2,
       number=3, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  serialized_options=None,
+  options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
@@ -634,7 +634,7 @@ _XYZF = _descriptor.Descriptor(
 )
 
 _PARTICLE.fields_by_name['vertex'].message_type = _XYZTD
-_PARTICLE.fields_by_name['p'].message_type = _XYZD
+_PARTICLE.fields_by_name['p'].message_type = _XYZF
 _PARTICLE.fields_by_name['spin'].message_type = _XYZF
 _SIMHIT.fields_by_name['globalprepos'].message_type = _XYZTD
 _SIMHIT.fields_by_name['globalpostpos'].message_type = _XYZTD
@@ -742,5 +742,6 @@ XYZF = _reflection.GeneratedProtocolMessageType('XYZF', (_message.Message,), dic
 _sym_db.RegisterMessage(XYZF)
 
 
-DESCRIPTOR._options = None
+DESCRIPTOR.has_options = True
+DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b('\n\013proio.modelB\003EicZ1github.com/decibelcooper/proio/go-proio/model/eic'))
 # @@protoc_insertion_point(module_scope)
