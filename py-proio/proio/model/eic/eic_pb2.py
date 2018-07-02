@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='proio/model/eic.proto',
   package='proio.model.eic',
   syntax='proto2',
-  serialized_pb=_b('\n\x15proio/model/eic.proto\x12\x0fproio.model.eic\"\x81\x02\n\x08Particle\x12\x0e\n\x06parent\x18\x01 \x03(\x04\x12\r\n\x05\x63hild\x18\x02 \x03(\x04\x12\x0b\n\x03pdg\x18\x03 \x01(\x11\x12&\n\x06vertex\x18\x04 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12\'\n\x08p_double\x18\x05 \x01(\x0b\x32\x15.proio.model.eic.XYZD\x12 \n\x01p\x18\t \x01(\x0b\x32\x15.proio.model.eic.XYZF\x12\x13\n\x0bmass_double\x18\x06 \x01(\x01\x12\x0c\n\x04mass\x18\n \x01(\x02\x12\x0e\n\x06\x63harge\x18\x07 \x01(\x02\x12#\n\x04spin\x18\x08 \x01(\x0b\x32\x15.proio.model.eic.XYZF\"\x97\x01\n\x06SimHit\x12\x10\n\x08volumeid\x18\x01 \x01(\x04\x12,\n\x0cglobalprepos\x18\x02 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12-\n\rglobalpostpos\x18\x03 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12\x0c\n\x04\x65\x64\x65p\x18\x04 \x01(\x02\x12\x10\n\x08particle\x18\x05 \x01(\x04\"c\n\tEnergyDep\x12\x0c\n\x04mean\x18\x01 \x01(\x02\x12\r\n\x05noise\x18\x02 \x01(\x02\x12)\n\x03pos\x18\x03 \x03(\x0b\x32\x1c.proio.model.eic.ObservedPos\x12\x0e\n\x06source\x18\x04 \x03(\x04\"L\n\x05Track\x12.\n\x07segment\x18\x01 \x03(\x0b\x32\x1d.proio.model.eic.TrackSegment\x12\x13\n\x0bobservation\x18\x02 \x03(\x04\"\xb5\x02\n\x0cTrackSegment\x12&\n\x06vertex\x18\x01 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12-\n\x0bvertexnoise\x18\x02 \x03(\x0b\x32\x18.proio.model.eic.RandVar\x12\"\n\x03poq\x18\x03 \x01(\x0b\x32\x15.proio.model.eic.XYZD\x12*\n\x08poqnoise\x18\x04 \x03(\x0b\x32\x18.proio.model.eic.RandVar\x12(\n\tcurvature\x18\x05 \x01(\x0b\x32\x15.proio.model.eic.XYZD\x12\x30\n\x0e\x63urvaturenoise\x18\x06 \x03(\x0b\x32\x18.proio.model.eic.RandVar\x12\x12\n\nchargesign\x18\x07 \x01(\x02\x12\x0e\n\x06length\x18\x08 \x01(\x02\"o\n\x0bObservedPos\x12$\n\x04mean\x18\x01 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12\'\n\x05noise\x18\x02 \x03(\x0b\x32\x18.proio.model.eic.RandVar\x12\x11\n\tweightmod\x18\x03 \x01(\x02\"\x8e\x01\n\x07RandVar\x12\x33\n\x04\x64ist\x18\x02 \x01(\x0e\x32%.proio.model.eic.RandVar.Distribution\x12%\n\x05sigma\x18\x03 \x01(\x0b\x32\x16.proio.model.eic.XYZTF\"\'\n\x0c\x44istribution\x12\n\n\x06NORMAL\x10\x00\x12\x0b\n\x07UNIFORM\x10\x01\"3\n\x05XYZTD\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\x12\t\n\x01t\x18\x04 \x01(\x01\"3\n\x05XYZTF\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x12\t\n\x01t\x18\x04 \x01(\x02\"\'\n\x04XYZD\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\"\'\n\x04XYZF\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x42\x45\n\x0bproio.modelB\x03\x45icZ1github.com/decibelcooper/proio/go-proio/model/eic')
+  serialized_pb=_b('\n\x15proio/model/eic.proto\x12\x0fproio.model.eic\"\x81\x02\n\x08Particle\x12\x0e\n\x06parent\x18\x01 \x03(\x04\x12\r\n\x05\x63hild\x18\x02 \x03(\x04\x12\x0b\n\x03pdg\x18\x03 \x01(\x11\x12&\n\x06vertex\x18\x04 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12 \n\x01p\x18\t \x01(\x0b\x32\x15.proio.model.eic.XYZF\x12\x0c\n\x04mass\x18\n \x01(\x02\x12\x0e\n\x06\x63harge\x18\x07 \x01(\x02\x12#\n\x04spin\x18\x08 \x01(\x0b\x32\x15.proio.model.eic.XYZF\x12\'\n\x08p_double\x18\x05 \x01(\x0b\x32\x15.proio.model.eic.XYZD\x12\x13\n\x0bmass_double\x18\x06 \x01(\x01\"\x97\x01\n\x06SimHit\x12\x10\n\x08volumeid\x18\x01 \x01(\x04\x12,\n\x0cglobalprepos\x18\x02 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12-\n\rglobalpostpos\x18\x03 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12\x0c\n\x04\x65\x64\x65p\x18\x04 \x01(\x02\x12\x10\n\x08particle\x18\x05 \x01(\x04\"c\n\tEnergyDep\x12\x0c\n\x04mean\x18\x01 \x01(\x02\x12\r\n\x05noise\x18\x02 \x01(\x02\x12)\n\x03pos\x18\x03 \x03(\x0b\x32\x1c.proio.model.eic.ObservedPos\x12\x0e\n\x06source\x18\x04 \x03(\x04\"L\n\x05Track\x12.\n\x07segment\x18\x01 \x03(\x0b\x32\x1d.proio.model.eic.TrackSegment\x12\x13\n\x0bobservation\x18\x02 \x03(\x04\"\xde\x02\n\x0cTrackSegment\x12&\n\x06vertex\x18\x01 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12-\n\x0bvertexnoise\x18\x02 \x03(\x0b\x32\x18.proio.model.eic.RandVar\x12\"\n\x03poq\x18\x03 \x01(\x0b\x32\x15.proio.model.eic.XYZD\x12*\n\x08poqnoise\x18\x04 \x03(\x0b\x32\x18.proio.model.eic.RandVar\x12\'\n\x08magfield\x18\t \x01(\x0b\x32\x15.proio.model.eic.XYZD\x12\x12\n\nchargesign\x18\x07 \x01(\x02\x12\x0e\n\x06length\x18\x08 \x01(\x02\x12(\n\tcurvature\x18\x05 \x01(\x0b\x32\x15.proio.model.eic.XYZD\x12\x30\n\x0e\x63urvaturenoise\x18\x06 \x03(\x0b\x32\x18.proio.model.eic.RandVar\"o\n\x0bObservedPos\x12$\n\x04mean\x18\x01 \x01(\x0b\x32\x16.proio.model.eic.XYZTD\x12\'\n\x05noise\x18\x02 \x03(\x0b\x32\x18.proio.model.eic.RandVar\x12\x11\n\tweightmod\x18\x03 \x01(\x02\"\x8e\x01\n\x07RandVar\x12\x33\n\x04\x64ist\x18\x02 \x01(\x0e\x32%.proio.model.eic.RandVar.Distribution\x12%\n\x05sigma\x18\x03 \x01(\x0b\x32\x16.proio.model.eic.XYZTF\"\'\n\x0c\x44istribution\x12\n\n\x06NORMAL\x10\x00\x12\x0b\n\x07UNIFORM\x10\x01\"3\n\x05XYZTD\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\x12\t\n\x01t\x18\x04 \x01(\x01\"3\n\x05XYZTF\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x12\t\n\x01t\x18\x04 \x01(\x02\"\'\n\x04XYZD\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\"\'\n\x04XYZF\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x42\x45\n\x0bproio.modelB\x03\x45icZ1github.com/decibelcooper/proio/go-proio/model/eic')
 )
 
 
@@ -41,8 +41,8 @@ _RANDVAR_DISTRIBUTION = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1164,
-  serialized_end=1203,
+  serialized_start=1205,
+  serialized_end=1244,
 )
 _sym_db.RegisterEnumDescriptor(_RANDVAR_DISTRIBUTION)
 
@@ -83,44 +83,44 @@ _PARTICLE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='p_double', full_name='proio.model.eic.Particle.p_double', index=4,
-      number=5, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='p', full_name='proio.model.eic.Particle.p', index=5,
+      name='p', full_name='proio.model.eic.Particle.p', index=4,
       number=9, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='mass_double', full_name='proio.model.eic.Particle.mass_double', index=6,
-      number=6, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='mass', full_name='proio.model.eic.Particle.mass', index=7,
+      name='mass', full_name='proio.model.eic.Particle.mass', index=5,
       number=10, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='charge', full_name='proio.model.eic.Particle.charge', index=8,
+      name='charge', full_name='proio.model.eic.Particle.charge', index=6,
       number=7, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='spin', full_name='proio.model.eic.Particle.spin', index=9,
+      name='spin', full_name='proio.model.eic.Particle.spin', index=7,
       number=8, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='p_double', full_name='proio.model.eic.Particle.p_double', index=8,
+      number=5, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='mass_double', full_name='proio.model.eic.Particle.mass_double', index=9,
+      number=6, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
@@ -326,30 +326,37 @@ _TRACKSEGMENT = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='curvature', full_name='proio.model.eic.TrackSegment.curvature', index=4,
-      number=5, type=11, cpp_type=10, label=1,
+      name='magfield', full_name='proio.model.eic.TrackSegment.magfield', index=4,
+      number=9, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='curvaturenoise', full_name='proio.model.eic.TrackSegment.curvaturenoise', index=5,
-      number=6, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='chargesign', full_name='proio.model.eic.TrackSegment.chargesign', index=6,
+      name='chargesign', full_name='proio.model.eic.TrackSegment.chargesign', index=5,
       number=7, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='length', full_name='proio.model.eic.TrackSegment.length', index=7,
+      name='length', full_name='proio.model.eic.TrackSegment.length', index=6,
       number=8, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='curvature', full_name='proio.model.eic.TrackSegment.curvature', index=7,
+      number=5, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='curvaturenoise', full_name='proio.model.eic.TrackSegment.curvaturenoise', index=8,
+      number=6, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
@@ -366,7 +373,7 @@ _TRACKSEGMENT = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=636,
-  serialized_end=945,
+  serialized_end=986,
 )
 
 
@@ -410,8 +417,8 @@ _OBSERVEDPOS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=947,
-  serialized_end=1058,
+  serialized_start=988,
+  serialized_end=1099,
 )
 
 
@@ -449,8 +456,8 @@ _RANDVAR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1061,
-  serialized_end=1203,
+  serialized_start=1102,
+  serialized_end=1244,
 )
 
 
@@ -501,8 +508,8 @@ _XYZTD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1205,
-  serialized_end=1256,
+  serialized_start=1246,
+  serialized_end=1297,
 )
 
 
@@ -553,8 +560,8 @@ _XYZTF = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1258,
-  serialized_end=1309,
+  serialized_start=1299,
+  serialized_end=1350,
 )
 
 
@@ -598,8 +605,8 @@ _XYZD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1311,
-  serialized_end=1350,
+  serialized_start=1352,
+  serialized_end=1391,
 )
 
 
@@ -643,14 +650,14 @@ _XYZF = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1352,
-  serialized_end=1391,
+  serialized_start=1393,
+  serialized_end=1432,
 )
 
 _PARTICLE.fields_by_name['vertex'].message_type = _XYZTD
-_PARTICLE.fields_by_name['p_double'].message_type = _XYZD
 _PARTICLE.fields_by_name['p'].message_type = _XYZF
 _PARTICLE.fields_by_name['spin'].message_type = _XYZF
+_PARTICLE.fields_by_name['p_double'].message_type = _XYZD
 _SIMHIT.fields_by_name['globalprepos'].message_type = _XYZTD
 _SIMHIT.fields_by_name['globalpostpos'].message_type = _XYZTD
 _ENERGYDEP.fields_by_name['pos'].message_type = _OBSERVEDPOS
@@ -659,6 +666,7 @@ _TRACKSEGMENT.fields_by_name['vertex'].message_type = _XYZTD
 _TRACKSEGMENT.fields_by_name['vertexnoise'].message_type = _RANDVAR
 _TRACKSEGMENT.fields_by_name['poq'].message_type = _XYZD
 _TRACKSEGMENT.fields_by_name['poqnoise'].message_type = _RANDVAR
+_TRACKSEGMENT.fields_by_name['magfield'].message_type = _XYZD
 _TRACKSEGMENT.fields_by_name['curvature'].message_type = _XYZD
 _TRACKSEGMENT.fields_by_name['curvaturenoise'].message_type = _RANDVAR
 _OBSERVEDPOS.fields_by_name['mean'].message_type = _XYZTD

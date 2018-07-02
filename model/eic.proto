@@ -16,14 +16,16 @@ message Particle {
     // position in mm and time in ns
     optional XYZTD vertex = 4;
     // momentum in GeV
-    optional XYZD p_double = 5; // here for compatibility with old model, please use floats
     optional XYZF p = 9;
     // mass in GeV
-    optional double mass_double = 6; // here for compatibility with old model, please use floats
     optional float mass = 10;
     // charge in units of e
     optional float charge = 7;
     optional XYZF spin = 8;
+
+    // DEPRECATED
+    optional XYZD p_double = 5;
+    optional double mass_double = 6;
 }
 
 ////// SIMULATION LEVEL DATA MODEL MESSAGES //////
@@ -67,14 +69,22 @@ message Track {
 ////// SECONDARY DATA MODEL MESSAGES //////
 
 message TrackSegment {
+    // start of segment in mm/ns
     optional XYZTD vertex = 1;
     repeated RandVar vertexnoise = 2;
+    // momentum normalized to the magnitude of the charge (GeV)
     optional XYZD poq = 3;
     repeated RandVar poqnoise = 4;
+    // magnetic field at the vertex (T)
+    optional XYZD magfield = 9;
+    // sign of the track charge
+    optional float chargesign = 7;
+    // length of the segment in mm
+    optional float length = 8;
+
+    // DEPRECATED
     optional XYZD curvature = 5;
     repeated RandVar curvaturenoise = 6;
-    optional float chargesign = 7;
-    optional float length = 8;
 }
 
 // position with detailed noise
