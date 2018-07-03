@@ -18,8 +18,8 @@ public class Reader implements Iterable<Event>, Iterator<Event> {
   private CodedInputStream stream = null;
   private CodedInputStream bucket = null;
   private Proto.BucketHeader bucketHeader = null;
-  private int bucketEventsRead = 0;
-  private int bucketIndex = 0;
+  private long bucketEventsRead = 0;
+  private long bucketIndex = 0;
   private Map<String, ByteString> metadata = new HashMap<String, ByteString>();
 
   private Event queuedEvent = null;
@@ -59,6 +59,28 @@ public class Reader implements Iterable<Event>, Iterator<Event> {
     }
 
     return event;
+  }
+
+  public long skip(long nEvents) throws IOException {
+    long nSkipped = 0;
+
+    long startIndex = bucketIndex;
+    bucketIndex += nEvents;
+    while (bucketHeader == null || bucketIndex >= bucketHeader.getNEvents()) {
+      if (bucketHeader != null) {
+        long nBucketEvents = bucketHeader.getNEvents();
+        bucketIndex -= nBucketEvents;
+        nSkipped += nBucketEvents - startIndex;
+      }
+      readHeader();
+      if (bucketHeader == null) {
+        return nSkipped;
+      }
+      startIndex = 0;
+    }
+    nSkipped += bucketIndex - startIndex;
+
+    return nSkipped;
   }
 
   public void close() throws IOException {
@@ -151,7 +173,6 @@ public class Reader implements Iterable<Event>, Iterator<Event> {
   }
 
   private void syncToMagic() throws IOException {
-    int nRead = 0;
     while (true) {
       byte thisByte = stream.readRawByte();
 

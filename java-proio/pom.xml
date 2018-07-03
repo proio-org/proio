@@ -4,7 +4,7 @@
   <groupId>proio</groupId>
   <artifactId>proio</artifactId>
   <packaging>jar</packaging>
-  <version>0.1.4</version>
+  <version>0.2.0</version>
   <name>proio</name>
   <url>http://github.com/decibelcooper/proio</url>
   <dependencies>
@@ -18,11 +18,6 @@
       <groupId>com.google.protobuf</groupId>
       <artifactId>protobuf-java</artifactId>
       <version>3.4.0</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <version>23.0</version>
     </dependency>
     <dependency>
       <groupId>org.reflections</groupId>
