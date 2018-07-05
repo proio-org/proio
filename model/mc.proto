@@ -4,21 +4,46 @@ option go_package = "github.com/decibelcooper/proio/go-proio/model/mc";
 option java_package = "proio.model";
 option java_outer_classname = "Mc";
 
+
+// This message is for general Monte Carlo generators.
 message MCParameters {
     optional uint64 number = 1;
     optional int32 processid = 2;
+    optional double weight = 3;
+    // keep extra data as key-value (int)
+    map<string, ArrayInt> int_extra = 4;
+    // keep extra data as key-value (double)
+    map<string, ArrayDouble> float_extra = 5;
+}
+
+// array of signed integers
+message ArrayInt {
+    repeated sint32 value = 1;
+}
+
+// array of floating point values
+message ArrayDouble {
+    repeated double value = 1;
+}
+
+// This block is only for Pythia8.
+message Pythia8Parameters {
+    optional double weight_sum = 1;
+    optional double merging_weight = 2;
+    //transverse momentum
     optional double pt_hat = 3;
     optional double alpha_em = 4;
     optional double alpha_s = 5;
+    // Q-scale used in evaluation of PDF’s (in GeV)
     optional double scale_q_fac = 6;
+    // event weight
     optional double weight = 7;
+    // fraction of beam momentum carried by first parton (”beam side”)
     optional double x1 = 8;
+    // fraction of beam momentum carried by second parton (”target side”)
     optional double x2 = 9;
+    // flavour code of first parton
     optional uint64 id1 = 10;
+    // flavour code of second parton
     optional uint64 id2 = 11;
-}
-
-message PythiaParameters {
-    optional double weight_sum = 1;
-    optional double merging_weight = 2;
 }

@@ -14,23 +14,15 @@ public final class Mc {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
-  public interface PythiaParametersOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:proio.model.mc.PythiaParameters)
+  public interface MCParametersOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:proio.model.mc.MCParameters)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <pre>
-     * should be 15 or less
-     * </pre>
-     *
      * <code>optional uint64 number = 1;</code>
      */
     boolean hasNumber();
     /**
-     * <pre>
-     * should be 15 or less
-     * </pre>
-     *
      * <code>optional uint64 number = 1;</code>
      */
     long getNumber();
@@ -45,130 +37,142 @@ public final class Mc {
     int getProcessid();
 
     /**
-     * <code>optional double pt_hat = 3;</code>
-     */
-    boolean hasPtHat();
-    /**
-     * <code>optional double pt_hat = 3;</code>
-     */
-    double getPtHat();
-
-    /**
-     * <code>optional double alpha_em = 4;</code>
-     */
-    boolean hasAlphaEm();
-    /**
-     * <code>optional double alpha_em = 4;</code>
-     */
-    double getAlphaEm();
-
-    /**
-     * <code>optional double alpha_s = 5;</code>
-     */
-    boolean hasAlphaS();
-    /**
-     * <code>optional double alpha_s = 5;</code>
-     */
-    double getAlphaS();
-
-    /**
-     * <code>optional double scale_q_fac = 6;</code>
-     */
-    boolean hasScaleQFac();
-    /**
-     * <code>optional double scale_q_fac = 6;</code>
-     */
-    double getScaleQFac();
-
-    /**
-     * <code>optional double weight = 7;</code>
+     * <code>optional double weight = 3;</code>
      */
     boolean hasWeight();
     /**
-     * <code>optional double weight = 7;</code>
+     * <code>optional double weight = 3;</code>
      */
     double getWeight();
 
     /**
-     * <code>optional double weight_sum = 8;</code>
+     * <pre>
+     * keep extra data as key-value (int)
+     * </pre>
+     *
+     * <code>map&lt;string, .proio.model.mc.ArrayInt&gt; int_extra = 4;</code>
      */
-    boolean hasWeightSum();
+    int getIntExtraCount();
     /**
-     * <code>optional double weight_sum = 8;</code>
+     * <pre>
+     * keep extra data as key-value (int)
+     * </pre>
+     *
+     * <code>map&lt;string, .proio.model.mc.ArrayInt&gt; int_extra = 4;</code>
      */
-    double getWeightSum();
+    boolean containsIntExtra(
+        java.lang.String key);
+    /**
+     * Use {@link #getIntExtraMap()} instead.
+     */
+    @java.lang.Deprecated
+    java.util.Map<java.lang.String, proio.model.Mc.ArrayInt>
+    getIntExtra();
+    /**
+     * <pre>
+     * keep extra data as key-value (int)
+     * </pre>
+     *
+     * <code>map&lt;string, .proio.model.mc.ArrayInt&gt; int_extra = 4;</code>
+     */
+    java.util.Map<java.lang.String, proio.model.Mc.ArrayInt>
+    getIntExtraMap();
+    /**
+     * <pre>
+     * keep extra data as key-value (int)
+     * </pre>
+     *
+     * <code>map&lt;string, .proio.model.mc.ArrayInt&gt; int_extra = 4;</code>
+     */
+
+    proio.model.Mc.ArrayInt getIntExtraOrDefault(
+        java.lang.String key,
+        proio.model.Mc.ArrayInt defaultValue);
+    /**
+     * <pre>
+     * keep extra data as key-value (int)
+     * </pre>
+     *
+     * <code>map&lt;string, .proio.model.mc.ArrayInt&gt; int_extra = 4;</code>
+     */
+
+    proio.model.Mc.ArrayInt getIntExtraOrThrow(
+        java.lang.String key);
 
     /**
-     * <code>optional double merging_weight = 9;</code>
+     * <pre>
+     * keep extra data as key-value (double)
+     * </pre>
+     *
+     * <code>map&lt;string, .proio.model.mc.ArrayDouble&gt; float_extra = 5;</code>
      */
-    boolean hasMergingWeight();
+    int getFloatExtraCount();
     /**
-     * <code>optional double merging_weight = 9;</code>
+     * <pre>
+     * keep extra data as key-value (double)
+     * </pre>
+     *
+     * <code>map&lt;string, .proio.model.mc.ArrayDouble&gt; float_extra = 5;</code>
      */
-    double getMergingWeight();
+    boolean containsFloatExtra(
+        java.lang.String key);
+    /**
+     * Use {@link #getFloatExtraMap()} instead.
+     */
+    @java.lang.Deprecated
+    java.util.Map<java.lang.String, proio.model.Mc.ArrayDouble>
+    getFloatExtra();
+    /**
+     * <pre>
+     * keep extra data as key-value (double)
+     * </pre>
+     *
+     * <code>map&lt;string, .proio.model.mc.ArrayDouble&gt; float_extra = 5;</code>
+     */
+    java.util.Map<java.lang.String, proio.model.Mc.ArrayDouble>
+    getFloatExtraMap();
+    /**
+     * <pre>
+     * keep extra data as key-value (double)
+     * </pre>
+     *
+     * <code>map&lt;string, .proio.model.mc.ArrayDouble&gt; float_extra = 5;</code>
+     */
 
+    proio.model.Mc.ArrayDouble getFloatExtraOrDefault(
+        java.lang.String key,
+        proio.model.Mc.ArrayDouble defaultValue);
     /**
-     * <code>optional double x1 = 10;</code>
+     * <pre>
+     * keep extra data as key-value (double)
+     * </pre>
+     *
+     * <code>map&lt;string, .proio.model.mc.ArrayDouble&gt; float_extra = 5;</code>
      */
-    boolean hasX1();
-    /**
-     * <code>optional double x1 = 10;</code>
-     */
-    double getX1();
 
-    /**
-     * <code>optional double x2 = 11;</code>
-     */
-    boolean hasX2();
-    /**
-     * <code>optional double x2 = 11;</code>
-     */
-    double getX2();
-
-    /**
-     * <code>optional uint64 id1 = 12;</code>
-     */
-    boolean hasId1();
-    /**
-     * <code>optional uint64 id1 = 12;</code>
-     */
-    long getId1();
-
-    /**
-     * <code>optional uint64 id2 = 13;</code>
-     */
-    boolean hasId2();
-    /**
-     * <code>optional uint64 id2 = 13;</code>
-     */
-    long getId2();
+    proio.model.Mc.ArrayDouble getFloatExtraOrThrow(
+        java.lang.String key);
   }
   /**
-   * Protobuf type {@code proio.model.mc.PythiaParameters}
+   * <pre>
+   * This message is for general Monte Carlo generators.
+   * </pre>
+   *
+   * Protobuf type {@code proio.model.mc.MCParameters}
    */
-  public  static final class PythiaParameters extends
+  public  static final class MCParameters extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:proio.model.mc.PythiaParameters)
-      PythiaParametersOrBuilder {
+      // @@protoc_insertion_point(message_implements:proio.model.mc.MCParameters)
+      MCParametersOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use PythiaParameters.newBuilder() to construct.
-    private PythiaParameters(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use MCParameters.newBuilder() to construct.
+    private MCParameters(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private PythiaParameters() {
+    private MCParameters() {
       number_ = 0L;
       processid_ = 0;
-      ptHat_ = 0D;
-      alphaEm_ = 0D;
-      alphaS_ = 0D;
-      scaleQFac_ = 0D;
       weight_ = 0D;
-      weightSum_ = 0D;
-      mergingWeight_ = 0D;
-      x1_ = 0D;
-      x2_ = 0D;
-      id1_ = 0L;
-      id2_ = 0L;
     }
 
     @java.lang.Override
@@ -176,7 +180,7 @@ public final class Mc {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private PythiaParameters(
+    private MCParameters(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -207,57 +211,33 @@ public final class Mc {
             }
             case 25: {
               bitField0_ |= 0x00000004;
-              ptHat_ = input.readDouble();
-              break;
-            }
-            case 33: {
-              bitField0_ |= 0x00000008;
-              alphaEm_ = input.readDouble();
-              break;
-            }
-            case 41: {
-              bitField0_ |= 0x00000010;
-              alphaS_ = input.readDouble();
-              break;
-            }
-            case 49: {
-              bitField0_ |= 0x00000020;
-              scaleQFac_ = input.readDouble();
-              break;
-            }
-            case 57: {
-              bitField0_ |= 0x00000040;
               weight_ = input.readDouble();
               break;
             }
-            case 65: {
-              bitField0_ |= 0x00000080;
-              weightSum_ = input.readDouble();
+            case 34: {
+              if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+                intExtra_ = com.google.protobuf.MapField.newMapField(
+                    IntExtraDefaultEntryHolder.defaultEntry);
+                mutable_bitField0_ |= 0x00000008;
+              }
+              com.google.protobuf.MapEntry<java.lang.String, proio.model.Mc.ArrayInt>
+              intExtra__ = input.readMessage(
+                  IntExtraDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
+              intExtra_.getMutableMap().put(
+                  intExtra__.getKey(), intExtra__.getValue());
               break;
             }
-            case 73: {
-              bitField0_ |= 0x00000100;
-              mergingWeight_ = input.readDouble();
-              break;
-            }
-            case 81: {
-              bitField0_ |= 0x00000200;
-              x1_ = input.readDouble();
-              break;
-            }
-            case 89: {
-              bitField0_ |= 0x00000400;
-              x2_ = input.readDouble();
-              break;
-            }
-            case 96: {
-              bitField0_ |= 0x00000800;
-              id1_ = input.readUInt64();
-              break;
-            }
-            case 104: {
-              bitField0_ |= 0x00001000;
-              id2_ = input.readUInt64();
+            case 42: {
+              if (!((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+                floatExtra_ = com.google.protobuf.MapField.newMapField(
+                    FloatExtraDefaultEntryHolder.defaultEntry);
+                mutable_bitField0_ |= 0x00000010;
+              }
+              com.google.protobuf.MapEntry<java.lang.String, proio.model.Mc.ArrayDouble>
+              floatExtra__ = input.readMessage(
+                  FloatExtraDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
+              floatExtra_.getMutableMap().put(
+                  floatExtra__.getKey(), floatExtra__.getValue());
               break;
             }
             default: {
@@ -281,35 +261,41 @@ public final class Mc {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return proio.model.Mc.internal_static_proio_model_mc_PythiaParameters_descriptor;
+      return proio.model.Mc.internal_static_proio_model_mc_MCParameters_descriptor;
     }
 
+    @SuppressWarnings({"rawtypes"})
+    @java.lang.Override
+    protected com.google.protobuf.MapField internalGetMapField(
+        int number) {
+      switch (number) {
+        case 4:
+          return internalGetIntExtra();
+        case 5:
+          return internalGetFloatExtra();
+        default:
+          throw new RuntimeException(
+              "Invalid map field number: " + number);
+      }
+    }
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return proio.model.Mc.internal_static_proio_model_mc_PythiaParameters_fieldAccessorTable
+      return proio.model.Mc.internal_static_proio_model_mc_MCParameters_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              proio.model.Mc.PythiaParameters.class, proio.model.Mc.PythiaParameters.Builder.class);
+              proio.model.Mc.MCParameters.class, proio.model.Mc.MCParameters.Builder.class);
     }
 
     private int bitField0_;
     public static final int NUMBER_FIELD_NUMBER = 1;
     private long number_;
     /**
-     * <pre>
-     * should be 15 or less
-     * </pre>
-     *
      * <code>optional uint64 number = 1;</code>
      */
     public boolean hasNumber() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <pre>
-     * should be 15 or less
-     * </pre>
-     *
      * <code>optional uint64 number = 1;</code>
      */
     public long getNumber() {
@@ -331,169 +317,203 @@ public final class Mc {
       return processid_;
     }
 
-    public static final int PT_HAT_FIELD_NUMBER = 3;
-    private double ptHat_;
+    public static final int WEIGHT_FIELD_NUMBER = 3;
+    private double weight_;
     /**
-     * <code>optional double pt_hat = 3;</code>
+     * <code>optional double weight = 3;</code>
      */
-    public boolean hasPtHat() {
+    public boolean hasWeight() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>optional double pt_hat = 3;</code>
-     */
-    public double getPtHat() {
-      return ptHat_;
-    }
-
-    public static final int ALPHA_EM_FIELD_NUMBER = 4;
-    private double alphaEm_;
-    /**
-     * <code>optional double alpha_em = 4;</code>
-     */
-    public boolean hasAlphaEm() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
-    }
-    /**
-     * <code>optional double alpha_em = 4;</code>
-     */
-    public double getAlphaEm() {
-      return alphaEm_;
-    }
-
-    public static final int ALPHA_S_FIELD_NUMBER = 5;
-    private double alphaS_;
-    /**
-     * <code>optional double alpha_s = 5;</code>
-     */
-    public boolean hasAlphaS() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
-    }
-    /**
-     * <code>optional double alpha_s = 5;</code>
-     */
-    public double getAlphaS() {
-      return alphaS_;
-    }
-
-    public static final int SCALE_Q_FAC_FIELD_NUMBER = 6;
-    private double scaleQFac_;
-    /**
-     * <code>optional double scale_q_fac = 6;</code>
-     */
-    public boolean hasScaleQFac() {
-      return ((bitField0_ & 0x00000020) == 0x00000020);
-    }
-    /**
-     * <code>optional double scale_q_fac = 6;</code>
-     */
-    public double getScaleQFac() {
-      return scaleQFac_;
-    }
-
-    public static final int WEIGHT_FIELD_NUMBER = 7;
-    private double weight_;
-    /**
-     * <code>optional double weight = 7;</code>
-     */
-    public boolean hasWeight() {
-      return ((bitField0_ & 0x00000040) == 0x00000040);
-    }
-    /**
-     * <code>optional double weight = 7;</code>
+     * <code>optional double weight = 3;</code>
      */
     public double getWeight() {
       return weight_;
     }
 
-    public static final int WEIGHT_SUM_FIELD_NUMBER = 8;
-    private double weightSum_;
-    /**
-     * <code>optional double weight_sum = 8;</code>
-     */
-    public boolean hasWeightSum() {
-      return ((bitField0_ & 0x00000080) == 0x00000080);
+    public static final int INT_EXTRA_FIELD_NUMBER = 4;
+    private static final class IntExtraDefaultEntryHolder {
+      static final com.google.protobuf.MapEntry<
+          java.lang.String, proio.model.Mc.ArrayInt> defaultEntry =
+              com.google.protobuf.MapEntry
+              .<java.lang.String, proio.model.Mc.ArrayInt>newDefaultInstance(
+                  proio.model.Mc.internal_static_proio_model_mc_MCParameters_IntExtraEntry_descriptor, 
+                  com.google.protobuf.WireFormat.FieldType.STRING,
+                  "",
+                  com.google.protobuf.WireFormat.FieldType.MESSAGE,
+                  proio.model.Mc.ArrayInt.getDefaultInstance());
     }
-    /**
-     * <code>optional double weight_sum = 8;</code>
-     */
-    public double getWeightSum() {
-      return weightSum_;
-    }
-
-    public static final int MERGING_WEIGHT_FIELD_NUMBER = 9;
-    private double mergingWeight_;
-    /**
-     * <code>optional double merging_weight = 9;</code>
-     */
-    public boolean hasMergingWeight() {
-      return ((bitField0_ & 0x00000100) == 0x00000100);
-    }
-    /**
-     * <code>optional double merging_weight = 9;</code>
-     */
-    public double getMergingWeight() {
-      return mergingWeight_;
+    private com.google.protobuf.MapField<
+        java.lang.String, proio.model.Mc.ArrayInt> intExtra_;
+    private com.google.protobuf.MapField<java.lang.String, proio.model.Mc.ArrayInt>
+    internalGetIntExtra() {
+      if (intExtra_ == null) {
+        return com.google.protobuf.MapField.emptyMapField(
+            IntExtraDefaultEntryHolder.defaultEntry);
+      }
+      return intExtra_;
     }
 
-    public static final int X1_FIELD_NUMBER = 10;
-    private double x1_;
-    /**
-     * <code>optional double x1 = 10;</code>
-     */
-    public boolean hasX1() {
-      return ((bitField0_ & 0x00000200) == 0x00000200);
+    public int getIntExtraCount() {
+      return internalGetIntExtra().getMap().size();
     }
     /**
-     * <code>optional double x1 = 10;</code>
+     * <pre>
+     * keep extra data as key-value (int)
+     * </pre>
+     *
+     * <code>map&lt;string, .proio.model.mc.ArrayInt&gt; int_extra = 4;</code>
      */
-    public double getX1() {
-      return x1_;
+
+    public boolean containsIntExtra(
+        java.lang.String key) {
+      if (key == null) { throw new java.lang.NullPointerException(); }
+      return internalGetIntExtra().getMap().containsKey(key);
+    }
+    /**
+     * Use {@link #getIntExtraMap()} instead.
+     */
+    @java.lang.Deprecated
+    public java.util.Map<java.lang.String, proio.model.Mc.ArrayInt> getIntExtra() {
+      return getIntExtraMap();
+    }
+    /**
+     * <pre>
+     * keep extra data as key-value (int)
+     * </pre>
+     *
+     * <code>map&lt;string, .proio.model.mc.ArrayInt&gt; int_extra = 4;</code>
+     */
+
+    public java.util.Map<java.lang.String, proio.model.Mc.ArrayInt> getIntExtraMap() {
+      return internalGetIntExtra().getMap();
+    }
+    /**
+     * <pre>
+     * keep extra data as key-value (int)
+     * </pre>
+     *
+     * <code>map&lt;string, .proio.model.mc.ArrayInt&gt; int_extra = 4;</code>
+     */
+
+    public proio.model.Mc.ArrayInt getIntExtraOrDefault(
+        java.lang.String key,
+        proio.model.Mc.ArrayInt defaultValue) {
+      if (key == null) { throw new java.lang.NullPointerException(); }
+      java.util.Map<java.lang.String, proio.model.Mc.ArrayInt> map =
+          internalGetIntExtra().getMap();
+      return map.containsKey(key) ? map.get(key) : defaultValue;
+    }
+    /**
+     * <pre>
+     * keep extra data as key-value (int)
+     * </pre>
+     *
+     * <code>map&lt;string, .proio.model.mc.ArrayInt&gt; int_extra = 4;</code>
+     */
+
+    public proio.model.Mc.ArrayInt getIntExtraOrThrow(
+        java.lang.String key) {
+      if (key == null) { throw new java.lang.NullPointerException(); }
+      java.util.Map<java.lang.String, proio.model.Mc.ArrayInt> map =
+          internalGetIntExtra().getMap();
+      if (!map.containsKey(key)) {
+        throw new java.lang.IllegalArgumentException();
+      }
+      return map.get(key);
     }
 
-    public static final int X2_FIELD_NUMBER = 11;
-    private double x2_;
-    /**
-     * <code>optional double x2 = 11;</code>
-     */
-    public boolean hasX2() {
-      return ((bitField0_ & 0x00000400) == 0x00000400);
+    public static final int FLOAT_EXTRA_FIELD_NUMBER = 5;
+    private static final class FloatExtraDefaultEntryHolder {
+      static final com.google.protobuf.MapEntry<
+          java.lang.String, proio.model.Mc.ArrayDouble> defaultEntry =
+              com.google.protobuf.MapEntry
+              .<java.lang.String, proio.model.Mc.ArrayDouble>newDefaultInstance(
+                  proio.model.Mc.internal_static_proio_model_mc_MCParameters_FloatExtraEntry_descriptor, 
+                  com.google.protobuf.WireFormat.FieldType.STRING,
+                  "",
+                  com.google.protobuf.WireFormat.FieldType.MESSAGE,
+                  proio.model.Mc.ArrayDouble.getDefaultInstance());
     }
-    /**
-     * <code>optional double x2 = 11;</code>
-     */
-    public double getX2() {
-      return x2_;
-    }
-
-    public static final int ID1_FIELD_NUMBER = 12;
-    private long id1_;
-    /**
-     * <code>optional uint64 id1 = 12;</code>
-     */
-    public boolean hasId1() {
-      return ((bitField0_ & 0x00000800) == 0x00000800);
-    }
-    /**
-     * <code>optional uint64 id1 = 12;</code>
-     */
-    public long getId1() {
-      return id1_;
+    private com.google.protobuf.MapField<
+        java.lang.String, proio.model.Mc.ArrayDouble> floatExtra_;
+    private com.google.protobuf.MapField<java.lang.String, proio.model.Mc.ArrayDouble>
+    internalGetFloatExtra() {
+      if (floatExtra_ == null) {
+        return com.google.protobuf.MapField.emptyMapField(
+            FloatExtraDefaultEntryHolder.defaultEntry);
+      }
+      return floatExtra_;
     }
 
-    public static final int ID2_FIELD_NUMBER = 13;
-    private long id2_;
-    /**
-     * <code>optional uint64 id2 = 13;</code>
-     */
-    public boolean hasId2() {
-      return ((bitField0_ & 0x00001000) == 0x00001000);
+    public int getFloatExtraCount() {
+      return internalGetFloatExtra().getMap().size();
     }
     /**
-     * <code>optional uint64 id2 = 13;</code>
+     * <pre>
+     * keep extra data as key-value (double)
+     * </pre>
+     *
+     * <code>map&lt;string, .proio.model.mc.ArrayDouble&gt; float_extra = 5;</code>
      */
-    public long getId2() {
-      return id2_;
+
+    public boolean containsFloatExtra(
+        java.lang.String key) {
+      if (key == null) { throw new java.lang.NullPointerException(); }
+      return internalGetFloatExtra().getMap().containsKey(key);
+    }
+    /**
+     * Use {@link #getFloatExtraMap()} instead.
+     */
+    @java.lang.Deprecated
+    public java.util.Map<java.lang.String, proio.model.Mc.ArrayDouble> getFloatExtra() {
+      return getFloatExtraMap();
+    }
+    /**
+     * <pre>
+     * keep extra data as key-value (double)
+     * </pre>
+     *
+     * <code>map&lt;string, .proio.model.mc.ArrayDouble&gt; float_extra = 5;</code>
+     */
+
+    public java.util.Map<java.lang.String, proio.model.Mc.ArrayDouble> getFloatExtraMap() {
+      return internalGetFloatExtra().getMap();
+    }
+    /**
+     * <pre>
+     * keep extra data as key-value (double)
+     * </pre>
+     *
+     * <code>map&lt;string, .proio.model.mc.ArrayDouble&gt; float_extra = 5;</code>
+     */
+
+    public proio.model.Mc.ArrayDouble getFloatExtraOrDefault(
+        java.lang.String key,
+        proio.model.Mc.ArrayDouble defaultValue) {
+      if (key == null) { throw new java.lang.NullPointerException(); }
+      java.util.Map<java.lang.String, proio.model.Mc.ArrayDouble> map =
+          internalGetFloatExtra().getMap();
+      return map.containsKey(key) ? map.get(key) : defaultValue;
+    }
+    /**
+     * <pre>
+     * keep extra data as key-value (double)
+     * </pre>
+     *
+     * <code>map&lt;string, .proio.model.mc.ArrayDouble&gt; float_extra = 5;</code>
+     */
+
+    public proio.model.Mc.ArrayDouble getFloatExtraOrThrow(
+        java.lang.String key) {
+      if (key == null) { throw new java.lang.NullPointerException(); }
+      java.util.Map<java.lang.String, proio.model.Mc.ArrayDouble> map =
+          internalGetFloatExtra().getMap();
+      if (!map.containsKey(key)) {
+        throw new java.lang.IllegalArgumentException();
+      }
+      return map.get(key);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -517,38 +537,20 @@ public final class Mc {
         output.writeInt32(2, processid_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeDouble(3, ptHat_);
+        output.writeDouble(3, weight_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeDouble(4, alphaEm_);
-      }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeDouble(5, alphaS_);
-      }
-      if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeDouble(6, scaleQFac_);
-      }
-      if (((bitField0_ & 0x00000040) == 0x00000040)) {
-        output.writeDouble(7, weight_);
-      }
-      if (((bitField0_ & 0x00000080) == 0x00000080)) {
-        output.writeDouble(8, weightSum_);
-      }
-      if (((bitField0_ & 0x00000100) == 0x00000100)) {
-        output.writeDouble(9, mergingWeight_);
-      }
-      if (((bitField0_ & 0x00000200) == 0x00000200)) {
-        output.writeDouble(10, x1_);
-      }
-      if (((bitField0_ & 0x00000400) == 0x00000400)) {
-        output.writeDouble(11, x2_);
-      }
-      if (((bitField0_ & 0x00000800) == 0x00000800)) {
-        output.writeUInt64(12, id1_);
-      }
-      if (((bitField0_ & 0x00001000) == 0x00001000)) {
-        output.writeUInt64(13, id2_);
-      }
+      com.google.protobuf.GeneratedMessageV3
+        .serializeStringMapTo(
+          output,
+          internalGetIntExtra(),
+          IntExtraDefaultEntryHolder.defaultEntry,
+          4);
+      com.google.protobuf.GeneratedMessageV3
+        .serializeStringMapTo(
+          output,
+          internalGetFloatExtra(),
+          FloatExtraDefaultEntryHolder.defaultEntry,
+          5);
       unknownFields.writeTo(output);
     }
 
@@ -568,47 +570,27 @@ public final class Mc {
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(3, ptHat_);
+          .computeDoubleSize(3, weight_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      for (java.util.Map.Entry<java.lang.String, proio.model.Mc.ArrayInt> entry
+           : internalGetIntExtra().getMap().entrySet()) {
+        com.google.protobuf.MapEntry<java.lang.String, proio.model.Mc.ArrayInt>
+        intExtra__ = IntExtraDefaultEntryHolder.defaultEntry.newBuilderForType()
+            .setKey(entry.getKey())
+            .setValue(entry.getValue())
+            .build();
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(4, alphaEm_);
+            .computeMessageSize(4, intExtra__);
       }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+      for (java.util.Map.Entry<java.lang.String, proio.model.Mc.ArrayDouble> entry
+           : internalGetFloatExtra().getMap().entrySet()) {
+        com.google.protobuf.MapEntry<java.lang.String, proio.model.Mc.ArrayDouble>
+        floatExtra__ = FloatExtraDefaultEntryHolder.defaultEntry.newBuilderForType()
+            .setKey(entry.getKey())
+            .setValue(entry.getValue())
+            .build();
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(5, alphaS_);
-      }
-      if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(6, scaleQFac_);
-      }
-      if (((bitField0_ & 0x00000040) == 0x00000040)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(7, weight_);
-      }
-      if (((bitField0_ & 0x00000080) == 0x00000080)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(8, weightSum_);
-      }
-      if (((bitField0_ & 0x00000100) == 0x00000100)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(9, mergingWeight_);
-      }
-      if (((bitField0_ & 0x00000200) == 0x00000200)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(10, x1_);
-      }
-      if (((bitField0_ & 0x00000400) == 0x00000400)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(11, x2_);
-      }
-      if (((bitField0_ & 0x00000800) == 0x00000800)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(12, id1_);
-      }
-      if (((bitField0_ & 0x00001000) == 0x00001000)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(13, id2_);
+            .computeMessageSize(5, floatExtra__);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -620,10 +602,10 @@ public final class Mc {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof proio.model.Mc.PythiaParameters)) {
+      if (!(obj instanceof proio.model.Mc.MCParameters)) {
         return super.equals(obj);
       }
-      proio.model.Mc.PythiaParameters other = (proio.model.Mc.PythiaParameters) obj;
+      proio.model.Mc.MCParameters other = (proio.model.Mc.MCParameters) obj;
 
       boolean result = true;
       result = result && (hasNumber() == other.hasNumber());
@@ -636,34 +618,6 @@ public final class Mc {
         result = result && (getProcessid()
             == other.getProcessid());
       }
-      result = result && (hasPtHat() == other.hasPtHat());
-      if (hasPtHat()) {
-        result = result && (
-            java.lang.Double.doubleToLongBits(getPtHat())
-            == java.lang.Double.doubleToLongBits(
-                other.getPtHat()));
-      }
-      result = result && (hasAlphaEm() == other.hasAlphaEm());
-      if (hasAlphaEm()) {
-        result = result && (
-            java.lang.Double.doubleToLongBits(getAlphaEm())
-            == java.lang.Double.doubleToLongBits(
-                other.getAlphaEm()));
-      }
-      result = result && (hasAlphaS() == other.hasAlphaS());
-      if (hasAlphaS()) {
-        result = result && (
-            java.lang.Double.doubleToLongBits(getAlphaS())
-            == java.lang.Double.doubleToLongBits(
-                other.getAlphaS()));
-      }
-      result = result && (hasScaleQFac() == other.hasScaleQFac());
-      if (hasScaleQFac()) {
-        result = result && (
-            java.lang.Double.doubleToLongBits(getScaleQFac())
-            == java.lang.Double.doubleToLongBits(
-                other.getScaleQFac()));
-      }
       result = result && (hasWeight() == other.hasWeight());
       if (hasWeight()) {
         result = result && (
@@ -671,44 +625,10 @@ public final class Mc {
             == java.lang.Double.doubleToLongBits(
                 other.getWeight()));
       }
-      result = result && (hasWeightSum() == other.hasWeightSum());
-      if (hasWeightSum()) {
-        result = result && (
-            java.lang.Double.doubleToLongBits(getWeightSum())
-            == java.lang.Double.doubleToLongBits(
-                other.getWeightSum()));
-      }
-      result = result && (hasMergingWeight() == other.hasMergingWeight());
-      if (hasMergingWeight()) {
-        result = result && (
-            java.lang.Double.doubleToLongBits(getMergingWeight())
-            == java.lang.Double.doubleToLongBits(
-                other.getMergingWeight()));
-      }
-      result = result && (hasX1() == other.hasX1());
-      if (hasX1()) {
-        result = result && (
-            java.lang.Double.doubleToLongBits(getX1())
-            == java.lang.Double.doubleToLongBits(
-                other.getX1()));
-      }
-      result = result && (hasX2() == other.hasX2());
-      if (hasX2()) {
-        result = result && (
-            java.lang.Double.doubleToLongBits(getX2())
-            == java.lang.Double.doubleToLongBits(
-                other.getX2()));
-      }
-      result = result && (hasId1() == other.hasId1());
-      if (hasId1()) {
-        result = result && (getId1()
-            == other.getId1());
-      }
-      result = result && (hasId2() == other.hasId2());
-      if (hasId2()) {
-        result = result && (getId2()
-            == other.getId2());
-      }
+      result = result && internalGetIntExtra().equals(
+          other.internalGetIntExtra());
+      result = result && internalGetFloatExtra().equals(
+          other.internalGetFloatExtra());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -729,129 +649,87 @@ public final class Mc {
         hash = (37 * hash) + PROCESSID_FIELD_NUMBER;
         hash = (53 * hash) + getProcessid();
       }
-      if (hasPtHat()) {
-        hash = (37 * hash) + PT_HAT_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-            java.lang.Double.doubleToLongBits(getPtHat()));
-      }
-      if (hasAlphaEm()) {
-        hash = (37 * hash) + ALPHA_EM_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-            java.lang.Double.doubleToLongBits(getAlphaEm()));
-      }
-      if (hasAlphaS()) {
-        hash = (37 * hash) + ALPHA_S_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-            java.lang.Double.doubleToLongBits(getAlphaS()));
-      }
-      if (hasScaleQFac()) {
-        hash = (37 * hash) + SCALE_Q_FAC_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-            java.lang.Double.doubleToLongBits(getScaleQFac()));
-      }
       if (hasWeight()) {
         hash = (37 * hash) + WEIGHT_FIELD_NUMBER;
         hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
             java.lang.Double.doubleToLongBits(getWeight()));
       }
-      if (hasWeightSum()) {
-        hash = (37 * hash) + WEIGHT_SUM_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-            java.lang.Double.doubleToLongBits(getWeightSum()));
+      if (!internalGetIntExtra().getMap().isEmpty()) {
+        hash = (37 * hash) + INT_EXTRA_FIELD_NUMBER;
+        hash = (53 * hash) + internalGetIntExtra().hashCode();
       }
-      if (hasMergingWeight()) {
-        hash = (37 * hash) + MERGING_WEIGHT_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-            java.lang.Double.doubleToLongBits(getMergingWeight()));
-      }
-      if (hasX1()) {
-        hash = (37 * hash) + X1_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-            java.lang.Double.doubleToLongBits(getX1()));
-      }
-      if (hasX2()) {
-        hash = (37 * hash) + X2_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-            java.lang.Double.doubleToLongBits(getX2()));
-      }
-      if (hasId1()) {
-        hash = (37 * hash) + ID1_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-            getId1());
-      }
-      if (hasId2()) {
-        hash = (37 * hash) + ID2_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-            getId2());
+      if (!internalGetFloatExtra().getMap().isEmpty()) {
+        hash = (37 * hash) + FLOAT_EXTRA_FIELD_NUMBER;
+        hash = (53 * hash) + internalGetFloatExtra().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static proio.model.Mc.PythiaParameters parseFrom(
+    public static proio.model.Mc.MCParameters parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static proio.model.Mc.PythiaParameters parseFrom(
+    public static proio.model.Mc.MCParameters parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static proio.model.Mc.PythiaParameters parseFrom(
+    public static proio.model.Mc.MCParameters parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static proio.model.Mc.PythiaParameters parseFrom(
+    public static proio.model.Mc.MCParameters parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static proio.model.Mc.PythiaParameters parseFrom(byte[] data)
+    public static proio.model.Mc.MCParameters parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static proio.model.Mc.PythiaParameters parseFrom(
+    public static proio.model.Mc.MCParameters parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static proio.model.Mc.PythiaParameters parseFrom(java.io.InputStream input)
+    public static proio.model.Mc.MCParameters parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static proio.model.Mc.PythiaParameters parseFrom(
+    public static proio.model.Mc.MCParameters parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static proio.model.Mc.PythiaParameters parseDelimitedFrom(java.io.InputStream input)
+    public static proio.model.Mc.MCParameters parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static proio.model.Mc.PythiaParameters parseDelimitedFrom(
+    public static proio.model.Mc.MCParameters parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static proio.model.Mc.PythiaParameters parseFrom(
+    public static proio.model.Mc.MCParameters parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static proio.model.Mc.PythiaParameters parseFrom(
+    public static proio.model.Mc.MCParameters parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -864,7 +742,7 @@ public final class Mc {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(proio.model.Mc.PythiaParameters prototype) {
+    public static Builder newBuilder(proio.model.Mc.MCParameters prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -880,26 +758,56 @@ public final class Mc {
       return builder;
     }
     /**
-     * Protobuf type {@code proio.model.mc.PythiaParameters}
+     * <pre>
+     * This message is for general Monte Carlo generators.
+     * </pre>
+     *
+     * Protobuf type {@code proio.model.mc.MCParameters}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:proio.model.mc.PythiaParameters)
-        proio.model.Mc.PythiaParametersOrBuilder {
+        // @@protoc_insertion_point(builder_implements:proio.model.mc.MCParameters)
+        proio.model.Mc.MCParametersOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return proio.model.Mc.internal_static_proio_model_mc_PythiaParameters_descriptor;
+        return proio.model.Mc.internal_static_proio_model_mc_MCParameters_descriptor;
       }
 
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapField internalGetMapField(
+          int number) {
+        switch (number) {
+          case 4:
+            return internalGetIntExtra();
+          case 5:
+            return internalGetFloatExtra();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapField internalGetMutableMapField(
+          int number) {
+        switch (number) {
+          case 4:
+            return internalGetMutableIntExtra();
+          case 5:
+            return internalGetMutableFloatExtra();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return proio.model.Mc.internal_static_proio_model_mc_PythiaParameters_fieldAccessorTable
+        return proio.model.Mc.internal_static_proio_model_mc_MCParameters_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                proio.model.Mc.PythiaParameters.class, proio.model.Mc.PythiaParameters.Builder.class);
+                proio.model.Mc.MCParameters.class, proio.model.Mc.MCParameters.Builder.class);
       }
 
-      // Construct using proio.model.Mc.PythiaParameters.newBuilder()
+      // Construct using proio.model.Mc.MCParameters.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -921,45 +829,27 @@ public final class Mc {
         bitField0_ = (bitField0_ & ~0x00000001);
         processid_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
-        ptHat_ = 0D;
-        bitField0_ = (bitField0_ & ~0x00000004);
-        alphaEm_ = 0D;
-        bitField0_ = (bitField0_ & ~0x00000008);
-        alphaS_ = 0D;
-        bitField0_ = (bitField0_ & ~0x00000010);
-        scaleQFac_ = 0D;
-        bitField0_ = (bitField0_ & ~0x00000020);
         weight_ = 0D;
-        bitField0_ = (bitField0_ & ~0x00000040);
-        weightSum_ = 0D;
-        bitField0_ = (bitField0_ & ~0x00000080);
-        mergingWeight_ = 0D;
-        bitField0_ = (bitField0_ & ~0x00000100);
-        x1_ = 0D;
-        bitField0_ = (bitField0_ & ~0x00000200);
-        x2_ = 0D;
-        bitField0_ = (bitField0_ & ~0x00000400);
-        id1_ = 0L;
-        bitField0_ = (bitField0_ & ~0x00000800);
-        id2_ = 0L;
-        bitField0_ = (bitField0_ & ~0x00001000);
+        bitField0_ = (bitField0_ & ~0x00000004);
+        internalGetMutableIntExtra().clear();
+        internalGetMutableFloatExtra().clear();
         return this;
       }
 
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return proio.model.Mc.internal_static_proio_model_mc_PythiaParameters_descriptor;
+        return proio.model.Mc.internal_static_proio_model_mc_MCParameters_descriptor;
       }
 
       @java.lang.Override
-      public proio.model.Mc.PythiaParameters getDefaultInstanceForType() {
-        return proio.model.Mc.PythiaParameters.getDefaultInstance();
+      public proio.model.Mc.MCParameters getDefaultInstanceForType() {
+        return proio.model.Mc.MCParameters.getDefaultInstance();
       }
 
       @java.lang.Override
-      public proio.model.Mc.PythiaParameters build() {
-        proio.model.Mc.PythiaParameters result = buildPartial();
+      public proio.model.Mc.MCParameters build() {
+        proio.model.Mc.MCParameters result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -967,8 +857,8 @@ public final class Mc {
       }
 
       @java.lang.Override
-      public proio.model.Mc.PythiaParameters buildPartial() {
-        proio.model.Mc.PythiaParameters result = new proio.model.Mc.PythiaParameters(this);
+      public proio.model.Mc.MCParameters buildPartial() {
+        proio.model.Mc.MCParameters result = new proio.model.Mc.MCParameters(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
@@ -982,47 +872,11 @@ public final class Mc {
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        result.ptHat_ = ptHat_;
-        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
-          to_bitField0_ |= 0x00000008;
-        }
-        result.alphaEm_ = alphaEm_;
-        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
-          to_bitField0_ |= 0x00000010;
-        }
-        result.alphaS_ = alphaS_;
-        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
-          to_bitField0_ |= 0x00000020;
-        }
-        result.scaleQFac_ = scaleQFac_;
-        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
-          to_bitField0_ |= 0x00000040;
-        }
         result.weight_ = weight_;
-        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
-          to_bitField0_ |= 0x00000080;
-        }
-        result.weightSum_ = weightSum_;
-        if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
-          to_bitField0_ |= 0x00000100;
-        }
-        result.mergingWeight_ = mergingWeight_;
-        if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
-          to_bitField0_ |= 0x00000200;
-        }
-        result.x1_ = x1_;
-        if (((from_bitField0_ & 0x00000400) == 0x00000400)) {
-          to_bitField0_ |= 0x00000400;
-        }
-        result.x2_ = x2_;
-        if (((from_bitField0_ & 0x00000800) == 0x00000800)) {
-          to_bitField0_ |= 0x00000800;
-        }
-        result.id1_ = id1_;
-        if (((from_bitField0_ & 0x00001000) == 0x00001000)) {
-          to_bitField0_ |= 0x00001000;
-        }
-        result.id2_ = id2_;
+        result.intExtra_ = internalGetIntExtra();
+        result.intExtra_.makeImmutable();
+        result.floatExtra_ = internalGetFloatExtra();
+        result.floatExtra_.makeImmutable();
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -1062,55 +916,29 @@ public final class Mc {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof proio.model.Mc.PythiaParameters) {
-          return mergeFrom((proio.model.Mc.PythiaParameters)other);
+        if (other instanceof proio.model.Mc.MCParameters) {
+          return mergeFrom((proio.model.Mc.MCParameters)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(proio.model.Mc.PythiaParameters other) {
-        if (other == proio.model.Mc.PythiaParameters.getDefaultInstance()) return this;
+      public Builder mergeFrom(proio.model.Mc.MCParameters other) {
+        if (other == proio.model.Mc.MCParameters.getDefaultInstance()) return this;
         if (other.hasNumber()) {
           setNumber(other.getNumber());
         }
         if (other.hasProcessid()) {
           setProcessid(other.getProcessid());
         }
-        if (other.hasPtHat()) {
-          setPtHat(other.getPtHat());
-        }
-        if (other.hasAlphaEm()) {
-          setAlphaEm(other.getAlphaEm());
-        }
-        if (other.hasAlphaS()) {
-          setAlphaS(other.getAlphaS());
-        }
-        if (other.hasScaleQFac()) {
-          setScaleQFac(other.getScaleQFac());
-        }
         if (other.hasWeight()) {
           setWeight(other.getWeight());
         }
-        if (other.hasWeightSum()) {
-          setWeightSum(other.getWeightSum());
-        }
-        if (other.hasMergingWeight()) {
-          setMergingWeight(other.getMergingWeight());
-        }
-        if (other.hasX1()) {
-          setX1(other.getX1());
-        }
-        if (other.hasX2()) {
-          setX2(other.getX2());
-        }
-        if (other.hasId1()) {
-          setId1(other.getId1());
-        }
-        if (other.hasId2()) {
-          setId2(other.getId2());
-        }
+        internalGetMutableIntExtra().mergeFrom(
+            other.internalGetIntExtra());
+        internalGetMutableFloatExtra().mergeFrom(
+            other.internalGetFloatExtra());
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -1126,11 +954,11 @@ public final class Mc {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        proio.model.Mc.PythiaParameters parsedMessage = null;
+        proio.model.Mc.MCParameters parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (proio.model.Mc.PythiaParameters) e.getUnfinishedMessage();
+          parsedMessage = (proio.model.Mc.MCParameters) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -1143,30 +971,18 @@ public final class Mc {
 
       private long number_ ;
       /**
-       * <pre>
-       * should be 15 or less
-       * </pre>
-       *
        * <code>optional uint64 number = 1;</code>
        */
       public boolean hasNumber() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <pre>
-       * should be 15 or less
-       * </pre>
-       *
        * <code>optional uint64 number = 1;</code>
        */
       public long getNumber() {
         return number_;
       }
       /**
-       * <pre>
-       * should be 15 or less
-       * </pre>
-       *
        * <code>optional uint64 number = 1;</code>
        */
       public Builder setNumber(long value) {
@@ -1176,10 +992,6 @@ public final class Mc {
         return this;
       }
       /**
-       * <pre>
-       * should be 15 or less
-       * </pre>
-       *
        * <code>optional uint64 number = 1;</code>
        */
       public Builder clearNumber() {
@@ -1221,20 +1033,2767 @@ public final class Mc {
         return this;
       }
 
+      private double weight_ ;
+      /**
+       * <code>optional double weight = 3;</code>
+       */
+      public boolean hasWeight() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional double weight = 3;</code>
+       */
+      public double getWeight() {
+        return weight_;
+      }
+      /**
+       * <code>optional double weight = 3;</code>
+       */
+      public Builder setWeight(double value) {
+        bitField0_ |= 0x00000004;
+        weight_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional double weight = 3;</code>
+       */
+      public Builder clearWeight() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        weight_ = 0D;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.MapField<
+          java.lang.String, proio.model.Mc.ArrayInt> intExtra_;
+      private com.google.protobuf.MapField<java.lang.String, proio.model.Mc.ArrayInt>
+      internalGetIntExtra() {
+        if (intExtra_ == null) {
+          return com.google.protobuf.MapField.emptyMapField(
+              IntExtraDefaultEntryHolder.defaultEntry);
+        }
+        return intExtra_;
+      }
+      private com.google.protobuf.MapField<java.lang.String, proio.model.Mc.ArrayInt>
+      internalGetMutableIntExtra() {
+        onChanged();;
+        if (intExtra_ == null) {
+          intExtra_ = com.google.protobuf.MapField.newMapField(
+              IntExtraDefaultEntryHolder.defaultEntry);
+        }
+        if (!intExtra_.isMutable()) {
+          intExtra_ = intExtra_.copy();
+        }
+        return intExtra_;
+      }
+
+      public int getIntExtraCount() {
+        return internalGetIntExtra().getMap().size();
+      }
+      /**
+       * <pre>
+       * keep extra data as key-value (int)
+       * </pre>
+       *
+       * <code>map&lt;string, .proio.model.mc.ArrayInt&gt; int_extra = 4;</code>
+       */
+
+      public boolean containsIntExtra(
+          java.lang.String key) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        return internalGetIntExtra().getMap().containsKey(key);
+      }
+      /**
+       * Use {@link #getIntExtraMap()} instead.
+       */
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.String, proio.model.Mc.ArrayInt> getIntExtra() {
+        return getIntExtraMap();
+      }
+      /**
+       * <pre>
+       * keep extra data as key-value (int)
+       * </pre>
+       *
+       * <code>map&lt;string, .proio.model.mc.ArrayInt&gt; int_extra = 4;</code>
+       */
+
+      public java.util.Map<java.lang.String, proio.model.Mc.ArrayInt> getIntExtraMap() {
+        return internalGetIntExtra().getMap();
+      }
+      /**
+       * <pre>
+       * keep extra data as key-value (int)
+       * </pre>
+       *
+       * <code>map&lt;string, .proio.model.mc.ArrayInt&gt; int_extra = 4;</code>
+       */
+
+      public proio.model.Mc.ArrayInt getIntExtraOrDefault(
+          java.lang.String key,
+          proio.model.Mc.ArrayInt defaultValue) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        java.util.Map<java.lang.String, proio.model.Mc.ArrayInt> map =
+            internalGetIntExtra().getMap();
+        return map.containsKey(key) ? map.get(key) : defaultValue;
+      }
+      /**
+       * <pre>
+       * keep extra data as key-value (int)
+       * </pre>
+       *
+       * <code>map&lt;string, .proio.model.mc.ArrayInt&gt; int_extra = 4;</code>
+       */
+
+      public proio.model.Mc.ArrayInt getIntExtraOrThrow(
+          java.lang.String key) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        java.util.Map<java.lang.String, proio.model.Mc.ArrayInt> map =
+            internalGetIntExtra().getMap();
+        if (!map.containsKey(key)) {
+          throw new java.lang.IllegalArgumentException();
+        }
+        return map.get(key);
+      }
+
+      public Builder clearIntExtra() {
+        internalGetMutableIntExtra().getMutableMap()
+            .clear();
+        return this;
+      }
+      /**
+       * <pre>
+       * keep extra data as key-value (int)
+       * </pre>
+       *
+       * <code>map&lt;string, .proio.model.mc.ArrayInt&gt; int_extra = 4;</code>
+       */
+
+      public Builder removeIntExtra(
+          java.lang.String key) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        internalGetMutableIntExtra().getMutableMap()
+            .remove(key);
+        return this;
+      }
+      /**
+       * Use alternate mutation accessors instead.
+       */
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.String, proio.model.Mc.ArrayInt>
+      getMutableIntExtra() {
+        return internalGetMutableIntExtra().getMutableMap();
+      }
+      /**
+       * <pre>
+       * keep extra data as key-value (int)
+       * </pre>
+       *
+       * <code>map&lt;string, .proio.model.mc.ArrayInt&gt; int_extra = 4;</code>
+       */
+      public Builder putIntExtra(
+          java.lang.String key,
+          proio.model.Mc.ArrayInt value) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        if (value == null) { throw new java.lang.NullPointerException(); }
+        internalGetMutableIntExtra().getMutableMap()
+            .put(key, value);
+        return this;
+      }
+      /**
+       * <pre>
+       * keep extra data as key-value (int)
+       * </pre>
+       *
+       * <code>map&lt;string, .proio.model.mc.ArrayInt&gt; int_extra = 4;</code>
+       */
+
+      public Builder putAllIntExtra(
+          java.util.Map<java.lang.String, proio.model.Mc.ArrayInt> values) {
+        internalGetMutableIntExtra().getMutableMap()
+            .putAll(values);
+        return this;
+      }
+
+      private com.google.protobuf.MapField<
+          java.lang.String, proio.model.Mc.ArrayDouble> floatExtra_;
+      private com.google.protobuf.MapField<java.lang.String, proio.model.Mc.ArrayDouble>
+      internalGetFloatExtra() {
+        if (floatExtra_ == null) {
+          return com.google.protobuf.MapField.emptyMapField(
+              FloatExtraDefaultEntryHolder.defaultEntry);
+        }
+        return floatExtra_;
+      }
+      private com.google.protobuf.MapField<java.lang.String, proio.model.Mc.ArrayDouble>
+      internalGetMutableFloatExtra() {
+        onChanged();;
+        if (floatExtra_ == null) {
+          floatExtra_ = com.google.protobuf.MapField.newMapField(
+              FloatExtraDefaultEntryHolder.defaultEntry);
+        }
+        if (!floatExtra_.isMutable()) {
+          floatExtra_ = floatExtra_.copy();
+        }
+        return floatExtra_;
+      }
+
+      public int getFloatExtraCount() {
+        return internalGetFloatExtra().getMap().size();
+      }
+      /**
+       * <pre>
+       * keep extra data as key-value (double)
+       * </pre>
+       *
+       * <code>map&lt;string, .proio.model.mc.ArrayDouble&gt; float_extra = 5;</code>
+       */
+
+      public boolean containsFloatExtra(
+          java.lang.String key) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        return internalGetFloatExtra().getMap().containsKey(key);
+      }
+      /**
+       * Use {@link #getFloatExtraMap()} instead.
+       */
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.String, proio.model.Mc.ArrayDouble> getFloatExtra() {
+        return getFloatExtraMap();
+      }
+      /**
+       * <pre>
+       * keep extra data as key-value (double)
+       * </pre>
+       *
+       * <code>map&lt;string, .proio.model.mc.ArrayDouble&gt; float_extra = 5;</code>
+       */
+
+      public java.util.Map<java.lang.String, proio.model.Mc.ArrayDouble> getFloatExtraMap() {
+        return internalGetFloatExtra().getMap();
+      }
+      /**
+       * <pre>
+       * keep extra data as key-value (double)
+       * </pre>
+       *
+       * <code>map&lt;string, .proio.model.mc.ArrayDouble&gt; float_extra = 5;</code>
+       */
+
+      public proio.model.Mc.ArrayDouble getFloatExtraOrDefault(
+          java.lang.String key,
+          proio.model.Mc.ArrayDouble defaultValue) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        java.util.Map<java.lang.String, proio.model.Mc.ArrayDouble> map =
+            internalGetFloatExtra().getMap();
+        return map.containsKey(key) ? map.get(key) : defaultValue;
+      }
+      /**
+       * <pre>
+       * keep extra data as key-value (double)
+       * </pre>
+       *
+       * <code>map&lt;string, .proio.model.mc.ArrayDouble&gt; float_extra = 5;</code>
+       */
+
+      public proio.model.Mc.ArrayDouble getFloatExtraOrThrow(
+          java.lang.String key) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        java.util.Map<java.lang.String, proio.model.Mc.ArrayDouble> map =
+            internalGetFloatExtra().getMap();
+        if (!map.containsKey(key)) {
+          throw new java.lang.IllegalArgumentException();
+        }
+        return map.get(key);
+      }
+
+      public Builder clearFloatExtra() {
+        internalGetMutableFloatExtra().getMutableMap()
+            .clear();
+        return this;
+      }
+      /**
+       * <pre>
+       * keep extra data as key-value (double)
+       * </pre>
+       *
+       * <code>map&lt;string, .proio.model.mc.ArrayDouble&gt; float_extra = 5;</code>
+       */
+
+      public Builder removeFloatExtra(
+          java.lang.String key) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        internalGetMutableFloatExtra().getMutableMap()
+            .remove(key);
+        return this;
+      }
+      /**
+       * Use alternate mutation accessors instead.
+       */
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.String, proio.model.Mc.ArrayDouble>
+      getMutableFloatExtra() {
+        return internalGetMutableFloatExtra().getMutableMap();
+      }
+      /**
+       * <pre>
+       * keep extra data as key-value (double)
+       * </pre>
+       *
+       * <code>map&lt;string, .proio.model.mc.ArrayDouble&gt; float_extra = 5;</code>
+       */
+      public Builder putFloatExtra(
+          java.lang.String key,
+          proio.model.Mc.ArrayDouble value) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        if (value == null) { throw new java.lang.NullPointerException(); }
+        internalGetMutableFloatExtra().getMutableMap()
+            .put(key, value);
+        return this;
+      }
+      /**
+       * <pre>
+       * keep extra data as key-value (double)
+       * </pre>
+       *
+       * <code>map&lt;string, .proio.model.mc.ArrayDouble&gt; float_extra = 5;</code>
+       */
+
+      public Builder putAllFloatExtra(
+          java.util.Map<java.lang.String, proio.model.Mc.ArrayDouble> values) {
+        internalGetMutableFloatExtra().getMutableMap()
+            .putAll(values);
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:proio.model.mc.MCParameters)
+    }
+
+    // @@protoc_insertion_point(class_scope:proio.model.mc.MCParameters)
+    private static final proio.model.Mc.MCParameters DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new proio.model.Mc.MCParameters();
+    }
+
+    public static proio.model.Mc.MCParameters getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<MCParameters>
+        PARSER = new com.google.protobuf.AbstractParser<MCParameters>() {
+      @java.lang.Override
+      public MCParameters parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MCParameters(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MCParameters> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MCParameters> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public proio.model.Mc.MCParameters getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface ArrayIntOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:proio.model.mc.ArrayInt)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated sint32 value = 1;</code>
+     */
+    java.util.List<java.lang.Integer> getValueList();
+    /**
+     * <code>repeated sint32 value = 1;</code>
+     */
+    int getValueCount();
+    /**
+     * <code>repeated sint32 value = 1;</code>
+     */
+    int getValue(int index);
+  }
+  /**
+   * <pre>
+   * array of signed integers
+   * </pre>
+   *
+   * Protobuf type {@code proio.model.mc.ArrayInt}
+   */
+  public  static final class ArrayInt extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:proio.model.mc.ArrayInt)
+      ArrayIntOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use ArrayInt.newBuilder() to construct.
+    private ArrayInt(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private ArrayInt() {
+      value_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ArrayInt(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                value_ = new java.util.ArrayList<java.lang.Integer>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              value_.add(input.readSInt32());
+              break;
+            }
+            case 10: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001) && input.getBytesUntilLimit() > 0) {
+                value_ = new java.util.ArrayList<java.lang.Integer>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              while (input.getBytesUntilLimit() > 0) {
+                value_.add(input.readSInt32());
+              }
+              input.popLimit(limit);
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          value_ = java.util.Collections.unmodifiableList(value_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return proio.model.Mc.internal_static_proio_model_mc_ArrayInt_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return proio.model.Mc.internal_static_proio_model_mc_ArrayInt_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              proio.model.Mc.ArrayInt.class, proio.model.Mc.ArrayInt.Builder.class);
+    }
+
+    public static final int VALUE_FIELD_NUMBER = 1;
+    private java.util.List<java.lang.Integer> value_;
+    /**
+     * <code>repeated sint32 value = 1;</code>
+     */
+    public java.util.List<java.lang.Integer>
+        getValueList() {
+      return value_;
+    }
+    /**
+     * <code>repeated sint32 value = 1;</code>
+     */
+    public int getValueCount() {
+      return value_.size();
+    }
+    /**
+     * <code>repeated sint32 value = 1;</code>
+     */
+    public int getValue(int index) {
+      return value_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < value_.size(); i++) {
+        output.writeSInt32(1, value_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      {
+        int dataSize = 0;
+        for (int i = 0; i < value_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeSInt32SizeNoTag(value_.get(i));
+        }
+        size += dataSize;
+        size += 1 * getValueList().size();
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof proio.model.Mc.ArrayInt)) {
+        return super.equals(obj);
+      }
+      proio.model.Mc.ArrayInt other = (proio.model.Mc.ArrayInt) obj;
+
+      boolean result = true;
+      result = result && getValueList()
+          .equals(other.getValueList());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getValueCount() > 0) {
+        hash = (37 * hash) + VALUE_FIELD_NUMBER;
+        hash = (53 * hash) + getValueList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static proio.model.Mc.ArrayInt parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static proio.model.Mc.ArrayInt parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static proio.model.Mc.ArrayInt parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static proio.model.Mc.ArrayInt parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static proio.model.Mc.ArrayInt parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static proio.model.Mc.ArrayInt parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static proio.model.Mc.ArrayInt parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static proio.model.Mc.ArrayInt parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static proio.model.Mc.ArrayInt parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static proio.model.Mc.ArrayInt parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static proio.model.Mc.ArrayInt parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static proio.model.Mc.ArrayInt parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(proio.model.Mc.ArrayInt prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * array of signed integers
+     * </pre>
+     *
+     * Protobuf type {@code proio.model.mc.ArrayInt}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:proio.model.mc.ArrayInt)
+        proio.model.Mc.ArrayIntOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return proio.model.Mc.internal_static_proio_model_mc_ArrayInt_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return proio.model.Mc.internal_static_proio_model_mc_ArrayInt_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                proio.model.Mc.ArrayInt.class, proio.model.Mc.ArrayInt.Builder.class);
+      }
+
+      // Construct using proio.model.Mc.ArrayInt.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        value_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return proio.model.Mc.internal_static_proio_model_mc_ArrayInt_descriptor;
+      }
+
+      @java.lang.Override
+      public proio.model.Mc.ArrayInt getDefaultInstanceForType() {
+        return proio.model.Mc.ArrayInt.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public proio.model.Mc.ArrayInt build() {
+        proio.model.Mc.ArrayInt result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public proio.model.Mc.ArrayInt buildPartial() {
+        proio.model.Mc.ArrayInt result = new proio.model.Mc.ArrayInt(this);
+        int from_bitField0_ = bitField0_;
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          value_ = java.util.Collections.unmodifiableList(value_);
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.value_ = value_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof proio.model.Mc.ArrayInt) {
+          return mergeFrom((proio.model.Mc.ArrayInt)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(proio.model.Mc.ArrayInt other) {
+        if (other == proio.model.Mc.ArrayInt.getDefaultInstance()) return this;
+        if (!other.value_.isEmpty()) {
+          if (value_.isEmpty()) {
+            value_ = other.value_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureValueIsMutable();
+            value_.addAll(other.value_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        proio.model.Mc.ArrayInt parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (proio.model.Mc.ArrayInt) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<java.lang.Integer> value_ = java.util.Collections.emptyList();
+      private void ensureValueIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          value_ = new java.util.ArrayList<java.lang.Integer>(value_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <code>repeated sint32 value = 1;</code>
+       */
+      public java.util.List<java.lang.Integer>
+          getValueList() {
+        return java.util.Collections.unmodifiableList(value_);
+      }
+      /**
+       * <code>repeated sint32 value = 1;</code>
+       */
+      public int getValueCount() {
+        return value_.size();
+      }
+      /**
+       * <code>repeated sint32 value = 1;</code>
+       */
+      public int getValue(int index) {
+        return value_.get(index);
+      }
+      /**
+       * <code>repeated sint32 value = 1;</code>
+       */
+      public Builder setValue(
+          int index, int value) {
+        ensureValueIsMutable();
+        value_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated sint32 value = 1;</code>
+       */
+      public Builder addValue(int value) {
+        ensureValueIsMutable();
+        value_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated sint32 value = 1;</code>
+       */
+      public Builder addAllValue(
+          java.lang.Iterable<? extends java.lang.Integer> values) {
+        ensureValueIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, value_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated sint32 value = 1;</code>
+       */
+      public Builder clearValue() {
+        value_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:proio.model.mc.ArrayInt)
+    }
+
+    // @@protoc_insertion_point(class_scope:proio.model.mc.ArrayInt)
+    private static final proio.model.Mc.ArrayInt DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new proio.model.Mc.ArrayInt();
+    }
+
+    public static proio.model.Mc.ArrayInt getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<ArrayInt>
+        PARSER = new com.google.protobuf.AbstractParser<ArrayInt>() {
+      @java.lang.Override
+      public ArrayInt parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ArrayInt(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ArrayInt> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ArrayInt> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public proio.model.Mc.ArrayInt getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface ArrayDoubleOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:proio.model.mc.ArrayDouble)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated double value = 1;</code>
+     */
+    java.util.List<java.lang.Double> getValueList();
+    /**
+     * <code>repeated double value = 1;</code>
+     */
+    int getValueCount();
+    /**
+     * <code>repeated double value = 1;</code>
+     */
+    double getValue(int index);
+  }
+  /**
+   * <pre>
+   * array of floating point values
+   * </pre>
+   *
+   * Protobuf type {@code proio.model.mc.ArrayDouble}
+   */
+  public  static final class ArrayDouble extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:proio.model.mc.ArrayDouble)
+      ArrayDoubleOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use ArrayDouble.newBuilder() to construct.
+    private ArrayDouble(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private ArrayDouble() {
+      value_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ArrayDouble(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 9: {
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                value_ = new java.util.ArrayList<java.lang.Double>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              value_.add(input.readDouble());
+              break;
+            }
+            case 10: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001) && input.getBytesUntilLimit() > 0) {
+                value_ = new java.util.ArrayList<java.lang.Double>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              while (input.getBytesUntilLimit() > 0) {
+                value_.add(input.readDouble());
+              }
+              input.popLimit(limit);
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          value_ = java.util.Collections.unmodifiableList(value_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return proio.model.Mc.internal_static_proio_model_mc_ArrayDouble_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return proio.model.Mc.internal_static_proio_model_mc_ArrayDouble_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              proio.model.Mc.ArrayDouble.class, proio.model.Mc.ArrayDouble.Builder.class);
+    }
+
+    public static final int VALUE_FIELD_NUMBER = 1;
+    private java.util.List<java.lang.Double> value_;
+    /**
+     * <code>repeated double value = 1;</code>
+     */
+    public java.util.List<java.lang.Double>
+        getValueList() {
+      return value_;
+    }
+    /**
+     * <code>repeated double value = 1;</code>
+     */
+    public int getValueCount() {
+      return value_.size();
+    }
+    /**
+     * <code>repeated double value = 1;</code>
+     */
+    public double getValue(int index) {
+      return value_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < value_.size(); i++) {
+        output.writeDouble(1, value_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      {
+        int dataSize = 0;
+        dataSize = 8 * getValueList().size();
+        size += dataSize;
+        size += 1 * getValueList().size();
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof proio.model.Mc.ArrayDouble)) {
+        return super.equals(obj);
+      }
+      proio.model.Mc.ArrayDouble other = (proio.model.Mc.ArrayDouble) obj;
+
+      boolean result = true;
+      result = result && getValueList()
+          .equals(other.getValueList());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getValueCount() > 0) {
+        hash = (37 * hash) + VALUE_FIELD_NUMBER;
+        hash = (53 * hash) + getValueList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static proio.model.Mc.ArrayDouble parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static proio.model.Mc.ArrayDouble parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static proio.model.Mc.ArrayDouble parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static proio.model.Mc.ArrayDouble parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static proio.model.Mc.ArrayDouble parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static proio.model.Mc.ArrayDouble parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static proio.model.Mc.ArrayDouble parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static proio.model.Mc.ArrayDouble parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static proio.model.Mc.ArrayDouble parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static proio.model.Mc.ArrayDouble parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static proio.model.Mc.ArrayDouble parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static proio.model.Mc.ArrayDouble parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(proio.model.Mc.ArrayDouble prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * array of floating point values
+     * </pre>
+     *
+     * Protobuf type {@code proio.model.mc.ArrayDouble}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:proio.model.mc.ArrayDouble)
+        proio.model.Mc.ArrayDoubleOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return proio.model.Mc.internal_static_proio_model_mc_ArrayDouble_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return proio.model.Mc.internal_static_proio_model_mc_ArrayDouble_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                proio.model.Mc.ArrayDouble.class, proio.model.Mc.ArrayDouble.Builder.class);
+      }
+
+      // Construct using proio.model.Mc.ArrayDouble.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        value_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return proio.model.Mc.internal_static_proio_model_mc_ArrayDouble_descriptor;
+      }
+
+      @java.lang.Override
+      public proio.model.Mc.ArrayDouble getDefaultInstanceForType() {
+        return proio.model.Mc.ArrayDouble.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public proio.model.Mc.ArrayDouble build() {
+        proio.model.Mc.ArrayDouble result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public proio.model.Mc.ArrayDouble buildPartial() {
+        proio.model.Mc.ArrayDouble result = new proio.model.Mc.ArrayDouble(this);
+        int from_bitField0_ = bitField0_;
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          value_ = java.util.Collections.unmodifiableList(value_);
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.value_ = value_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof proio.model.Mc.ArrayDouble) {
+          return mergeFrom((proio.model.Mc.ArrayDouble)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(proio.model.Mc.ArrayDouble other) {
+        if (other == proio.model.Mc.ArrayDouble.getDefaultInstance()) return this;
+        if (!other.value_.isEmpty()) {
+          if (value_.isEmpty()) {
+            value_ = other.value_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureValueIsMutable();
+            value_.addAll(other.value_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        proio.model.Mc.ArrayDouble parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (proio.model.Mc.ArrayDouble) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<java.lang.Double> value_ = java.util.Collections.emptyList();
+      private void ensureValueIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          value_ = new java.util.ArrayList<java.lang.Double>(value_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <code>repeated double value = 1;</code>
+       */
+      public java.util.List<java.lang.Double>
+          getValueList() {
+        return java.util.Collections.unmodifiableList(value_);
+      }
+      /**
+       * <code>repeated double value = 1;</code>
+       */
+      public int getValueCount() {
+        return value_.size();
+      }
+      /**
+       * <code>repeated double value = 1;</code>
+       */
+      public double getValue(int index) {
+        return value_.get(index);
+      }
+      /**
+       * <code>repeated double value = 1;</code>
+       */
+      public Builder setValue(
+          int index, double value) {
+        ensureValueIsMutable();
+        value_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated double value = 1;</code>
+       */
+      public Builder addValue(double value) {
+        ensureValueIsMutable();
+        value_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated double value = 1;</code>
+       */
+      public Builder addAllValue(
+          java.lang.Iterable<? extends java.lang.Double> values) {
+        ensureValueIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, value_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated double value = 1;</code>
+       */
+      public Builder clearValue() {
+        value_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:proio.model.mc.ArrayDouble)
+    }
+
+    // @@protoc_insertion_point(class_scope:proio.model.mc.ArrayDouble)
+    private static final proio.model.Mc.ArrayDouble DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new proio.model.Mc.ArrayDouble();
+    }
+
+    public static proio.model.Mc.ArrayDouble getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<ArrayDouble>
+        PARSER = new com.google.protobuf.AbstractParser<ArrayDouble>() {
+      @java.lang.Override
+      public ArrayDouble parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ArrayDouble(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ArrayDouble> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ArrayDouble> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public proio.model.Mc.ArrayDouble getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface Pythia8ParametersOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:proio.model.mc.Pythia8Parameters)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional double weight_sum = 1;</code>
+     */
+    boolean hasWeightSum();
+    /**
+     * <code>optional double weight_sum = 1;</code>
+     */
+    double getWeightSum();
+
+    /**
+     * <code>optional double merging_weight = 2;</code>
+     */
+    boolean hasMergingWeight();
+    /**
+     * <code>optional double merging_weight = 2;</code>
+     */
+    double getMergingWeight();
+
+    /**
+     * <pre>
+     *transverse momentum
+     * </pre>
+     *
+     * <code>optional double pt_hat = 3;</code>
+     */
+    boolean hasPtHat();
+    /**
+     * <pre>
+     *transverse momentum
+     * </pre>
+     *
+     * <code>optional double pt_hat = 3;</code>
+     */
+    double getPtHat();
+
+    /**
+     * <code>optional double alpha_em = 4;</code>
+     */
+    boolean hasAlphaEm();
+    /**
+     * <code>optional double alpha_em = 4;</code>
+     */
+    double getAlphaEm();
+
+    /**
+     * <code>optional double alpha_s = 5;</code>
+     */
+    boolean hasAlphaS();
+    /**
+     * <code>optional double alpha_s = 5;</code>
+     */
+    double getAlphaS();
+
+    /**
+     * <pre>
+     * Q-scale used in evaluation of PDF’s (in GeV)
+     * </pre>
+     *
+     * <code>optional double scale_q_fac = 6;</code>
+     */
+    boolean hasScaleQFac();
+    /**
+     * <pre>
+     * Q-scale used in evaluation of PDF’s (in GeV)
+     * </pre>
+     *
+     * <code>optional double scale_q_fac = 6;</code>
+     */
+    double getScaleQFac();
+
+    /**
+     * <pre>
+     * event weight
+     * </pre>
+     *
+     * <code>optional double weight = 7;</code>
+     */
+    boolean hasWeight();
+    /**
+     * <pre>
+     * event weight
+     * </pre>
+     *
+     * <code>optional double weight = 7;</code>
+     */
+    double getWeight();
+
+    /**
+     * <pre>
+     * fraction of beam momentum carried by first parton (”beam side”)
+     * </pre>
+     *
+     * <code>optional double x1 = 8;</code>
+     */
+    boolean hasX1();
+    /**
+     * <pre>
+     * fraction of beam momentum carried by first parton (”beam side”)
+     * </pre>
+     *
+     * <code>optional double x1 = 8;</code>
+     */
+    double getX1();
+
+    /**
+     * <pre>
+     * fraction of beam momentum carried by second parton (”target side”)
+     * </pre>
+     *
+     * <code>optional double x2 = 9;</code>
+     */
+    boolean hasX2();
+    /**
+     * <pre>
+     * fraction of beam momentum carried by second parton (”target side”)
+     * </pre>
+     *
+     * <code>optional double x2 = 9;</code>
+     */
+    double getX2();
+
+    /**
+     * <pre>
+     * flavour code of first parton
+     * </pre>
+     *
+     * <code>optional uint64 id1 = 10;</code>
+     */
+    boolean hasId1();
+    /**
+     * <pre>
+     * flavour code of first parton
+     * </pre>
+     *
+     * <code>optional uint64 id1 = 10;</code>
+     */
+    long getId1();
+
+    /**
+     * <pre>
+     * flavour code of second parton
+     * </pre>
+     *
+     * <code>optional uint64 id2 = 11;</code>
+     */
+    boolean hasId2();
+    /**
+     * <pre>
+     * flavour code of second parton
+     * </pre>
+     *
+     * <code>optional uint64 id2 = 11;</code>
+     */
+    long getId2();
+  }
+  /**
+   * <pre>
+   * This block is only for Pythia8.
+   * </pre>
+   *
+   * Protobuf type {@code proio.model.mc.Pythia8Parameters}
+   */
+  public  static final class Pythia8Parameters extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:proio.model.mc.Pythia8Parameters)
+      Pythia8ParametersOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use Pythia8Parameters.newBuilder() to construct.
+    private Pythia8Parameters(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Pythia8Parameters() {
+      weightSum_ = 0D;
+      mergingWeight_ = 0D;
+      ptHat_ = 0D;
+      alphaEm_ = 0D;
+      alphaS_ = 0D;
+      scaleQFac_ = 0D;
+      weight_ = 0D;
+      x1_ = 0D;
+      x2_ = 0D;
+      id1_ = 0L;
+      id2_ = 0L;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Pythia8Parameters(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 9: {
+              bitField0_ |= 0x00000001;
+              weightSum_ = input.readDouble();
+              break;
+            }
+            case 17: {
+              bitField0_ |= 0x00000002;
+              mergingWeight_ = input.readDouble();
+              break;
+            }
+            case 25: {
+              bitField0_ |= 0x00000004;
+              ptHat_ = input.readDouble();
+              break;
+            }
+            case 33: {
+              bitField0_ |= 0x00000008;
+              alphaEm_ = input.readDouble();
+              break;
+            }
+            case 41: {
+              bitField0_ |= 0x00000010;
+              alphaS_ = input.readDouble();
+              break;
+            }
+            case 49: {
+              bitField0_ |= 0x00000020;
+              scaleQFac_ = input.readDouble();
+              break;
+            }
+            case 57: {
+              bitField0_ |= 0x00000040;
+              weight_ = input.readDouble();
+              break;
+            }
+            case 65: {
+              bitField0_ |= 0x00000080;
+              x1_ = input.readDouble();
+              break;
+            }
+            case 73: {
+              bitField0_ |= 0x00000100;
+              x2_ = input.readDouble();
+              break;
+            }
+            case 80: {
+              bitField0_ |= 0x00000200;
+              id1_ = input.readUInt64();
+              break;
+            }
+            case 88: {
+              bitField0_ |= 0x00000400;
+              id2_ = input.readUInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return proio.model.Mc.internal_static_proio_model_mc_Pythia8Parameters_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return proio.model.Mc.internal_static_proio_model_mc_Pythia8Parameters_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              proio.model.Mc.Pythia8Parameters.class, proio.model.Mc.Pythia8Parameters.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int WEIGHT_SUM_FIELD_NUMBER = 1;
+    private double weightSum_;
+    /**
+     * <code>optional double weight_sum = 1;</code>
+     */
+    public boolean hasWeightSum() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional double weight_sum = 1;</code>
+     */
+    public double getWeightSum() {
+      return weightSum_;
+    }
+
+    public static final int MERGING_WEIGHT_FIELD_NUMBER = 2;
+    private double mergingWeight_;
+    /**
+     * <code>optional double merging_weight = 2;</code>
+     */
+    public boolean hasMergingWeight() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional double merging_weight = 2;</code>
+     */
+    public double getMergingWeight() {
+      return mergingWeight_;
+    }
+
+    public static final int PT_HAT_FIELD_NUMBER = 3;
+    private double ptHat_;
+    /**
+     * <pre>
+     *transverse momentum
+     * </pre>
+     *
+     * <code>optional double pt_hat = 3;</code>
+     */
+    public boolean hasPtHat() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <pre>
+     *transverse momentum
+     * </pre>
+     *
+     * <code>optional double pt_hat = 3;</code>
+     */
+    public double getPtHat() {
+      return ptHat_;
+    }
+
+    public static final int ALPHA_EM_FIELD_NUMBER = 4;
+    private double alphaEm_;
+    /**
+     * <code>optional double alpha_em = 4;</code>
+     */
+    public boolean hasAlphaEm() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>optional double alpha_em = 4;</code>
+     */
+    public double getAlphaEm() {
+      return alphaEm_;
+    }
+
+    public static final int ALPHA_S_FIELD_NUMBER = 5;
+    private double alphaS_;
+    /**
+     * <code>optional double alpha_s = 5;</code>
+     */
+    public boolean hasAlphaS() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>optional double alpha_s = 5;</code>
+     */
+    public double getAlphaS() {
+      return alphaS_;
+    }
+
+    public static final int SCALE_Q_FAC_FIELD_NUMBER = 6;
+    private double scaleQFac_;
+    /**
+     * <pre>
+     * Q-scale used in evaluation of PDF’s (in GeV)
+     * </pre>
+     *
+     * <code>optional double scale_q_fac = 6;</code>
+     */
+    public boolean hasScaleQFac() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    /**
+     * <pre>
+     * Q-scale used in evaluation of PDF’s (in GeV)
+     * </pre>
+     *
+     * <code>optional double scale_q_fac = 6;</code>
+     */
+    public double getScaleQFac() {
+      return scaleQFac_;
+    }
+
+    public static final int WEIGHT_FIELD_NUMBER = 7;
+    private double weight_;
+    /**
+     * <pre>
+     * event weight
+     * </pre>
+     *
+     * <code>optional double weight = 7;</code>
+     */
+    public boolean hasWeight() {
+      return ((bitField0_ & 0x00000040) == 0x00000040);
+    }
+    /**
+     * <pre>
+     * event weight
+     * </pre>
+     *
+     * <code>optional double weight = 7;</code>
+     */
+    public double getWeight() {
+      return weight_;
+    }
+
+    public static final int X1_FIELD_NUMBER = 8;
+    private double x1_;
+    /**
+     * <pre>
+     * fraction of beam momentum carried by first parton (”beam side”)
+     * </pre>
+     *
+     * <code>optional double x1 = 8;</code>
+     */
+    public boolean hasX1() {
+      return ((bitField0_ & 0x00000080) == 0x00000080);
+    }
+    /**
+     * <pre>
+     * fraction of beam momentum carried by first parton (”beam side”)
+     * </pre>
+     *
+     * <code>optional double x1 = 8;</code>
+     */
+    public double getX1() {
+      return x1_;
+    }
+
+    public static final int X2_FIELD_NUMBER = 9;
+    private double x2_;
+    /**
+     * <pre>
+     * fraction of beam momentum carried by second parton (”target side”)
+     * </pre>
+     *
+     * <code>optional double x2 = 9;</code>
+     */
+    public boolean hasX2() {
+      return ((bitField0_ & 0x00000100) == 0x00000100);
+    }
+    /**
+     * <pre>
+     * fraction of beam momentum carried by second parton (”target side”)
+     * </pre>
+     *
+     * <code>optional double x2 = 9;</code>
+     */
+    public double getX2() {
+      return x2_;
+    }
+
+    public static final int ID1_FIELD_NUMBER = 10;
+    private long id1_;
+    /**
+     * <pre>
+     * flavour code of first parton
+     * </pre>
+     *
+     * <code>optional uint64 id1 = 10;</code>
+     */
+    public boolean hasId1() {
+      return ((bitField0_ & 0x00000200) == 0x00000200);
+    }
+    /**
+     * <pre>
+     * flavour code of first parton
+     * </pre>
+     *
+     * <code>optional uint64 id1 = 10;</code>
+     */
+    public long getId1() {
+      return id1_;
+    }
+
+    public static final int ID2_FIELD_NUMBER = 11;
+    private long id2_;
+    /**
+     * <pre>
+     * flavour code of second parton
+     * </pre>
+     *
+     * <code>optional uint64 id2 = 11;</code>
+     */
+    public boolean hasId2() {
+      return ((bitField0_ & 0x00000400) == 0x00000400);
+    }
+    /**
+     * <pre>
+     * flavour code of second parton
+     * </pre>
+     *
+     * <code>optional uint64 id2 = 11;</code>
+     */
+    public long getId2() {
+      return id2_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeDouble(1, weightSum_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeDouble(2, mergingWeight_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeDouble(3, ptHat_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeDouble(4, alphaEm_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeDouble(5, alphaS_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeDouble(6, scaleQFac_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        output.writeDouble(7, weight_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        output.writeDouble(8, x1_);
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        output.writeDouble(9, x2_);
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        output.writeUInt64(10, id1_);
+      }
+      if (((bitField0_ & 0x00000400) == 0x00000400)) {
+        output.writeUInt64(11, id2_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(1, weightSum_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(2, mergingWeight_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(3, ptHat_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(4, alphaEm_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(5, alphaS_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(6, scaleQFac_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(7, weight_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(8, x1_);
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(9, x2_);
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(10, id1_);
+      }
+      if (((bitField0_ & 0x00000400) == 0x00000400)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(11, id2_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof proio.model.Mc.Pythia8Parameters)) {
+        return super.equals(obj);
+      }
+      proio.model.Mc.Pythia8Parameters other = (proio.model.Mc.Pythia8Parameters) obj;
+
+      boolean result = true;
+      result = result && (hasWeightSum() == other.hasWeightSum());
+      if (hasWeightSum()) {
+        result = result && (
+            java.lang.Double.doubleToLongBits(getWeightSum())
+            == java.lang.Double.doubleToLongBits(
+                other.getWeightSum()));
+      }
+      result = result && (hasMergingWeight() == other.hasMergingWeight());
+      if (hasMergingWeight()) {
+        result = result && (
+            java.lang.Double.doubleToLongBits(getMergingWeight())
+            == java.lang.Double.doubleToLongBits(
+                other.getMergingWeight()));
+      }
+      result = result && (hasPtHat() == other.hasPtHat());
+      if (hasPtHat()) {
+        result = result && (
+            java.lang.Double.doubleToLongBits(getPtHat())
+            == java.lang.Double.doubleToLongBits(
+                other.getPtHat()));
+      }
+      result = result && (hasAlphaEm() == other.hasAlphaEm());
+      if (hasAlphaEm()) {
+        result = result && (
+            java.lang.Double.doubleToLongBits(getAlphaEm())
+            == java.lang.Double.doubleToLongBits(
+                other.getAlphaEm()));
+      }
+      result = result && (hasAlphaS() == other.hasAlphaS());
+      if (hasAlphaS()) {
+        result = result && (
+            java.lang.Double.doubleToLongBits(getAlphaS())
+            == java.lang.Double.doubleToLongBits(
+                other.getAlphaS()));
+      }
+      result = result && (hasScaleQFac() == other.hasScaleQFac());
+      if (hasScaleQFac()) {
+        result = result && (
+            java.lang.Double.doubleToLongBits(getScaleQFac())
+            == java.lang.Double.doubleToLongBits(
+                other.getScaleQFac()));
+      }
+      result = result && (hasWeight() == other.hasWeight());
+      if (hasWeight()) {
+        result = result && (
+            java.lang.Double.doubleToLongBits(getWeight())
+            == java.lang.Double.doubleToLongBits(
+                other.getWeight()));
+      }
+      result = result && (hasX1() == other.hasX1());
+      if (hasX1()) {
+        result = result && (
+            java.lang.Double.doubleToLongBits(getX1())
+            == java.lang.Double.doubleToLongBits(
+                other.getX1()));
+      }
+      result = result && (hasX2() == other.hasX2());
+      if (hasX2()) {
+        result = result && (
+            java.lang.Double.doubleToLongBits(getX2())
+            == java.lang.Double.doubleToLongBits(
+                other.getX2()));
+      }
+      result = result && (hasId1() == other.hasId1());
+      if (hasId1()) {
+        result = result && (getId1()
+            == other.getId1());
+      }
+      result = result && (hasId2() == other.hasId2());
+      if (hasId2()) {
+        result = result && (getId2()
+            == other.getId2());
+      }
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasWeightSum()) {
+        hash = (37 * hash) + WEIGHT_SUM_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            java.lang.Double.doubleToLongBits(getWeightSum()));
+      }
+      if (hasMergingWeight()) {
+        hash = (37 * hash) + MERGING_WEIGHT_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            java.lang.Double.doubleToLongBits(getMergingWeight()));
+      }
+      if (hasPtHat()) {
+        hash = (37 * hash) + PT_HAT_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            java.lang.Double.doubleToLongBits(getPtHat()));
+      }
+      if (hasAlphaEm()) {
+        hash = (37 * hash) + ALPHA_EM_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            java.lang.Double.doubleToLongBits(getAlphaEm()));
+      }
+      if (hasAlphaS()) {
+        hash = (37 * hash) + ALPHA_S_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            java.lang.Double.doubleToLongBits(getAlphaS()));
+      }
+      if (hasScaleQFac()) {
+        hash = (37 * hash) + SCALE_Q_FAC_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            java.lang.Double.doubleToLongBits(getScaleQFac()));
+      }
+      if (hasWeight()) {
+        hash = (37 * hash) + WEIGHT_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            java.lang.Double.doubleToLongBits(getWeight()));
+      }
+      if (hasX1()) {
+        hash = (37 * hash) + X1_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            java.lang.Double.doubleToLongBits(getX1()));
+      }
+      if (hasX2()) {
+        hash = (37 * hash) + X2_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            java.lang.Double.doubleToLongBits(getX2()));
+      }
+      if (hasId1()) {
+        hash = (37 * hash) + ID1_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getId1());
+      }
+      if (hasId2()) {
+        hash = (37 * hash) + ID2_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getId2());
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static proio.model.Mc.Pythia8Parameters parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static proio.model.Mc.Pythia8Parameters parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static proio.model.Mc.Pythia8Parameters parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static proio.model.Mc.Pythia8Parameters parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static proio.model.Mc.Pythia8Parameters parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static proio.model.Mc.Pythia8Parameters parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static proio.model.Mc.Pythia8Parameters parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static proio.model.Mc.Pythia8Parameters parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static proio.model.Mc.Pythia8Parameters parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static proio.model.Mc.Pythia8Parameters parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static proio.model.Mc.Pythia8Parameters parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static proio.model.Mc.Pythia8Parameters parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(proio.model.Mc.Pythia8Parameters prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * This block is only for Pythia8.
+     * </pre>
+     *
+     * Protobuf type {@code proio.model.mc.Pythia8Parameters}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:proio.model.mc.Pythia8Parameters)
+        proio.model.Mc.Pythia8ParametersOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return proio.model.Mc.internal_static_proio_model_mc_Pythia8Parameters_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return proio.model.Mc.internal_static_proio_model_mc_Pythia8Parameters_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                proio.model.Mc.Pythia8Parameters.class, proio.model.Mc.Pythia8Parameters.Builder.class);
+      }
+
+      // Construct using proio.model.Mc.Pythia8Parameters.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        weightSum_ = 0D;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        mergingWeight_ = 0D;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        ptHat_ = 0D;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        alphaEm_ = 0D;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        alphaS_ = 0D;
+        bitField0_ = (bitField0_ & ~0x00000010);
+        scaleQFac_ = 0D;
+        bitField0_ = (bitField0_ & ~0x00000020);
+        weight_ = 0D;
+        bitField0_ = (bitField0_ & ~0x00000040);
+        x1_ = 0D;
+        bitField0_ = (bitField0_ & ~0x00000080);
+        x2_ = 0D;
+        bitField0_ = (bitField0_ & ~0x00000100);
+        id1_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000200);
+        id2_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000400);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return proio.model.Mc.internal_static_proio_model_mc_Pythia8Parameters_descriptor;
+      }
+
+      @java.lang.Override
+      public proio.model.Mc.Pythia8Parameters getDefaultInstanceForType() {
+        return proio.model.Mc.Pythia8Parameters.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public proio.model.Mc.Pythia8Parameters build() {
+        proio.model.Mc.Pythia8Parameters result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public proio.model.Mc.Pythia8Parameters buildPartial() {
+        proio.model.Mc.Pythia8Parameters result = new proio.model.Mc.Pythia8Parameters(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.weightSum_ = weightSum_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.mergingWeight_ = mergingWeight_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.ptHat_ = ptHat_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.alphaEm_ = alphaEm_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.alphaS_ = alphaS_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.scaleQFac_ = scaleQFac_;
+        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+          to_bitField0_ |= 0x00000040;
+        }
+        result.weight_ = weight_;
+        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
+          to_bitField0_ |= 0x00000080;
+        }
+        result.x1_ = x1_;
+        if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
+          to_bitField0_ |= 0x00000100;
+        }
+        result.x2_ = x2_;
+        if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
+          to_bitField0_ |= 0x00000200;
+        }
+        result.id1_ = id1_;
+        if (((from_bitField0_ & 0x00000400) == 0x00000400)) {
+          to_bitField0_ |= 0x00000400;
+        }
+        result.id2_ = id2_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof proio.model.Mc.Pythia8Parameters) {
+          return mergeFrom((proio.model.Mc.Pythia8Parameters)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(proio.model.Mc.Pythia8Parameters other) {
+        if (other == proio.model.Mc.Pythia8Parameters.getDefaultInstance()) return this;
+        if (other.hasWeightSum()) {
+          setWeightSum(other.getWeightSum());
+        }
+        if (other.hasMergingWeight()) {
+          setMergingWeight(other.getMergingWeight());
+        }
+        if (other.hasPtHat()) {
+          setPtHat(other.getPtHat());
+        }
+        if (other.hasAlphaEm()) {
+          setAlphaEm(other.getAlphaEm());
+        }
+        if (other.hasAlphaS()) {
+          setAlphaS(other.getAlphaS());
+        }
+        if (other.hasScaleQFac()) {
+          setScaleQFac(other.getScaleQFac());
+        }
+        if (other.hasWeight()) {
+          setWeight(other.getWeight());
+        }
+        if (other.hasX1()) {
+          setX1(other.getX1());
+        }
+        if (other.hasX2()) {
+          setX2(other.getX2());
+        }
+        if (other.hasId1()) {
+          setId1(other.getId1());
+        }
+        if (other.hasId2()) {
+          setId2(other.getId2());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        proio.model.Mc.Pythia8Parameters parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (proio.model.Mc.Pythia8Parameters) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private double weightSum_ ;
+      /**
+       * <code>optional double weight_sum = 1;</code>
+       */
+      public boolean hasWeightSum() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional double weight_sum = 1;</code>
+       */
+      public double getWeightSum() {
+        return weightSum_;
+      }
+      /**
+       * <code>optional double weight_sum = 1;</code>
+       */
+      public Builder setWeightSum(double value) {
+        bitField0_ |= 0x00000001;
+        weightSum_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional double weight_sum = 1;</code>
+       */
+      public Builder clearWeightSum() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        weightSum_ = 0D;
+        onChanged();
+        return this;
+      }
+
+      private double mergingWeight_ ;
+      /**
+       * <code>optional double merging_weight = 2;</code>
+       */
+      public boolean hasMergingWeight() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional double merging_weight = 2;</code>
+       */
+      public double getMergingWeight() {
+        return mergingWeight_;
+      }
+      /**
+       * <code>optional double merging_weight = 2;</code>
+       */
+      public Builder setMergingWeight(double value) {
+        bitField0_ |= 0x00000002;
+        mergingWeight_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional double merging_weight = 2;</code>
+       */
+      public Builder clearMergingWeight() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        mergingWeight_ = 0D;
+        onChanged();
+        return this;
+      }
+
       private double ptHat_ ;
       /**
+       * <pre>
+       *transverse momentum
+       * </pre>
+       *
        * <code>optional double pt_hat = 3;</code>
        */
       public boolean hasPtHat() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
+       * <pre>
+       *transverse momentum
+       * </pre>
+       *
        * <code>optional double pt_hat = 3;</code>
        */
       public double getPtHat() {
         return ptHat_;
       }
       /**
+       * <pre>
+       *transverse momentum
+       * </pre>
+       *
        * <code>optional double pt_hat = 3;</code>
        */
       public Builder setPtHat(double value) {
@@ -1244,6 +3803,10 @@ public final class Mc {
         return this;
       }
       /**
+       * <pre>
+       *transverse momentum
+       * </pre>
+       *
        * <code>optional double pt_hat = 3;</code>
        */
       public Builder clearPtHat() {
@@ -1319,18 +3882,30 @@ public final class Mc {
 
       private double scaleQFac_ ;
       /**
+       * <pre>
+       * Q-scale used in evaluation of PDF’s (in GeV)
+       * </pre>
+       *
        * <code>optional double scale_q_fac = 6;</code>
        */
       public boolean hasScaleQFac() {
         return ((bitField0_ & 0x00000020) == 0x00000020);
       }
       /**
+       * <pre>
+       * Q-scale used in evaluation of PDF’s (in GeV)
+       * </pre>
+       *
        * <code>optional double scale_q_fac = 6;</code>
        */
       public double getScaleQFac() {
         return scaleQFac_;
       }
       /**
+       * <pre>
+       * Q-scale used in evaluation of PDF’s (in GeV)
+       * </pre>
+       *
        * <code>optional double scale_q_fac = 6;</code>
        */
       public Builder setScaleQFac(double value) {
@@ -1340,6 +3915,10 @@ public final class Mc {
         return this;
       }
       /**
+       * <pre>
+       * Q-scale used in evaluation of PDF’s (in GeV)
+       * </pre>
+       *
        * <code>optional double scale_q_fac = 6;</code>
        */
       public Builder clearScaleQFac() {
@@ -1351,18 +3930,30 @@ public final class Mc {
 
       private double weight_ ;
       /**
+       * <pre>
+       * event weight
+       * </pre>
+       *
        * <code>optional double weight = 7;</code>
        */
       public boolean hasWeight() {
         return ((bitField0_ & 0x00000040) == 0x00000040);
       }
       /**
+       * <pre>
+       * event weight
+       * </pre>
+       *
        * <code>optional double weight = 7;</code>
        */
       public double getWeight() {
         return weight_;
       }
       /**
+       * <pre>
+       * event weight
+       * </pre>
+       *
        * <code>optional double weight = 7;</code>
        */
       public Builder setWeight(double value) {
@@ -1372,6 +3963,10 @@ public final class Mc {
         return this;
       }
       /**
+       * <pre>
+       * event weight
+       * </pre>
+       *
        * <code>optional double weight = 7;</code>
        */
       public Builder clearWeight() {
@@ -1381,97 +3976,49 @@ public final class Mc {
         return this;
       }
 
-      private double weightSum_ ;
+      private double x1_ ;
       /**
-       * <code>optional double weight_sum = 8;</code>
+       * <pre>
+       * fraction of beam momentum carried by first parton (”beam side”)
+       * </pre>
+       *
+       * <code>optional double x1 = 8;</code>
        */
-      public boolean hasWeightSum() {
+      public boolean hasX1() {
         return ((bitField0_ & 0x00000080) == 0x00000080);
       }
       /**
-       * <code>optional double weight_sum = 8;</code>
-       */
-      public double getWeightSum() {
-        return weightSum_;
-      }
-      /**
-       * <code>optional double weight_sum = 8;</code>
-       */
-      public Builder setWeightSum(double value) {
-        bitField0_ |= 0x00000080;
-        weightSum_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional double weight_sum = 8;</code>
-       */
-      public Builder clearWeightSum() {
-        bitField0_ = (bitField0_ & ~0x00000080);
-        weightSum_ = 0D;
-        onChanged();
-        return this;
-      }
-
-      private double mergingWeight_ ;
-      /**
-       * <code>optional double merging_weight = 9;</code>
-       */
-      public boolean hasMergingWeight() {
-        return ((bitField0_ & 0x00000100) == 0x00000100);
-      }
-      /**
-       * <code>optional double merging_weight = 9;</code>
-       */
-      public double getMergingWeight() {
-        return mergingWeight_;
-      }
-      /**
-       * <code>optional double merging_weight = 9;</code>
-       */
-      public Builder setMergingWeight(double value) {
-        bitField0_ |= 0x00000100;
-        mergingWeight_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional double merging_weight = 9;</code>
-       */
-      public Builder clearMergingWeight() {
-        bitField0_ = (bitField0_ & ~0x00000100);
-        mergingWeight_ = 0D;
-        onChanged();
-        return this;
-      }
-
-      private double x1_ ;
-      /**
-       * <code>optional double x1 = 10;</code>
-       */
-      public boolean hasX1() {
-        return ((bitField0_ & 0x00000200) == 0x00000200);
-      }
-      /**
-       * <code>optional double x1 = 10;</code>
+       * <pre>
+       * fraction of beam momentum carried by first parton (”beam side”)
+       * </pre>
+       *
+       * <code>optional double x1 = 8;</code>
        */
       public double getX1() {
         return x1_;
       }
       /**
-       * <code>optional double x1 = 10;</code>
+       * <pre>
+       * fraction of beam momentum carried by first parton (”beam side”)
+       * </pre>
+       *
+       * <code>optional double x1 = 8;</code>
        */
       public Builder setX1(double value) {
-        bitField0_ |= 0x00000200;
+        bitField0_ |= 0x00000080;
         x1_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional double x1 = 10;</code>
+       * <pre>
+       * fraction of beam momentum carried by first parton (”beam side”)
+       * </pre>
+       *
+       * <code>optional double x1 = 8;</code>
        */
       public Builder clearX1() {
-        bitField0_ = (bitField0_ & ~0x00000200);
+        bitField0_ = (bitField0_ & ~0x00000080);
         x1_ = 0D;
         onChanged();
         return this;
@@ -1479,31 +4026,47 @@ public final class Mc {
 
       private double x2_ ;
       /**
-       * <code>optional double x2 = 11;</code>
+       * <pre>
+       * fraction of beam momentum carried by second parton (”target side”)
+       * </pre>
+       *
+       * <code>optional double x2 = 9;</code>
        */
       public boolean hasX2() {
-        return ((bitField0_ & 0x00000400) == 0x00000400);
+        return ((bitField0_ & 0x00000100) == 0x00000100);
       }
       /**
-       * <code>optional double x2 = 11;</code>
+       * <pre>
+       * fraction of beam momentum carried by second parton (”target side”)
+       * </pre>
+       *
+       * <code>optional double x2 = 9;</code>
        */
       public double getX2() {
         return x2_;
       }
       /**
-       * <code>optional double x2 = 11;</code>
+       * <pre>
+       * fraction of beam momentum carried by second parton (”target side”)
+       * </pre>
+       *
+       * <code>optional double x2 = 9;</code>
        */
       public Builder setX2(double value) {
-        bitField0_ |= 0x00000400;
+        bitField0_ |= 0x00000100;
         x2_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional double x2 = 11;</code>
+       * <pre>
+       * fraction of beam momentum carried by second parton (”target side”)
+       * </pre>
+       *
+       * <code>optional double x2 = 9;</code>
        */
       public Builder clearX2() {
-        bitField0_ = (bitField0_ & ~0x00000400);
+        bitField0_ = (bitField0_ & ~0x00000100);
         x2_ = 0D;
         onChanged();
         return this;
@@ -1511,31 +4074,47 @@ public final class Mc {
 
       private long id1_ ;
       /**
-       * <code>optional uint64 id1 = 12;</code>
+       * <pre>
+       * flavour code of first parton
+       * </pre>
+       *
+       * <code>optional uint64 id1 = 10;</code>
        */
       public boolean hasId1() {
-        return ((bitField0_ & 0x00000800) == 0x00000800);
+        return ((bitField0_ & 0x00000200) == 0x00000200);
       }
       /**
-       * <code>optional uint64 id1 = 12;</code>
+       * <pre>
+       * flavour code of first parton
+       * </pre>
+       *
+       * <code>optional uint64 id1 = 10;</code>
        */
       public long getId1() {
         return id1_;
       }
       /**
-       * <code>optional uint64 id1 = 12;</code>
+       * <pre>
+       * flavour code of first parton
+       * </pre>
+       *
+       * <code>optional uint64 id1 = 10;</code>
        */
       public Builder setId1(long value) {
-        bitField0_ |= 0x00000800;
+        bitField0_ |= 0x00000200;
         id1_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional uint64 id1 = 12;</code>
+       * <pre>
+       * flavour code of first parton
+       * </pre>
+       *
+       * <code>optional uint64 id1 = 10;</code>
        */
       public Builder clearId1() {
-        bitField0_ = (bitField0_ & ~0x00000800);
+        bitField0_ = (bitField0_ & ~0x00000200);
         id1_ = 0L;
         onChanged();
         return this;
@@ -1543,31 +4122,47 @@ public final class Mc {
 
       private long id2_ ;
       /**
-       * <code>optional uint64 id2 = 13;</code>
+       * <pre>
+       * flavour code of second parton
+       * </pre>
+       *
+       * <code>optional uint64 id2 = 11;</code>
        */
       public boolean hasId2() {
-        return ((bitField0_ & 0x00001000) == 0x00001000);
+        return ((bitField0_ & 0x00000400) == 0x00000400);
       }
       /**
-       * <code>optional uint64 id2 = 13;</code>
+       * <pre>
+       * flavour code of second parton
+       * </pre>
+       *
+       * <code>optional uint64 id2 = 11;</code>
        */
       public long getId2() {
         return id2_;
       }
       /**
-       * <code>optional uint64 id2 = 13;</code>
+       * <pre>
+       * flavour code of second parton
+       * </pre>
+       *
+       * <code>optional uint64 id2 = 11;</code>
        */
       public Builder setId2(long value) {
-        bitField0_ |= 0x00001000;
+        bitField0_ |= 0x00000400;
         id2_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional uint64 id2 = 13;</code>
+       * <pre>
+       * flavour code of second parton
+       * </pre>
+       *
+       * <code>optional uint64 id2 = 11;</code>
        */
       public Builder clearId2() {
-        bitField0_ = (bitField0_ & ~0x00001000);
+        bitField0_ = (bitField0_ & ~0x00000400);
         id2_ = 0L;
         onChanged();
         return this;
@@ -1585,51 +4180,76 @@ public final class Mc {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:proio.model.mc.PythiaParameters)
+      // @@protoc_insertion_point(builder_scope:proio.model.mc.Pythia8Parameters)
     }
 
-    // @@protoc_insertion_point(class_scope:proio.model.mc.PythiaParameters)
-    private static final proio.model.Mc.PythiaParameters DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:proio.model.mc.Pythia8Parameters)
+    private static final proio.model.Mc.Pythia8Parameters DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new proio.model.Mc.PythiaParameters();
+      DEFAULT_INSTANCE = new proio.model.Mc.Pythia8Parameters();
     }
 
-    public static proio.model.Mc.PythiaParameters getDefaultInstance() {
+    public static proio.model.Mc.Pythia8Parameters getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    @java.lang.Deprecated public static final com.google.protobuf.Parser<PythiaParameters>
-        PARSER = new com.google.protobuf.AbstractParser<PythiaParameters>() {
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<Pythia8Parameters>
+        PARSER = new com.google.protobuf.AbstractParser<Pythia8Parameters>() {
       @java.lang.Override
-      public PythiaParameters parsePartialFrom(
+      public Pythia8Parameters parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new PythiaParameters(input, extensionRegistry);
+        return new Pythia8Parameters(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<PythiaParameters> parser() {
+    public static com.google.protobuf.Parser<Pythia8Parameters> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<PythiaParameters> getParserForType() {
+    public com.google.protobuf.Parser<Pythia8Parameters> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public proio.model.Mc.PythiaParameters getDefaultInstanceForType() {
+    public proio.model.Mc.Pythia8Parameters getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_proio_model_mc_PythiaParameters_descriptor;
+    internal_static_proio_model_mc_MCParameters_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_proio_model_mc_PythiaParameters_fieldAccessorTable;
+      internal_static_proio_model_mc_MCParameters_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_proio_model_mc_MCParameters_IntExtraEntry_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_proio_model_mc_MCParameters_IntExtraEntry_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_proio_model_mc_MCParameters_FloatExtraEntry_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_proio_model_mc_MCParameters_FloatExtraEntry_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_proio_model_mc_ArrayInt_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_proio_model_mc_ArrayInt_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_proio_model_mc_ArrayDouble_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_proio_model_mc_ArrayDouble_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_proio_model_mc_Pythia8Parameters_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_proio_model_mc_Pythia8Parameters_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1639,15 +4259,25 @@ public final class Mc {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\024proio/model/mc.proto\022\016proio.model.mc\"\353" +
-      "\001\n\020PythiaParameters\022\016\n\006number\030\001 \001(\004\022\021\n\tp" +
-      "rocessid\030\002 \001(\005\022\016\n\006pt_hat\030\003 \001(\001\022\020\n\010alpha_" +
-      "em\030\004 \001(\001\022\017\n\007alpha_s\030\005 \001(\001\022\023\n\013scale_q_fac" +
-      "\030\006 \001(\001\022\016\n\006weight\030\007 \001(\001\022\022\n\nweight_sum\030\010 \001" +
-      "(\001\022\026\n\016merging_weight\030\t \001(\001\022\n\n\002x1\030\n \001(\001\022\n" +
-      "\n\002x2\030\013 \001(\001\022\013\n\003id1\030\014 \001(\004\022\013\n\003id2\030\r \001(\004BC\n\013" +
-      "proio.modelB\002McZ0github.com/decibelcoope" +
-      "r/proio/go-proio/model/mc"
+      "\n\024proio/model/mc.proto\022\016proio.model.mc\"\336" +
+      "\002\n\014MCParameters\022\016\n\006number\030\001 \001(\004\022\021\n\tproce" +
+      "ssid\030\002 \001(\005\022\016\n\006weight\030\003 \001(\001\022=\n\tint_extra\030" +
+      "\004 \003(\0132*.proio.model.mc.MCParameters.IntE" +
+      "xtraEntry\022A\n\013float_extra\030\005 \003(\0132,.proio.m" +
+      "odel.mc.MCParameters.FloatExtraEntry\032I\n\r" +
+      "IntExtraEntry\022\013\n\003key\030\001 \001(\t\022\'\n\005value\030\002 \001(" +
+      "\0132\030.proio.model.mc.ArrayInt:\0028\001\032N\n\017Float" +
+      "ExtraEntry\022\013\n\003key\030\001 \001(\t\022*\n\005value\030\002 \001(\0132\033" +
+      ".proio.model.mc.ArrayDouble:\0028\001\"\031\n\010Array" +
+      "Int\022\r\n\005value\030\001 \003(\021\"\034\n\013ArrayDouble\022\r\n\005val" +
+      "ue\030\001 \003(\001\"\311\001\n\021Pythia8Parameters\022\022\n\nweight" +
+      "_sum\030\001 \001(\001\022\026\n\016merging_weight\030\002 \001(\001\022\016\n\006pt" +
+      "_hat\030\003 \001(\001\022\020\n\010alpha_em\030\004 \001(\001\022\017\n\007alpha_s\030" +
+      "\005 \001(\001\022\023\n\013scale_q_fac\030\006 \001(\001\022\016\n\006weight\030\007 \001" +
+      "(\001\022\n\n\002x1\030\010 \001(\001\022\n\n\002x2\030\t \001(\001\022\013\n\003id1\030\n \001(\004\022" +
+      "\013\n\003id2\030\013 \001(\004BC\n\013proio.modelB\002McZ0github." +
+      "com/decibelcooper/proio/go-proio/model/m" +
+      "c"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1661,12 +4291,42 @@ public final class Mc {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
-    internal_static_proio_model_mc_PythiaParameters_descriptor =
+    internal_static_proio_model_mc_MCParameters_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_proio_model_mc_PythiaParameters_fieldAccessorTable = new
+    internal_static_proio_model_mc_MCParameters_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_proio_model_mc_PythiaParameters_descriptor,
-        new java.lang.String[] { "Number", "Processid", "PtHat", "AlphaEm", "AlphaS", "ScaleQFac", "Weight", "WeightSum", "MergingWeight", "X1", "X2", "Id1", "Id2", });
+        internal_static_proio_model_mc_MCParameters_descriptor,
+        new java.lang.String[] { "Number", "Processid", "Weight", "IntExtra", "FloatExtra", });
+    internal_static_proio_model_mc_MCParameters_IntExtraEntry_descriptor =
+      internal_static_proio_model_mc_MCParameters_descriptor.getNestedTypes().get(0);
+    internal_static_proio_model_mc_MCParameters_IntExtraEntry_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_proio_model_mc_MCParameters_IntExtraEntry_descriptor,
+        new java.lang.String[] { "Key", "Value", });
+    internal_static_proio_model_mc_MCParameters_FloatExtraEntry_descriptor =
+      internal_static_proio_model_mc_MCParameters_descriptor.getNestedTypes().get(1);
+    internal_static_proio_model_mc_MCParameters_FloatExtraEntry_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_proio_model_mc_MCParameters_FloatExtraEntry_descriptor,
+        new java.lang.String[] { "Key", "Value", });
+    internal_static_proio_model_mc_ArrayInt_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_proio_model_mc_ArrayInt_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_proio_model_mc_ArrayInt_descriptor,
+        new java.lang.String[] { "Value", });
+    internal_static_proio_model_mc_ArrayDouble_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_proio_model_mc_ArrayDouble_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_proio_model_mc_ArrayDouble_descriptor,
+        new java.lang.String[] { "Value", });
+    internal_static_proio_model_mc_Pythia8Parameters_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_proio_model_mc_Pythia8Parameters_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_proio_model_mc_Pythia8Parameters_descriptor,
+        new java.lang.String[] { "WeightSum", "MergingWeight", "PtHat", "AlphaEm", "AlphaS", "ScaleQFac", "Weight", "X1", "X2", "Id1", "Id2", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
