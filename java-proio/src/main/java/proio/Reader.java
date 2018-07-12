@@ -56,6 +56,8 @@ public class Reader implements Iterable<Event>, Iterator<Event> {
         readBucket();
         readFromBucket(event);
       }
+    } else {
+        bucketIndex++;
     }
 
     return event;
