@@ -14,7 +14,7 @@ import java.util.zip.GZIPInputStream;
 import net.jpountz.lz4.LZ4FrameInputStream;
 
 public class Reader implements Iterable<Event>, Iterator<Event> {
-  private InputStream fileStream = null;
+  private FileInputStream fileStream = null;
   private CodedInputStream stream = null;
   private CodedInputStream bucket = null;
   private Proto.BucketHeader bucketHeader = null;
@@ -57,7 +57,7 @@ public class Reader implements Iterable<Event>, Iterator<Event> {
         readFromBucket(event);
       }
     } else {
-        bucketIndex++;
+      bucketIndex++;
     }
 
     return event;
@@ -83,6 +83,17 @@ public class Reader implements Iterable<Event>, Iterator<Event> {
     nSkipped += bucketIndex - startIndex;
 
     return nSkipped;
+  }
+
+  public void seekToStart() throws IOException {
+    if (fileStream == null) {
+      throw new IOException("Stream was not opened by filename, so reader cannot seek.");
+    }
+    fileStream.getChannel().position(0);
+    stream = CodedInputStream.newInstance(fileStream);
+    metadata = new HashMap<String, ByteString>();
+    bucketIndex = 0;
+    readHeader();
   }
 
   public void close() throws IOException {
