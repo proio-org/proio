@@ -96,6 +96,7 @@ void Reader::SeekToStart() {
     delete fileStream;
     if (lseek(fd, 0, SEEK_SET) == -1) throw seekError;
     fileStream = new io::FileInputStream(fd);
+    metadata.clear();
     bucketIndex = 0;
     readHeader();
 }
