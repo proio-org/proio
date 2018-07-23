@@ -5816,14 +5816,26 @@ public final class Eic {
       com.google.protobuf.MessageOrBuilder {
 
     /**
+     * <pre>
+     * start of segment in mm/ns
+     * </pre>
+     *
      * <code>optional .proio.model.eic.XYZTD vertex = 1;</code>
      */
     boolean hasVertex();
     /**
+     * <pre>
+     * start of segment in mm/ns
+     * </pre>
+     *
      * <code>optional .proio.model.eic.XYZTD vertex = 1;</code>
      */
     proio.model.Eic.XYZTD getVertex();
     /**
+     * <pre>
+     * start of segment in mm/ns
+     * </pre>
+     *
      * <code>optional .proio.model.eic.XYZTD vertex = 1;</code>
      */
     proio.model.Eic.XYZTDOrBuilder getVertexOrBuilder();
@@ -5853,14 +5865,26 @@ public final class Eic {
         int index);
 
     /**
+     * <pre>
+     * momentum normalized to the magnitude of the charge (GeV)
+     * </pre>
+     *
      * <code>optional .proio.model.eic.XYZD poq = 3;</code>
      */
     boolean hasPoq();
     /**
+     * <pre>
+     * momentum normalized to the magnitude of the charge (GeV)
+     * </pre>
+     *
      * <code>optional .proio.model.eic.XYZD poq = 3;</code>
      */
     proio.model.Eic.XYZD getPoq();
     /**
+     * <pre>
+     * momentum normalized to the magnitude of the charge (GeV)
+     * </pre>
+     *
      * <code>optional .proio.model.eic.XYZD poq = 3;</code>
      */
     proio.model.Eic.XYZDOrBuilder getPoqOrBuilder();
@@ -5890,32 +5914,60 @@ public final class Eic {
         int index);
 
     /**
+     * <pre>
+     * magnetic field at the vertex (T)
+     * </pre>
+     *
      * <code>optional .proio.model.eic.XYZD magfield = 9;</code>
      */
     boolean hasMagfield();
     /**
+     * <pre>
+     * magnetic field at the vertex (T)
+     * </pre>
+     *
      * <code>optional .proio.model.eic.XYZD magfield = 9;</code>
      */
     proio.model.Eic.XYZD getMagfield();
     /**
+     * <pre>
+     * magnetic field at the vertex (T)
+     * </pre>
+     *
      * <code>optional .proio.model.eic.XYZD magfield = 9;</code>
      */
     proio.model.Eic.XYZDOrBuilder getMagfieldOrBuilder();
 
     /**
+     * <pre>
+     * sign of the track charge
+     * </pre>
+     *
      * <code>optional float chargesign = 7;</code>
      */
     boolean hasChargesign();
     /**
+     * <pre>
+     * sign of the track charge
+     * </pre>
+     *
      * <code>optional float chargesign = 7;</code>
      */
     float getChargesign();
 
     /**
+     * <pre>
+     * length of the segment in mm
+     * </pre>
+     *
      * <code>optional float length = 8;</code>
      */
     boolean hasLength();
     /**
+     * <pre>
+     * length of the segment in mm
+     * </pre>
+     *
      * <code>optional float length = 8;</code>
      */
     float getLength();
@@ -6146,18 +6198,30 @@ public final class Eic {
     public static final int VERTEX_FIELD_NUMBER = 1;
     private proio.model.Eic.XYZTD vertex_;
     /**
+     * <pre>
+     * start of segment in mm/ns
+     * </pre>
+     *
      * <code>optional .proio.model.eic.XYZTD vertex = 1;</code>
      */
     public boolean hasVertex() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
+     * <pre>
+     * start of segment in mm/ns
+     * </pre>
+     *
      * <code>optional .proio.model.eic.XYZTD vertex = 1;</code>
      */
     public proio.model.Eic.XYZTD getVertex() {
       return vertex_ == null ? proio.model.Eic.XYZTD.getDefaultInstance() : vertex_;
     }
     /**
+     * <pre>
+     * start of segment in mm/ns
+     * </pre>
+     *
      * <code>optional .proio.model.eic.XYZTD vertex = 1;</code>
      */
     public proio.model.Eic.XYZTDOrBuilder getVertexOrBuilder() {
@@ -6202,18 +6266,30 @@ public final class Eic {
     public static final int POQ_FIELD_NUMBER = 3;
     private proio.model.Eic.XYZD poq_;
     /**
+     * <pre>
+     * momentum normalized to the magnitude of the charge (GeV)
+     * </pre>
+     *
      * <code>optional .proio.model.eic.XYZD poq = 3;</code>
      */
     public boolean hasPoq() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
+     * <pre>
+     * momentum normalized to the magnitude of the charge (GeV)
+     * </pre>
+     *
      * <code>optional .proio.model.eic.XYZD poq = 3;</code>
      */
     public proio.model.Eic.XYZD getPoq() {
       return poq_ == null ? proio.model.Eic.XYZD.getDefaultInstance() : poq_;
     }
     /**
+     * <pre>
+     * momentum normalized to the magnitude of the charge (GeV)
+     * </pre>
+     *
      * <code>optional .proio.model.eic.XYZD poq = 3;</code>
      */
     public proio.model.Eic.XYZDOrBuilder getPoqOrBuilder() {
@@ -6258,18 +6334,30 @@ public final class Eic {
     public static final int MAGFIELD_FIELD_NUMBER = 9;
     private proio.model.Eic.XYZD magfield_;
     /**
+     * <pre>
+     * magnetic field at the vertex (T)
+     * </pre>
+     *
      * <code>optional .proio.model.eic.XYZD magfield = 9;</code>
      */
     public boolean hasMagfield() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
+     * <pre>
+     * magnetic field at the vertex (T)
+     * </pre>
+     *
      * <code>optional .proio.model.eic.XYZD magfield = 9;</code>
      */
     public proio.model.Eic.XYZD getMagfield() {
       return magfield_ == null ? proio.model.Eic.XYZD.getDefaultInstance() : magfield_;
     }
     /**
+     * <pre>
+     * magnetic field at the vertex (T)
+     * </pre>
+     *
      * <code>optional .proio.model.eic.XYZD magfield = 9;</code>
      */
     public proio.model.Eic.XYZDOrBuilder getMagfieldOrBuilder() {
@@ -6279,12 +6367,20 @@ public final class Eic {
     public static final int CHARGESIGN_FIELD_NUMBER = 7;
     private float chargesign_;
     /**
+     * <pre>
+     * sign of the track charge
+     * </pre>
+     *
      * <code>optional float chargesign = 7;</code>
      */
     public boolean hasChargesign() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
+     * <pre>
+     * sign of the track charge
+     * </pre>
+     *
      * <code>optional float chargesign = 7;</code>
      */
     public float getChargesign() {
@@ -6294,12 +6390,20 @@ public final class Eic {
     public static final int LENGTH_FIELD_NUMBER = 8;
     private float length_;
     /**
+     * <pre>
+     * length of the segment in mm
+     * </pre>
+     *
      * <code>optional float length = 8;</code>
      */
     public boolean hasLength() {
       return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     /**
+     * <pre>
+     * length of the segment in mm
+     * </pre>
+     *
      * <code>optional float length = 8;</code>
      */
     public float getLength() {
@@ -7005,12 +7109,20 @@ public final class Eic {
       private com.google.protobuf.SingleFieldBuilderV3<
           proio.model.Eic.XYZTD, proio.model.Eic.XYZTD.Builder, proio.model.Eic.XYZTDOrBuilder> vertexBuilder_;
       /**
+       * <pre>
+       * start of segment in mm/ns
+       * </pre>
+       *
        * <code>optional .proio.model.eic.XYZTD vertex = 1;</code>
        */
       public boolean hasVertex() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
+       * <pre>
+       * start of segment in mm/ns
+       * </pre>
+       *
        * <code>optional .proio.model.eic.XYZTD vertex = 1;</code>
        */
       public proio.model.Eic.XYZTD getVertex() {
@@ -7021,6 +7133,10 @@ public final class Eic {
         }
       }
       /**
+       * <pre>
+       * start of segment in mm/ns
+       * </pre>
+       *
        * <code>optional .proio.model.eic.XYZTD vertex = 1;</code>
        */
       public Builder setVertex(proio.model.Eic.XYZTD value) {
@@ -7037,6 +7153,10 @@ public final class Eic {
         return this;
       }
       /**
+       * <pre>
+       * start of segment in mm/ns
+       * </pre>
+       *
        * <code>optional .proio.model.eic.XYZTD vertex = 1;</code>
        */
       public Builder setVertex(
@@ -7051,6 +7171,10 @@ public final class Eic {
         return this;
       }
       /**
+       * <pre>
+       * start of segment in mm/ns
+       * </pre>
+       *
        * <code>optional .proio.model.eic.XYZTD vertex = 1;</code>
        */
       public Builder mergeVertex(proio.model.Eic.XYZTD value) {
@@ -7071,6 +7195,10 @@ public final class Eic {
         return this;
       }
       /**
+       * <pre>
+       * start of segment in mm/ns
+       * </pre>
+       *
        * <code>optional .proio.model.eic.XYZTD vertex = 1;</code>
        */
       public Builder clearVertex() {
@@ -7084,6 +7212,10 @@ public final class Eic {
         return this;
       }
       /**
+       * <pre>
+       * start of segment in mm/ns
+       * </pre>
+       *
        * <code>optional .proio.model.eic.XYZTD vertex = 1;</code>
        */
       public proio.model.Eic.XYZTD.Builder getVertexBuilder() {
@@ -7092,6 +7224,10 @@ public final class Eic {
         return getVertexFieldBuilder().getBuilder();
       }
       /**
+       * <pre>
+       * start of segment in mm/ns
+       * </pre>
+       *
        * <code>optional .proio.model.eic.XYZTD vertex = 1;</code>
        */
       public proio.model.Eic.XYZTDOrBuilder getVertexOrBuilder() {
@@ -7103,6 +7239,10 @@ public final class Eic {
         }
       }
       /**
+       * <pre>
+       * start of segment in mm/ns
+       * </pre>
+       *
        * <code>optional .proio.model.eic.XYZTD vertex = 1;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -7363,12 +7503,20 @@ public final class Eic {
       private com.google.protobuf.SingleFieldBuilderV3<
           proio.model.Eic.XYZD, proio.model.Eic.XYZD.Builder, proio.model.Eic.XYZDOrBuilder> poqBuilder_;
       /**
+       * <pre>
+       * momentum normalized to the magnitude of the charge (GeV)
+       * </pre>
+       *
        * <code>optional .proio.model.eic.XYZD poq = 3;</code>
        */
       public boolean hasPoq() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
+       * <pre>
+       * momentum normalized to the magnitude of the charge (GeV)
+       * </pre>
+       *
        * <code>optional .proio.model.eic.XYZD poq = 3;</code>
        */
       public proio.model.Eic.XYZD getPoq() {
@@ -7379,6 +7527,10 @@ public final class Eic {
         }
       }
       /**
+       * <pre>
+       * momentum normalized to the magnitude of the charge (GeV)
+       * </pre>
+       *
        * <code>optional .proio.model.eic.XYZD poq = 3;</code>
        */
       public Builder setPoq(proio.model.Eic.XYZD value) {
@@ -7395,6 +7547,10 @@ public final class Eic {
         return this;
       }
       /**
+       * <pre>
+       * momentum normalized to the magnitude of the charge (GeV)
+       * </pre>
+       *
        * <code>optional .proio.model.eic.XYZD poq = 3;</code>
        */
       public Builder setPoq(
@@ -7409,6 +7565,10 @@ public final class Eic {
         return this;
       }
       /**
+       * <pre>
+       * momentum normalized to the magnitude of the charge (GeV)
+       * </pre>
+       *
        * <code>optional .proio.model.eic.XYZD poq = 3;</code>
        */
       public Builder mergePoq(proio.model.Eic.XYZD value) {
@@ -7429,6 +7589,10 @@ public final class Eic {
         return this;
       }
       /**
+       * <pre>
+       * momentum normalized to the magnitude of the charge (GeV)
+       * </pre>
+       *
        * <code>optional .proio.model.eic.XYZD poq = 3;</code>
        */
       public Builder clearPoq() {
@@ -7442,6 +7606,10 @@ public final class Eic {
         return this;
       }
       /**
+       * <pre>
+       * momentum normalized to the magnitude of the charge (GeV)
+       * </pre>
+       *
        * <code>optional .proio.model.eic.XYZD poq = 3;</code>
        */
       public proio.model.Eic.XYZD.Builder getPoqBuilder() {
@@ -7450,6 +7618,10 @@ public final class Eic {
         return getPoqFieldBuilder().getBuilder();
       }
       /**
+       * <pre>
+       * momentum normalized to the magnitude of the charge (GeV)
+       * </pre>
+       *
        * <code>optional .proio.model.eic.XYZD poq = 3;</code>
        */
       public proio.model.Eic.XYZDOrBuilder getPoqOrBuilder() {
@@ -7461,6 +7633,10 @@ public final class Eic {
         }
       }
       /**
+       * <pre>
+       * momentum normalized to the magnitude of the charge (GeV)
+       * </pre>
+       *
        * <code>optional .proio.model.eic.XYZD poq = 3;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -7721,12 +7897,20 @@ public final class Eic {
       private com.google.protobuf.SingleFieldBuilderV3<
           proio.model.Eic.XYZD, proio.model.Eic.XYZD.Builder, proio.model.Eic.XYZDOrBuilder> magfieldBuilder_;
       /**
+       * <pre>
+       * magnetic field at the vertex (T)
+       * </pre>
+       *
        * <code>optional .proio.model.eic.XYZD magfield = 9;</code>
        */
       public boolean hasMagfield() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       /**
+       * <pre>
+       * magnetic field at the vertex (T)
+       * </pre>
+       *
        * <code>optional .proio.model.eic.XYZD magfield = 9;</code>
        */
       public proio.model.Eic.XYZD getMagfield() {
@@ -7737,6 +7921,10 @@ public final class Eic {
         }
       }
       /**
+       * <pre>
+       * magnetic field at the vertex (T)
+       * </pre>
+       *
        * <code>optional .proio.model.eic.XYZD magfield = 9;</code>
        */
       public Builder setMagfield(proio.model.Eic.XYZD value) {
@@ -7753,6 +7941,10 @@ public final class Eic {
         return this;
       }
       /**
+       * <pre>
+       * magnetic field at the vertex (T)
+       * </pre>
+       *
        * <code>optional .proio.model.eic.XYZD magfield = 9;</code>
        */
       public Builder setMagfield(
@@ -7767,6 +7959,10 @@ public final class Eic {
         return this;
       }
       /**
+       * <pre>
+       * magnetic field at the vertex (T)
+       * </pre>
+       *
        * <code>optional .proio.model.eic.XYZD magfield = 9;</code>
        */
       public Builder mergeMagfield(proio.model.Eic.XYZD value) {
@@ -7787,6 +7983,10 @@ public final class Eic {
         return this;
       }
       /**
+       * <pre>
+       * magnetic field at the vertex (T)
+       * </pre>
+       *
        * <code>optional .proio.model.eic.XYZD magfield = 9;</code>
        */
       public Builder clearMagfield() {
@@ -7800,6 +8000,10 @@ public final class Eic {
         return this;
       }
       /**
+       * <pre>
+       * magnetic field at the vertex (T)
+       * </pre>
+       *
        * <code>optional .proio.model.eic.XYZD magfield = 9;</code>
        */
       public proio.model.Eic.XYZD.Builder getMagfieldBuilder() {
@@ -7808,6 +8012,10 @@ public final class Eic {
         return getMagfieldFieldBuilder().getBuilder();
       }
       /**
+       * <pre>
+       * magnetic field at the vertex (T)
+       * </pre>
+       *
        * <code>optional .proio.model.eic.XYZD magfield = 9;</code>
        */
       public proio.model.Eic.XYZDOrBuilder getMagfieldOrBuilder() {
@@ -7819,6 +8027,10 @@ public final class Eic {
         }
       }
       /**
+       * <pre>
+       * magnetic field at the vertex (T)
+       * </pre>
+       *
        * <code>optional .proio.model.eic.XYZD magfield = 9;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -7837,18 +8049,30 @@ public final class Eic {
 
       private float chargesign_ ;
       /**
+       * <pre>
+       * sign of the track charge
+       * </pre>
+       *
        * <code>optional float chargesign = 7;</code>
        */
       public boolean hasChargesign() {
         return ((bitField0_ & 0x00000020) == 0x00000020);
       }
       /**
+       * <pre>
+       * sign of the track charge
+       * </pre>
+       *
        * <code>optional float chargesign = 7;</code>
        */
       public float getChargesign() {
         return chargesign_;
       }
       /**
+       * <pre>
+       * sign of the track charge
+       * </pre>
+       *
        * <code>optional float chargesign = 7;</code>
        */
       public Builder setChargesign(float value) {
@@ -7858,6 +8082,10 @@ public final class Eic {
         return this;
       }
       /**
+       * <pre>
+       * sign of the track charge
+       * </pre>
+       *
        * <code>optional float chargesign = 7;</code>
        */
       public Builder clearChargesign() {
@@ -7869,18 +8097,30 @@ public final class Eic {
 
       private float length_ ;
       /**
+       * <pre>
+       * length of the segment in mm
+       * </pre>
+       *
        * <code>optional float length = 8;</code>
        */
       public boolean hasLength() {
         return ((bitField0_ & 0x00000040) == 0x00000040);
       }
       /**
+       * <pre>
+       * length of the segment in mm
+       * </pre>
+       *
        * <code>optional float length = 8;</code>
        */
       public float getLength() {
         return length_;
       }
       /**
+       * <pre>
+       * length of the segment in mm
+       * </pre>
+       *
        * <code>optional float length = 8;</code>
        */
       public Builder setLength(float value) {
@@ -7890,6 +8130,10 @@ public final class Eic {
         return this;
       }
       /**
+       * <pre>
+       * length of the segment in mm
+       * </pre>
+       *
        * <code>optional float length = 8;</code>
        */
       public Builder clearLength() {
