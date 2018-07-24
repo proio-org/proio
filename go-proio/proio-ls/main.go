@@ -13,7 +13,6 @@ import (
 	_ "github.com/decibelcooper/proio/go-proio/model/eic"
 	_ "github.com/decibelcooper/proio/go-proio/model/lcio"
 	_ "github.com/decibelcooper/proio/go-proio/model/mc"
-	_ "github.com/decibelcooper/proio/go-proio/model/promc"
 )
 
 var (
