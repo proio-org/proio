@@ -14,6 +14,2182 @@ public final class Mc {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
+  public interface ParticleOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:proio.model.mc.Particle)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * ProIO entry identifiers that point to parent Particles
+     * </pre>
+     *
+     * <code>repeated uint64 parent = 1;</code>
+     */
+    java.util.List<java.lang.Long> getParentList();
+    /**
+     * <pre>
+     * ProIO entry identifiers that point to parent Particles
+     * </pre>
+     *
+     * <code>repeated uint64 parent = 1;</code>
+     */
+    int getParentCount();
+    /**
+     * <pre>
+     * ProIO entry identifiers that point to parent Particles
+     * </pre>
+     *
+     * <code>repeated uint64 parent = 1;</code>
+     */
+    long getParent(int index);
+
+    /**
+     * <pre>
+     * ProIO entry identifiers that point to child Particles
+     * </pre>
+     *
+     * <code>repeated uint64 child = 2;</code>
+     */
+    java.util.List<java.lang.Long> getChildList();
+    /**
+     * <pre>
+     * ProIO entry identifiers that point to child Particles
+     * </pre>
+     *
+     * <code>repeated uint64 child = 2;</code>
+     */
+    int getChildCount();
+    /**
+     * <pre>
+     * ProIO entry identifiers that point to child Particles
+     * </pre>
+     *
+     * <code>repeated uint64 child = 2;</code>
+     */
+    long getChild(int index);
+
+    /**
+     * <pre>
+     * PDG code
+     * </pre>
+     *
+     * <code>optional sint32 pdg = 3;</code>
+     */
+    boolean hasPdg();
+    /**
+     * <pre>
+     * PDG code
+     * </pre>
+     *
+     * <code>optional sint32 pdg = 3;</code>
+     */
+    int getPdg();
+
+    /**
+     * <pre>
+     * position in mm and time in ns
+     * </pre>
+     *
+     * <code>optional .proio.model.mc.XYZTF vertex = 4;</code>
+     */
+    boolean hasVertex();
+    /**
+     * <pre>
+     * position in mm and time in ns
+     * </pre>
+     *
+     * <code>optional .proio.model.mc.XYZTF vertex = 4;</code>
+     */
+    proio.model.Mc.XYZTF getVertex();
+    /**
+     * <pre>
+     * position in mm and time in ns
+     * </pre>
+     *
+     * <code>optional .proio.model.mc.XYZTF vertex = 4;</code>
+     */
+    proio.model.Mc.XYZTFOrBuilder getVertexOrBuilder();
+
+    /**
+     * <pre>
+     * 3-momentum in GeV
+     * </pre>
+     *
+     * <code>optional .proio.model.mc.XYZF p = 5;</code>
+     */
+    boolean hasP();
+    /**
+     * <pre>
+     * 3-momentum in GeV
+     * </pre>
+     *
+     * <code>optional .proio.model.mc.XYZF p = 5;</code>
+     */
+    proio.model.Mc.XYZF getP();
+    /**
+     * <pre>
+     * 3-momentum in GeV
+     * </pre>
+     *
+     * <code>optional .proio.model.mc.XYZF p = 5;</code>
+     */
+    proio.model.Mc.XYZFOrBuilder getPOrBuilder();
+
+    /**
+     * <pre>
+     * energy in GeV
+     * </pre>
+     *
+     * <code>optional float energy = 6;</code>
+     */
+    boolean hasEnergy();
+    /**
+     * <pre>
+     * energy in GeV
+     * </pre>
+     *
+     * <code>optional float energy = 6;</code>
+     */
+    float getEnergy();
+
+    /**
+     * <pre>
+     * mass in GeV
+     * </pre>
+     *
+     * <code>optional float mass = 7;</code>
+     */
+    boolean hasMass();
+    /**
+     * <pre>
+     * mass in GeV
+     * </pre>
+     *
+     * <code>optional float mass = 7;</code>
+     */
+    float getMass();
+
+    /**
+     * <pre>
+     * charge in units of elementary charge / 3
+     * </pre>
+     *
+     * <code>optional sint32 charge = 8;</code>
+     */
+    boolean hasCharge();
+    /**
+     * <pre>
+     * charge in units of elementary charge / 3
+     * </pre>
+     *
+     * <code>optional sint32 charge = 8;</code>
+     */
+    int getCharge();
+
+    /**
+     * <pre>
+     * 2 *spin + 1
+     * </pre>
+     *
+     * <code>optional sint32 spin = 9;</code>
+     */
+    boolean hasSpin();
+    /**
+     * <pre>
+     * 2 *spin + 1
+     * </pre>
+     *
+     * <code>optional sint32 spin = 9;</code>
+     */
+    int getSpin();
+
+    /**
+     * <pre>
+     * status code
+     * </pre>
+     *
+     * <code>optional sint32 status = 10;</code>
+     */
+    boolean hasStatus();
+    /**
+     * <pre>
+     * status code
+     * </pre>
+     *
+     * <code>optional sint32 status = 10;</code>
+     */
+    int getStatus();
+
+    /**
+     * <pre>
+     * barcode
+     * </pre>
+     *
+     * <code>optional sint32 barcode = 11;</code>
+     */
+    boolean hasBarcode();
+    /**
+     * <pre>
+     * barcode
+     * </pre>
+     *
+     * <code>optional sint32 barcode = 11;</code>
+     */
+    int getBarcode();
+  }
+  /**
+   * Protobuf type {@code proio.model.mc.Particle}
+   */
+  public  static final class Particle extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:proio.model.mc.Particle)
+      ParticleOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use Particle.newBuilder() to construct.
+    private Particle(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Particle() {
+      parent_ = java.util.Collections.emptyList();
+      child_ = java.util.Collections.emptyList();
+      pdg_ = 0;
+      energy_ = 0F;
+      mass_ = 0F;
+      charge_ = 0;
+      spin_ = 0;
+      status_ = 0;
+      barcode_ = 0;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Particle(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                parent_ = new java.util.ArrayList<java.lang.Long>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              parent_.add(input.readUInt64());
+              break;
+            }
+            case 10: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001) && input.getBytesUntilLimit() > 0) {
+                parent_ = new java.util.ArrayList<java.lang.Long>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              while (input.getBytesUntilLimit() > 0) {
+                parent_.add(input.readUInt64());
+              }
+              input.popLimit(limit);
+              break;
+            }
+            case 16: {
+              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+                child_ = new java.util.ArrayList<java.lang.Long>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              child_.add(input.readUInt64());
+              break;
+            }
+            case 18: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002) && input.getBytesUntilLimit() > 0) {
+                child_ = new java.util.ArrayList<java.lang.Long>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              while (input.getBytesUntilLimit() > 0) {
+                child_.add(input.readUInt64());
+              }
+              input.popLimit(limit);
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000001;
+              pdg_ = input.readSInt32();
+              break;
+            }
+            case 34: {
+              proio.model.Mc.XYZTF.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000002) == 0x00000002)) {
+                subBuilder = vertex_.toBuilder();
+              }
+              vertex_ = input.readMessage(proio.model.Mc.XYZTF.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(vertex_);
+                vertex_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000002;
+              break;
+            }
+            case 42: {
+              proio.model.Mc.XYZF.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000004) == 0x00000004)) {
+                subBuilder = p_.toBuilder();
+              }
+              p_ = input.readMessage(proio.model.Mc.XYZF.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(p_);
+                p_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000004;
+              break;
+            }
+            case 53: {
+              bitField0_ |= 0x00000008;
+              energy_ = input.readFloat();
+              break;
+            }
+            case 61: {
+              bitField0_ |= 0x00000010;
+              mass_ = input.readFloat();
+              break;
+            }
+            case 64: {
+              bitField0_ |= 0x00000020;
+              charge_ = input.readSInt32();
+              break;
+            }
+            case 72: {
+              bitField0_ |= 0x00000040;
+              spin_ = input.readSInt32();
+              break;
+            }
+            case 80: {
+              bitField0_ |= 0x00000080;
+              status_ = input.readSInt32();
+              break;
+            }
+            case 88: {
+              bitField0_ |= 0x00000100;
+              barcode_ = input.readSInt32();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          parent_ = java.util.Collections.unmodifiableList(parent_);
+        }
+        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+          child_ = java.util.Collections.unmodifiableList(child_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return proio.model.Mc.internal_static_proio_model_mc_Particle_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return proio.model.Mc.internal_static_proio_model_mc_Particle_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              proio.model.Mc.Particle.class, proio.model.Mc.Particle.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int PARENT_FIELD_NUMBER = 1;
+    private java.util.List<java.lang.Long> parent_;
+    /**
+     * <pre>
+     * ProIO entry identifiers that point to parent Particles
+     * </pre>
+     *
+     * <code>repeated uint64 parent = 1;</code>
+     */
+    public java.util.List<java.lang.Long>
+        getParentList() {
+      return parent_;
+    }
+    /**
+     * <pre>
+     * ProIO entry identifiers that point to parent Particles
+     * </pre>
+     *
+     * <code>repeated uint64 parent = 1;</code>
+     */
+    public int getParentCount() {
+      return parent_.size();
+    }
+    /**
+     * <pre>
+     * ProIO entry identifiers that point to parent Particles
+     * </pre>
+     *
+     * <code>repeated uint64 parent = 1;</code>
+     */
+    public long getParent(int index) {
+      return parent_.get(index);
+    }
+
+    public static final int CHILD_FIELD_NUMBER = 2;
+    private java.util.List<java.lang.Long> child_;
+    /**
+     * <pre>
+     * ProIO entry identifiers that point to child Particles
+     * </pre>
+     *
+     * <code>repeated uint64 child = 2;</code>
+     */
+    public java.util.List<java.lang.Long>
+        getChildList() {
+      return child_;
+    }
+    /**
+     * <pre>
+     * ProIO entry identifiers that point to child Particles
+     * </pre>
+     *
+     * <code>repeated uint64 child = 2;</code>
+     */
+    public int getChildCount() {
+      return child_.size();
+    }
+    /**
+     * <pre>
+     * ProIO entry identifiers that point to child Particles
+     * </pre>
+     *
+     * <code>repeated uint64 child = 2;</code>
+     */
+    public long getChild(int index) {
+      return child_.get(index);
+    }
+
+    public static final int PDG_FIELD_NUMBER = 3;
+    private int pdg_;
+    /**
+     * <pre>
+     * PDG code
+     * </pre>
+     *
+     * <code>optional sint32 pdg = 3;</code>
+     */
+    public boolean hasPdg() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <pre>
+     * PDG code
+     * </pre>
+     *
+     * <code>optional sint32 pdg = 3;</code>
+     */
+    public int getPdg() {
+      return pdg_;
+    }
+
+    public static final int VERTEX_FIELD_NUMBER = 4;
+    private proio.model.Mc.XYZTF vertex_;
+    /**
+     * <pre>
+     * position in mm and time in ns
+     * </pre>
+     *
+     * <code>optional .proio.model.mc.XYZTF vertex = 4;</code>
+     */
+    public boolean hasVertex() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <pre>
+     * position in mm and time in ns
+     * </pre>
+     *
+     * <code>optional .proio.model.mc.XYZTF vertex = 4;</code>
+     */
+    public proio.model.Mc.XYZTF getVertex() {
+      return vertex_ == null ? proio.model.Mc.XYZTF.getDefaultInstance() : vertex_;
+    }
+    /**
+     * <pre>
+     * position in mm and time in ns
+     * </pre>
+     *
+     * <code>optional .proio.model.mc.XYZTF vertex = 4;</code>
+     */
+    public proio.model.Mc.XYZTFOrBuilder getVertexOrBuilder() {
+      return vertex_ == null ? proio.model.Mc.XYZTF.getDefaultInstance() : vertex_;
+    }
+
+    public static final int P_FIELD_NUMBER = 5;
+    private proio.model.Mc.XYZF p_;
+    /**
+     * <pre>
+     * 3-momentum in GeV
+     * </pre>
+     *
+     * <code>optional .proio.model.mc.XYZF p = 5;</code>
+     */
+    public boolean hasP() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <pre>
+     * 3-momentum in GeV
+     * </pre>
+     *
+     * <code>optional .proio.model.mc.XYZF p = 5;</code>
+     */
+    public proio.model.Mc.XYZF getP() {
+      return p_ == null ? proio.model.Mc.XYZF.getDefaultInstance() : p_;
+    }
+    /**
+     * <pre>
+     * 3-momentum in GeV
+     * </pre>
+     *
+     * <code>optional .proio.model.mc.XYZF p = 5;</code>
+     */
+    public proio.model.Mc.XYZFOrBuilder getPOrBuilder() {
+      return p_ == null ? proio.model.Mc.XYZF.getDefaultInstance() : p_;
+    }
+
+    public static final int ENERGY_FIELD_NUMBER = 6;
+    private float energy_;
+    /**
+     * <pre>
+     * energy in GeV
+     * </pre>
+     *
+     * <code>optional float energy = 6;</code>
+     */
+    public boolean hasEnergy() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <pre>
+     * energy in GeV
+     * </pre>
+     *
+     * <code>optional float energy = 6;</code>
+     */
+    public float getEnergy() {
+      return energy_;
+    }
+
+    public static final int MASS_FIELD_NUMBER = 7;
+    private float mass_;
+    /**
+     * <pre>
+     * mass in GeV
+     * </pre>
+     *
+     * <code>optional float mass = 7;</code>
+     */
+    public boolean hasMass() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <pre>
+     * mass in GeV
+     * </pre>
+     *
+     * <code>optional float mass = 7;</code>
+     */
+    public float getMass() {
+      return mass_;
+    }
+
+    public static final int CHARGE_FIELD_NUMBER = 8;
+    private int charge_;
+    /**
+     * <pre>
+     * charge in units of elementary charge / 3
+     * </pre>
+     *
+     * <code>optional sint32 charge = 8;</code>
+     */
+    public boolean hasCharge() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    /**
+     * <pre>
+     * charge in units of elementary charge / 3
+     * </pre>
+     *
+     * <code>optional sint32 charge = 8;</code>
+     */
+    public int getCharge() {
+      return charge_;
+    }
+
+    public static final int SPIN_FIELD_NUMBER = 9;
+    private int spin_;
+    /**
+     * <pre>
+     * 2 *spin + 1
+     * </pre>
+     *
+     * <code>optional sint32 spin = 9;</code>
+     */
+    public boolean hasSpin() {
+      return ((bitField0_ & 0x00000040) == 0x00000040);
+    }
+    /**
+     * <pre>
+     * 2 *spin + 1
+     * </pre>
+     *
+     * <code>optional sint32 spin = 9;</code>
+     */
+    public int getSpin() {
+      return spin_;
+    }
+
+    public static final int STATUS_FIELD_NUMBER = 10;
+    private int status_;
+    /**
+     * <pre>
+     * status code
+     * </pre>
+     *
+     * <code>optional sint32 status = 10;</code>
+     */
+    public boolean hasStatus() {
+      return ((bitField0_ & 0x00000080) == 0x00000080);
+    }
+    /**
+     * <pre>
+     * status code
+     * </pre>
+     *
+     * <code>optional sint32 status = 10;</code>
+     */
+    public int getStatus() {
+      return status_;
+    }
+
+    public static final int BARCODE_FIELD_NUMBER = 11;
+    private int barcode_;
+    /**
+     * <pre>
+     * barcode
+     * </pre>
+     *
+     * <code>optional sint32 barcode = 11;</code>
+     */
+    public boolean hasBarcode() {
+      return ((bitField0_ & 0x00000100) == 0x00000100);
+    }
+    /**
+     * <pre>
+     * barcode
+     * </pre>
+     *
+     * <code>optional sint32 barcode = 11;</code>
+     */
+    public int getBarcode() {
+      return barcode_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < parent_.size(); i++) {
+        output.writeUInt64(1, parent_.get(i));
+      }
+      for (int i = 0; i < child_.size(); i++) {
+        output.writeUInt64(2, child_.get(i));
+      }
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeSInt32(3, pdg_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeMessage(4, getVertex());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeMessage(5, getP());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeFloat(6, energy_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeFloat(7, mass_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeSInt32(8, charge_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        output.writeSInt32(9, spin_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        output.writeSInt32(10, status_);
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        output.writeSInt32(11, barcode_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      {
+        int dataSize = 0;
+        for (int i = 0; i < parent_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeUInt64SizeNoTag(parent_.get(i));
+        }
+        size += dataSize;
+        size += 1 * getParentList().size();
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < child_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeUInt64SizeNoTag(child_.get(i));
+        }
+        size += dataSize;
+        size += 1 * getChildList().size();
+      }
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeSInt32Size(3, pdg_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, getVertex());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, getP());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(6, energy_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(7, mass_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeSInt32Size(8, charge_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeSInt32Size(9, spin_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeSInt32Size(10, status_);
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeSInt32Size(11, barcode_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof proio.model.Mc.Particle)) {
+        return super.equals(obj);
+      }
+      proio.model.Mc.Particle other = (proio.model.Mc.Particle) obj;
+
+      boolean result = true;
+      result = result && getParentList()
+          .equals(other.getParentList());
+      result = result && getChildList()
+          .equals(other.getChildList());
+      result = result && (hasPdg() == other.hasPdg());
+      if (hasPdg()) {
+        result = result && (getPdg()
+            == other.getPdg());
+      }
+      result = result && (hasVertex() == other.hasVertex());
+      if (hasVertex()) {
+        result = result && getVertex()
+            .equals(other.getVertex());
+      }
+      result = result && (hasP() == other.hasP());
+      if (hasP()) {
+        result = result && getP()
+            .equals(other.getP());
+      }
+      result = result && (hasEnergy() == other.hasEnergy());
+      if (hasEnergy()) {
+        result = result && (
+            java.lang.Float.floatToIntBits(getEnergy())
+            == java.lang.Float.floatToIntBits(
+                other.getEnergy()));
+      }
+      result = result && (hasMass() == other.hasMass());
+      if (hasMass()) {
+        result = result && (
+            java.lang.Float.floatToIntBits(getMass())
+            == java.lang.Float.floatToIntBits(
+                other.getMass()));
+      }
+      result = result && (hasCharge() == other.hasCharge());
+      if (hasCharge()) {
+        result = result && (getCharge()
+            == other.getCharge());
+      }
+      result = result && (hasSpin() == other.hasSpin());
+      if (hasSpin()) {
+        result = result && (getSpin()
+            == other.getSpin());
+      }
+      result = result && (hasStatus() == other.hasStatus());
+      if (hasStatus()) {
+        result = result && (getStatus()
+            == other.getStatus());
+      }
+      result = result && (hasBarcode() == other.hasBarcode());
+      if (hasBarcode()) {
+        result = result && (getBarcode()
+            == other.getBarcode());
+      }
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getParentCount() > 0) {
+        hash = (37 * hash) + PARENT_FIELD_NUMBER;
+        hash = (53 * hash) + getParentList().hashCode();
+      }
+      if (getChildCount() > 0) {
+        hash = (37 * hash) + CHILD_FIELD_NUMBER;
+        hash = (53 * hash) + getChildList().hashCode();
+      }
+      if (hasPdg()) {
+        hash = (37 * hash) + PDG_FIELD_NUMBER;
+        hash = (53 * hash) + getPdg();
+      }
+      if (hasVertex()) {
+        hash = (37 * hash) + VERTEX_FIELD_NUMBER;
+        hash = (53 * hash) + getVertex().hashCode();
+      }
+      if (hasP()) {
+        hash = (37 * hash) + P_FIELD_NUMBER;
+        hash = (53 * hash) + getP().hashCode();
+      }
+      if (hasEnergy()) {
+        hash = (37 * hash) + ENERGY_FIELD_NUMBER;
+        hash = (53 * hash) + java.lang.Float.floatToIntBits(
+            getEnergy());
+      }
+      if (hasMass()) {
+        hash = (37 * hash) + MASS_FIELD_NUMBER;
+        hash = (53 * hash) + java.lang.Float.floatToIntBits(
+            getMass());
+      }
+      if (hasCharge()) {
+        hash = (37 * hash) + CHARGE_FIELD_NUMBER;
+        hash = (53 * hash) + getCharge();
+      }
+      if (hasSpin()) {
+        hash = (37 * hash) + SPIN_FIELD_NUMBER;
+        hash = (53 * hash) + getSpin();
+      }
+      if (hasStatus()) {
+        hash = (37 * hash) + STATUS_FIELD_NUMBER;
+        hash = (53 * hash) + getStatus();
+      }
+      if (hasBarcode()) {
+        hash = (37 * hash) + BARCODE_FIELD_NUMBER;
+        hash = (53 * hash) + getBarcode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static proio.model.Mc.Particle parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static proio.model.Mc.Particle parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static proio.model.Mc.Particle parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static proio.model.Mc.Particle parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static proio.model.Mc.Particle parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static proio.model.Mc.Particle parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static proio.model.Mc.Particle parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static proio.model.Mc.Particle parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static proio.model.Mc.Particle parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static proio.model.Mc.Particle parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static proio.model.Mc.Particle parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static proio.model.Mc.Particle parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(proio.model.Mc.Particle prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code proio.model.mc.Particle}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:proio.model.mc.Particle)
+        proio.model.Mc.ParticleOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return proio.model.Mc.internal_static_proio_model_mc_Particle_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return proio.model.Mc.internal_static_proio_model_mc_Particle_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                proio.model.Mc.Particle.class, proio.model.Mc.Particle.Builder.class);
+      }
+
+      // Construct using proio.model.Mc.Particle.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getVertexFieldBuilder();
+          getPFieldBuilder();
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        parent_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        child_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        pdg_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        if (vertexBuilder_ == null) {
+          vertex_ = null;
+        } else {
+          vertexBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000008);
+        if (pBuilder_ == null) {
+          p_ = null;
+        } else {
+          pBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000010);
+        energy_ = 0F;
+        bitField0_ = (bitField0_ & ~0x00000020);
+        mass_ = 0F;
+        bitField0_ = (bitField0_ & ~0x00000040);
+        charge_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000080);
+        spin_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000100);
+        status_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000200);
+        barcode_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000400);
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return proio.model.Mc.internal_static_proio_model_mc_Particle_descriptor;
+      }
+
+      public proio.model.Mc.Particle getDefaultInstanceForType() {
+        return proio.model.Mc.Particle.getDefaultInstance();
+      }
+
+      public proio.model.Mc.Particle build() {
+        proio.model.Mc.Particle result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public proio.model.Mc.Particle buildPartial() {
+        proio.model.Mc.Particle result = new proio.model.Mc.Particle(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          parent_ = java.util.Collections.unmodifiableList(parent_);
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.parent_ = parent_;
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          child_ = java.util.Collections.unmodifiableList(child_);
+          bitField0_ = (bitField0_ & ~0x00000002);
+        }
+        result.child_ = child_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.pdg_ = pdg_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        if (vertexBuilder_ == null) {
+          result.vertex_ = vertex_;
+        } else {
+          result.vertex_ = vertexBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        if (pBuilder_ == null) {
+          result.p_ = p_;
+        } else {
+          result.p_ = pBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.energy_ = energy_;
+        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.mass_ = mass_;
+        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.charge_ = charge_;
+        if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
+          to_bitField0_ |= 0x00000040;
+        }
+        result.spin_ = spin_;
+        if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
+          to_bitField0_ |= 0x00000080;
+        }
+        result.status_ = status_;
+        if (((from_bitField0_ & 0x00000400) == 0x00000400)) {
+          to_bitField0_ |= 0x00000100;
+        }
+        result.barcode_ = barcode_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof proio.model.Mc.Particle) {
+          return mergeFrom((proio.model.Mc.Particle)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(proio.model.Mc.Particle other) {
+        if (other == proio.model.Mc.Particle.getDefaultInstance()) return this;
+        if (!other.parent_.isEmpty()) {
+          if (parent_.isEmpty()) {
+            parent_ = other.parent_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureParentIsMutable();
+            parent_.addAll(other.parent_);
+          }
+          onChanged();
+        }
+        if (!other.child_.isEmpty()) {
+          if (child_.isEmpty()) {
+            child_ = other.child_;
+            bitField0_ = (bitField0_ & ~0x00000002);
+          } else {
+            ensureChildIsMutable();
+            child_.addAll(other.child_);
+          }
+          onChanged();
+        }
+        if (other.hasPdg()) {
+          setPdg(other.getPdg());
+        }
+        if (other.hasVertex()) {
+          mergeVertex(other.getVertex());
+        }
+        if (other.hasP()) {
+          mergeP(other.getP());
+        }
+        if (other.hasEnergy()) {
+          setEnergy(other.getEnergy());
+        }
+        if (other.hasMass()) {
+          setMass(other.getMass());
+        }
+        if (other.hasCharge()) {
+          setCharge(other.getCharge());
+        }
+        if (other.hasSpin()) {
+          setSpin(other.getSpin());
+        }
+        if (other.hasStatus()) {
+          setStatus(other.getStatus());
+        }
+        if (other.hasBarcode()) {
+          setBarcode(other.getBarcode());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        proio.model.Mc.Particle parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (proio.model.Mc.Particle) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<java.lang.Long> parent_ = java.util.Collections.emptyList();
+      private void ensureParentIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          parent_ = new java.util.ArrayList<java.lang.Long>(parent_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <pre>
+       * ProIO entry identifiers that point to parent Particles
+       * </pre>
+       *
+       * <code>repeated uint64 parent = 1;</code>
+       */
+      public java.util.List<java.lang.Long>
+          getParentList() {
+        return java.util.Collections.unmodifiableList(parent_);
+      }
+      /**
+       * <pre>
+       * ProIO entry identifiers that point to parent Particles
+       * </pre>
+       *
+       * <code>repeated uint64 parent = 1;</code>
+       */
+      public int getParentCount() {
+        return parent_.size();
+      }
+      /**
+       * <pre>
+       * ProIO entry identifiers that point to parent Particles
+       * </pre>
+       *
+       * <code>repeated uint64 parent = 1;</code>
+       */
+      public long getParent(int index) {
+        return parent_.get(index);
+      }
+      /**
+       * <pre>
+       * ProIO entry identifiers that point to parent Particles
+       * </pre>
+       *
+       * <code>repeated uint64 parent = 1;</code>
+       */
+      public Builder setParent(
+          int index, long value) {
+        ensureParentIsMutable();
+        parent_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * ProIO entry identifiers that point to parent Particles
+       * </pre>
+       *
+       * <code>repeated uint64 parent = 1;</code>
+       */
+      public Builder addParent(long value) {
+        ensureParentIsMutable();
+        parent_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * ProIO entry identifiers that point to parent Particles
+       * </pre>
+       *
+       * <code>repeated uint64 parent = 1;</code>
+       */
+      public Builder addAllParent(
+          java.lang.Iterable<? extends java.lang.Long> values) {
+        ensureParentIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, parent_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * ProIO entry identifiers that point to parent Particles
+       * </pre>
+       *
+       * <code>repeated uint64 parent = 1;</code>
+       */
+      public Builder clearParent() {
+        parent_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<java.lang.Long> child_ = java.util.Collections.emptyList();
+      private void ensureChildIsMutable() {
+        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+          child_ = new java.util.ArrayList<java.lang.Long>(child_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+      /**
+       * <pre>
+       * ProIO entry identifiers that point to child Particles
+       * </pre>
+       *
+       * <code>repeated uint64 child = 2;</code>
+       */
+      public java.util.List<java.lang.Long>
+          getChildList() {
+        return java.util.Collections.unmodifiableList(child_);
+      }
+      /**
+       * <pre>
+       * ProIO entry identifiers that point to child Particles
+       * </pre>
+       *
+       * <code>repeated uint64 child = 2;</code>
+       */
+      public int getChildCount() {
+        return child_.size();
+      }
+      /**
+       * <pre>
+       * ProIO entry identifiers that point to child Particles
+       * </pre>
+       *
+       * <code>repeated uint64 child = 2;</code>
+       */
+      public long getChild(int index) {
+        return child_.get(index);
+      }
+      /**
+       * <pre>
+       * ProIO entry identifiers that point to child Particles
+       * </pre>
+       *
+       * <code>repeated uint64 child = 2;</code>
+       */
+      public Builder setChild(
+          int index, long value) {
+        ensureChildIsMutable();
+        child_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * ProIO entry identifiers that point to child Particles
+       * </pre>
+       *
+       * <code>repeated uint64 child = 2;</code>
+       */
+      public Builder addChild(long value) {
+        ensureChildIsMutable();
+        child_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * ProIO entry identifiers that point to child Particles
+       * </pre>
+       *
+       * <code>repeated uint64 child = 2;</code>
+       */
+      public Builder addAllChild(
+          java.lang.Iterable<? extends java.lang.Long> values) {
+        ensureChildIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, child_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * ProIO entry identifiers that point to child Particles
+       * </pre>
+       *
+       * <code>repeated uint64 child = 2;</code>
+       */
+      public Builder clearChild() {
+        child_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        onChanged();
+        return this;
+      }
+
+      private int pdg_ ;
+      /**
+       * <pre>
+       * PDG code
+       * </pre>
+       *
+       * <code>optional sint32 pdg = 3;</code>
+       */
+      public boolean hasPdg() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <pre>
+       * PDG code
+       * </pre>
+       *
+       * <code>optional sint32 pdg = 3;</code>
+       */
+      public int getPdg() {
+        return pdg_;
+      }
+      /**
+       * <pre>
+       * PDG code
+       * </pre>
+       *
+       * <code>optional sint32 pdg = 3;</code>
+       */
+      public Builder setPdg(int value) {
+        bitField0_ |= 0x00000004;
+        pdg_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * PDG code
+       * </pre>
+       *
+       * <code>optional sint32 pdg = 3;</code>
+       */
+      public Builder clearPdg() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        pdg_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private proio.model.Mc.XYZTF vertex_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          proio.model.Mc.XYZTF, proio.model.Mc.XYZTF.Builder, proio.model.Mc.XYZTFOrBuilder> vertexBuilder_;
+      /**
+       * <pre>
+       * position in mm and time in ns
+       * </pre>
+       *
+       * <code>optional .proio.model.mc.XYZTF vertex = 4;</code>
+       */
+      public boolean hasVertex() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <pre>
+       * position in mm and time in ns
+       * </pre>
+       *
+       * <code>optional .proio.model.mc.XYZTF vertex = 4;</code>
+       */
+      public proio.model.Mc.XYZTF getVertex() {
+        if (vertexBuilder_ == null) {
+          return vertex_ == null ? proio.model.Mc.XYZTF.getDefaultInstance() : vertex_;
+        } else {
+          return vertexBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * position in mm and time in ns
+       * </pre>
+       *
+       * <code>optional .proio.model.mc.XYZTF vertex = 4;</code>
+       */
+      public Builder setVertex(proio.model.Mc.XYZTF value) {
+        if (vertexBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          vertex_ = value;
+          onChanged();
+        } else {
+          vertexBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000008;
+        return this;
+      }
+      /**
+       * <pre>
+       * position in mm and time in ns
+       * </pre>
+       *
+       * <code>optional .proio.model.mc.XYZTF vertex = 4;</code>
+       */
+      public Builder setVertex(
+          proio.model.Mc.XYZTF.Builder builderForValue) {
+        if (vertexBuilder_ == null) {
+          vertex_ = builderForValue.build();
+          onChanged();
+        } else {
+          vertexBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000008;
+        return this;
+      }
+      /**
+       * <pre>
+       * position in mm and time in ns
+       * </pre>
+       *
+       * <code>optional .proio.model.mc.XYZTF vertex = 4;</code>
+       */
+      public Builder mergeVertex(proio.model.Mc.XYZTF value) {
+        if (vertexBuilder_ == null) {
+          if (((bitField0_ & 0x00000008) == 0x00000008) &&
+              vertex_ != null &&
+              vertex_ != proio.model.Mc.XYZTF.getDefaultInstance()) {
+            vertex_ =
+              proio.model.Mc.XYZTF.newBuilder(vertex_).mergeFrom(value).buildPartial();
+          } else {
+            vertex_ = value;
+          }
+          onChanged();
+        } else {
+          vertexBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000008;
+        return this;
+      }
+      /**
+       * <pre>
+       * position in mm and time in ns
+       * </pre>
+       *
+       * <code>optional .proio.model.mc.XYZTF vertex = 4;</code>
+       */
+      public Builder clearVertex() {
+        if (vertexBuilder_ == null) {
+          vertex_ = null;
+          onChanged();
+        } else {
+          vertexBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000008);
+        return this;
+      }
+      /**
+       * <pre>
+       * position in mm and time in ns
+       * </pre>
+       *
+       * <code>optional .proio.model.mc.XYZTF vertex = 4;</code>
+       */
+      public proio.model.Mc.XYZTF.Builder getVertexBuilder() {
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return getVertexFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * position in mm and time in ns
+       * </pre>
+       *
+       * <code>optional .proio.model.mc.XYZTF vertex = 4;</code>
+       */
+      public proio.model.Mc.XYZTFOrBuilder getVertexOrBuilder() {
+        if (vertexBuilder_ != null) {
+          return vertexBuilder_.getMessageOrBuilder();
+        } else {
+          return vertex_ == null ?
+              proio.model.Mc.XYZTF.getDefaultInstance() : vertex_;
+        }
+      }
+      /**
+       * <pre>
+       * position in mm and time in ns
+       * </pre>
+       *
+       * <code>optional .proio.model.mc.XYZTF vertex = 4;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          proio.model.Mc.XYZTF, proio.model.Mc.XYZTF.Builder, proio.model.Mc.XYZTFOrBuilder> 
+          getVertexFieldBuilder() {
+        if (vertexBuilder_ == null) {
+          vertexBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              proio.model.Mc.XYZTF, proio.model.Mc.XYZTF.Builder, proio.model.Mc.XYZTFOrBuilder>(
+                  getVertex(),
+                  getParentForChildren(),
+                  isClean());
+          vertex_ = null;
+        }
+        return vertexBuilder_;
+      }
+
+      private proio.model.Mc.XYZF p_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          proio.model.Mc.XYZF, proio.model.Mc.XYZF.Builder, proio.model.Mc.XYZFOrBuilder> pBuilder_;
+      /**
+       * <pre>
+       * 3-momentum in GeV
+       * </pre>
+       *
+       * <code>optional .proio.model.mc.XYZF p = 5;</code>
+       */
+      public boolean hasP() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      /**
+       * <pre>
+       * 3-momentum in GeV
+       * </pre>
+       *
+       * <code>optional .proio.model.mc.XYZF p = 5;</code>
+       */
+      public proio.model.Mc.XYZF getP() {
+        if (pBuilder_ == null) {
+          return p_ == null ? proio.model.Mc.XYZF.getDefaultInstance() : p_;
+        } else {
+          return pBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * 3-momentum in GeV
+       * </pre>
+       *
+       * <code>optional .proio.model.mc.XYZF p = 5;</code>
+       */
+      public Builder setP(proio.model.Mc.XYZF value) {
+        if (pBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          p_ = value;
+          onChanged();
+        } else {
+          pBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000010;
+        return this;
+      }
+      /**
+       * <pre>
+       * 3-momentum in GeV
+       * </pre>
+       *
+       * <code>optional .proio.model.mc.XYZF p = 5;</code>
+       */
+      public Builder setP(
+          proio.model.Mc.XYZF.Builder builderForValue) {
+        if (pBuilder_ == null) {
+          p_ = builderForValue.build();
+          onChanged();
+        } else {
+          pBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000010;
+        return this;
+      }
+      /**
+       * <pre>
+       * 3-momentum in GeV
+       * </pre>
+       *
+       * <code>optional .proio.model.mc.XYZF p = 5;</code>
+       */
+      public Builder mergeP(proio.model.Mc.XYZF value) {
+        if (pBuilder_ == null) {
+          if (((bitField0_ & 0x00000010) == 0x00000010) &&
+              p_ != null &&
+              p_ != proio.model.Mc.XYZF.getDefaultInstance()) {
+            p_ =
+              proio.model.Mc.XYZF.newBuilder(p_).mergeFrom(value).buildPartial();
+          } else {
+            p_ = value;
+          }
+          onChanged();
+        } else {
+          pBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000010;
+        return this;
+      }
+      /**
+       * <pre>
+       * 3-momentum in GeV
+       * </pre>
+       *
+       * <code>optional .proio.model.mc.XYZF p = 5;</code>
+       */
+      public Builder clearP() {
+        if (pBuilder_ == null) {
+          p_ = null;
+          onChanged();
+        } else {
+          pBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000010);
+        return this;
+      }
+      /**
+       * <pre>
+       * 3-momentum in GeV
+       * </pre>
+       *
+       * <code>optional .proio.model.mc.XYZF p = 5;</code>
+       */
+      public proio.model.Mc.XYZF.Builder getPBuilder() {
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return getPFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * 3-momentum in GeV
+       * </pre>
+       *
+       * <code>optional .proio.model.mc.XYZF p = 5;</code>
+       */
+      public proio.model.Mc.XYZFOrBuilder getPOrBuilder() {
+        if (pBuilder_ != null) {
+          return pBuilder_.getMessageOrBuilder();
+        } else {
+          return p_ == null ?
+              proio.model.Mc.XYZF.getDefaultInstance() : p_;
+        }
+      }
+      /**
+       * <pre>
+       * 3-momentum in GeV
+       * </pre>
+       *
+       * <code>optional .proio.model.mc.XYZF p = 5;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          proio.model.Mc.XYZF, proio.model.Mc.XYZF.Builder, proio.model.Mc.XYZFOrBuilder> 
+          getPFieldBuilder() {
+        if (pBuilder_ == null) {
+          pBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              proio.model.Mc.XYZF, proio.model.Mc.XYZF.Builder, proio.model.Mc.XYZFOrBuilder>(
+                  getP(),
+                  getParentForChildren(),
+                  isClean());
+          p_ = null;
+        }
+        return pBuilder_;
+      }
+
+      private float energy_ ;
+      /**
+       * <pre>
+       * energy in GeV
+       * </pre>
+       *
+       * <code>optional float energy = 6;</code>
+       */
+      public boolean hasEnergy() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      /**
+       * <pre>
+       * energy in GeV
+       * </pre>
+       *
+       * <code>optional float energy = 6;</code>
+       */
+      public float getEnergy() {
+        return energy_;
+      }
+      /**
+       * <pre>
+       * energy in GeV
+       * </pre>
+       *
+       * <code>optional float energy = 6;</code>
+       */
+      public Builder setEnergy(float value) {
+        bitField0_ |= 0x00000020;
+        energy_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * energy in GeV
+       * </pre>
+       *
+       * <code>optional float energy = 6;</code>
+       */
+      public Builder clearEnergy() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        energy_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float mass_ ;
+      /**
+       * <pre>
+       * mass in GeV
+       * </pre>
+       *
+       * <code>optional float mass = 7;</code>
+       */
+      public boolean hasMass() {
+        return ((bitField0_ & 0x00000040) == 0x00000040);
+      }
+      /**
+       * <pre>
+       * mass in GeV
+       * </pre>
+       *
+       * <code>optional float mass = 7;</code>
+       */
+      public float getMass() {
+        return mass_;
+      }
+      /**
+       * <pre>
+       * mass in GeV
+       * </pre>
+       *
+       * <code>optional float mass = 7;</code>
+       */
+      public Builder setMass(float value) {
+        bitField0_ |= 0x00000040;
+        mass_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * mass in GeV
+       * </pre>
+       *
+       * <code>optional float mass = 7;</code>
+       */
+      public Builder clearMass() {
+        bitField0_ = (bitField0_ & ~0x00000040);
+        mass_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private int charge_ ;
+      /**
+       * <pre>
+       * charge in units of elementary charge / 3
+       * </pre>
+       *
+       * <code>optional sint32 charge = 8;</code>
+       */
+      public boolean hasCharge() {
+        return ((bitField0_ & 0x00000080) == 0x00000080);
+      }
+      /**
+       * <pre>
+       * charge in units of elementary charge / 3
+       * </pre>
+       *
+       * <code>optional sint32 charge = 8;</code>
+       */
+      public int getCharge() {
+        return charge_;
+      }
+      /**
+       * <pre>
+       * charge in units of elementary charge / 3
+       * </pre>
+       *
+       * <code>optional sint32 charge = 8;</code>
+       */
+      public Builder setCharge(int value) {
+        bitField0_ |= 0x00000080;
+        charge_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * charge in units of elementary charge / 3
+       * </pre>
+       *
+       * <code>optional sint32 charge = 8;</code>
+       */
+      public Builder clearCharge() {
+        bitField0_ = (bitField0_ & ~0x00000080);
+        charge_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int spin_ ;
+      /**
+       * <pre>
+       * 2 *spin + 1
+       * </pre>
+       *
+       * <code>optional sint32 spin = 9;</code>
+       */
+      public boolean hasSpin() {
+        return ((bitField0_ & 0x00000100) == 0x00000100);
+      }
+      /**
+       * <pre>
+       * 2 *spin + 1
+       * </pre>
+       *
+       * <code>optional sint32 spin = 9;</code>
+       */
+      public int getSpin() {
+        return spin_;
+      }
+      /**
+       * <pre>
+       * 2 *spin + 1
+       * </pre>
+       *
+       * <code>optional sint32 spin = 9;</code>
+       */
+      public Builder setSpin(int value) {
+        bitField0_ |= 0x00000100;
+        spin_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 2 *spin + 1
+       * </pre>
+       *
+       * <code>optional sint32 spin = 9;</code>
+       */
+      public Builder clearSpin() {
+        bitField0_ = (bitField0_ & ~0x00000100);
+        spin_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int status_ ;
+      /**
+       * <pre>
+       * status code
+       * </pre>
+       *
+       * <code>optional sint32 status = 10;</code>
+       */
+      public boolean hasStatus() {
+        return ((bitField0_ & 0x00000200) == 0x00000200);
+      }
+      /**
+       * <pre>
+       * status code
+       * </pre>
+       *
+       * <code>optional sint32 status = 10;</code>
+       */
+      public int getStatus() {
+        return status_;
+      }
+      /**
+       * <pre>
+       * status code
+       * </pre>
+       *
+       * <code>optional sint32 status = 10;</code>
+       */
+      public Builder setStatus(int value) {
+        bitField0_ |= 0x00000200;
+        status_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * status code
+       * </pre>
+       *
+       * <code>optional sint32 status = 10;</code>
+       */
+      public Builder clearStatus() {
+        bitField0_ = (bitField0_ & ~0x00000200);
+        status_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int barcode_ ;
+      /**
+       * <pre>
+       * barcode
+       * </pre>
+       *
+       * <code>optional sint32 barcode = 11;</code>
+       */
+      public boolean hasBarcode() {
+        return ((bitField0_ & 0x00000400) == 0x00000400);
+      }
+      /**
+       * <pre>
+       * barcode
+       * </pre>
+       *
+       * <code>optional sint32 barcode = 11;</code>
+       */
+      public int getBarcode() {
+        return barcode_;
+      }
+      /**
+       * <pre>
+       * barcode
+       * </pre>
+       *
+       * <code>optional sint32 barcode = 11;</code>
+       */
+      public Builder setBarcode(int value) {
+        bitField0_ |= 0x00000400;
+        barcode_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * barcode
+       * </pre>
+       *
+       * <code>optional sint32 barcode = 11;</code>
+       */
+      public Builder clearBarcode() {
+        bitField0_ = (bitField0_ & ~0x00000400);
+        barcode_ = 0;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:proio.model.mc.Particle)
+    }
+
+    // @@protoc_insertion_point(class_scope:proio.model.mc.Particle)
+    private static final proio.model.Mc.Particle DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new proio.model.Mc.Particle();
+    }
+
+    public static proio.model.Mc.Particle getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<Particle>
+        PARSER = new com.google.protobuf.AbstractParser<Particle>() {
+      public Particle parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Particle(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Particle> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Particle> getParserForType() {
+      return PARSER;
+    }
+
+    public proio.model.Mc.Particle getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface MCParametersOrBuilder extends
       // @@protoc_insertion_point(interface_extends:proio.model.mc.MCParameters)
       com.google.protobuf.MessageOrBuilder {
@@ -4119,6 +6295,1435 @@ public final class Mc {
 
   }
 
+  public interface XYZTFOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:proio.model.mc.XYZTF)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional float x = 1;</code>
+     */
+    boolean hasX();
+    /**
+     * <code>optional float x = 1;</code>
+     */
+    float getX();
+
+    /**
+     * <code>optional float y = 2;</code>
+     */
+    boolean hasY();
+    /**
+     * <code>optional float y = 2;</code>
+     */
+    float getY();
+
+    /**
+     * <code>optional float z = 3;</code>
+     */
+    boolean hasZ();
+    /**
+     * <code>optional float z = 3;</code>
+     */
+    float getZ();
+
+    /**
+     * <code>optional float t = 4;</code>
+     */
+    boolean hasT();
+    /**
+     * <code>optional float t = 4;</code>
+     */
+    float getT();
+  }
+  /**
+   * <pre>
+   * Auxiliary message types
+   * </pre>
+   *
+   * Protobuf type {@code proio.model.mc.XYZTF}
+   */
+  public  static final class XYZTF extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:proio.model.mc.XYZTF)
+      XYZTFOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use XYZTF.newBuilder() to construct.
+    private XYZTF(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private XYZTF() {
+      x_ = 0F;
+      y_ = 0F;
+      z_ = 0F;
+      t_ = 0F;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private XYZTF(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 13: {
+              bitField0_ |= 0x00000001;
+              x_ = input.readFloat();
+              break;
+            }
+            case 21: {
+              bitField0_ |= 0x00000002;
+              y_ = input.readFloat();
+              break;
+            }
+            case 29: {
+              bitField0_ |= 0x00000004;
+              z_ = input.readFloat();
+              break;
+            }
+            case 37: {
+              bitField0_ |= 0x00000008;
+              t_ = input.readFloat();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return proio.model.Mc.internal_static_proio_model_mc_XYZTF_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return proio.model.Mc.internal_static_proio_model_mc_XYZTF_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              proio.model.Mc.XYZTF.class, proio.model.Mc.XYZTF.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int X_FIELD_NUMBER = 1;
+    private float x_;
+    /**
+     * <code>optional float x = 1;</code>
+     */
+    public boolean hasX() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional float x = 1;</code>
+     */
+    public float getX() {
+      return x_;
+    }
+
+    public static final int Y_FIELD_NUMBER = 2;
+    private float y_;
+    /**
+     * <code>optional float y = 2;</code>
+     */
+    public boolean hasY() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional float y = 2;</code>
+     */
+    public float getY() {
+      return y_;
+    }
+
+    public static final int Z_FIELD_NUMBER = 3;
+    private float z_;
+    /**
+     * <code>optional float z = 3;</code>
+     */
+    public boolean hasZ() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional float z = 3;</code>
+     */
+    public float getZ() {
+      return z_;
+    }
+
+    public static final int T_FIELD_NUMBER = 4;
+    private float t_;
+    /**
+     * <code>optional float t = 4;</code>
+     */
+    public boolean hasT() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>optional float t = 4;</code>
+     */
+    public float getT() {
+      return t_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeFloat(1, x_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeFloat(2, y_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeFloat(3, z_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeFloat(4, t_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(1, x_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(2, y_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(3, z_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(4, t_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof proio.model.Mc.XYZTF)) {
+        return super.equals(obj);
+      }
+      proio.model.Mc.XYZTF other = (proio.model.Mc.XYZTF) obj;
+
+      boolean result = true;
+      result = result && (hasX() == other.hasX());
+      if (hasX()) {
+        result = result && (
+            java.lang.Float.floatToIntBits(getX())
+            == java.lang.Float.floatToIntBits(
+                other.getX()));
+      }
+      result = result && (hasY() == other.hasY());
+      if (hasY()) {
+        result = result && (
+            java.lang.Float.floatToIntBits(getY())
+            == java.lang.Float.floatToIntBits(
+                other.getY()));
+      }
+      result = result && (hasZ() == other.hasZ());
+      if (hasZ()) {
+        result = result && (
+            java.lang.Float.floatToIntBits(getZ())
+            == java.lang.Float.floatToIntBits(
+                other.getZ()));
+      }
+      result = result && (hasT() == other.hasT());
+      if (hasT()) {
+        result = result && (
+            java.lang.Float.floatToIntBits(getT())
+            == java.lang.Float.floatToIntBits(
+                other.getT()));
+      }
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasX()) {
+        hash = (37 * hash) + X_FIELD_NUMBER;
+        hash = (53 * hash) + java.lang.Float.floatToIntBits(
+            getX());
+      }
+      if (hasY()) {
+        hash = (37 * hash) + Y_FIELD_NUMBER;
+        hash = (53 * hash) + java.lang.Float.floatToIntBits(
+            getY());
+      }
+      if (hasZ()) {
+        hash = (37 * hash) + Z_FIELD_NUMBER;
+        hash = (53 * hash) + java.lang.Float.floatToIntBits(
+            getZ());
+      }
+      if (hasT()) {
+        hash = (37 * hash) + T_FIELD_NUMBER;
+        hash = (53 * hash) + java.lang.Float.floatToIntBits(
+            getT());
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static proio.model.Mc.XYZTF parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static proio.model.Mc.XYZTF parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static proio.model.Mc.XYZTF parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static proio.model.Mc.XYZTF parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static proio.model.Mc.XYZTF parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static proio.model.Mc.XYZTF parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static proio.model.Mc.XYZTF parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static proio.model.Mc.XYZTF parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static proio.model.Mc.XYZTF parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static proio.model.Mc.XYZTF parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static proio.model.Mc.XYZTF parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static proio.model.Mc.XYZTF parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(proio.model.Mc.XYZTF prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * Auxiliary message types
+     * </pre>
+     *
+     * Protobuf type {@code proio.model.mc.XYZTF}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:proio.model.mc.XYZTF)
+        proio.model.Mc.XYZTFOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return proio.model.Mc.internal_static_proio_model_mc_XYZTF_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return proio.model.Mc.internal_static_proio_model_mc_XYZTF_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                proio.model.Mc.XYZTF.class, proio.model.Mc.XYZTF.Builder.class);
+      }
+
+      // Construct using proio.model.Mc.XYZTF.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        x_ = 0F;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        y_ = 0F;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        z_ = 0F;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        t_ = 0F;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return proio.model.Mc.internal_static_proio_model_mc_XYZTF_descriptor;
+      }
+
+      public proio.model.Mc.XYZTF getDefaultInstanceForType() {
+        return proio.model.Mc.XYZTF.getDefaultInstance();
+      }
+
+      public proio.model.Mc.XYZTF build() {
+        proio.model.Mc.XYZTF result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public proio.model.Mc.XYZTF buildPartial() {
+        proio.model.Mc.XYZTF result = new proio.model.Mc.XYZTF(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.x_ = x_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.y_ = y_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.z_ = z_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.t_ = t_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof proio.model.Mc.XYZTF) {
+          return mergeFrom((proio.model.Mc.XYZTF)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(proio.model.Mc.XYZTF other) {
+        if (other == proio.model.Mc.XYZTF.getDefaultInstance()) return this;
+        if (other.hasX()) {
+          setX(other.getX());
+        }
+        if (other.hasY()) {
+          setY(other.getY());
+        }
+        if (other.hasZ()) {
+          setZ(other.getZ());
+        }
+        if (other.hasT()) {
+          setT(other.getT());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        proio.model.Mc.XYZTF parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (proio.model.Mc.XYZTF) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private float x_ ;
+      /**
+       * <code>optional float x = 1;</code>
+       */
+      public boolean hasX() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional float x = 1;</code>
+       */
+      public float getX() {
+        return x_;
+      }
+      /**
+       * <code>optional float x = 1;</code>
+       */
+      public Builder setX(float value) {
+        bitField0_ |= 0x00000001;
+        x_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional float x = 1;</code>
+       */
+      public Builder clearX() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        x_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float y_ ;
+      /**
+       * <code>optional float y = 2;</code>
+       */
+      public boolean hasY() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional float y = 2;</code>
+       */
+      public float getY() {
+        return y_;
+      }
+      /**
+       * <code>optional float y = 2;</code>
+       */
+      public Builder setY(float value) {
+        bitField0_ |= 0x00000002;
+        y_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional float y = 2;</code>
+       */
+      public Builder clearY() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        y_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float z_ ;
+      /**
+       * <code>optional float z = 3;</code>
+       */
+      public boolean hasZ() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional float z = 3;</code>
+       */
+      public float getZ() {
+        return z_;
+      }
+      /**
+       * <code>optional float z = 3;</code>
+       */
+      public Builder setZ(float value) {
+        bitField0_ |= 0x00000004;
+        z_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional float z = 3;</code>
+       */
+      public Builder clearZ() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        z_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float t_ ;
+      /**
+       * <code>optional float t = 4;</code>
+       */
+      public boolean hasT() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>optional float t = 4;</code>
+       */
+      public float getT() {
+        return t_;
+      }
+      /**
+       * <code>optional float t = 4;</code>
+       */
+      public Builder setT(float value) {
+        bitField0_ |= 0x00000008;
+        t_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional float t = 4;</code>
+       */
+      public Builder clearT() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        t_ = 0F;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:proio.model.mc.XYZTF)
+    }
+
+    // @@protoc_insertion_point(class_scope:proio.model.mc.XYZTF)
+    private static final proio.model.Mc.XYZTF DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new proio.model.Mc.XYZTF();
+    }
+
+    public static proio.model.Mc.XYZTF getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<XYZTF>
+        PARSER = new com.google.protobuf.AbstractParser<XYZTF>() {
+      public XYZTF parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new XYZTF(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<XYZTF> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<XYZTF> getParserForType() {
+      return PARSER;
+    }
+
+    public proio.model.Mc.XYZTF getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface XYZFOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:proio.model.mc.XYZF)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional float x = 1;</code>
+     */
+    boolean hasX();
+    /**
+     * <code>optional float x = 1;</code>
+     */
+    float getX();
+
+    /**
+     * <code>optional float y = 2;</code>
+     */
+    boolean hasY();
+    /**
+     * <code>optional float y = 2;</code>
+     */
+    float getY();
+
+    /**
+     * <code>optional float z = 3;</code>
+     */
+    boolean hasZ();
+    /**
+     * <code>optional float z = 3;</code>
+     */
+    float getZ();
+  }
+  /**
+   * Protobuf type {@code proio.model.mc.XYZF}
+   */
+  public  static final class XYZF extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:proio.model.mc.XYZF)
+      XYZFOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use XYZF.newBuilder() to construct.
+    private XYZF(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private XYZF() {
+      x_ = 0F;
+      y_ = 0F;
+      z_ = 0F;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private XYZF(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 13: {
+              bitField0_ |= 0x00000001;
+              x_ = input.readFloat();
+              break;
+            }
+            case 21: {
+              bitField0_ |= 0x00000002;
+              y_ = input.readFloat();
+              break;
+            }
+            case 29: {
+              bitField0_ |= 0x00000004;
+              z_ = input.readFloat();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return proio.model.Mc.internal_static_proio_model_mc_XYZF_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return proio.model.Mc.internal_static_proio_model_mc_XYZF_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              proio.model.Mc.XYZF.class, proio.model.Mc.XYZF.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int X_FIELD_NUMBER = 1;
+    private float x_;
+    /**
+     * <code>optional float x = 1;</code>
+     */
+    public boolean hasX() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional float x = 1;</code>
+     */
+    public float getX() {
+      return x_;
+    }
+
+    public static final int Y_FIELD_NUMBER = 2;
+    private float y_;
+    /**
+     * <code>optional float y = 2;</code>
+     */
+    public boolean hasY() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional float y = 2;</code>
+     */
+    public float getY() {
+      return y_;
+    }
+
+    public static final int Z_FIELD_NUMBER = 3;
+    private float z_;
+    /**
+     * <code>optional float z = 3;</code>
+     */
+    public boolean hasZ() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional float z = 3;</code>
+     */
+    public float getZ() {
+      return z_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeFloat(1, x_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeFloat(2, y_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeFloat(3, z_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(1, x_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(2, y_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(3, z_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof proio.model.Mc.XYZF)) {
+        return super.equals(obj);
+      }
+      proio.model.Mc.XYZF other = (proio.model.Mc.XYZF) obj;
+
+      boolean result = true;
+      result = result && (hasX() == other.hasX());
+      if (hasX()) {
+        result = result && (
+            java.lang.Float.floatToIntBits(getX())
+            == java.lang.Float.floatToIntBits(
+                other.getX()));
+      }
+      result = result && (hasY() == other.hasY());
+      if (hasY()) {
+        result = result && (
+            java.lang.Float.floatToIntBits(getY())
+            == java.lang.Float.floatToIntBits(
+                other.getY()));
+      }
+      result = result && (hasZ() == other.hasZ());
+      if (hasZ()) {
+        result = result && (
+            java.lang.Float.floatToIntBits(getZ())
+            == java.lang.Float.floatToIntBits(
+                other.getZ()));
+      }
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasX()) {
+        hash = (37 * hash) + X_FIELD_NUMBER;
+        hash = (53 * hash) + java.lang.Float.floatToIntBits(
+            getX());
+      }
+      if (hasY()) {
+        hash = (37 * hash) + Y_FIELD_NUMBER;
+        hash = (53 * hash) + java.lang.Float.floatToIntBits(
+            getY());
+      }
+      if (hasZ()) {
+        hash = (37 * hash) + Z_FIELD_NUMBER;
+        hash = (53 * hash) + java.lang.Float.floatToIntBits(
+            getZ());
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static proio.model.Mc.XYZF parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static proio.model.Mc.XYZF parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static proio.model.Mc.XYZF parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static proio.model.Mc.XYZF parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static proio.model.Mc.XYZF parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static proio.model.Mc.XYZF parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static proio.model.Mc.XYZF parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static proio.model.Mc.XYZF parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static proio.model.Mc.XYZF parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static proio.model.Mc.XYZF parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static proio.model.Mc.XYZF parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static proio.model.Mc.XYZF parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(proio.model.Mc.XYZF prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code proio.model.mc.XYZF}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:proio.model.mc.XYZF)
+        proio.model.Mc.XYZFOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return proio.model.Mc.internal_static_proio_model_mc_XYZF_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return proio.model.Mc.internal_static_proio_model_mc_XYZF_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                proio.model.Mc.XYZF.class, proio.model.Mc.XYZF.Builder.class);
+      }
+
+      // Construct using proio.model.Mc.XYZF.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        x_ = 0F;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        y_ = 0F;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        z_ = 0F;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return proio.model.Mc.internal_static_proio_model_mc_XYZF_descriptor;
+      }
+
+      public proio.model.Mc.XYZF getDefaultInstanceForType() {
+        return proio.model.Mc.XYZF.getDefaultInstance();
+      }
+
+      public proio.model.Mc.XYZF build() {
+        proio.model.Mc.XYZF result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public proio.model.Mc.XYZF buildPartial() {
+        proio.model.Mc.XYZF result = new proio.model.Mc.XYZF(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.x_ = x_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.y_ = y_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.z_ = z_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof proio.model.Mc.XYZF) {
+          return mergeFrom((proio.model.Mc.XYZF)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(proio.model.Mc.XYZF other) {
+        if (other == proio.model.Mc.XYZF.getDefaultInstance()) return this;
+        if (other.hasX()) {
+          setX(other.getX());
+        }
+        if (other.hasY()) {
+          setY(other.getY());
+        }
+        if (other.hasZ()) {
+          setZ(other.getZ());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        proio.model.Mc.XYZF parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (proio.model.Mc.XYZF) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private float x_ ;
+      /**
+       * <code>optional float x = 1;</code>
+       */
+      public boolean hasX() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional float x = 1;</code>
+       */
+      public float getX() {
+        return x_;
+      }
+      /**
+       * <code>optional float x = 1;</code>
+       */
+      public Builder setX(float value) {
+        bitField0_ |= 0x00000001;
+        x_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional float x = 1;</code>
+       */
+      public Builder clearX() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        x_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float y_ ;
+      /**
+       * <code>optional float y = 2;</code>
+       */
+      public boolean hasY() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional float y = 2;</code>
+       */
+      public float getY() {
+        return y_;
+      }
+      /**
+       * <code>optional float y = 2;</code>
+       */
+      public Builder setY(float value) {
+        bitField0_ |= 0x00000002;
+        y_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional float y = 2;</code>
+       */
+      public Builder clearY() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        y_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float z_ ;
+      /**
+       * <code>optional float z = 3;</code>
+       */
+      public boolean hasZ() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional float z = 3;</code>
+       */
+      public float getZ() {
+        return z_;
+      }
+      /**
+       * <code>optional float z = 3;</code>
+       */
+      public Builder setZ(float value) {
+        bitField0_ |= 0x00000004;
+        z_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional float z = 3;</code>
+       */
+      public Builder clearZ() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        z_ = 0F;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:proio.model.mc.XYZF)
+    }
+
+    // @@protoc_insertion_point(class_scope:proio.model.mc.XYZF)
+    private static final proio.model.Mc.XYZF DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new proio.model.Mc.XYZF();
+    }
+
+    public static proio.model.Mc.XYZF getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<XYZF>
+        PARSER = new com.google.protobuf.AbstractParser<XYZF>() {
+      public XYZF parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new XYZF(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<XYZF> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<XYZF> getParserForType() {
+      return PARSER;
+    }
+
+    public proio.model.Mc.XYZF getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_proio_model_mc_Particle_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_proio_model_mc_Particle_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proio_model_mc_MCParameters_descriptor;
   private static final 
@@ -4149,6 +7754,16 @@ public final class Mc {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_proio_model_mc_Pythia8Parameters_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_proio_model_mc_XYZTF_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_proio_model_mc_XYZTF_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_proio_model_mc_XYZF_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_proio_model_mc_XYZF_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -4158,25 +7773,32 @@ public final class Mc {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\024proio/model/mc.proto\022\016proio.model.mc\"\336" +
-      "\002\n\014MCParameters\022\016\n\006number\030\001 \001(\004\022\021\n\tproce" +
-      "ssid\030\002 \001(\005\022\016\n\006weight\030\003 \001(\001\022=\n\tint_extra\030" +
-      "\004 \003(\0132*.proio.model.mc.MCParameters.IntE" +
-      "xtraEntry\022A\n\013float_extra\030\005 \003(\0132,.proio.m" +
-      "odel.mc.MCParameters.FloatExtraEntry\032I\n\r" +
-      "IntExtraEntry\022\013\n\003key\030\001 \001(\t\022\'\n\005value\030\002 \001(" +
-      "\0132\030.proio.model.mc.ArrayInt:\0028\001\032N\n\017Float" +
-      "ExtraEntry\022\013\n\003key\030\001 \001(\t\022*\n\005value\030\002 \001(\0132\033" +
-      ".proio.model.mc.ArrayDouble:\0028\001\"\031\n\010Array" +
-      "Int\022\r\n\005value\030\001 \003(\021\"\034\n\013ArrayDouble\022\r\n\005val" +
-      "ue\030\001 \003(\001\"\311\001\n\021Pythia8Parameters\022\022\n\nweight" +
-      "_sum\030\001 \001(\001\022\026\n\016merging_weight\030\002 \001(\001\022\016\n\006pt" +
-      "_hat\030\003 \001(\001\022\020\n\010alpha_em\030\004 \001(\001\022\017\n\007alpha_s\030" +
-      "\005 \001(\001\022\023\n\013scale_q_fac\030\006 \001(\001\022\016\n\006weight\030\007 \001" +
-      "(\001\022\n\n\002x1\030\010 \001(\001\022\n\n\002x2\030\t \001(\001\022\013\n\003id1\030\n \001(\004\022" +
-      "\013\n\003id2\030\013 \001(\004BC\n\013proio.modelB\002McZ0github." +
-      "com/decibelcooper/proio/go-proio/model/m" +
-      "c"
+      "\n\024proio/model/mc.proto\022\016proio.model.mc\"\333" +
+      "\001\n\010Particle\022\016\n\006parent\030\001 \003(\004\022\r\n\005child\030\002 \003" +
+      "(\004\022\013\n\003pdg\030\003 \001(\021\022%\n\006vertex\030\004 \001(\0132\025.proio." +
+      "model.mc.XYZTF\022\037\n\001p\030\005 \001(\0132\024.proio.model." +
+      "mc.XYZF\022\016\n\006energy\030\006 \001(\002\022\014\n\004mass\030\007 \001(\002\022\016\n" +
+      "\006charge\030\010 \001(\021\022\014\n\004spin\030\t \001(\021\022\016\n\006status\030\n " +
+      "\001(\021\022\017\n\007barcode\030\013 \001(\021\"\336\002\n\014MCParameters\022\016\n" +
+      "\006number\030\001 \001(\004\022\021\n\tprocessid\030\002 \001(\005\022\016\n\006weig" +
+      "ht\030\003 \001(\001\022=\n\tint_extra\030\004 \003(\0132*.proio.mode" +
+      "l.mc.MCParameters.IntExtraEntry\022A\n\013float" +
+      "_extra\030\005 \003(\0132,.proio.model.mc.MCParamete" +
+      "rs.FloatExtraEntry\032I\n\rIntExtraEntry\022\013\n\003k" +
+      "ey\030\001 \001(\t\022\'\n\005value\030\002 \001(\0132\030.proio.model.mc" +
+      ".ArrayInt:\0028\001\032N\n\017FloatExtraEntry\022\013\n\003key\030" +
+      "\001 \001(\t\022*\n\005value\030\002 \001(\0132\033.proio.model.mc.Ar" +
+      "rayDouble:\0028\001\"\031\n\010ArrayInt\022\r\n\005value\030\001 \003(\021" +
+      "\"\034\n\013ArrayDouble\022\r\n\005value\030\001 \003(\001\"\311\001\n\021Pythi" +
+      "a8Parameters\022\022\n\nweight_sum\030\001 \001(\001\022\026\n\016merg" +
+      "ing_weight\030\002 \001(\001\022\016\n\006pt_hat\030\003 \001(\001\022\020\n\010alph" +
+      "a_em\030\004 \001(\001\022\017\n\007alpha_s\030\005 \001(\001\022\023\n\013scale_q_f" +
+      "ac\030\006 \001(\001\022\016\n\006weight\030\007 \001(\001\022\n\n\002x1\030\010 \001(\001\022\n\n\002" +
+      "x2\030\t \001(\001\022\013\n\003id1\030\n \001(\004\022\013\n\003id2\030\013 \001(\004\"3\n\005XY" +
+      "ZTF\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002\022\t\n\001" +
+      "t\030\004 \001(\002\"\'\n\004XYZF\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\t\n" +
+      "\001z\030\003 \001(\002BC\n\013proio.modelB\002McZ0github.com/" +
+      "decibelcooper/proio/go-proio/model/mc"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -4190,8 +7812,14 @@ public final class Mc {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
-    internal_static_proio_model_mc_MCParameters_descriptor =
+    internal_static_proio_model_mc_Particle_descriptor =
       getDescriptor().getMessageTypes().get(0);
+    internal_static_proio_model_mc_Particle_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_proio_model_mc_Particle_descriptor,
+        new java.lang.String[] { "Parent", "Child", "Pdg", "Vertex", "P", "Energy", "Mass", "Charge", "Spin", "Status", "Barcode", });
+    internal_static_proio_model_mc_MCParameters_descriptor =
+      getDescriptor().getMessageTypes().get(1);
     internal_static_proio_model_mc_MCParameters_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proio_model_mc_MCParameters_descriptor,
@@ -4209,23 +7837,35 @@ public final class Mc {
         internal_static_proio_model_mc_MCParameters_FloatExtraEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
     internal_static_proio_model_mc_ArrayInt_descriptor =
-      getDescriptor().getMessageTypes().get(1);
+      getDescriptor().getMessageTypes().get(2);
     internal_static_proio_model_mc_ArrayInt_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proio_model_mc_ArrayInt_descriptor,
         new java.lang.String[] { "Value", });
     internal_static_proio_model_mc_ArrayDouble_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_proio_model_mc_ArrayDouble_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proio_model_mc_ArrayDouble_descriptor,
         new java.lang.String[] { "Value", });
     internal_static_proio_model_mc_Pythia8Parameters_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_proio_model_mc_Pythia8Parameters_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proio_model_mc_Pythia8Parameters_descriptor,
         new java.lang.String[] { "WeightSum", "MergingWeight", "PtHat", "AlphaEm", "AlphaS", "ScaleQFac", "Weight", "X1", "X2", "Id1", "Id2", });
+    internal_static_proio_model_mc_XYZTF_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_proio_model_mc_XYZTF_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_proio_model_mc_XYZTF_descriptor,
+        new java.lang.String[] { "X", "Y", "Z", "T", });
+    internal_static_proio_model_mc_XYZF_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_proio_model_mc_XYZF_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_proio_model_mc_XYZF_descriptor,
+        new java.lang.String[] { "X", "Y", "Z", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

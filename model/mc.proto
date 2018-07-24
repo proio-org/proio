@@ -4,6 +4,30 @@ option go_package = "github.com/decibelcooper/proio/go-proio/model/mc";
 option java_package = "proio.model";
 option java_outer_classname = "Mc";
 
+message Particle {
+    // ProIO entry identifiers that point to parent Particles
+    repeated uint64 parent = 1;
+    // ProIO entry identifiers that point to child Particles
+    repeated uint64 child = 2;
+    // PDG code
+    optional sint32 pdg = 3;
+    // position in mm and time in ns
+    optional XYZTF vertex = 4;
+    // 3-momentum in GeV
+    optional XYZF p = 5;
+    // energy in GeV
+    optional float energy = 6;
+    // mass in GeV
+    optional float mass = 7;
+    // charge in units of elementary charge / 3
+    optional sint32 charge = 8;
+    // 2 *spin + 1
+    optional sint32 spin = 9;
+    // status code
+    optional sint32 status = 10;
+    // barcode
+    optional sint32 barcode= 11;
+}
 
 // This message is for general Monte Carlo generators.
 message MCParameters {
@@ -46,4 +70,18 @@ message Pythia8Parameters {
     optional uint64 id1 = 10;
     // flavour code of second parton
     optional uint64 id2 = 11;
+}
+
+// Auxiliary message types
+message XYZTF {
+    optional float x = 1;
+    optional float y = 2;
+    optional float z = 3;
+    optional float t = 4;
+}
+
+message XYZF {
+    optional float x = 1;
+    optional float y = 2;
+    optional float z = 3;
 }

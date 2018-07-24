@@ -19,10 +19,111 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='proio/model/mc.proto',
   package='proio.model.mc',
   syntax='proto2',
-  serialized_pb=_b('\n\x14proio/model/mc.proto\x12\x0eproio.model.mc\"\xde\x02\n\x0cMCParameters\x12\x0e\n\x06number\x18\x01 \x01(\x04\x12\x11\n\tprocessid\x18\x02 \x01(\x05\x12\x0e\n\x06weight\x18\x03 \x01(\x01\x12=\n\tint_extra\x18\x04 \x03(\x0b\x32*.proio.model.mc.MCParameters.IntExtraEntry\x12\x41\n\x0b\x66loat_extra\x18\x05 \x03(\x0b\x32,.proio.model.mc.MCParameters.FloatExtraEntry\x1aI\n\rIntExtraEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\'\n\x05value\x18\x02 \x01(\x0b\x32\x18.proio.model.mc.ArrayInt:\x02\x38\x01\x1aN\n\x0f\x46loatExtraEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12*\n\x05value\x18\x02 \x01(\x0b\x32\x1b.proio.model.mc.ArrayDouble:\x02\x38\x01\"\x19\n\x08\x41rrayInt\x12\r\n\x05value\x18\x01 \x03(\x11\"\x1c\n\x0b\x41rrayDouble\x12\r\n\x05value\x18\x01 \x03(\x01\"\xc9\x01\n\x11Pythia8Parameters\x12\x12\n\nweight_sum\x18\x01 \x01(\x01\x12\x16\n\x0emerging_weight\x18\x02 \x01(\x01\x12\x0e\n\x06pt_hat\x18\x03 \x01(\x01\x12\x10\n\x08\x61lpha_em\x18\x04 \x01(\x01\x12\x0f\n\x07\x61lpha_s\x18\x05 \x01(\x01\x12\x13\n\x0bscale_q_fac\x18\x06 \x01(\x01\x12\x0e\n\x06weight\x18\x07 \x01(\x01\x12\n\n\x02x1\x18\x08 \x01(\x01\x12\n\n\x02x2\x18\t \x01(\x01\x12\x0b\n\x03id1\x18\n \x01(\x04\x12\x0b\n\x03id2\x18\x0b \x01(\x04\x42\x43\n\x0bproio.modelB\x02McZ0github.com/decibelcooper/proio/go-proio/model/mc')
+  serialized_pb=_b('\n\x14proio/model/mc.proto\x12\x0eproio.model.mc\"\xdb\x01\n\x08Particle\x12\x0e\n\x06parent\x18\x01 \x03(\x04\x12\r\n\x05\x63hild\x18\x02 \x03(\x04\x12\x0b\n\x03pdg\x18\x03 \x01(\x11\x12%\n\x06vertex\x18\x04 \x01(\x0b\x32\x15.proio.model.mc.XYZTF\x12\x1f\n\x01p\x18\x05 \x01(\x0b\x32\x14.proio.model.mc.XYZF\x12\x0e\n\x06\x65nergy\x18\x06 \x01(\x02\x12\x0c\n\x04mass\x18\x07 \x01(\x02\x12\x0e\n\x06\x63harge\x18\x08 \x01(\x11\x12\x0c\n\x04spin\x18\t \x01(\x11\x12\x0e\n\x06status\x18\n \x01(\x11\x12\x0f\n\x07\x62\x61rcode\x18\x0b \x01(\x11\"\xde\x02\n\x0cMCParameters\x12\x0e\n\x06number\x18\x01 \x01(\x04\x12\x11\n\tprocessid\x18\x02 \x01(\x05\x12\x0e\n\x06weight\x18\x03 \x01(\x01\x12=\n\tint_extra\x18\x04 \x03(\x0b\x32*.proio.model.mc.MCParameters.IntExtraEntry\x12\x41\n\x0b\x66loat_extra\x18\x05 \x03(\x0b\x32,.proio.model.mc.MCParameters.FloatExtraEntry\x1aI\n\rIntExtraEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\'\n\x05value\x18\x02 \x01(\x0b\x32\x18.proio.model.mc.ArrayInt:\x02\x38\x01\x1aN\n\x0f\x46loatExtraEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12*\n\x05value\x18\x02 \x01(\x0b\x32\x1b.proio.model.mc.ArrayDouble:\x02\x38\x01\"\x19\n\x08\x41rrayInt\x12\r\n\x05value\x18\x01 \x03(\x11\"\x1c\n\x0b\x41rrayDouble\x12\r\n\x05value\x18\x01 \x03(\x01\"\xc9\x01\n\x11Pythia8Parameters\x12\x12\n\nweight_sum\x18\x01 \x01(\x01\x12\x16\n\x0emerging_weight\x18\x02 \x01(\x01\x12\x0e\n\x06pt_hat\x18\x03 \x01(\x01\x12\x10\n\x08\x61lpha_em\x18\x04 \x01(\x01\x12\x0f\n\x07\x61lpha_s\x18\x05 \x01(\x01\x12\x13\n\x0bscale_q_fac\x18\x06 \x01(\x01\x12\x0e\n\x06weight\x18\x07 \x01(\x01\x12\n\n\x02x1\x18\x08 \x01(\x01\x12\n\n\x02x2\x18\t \x01(\x01\x12\x0b\n\x03id1\x18\n \x01(\x04\x12\x0b\n\x03id2\x18\x0b \x01(\x04\"3\n\x05XYZTF\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x12\t\n\x01t\x18\x04 \x01(\x02\"\'\n\x04XYZF\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x42\x43\n\x0bproio.modelB\x02McZ0github.com/decibelcooper/proio/go-proio/model/mc')
 )
 
 
+
+
+_PARTICLE = _descriptor.Descriptor(
+  name='Particle',
+  full_name='proio.model.mc.Particle',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='parent', full_name='proio.model.mc.Particle.parent', index=0,
+      number=1, type=4, cpp_type=4, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='child', full_name='proio.model.mc.Particle.child', index=1,
+      number=2, type=4, cpp_type=4, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='pdg', full_name='proio.model.mc.Particle.pdg', index=2,
+      number=3, type=17, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='vertex', full_name='proio.model.mc.Particle.vertex', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='p', full_name='proio.model.mc.Particle.p', index=4,
+      number=5, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='energy', full_name='proio.model.mc.Particle.energy', index=5,
+      number=6, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='mass', full_name='proio.model.mc.Particle.mass', index=6,
+      number=7, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='charge', full_name='proio.model.mc.Particle.charge', index=7,
+      number=8, type=17, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='spin', full_name='proio.model.mc.Particle.spin', index=8,
+      number=9, type=17, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='status', full_name='proio.model.mc.Particle.status', index=9,
+      number=10, type=17, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='barcode', full_name='proio.model.mc.Particle.barcode', index=10,
+      number=11, type=17, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=41,
+  serialized_end=260,
+)
 
 
 _MCPARAMETERS_INTEXTRAENTRY = _descriptor.Descriptor(
@@ -58,8 +159,8 @@ _MCPARAMETERS_INTEXTRAENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=238,
-  serialized_end=311,
+  serialized_start=460,
+  serialized_end=533,
 )
 
 _MCPARAMETERS_FLOATEXTRAENTRY = _descriptor.Descriptor(
@@ -95,8 +196,8 @@ _MCPARAMETERS_FLOATEXTRAENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=313,
-  serialized_end=391,
+  serialized_start=535,
+  serialized_end=613,
 )
 
 _MCPARAMETERS = _descriptor.Descriptor(
@@ -153,8 +254,8 @@ _MCPARAMETERS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=41,
-  serialized_end=391,
+  serialized_start=263,
+  serialized_end=613,
 )
 
 
@@ -184,8 +285,8 @@ _ARRAYINT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=393,
-  serialized_end=418,
+  serialized_start=615,
+  serialized_end=640,
 )
 
 
@@ -215,8 +316,8 @@ _ARRAYDOUBLE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=420,
-  serialized_end=448,
+  serialized_start=642,
+  serialized_end=670,
 )
 
 
@@ -316,21 +417,130 @@ _PYTHIA8PARAMETERS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=451,
-  serialized_end=652,
+  serialized_start=673,
+  serialized_end=874,
 )
 
+
+_XYZTF = _descriptor.Descriptor(
+  name='XYZTF',
+  full_name='proio.model.mc.XYZTF',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='x', full_name='proio.model.mc.XYZTF.x', index=0,
+      number=1, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='y', full_name='proio.model.mc.XYZTF.y', index=1,
+      number=2, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='z', full_name='proio.model.mc.XYZTF.z', index=2,
+      number=3, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='t', full_name='proio.model.mc.XYZTF.t', index=3,
+      number=4, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=876,
+  serialized_end=927,
+)
+
+
+_XYZF = _descriptor.Descriptor(
+  name='XYZF',
+  full_name='proio.model.mc.XYZF',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='x', full_name='proio.model.mc.XYZF.x', index=0,
+      number=1, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='y', full_name='proio.model.mc.XYZF.y', index=1,
+      number=2, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='z', full_name='proio.model.mc.XYZF.z', index=2,
+      number=3, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=929,
+  serialized_end=968,
+)
+
+_PARTICLE.fields_by_name['vertex'].message_type = _XYZTF
+_PARTICLE.fields_by_name['p'].message_type = _XYZF
 _MCPARAMETERS_INTEXTRAENTRY.fields_by_name['value'].message_type = _ARRAYINT
 _MCPARAMETERS_INTEXTRAENTRY.containing_type = _MCPARAMETERS
 _MCPARAMETERS_FLOATEXTRAENTRY.fields_by_name['value'].message_type = _ARRAYDOUBLE
 _MCPARAMETERS_FLOATEXTRAENTRY.containing_type = _MCPARAMETERS
 _MCPARAMETERS.fields_by_name['int_extra'].message_type = _MCPARAMETERS_INTEXTRAENTRY
 _MCPARAMETERS.fields_by_name['float_extra'].message_type = _MCPARAMETERS_FLOATEXTRAENTRY
+DESCRIPTOR.message_types_by_name['Particle'] = _PARTICLE
 DESCRIPTOR.message_types_by_name['MCParameters'] = _MCPARAMETERS
 DESCRIPTOR.message_types_by_name['ArrayInt'] = _ARRAYINT
 DESCRIPTOR.message_types_by_name['ArrayDouble'] = _ARRAYDOUBLE
 DESCRIPTOR.message_types_by_name['Pythia8Parameters'] = _PYTHIA8PARAMETERS
+DESCRIPTOR.message_types_by_name['XYZTF'] = _XYZTF
+DESCRIPTOR.message_types_by_name['XYZF'] = _XYZF
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
+
+Particle = _reflection.GeneratedProtocolMessageType('Particle', (_message.Message,), dict(
+  DESCRIPTOR = _PARTICLE,
+  __module__ = 'proio.model.mc_pb2'
+  # @@protoc_insertion_point(class_scope:proio.model.mc.Particle)
+  ))
+_sym_db.RegisterMessage(Particle)
 
 MCParameters = _reflection.GeneratedProtocolMessageType('MCParameters', (_message.Message,), dict(
 
@@ -375,6 +585,20 @@ Pythia8Parameters = _reflection.GeneratedProtocolMessageType('Pythia8Parameters'
   # @@protoc_insertion_point(class_scope:proio.model.mc.Pythia8Parameters)
   ))
 _sym_db.RegisterMessage(Pythia8Parameters)
+
+XYZTF = _reflection.GeneratedProtocolMessageType('XYZTF', (_message.Message,), dict(
+  DESCRIPTOR = _XYZTF,
+  __module__ = 'proio.model.mc_pb2'
+  # @@protoc_insertion_point(class_scope:proio.model.mc.XYZTF)
+  ))
+_sym_db.RegisterMessage(XYZTF)
+
+XYZF = _reflection.GeneratedProtocolMessageType('XYZF', (_message.Message,), dict(
+  DESCRIPTOR = _XYZF,
+  __module__ = 'proio.model.mc_pb2'
+  # @@protoc_insertion_point(class_scope:proio.model.mc.XYZF)
+  ))
+_sym_db.RegisterMessage(XYZF)
 
 
 DESCRIPTOR.has_options = True
