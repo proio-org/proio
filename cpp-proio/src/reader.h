@@ -105,6 +105,10 @@ const class BadLZ4FrameError : public std::exception {
 const class SeekError : public std::exception {
     virtual const char *what() const throw() { return "Failed to seek file"; }
 } seekError;
+
+const class IOError : public std::exception {
+    virtual const char *what() const throw() { return "Unexpected IO Error"; }
+} ioError;
 }  // namespace proio
 
 #endif  // PROIO_READER_H

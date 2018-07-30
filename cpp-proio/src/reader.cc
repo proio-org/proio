@@ -82,6 +82,8 @@ uint64_t Reader::Skip(uint64_t nEvents) {
             uint64_t nBucketEvents = bucketHeader->nevents();
             bucketIndex -= nBucketEvents;
             nSkipped += nBucketEvents - startIndex;
+            if (nBucketEvents > 0 && bucket->BytesRemaining() == 0)
+                if (!fileStream->Skip(bucketHeader->bucketsize())) throw ioError;
         }
         readHeader();
         if (!bucketHeader) return nSkipped;
