@@ -54,10 +54,24 @@
         <version>0.5.1</version>
         <configuration>
           <checkStaleness>true</checkStaleness>
-          <protoSourceRoot>${basedir}/../</protoSourceRoot>
         </configuration>
         <executions>
           <execution>
+            <id>proio</id>
+            <configuration>
+              <protoSourceRoot>${basedir}/../proto</protoSourceRoot>
+              <outputDirectory>${project.build.directory}/generated-sources/protobuf-proio/java</outputDirectory>
+            </configuration>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>models</id>
+            <configuration>
+              <protoSourceRoot>${basedir}/../model</protoSourceRoot>
+              <outputDirectory>${project.build.directory}/generated-sources/protobuf-models/java</outputDirectory>
+            </configuration>
             <goals>
               <goal>compile</goal>
             </goals>

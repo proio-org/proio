@@ -3,67 +3,30 @@ branches:
         - master
 
 stages:
+    - pretest
     - test
     - name: doc
       if: type = push
 
 matrix:
     include:
+        - language: generic
+          stage: pretest
+          install: docker info
+          script: bash ci/build-aux-image.sh
+
         - language: cpp
+          stage: test
           compiler: g++
-          env:
-              - PROTOBUF_VERSION: v3.1.0
-              - LZ4_VERSION: v1.8.0
-          install:
-              - git clone https://github.com/lz4/lz4.git
-              - cd lz4
-              - git checkout tags/$LZ4_VERSION
-              - make -j2
-              - make PREFIX=$HOME install
-              - cd ../
-              - git clone https://github.com/google/protobuf.git
-              - cd protobuf
-              - git checkout tags/$PROTOBUF_VERSION
-              - bash autogen.sh
-              - ./configure --prefix=$HOME
-              - make -j2
-              - make install
-              - cd ../
+          install: docker pull $DOCKER_AUX_REPO
           script:
               - mkdir cpp-proio/build
               - cd cpp-proio/build
-              - cmake -DCMAKE_PREFIX_PATH=$HOME -DREPORT_COVERAGE=ON ../
-              - make -j2
-              - CTEST_OUTPUT_ON_FAILURE=True make test
+              - docker run -v $TRAVIS_BUILD_DIR:$TRAVIS_BUILD_DIR -w $PWD $DOCKER_AUX_REPO cmake -DREPORT_COVERAGE=ON ../
+              - docker run -v $TRAVIS_BUILD_DIR:$TRAVIS_BUILD_DIR -w $PWD $DOCKER_AUX_REPO make -j2
+              - docker run -v $TRAVIS_BUILD_DIR:$TRAVIS_BUILD_DIR -w $PWD $DOCKER_AUX_REPO make test
           after_success:
-              - lcov --directory . --capture --output-file coverage.info
-              - lcov --remove coverage.info '/usr/*' --output-file coverage.info
-              - lcov --list coverage.info
-              - bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
-        - language: cpp
-          compiler: g++
-          env:
-              - PROTOBUF_VERSION: latest
-              - LZ4_VERSION: latest
-          install:
-              - git clone https://github.com/lz4/lz4.git
-              - cd lz4
-              - make -j2
-              - make PREFIX=$HOME install
-              - cd ../
-              - git clone https://github.com/google/protobuf.git
-              - cd protobuf
-              - bash autogen.sh
-              - ./configure --prefix=$HOME
-              - make -j2
-              - make install
-              - cd ../
-          script:
-              - mkdir cpp-proio/build
-              - cd cpp-proio/build
-              - cmake -DCMAKE_PREFIX_PATH=$HOME ../
-              - make -j2
-              - CTEST_OUTPUT_ON_FAILURE=True make test
+              - docker run $(bash <(curl -s https://codecov.io/env)) -v $TRAVIS_BUILD_DIR:$TRAVIS_BUILD_DIR -w $PWD $DOCKER_AUX_REPO bash -c "bash <(curl -s https://codecov.io/bash)"
 
         - language: go
           go: 1.8.x
@@ -93,6 +56,15 @@ matrix:
           install: pip install --upgrade pytest ./py-proio
           script: pytest ./py-proio
 
+        - language: java
+          jdk: openjdk8
+          install:
+              - docker pull $DOCKER_AUX_REPO
+              - sudo cp ci/protoc /bin/protoc
+              - sudo chmod +x /bin/protoc
+              - mvn -f java-proio install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+          script: mvn -f java-proio test -B
+
         - language: python
           stage: doc
           env:
@@ -116,12 +88,10 @@ matrix:
               - cd cpp-proio/docs
               - bash genAndDeploy.sh
 
-
     allow_failures:
-        - env:
-              - PROTOBUF_VERSION: latest
-              - LZ4_VERSION: latest
         - go: master
         - python: nightly
     fast_finish: true
-    sudo: false
+    sudo: true
+    services:
+        - docker

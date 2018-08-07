@@ -2,6 +2,7 @@
 ## Installation
 ### Requirements
 * Maven
+* Protobuf compiler (`protoc`)
 
 ### Building the code
 ```shell
