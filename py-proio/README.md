@@ -4,7 +4,7 @@ The API documentation is generated using Sphinx, and can be found
 [here](https://decibelcooper.github.io/py-proio-docs/).
 
 ## Installation
-Py-proio is maintained on [pipy](https://pypi.python.org/pypi/proio).  The
+Py-proio is maintained on [pypi](https://pypi.python.org/pypi/proio).  The
 proio package can be installed via
 `pip`:
 ```shell
