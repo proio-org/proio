@@ -14,6 +14,26 @@ pip install --user --upgrade proio
 For information on what versions of Python are supported, please see the
 [Travis CI page](https://travis-ci.org/decibelcooper/proio).
 
+### Building the package
+If you need to build the package (instead of just installing from pypi as
+described above), you can do so with the fairly standard [setup.py](setup.py).
+In this case, you need to have the Protobuf compiler (`protoc`) installed.
+With `pip`:
+```shell
+pip install --user --upgrade .
+```
+, or if you want to just build a source package:
+```shell
+python setup.py clean build_py sdist
+```
+, or if you want to build a wheel package:
+```shell
+python setup.py clean bdist_wheel
+```
+.  Note that the `build_py` command is responsible for generating the Protobuf
+code with `protoc`, and needs to be called explicitly in the source package
+case.
+
 ## Examples
 ### Manipulating data model objects (EIC Particle)
 ```python
