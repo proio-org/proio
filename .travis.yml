@@ -90,10 +90,13 @@ matrix:
           stage: doc
           env:
               - PY_DOCS_REPO_REF: github.com/decibelcooper/py-proio-docs.git
-          install: pip install --upgrade sphinx pkginfo
+          install:
+              - docker pull $DOCKER_AUX_REPO
+              - sudo cp ci/protoc /bin/protoc
+              - sudo chmod +x /bin/protoc
+              - pip install --upgrade sphinx pkginfo
           script:
               - cd py-proio
-              - python setup.py sdist
               - pip install --upgrade .
               - cd docs
               - bash genAndDeploy.sh
