@@ -11,6 +11,9 @@ proio package can be installed via
 pip install --user --upgrade proio
 ```
 
+If you run into trouble importing proio, force upgrade the two dependencies
+which are `protobuf` and `lz4`.
+
 For information on what versions of Python are supported, please see the
 [Travis CI page](https://travis-ci.org/decibelcooper/proio).
 
