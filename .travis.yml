@@ -8,6 +8,8 @@ stages:
     - test
     - name: doc
       if: type = push
+    - name: deploy
+      if: type = push
 
 matrix:
     include:
@@ -113,6 +115,21 @@ matrix:
           script:
               - cd cpp-proio/docs
               - bash genAndDeploy.sh
+
+        - language: python
+          stage: deploy
+          install:
+              - docker pull $DOCKER_AUX_REPO
+              - sudo cp ci/protoc /bin/protoc
+              - sudo chmod +x /bin/protoc
+          script:
+              - cd py-proio
+              - sed -i "s/\(version = '[0-9]*\.[0-9]\)'/\1.$TRAVIS_BUILD_NUMBER'/" setup.py
+              - python setup.py build_py
+          deploy:
+              provider: pypi
+              password: $PYPI_PASSWORD
+              skip_cleanup: true
 
     allow_failures:
         - go: master

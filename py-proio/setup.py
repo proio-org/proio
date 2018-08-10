@@ -81,7 +81,7 @@ class build_py(_build_py):
 
 setuptools.setup(
         name = 'proio',
-        version = '0.9.6',
+        version = '0.9',
         description = 'Library for reading and writing proio files and streams',
         url = 'http://github.com/decibelcooper/proio',
         author = 'David Blyth',
