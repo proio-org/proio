@@ -98,7 +98,7 @@ matrix:
               - pip install --upgrade sphinx pkginfo
           script:
               - cd py-proio
-              - python setup.py build_py
+              - python setup.py build_py sdist
               - pip install --upgrade .
               - cd docs
               - bash genAndDeploy.sh
