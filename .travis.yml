@@ -99,6 +99,7 @@ matrix:
           script:
               - cd py-proio
               - python setup.py build_py
+              - pip install --upgrade .
               - cd docs
               - bash genAndDeploy.sh
 
