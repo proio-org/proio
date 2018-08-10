@@ -20,6 +20,7 @@ described above), you can do so with the fairly standard [setup.py](setup.py).
 In this case, you need to have the Protobuf compiler (`protoc`) installed.
 With `pip`:
 ```shell
+python setup.py clean build_py
 pip install --user --upgrade .
 ```
 , or if you want to just build a source package:
@@ -31,8 +32,8 @@ python setup.py clean build_py sdist
 python setup.py clean bdist_wheel
 ```
 .  Note that the `build_py` command is responsible for generating the Protobuf
-code with `protoc`, and needs to be called explicitly in the source package
-case.
+code with `protoc`, and needs to be called explicitly in the pip and source
+package case.
 
 ## Examples
 ### Manipulating data model objects (EIC Particle)
