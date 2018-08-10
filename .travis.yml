@@ -3,7 +3,8 @@ branches:
         - master
 
 stages:
-    - pretest
+    - name: pretest
+      if: type = push
     - test
     - name: doc
       if: type = push
