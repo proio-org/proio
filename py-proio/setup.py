@@ -88,7 +88,7 @@ setuptools.setup(
         author_email = 'dblyth@anl.gov',
         license = 'BSD-3-Clause',
         packages = setuptools.find_packages(),
-        install_requires = ['protobuf', 'lz4'],
+        install_requires = ['protobuf', 'lz4==2.*'],
         zip_safe = True,
         cmdclass = {
             'clean': clean,
