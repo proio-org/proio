@@ -47,6 +47,23 @@ class Reader(object):
     def __exit__(self, exception_type, exception_value, traceback):
         self.close()
 
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        """
+        :return: the next event
+        :rtype: Event
+        """
+        event = self._read_from_bucket(True)
+        if event is None:
+            raise StopIteration
+        return event
+
+    if sys.version_info[0] == 2:
+        def next(self):
+            return self.__next__()
+
     def close(self):
         """
         closes the underlying input file object.
@@ -56,16 +73,6 @@ class Reader(object):
                 self._stream_reader.close()
         except:
             pass
-
-    def next(self):
-        """
-        :return: the next event
-        :rtype: Event
-        """
-        event = self._read_from_bucket(True)
-        if event is None:
-            raise StopIteration
-        return event
 
     def next_header(self):
         """
@@ -205,8 +212,3 @@ class Reader(object):
 
         return n_read
 
-    def __iter__(self):
-        return self
-
-    def __next__(self):
-        return self.next()

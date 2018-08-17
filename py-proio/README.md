@@ -121,17 +121,16 @@ with proio.Writer(test_filename) as writer:
     child2.parent.append(parent_id)
 
     writer.push(event)
-    
-with proio.Reader(test_filename) as reader:
-    event = reader.next()
-    
-    parts = event.tagged_entries('Particle')
-    print('%i particle(s)...' % len(parts))
-    for i in range(0, len(parts)):
-        part = event.get_entry(parts[i])
-        print('%i. PDG Code: %i' % (i, part.pdg))
 
-        print('  %i children...' % len(part.child))
-        for j in range(0, len(part.child)):
-            print('  %i. PDG Code: %i' % (j, event.get_entry(part.child[j]).pdg))
+with proio.Reader(test_filename) as reader:
+    for event in reader:
+        parts = event.tagged_entries('Particle')
+        print('%i particle(s)...' % len(parts))
+        for i in range(0, len(parts)):
+            part = event.get_entry(parts[i])
+            print('%i. PDG Code: %i' % (i, part.pdg))
+
+            print('  %i children...' % len(part.child))
+            for j in range(0, len(part.child)):
+                print('  %i. PDG Code: %i' % (j, event.get_entry(part.child[j]).pdg))
 ```

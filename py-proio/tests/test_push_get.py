@@ -92,7 +92,7 @@ def push_get1(comp):
 
     with proio.Reader(fileobj = buf) as reader:
         for i in range(0, len(eventsOut)):
-            event = reader.next()
+            event = reader.__next__()
             assert event != None
             assert event.__str__() == eventsOut[i].__str__()
 
@@ -131,7 +131,7 @@ def push_get2(comp):
 
     with proio.Reader(fileobj = buf) as reader:
         for i in range(0, len(eventsOut)):
-            event = reader.next()
+            event = reader.__next__()
             assert event != None
             assert event.__str__() == eventsOut[i].__str__()
 
@@ -178,7 +178,7 @@ def push_get3(comp):
 
     with proio.Reader(fileobj = buf2) as reader:
         for i in range(0, len(eventsOut)):
-            event = reader.next()
+            event = reader.__next__()
             assert event != None
             assert event.__str__() == eventsOut[i].__str__()
 
@@ -216,7 +216,7 @@ def push_skip_get1(comp):
 
     with proio.Reader(fileobj = buf) as reader:
         reader.skip(1)
-        event = reader.next()
+        event = reader.__next__()
         assert event != None
         assert event.__str__() == eventsOut[1].__str__()
 
@@ -255,7 +255,7 @@ def push_skip_get2(comp):
 
     with proio.Reader(fileobj = buf) as reader:
         reader.skip(1)
-        event = reader.next()
+        event = reader.__next__()
         assert event != None
         assert event.__str__() == eventsOut[1].__str__()
 
@@ -298,13 +298,13 @@ def push_seek_skip_get1(comp):
     buf.seek(0, 0)
 
     with proio.Reader(fileobj = buf) as reader:
-        event = reader.next()
+        event = reader.__next__()
         assert event != None
         assert event.__str__() == eventsOut[0].__str__()
 
         reader.seek_to_start()
         reader.skip(2)
-        event = reader.next()
+        event = reader.__next__()
         assert event != None
         assert event.__str__() == eventsOut[2].__str__()
 

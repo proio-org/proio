@@ -25,7 +25,7 @@ def test_ref_deref1():
     buf.seek(0, 0)
     
     with proio.Reader(fileobj = buf) as reader:
-        event = reader.next()
+        event = reader.__next__()
         assert event != None
 
         mc_particles = event.tagged_entries('MCParticles')

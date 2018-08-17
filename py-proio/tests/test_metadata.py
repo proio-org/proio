@@ -17,9 +17,9 @@ def test_next_header1():
     with proio.Reader(fileobj = buf) as reader:
         header = reader.next_header()
         assert(header.nEvents == 2)
-        assert(reader.next() != None)
+        assert(reader.__next__() != None)
         try:
-            reader.next()
+            reader.__next__()
             assert(False)
         except StopIteration:
             pass
@@ -36,11 +36,11 @@ def test_next_header2():
     buf.seek(0, 0)
 
     with proio.Reader(fileobj = buf) as reader:
-        assert(reader.next() != None)
+        assert(reader.__next__() != None)
         header = reader.next_header()
         assert(header.nEvents == 1)
         try:
-            reader.next()
+            reader.__next__()
             assert(False)
         except StopIteration:
             pass
