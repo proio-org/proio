@@ -1,3 +1,0 @@
-#!/bin/bash
-
-docker run -v $TRAVIS_BUILD_DIR:$TRAVIS_BUILD_DIR -w $PWD $DOCKER_AUX_REPO protoc "$@"

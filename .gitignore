@@ -1,18 +1,5 @@
 # proio files
 *.proio
 
-# lcio files
-*.slcio
-
-# promc files
-*.promc
-
 # vim swap files
 *.swp
-
-# Singularity build image
-*.img
-.bash_history
-
-# pytest cache
-.cache
