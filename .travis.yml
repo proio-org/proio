@@ -12,6 +12,9 @@ matrix:
     include:
         - language: generic
           stage: build-aux-image
+          sudo: true
+          services:
+              - docker
           install: docker info
           script: bash ci/build-aux-image.sh
 
@@ -22,6 +25,4 @@ matrix:
               - REPO_TOKEN=$GO_REPO_TOKEN
           script: bash -v ci/update-superproject.sh
 
-    sudo: true
-    services:
-        - docker
+    sudo: false
