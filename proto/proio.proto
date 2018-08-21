@@ -1,8 +1,5 @@
 syntax = "proto3";
 package proio.proto;
-option go_package = "github.com/proio-org/go-proio/proto";
-option java_package = "proio";
-option java_outer_classname = "Proto";
 
 // Warning: do not change any fields without understanding how the changes
 // affect the proio libraries.  Any field may be added without affecting the

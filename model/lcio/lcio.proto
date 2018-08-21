@@ -1,8 +1,5 @@
 syntax = "proto3";
 package proio.model.lcio;
-option go_package = "github.com/proio-org/go-proio/model/lcio";
-option java_package = "proio.model";
-option java_outer_classname = "Lcio";
 
 message IntParams {
 	repeated int32 array = 1;

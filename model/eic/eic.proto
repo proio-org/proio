@@ -1,8 +1,5 @@
 syntax = "proto2";
 package proio.model.eic;
-option go_package = "github.com/proio-org/go-proio/model/eic";
-option java_package = "proio.model";
-option java_outer_classname = "Eic";
 
 ////// TRUTH LEVEL DATA MODEL MESSAGES //////
 

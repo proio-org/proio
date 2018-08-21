@@ -2,11 +2,26 @@ branches:
     only:
         - master
 
+stages:
+    - name: build-aux-image
+      if: type IN (push, cron)
+    - name: update-superprojects
+      if: type = push
+
 matrix:
     include:
         - language: generic
+          stage: build-aux-image
           install: docker info
           script: bash ci/build-aux-image.sh
+
+        - language: generic
+          stage: update-superprojects
+          env:
+              - REPO_REF=$GO_REPO_REF
+              - REPO_TOKEN=$GO_REPO_TOKEN
+          script: bash -v ci/update-superproject.sh
+
     sudo: true
     services:
         - docker
