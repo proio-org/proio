@@ -5,6 +5,8 @@ package proio;
 // affect the proio libraries.  Any field may be added without affecting the
 // libraries.
 
+// PRIMARY MESSAGE TYPES
+
 message BucketHeader {
     uint64 nEvents = 1;
     uint64 bucketSize = 2;
@@ -16,23 +18,13 @@ message BucketHeader {
     }
     CompType compression = 3;    
 
-    enum BucketType {
-        EVENTS = 0;
-        FOOTER = 1;
-    }
-    BucketType type = 4;
-
     repeated bytes fileDescriptor = 5;
     map<string, bytes> metadata = 7;
-}
 
-message Tag {
-    repeated uint64 entry = 1;
-}
-
-message Any {
-    uint64 type = 1;
-    bytes payload = 2;
+    // deprecated bucket type for specifying file footers
+    reserved 4;
+    // deprecated metadata field
+    reserved 6;
 }
 
 message Event {
@@ -41,5 +33,16 @@ message Event {
     map<uint64, Any> entry = 3;
     uint64 nTypes = 4;
     map<uint64, string> type = 5;
+}
+
+// SECONDARY MESSAGE TYPES
+
+message Tag {
+    repeated uint64 entry = 1;
+}
+
+message Any {
+    uint64 type = 1;
+    bytes payload = 2;
 }
 
