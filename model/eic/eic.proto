@@ -1,5 +1,5 @@
 syntax = "proto2";
-package proio.model.eic;
+package eic;
 
 ////// TRUTH LEVEL DATA MODEL MESSAGES //////
 

@@ -1,5 +1,5 @@
 syntax = "proto2";
-package proio.model.mc;
+package mc;
 
 message Particle {
     // ProIO entry identifiers that point to parent Particles

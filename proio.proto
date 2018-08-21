@@ -1,5 +1,5 @@
 syntax = "proto3";
-package proio.proto;
+package proio;
 
 // Warning: do not change any fields without understanding how the changes
 // affect the proio libraries.  Any field may be added without affecting the
