@@ -1,5 +1,8 @@
 syntax = "proto2";
 package proio.model.mc;
+option go_package = "mc";
+option java_package = "proio.model";
+option java_outer_classname = "Mc";
 
 message Particle {
     // ProIO entry identifiers that point to parent Particles
