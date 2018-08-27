@@ -34,5 +34,10 @@ matrix:
               - REPO_REF=$PY_REPO_REF
               - REPO_TOKEN=$PY_REPO_TOKEN
           script: bash -v ci/update-superproject.sh
+        - language: generic
+          env:
+              - REPO_REF=$JAVA_REPO_REF
+              - REPO_TOKEN=$JAVA_REPO_TOKEN
+          script: bash -v ci/update-superproject.sh
 
     sudo: false
