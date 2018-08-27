@@ -1,5 +1,5 @@
 syntax = "proto3";
-package lcio;
+package proio.model.lcio;
 
 message IntParams {
 	repeated int32 array = 1;
