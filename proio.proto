@@ -18,6 +18,7 @@ message BucketHeader {
         NONE = 0;
         GZIP = 1;
         LZ4 = 2;
+        LZMA = 3;
     }
     CompType compression = 3;    
 
