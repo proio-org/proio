@@ -24,6 +24,112 @@ message Particle {
     optional sint32 status = 10;
     // barcode
     optional sint32 barcode= 11;
+    // original position in the MC generator
+    optional uint32 id = 12;
+}
+
+// This message is an optional alternative to `Particle` for minimizing field
+// identifier overhead.
+message PackedParticles {
+    // original position in the MC generator
+    repeated uint32 id = 1 [packed=true];
+    // PDG code
+    repeated sint32 pdg = 2 [packed=true];
+    // status code
+    repeated uint32 status = 3 [packed=true];
+    // mass in GeV
+    repeated float mass = 4 [packed=true];
+    // 3-momentum in GeV
+    repeated float Px = 5 [packed=true];
+    repeated float Py = 6 [packed=true];
+    repeated float Pz = 7 [packed=true];
+    // ProIO entry identifiers that point to parent Particles
+    repeated uint32 parent1 = 8 [packed=true];
+    repeated uint32 parent2 = 9 [packed=true];
+    // ProIO entry identifiers that point to child Particles
+    repeated uint32 child1 = 10 [packed=true];
+    repeated uint32 child2 = 11 [packed=true];
+    // barcode
+    repeated sint32 barcode = 12 [packed=true];
+    // vertex position in mm and time in ns
+    repeated float X = 13 [packed=true];
+    repeated float Y = 14 [packed=true];
+    repeated float Z = 15 [packed=true];
+    repeated float T = 16 [packed=true];
+    // particle weight
+    repeated float weight = 17 [packed=true];
+    // charge in units of elementary charge / 3
+    repeated sint32 charge = 18 [packed=true];
+    // energy in GeV
+    repeated float energy = 19 [packed=true];
+}
+
+// This message is an optional alternative to `Particle` which uses protobuf
+// variable integers for compression.  This effectively makes the change from
+// floating-point to fixed-point numbers.  Units for these fixed-point numbers
+// are to be specified in metadata as human-readable strings with keys
+// "info:varint_energy", "info:varint_length", "info:varint_time".
+message VarintParticle {
+    // ProIO entry identifiers that point to parent Particles
+    repeated uint64 parent = 1;
+    // ProIO entry identifiers that point to child Particles
+    repeated uint64 child = 2;
+    // PDG code
+    optional sint32 pdg = 3;
+    // position and time in units specified in metadata
+    optional XYZTI vertex = 4;
+    // 3-momentum in units specified in metadata
+    optional XYZI p = 5;
+    // energy in units specified in metadata
+    optional uint64 energy = 6;
+    // mass in units specified in metadata
+    optional uint64 mass = 7;
+    // charge in units of elementary charge / 3
+    optional sint32 charge = 8;
+    // 2 *spin + 1
+    optional sint32 spin = 9;
+    // status code
+    optional sint32 status = 10;
+    // barcode
+    optional sint32 barcode= 11;
+    // original position in the MC generator
+    optional uint32 id = 12;
+}
+
+// This message combines VarintParticle and PackedParticles for minimal field
+// identifier overhead as well as varint compression.
+message VarintPackedParticles {
+    // original position in the MC generator
+    repeated uint32 id = 1 [packed=true];
+    // PDG code
+    repeated sint32 pdg = 2 [packed=true];
+    // status code
+    repeated uint32 status = 3 [packed=true];
+    // mass in units specified in metadata
+    repeated uint64 mass = 4 [packed=true];
+    // 3-momentum in units specified in metadata
+    repeated sint64 Px = 5 [packed=true];
+    repeated sint64 Py = 6 [packed=true];
+    repeated sint64 Pz = 7 [packed=true];
+    // ProIO entry identifiers that point to parent Particles
+    repeated uint32 parent1 = 8 [packed=true];
+    repeated uint32 parent2 = 9 [packed=true];
+    // ProIO entry identifiers that point to child Particles
+    repeated uint32 child1 = 10 [packed=true];
+    repeated uint32 child2 = 11 [packed=true];
+    // barcode
+    repeated sint32 barcode = 12 [packed=true];
+    // vertex position in mm and time in ns
+    repeated sint64 X = 13 [packed=true];
+    repeated sint64 Y = 14 [packed=true];
+    repeated sint64 Z = 15 [packed=true];
+    repeated uint64 T = 16 [packed=true];
+    // particle weight
+    repeated uint64 weight = 17 [packed=true];
+    // charge in units of elementary charge / 3
+    repeated sint32 charge = 18 [packed=true];
+    // energy in units specified in metadata
+    repeated uint64 energy = 19 [packed=true];
 }
 
 // This message is for general Monte Carlo generators.
@@ -69,7 +175,7 @@ message Pythia8Parameters {
     optional uint64 id2 = 11;
 }
 
-// Auxiliary message types
+// auxiliary message types
 message XYZTF {
     optional float x = 1;
     optional float y = 2;
@@ -77,8 +183,21 @@ message XYZTF {
     optional float t = 4;
 }
 
+message XYZTI {
+    optional sint64 x = 1;
+    optional sint64 y = 2;
+    optional sint64 z = 3;
+    optional uint64 t = 4;
+}
+
 message XYZF {
     optional float x = 1;
     optional float y = 2;
     optional float z = 3;
+}
+
+message XYZI {
+    optional sint64 x = 1;
+    optional sint64 y = 2;
+    optional sint64 z = 3;
 }
