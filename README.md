@@ -7,6 +7,7 @@ buffers](https://developers.google.com/protocol-buffers/) (protobuf).  Proio
 aims to add event structure and additional compression to protobuf in a way
 that supports event data model serialization in medium- and high-energy
 physics.  Additionally, proio
+* supports self-descriptive data,
 * is stream compatible,
 * is language agnostic,
 * and brings along many advantages of protobuf, including forward/backward
