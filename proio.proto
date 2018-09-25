@@ -10,8 +10,12 @@ option java_outer_classname = "Proto";
 
 // PRIMARY MESSAGE TYPES
 
+// A BucketHeader describes the contents of the bucket that immediately
+// follows.  Metadata for the stream are also stored here.
 message BucketHeader {
+    // nEvents stores the number of events that are contained in the bucket.
     uint64 nEvents = 1;
+    // bucketSize stores the number of bytes in the bucket payload.
     uint64 bucketSize = 2;
 
     enum CompType {
@@ -20,9 +24,19 @@ message BucketHeader {
         LZ4 = 2;
         LZMA = 3;
     }
+    // compression stores the enumeration of the type of compression used for
+    // this bucket.
     CompType compression = 3;    
 
+    // fileDescriptor stores uncompressed protobuf FileDescriptorProtos.  It is
+    // a general requirement for compatibility with proio that library
+    // implementations save all FileDescriptorProtos (and their dependencies)
+    // required to describe the data in bucket headers.  The
+    // FileDescriptorProtos must be placed into headers before they are needed.
     repeated bytes fileDescriptor = 5;
+    // metadata describes key-value pairs that are to be associated with all
+    // events that follow in the stream, until the keys are overwritten or the
+    // stream ends.
     map<string, bytes> metadata = 7;
 
     // deprecated bucket type for specifying file footers
@@ -31,20 +45,35 @@ message BucketHeader {
     reserved 6;
 }
 
+// An Event is a container for arbitrary protobuf messages
 message Event {
+    // tag stores a mapping from human-readable strings to lists of number
+    // entry ids.
     map<string, Tag> tag = 1;
+    // nEntries stores the number of entries that have been stored in (not that
+    // are currently stored in) the Event.  This is for a simple way to assign
+    // unique identifiers to new entries.
     uint64 nEntries = 2;
+    // entry stores a mapping from a numeric entry id to an Any message type.
     map<uint64, Any> entry = 3;
+    // nTypes stores the number of types that have been stored in (not that are
+    // currently stored in) the Event.  This is for a simple way to assign
+    // unique identifiers to new types.
     uint64 nTypes = 4;
+    // type stores a mapping from a numeric type id to a protobuf type string.
     map<uint64, string> type = 5;
 }
 
 // SECONDARY MESSAGE TYPES
 
+// A Tag is a simple list of numeric entry ids.
 message Tag {
     repeated uint64 entry = 1;
 }
 
+// Any messages are a means of lazy decoding of Event entries.  The type allows
+// proio libraries to create the correct protobuf object for deserialization,
+// and the payload is to be deserialized with the object.
 message Any {
     uint64 type = 1;
     bytes payload = 2;
