@@ -39,22 +39,51 @@ FileDescriptorProtos in the `fileDescriptor` field before the corresponding
 message types appear in the stream.
 
 ### Contents
-The contents of a bucket consist of consecutive Event protobuf messages, each
-preceded by an unsigned, 32-bit value stating the number of bytes to grab for
-that Event message.
+The contents of a bucket immediately follow the bucket header, and consist of
+an optionally-compressed set of consecutive Event protobuf messages (described
+in [proio.proto](proio.proto) and below), each preceded by an unsigned, 32-bit
+value stating the number of bytes to grab for that Event message.
 
 ![proio bucket](figures/proio_bucket.png)
 
+#### Compression
+If the bucket is compressed as indicated by the header, the entire bucket is
+compressed together, and must be uncompressed prior to deserializing Events
+(not necessarily all at once).
+
+For Lz4 compression, the format is that of an lz4 "frame".
+
+Proio implementations are not required to support all compression types, but
+must handle uknown compression types.
+
 ## Events
+Proio Events are self-serializing containers for arbitrary protobuf messages.
+In a proio stream, Events are represented by protobuf messages as described in
+[proio.proto](proio.proto).
 
 ![proio event](figures/proio_event.png)
 
 ### Entries
+Protobuf messages are stored in Events as entries.  Each entry has a unique
+numeric id.  This id is to be assigned to new entries consecutively starting
+from 1.  The `nEntries` field of Event protos store how many entries have been
+added to a particular event, so that as entries are removed, uniqueness of new
+ids is ensured.
+
+Each entry is stored as a byte array in the event for lazy deserialization, and
+is also accompanied by a type identifier.
 
 ### Types
+Each Event stores a list of protobuf message types contained within.  Each type
+gets a unique numeric identifier which can be used to look up the
+fully-qualified protobuf message type string.
 
 ### Tags
+Tags are the primary means of organization for Event entries.  A tag is simply
+a mapping from an aribrary human-readable string to a list of unique numeric
+entry identifiers.
 
 # Other sources of information
 * [Pull request for major proio rewrite](https://github.com/decibelcooper/proio/pull/14)
+* [Pull request for self-descriptive cpp-proio](https://github.com/proio-org/cpp-proio/pull/3)
 * [EICIO: original concept that evolved into proio](https://github.com/decibelcooper/eicio)
