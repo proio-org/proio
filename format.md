@@ -24,11 +24,26 @@ Protobuf wire format and described in [proio.proto](proio.proto).
 
 ![proio buckets](figures/bucket_header.png)
 
-TODO: Complete this document
-
 #### Metadata
+Metadata entries are key-value pairs with strings as keys and byte arrays as
+values.  These metadata are inserted into the stream at a certain point via a
+bucket header, and are associated with all events that follow until the stream
+ends.  New metadata entries with the same key as older entries will override
+the older entries.
+
+#### FileDescriptorProtos
+Bucket headers can store serialized, uncompressed FileDescriptorProtos for
+describing protobuf messages.  This is the means of self description for proio.
+Proio streams are required to contain bucket headers with serialized
+FileDescriptorProtos in the `fileDescriptor` field before the corresponding
+message types appear in the stream.
 
 ### Contents
+The contents of a bucket consist of consecutive Event protobuf messages, each
+preceded by an unsigned, 32-bit value stating the number of bytes to grab for
+that Event message.
+
+![proio bucket](figures/proio_bucket.png)
 
 ## Events
 
