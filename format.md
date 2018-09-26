@@ -18,9 +18,12 @@ Each bucket has a header that describes the bucket.  This header is also an
 opportunity to resynchronize/recover the stream so that in principle corruption
 within a bucket is isolated.  This synchronization is achieved via a magic
 number.  This is a special sequence of 128 bits that identifies the start of
-the bucket header.  Following the magic number is an unsigned 32-bit
-little-endian integer that states the size of the remaining header which is in
-Protobuf wire format and described in [proio.proto](proio.proto).
+the bucket header, and also serves to identify proio stream compatibility.  The
+magic number is 0xe1, 0xc1, followed by 14 bytes of zeros.  If proio stream
+compatibility is ever broken, this magic number will be changed.  Following the
+magic number is an unsigned 32-bit little-endian integer that states the size
+of the remaining header which is in Protobuf wire format and described in
+[proio.proto](proio.proto).
 
 ![proio buckets](figures/bucket_header.png)
 
