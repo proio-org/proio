@@ -21,10 +21,7 @@ For detailed information on the proio format, please see
 There are several language-native library implementations of proio which
 support manipulating events and reading/writing streams.  Each of these
 implementations adhere to the proio format, and therefore produce and consume
-compatible streams.  The functionality of each library from the user's
-perspective is free to diverge for the purpose of providing a canonical
-approach, but guidelines for the libraries are stated in
-[library_guidelines.md](library_guidelines.md).
+compatible streams.
 
 ### Language implementations
 * [Go](https://github.com/proio-org/go-proio): Implemented
