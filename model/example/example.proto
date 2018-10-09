@@ -1,0 +1,130 @@
+syntax = "proto3";
+package proio.model.example;
+option go_package = "example";
+option java_package = "proio.model";
+option java_outer_classname = "Example";
+
+////// TRUTH LEVEL DATA MODEL MESSAGES //////
+
+message Particle {
+    // ProIO entry identifiers that point to parent Particles
+    repeated uint64 parent = 1;
+    // ProIO entry identifiers that point to child Particles
+    repeated uint64 child = 2;
+    // PDG code
+    sint32 pdg = 3;
+    // position in mm and time in ns
+    XYZTD vertex = 4;
+    // momentum in GeV
+    XYZF p = 5;
+    // mass in GeV
+    float mass = 6;
+    // charge in units of e/3
+    sint32 charge = 7;
+}
+
+message VarintParticle {
+    // ProIO entry identifiers that point to parent Particles
+    repeated uint64 parent = 1;
+    // ProIO entry identifiers that point to child Particles
+    repeated uint64 child = 2;
+    // PDG code
+    sint32 pdg = 3;
+    // position in um and time in ps
+    XYZTI vertex = 4;
+    // momentum in MeV
+    XYZI p = 5;
+    // mass in MeV
+    uint32 mass = 6;
+    // charge in units of e/3
+    sint32 charge = 7;
+}
+
+message PackedParticles {
+    // parent particle entry indices
+    repeated uint64 parent1 = 1;
+    repeated uint64 parent2 = 2;
+    // child particle entry indices
+    repeated uint64 child1 = 3;
+    repeated uint64 child2 = 4;
+    // PDG code
+    repeated sint32 pdg = 5;
+    // position in mm and time in ns
+    repeated double x = 6;
+    repeated double y = 7;
+    repeated double z = 8;
+    repeated double t = 9;
+    // momentum in GeV
+    repeated float px = 10;
+    repeated float py = 11;
+    repeated float pz = 12;
+    // mass in GeV
+    repeated float mass = 13;
+    // charge in units of e/3
+    repeated sint32 charge = 14;
+}
+
+message VarintPackedParticles {
+    // parent particle entry indices
+    repeated uint64 parent1 = 1;
+    repeated uint64 parent2 = 2;
+    // child particle entry indices
+    repeated uint64 child1 = 3;
+    repeated uint64 child2 = 4;
+    // PDG code
+    repeated sint32 pdg = 5;
+    // position in um and time in ps
+    repeated sint32 x = 6;
+    repeated sint32 y = 7;
+    repeated sint32 z = 8;
+    repeated sint32 t = 9;
+    // momentum in MeV
+    repeated sint32 px = 10;
+    repeated sint32 py = 11;
+    repeated sint32 pz = 12;
+    // mass in MeV
+    repeated uint32 mass = 13;
+    // charge in units of e/3
+    repeated sint32 charge = 14;
+}
+
+////// SECONDARY DATA MODEL MESSAGES //////
+
+message XYZTD {
+    double x = 1;
+    double y = 2;
+    double z = 3;
+    double t = 4;
+}
+
+message XYZTF {
+    float x = 1;
+    float y = 2;
+    float z = 3;
+    float t = 4;
+}
+
+message XYZTI {
+    sint32 x = 1;
+    sint32 y = 2;
+    sint32 z = 3;
+    sint32 t = 4;
+}
+
+message XYZD {
+    double x = 1;
+    double y = 2;
+    double z = 3;
+}
+
+message XYZF {
+    float x = 1;
+    float y = 2;
+    float z = 3;
+}
+
+message XYZI {
+    sint32 x = 1;
+    sint32 y = 2;
+    sint32 z = 3;
+}
