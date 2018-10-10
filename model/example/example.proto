@@ -14,7 +14,7 @@ message Particle {
     // PDG code
     sint32 pdg = 3;
     // position in mm and time in ns
-    XYZTD vertex = 4;
+    XYZTF vertex = 4;
     // momentum in GeV
     XYZF p = 5;
     // mass in GeV
@@ -50,10 +50,10 @@ message PackedParticles {
     // PDG code
     repeated sint32 pdg = 5;
     // position in mm and time in ns
-    repeated double x = 6;
-    repeated double y = 7;
-    repeated double z = 8;
-    repeated double t = 9;
+    repeated float x = 6;
+    repeated float y = 7;
+    repeated float z = 8;
+    repeated float t = 9;
     // momentum in GeV
     repeated float px = 10;
     repeated float py = 11;
@@ -104,6 +104,13 @@ message XYZTF {
     float t = 4;
 }
 
+message XYZTL {
+    sint64 x = 1;
+    sint64 y = 2;
+    sint64 z = 3;
+    sint64 t = 4;
+}
+
 message XYZTI {
     sint32 x = 1;
     sint32 y = 2;
@@ -121,6 +128,12 @@ message XYZF {
     float x = 1;
     float y = 2;
     float z = 3;
+}
+
+message XYZL {
+    sint64 x = 1;
+    sint64 y = 2;
+    sint64 z = 3;
 }
 
 message XYZI {
