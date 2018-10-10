@@ -22,13 +22,16 @@ message Particle {
     // charge in units of elementary charge / 3
     optional sint32 charge = 8;
     // 2 *spin + 1
-    optional sint32 spin = 9;
+    optional uint32 spin = 13;
     // status code
     optional sint32 status = 10;
     // barcode
     optional sint32 barcode= 11;
     // original position in the MC generator
     optional uint32 id = 12;
+
+    // deprecated
+    optional sint32 spin_sint32 = 9;
 }
 
 // This message is an optional alternative to `Particle` for minimizing field
@@ -90,13 +93,16 @@ message VarintParticle {
     // charge in units of elementary charge / 3
     optional sint32 charge = 8;
     // 2 *spin + 1
-    optional sint32 spin = 9;
+    optional uint32 spin = 13;
     // status code
     optional sint32 status = 10;
     // barcode
     optional sint32 barcode= 11;
     // original position in the MC generator
     optional uint32 id = 12;
+
+    // deprecated
+    optional sint32 spin_sint32 = 9;
 }
 
 // This message combines VarintParticle and PackedParticles for minimal field
