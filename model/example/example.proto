@@ -13,7 +13,7 @@ message Particle {
     repeated uint64 child = 2;
     // PDG code
     sint32 pdg = 3;
-    // position in mm and time in ns
+    // vertex in mm
     XYZTF vertex = 4;
     // momentum in GeV
     XYZF p = 5;
@@ -30,11 +30,11 @@ message VarintParticle {
     repeated uint64 child = 2;
     // PDG code
     sint32 pdg = 3;
-    // position in um and time in ps
+    // vertex in um
     XYZTI vertex = 4;
-    // momentum in MeV
+    // momentum in 10 keV
     XYZI p = 5;
-    // mass in MeV
+    // mass in 10 keV
     uint32 mass = 6;
     // charge in units of e/3
     sint32 charge = 7;
@@ -49,7 +49,7 @@ message PackedParticles {
     repeated uint64 child2 = 4;
     // PDG code
     repeated sint32 pdg = 5;
-    // position in mm and time in ns
+    // vertex in mm
     repeated float x = 6;
     repeated float y = 7;
     repeated float z = 8;
@@ -73,16 +73,16 @@ message VarintPackedParticles {
     repeated uint64 child2 = 4;
     // PDG code
     repeated sint32 pdg = 5;
-    // position in um and time in ps
+    // vertex in um
     repeated sint32 x = 6;
     repeated sint32 y = 7;
     repeated sint32 z = 8;
     repeated sint32 t = 9;
-    // momentum in MeV
+    // momentum in 10 keV
     repeated sint32 px = 10;
     repeated sint32 py = 11;
     repeated sint32 pz = 12;
-    // mass in MeV
+    // mass in 10 keV
     repeated uint32 mass = 13;
     // charge in units of e/3
     repeated sint32 charge = 14;
