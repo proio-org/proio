@@ -16,28 +16,28 @@ matrix:
           services:
               - docker
           install: docker info
-          script: bash ci/build-aux-image.sh
+          script: bash .ci/build-aux-image.sh
 
         - language: generic
           stage: update-superprojects
           env:
               - REPO_REF=$GO_REPO_REF
               - REPO_TOKEN=$GO_REPO_TOKEN
-          script: bash -v ci/update-superproject.sh
+          script: bash -v .ci/update-superproject.sh
         - language: generic
           env:
               - REPO_REF=$CPP_REPO_REF
               - REPO_TOKEN=$CPP_REPO_TOKEN
-          script: bash -v ci/update-superproject.sh
+          script: bash -v .ci/update-superproject.sh
         - language: generic
           env:
               - REPO_REF=$PY_REPO_REF
               - REPO_TOKEN=$PY_REPO_TOKEN
-          script: bash -v ci/update-superproject.sh
+          script: bash -v .ci/update-superproject.sh
         - language: generic
           env:
               - REPO_REF=$JAVA_REPO_REF
               - REPO_TOKEN=$JAVA_REPO_TOKEN
-          script: bash -v ci/update-superproject.sh
+          script: bash -v .ci/update-superproject.sh
 
     sudo: false
