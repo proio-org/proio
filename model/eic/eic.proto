@@ -8,9 +8,9 @@ option java_outer_classname = "Eic";
 
 message Particle {
     // ProIO entry identifiers that point to parent Particles
-    repeated uint64 parent = 1;
+    repeated uint64 parent = 1 [packed=true];
     // ProIO entry identifiers that point to child Particles
-    repeated uint64 child = 2;
+    repeated uint64 child = 2 [packed=true];
     // PDG code
     optional sint32 pdg = 3;
     // position in mm and time in ns
@@ -53,10 +53,10 @@ message EnergyDep {
     // sigma value for normally-distributed noise
     optional float noise = 2;
     // Multiple possible positions can be specified.
-    repeated ObservedPos pos = 3;
+    repeated ObservedPos pos = 3 [packed=true];
     // "source"s are ProIO entry identifiers that may point to SimHits,
     // Particles, or specialized raw data objects.
-    repeated uint64 source = 4;
+    repeated uint64 source = 4 [packed=true];
 }
 
 ////// RECONSTRUCTION LEVEL DATA MODEL MESSAGES //////
@@ -65,7 +65,7 @@ message EnergyDep {
 // as input to Kalman filtering and other clustering techniques.
 message KernelMatrix {
     // ordered list of observation ids that maps matrix indices to observations
-    repeated uint64 observation = 1;
+    repeated uint64 observation = 1 [packed=true];
     // flattened upper-triangular components of matrix - If the observation
     // field has length n, the kflat field must have length (n+1)*n/2.  The
     // flattening procedure must go row-by-row from the top to bottom (low row
@@ -74,8 +74,8 @@ message KernelMatrix {
 }
 
 message Track {
-    repeated TrackSegment segment = 1;
-    repeated uint64 observation = 2;
+    repeated TrackSegment segment = 1 [packed=true];
+    repeated uint64 observation = 2 [packed=true];
 }
 
 ////// SECONDARY DATA MODEL MESSAGES //////
@@ -83,10 +83,10 @@ message Track {
 message TrackSegment {
     // start of segment in mm/ns
     optional XYZTD vertex = 1;
-    repeated RandVar vertexnoise = 2;
+    repeated RandVar vertexnoise = 2 [packed=true];
     // momentum normalized to the magnitude of the charge (GeV)
     optional XYZD poq = 3;
-    repeated RandVar poqnoise = 4;
+    repeated RandVar poqnoise = 4 [packed=true];
     // magnetic field at the vertex (T)
     optional XYZD magfield = 9;
     // sign of the track charge
@@ -107,7 +107,7 @@ message ObservedPos {
     // repeated RandVars imply addition, or alternatively a convolution of
     // their distributions.  The contributions must combine to span the full
     // 4-dimensional space, so the number of contributions must be >= 4.
-    repeated RandVar noise = 2;
+    repeated RandVar noise = 2 [packed=true];
     // "weightmod" describes additional weight to be applied to this position.
     // For the case of multiple possible positions, it is implied that by
     // default each position is equally likely.  This can be changed by adding
