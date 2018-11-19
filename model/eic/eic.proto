@@ -61,6 +61,18 @@ message EnergyDep {
 
 ////// RECONSTRUCTION LEVEL DATA MODEL MESSAGES //////
 
+// symmetric kernel (or similarity) matrix between observations - This is used
+// as input to Kalman filtering and other clustering techniques.
+message KernelMatrix {
+    // ordered list of observation ids that maps matrix indices to observations
+    repeated uint64 observation = 1;
+    // flattened upper-triangular components of matrix - If the observation
+    // field has length n, the kflat field must have length (n+1)*n/2.  The
+    // flattening procedure must go row-by-row from the top to bottom (low row
+    // index to high row index), omitting lower, off-diagonal components.
+    repeated float kflat = 2 [packed=true];
+}
+
 message Track {
     repeated TrackSegment segment = 1;
     repeated uint64 observation = 2;
