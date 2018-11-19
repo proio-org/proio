@@ -53,7 +53,7 @@ message EnergyDep {
     // sigma value for normally-distributed noise
     optional float noise = 2;
     // Multiple possible positions can be specified.
-    repeated ObservedPos pos = 3 [packed=true];
+    repeated ObservedPos pos = 3;
     // "source"s are ProIO entry identifiers that may point to SimHits,
     // Particles, or specialized raw data objects.
     repeated uint64 source = 4 [packed=true];
@@ -74,7 +74,7 @@ message KernelMatrix {
 }
 
 message Track {
-    repeated TrackSegment segment = 1 [packed=true];
+    repeated TrackSegment segment = 1;
     repeated uint64 observation = 2 [packed=true];
 }
 
@@ -83,10 +83,10 @@ message Track {
 message TrackSegment {
     // start of segment in mm/ns
     optional XYZTD vertex = 1;
-    repeated RandVar vertexnoise = 2 [packed=true];
+    repeated RandVar vertexnoise = 2;
     // momentum normalized to the magnitude of the charge (GeV)
     optional XYZD poq = 3;
-    repeated RandVar poqnoise = 4 [packed=true];
+    repeated RandVar poqnoise = 4;
     // magnetic field at the vertex (T)
     optional XYZD magfield = 9;
     // sign of the track charge
@@ -107,7 +107,7 @@ message ObservedPos {
     // repeated RandVars imply addition, or alternatively a convolution of
     // their distributions.  The contributions must combine to span the full
     // 4-dimensional space, so the number of contributions must be >= 4.
-    repeated RandVar noise = 2 [packed=true];
+    repeated RandVar noise = 2;
     // "weightmod" describes additional weight to be applied to this position.
     // For the case of multiple possible positions, it is implied that by
     // default each position is equally likely.  This can be changed by adding
