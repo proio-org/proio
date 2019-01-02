@@ -1,6 +1,6 @@
 # Description: An image use in ProIO testing
 
-FROM dbcooper/arch:2018-06-05
+FROM dbcooper/arch:2019-01-02
 
 ARG BUILD_THREADS=5
 
