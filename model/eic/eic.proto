@@ -78,6 +78,30 @@ message Track {
     repeated uint64 observation = 2 [packed=true];
 }
 
+message CaloShower {
+    // the origin, or starting point of the particle shower in spacetime
+    optional ObservedPos origin = 1;
+    // list of EnergyDeps that were determined to be a part of this shower
+    repeated uint64 observation = 2 [packed=true];
+
+    message ParticleHypothesis {
+        // PDG code
+        optional sint32 pdg = 1;
+        // estimated energy deposition in GeV for this hypothesis
+        optional float edep = 2;
+        // "weightmod" describes additional weight to be applied to this
+        // particle hypothesis.  For the case of multiple hypotheses, it is
+        // implied that by default each is equally likely.  This can be changed
+        // by adding weight modifiers.  To indicate that one hypothesis is
+        // twice as likely as one without a weight modifier, set weightmod to
+        // +1.  Alternatively, one may normalize the weights by setting
+        // weightmod equal to p-1, where p is the probability of that
+        // hypothesis.
+        optional float weightmod = 3;
+    }
+    repeated ParticleHypothesis hypothesis = 3;
+}
+
 ////// SECONDARY DATA MODEL MESSAGES //////
 
 message TrackSegment {
