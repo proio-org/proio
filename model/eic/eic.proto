@@ -79,8 +79,9 @@ message Track {
 }
 
 message CaloShower {
-    // the origin, or starting point of the particle shower in spacetime
-    optional ObservedPos origin = 1;
+    // the origin, or starting point of the particle shower in spacetime -
+    // Multiple origins may be specified if there is an ambiguity.
+    repeated ObservedPos origin = 1;
     // list of EnergyDeps that were determined to be a part of this shower
     repeated uint64 observation = 2 [packed=true];
 
