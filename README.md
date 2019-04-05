@@ -14,10 +14,10 @@ physics.  Additionally, proio
   compatibility.
 
 For detailed information on the proio format and introductory information on
-the software implementations, please see
-[arXiv:1812.03967](https://arxiv.org/abs/1812.03967).  This work was inspired
-and influenced by [LCIO](https://github.com/iLCSoft/LCIO), ProMC (Sergei
-Chekanov), and EicMC (Alexander Kiselev)
+the software implementations, please see [DOI
+10.1016/j.cpc.2019.03.018](https://doi.org/10.1016/j.cpc.2019.03.018).  This
+work was inspired and influenced by [LCIO](https://github.com/iLCSoft/LCIO),
+ProMC (Sergei Chekanov), and EicMC (Alexander Kiselev)
 
 ### Language implementations
 There are several language-native library implementations of proio which
