@@ -1,13 +1,13 @@
 # Description: An image use in ProIO testing
 
-FROM dbcooper/arch:2019-01-02
+FROM archlinux/base
 
 ARG BUILD_THREADS=5
 
 ARG PROTOBUF_VERSION=latest
 ARG LZ4_VERSION=latest
 
-RUN pacman -S --noconfirm \
+RUN pacman -Sy --noconfirm \
         base-devel \
         cmake \
         git \
