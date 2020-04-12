@@ -11,6 +11,7 @@ RUN pacman -Sy --noconfirm \
         base-devel \
         cmake \
         git \
+        libffi \
         unzip \
 &&  rm -rf /var/cache/pacman/pkg
 
