@@ -25,6 +25,7 @@ RUN git clone https://github.com/lz4/lz4.git \
 RUN git clone https://github.com/google/protobuf.git \
 &&  cd protobuf \
 &&  if [ "$PROTOBUF_VERSION" != "latest" ]; then git checkout tags/$PROTOBUF_VERSION; else git checkout $(git describe --abbrev=0 --tags); fi \
+&&  git submodule update --init \
 &&  bash autogen.sh \
 &&  ./configure \
 &&  make -j$BUILD_THREADS install \
