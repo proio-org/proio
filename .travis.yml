@@ -12,7 +12,6 @@ matrix:
     include:
         - language: generic
           stage: build-aux-image
-          sudo: true
           services:
               - docker
           install: docker info
@@ -39,5 +38,3 @@ matrix:
               - REPO_REF=$JAVA_REPO_REF
               - REPO_TOKEN=$JAVA_REPO_TOKEN
           script: bash -v .ci/update-superproject.sh
-
-    sudo: false
