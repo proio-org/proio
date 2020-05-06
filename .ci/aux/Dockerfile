@@ -15,6 +15,8 @@ RUN pacman -Sy --noconfirm \
         unzip \
 &&  rm -rf /var/cache/pacman/pkg
 
+WORKDIR /build
+
 RUN git clone https://github.com/lz4/lz4.git \
 &&  cd lz4 \
 &&  if [ "$LZ4_VERSION" != "latest" ]; then git checkout tags/$LZ4_VERSION; fi \
