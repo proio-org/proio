@@ -12,8 +12,6 @@ matrix:
     include:
         - language: generic
           stage: build-aux-image
-          services:
-              - docker
           install: docker info
           script: bash .ci/build-aux-image.sh
 
